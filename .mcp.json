@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "deep-think": {
+      "type": "stdio",
+      "command": "/Users/omisverycool/erdos-harness/mcp-servers/deep-think/run.sh",
+      "args": [],
+      "env": {}
+    }
+  }
+}
