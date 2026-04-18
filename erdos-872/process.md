@@ -592,6 +592,40 @@ Any reference to "round", "phase", "program", "prior research", or tool names (P
 
 Aristotle's $13/36$ formalization substituted $D = \{3\}$ for the paper's $\sqrt n/\log n$-prime prefix. Coefficient stands; strategy simpler; theorem strictly stronger. Don't chain Aristotle to a specific instantiation when a simpler one gets the same bound.
 
+### Round 12 follow-up — Theorem 5: Resolution against disjoint small-prime carriers (2026-04-18)
+
+Pro's follow-up to Round 12 (prompt: `prompts/followup-12-pro-closeout.md`; response: `followup-12-pro-closeout-response.md`) delivered the **first rigorous partial result** of the program:
+
+**Theorem 5.** Fix $y = n^\alpha$, $\alpha \in (1/3, 1/2)$. Assume every composite Prolonger move has all prime factors $\le y$ and pairwise-disjoint supports. Then Shortener forces $L(n) = O(n/\log n)$ via explicit 3-phase strategy (primes / higher prime powers / cross-carrier pair semiprimes). Move count $\pi(n) + \pi(y) + \pi(y)^2 = O(n/\log n)$ since $\alpha < 1/2$.
+
+**This class includes the universal block-product Prolonger counter** (the strongest-known adversary). So $L(n) = O(n/\log n)$ against block-product is now a rigorous theorem — the first genuine sublinear result in the program.
+
+Plus: Pro formalized the $F_\alpha$ static reduction as Theorem 1, omitted-vertex shadowing as Lemma 3, and $Q_y$ antichain + composite-batch-resistance as Lemma 4.
+
+**Three-way audit on Theorem 5** (`verify-postresp-followup12-{online-patch-needed, overlap-fatal, essentially-sound}.md`).
+
+All 3 verifiers agree the local proof is sound. Minor issues:
+- Wording polish in pure-prime-power case (cosmetic, not structural).
+- Explicit online-execution statement needed — proof reads as offline, but all auditors say the patch is routine.
+- Prolonger's prime moves never directly handled (one sentence needed to close this).
+
+Divergence on overlapping-carriers (the $\{30, 42, 70\}$ example):
+- 2/3 audits: genuine obstruction. Phase-4 triple-repair costs $n(\log\log n)^2/\log n$, off target by $(\log\log n)^2$. Dense-hypergraph Prolonger can cover every prime-pair with overlapping composites.
+- 1/3 audit: "Just play $105$." Verified incomplete — resolves $\{3,5,7\}$ but not $2$ (prime 2 divides all three carriers; simple rescue unavailable).
+
+**Promoted to Established** (audit-converged 3/3 on local soundness, 2/3 on the stated obstruction). Aristotle not yet submitted. $5/16$ also remains Established-modulo-Chebyshev.
+
+### Round 13 planned (2026-04-18) — variance-framed attack on the remaining gap
+
+Three channels dispatched with deliberately varied framing to force divergent search:
+- **A (Pro follow-up):** extend Theorem 5 to overlapping carriers. Direct continuation.
+- **B (DeepThink, fresh):** canonical prompt + open "attempt to solve."
+- **C (Gemini, fresh):** canonical prompt + **contrarian** — "assume Theorem-5-style cannot extend; find a fundamentally different technique (Maker-Breaker pairing, LP-dual, hypergraph containers, entropy, structural invariants)."
+
+Prompt files: `prompts/round13-{A-pro-extend, B-deepthink-open, C-gemini-contrarian}.md`.
+
+Methodology lesson being tested: varied framings across cross-family models create genuine search branches, not just parallel samples. If A extends, problem closes via continuation. If C pivots successfully, problem closes via a new tool. If B returns something in between, either outcome. Zero added cost from framing variance.
+
 ### Aristotle $5/16$ formalization — COMPLETE_WITH_ERRORS (2026-04-18)
 
 Job `4c1f85cd-54f5-42ec-b797-529d5b9ac6ee` returned COMPLETE_WITH_ERRORS. **15 theorems proved with zero sorry** covering the entire combinatorial and algebraic content. **One remaining sorry** in `game_value_per_parameter`, classified as Mathlib-coverage limit (needs Chebyshev $\vartheta(x) \ge cx$ and routine game-tree induction for legal-prime existence). Same pattern as Theorem A. Details in `verify-aristotle-03-5-16.md`; output at `aristotle/shortener_5_16_out/`.
@@ -599,6 +633,18 @@ Job `4c1f85cd-54f5-42ec-b797-529d5b9ac6ee` returned COMPLETE_WITH_ERRORS. **15 t
 Core combinatorial content now formally verified: odd-part compression, second-order Bonferroni, algebraic optimization $g(2) = 5/16$, structural antichain bound, game-value induction, $\varepsilon$-limit assembly via continuity.
 
 **Promotion path for zero sorry.** Re-submit with explicit $D = \{3, 5\}$ substitution ($\sum 1/q = 8/15 > 1/2$), mirroring the $13/36$ trick. Held pending Round 11.
+
+### Round 11 — GPT Pro + DeepThink responses (2026-04-18)
+
+Full text in `researcher-11-pro-response.md` and `researcher-11-deepthink-response.md`. Round 11 did not land $L = o(n)$ as a rigorous theorem, but delivered substantial new content: a concrete refutation of Layer 2, a replacement proof direction, and a new lower-bound argument.
+
+**Pro (GPT family):** Layer 1 trivially true via Mertens (agreeing with Gemini triple). **Layer 2 as stated is FALSE** — concrete counterexample $R_y = \{pqr \in U : p, q, r$ primes, $p, q > \log n\}$ with $|R_y| \asymp n(\log\log n)^2/\log n$ and max $\Omega=2$ shield score $\le n/\log^2 n$. Target $|R_y|/\log n$ exceeds max score by $(\log\log n)^2$. Verified numerically at $n = 10^6$: max score 214 vs. target 659. Proposes **multiscale batch-cover replacement**: partition hard uppers by dyadic scale of smallest legal $\Omega = 2$ divisor, batch-cover blocker-resilient statement. Plus new positive lemma via Brun: $\#\{u \in U : \Omega(u) \ge 3, s_2(u) > D\} \ll n\log\log D/\log D$.
+
+**DeepThink (Gemini family):** Agrees with Pro on Layer 1 and conclusion. **Asserts Layer 2 holds via the same pigeonhole Pro refuted** — repeats Gemini-family blind spot; does not address Pro's counterexample. **New contribution: Part 3 cover-shattering endgame.** Upper semiprimes grouped by larger-factor covers $q$; Prolonger plays $p_1 q$ to make $q$ illegal, forcing $k_q - 1$ semiprimes in the cover to be poset-isolated and individually played. Alternating 1-for-1 with Shortener → $Q/2$ covers shattered → $L \ge c n\log\log n/\log n$ against the $\Omega$-grading Shortener.
+
+**Cross-family convergence analysis.** Pro (GPT) and DeepThink (Gemini) agree on Layer 1 and the conclusion $L = o(n)$, disagree on Layer 2 rigor. DeepThink + 3× Gemini 3.1 Pros = 4 instances of Gemini family, all sharing the pigeonhole blind spot. Pro is the only model to identify the $R_y$ counterexample. **CLAUDE.md "same-family convergence ≠ cross-family convergence" lesson validated empirically.**
+
+**Conjectural tight answer:** $L(n) = \Theta(n(\log\log n)/\log n) = o(n)$. Upper bound needs Pro's batch-cover replacement; lower bound needs DeepThink's endgame made rigorous. Neither is proved yet.
 
 ### Round 11 partial — Gemini 3.1 Pro triple (2026-04-18)
 
@@ -612,17 +658,33 @@ User dispatched Round 11 to three parallel Gemini 3.1 Pro instances. All three c
 
 **Bonus structural finding (Pro #1):** cross-semiprime insight — when Prolonger block-products, cross-semiprimes $p_a p_b$ across different blocks remain legal ($\sim n^{2/3}/\log^2 n$ of them). Shortener has ammunition regardless. Not load-bearing for Layer 2 but structurally useful.
 
-### Current tip of the tree (2026-04-18, post Round 10 + Aristotle 13/36 + Aristotle 5/16 + Gemini triple)
+### Current tip of the tree (2026-04-18, post Theorem 5)
 
-- **Formally verified (Aristotle, zero sorry):** Shield Reduction, $5/24$ first-hit cover, **$L(n) \le 13n/36 + o(n)$**.
-- **Formally verified modulo Mathlib-coverage classical NT sorrys:** Theorem A (5 sorrys at Mertens / Chebyshev / PNT), **$L(n) \le 5n/16 + o(n)$** (1 sorry at Chebyshev + game-tree induction).
-- **Established (audit-converged, Aristotle not yet submitted):** Universal block-product counter $\sum 1/p \ge (1/2)\log\log n$ (audit-model rigorous + Codex 4-decade empirical at coefficient ~0.875). Layer 1 of $\Omega$-grading: $\Xi(B) = O(\log\log n/\log n)$ unconditionally, via Mertens (Gemini triple convergent).
-- **Live research direction (Round 11, Pro + DeepThink pending):** $\Omega$-grading Shortener Layer 2 (online $\Omega=2$ cover lemma) + Assembly ($|A \cap L|$ bound). Target $L(n) = O(n(\log\log n)/\log n)$. Three Gemini 3.1 Pros claim the full proof but their Layer 2 pigeonhole is off by a growing factor; not a theorem yet.
-- **Secured contribution:** $L(n) \le 5n/16 + o(n)$ with strong formal-verification signal.
-- **Declared solved / stop extending:** static AND dynamical sieve-over-$B(P)$ routes to $O(n/\log n)$; shield-framework $e^{-1}$ barrier; strict $\Xi = O(1/\log n)$.
-- **Primary hypothesis** (strong empirical + structural support): $L(n) = \Theta(n/\log n)$ or $\Theta(n(\log\log n)/\log n)$. Either way $o(n)$ — negative answer to Erdős's question.
-- **Held pending Round 11 Pro + DeepThink response:** new Aristotle submissions (Layer 1 standalone is ripe — pure Mertens, should clear zero-sorry trivially), $5/16$ Aristotle rerun with $D = \{3, 5\}$ substitution, Codex Lemma-2 empirical test, $5/16$ three-way informal audit.
-- **Next step:** wait for Pro + DeepThink. If either closes Layer 2 rigorously, submit to Aristotle + 3-way audit. If both hand-wave at the same pigeonhole spot, Layer 2 is the genuine open problem — pivot to entropy / concentration / LP-duality attack.
+- **Formally verified (Aristotle, zero sorry):** Shield Reduction, $5/24$ first-hit cover, $L(n) \le 13n/36 + o(n)$.
+- **Formally verified modulo Mathlib-coverage classical NT sorrys:** Theorem A (5 sorrys at Mertens / Chebyshev / PNT), $L(n) \le 5n/16 + o(n)$ (1 sorry at Chebyshev + game-tree induction).
+- **Established (audit-converged, Aristotle not yet submitted):**
+  - Universal block-product counter $\sum 1/p \ge (1/2)\log\log n$.
+  - Layer 1 of $\Omega$-grading $\Xi(B) = O(\log\log n/\log n)$ unconditionally via Mertens.
+  - $F_\alpha$ static reduction: if $A \supseteq F_\alpha$ for $\alpha \in (1/3, 1/2)$, remaining moves are $O_\alpha(n/\log n)$.
+  - $Q_\alpha$ composite-batching-resistance.
+  - **Theorem 5: $L(n) = O(n/\log n)$ against the disjoint small-prime carrier class, including universal block-product Prolonger.** 3/3 informal audits sound; Aristotle pending.
+- **Disproved:** static Carrier Capacity Bound; dynamical bounded-$\sum 1/p$ Shortener; strict $\Xi = O(1/\log n)$; one-step $\Omega=2$ cover lemma ($R_y$ counterexample); cross-block semiprime batch (antichain violation).
+- **Open question, refined:** Does Theorem 5 extend to overlapping-carrier Prolonger strategies? Two specific remaining cases:
+  - (a) Overlapping small-prime carriers. Naive phase-4 triple-repair costs $n(\log\log n)^2/\log n$, off target by $(\log\log n)^2$. 2/3 audits say this is a genuine obstruction to the Theorem-5 approach. A Prolonger move-count inefficiency lever (overlap uses ~0.75 primes/move vs block-product's $\asymp \log n/\log\log n$) has not been exploited.
+  - (b) Blocked large primes ($pq$ with $p \le y < q$). Naive repair overshoots by $\log\log n$.
+- **Secured contribution:** $L(n) \le 5n/16 + o(n)$ (general). Plus $L(n) = O(n/\log n)$ against block-product (and disjoint-carrier class).
+- **Conjectural final answer** (cross-family consensus): $L(n) = \Theta(n/\log n)$. Erdős's original question would resolve *negatively* at the tightest possible asymptotic.
+- **Declared solved / stop extending:** static AND dynamical sieve-over-$B(P)$ routes; shield-framework $e^{-1}$ barrier; one-step $\Omega=2$ cover lemma; Theorem 5 against *disjoint* carriers.
+- **Held pending results:** Aristotle submissions (Theorem 5 natural next target once online-execution polish is in writeup); $5/16$ Aristotle rerun with $D = \{3, 5\}$; possible Codex empirical check on overlapping-carrier game dynamics.
+- **Next step:** Round 13 variance-framed attack. Three channels (Pro extend, DeepThink open, Gemini contrarian) on the overlapping-carrier gap. Expected outcomes: A closes by extension, C pivots to new tool, or both stall and we learn where the real ceiling is.
+
+## Additional process lesson (from Round 11 cross-family divergence)
+
+### "Cross-family divergence is the cleanest disagreement signal."
+
+Round 11 produced the sharpest within-harness disagreement yet: Pro (GPT family) constructed a specific arithmetic counterexample to Layer 2; DeepThink (Gemini family) asserted the same Layer 2 holds via a pigeonhole argument that doesn't address Pro's counterexample. Four Gemini-family instances (DeepThink + 3× Gemini 3.1 Pro) all made the same error. One GPT instance found the refutation.
+
+This is exactly the scenario the three-way harness is designed to surface. Same-family convergence without cross-family confirmation is low-signal. Cross-family *divergence* when present is high-signal — it means one family's blind spot is showing. The curator's job is to trust the counterexample (constructive, verifiable) over the pigeonhole (blind to the arithmetic structure).
 
 ## New process lesson (from Gemini triple)
 

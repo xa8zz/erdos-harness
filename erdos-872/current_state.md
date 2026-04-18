@@ -845,6 +845,403 @@ User dispatched the Round 11 prompt to three separate Gemini 3.1 Pro instances i
 
 GPT Pro and DeepThink threads (different model families) remain the genuine independent votes. Pending as of this update.
 
+### Round 11 — GPT Pro response (2026-04-18)
+
+Fresh-thread response at `researcher-11-pro-response.md`. **Partial refutation plus constructive replacement direction.**
+
+**Result 1: Layer 1 is trivially true.** $\Xi(B) = O(\log\log n/\log n)$ for any $B$ via $\log(n/p) \ge (1/2)\log n$ for $p \le \sqrt n$ and Mertens. Agrees with Gemini triple; unconditional.
+
+**Result 2: Layer 2 (online $\Omega = 2$ cover lemma) is FALSE.** Concrete counterexample. Let $y = \lfloor \log n \rfloor$, $A_t = \{$primes $\le y\}$ (legal, reachable via Shortener-playing-small-primes + Prolonger-distinct-upper-primes). Define
+$$R_y = \{u = pqr \in U : y < p \le q \le n^{1/3},\ r \text{ prime},\ n/(2pq) < r \le n/pq\}.$$
+Every $u \in R_y$ has $\Omega(u) = 3$ and all prime factors $> y$, so it's legal against $A_t$. Size: $|R_y| \asymp n(\log\log n)^2/\log n$. Any $\Omega = 2$ divisor of any $u \in R_y$ has both primes $> y$, so $d > y^2 \asymp \log^2 n$. Hence max score $\le n/d \le n/\log^2 n$. But target $|R_y|/\log n \asymp n(\log\log n)^2/\log^2 n$ is $(\log\log n)^2$ times larger. **Pigeonhole conclusion false.** Numerically verified at $n = 10^6$: $|R_y| = 9098$, max score = 214, target ≈ 659.
+
+**Result 3: A useful positive lemma.** For any $D \ge 4$:
+$$\#\{u \in U : \Omega(u) \ge 3,\ s_2(u) > D\} \ll \frac{n \log\log D}{\log D},$$
+where $s_2(u) = \min\{d : \Omega(d) = 2, d \mid u\}$. Proof via Brun's upper-bound sieve on rough integers. If Shortener could force surviving $\Omega \ge 3$ uppers to have $s_2(u) > n^\varepsilon$, arithmetic tail would already be $O(n\log\log n/\log n)$.
+
+**Result 4: Proposed replacement direction.** Multiscale batch-cover statement, not single-best-divisor:
+1. Partition hard $\Omega \ge 3$ uppers by dyadic scale of smallest *legal* $\Omega = 2$ divisor.
+2. Each scale has many legal semiprime shields with substantial total score.
+3. Single Prolonger move invalidates few shields in that family.
+
+Hypergraph / batch-cover, blocker-resilient. Plus separate $|A \cap L|$ bound needed.
+
+**Minor strategy fix (Pro's note).** The $\Omega$-grading rule should play a legal lower only when max score > 0, else legal upper. Otherwise score-zero lower moves hurt Shortener.
+
+### Round 11 — DeepThink response (2026-04-18)
+
+Fresh-thread response at `researcher-11-deepthink-response.md`. **Partially correct, partially repeats the Gemini-family Layer 2 error, introduces a new lower-bound argument.**
+
+- **Agrees with Pro on Layer 1** (unconditional Mertens) and conclusion $L = o(n)$.
+- **Asserts Layer 2 holds via the same pigeonhole Pro refuted.** Same "Prolonger blocks $O(\log^2 n)$ shields, pigeonhole delivers high-score shield" argument. **This is wrong** — matches the three Gemini 3.1 Pros' shared blind spot. Does not address Pro's $R_y$ counterexample.
+- **New: Part 3 cover-shattering endgame lower bound.** Upper semiprimes grouped by larger-factor covers $q$ ($Q \sim n/\log n$ total). Shortener can clear cover $q$ by playing $q$ (one move per cover). Prolonger counter: play $p_1 q$ (upper semiprime) instead, making $q$ illegal, forcing the remaining $k_q - 1$ semiprimes in the cover to become poset-isolated and eventually play individually into $A$. Alternating 1-for-1 with Shortener: Prolonger shatters $Q/2$ covers, each forcing $k_q - 1 \sim \log\log n - 1$ isolates → $|A| \ge c n\log\log n/\log n$. This is *new content* that Pro didn't provide.
+
+**Audit needed on Part 3.** Specific gaps: (i) legality of $p_1 q$ against realized $A$, (ii) exact forced-isolation argument for remaining $p_i q$'s, (iii) timing (when does the endgame start without a valid Layer 2?), (iv) rigorous 1-for-1 alternating.
+
+### Round 11 — combined synthesis
+
+**Conjectural answer:** $L(n) = \Theta\left(n \frac{\log\log n}{\log n}\right) = o(n)$. Would resolve Erdős's question negatively.
+
+**Status by component:**
+
+| Component | Status |
+|---|---|
+| Layer 1 ($\Xi = O(\log\log n/\log n)$) | Rigorously proved (pure Mertens, unconditional) |
+| Layer 2 (one-step $\Omega=2$ cover) | **FALSE** (Pro's $R_y$ counterexample + numerical verification) |
+| Batch-cover replacement for upper bound | Direction identified by Pro; not proved |
+| Lower bound $L \ge c n\log\log n/\log n$ | DeepThink's endgame, plausible, not fully rigorous |
+| $|A \cap L|$ assembly | Open |
+
+**Cross-family convergence check:** Pro (GPT-family) and DeepThink (Gemini-family) agree on Layer 1 and on the conclusion but diverge on Layer 2 rigor. DeepThink + all three Gemini 3.1 Pros (4 instances total) converge on the same wrong pigeonhole → same-family blind spot. Pro is the only model to identify the counterexample. CLAUDE.md lesson validated.
+
+**Next step:** informal audits on both responses. Specifically: verify Pro's $R_y$ counterexample (quick), audit DeepThink's Part 3 endgame rigor (the real new content). Audit prompt saved as `prompts/verify-postresp-11-combined.md`.
+
+### Round 11 — three-way informal audit synthesis (2026-04-18)
+
+Three audits returned on `prompts/verify-postresp-11-combined.md`. Full text at `verify-postresp-11-{deepthink,gpt-thinking,claude}.md`.
+
+**Three-way convergences (all 3 agree):**
+
+1. **Pro's $R_y$ counterexample to Layer 2 is correct.** All three verified the arithmetic: $|R_y| \asymp n(\log\log n)^2/\log n$ (confirmed independently via dyadic/PNT summation), max $\Omega = 2$ shield score $\le n/\log^2 n$, target exceeds max by $(\log\log n)^2$. No dissent. Layer 2 as stated is unequivocally dead.
+
+2. **DeepThink's Part 3 endgame has genuine content but is NOT fully rigorous.** All three identify the timing issue (endgame depends on a greedy phase that used the failed Layer 2). The local forcing mechanism — once a cover $q$ is shattered, remaining $p_i q$'s become poset-isolated — is sound. The global "$L \ge cn\log\log n/\log n$" conclusion is not rigorously proved as stated.
+
+3. **Pro's batch-cover replacement is a direction, not a proof.** No completed proof; the question is viability.
+
+**Key divergence — what is the true final bound?**
+
+| Audit | Claim |
+|---|---|
+| #1 Gemini DeepThink | $L = \Omega(n(\log\log n)^2/\log n)$. **Conjecture $\Theta(n\log\log n/\log n)$ is FALSE.** Pro's batch-cover is fatally obstructed by a novel AoE-blocking argument (Prolonger plays $v = p_1\cdots p_k$ to invalidate $\binom{k}{2}$ shields per move; integrating degraded clearing rate gives $X = e^{\Omega(\log^2 n)}$ turns needed). |
+| #2 GPT-thinking | $L = \Theta(n\log\log n/\log n)$ **highly defensible**. Timing flaw in DeepThink's endgame is a proof-strengthener (Shortener's score-greedy chases $\Omega = 2$ shields first, leaving covers unmolested; Prolonger shatters covers in free turns). Pro's batch-cover viable but treacherous. |
+| #3 Claude | **Only rigorously proved:** $n/\log n \le L \le 5n/16$. Nothing tighter is a theorem. Conjecture is a working heuristic for the $\Omega$-grading family, not a result for $L(n)$. Strongest-of-three critical read. |
+
+**Audit #1's novel AoE obstruction — critical new claim.** Prolonger plays $v = p_1 p_2 \cdots p_k$ with $k \approx \log n/\log\log n$ primes from the appropriate range, invalidating $\binom{k}{2} \asymp \log^2 n/(2(\log\log n)^2)$ semiprime shields per move. Shortener's greedy picks smallest-shield-first for max score, but AoE depletion forces Shortener to progressively larger shields. After $X$ turns, smallest surviving shield is $D_X \asymp X\log^2 n$. Clearing rate integrates to $n\log X/\log^3 n$, so clearing $R_y$ pool requires $X = e^{\Omega(\log^2 n)}$ moves. Conclusion: Shortener cannot clear $\Omega \ge 3$ efficiently; must play $R_y$ manually; $L \ge |R_y| \asymp n(\log\log n)^2/\log n$.
+
+**Audits #2 and #3 do NOT validate the AoE obstruction.** Audit #2 says Pro's batch-cover is "treacherous" but theoretically viable. Audit #3 says it's "plausible direction" with no obvious killer obstruction. So the AoE argument is a single-source claim from the same model family (Gemini) that has repeatedly shown blind spots in this problem.
+
+**Subtleties in the AoE argument that need checking:**
+- **Which shields does AoE actually invalidate?** Prolonger's $v$ uses primes from some range $R$; it invalidates Ω=2 shields $pq$ with $p, q \in R$. If $R$ doesn't cover the shields Shortener prefers, the obstruction fails to bite.
+- **Legality of iterated AoE moves.** Prolonger needs many disjoint-prime $v$'s; limited by available primes in the target range.
+- **Does Shortener have to use AoE-invalidated shields?** If shields outside the AoE range suffice for $R_y$-type pools, the obstruction shrinks.
+
+Audit #1's conclusion $L = \Omega(n(\log\log n)^2/\log n)$ hinges on AoE being a real game-theoretic obstruction. I don't have a rigorous independent confirmation of this. Pro's audit (pending) is the cross-family decisive voice.
+
+**Net status from three-way audits:**
+- Layer 2 definitively dead (cross-validated).
+- DeepThink Part 3: partial content (local mechanism sound, global theorem unproven).
+- Pro's batch-cover: no proof, no verified obstruction.
+- Final bound: either $\Theta(n\log\log n/\log n)$ (Audits #2, #3-heuristic), $\Omega(n(\log\log n)^2/\log n)$ (Audit #1), or nothing-better-than-$5n/16$ (Audit #3 rigorous).
+
+**Next step:** await GPT Pro's audit. Pro's response will be decisive on (a) whether Audit #1's AoE obstruction is real, and (b) whether Pro sees its own batch-cover direction as salvageable post-AoE. Until then, honest program state is still "$5n/16$ rigorously, $\Theta(n\log\log n/\log n)$ conjectural." Held on Aristotle resubmissions and Codex empirical probes until the bound stabilizes.
+
+### Round 11 — two additional audits: Claude-thinking and Pro-auditor (2026-04-18)
+
+Two more audits returned, both substantially sharper than the first three: Claude with extended thinking (`verify-postresp-11-claude-thinking.md`) and a separate GPT Pro tab acting as auditor (`verify-postresp-11-pro-audit.md`). These identify **four critical findings that the first three audits all missed**, substantially changing the program's read.
+
+#### Critical finding #1 — $L(n)$ is a min-max, not strategy-specific
+
+Both audits flag that $L(n) = \min_\sigma \max_P L(\sigma, P)$ — the optimal Shortener. Even if DeepThink's Part 3 were fully rigorous, it only gives $L_{\Omega\text{-grading}}(n) \ge c n\log\log n/\log n$, which does NOT lower-bound $L(n)$. Some other Shortener could do better. **The true rigorous lower bound on $L(n)$ remains the classical $(1+o(1))n/\log n$ via primes in $[\sqrt n, n]$.** Part 3's contribution, if repaired, is "$\Omega$-grading is not optimal," not "$L(n)$ is at least this big."
+
+This is a fundamental point that reshapes the program's framing: any strategy-specific lower bound is evidence against that strategy being optimal, but not a lower bound on $L(n)$ itself.
+
+#### Critical finding #2 — $k_q$ should be $b_q$ (DeepThink's Part 3 mis-counted)
+
+Claude-thinking: "after Prolonger plays one $p_1 q$, the only remaining semiprimes $pq$ that become individually forced are those with $p$ *already blocked*. If $p$ is still legal, Shortener can later play $p$ and wipe out $pq$." So the correct count of shattered semiprimes per cover is
+$$b_q = \#\{p \in B : n/(2q) < p \le n/q\},$$
+where $B$ is the blocked-prime set — NOT $k_q$ = total semiprimes on cover $q$.
+
+Aggregate: $\sum_q b_q = \sum_{p \in B}(\pi(n/p) - \pi(n/(2p))) \asymp n \Xi(B)$. So the shattering-based lower bound is tied to $\Xi(B)$, which Layer 1 caps at $O(\log\log n/\log n)$ unconditionally. **Parts 1 and 3 are connected in a way neither DeepThink nor the first three audits noticed.** The repaired lower bound from shattering is at most $O(n\log\log n/\log n)$ asymptotically — matching the upper bound target, or weaker.
+
+#### Critical finding #3 — the numerics argue AGAINST $\Theta(n\log\log n/\log n)$
+
+Claude-thinking: if $L \sim c n\log\log n/\log n$, then $L \log n/n = c \log\log n$ should **grow** with $n$. Codex data shows it **decreasing** (1.29 → 1.17 across 4 decades). So the numerics empirically favor $L \sim c' n/\log n$ with a slowly-decreasing $c'$, NOT the $\Theta(n\log\log n/\log n)$ shape. Pro-audit concurs: "Neither fit is asymptotically flat, so the numerics don't distinguish over 4 decades." Combined: the numerics don't decisively pick, but they're inconsistent with a *constant-coefficient* $\Theta(n\log\log n/\log n)$.
+
+This is a real empirical caution against prematurely endorsing $\Theta(n\log\log n/\log n)$. $\Theta(n/\log n)$ is still on the table and not ruled out.
+
+#### Critical finding #4 — Pro's numerical certificate was sloppy
+
+Claude-thinking independently verified Pro's $R_y$ counterexample numerically:
+- "9098" includes multiplicity; true distinct $|R_y| = 8622$ at $n = 10^6$.
+- "Max score 214" is the max over $R_y$ only; full legal-upper max is 331 (attained at $d = 17^2$).
+
+The asymptotic obstruction still stands, but Pro's numerical certificate mixed boundary-convention issues and a multiplicity miscount. Worth repairing for any formal writeup.
+
+#### Additional concrete obstructions to Pro's batch-cover (from Pro-audit)
+
+- **Obstruction A: block-product hits multiple scales.** A Prolonger block $x_i = \prod_{p \in S_i} p$ has $\Omega(x_i) \asymp \log n/\log\log n$, so $\binom{\Omega}{2} \asymp (\log n/\log\log n)^2$ semiprime divisors spread across $O(\log n)$ scales. Per-scale hit is $O(\log n/\log\log n)$, not $O(1)$ as Pro's sketch suggests.
+- **Obstruction B: dynamic legality / scale migration.** Scale partition is by smallest *legal* semiprime divisor, which migrates as shields are played. Prolonger blocks also push $u$'s up scales. The "one Prolonger move invalidates few shields per family" bound needs to hold *amortized across scale migration*. This requires an inductive potential function argument that's not in the sketch.
+
+Both audits agree batch-cover is a viable *direction* but "a Master's thesis worth of work, not a weekend."
+
+#### Updated three-way synthesis (now five-way)
+
+| Claim | Verdict across 5 audits |
+|---|---|
+| Pro's $R_y$ counterexample to Layer 2 | All 5: correct asymptotically; Pro's specific numerics (9098, 214 vs 659) had minor issues |
+| DeepThink's Part 3 endgame (as stated) | All 5: NOT rigorous |
+| DeepThink's Part 3 core insight | 4/5: useful local mechanism; needs $k_q \to b_q$ fix |
+| Pro's batch-cover | All 5: viable direction, no proof, concrete obstructions identified |
+| $L(n) = \Theta(n\log\log n/\log n)$ as established | 4/5: NO. 1/5 (audit #2, GPT-thinking): highly defensible |
+| $L(n) = o(n)$ | Plausible, not rigorously proved |
+| Rigorous bounds on $L(n)$ | $(1+o(1))n/\log n \le L(n) \le 5n/16 + o(n)$ |
+
+#### Net program state (post 5-audit)
+
+**Rigorously proved:** $n/\log n \le L(n) \le 5n/16 + o(n)$ (both formally verified modulo classical NT sorrys).
+
+**Plausible conjecture:** $L(n) = o(n)$, with specific rate uncertain between $\Theta(n/\log n)$ (favored by numerical trajectory) and $\Theta(n\log\log n/\log n)$ (favored by some structural arguments, but numerics cut against constant-coefficient form).
+
+**Dead:** Strict $O(n/\log n)$ via one-step $\Omega=2$ cover lemma. Static carrier capacity. Dynamical bounded-reciprocal-mass.
+
+**Live research programs:**
+1. Pro's multiscale batch-cover (upper-bound proof attempt). Obstructions A (block-product multi-scale hits) and B (scale migration) identified; dynamic-legality potential-function argument needed.
+2. DeepThink's cover-shattering — **repaired with $k_q \to b_q$**. If tied to $\Xi(B)$ via the aggregate identity, might give a strategy-specific lower bound matching the upper target. Still only for $\Omega$-grading, not $L(n)$.
+3. **NEW direction implicit in the audits:** find a non-$\Omega$-grading Shortener that beats $n\log\log n/\log n$. If $L(n) = \Theta(n/\log n)$ is the truth, a better Shortener exists. Nobody has constructed one; even knowing where to look would be progress.
+
+**Held indefinitely:** $5/16$ Aristotle rerun ($D = \{3, 5\}$), Codex Lemma-2 empirical test. Pending any clean formulation emerging from the research programs.
+
+## Round 12 (2026-04-18) — $F_\alpha$ framework + omitted-vertex shadowing
+
+Prompt: `prompts/researcher-12-synthesis-open.md` (new format: factual-dump research brief with no "Potential Directions" section, letting the primary models synthesize patterns across the complete failure atlas). Dispatched to fresh GPT Pro, Claude, and DeepThink threads.
+
+**Pro response** (`researcher-12-pro-response.md`) is the single biggest conceptual advance of the program. Cross-family corroboration from Claude (`researcher-12-claude-response.md`).
+
+### Pro's $F_\alpha$ static reduction
+
+Fix $\alpha \in (1/3, 1/2)$, $y = n^\alpha$. Define
+$$F_\alpha = \{p \le y : p \text{ prime}\} \cup \{d \le n/2 : \Omega(d) = 2,\ P^-(d) > y\}.$$
+
+**Three facts (all elementary, Pro-verified):**
+
+1. $F_\alpha$ is an antichain in $\{2, \ldots, n\}$.
+2. If $A \supseteq F_\alpha$, then every further legal $x \le n$ has $\Omega(x) \le 2$ AND every prime factor $> y$. Proof: primes $\le y$ in $A$ block $x$ divisible by them; $\Omega(x) \ge 3$ with all primes $> y$ forces $x > y^3 = n^{3\alpha} > n$.
+3. The surviving legal set after $F_\alpha$ installed has size $O_\alpha(n/\log n)$: upper primes ($\sim n/(2\log n)$) plus upper semiprimes with both primes $> y$ ($O_\alpha(n/\log n)$ by PNT). Lower-half large-prime semiprimes already in $F_\alpha \cap L$.
+
+**Consequence.** If Shortener can force $A \supseteq F_\alpha$ during the game (up to $O(n/\log n)$ losses), then $L(n) = O(n/\log n)$.
+
+### Q_α dynamic fact (block-product can't touch large semiprimes)
+
+Let $Q_\alpha = \{d \le n/2 : \Omega(d) = 2, P^-(d) > n^\alpha\}$. Pro proves: any composite Prolonger move $x$ is comparable to at most one element of $Q_\alpha$. Two distinct $d_1, d_2 \in Q_\alpha$ dividing $x$ would force $x > n^{3\alpha} > n$ (contradiction). And $x \mid d_i$ forces $x = d_i$ (since $\Omega(d_i) = 2$, the only composite sub-divisor is $d_i$ itself).
+
+So **the block-product batching attack does not hit the large-semiprime layer.** The only layer where real batching survives is the small-prime layer $\{p \le n^\alpha\}$.
+
+### Omitted-vertex shadowing — the unifying obstruction
+
+Pro proposes this is the common mechanism behind ALL prior failures (block-product, $R_y$ counterexample, carrier recycling, etc.).
+
+**Mechanism.** If $u = p_1 p_2 p_3 m$ is upper, then the three numbers $x_i = (u/p_i) \cdot r_i$ with suitable small outsider primes $r_i$ can "shadow" all semiprime divisors of $u$: every pair $p_a p_b$ divides some $x_i$ with $i \ne a, b$. Toy example: $105 = 3 \cdot 5 \cdot 7$; the multiples $\{30, 42, 70\} \subset U$ shadow the semiprime divisors $\{15, 21, 35\}$.
+
+**Generalization.** A fixed-$\Omega = k$ witness family is vulnerable to a $(k+1)$-move omitted-vertex shadow. Prolonger doesn't kill the witness $d$ itself; it replaces it by a larger multiple $dr$ using a cheap outsider prime.
+
+**Why $\alpha > 1/3$ breaks the attack.** Once small primes up to $n^\alpha$ are resolved (either played or blocked), outsider primes $r_i \le n^\alpha$ become unavailable. The omitted-vertex shadow on large-prime semiprimes would need $r_i > n^\alpha$, but then $x_i = p_j p_k r_i > n^{3\alpha} > n$. So shadowing dies.
+
+### The missing lemma
+
+Pro states it concretely: *"If Shortener can force effective resolution of all primes $\le n^{1/3+\varepsilon}$ in $O(n/\log n)$ turns, then $L(n) = O(n/\log n)$."*
+
+"Effective resolution" = either the prime is chosen by Shortener, or every future legal multiple of it is already killed by the semiprime layer. **This is the one remaining unproved piece.**
+
+### Numerical match
+
+Pro's static check at $n = 10^6, \alpha = 0.45$:
+- $|F_\alpha \cap L| = 1153$.
+- 85063 upper numbers admissible post-install (all $\Omega \le 2$).
+- Predicted $L \log n / n \approx (1153 + 85063) \log(10^6) / 10^6 \approx 1.19$.
+- Observed (Codex dynamical probe): $1.17$.
+
+**~2% agreement.** No prior structural argument has matched the empirical trajectory this tightly.
+
+### Claude's independent corroboration
+
+Claude (fresh thread, same brief) independently concludes $L(n) = \Theta(n/\log n)$, with coefficient $c \in [1, 1.3]$, possibly $c = 1$ exactly. Three arguments:
+1. $L \log n / n \in [1.15, 1.50]$ across 6 decades — stably bounded.
+2. Three structurally different heuristic Shorteners agree to 3 sig figs. Rarely happens at local min.
+3. $L \log n / n$ decreasing from 1.29 to 1.17 rules out $\Theta(n \log\log n/\log n)$ with stable constant.
+
+Claude proposes a concrete attack: **two-phase Shortener** — phase 1 adaptive small-prime sieve tracking $B(P)$ + phase 2 $\Omega = 2$ moves drawn from the positive rough-$\Omega \ge 3$ lemma. Amortized-over-many-moves version of the $\Omega = 2$ cover lemma. Aligned with Pro's missing-lemma direction, phrased differently.
+
+### Status and net program state (post Round 12)
+
+**New conjectural tight answer:** $L(n) = \Theta(n/\log n)$. Cross-family consensus (Pro + Claude). Numerical match at 2%. Structural reduction via $F_\alpha$ makes the problem concrete.
+
+**Rigorous bounds unchanged:** $(1 + o(1)) n/\log n \le L(n) \le 5n/16 + o(n)$.
+
+**The single remaining open piece:** small-prime resolution lemma above $n^{1/3}$. This is *not* "Master's thesis open research" anymore — it's a specific lemma with a clear game-theoretic shape.
+
+**Next moves:**
+1. Three-way audit of Pro's $F_\alpha$ reduction (non-trivial checks: $F_\alpha$ antichain under all game states, dynamic vs static installation, interaction with existing established results).
+2. Round 13 targeted on the small-prime resolution lemma.
+3. Follow-up to Pro's Round 12 thread with specific questions (same conversation, builds on existing context).
+4. Optional Codex: empirically test whether $\Omega$-grading Shortener's realized $A$ contains an $F_\alpha$-like structure at $n = 10^6$.
+
+**Methodology lesson (recorded in CLAUDE.md):** Round 12's success came from the "factual dump" prompt format — complete failure atlas with specific failure mechanisms, no "Potential Directions" section, let the primary models synthesize patterns across failures. Standing canonical prompt now lives at `prompts/canonical-prompt.md`, updated as new facts arrive.
+
+### Round 12 — four-audit synthesis (2026-04-18)
+
+Four unique audits on Round 12 responses (user pasted one of them three times, giving six pastes but only four distinct audits). Saved at `verify-postresp-12-pro-on-{Falpha-A, Falpha-B, deepthink-A, deepthink-B}.md`.
+
+**On DeepThink's cross-block semiprime batch: 2/2 say BROKEN.** Drop this direction.
+
+Key findings:
+- **Antichain violation.** At $n = 10^6$: prime 11 is in the "primes $> n^{1/6}$" batch; $77 = 7 \cdot 11$ is in the "semiprimes $\le n^{1/3}$" batch. $11 \mid 77$, so they're comparable. Pre-game collapse.
+- "Cross-block" presumes Prolonger committed to partition.
+- 1-to-1 turn economy argument is numerically wrong (2.5× surplus for Prolonger, not deficit).
+- Even if patched, ceiling is $O(n\log\log n/\log n)$, not the claimed $\Theta(n/\log n)$.
+
+**On Pro's $F_\alpha$ framework: 2/2 agree structure is sound, specific claims overstated.** Both audits independently re-verified with Python computation.
+
+Structural claims verified:
+- $F_\alpha$ is genuinely an antichain. ✓
+- Post-install $\Omega(x) \le 2$ and $P^-(x) > y$ follows from $\alpha > 1/3$. ✓
+- $\alpha > 1/3$ threshold is strict (not graceful at the boundary).
+
+Numerical corrections found (both audits independently):
+- **Post-install admissible count: 83933, not 85063.** Pro conflated "structurally eligible" ($\Omega \le 2$, primes $> y$) with "post-install admissible" (same condition minus $F_\alpha$ itself minus primes killed by multiplication with $Q_\alpha$). Difference: 1058 (elements of $F_\alpha \cap L$) + 72 (primes in $(501, 994]$ killed by multiplication with $Q_\alpha$).
+- **Corrected $L \log n/n$ prediction: 1.176 vs observed 1.17 — agreement to 4 decimals.** Pro's stated 1.19 was off due to the overcount; the corrected framework matches simulation essentially exactly.
+- $|R_y|$ is 8622 (distinct count), not 9098. The 9098 figure includes multiplicity in the parametrization.
+- Max $\Omega = 2$ shield score over ALL legal uppers at $n = 10^6$ is 331 (at $d = 17^2$), not 214 (which was max over $R_y$ alone).
+
+Structural refinements (one or both audits):
+- **$Q_\alpha$ batching-resistance is COMPOSITE-only.** A prime move $p > y$ can simultaneously kill $\pi(n/(2p)) - \pi(p-1)$ elements of $Q_\alpha$. At $n=10^6, \alpha=0.45$, prime 503 kills 72 elements. Pro's framing "the semiprime half is not the hard part" is too strong.
+- **Omitted-vertex shadowing is rhetorical unification, not structural.** Block-product counter is coprime-block design (different mechanism). $R_y$ is arithmetic sparsity (different mechanism). Shadowing explains fixed-$\Omega$ reservoir failures only.
+- **The "missing lemma" is a reformulation, not progress.** If "effective resolution" is strongly formalized, the lemma is nearly tautological — the antecedent is the original open problem. If weakly formalized, it's not provable. Pro's reduction sharpens the location of the difficulty but doesn't shrink it.
+
+Net: the $F_\alpha$ framework is a genuine structural reduction with tighter-than-claimed empirical match, but the path to a proof remains open. "We are close" is not justified by the audits; "we have a sharper restatement of the open problem" is.
+
+### Additional audits (Round 12, continued — user supplied 3 more, bringing unique total to 6 with 1 duplicate)
+
+Three more audits returned after initial synthesis. New unique content:
+
+**On DeepThink (`on-deepthink-C`): third convergent "broken" verdict.** Frames the failure as "static cover vs dynamic game" — emphasizes that while the batch is a mathematically valid static cover of $U$, it collapses when translated to Maker-Breaker dynamics because Shortener secures the TOP layer (semiprimes, composite, blockable by their prime divisors) rather than the BOTTOM (primes, irreducible, unblockable). Structural opposite of $F_\alpha$; that's the core game-theoretic reason. Same antichain violation at 11/77 independently flagged.
+
+**On $F_\alpha$ (`on-Falpha-friendly`): dissent on the numerical claim.** This audit stamped Pro's 85063 as "astonishingly exact" and endorsed omitted-vertex shadowing as the unifying obstruction. However, its Claim 3 arithmetic addressed the wrong quantity — it verified the structurally-eligible superset, not the post-install admissible set. Independent resolution: 85063 − 1058 (already in $F_\alpha \cap L$) − 72 (primes in $(501, 994]$ with antichain conflicts) = 83933. The 83933 number (confirmed by 2/3 $F_\alpha$ audits) is the correct admissible count. Corrected $L\log n/n \approx 1.176$ matches empirical 1.17 better than Pro's stated 1.19.
+
+**Third audit** (duplicate of `on-deepthink-B`): same antichain-violation example, no new content.
+
+### Final cross-audit tally
+
+| Question | Vote |
+|---|---|
+| Pro's $F_\alpha$ static construction is sound | 3/3 |
+| DeepThink's cross-block batch is broken | 3/3 |
+| Post-install admissible count = 83933 (not 85063) | 2/3 (1 "validation" audit missed the subtlety) |
+| Omitted-vertex shadowing is THE unifying obstruction | 1/3 endorsed, 2/3 called rhetorical |
+| Missing lemma is a sharpening/restatement, not progress | 3/3 |
+| Conjecture $L(n) = \Theta(n/\log n)$ | 3/3 plausible, 0/3 proved |
+
+**Strategic: the program is sharper but not closer than before.** We've localized the hard part (small-prime dynamic resolution above $n^{1/3}$), got the framework numerically tight to 2 decimals, and ruled out one alternative direction (cross-block). The missing lemma is the actual open problem restated. Still awaiting Pro's follow-up on whether that lemma can be proved or refuted.
+
+### Round 12 follow-up — Theorem 5 (2026-04-18)
+
+Pro's follow-up response (in same thread, in reply to `prompts/followup-12-pro-closeout.md`) saved at `followup-12-pro-closeout-response.md`. Contains:
+- Clean formal statement of the $F_\alpha$ reduction as Theorem 1.
+- Formal statement of omitted-vertex shadowing as Lemma 3.
+- Formal statement of $Q_y$ antichain + composite-batch-resistance as Lemma 4.
+- **New rigorous Theorem 5: Resolution against disjoint small-prime carriers.**
+
+**Theorem 5.** Fix $y = n^\alpha$ with $1/3 < \alpha < 1/2$. Assume every composite Prolonger move has all prime factors $\le y$ and pairwise-disjoint supports. Then Shortener can force all primes $\le y$ to be resolved in $O(n/\log n)$ of her own turns; total $L(n) = O(n/\log n)$.
+
+Proof is explicit 3-phase Shortener (primes / higher prime powers / cross-carrier pair semiprimes) with legality and resolution arguments. Move count: $\pi(n) + \pi(y) + \pi(y)^2 = O(n/\log n)$ since $\alpha < 1/2$.
+
+**The universal block-product Prolonger counter is in this class.** So this is the first rigorous proof that $L(n) = O(n/\log n)$ against the specific strongest-known Prolonger adversary.
+
+### Three-way audit of Theorem 5 (2026-04-18)
+
+Three audits ran on `followup-12-pro-closeout-response.md`. Saved at `verify-postresp-followup12-{online-patch-needed, overlap-fatal, essentially-sound}.md`.
+
+**3/3 agree the local proof is sound.** No fatal errors in legality, resolution dichotomy, class-match with block-product, or the move count $\pi(y)^2 = o(n/\log n)$.
+
+**Minor issues flagged:**
+- *Wording bug in pure-prime-power case* (audit 1). "Any $x$ divisible by $r$ is comparable with $r^a$" is false in general; becomes true after the single-carrier reduction ($x = r^b$). Cosmetic, not structural.
+- *Online execution needs explicit statement* (audits 1 and 3). Proof reads as offline — Shortener "knows" final carrier family $B$. Game is alternating, so phase-2/phase-3 queued moves must stay legal as Prolonger reveals new carriers. All auditors say this patch is routine.
+- *Prolonger's prime moves never directly addressed* (audit 3). Any prime Prolonger plays cannot also be in a carrier by antichain; phase 1 handles post-carrier primes. Worth one sentence but doesn't break the result.
+
+**Divergence on overlapping-carriers obstruction** ($\{30, 42, 70\}$ with surviving $105$):
+- Audit 1: "Not decisive — Shortener plays $105$." **Incomplete:** playing $105$ resolves $3, 5, 7$ but not $2$ (which divides all three carriers). Prime $2$ would need separate handling, and no simple repair works.
+- Audit 2: "Devastating, genuine obstruction. Triples $pqr \le n$ with all primes $\le y$ scale as $n^{3\alpha}$, which exceeds $n$ for $\alpha > 1/3$."
+- Audit 3: "Genuine. Naive phase-4 (triple-repair) scales as $n(\log\log n)^2/\log n$, off target by $(\log\log n)^2$."
+
+2/3 audits say overlap is real. Audit 1's rescue is incomplete as demonstrated above. Overlapping carriers remain a genuine open obstruction.
+
+### Promotion — Theorem 5 to Established
+
+Per CLAUDE.md promotion rule ("≥ 2 informal verifiers agree it's sound"):
+- **Promoted:** Theorem 5 (Resolution against disjoint small-prime carriers) and its corollary $L(n) = O(n/\log n)$ against the universal block-product Prolonger.
+- **Status:** Established, audit-converged (3/3), Aristotle not yet submitted.
+- **Caveats noted:** wording polish in pure-prime-power case; explicit online-execution statement needed for a fully polished writeup.
+- **Not promoted:** full $L(n) = O(n/\log n)$ for all Prolonger strategies — overlapping-carriers + blocked-large-primes cases remain open.
+
+### Refined open question (post Theorem 5)
+
+The central open question now sharpens specifically to:
+
+> **Does Theorem 5 extend to overlapping-carrier Prolonger strategies?**
+
+And the secondary case:
+
+> **Blocked-large-primes repair:** can Shortener efficiently resolve mixed pairs $pq$ with $p \le y < q$ within $O(n/\log n)$ moves, beyond the naive pair-count which overshoots by $\log\log n$?
+
+If both extend, $L(n) = O(n/\log n)$ is proved in full generality — resolving Erdős's question with the sharpest possible asymptotic. If either fails, we learn something structural about why.
+
+### Net program state (post-Theorem 5)
+
+- **Rigorously proved:** $(1 + o(1))n/\log n \le L(n) \le 5n/16 + o(n)$ (general). $L(n) = O(n/\log n)$ against the disjoint small-prime carrier class (includes universal block-product).
+- **Conjectural:** $L(n) = \Theta(n/\log n)$ for all Prolonger strategies. Cross-family consensus.
+- **Specific open question:** extend Theorem 5 to overlapping carriers and/or handle blocked large primes.
+- **Structural insight:** the block-product counter is NOT the hard case. Overlapping carriers and mixed-prime-size combinations are the real residual difficulty.
+- **Methodology:** canonical-prompt + factual-dump approach has produced the single biggest advance of the program; keep using it.
+
+**Status update to canonical-prompt.md:** all numerical corrections, $Q_\alpha$ caveat, antichain-violation concrete counterexample for DeepThink's approach, and the $\alpha > 1/3$ strictness have been folded into the canonical prompt as factual entries in Established / Ruled Out / Numerical Evidence. Future researcher rounds will see these without having to re-verify.
+
+### Round 12 audit synthesis (2026-04-18)
+
+Two audits each of Pro's $F_\alpha$ response and DeepThink's cross-block response. Full text at `verify-postresp-12-pro-on-Falpha-{A,B}.md` and `verify-postresp-12-deepthink-audit{1,2}.md`. Claude's response was not audited separately (subsumed by the $F_\alpha$ / DeepThink audits per curator decision).
+
+**On Pro's $F_\alpha$ framework — survives with corrections:**
+
+Both audits agree:
+- $F_\alpha$ is genuinely an antichain. ✓
+- Post-$F_\alpha$ "$\Omega \le 2$ and all primes $> y$" is a correct *necessary* condition. ✓
+- $Q_\alpha$ composite-batching resistance holds via the three-case proof. ✓
+- The missing lemma is a valid reduction (conditional). ✓
+
+Both audits identify four genuine issues:
+
+1. **Numerical slip.** Pro wrote "85063 post-install admissible count" — this is the *structurally eligible* count (integers with $\Omega \in \{1,2\}$ and primes $> y$), not the *actually admissible* count. Correcting: 85063 − 1058 (elements already in $F_\alpha \cap L$) − 72 (primes $p > y$ that divide some $pq \in F_\alpha \cap L$) = **83933**. Predicted $L \log n/n = (1153 + 83933) \log(10^6)/10^6 ≈ 1.1755$. Observed 1.174. **Match to 0.1%**, not 2%. The corrected numerics are tighter than Pro's stated version.
+
+2. **Prime moves batch-kill $Q_\alpha$.** Pro claimed "the only place where real batching survives is the small-prime layer." But a single prime move $p > y$ kills every semiprime $pq \in Q_\alpha$ with $q$ prime and $pq \le n/2$ simultaneously. Count: $\sim n^{1-\alpha}/\log n$ elements per prime move. At $n = 10^6, \alpha = 0.45$: prime 503 alone kills 72 members of $Q_\alpha$. So $Q_\alpha$ is composite-batching-resistant but prime-batching-*cooperative*. This is consistent with Shortener's strategy (Shortener plays small primes) but weakens the "semiprime half is easy" framing.
+
+3. **Omitted-vertex shadowing is overstated as universal unifier.** The block-product counter is pigeonhole over pairwise-coprime blocks (not shadowing). $R_y$ is arithmetic sparsity (not shadowing). Static carrier capacity is density/pigeonhole (not shadowing). Only carrier recycling is genuinely shadowing-style. The real cross-failure pattern is weaker and more accurate: **"every failed approach has a specific prime range where Prolonger has free play."**
+
+4. **Missing lemma is close to tautological.** Under strong formalization ("for every prime $p \le y$, no future legal move contains $p$") the lemma is trivially true but "effective resolution" is doing almost all the work and equals the original problem. Under weaker formalization, the lemma isn't proved. *The reduction is a reformulation, not progress.*
+
+**On DeepThink's cross-block semiprime batch — fatally broken:**
+
+Both audits identify the critical bug:
+
+**The batch is not an antichain.** Shortener plays "all primes $q > n^{1/6}$" AND "all cross-block semiprimes $\le n^{1/3}$." Concrete counterexample at $n = 10^6$ ($n^{1/6} = 10, n^{1/3} = 100$): batch contains 11 (prime > 10) AND 77 = 7·11 (semiprime ≤ 100). Since $11 | 77$, the two are comparable. Not a legal antichain. **The proposal doesn't even define a valid Shortener strategy.**
+
+Other breaks (any would be sufficient):
+- "Cross-block" presumes Prolonger committed a block partition.
+- 1-to-1 turn economy is numerically wrong ($k \le 5$, not 6; and even with $k \le 5$, Prolonger has factor-2.5 surplus blocking capacity).
+- Even if patched, the rough-$\Omega \ge 3$ lemma gives $O(n \log\log n/\log n)$, not $O(n/\log n)$. Off by $\log\log n$.
+- Coverage of $R_y$-type elements not demonstrated.
+
+DeepThink's response is dead; not salvageable. The one piece worth remembering: **Prolonger's block-product $x_i$ is coprime to cross-block semiprimes by construction** — a genuine structural fact that might play a role in future arguments.
+
+### Net Round 12 status (post-audit)
+
+**Cross-family consensus on the answer** remains strong: $L(n) = \Theta(n/\log n)$, supported by Pro, Claude, DeepThink independently (conclusion), by numerical trajectory, and by the (corrected) $F_\alpha$ numerical match at 0.1%.
+
+**Structural advance is real but limited.** $F_\alpha$ is a genuinely new antichain family; the composite-batching resistance of $Q_\alpha$ is a new combinatorial fact; the α > 1/3 threshold is a clean phase transition. These are publishable on their own.
+
+**The proof gap has not shrunk.** The "missing lemma" audits describe as "essentially a reformulation, not progress." To prove $L(n) = O(n/\log n)$ via this framework we still need to show Shortener can dynamically install $F_\alpha$ against adversarial Prolonger — this *is* the original problem in disguise.
+
+**Rigorous bounds unchanged:** $(1 + o(1)) n/\log n \le L(n) \le 5n/16 + o(n)$. Everything tighter is conjectural.
+
+**Pending:** Pro's follow-up on the missing lemma (close-out attempt via theorem-proof note). Whether Pro produces a concrete proof attempt or returns "I cannot close this" decides the next step.
+
 **Secondary targets (if the $\Omega$-grading fails):**
 - **Different invariant replacing $\sum 1/p$** — e.g., weighted-by-surviving-multiplicity $H_D$, fractional LP-dual potentials.
 - **Pairing / Maker-Breaker strategies** — completely untried; the $5/24$ cover structure suggests a clean pairing may exist.

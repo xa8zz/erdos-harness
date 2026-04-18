@@ -1,3 +1,151 @@
+<!-- REPO_TREE_BEGIN -->
+```
+.gitignore
+.mcp.json
+AGENTS.md
+CLAUDE.md
+README.md
+chat-export/
+  export.sh
+  extractors/
+    _shared.js
+    chatgpt.js
+    claude.js
+    erdosproblems.js
+    gemini.js
+  format.py
+  submit.sh
+erdos-872/
+  _forum_transcript.md
+  aristotle/
+    shield_reduction.tex
+    shield_reduction_result.tar.gz
+    shortener_13_36.tex
+    shortener_13_36_v2.tex
+    shortener_13_36_v2_out.tar.gz
+    shortener_5_16.tex
+    shortener_5_16_out.tar.gz
+    tau_5_24.tex
+    tau_5_24_result.tar.gz
+    theorem_A_result.tar.gz
+    theorem_A_shield_lower_bound.tex
+  chatgpt.md
+  claude-chat.md
+  current_state.md
+  gemini.md
+  phase0/
+    CODEX_TASK.md
+    compute_psi.py
+    psi_grid.csv
+    report.md
+    test_compute_psi.py
+  phase1/
+    CODEX_FOLLOWUP_L40.md
+    CODEX_TASK.md
+    L40_diagnostic.md
+    compute_sublinear.py
+    exact_minimax.csv
+    exact_minimax_v2.py
+    report.md
+    stress_grid.csv
+    test_engine.py
+    test_exact_minimax_v2.py
+  phase2/
+    CODEX_TASK_dynamical_probe.md
+    CODEX_TASK_shortener_stress.md
+    dynamical_probe/
+      ANALYSIS.md
+      ground_truth.md
+      results.csv
+      results_summary.csv
+      run_all.py
+      simulator.py
+      test_simulator.py
+    shortener_stress.csv
+    shortener_stress.py
+    shortener_stress_summary.md
+    test_shortener_stress.py
+  process.md
+  prompts/
+    researcher-01-directed.md
+    researcher-01.md
+    researcher-02-open-exploration.md
+    researcher-02-phase0-psi-mapping.md
+    researcher-02-shortener-construction.md
+    researcher-04-vaccinated-shield-narrow.md
+    researcher-05-packing-lemma.md
+    researcher-05-shortener-ceiling.md
+    researcher-06-shortener-direct.md
+    researcher-07-shortener-13-36-closeout.md
+    researcher-08-open-solution.md
+    researcher-09-carrier-capacity.md
+    researcher-10-dynamical-carrier.md
+    researcher-11-omega-strategy-prove.md
+    verify-open-02-post-13-36.md
+    verify-postresp-01.md
+    verify-postresp-02-shortener.md
+    verify-postresp-04-sigma-one.md
+    verify-postresp-06-carrier-recycling.md
+    verify-postresp-06-shortener-13-36.md
+    verify-postresp-07-13-36-truncation.md
+    verify-postresp-08-5-16.md
+    verify-strategic-01-directions.md
+  researcher-01-directed-response.md
+  researcher-01-open-response.md
+  researcher-02-shortener-response.md
+  researcher-03-vaccinated-shield.md
+  researcher-04-sigma-one-construction.md
+  researcher-05-carrier-recycling.md
+  researcher-05-shortener-13-36.md
+  researcher-06-direct-sieve-refutation.md
+  researcher-07-13-36-closeout.md
+  researcher-08-5-16-improvement.md
+  researcher-09-carrier-capacity-refutation.md
+  researcher-10-omega-strategy.md
+  verify-aristotle-01-theorem-A.md
+  verify-aristotle-03-5-16.md
+  verify-open-02-audit1.md
+  verify-open-02-audit2.md
+  verify-open-02-audit3.md
+  verify-postresp-01-chatgpt.md
+  verify-postresp-01-claude.md
+  verify-postresp-01-gemini.md
+  verify-postresp-02-audit1.md
+  verify-postresp-03-claude.md
+  verify-postresp-04-claude.md
+  verify-postresp-04-gemini.md
+  verify-postresp-04-gpt-thinking.md
+  verify-postresp-06-13-36-chatgpt.md
+  verify-postresp-06-13-36-claude.md
+  verify-postresp-06-13-36-gemini.md
+  verify-postresp-06-carrier-chatgpt.md
+  verify-postresp-06-carrier-claude.md
+  verify-postresp-06-carrier-gemini.md
+  verify-postresp-06-chatgpt-t14.md
+  verify-postresp-07-audit1.md
+  verify-postresp-07-audit2.md
+  verify-postresp-07-audit3.md
+  verify-postresp-10-audit-universal-block-product.md
+  verify-postresp-11-gemini-triple.md
+  verify-researcher-09-gemini-refutation.md
+  verify-strategic-01-audit2.md
+  verify-strategic-01-audit4.md
+  verify-strategic-01-deepthink.md
+  verify-strategic-01-gpt-thinking.md
+mcp-servers/
+  deep-think/
+    .gitignore
+    README.md
+    requirements.txt
+    run.sh
+    server.py
+    smoke_test.sh
+prompts/
+  templates/
+    informal-audit.md
+```
+<!-- REPO_TREE_END -->
+
 # Research Harness — Operating Manual
 
 This repo is a harness for collaborative problem-solving with a primary reasoning model (currently GPT Pro with extended thinking), where a second-tier assistant (Claude, i.e. you) handles all synthesis, curation, and cross-model verification so the primary can focus purely on the math.
@@ -191,6 +339,99 @@ angle, including paths not listed here, if you see a cleaner one.
 ```
 
 **Do not add an "Output format" / "Requested output" / "Output expectations" section.** Pro decides what is worth returning. Prescribing output structure burns its reasoning budget on our schema instead of the math.
+
+### The canonical prompt pattern (the single most important methodology lesson)
+
+When the research is stuck, the failure mode to avoid is over-thinking whether a direction is viable. **The curator's role is factual completeness, not synthesis.** Give the primary models the most complete possible map of the research landscape — everything established (with proof sketches), everything ruled out (with specific failure mechanisms), all numerical evidence — and let THEM find patterns across the failures. A super-genius model given a clean factual prompt will see connections you cannot.
+
+Concretely: each problem folder maintains a single **canonical prompt** (`prompts/canonical-prompt.md`) — a living document in the researcher-prompt template format. When new findings land, add them to the prompt. When something gets refuted, add it to "Ruled Out" with the specific failure mechanism. The canonical prompt is what each researcher round starts from.
+
+**Why it works.** Four kinds of information are usually enough for the model to find the next move:
+1. **Established results** with proof structures — what techniques succeeded and how.
+2. **Ruled-out approaches** with specific failure mechanisms — not "X didn't work" but "X fails at step Y because of Z."
+3. **Numerical evidence** — exact trajectories, coefficients, realized constants.
+4. **The open question** — one sentence, no suggested direction.
+
+Pattern-across-failures is often the research signal. Every "Ruled Out" entry says something about the structure of the problem; a collection of such failures often reveals a unifying obstruction. The $F_\alpha$ framework that broke open the Erdős 872 program emerged from exactly this pattern: Pro saw that four separate obstructions (static carrier capacity, dynamical bounded-$\sum 1/p$, strict $\Xi$ bound, one-step $\Omega=2$ cover) all shared the "omitted-vertex shadowing" mechanism, which dies above the $n^{1/3}$ threshold.
+
+**Do not strip the Potential Directions section in favor of hand-waving.** Either include cross-validated directions (per the rules below) or omit the section entirely. A canonical prompt with "Established / Ruled Out / Numerical Evidence / Open Question" and no suggested directions is a valid, complete research prompt. Let the researcher choose the attack.
+
+**Length note: detail is not the enemy, vagueness is.** "Brief" is the wrong frame. An entry in Ruled Out that spans a paragraph with the specific prime range, shield set, and lemma that broke is better than a one-line "this didn't work." Compress vague prose, never compress factual detail. If a failure mechanism has a quantitative signature (a specific $n$-regime where the obstruction bites, the exact constant that blocks the argument, the structural reason a subfamily is undetectable), include it. The model will need the detail to see the pattern.
+
+**If you feel stuck:** your job is not to decide if the problem is solvable. Your job is to ensure the canonical prompt is factually complete and honestly framed. Route the decision-making to the primary models.
+
+### Good vs. bad entries for each section
+
+**Established** — state the result, then sketch the proof so the structure is visible.
+
+```
+✓ "Shield Reduction Theorem. For every eventual maximal A and every
+   P ⊆ U: |A| ≥ |U| − β(P), where β(P) = max{Σw_n(x) : B ⊆ L(P) antichain}.
+   Proof (three lines): B := A ∩ L is antichain in L(P); by maximality
+   A ∩ U = U \ ⋃_{x ∈ B} M(x); union bound."
+
+✗ "Shield Reduction Theorem (Lean-verified)."      # no math
+✗ "Om's team proved Shield Reduction."             # attribution, no content
+✗ "Shield Reduction Theorem. See shield_reduction.tex." # indirection, not inlined
+```
+
+**Ruled Out** — name the approach, then the specific failure mechanism including the arithmetic or combinatorial detail that killed it.
+
+```
+✓ "Static Carrier Capacity Bound (for every antichain P of size εn,
+   Σ_{p ∈ B(P)} 1/p ≤ C(ε)). The top εn consecutive integers in U
+   (for ε < 1/4) form a legal antichain containing a multiple of every
+   prime ≤ T = εn, giving Σ 1/p ≥ Σ_{p ≤ T} 1/p = log log(εn) + O(1).
+   Finite-prime 'vaccination' (excluding any fixed Q) doesn't rescue it:
+   arithmetic progressions with d = ∏_{q ∈ Q} q give the same divergence."
+
+✗ "Static Carrier Capacity Bound. Doesn't work."     # no mechanism
+✗ "Carrier Capacity refuted."                        # no target, no reason
+✗ "Gemini DeepThink refuted the Carrier Capacity."   # attribution only
+```
+
+**Numerical Evidence** — exact trajectories over a range, specifying strategies and regimes.
+
+```
+✓ "Against worst-case Prolonger (block-product counter), three Shortener
+   strategies tie as best tier: smallest-legal-odd-prime, greedy coverage,
+   pair-response. All give Σ 1/p / log log n ∈ {0.887, 0.880, 0.875,
+   0.875} at n = 10^3, 10^4, 10^5, 10^6. Coefficient stable across four
+   decades, no decay. Largest prime observed in B(P) at n = 10^6: 999983.
+   Small-prime concentration: primes ≤ 100 carry 73.4% of Σ 1/p."
+
+✗ "Empirical data supports the conjecture."           # nothing to verify
+✗ "At n = 10^6 we got L = 85003."                     # one point, no scaling
+✗ "Codex's Phase 2.5 probe returned 1.17."            # tool-name leaks, no context
+```
+
+**Open Question** — one sentence. No suggested direction, no anchoring.
+
+```
+✓ "Is L(n) = Θ(n), or L(n) = o(n)? If sublinear, what is the sharp rate?"
+
+✗ "Is the answer Θ(n/log n)? We think so." # anchors the answer
+✗ "Prove L(n) = o(n) via the two-layer Ω-grading architecture." # prescribes the approach
+✗ "First, close the Ω=2 cover lemma. Second, handle |A ∩ L|." # multi-part + presumptive
+```
+
+### The audit prompt pattern — same canonical prompt, one extra header
+
+Most audits do NOT need a custom prompt. The default audit prompt is:
+
+```
+Audit this response.
+
+## Canonical prompt (the brief the researcher worked from)
+[PASTE `prompts/canonical-prompt.md`]
+
+## Researcher response
+[PASTE response verbatim]
+```
+
+That is the audit prompt. Don't write a new framing for each round — the canonical prompt already contains the full factual state, and the response is what the auditor needs to pressure-test.
+
+**When to write a targeted audit prompt instead.** When you have a *specific* disagreement or verification request that wouldn't otherwise be surfaced: cross-family contradictions to pressure on, a quantitative claim that needs independent numerical verification, a specific proof step to locate holes in. Then the targeted prompt is a short extra paragraph on top of the standard two-section structure above — not a replacement for the canonical prompt.
 
 ### Framing rules for the researcher prompt
 
