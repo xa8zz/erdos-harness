@@ -1,0 +1,127 @@
+\documentclass{article}
+\usepackage{amsmath, amsthm, amssymb}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+\title{The $5/24$ First-Hit Cover of the Divisibility Poset}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Setup}
+
+Fix an integer $n \ge 2$. Define
+\[L = \{m \in \mathbb{Z} : 2 \le m \le \lfloor n/2 \rfloor\}, \qquad U = \{m \in \mathbb{Z} : n/2 < m \le n\}.\]
+
+\begin{definition}
+Let
+\[H_n = \{u \in U : u \equiv 2 \pmod 4\} \;\cup\; \{u \in U : u > 2n/3 \text{ and } u \equiv 0 \pmod 4\}.\]
+\end{definition}
+
+\begin{definition}
+Let
+\[P_n = \{m \in \mathbb{Z} : n/3 < m \le n/2\} \;\cup\; \{m \in \mathbb{Z} : n/4 < m \le n/3,\ m \text{ odd}\}.\]
+(Note $P_n \subseteq L$.)
+\end{definition}
+
+\section{The cover}
+
+\begin{lemma}[Cover property]
+\label{lem:cover}
+For every $x \in L$, there exists $u \in H_n$ with $x \mid u$.
+\end{lemma}
+
+\begin{proof}
+Fix $x \in L$. We split into four cases on the strip containing $x$.
+
+\textbf{Case 1: $x > n/3$.}
+Then $2x > 2n/3$ and $2x \le 2 \cdot \lfloor n/2 \rfloor \le n$, so $2x \in U$. Also $2x > 2n/3$ (indeed this is the hypothesis), and we claim $2x \in H_n$. If $x$ is odd, $2x \equiv 2 \pmod 4$, so $2x \in H_n$ by the first clause. If $x$ is even, $2x \equiv 0 \pmod 4$, and since $2x > 2n/3$, $2x \in H_n$ by the second clause. Either way $2x \in H_n$ and $x \mid 2x$.
+
+\textbf{Case 2: $n/4 < x \le n/3$.}
+If $x$ is odd, take $u = 2x$. Then $n/2 < 2x \le 2n/3 \le n$, so $2x \in U$. And $2x \equiv 2 \pmod 4$, so $2x \in H_n$. Finally $x \mid 2x$.
+
+If $x$ is even, take $u = 3x$. Then $3x > 3n/4 > 2n/3$ and $3x \le n$, so $3x \in U$. Since $x$ is even, $3x$ is even; and $3x \equiv 3 \cdot 2 = 6 \equiv 2 \pmod 4$ if $x \equiv 2 \pmod 4$, giving $3x \in H_n$. If $x \equiv 0 \pmod 4$, then $3x \equiv 0 \pmod 4$ and $3x > 2n/3$, so $3x \in H_n$. Either way $3x \in H_n$ and $x \mid 3x$.
+
+\textbf{Case 3: $n/6 < x \le n/4$.}
+Take $u = 4x$. Then $4x > 2n/3$ and $4x \le n$, so $4x \in U$. Also $4x \equiv 0 \pmod 4$ and $4x > 2n/3$, so $4x \in H_n$. And $x \mid 4x$.
+
+\textbf{Case 4: $x \le n/6$.}
+The interval $(2n/(3x),\; n/x]$ has length $n/x - 2n/(3x) = n/(3x) \ge 2$. So it contains an even integer $k$. Then $u = kx$ satisfies $2n/3 < u \le n$, so $u \in U$ and $u > 2n/3$. Also $k$ even implies $u$ is even; and if $k \equiv 2 \pmod 4$ we use the first clause, if $k \equiv 0 \pmod 4$ we use the second clause (since $u > 2n/3$). Either way $u \in H_n$ and $x \mid u$.
+\end{proof}
+
+\begin{theorem}[Size of the cover]
+$|H_n| = \frac{5}{24} n + O(1)$.
+\end{theorem}
+
+\begin{proof}
+Count each clause:
+\begin{itemize}
+\item $\#\{u \in U : u \equiv 2 \pmod 4\} = \frac{1}{4}(n/2) + O(1) = \frac{n}{8} + O(1)$.
+\item $\#\{u \in (2n/3, n] : u \equiv 0 \pmod 4\} = \frac{1}{4}(n - 2n/3) + O(1) = \frac{n}{12} + O(1)$.
+\end{itemize}
+Since the two clauses are disjoint (first requires $u \equiv 2 \pmod 4$, second requires $u \equiv 0 \pmod 4$), we add: $\frac{n}{8} + \frac{n}{12} = \frac{5n}{24}$.
+\end{proof}
+
+\section{The matching packing}
+
+\begin{lemma}[Packing property]
+\label{lem:packing}
+$P_n$ is an antichain under divisibility, and every $u \in U$ is divisible by at most one element of $P_n$.
+\end{lemma}
+
+\begin{proof}
+The second claim implies the first (if $x, y \in P_n$ with $x \mid y$, then $y$ is a multiple of $x$ in $U$ --- wait, $y \in P_n \subseteq L$, not $U$). Let me argue both directly.
+
+\emph{Antichain.} Let $x, y \in P_n$ with $x < y$. Suppose $x \mid y$. Both $x, y \le n/2$, and $x \mid y$ with $x < y$ forces $y \ge 2x$, so $x \le y/2$.
+
+Case A: $y \in (n/3, n/2]$. Then $x \le y/2 \le n/4$. But $x \in P_n$ means either $x \in (n/3, n/2]$ (contradicts $x \le n/4 < n/3$), or $x$ is an odd integer in $(n/4, n/3]$ (contradicts $x \le n/4$). So no such pair.
+
+Case B: $y \in (n/4, n/3]$ odd. Then $x \le y/2 \le n/6 < n/4$, again contradicting $x \in P_n$.
+
+\emph{Every $u \in U$ divisible by at most one $x \in P_n$.} Suppose $u \in U$ with $x_1, x_2 \in P_n$, $x_1 \ne x_2$, and $x_1, x_2 \mid u$. Then $\operatorname{lcm}(x_1, x_2) \mid u \le n$. But since $x_1, x_2 \in P_n \subseteq L$ and they are incomparable (by the antichain property we just proved), $\operatorname{lcm}(x_1, x_2) \ge x_1 x_2 / \gcd(x_1, x_2)$. With $x_1 > n/4$ and $x_2 > n/4$ and $\gcd(x_1, x_2) \le x_1 / 2$ (since $x_1, x_2$ are distinct and neither divides the other), we get $\operatorname{lcm}(x_1, x_2) \ge 2 x_2 > n/2$. Actually we need $\operatorname{lcm} > n$ for a contradiction, and a more careful argument: $x_1, x_2 > n/4$, and if they are both in the strip $(n/3, n/2]$, then $2 x_2 > 2n/3$ and $x_1 \nmid x_2$ gives $\operatorname{lcm} \ge 2 x_2 > 2n/3$, but we need $> n$. The clean proof uses that $u \le n$ and $x_1, x_2 \ge n/4$, so if $x_1 \mid u$ and $x_2 \mid u$ with $u \le n$, then $u / x_i < 4$. Hence $u / x_i \in \{1, 2, 3\}$ for each $i$. This gives a short finite case check.
+
+Case: $u / x_1 = 1$ means $u = x_1$, but $x_1 \le n/2 < u$ contradicts $u \in U$. So $u / x_i \in \{2, 3\}$.
+
+So $x_i \in \{u/2, u/3\}$, meaning $\{x_1, x_2\} \subseteq \{u/2, u/3\}$. Since $x_1 \ne x_2$, we have $\{x_1, x_2\} = \{u/2, u/3\}$. Then $u/3 \mid u/2$? No: $u/3$ and $u/2$ have ratio $3/2$, not integer. So incomparable. Fine, but can both be in $P_n$?
+
+$u/2 \in P_n$ requires either $u/2 \in (n/3, n/2]$, i.e., $u \in (2n/3, n]$, true since $u > n/2$ and... actually $u \in U = (n/2, n]$, so $u/2 \in (n/4, n/2]$, not $(n/3, n/2]$ automatically. If $u \in (2n/3, n]$, then $u/2 \in (n/3, n/2]$. If $u \in (n/2, 2n/3]$, then $u/2 \in (n/4, n/3]$, so for $u/2 \in P_n$ we need $u/2$ odd, i.e., $u \equiv 2 \pmod 4$.
+
+$u/3 \in P_n$ requires $u/3 \in (n/4, n/3]$ (impossible since $u \le n$ gives $u/3 \le n/3$ and $u > n/2$ gives $u/3 > n/6$, so $u/3 \in (n/6, n/3]$; for it to be in $P_n$ need $u/3 \in (n/4, n/3]$ and odd, i.e., $u \in (3n/4, n]$ and $3 \mid u$ with $u/3$ odd), OR $u/3 \in (n/3, n/2]$ (impossible: $u/3 \le n/3$).
+
+So $u/3 \in P_n \Rightarrow u \in (3n/4, n]$, $3 \mid u$, $u/3$ odd. And $u/2 \in P_n \Rightarrow$ either $u \in (2n/3, n]$, or $u \in (n/2, 2n/3]$ with $u/2$ odd.
+
+We need $u/2, u/3$ BOTH in $P_n$ and both dividing $u$. So $6 \mid u$, and $u \in (3n/4, n]$. Then $u/2$ is even (since $u/2 = 3 \cdot (u/6)$, so $u/2$ is even iff $u/6$ is even). So for $u/2 \in P_n$ via the odd clause, need $u/2$ odd, so $u/6$ odd. But also $u \in (3n/4, n] \subseteq (2n/3, n]$, so $u/2 \in (3n/8, n/2] \subseteq (n/3, n/2]$, which IS in the first clause of $P_n$. No parity constraint. So $u/2 \in P_n$ trivially.
+
+And $u/3 \in P_n$ needs $u/3$ odd, i.e., $u/6$ odd (since $u = 6 \cdot u/6$, $u/3 = 2 \cdot u/6$; wait $u/3$ is even if $u/6$ is integer, actually $u/3 = 2 (u/6)$ is always even if $u/6$ is integer, so $u/3$ is always even). Contradiction: $u/3$ even cannot be odd. So $u/3 \notin P_n$.
+
+Therefore no such $u$ exists with both $u/2$ and $u/3$ in $P_n$. This completes the proof that every $u \in U$ is divisible by at most one element of $P_n$.
+\end{proof}
+
+\begin{theorem}[Size of the packing]
+$|P_n| = \frac{5}{24}n + O(1)$.
+\end{theorem}
+
+\begin{proof}
+\begin{itemize}
+\item $\#\{m : n/3 < m \le n/2\} = \frac{n}{6} + O(1) = \frac{4n}{24} + O(1)$.
+\item $\#\{m : n/4 < m \le n/3,\ m \text{ odd}\} = \frac{1}{2}(\frac{n}{3} - \frac{n}{4}) + O(1) = \frac{n}{24} + O(1)$.
+\end{itemize}
+Sum: $\frac{5n}{24} + O(1)$.
+\end{proof}
+
+\begin{theorem}[Optimal first-hit cover]
+Let
+\[\tau(n) = \min\{|C| : C \subseteq U,\ \forall x \in L,\ \exists u \in C \text{ with } x \mid u\}.\]
+Then $\tau(n) = \frac{5n}{24} + O(1)$.
+\end{theorem}
+
+\begin{proof}
+\emph{Upper bound:} By Lemma~\ref{lem:cover}, $H_n$ is a valid cover, and $|H_n| = \frac{5n}{24} + O(1)$.
+
+\emph{Lower bound:} Let $C \subseteq U$ be any valid cover. Every $x \in P_n$ has a multiple in $C$. By Lemma~\ref{lem:packing}, distinct $x \in P_n$ have disjoint sets of multiples in $U$. Hence $|C| \ge |P_n| = \frac{5n}{24} + O(1)$.
+\end{proof}
+
+\end{document}

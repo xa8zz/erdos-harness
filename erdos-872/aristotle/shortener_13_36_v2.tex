@@ -1,0 +1,179 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\title{An upper bound $L(n) \le \tfrac{13}{36}\,n + o(n)$ for the divisibility-antichain saturation game}
+
+\begin{document}
+\maketitle
+
+\section{Setup}
+
+We study a two-player combinatorial game played on the integer set $\{2, 3, \ldots, n\}$.
+
+\begin{itemize}
+  \item Players (\emph{Prolonger} and \emph{Shortener}) alternate choosing integers into a shared set $A \subseteq \{2, \ldots, n\}$.
+  \item The set $A$ must remain an antichain under divisibility: no element of $A$ divides another element of $A$.
+  \item The game ends when $A$ is a \emph{maximal} antichain, i.e., when no further integer in $\{2, \ldots, n\}$ can be added without violating the antichain condition.
+  \item Prolonger moves first and seeks to maximize the final $|A|$; Shortener seeks to minimize.
+  \item Let $L(n)$ denote the value of the game under optimal play.
+\end{itemize}
+
+It is classical that $L(n) \ge (1 + o(1))\,n/\log n$.
+
+Our goal is to prove the following upper bound via an explicit Shortener strategy.
+
+\begin{theorem}[Main Theorem]
+There is an explicit Shortener strategy forcing
+\[
+L(n) \le \tfrac{13}{36}\,n + o(n).
+\]
+\end{theorem}
+
+\section{The Shortener strategy}
+
+Set
+\[
+k := \left\lfloor \frac{\sqrt{n}}{\log n} \right\rfloor.
+\]
+
+\textbf{The Shortener strategy.} On each of her first $k$ turns, Shortener plays the smallest integer $q$ such that (i) $q$ is an odd prime and (ii) $q$ is currently legal (i.e., no previously played integer is a multiple of $q$, and $q$ does not divide any previously played integer). After these $k$ turns, Shortener plays arbitrarily.
+
+Let $q_1 < q_2 < \cdots < q_k$ denote the primes chosen during the first phase, and set
+\[
+D := \{q_1, \ldots, q_k\}.
+\]
+
+Let $A \subseteq \{2, \ldots, n\}$ denote the final set of all moves under this Shortener strategy, and let $A'$ denote the set of moves made \emph{after} the first $2k$ total moves of the game. Then $|A| \le 2k + |A'|$.
+
+Since $k = o(n)$, the term $2k$ is $o(n)$.
+
+Every element of $A'$ is divisibility-comparable with no element of $D$; in particular, not divisible by any $q_i$. We call such an integer \emph{$D$-free}.
+
+\section{Proof}
+
+\begin{lemma}[Chebyshev upper bound on chosen primes]
+\label{lem:prime-bound}
+For every fixed $\varepsilon > 0$, for all sufficiently large $n$ and every $1 \le j \le k$,
+\[
+q_j \le \left(\tfrac{3}{2} + \varepsilon\right) j \log n.
+\]
+Consequently, there is a sequence $\eta_n \to 0$ such that
+\[
+S(D) := \sum_{j=1}^{k} \frac{1}{q_j} \ge \frac{1}{3} - \eta_n.
+\]
+\end{lemma}
+
+\begin{proof}
+We argue by induction on $j$. Fix $\varepsilon > 0$ and suppose for contradiction that $q_j > (\tfrac{3}{2} + \varepsilon)\, j \log n$. Then every odd prime $p \le (\tfrac{3}{2} + \varepsilon)\, j \log n$ has already been blocked before Shortener's $j$-th turn. Being blocked means either $p \in \{q_1, \ldots, q_{j-1}\}$ or $p$ divides one of Prolonger's first $j$ moves, each of which is an integer in $\{2, \ldots, n\}$ with $\sum_{p \mid x} \log p \le \log x \le \log n$.
+
+Therefore the odd-prime Chebyshev function,
+\[
+\vartheta_{\mathrm{odd}}(y) := \sum_{\substack{p \le y \\ p \text{ prime}, p > 2}} \log p,
+\]
+satisfies
+\[
+\vartheta_{\mathrm{odd}}\!\left(\bigl(\tfrac{3}{2} + \varepsilon\bigr) j \log n\right) \le \sum_{i < j} \log q_i + j \log n.
+\]
+
+By the induction hypothesis $q_i \le (\tfrac{3}{2} + \varepsilon) i \log n$, so $\log q_i \le \log i + \log \log n + O(1)$. Since $j \le \sqrt{n}/\log n$ gives $\log j \le \tfrac{1}{2} \log n - \log\log n + O(1)$, summing yields
+\[
+\sum_{i < j} \log q_i \le (\tfrac{1}{2} + o(1))\, j \log n.
+\]
+Therefore the right-hand side is at most $(\tfrac{3}{2} + o(1))\, j \log n$.
+
+On the other hand, by Chebyshev's theorem, $\vartheta(y) \sim y$, and since $\vartheta_{\mathrm{odd}}(y) = \vartheta(y) - \log 2$, we have $\vartheta_{\mathrm{odd}}(y) \sim y$. Hence
+\[
+\vartheta_{\mathrm{odd}}\!\left(\bigl(\tfrac{3}{2} + \varepsilon\bigr) j \log n\right) = \bigl(\tfrac{3}{2} + \varepsilon + o(1)\bigr)\, j \log n,
+\]
+contradicting the bound above for large $n$. So $q_j \le (\tfrac{3}{2} + \varepsilon) j \log n$.
+
+For the harmonic sum: using $q_j \le (\tfrac{3}{2} + \varepsilon) j \log n$,
+\[
+\sum_{j=1}^{k} \frac{1}{q_j} \ge \frac{1}{(\tfrac{3}{2} + \varepsilon)\log n} \sum_{j=1}^{k} \frac{1}{j} = \frac{\log k + O(1)}{(\tfrac{3}{2} + \varepsilon) \log n}.
+\]
+With $\log k = (\tfrac{1}{2} + o(1))\log n$, we get $S(D) \ge \tfrac{1}{3 + 2\varepsilon} + o(1)$. Letting $\varepsilon \downarrow 0$ gives $S(D) \ge \tfrac{1}{3} - o(1)$, i.e., there exists $\eta_n \to 0$ with $S(D) \ge \tfrac{1}{3} - \eta_n$.
+\end{proof}
+
+\begin{lemma}[Compression into odd $D$-free integers]
+\label{lem:compression}
+Let $A'$ be the antichain of moves made after the first $2k$ moves. For each $x \in A'$, let $\phi(x) := x / 2^{v_2(x)}$ be the odd part of $x$. Then:
+\begin{enumerate}
+  \item $\phi(x)$ is odd, $D$-free, and $1 \le \phi(x) \le n$.
+  \item $\phi: A' \to \mathbb{Z}$ is injective.
+\end{enumerate}
+
+Consequently, $|A'| \le N_D(n)$, where
+\[
+N_D(n) := \#\{m :\ 1 \le m \le n,\ m \text{ odd},\ q \nmid m\ \forall q \in D\}.
+\]
+\end{lemma}
+
+\begin{proof}
+Every $x \in A'$ is divisibility-comparable with no element of $D$; in particular, $x$ is not divisible by any $q_i$. Since $\phi(x) = x / 2^{v_2(x)}$ divides $x$, if $q_i \mid \phi(x)$ then $q_i \mid x$, contradicting $D$-freeness of $x$. So $\phi(x)$ is $D$-free. The integer $\phi(x)$ is odd by construction and satisfies $\phi(x) \le x \le n$, proving (1).
+
+For (2): suppose $\phi(x) = \phi(y)$ for some $x, y \in A'$. Then writing $x = 2^{a_x} \phi(x)$ and $y = 2^{a_y} \phi(y) = 2^{a_y} \phi(x)$, the ratio $x/y$ is a power of $2$ (possibly negative). Hence one of $x, y$ divides the other. Since $A'$ is a divisibility antichain, $x = y$.
+
+Combining (1) and (2): $|A'| = |\phi(A')| \le |\{\text{odd } D\text{-free integers in } [1, n]\}| = N_D(n)$.
+\end{proof}
+
+\begin{lemma}[Truncation and sieve bound]
+\label{lem:truncation}
+With $S(D) \ge \tfrac{1}{3} - \eta_n$ as in Lemma~\ref{lem:prime-bound}, define $s_t := \sum_{j=1}^{t} 1/q_j$ for $0 \le t \le k$, and let $t^*$ be the minimal $t$ with $s_t \ge \tfrac{1}{3} - \eta_n$. Set $E := \{q_1, \ldots, q_{t^*}\} \subseteq D$. Then:
+\begin{enumerate}
+  \item $s_{t^*} \in [\tfrac{1}{3} - \eta_n,\ \tfrac{2}{3} - \eta_n]$.
+  \item $N_D(n) \le N_E(n)$, where $N_E(n) := \#\{m \le n :\ m \text{ odd},\ p \nmid m\ \forall p \in E\}$.
+  \item $N_E(n) \le \tfrac{n}{2}(1 - s_{t^*} + s_{t^*}^2/2) + O(t^{*2})$.
+  \item $N_D(n) \le \tfrac{13}{36}\, n + o(n)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) Since $s_k = S(D) \ge \tfrac{1}{3} - \eta_n$, a valid $t$ exists. By minimality, $s_{t^*-1} < \tfrac{1}{3} - \eta_n$ (with the convention $s_0 = 0$). Also $s_{t^*} = s_{t^*-1} + 1/q_{t^*}$. Since $q_{t^*}$ is an odd prime, $q_{t^*} \ge 3$, so $1/q_{t^*} \le 1/3$. Therefore
+\[
+s_{t^*} = s_{t^*-1} + 1/q_{t^*} < (\tfrac{1}{3} - \eta_n) + \tfrac{1}{3} = \tfrac{2}{3} - \eta_n.
+\]
+Combined with $s_{t^*} \ge \tfrac{1}{3} - \eta_n$, this gives (1).
+
+(2) $E \subseteq D$, so the condition $p \nmid m\ \forall p \in E$ is strictly weaker than $p \nmid m\ \forall p \in D$. Hence every $D$-free odd integer is also $E$-free, giving $N_D(n) \le N_E(n)$.
+
+(3) Let $\mathcal{O}_n := \{m \in [1, n] : m \text{ odd}\}$, so $|\mathcal{O}_n| = \lfloor (n+1)/2 \rfloor = n/2 + O(1)$. For odd prime $p \in E$, let $U_p := \{m \in \mathcal{O}_n : p \mid m\}$. Since $p$ is odd, the odd multiples of $p$ in $[1, n]$ are $\{p \cdot j : j \text{ odd}, pj \le n\}$, so $|U_p| = n/(2p) + O(1)$. For distinct odd primes $p < r$ in $E$, by CRT the odd multiples of $pr$ in $[1, n]$ number $n/(2pr) + O(1)$.
+
+The second-order Bonferroni inequality gives
+\[
+N_E(n) = |\mathcal{O}_n| - \left|\bigcup_{p \in E} U_p\right|,
+\]
+and
+\[
+\left|\bigcup_{p \in E} U_p\right| \ge \sum_{p \in E} |U_p| - \sum_{p < r \in E} |U_p \cap U_r|,
+\]
+so
+\[
+N_E(n) \le |\mathcal{O}_n| - \sum_{p \in E} |U_p| + \sum_{p < r \in E} |U_p \cap U_r| = \tfrac{n}{2}\left(1 - \sum_{p \in E} \tfrac{1}{p} + \sum_{p<r \in E} \tfrac{1}{pr}\right) + O(t^{*2}).
+\]
+The error $O(t^{*2})$ comes from the $O(1)$ terms in each cardinality, summed over $\le t^*$ single-prime and $\le \binom{t^*}{2}$ pair terms. Using $\sum_{p<r \in E} 1/(pr) = \tfrac{1}{2}(s_{t^*}^2 - \sum_{p \in E} 1/p^2) \le s_{t^*}^2/2$:
+\[
+N_E(n) \le \tfrac{n}{2}\left(1 - s_{t^*} + \tfrac{s_{t^*}^2}{2}\right) + O(t^{*2}).
+\]
+
+(4) Since $t^* \le k = \lfloor\sqrt n/\log n\rfloor$, we have $t^{*2} = O(n/\log^2 n) = o(n)$. Define $f(s) := 1 - s + s^2/2$, so $f'(s) = s - 1$. By (1), $s_{t^*} \in [\tfrac{1}{3} - \eta_n, \tfrac{2}{3} - \eta_n] \subseteq [0, 1]$. On $[0, 1]$, $f'(s) \le 0$, so $f$ is decreasing; hence $f(s_{t^*}) \le f(\tfrac{1}{3} - \eta_n) = \tfrac{13}{18} + O(\eta_n)$.
+
+Therefore
+\[
+N_E(n) \le \tfrac{n}{2}\left(\tfrac{13}{18} + O(\eta_n)\right) + o(n) = \tfrac{13\, n}{36} + o(n),
+\]
+and by (2), $N_D(n) \le N_E(n) \le \tfrac{13\, n}{36} + o(n)$.
+\end{proof}
+
+\begin{proof}[Proof of Main Theorem]
+Combining Lemmas~\ref{lem:prime-bound}–\ref{lem:truncation}:
+\[
+L(n) = |A| \le 2k + |A'| \le 2k + N_D(n) \le 2k + \tfrac{13}{36}\,n + o(n) = \tfrac{13}{36}\,n + o(n),
+\]
+since $2k = O(\sqrt{n}/\log n) = o(n)$.
+\end{proof}
+
+\end{document}

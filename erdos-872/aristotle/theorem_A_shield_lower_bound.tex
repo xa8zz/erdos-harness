@@ -1,0 +1,108 @@
+\documentclass{article}
+\usepackage{amsmath, amsthm, amssymb}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+\title{A Polynomial Lower Bound on the Shield Antichain Weight}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Setup}
+
+Fix an integer $n \ge 3$. Define
+\[L = \{m \in \mathbb{Z} : 2 \le m \le \lfloor n/2 \rfloor\}, \qquad U = \{m \in \mathbb{Z} : n/2 < m \le n\}.\]
+For $x \in L$, the upper shadow is $M(x) = \{u \in U : x \mid u\}$, and the shadow weight is $w_n(x) = |M(x)| - 1$.
+
+For $P \subseteq U$, let $L(P) = \{x \in L : x \nmid u$ for every $u \in P\}$, and
+\[\beta(P) = \sup\left\{\sum_{x \in B} w_n(x) \, : \, B \subseteq L(P)\ \text{is an antichain under divisibility}\right\}\]
+(with $\beta(P) = 0$ if $L(P) = \emptyset$).
+
+\section{Main theorem}
+
+\begin{theorem}[Polynomial shield lower bound]
+\label{thm:poly-shield}
+Fix $0 < \alpha < 1$. There exists $n_0 = n_0(\alpha)$ and a function $\varepsilon(n) = o(1)$ as $n \to \infty$ such that, for every $n \ge n_0$ and every $P \subseteq U$ with $|P| \le n^\alpha$:
+\[\beta(P) \ge \left(\tfrac{1}{2}\log\tfrac{1}{\alpha} - \varepsilon(n)\right)n.\]
+\end{theorem}
+
+As a corollary, defining $k_c^\star(n) = \min\{|P| : P \subseteq U,\ \beta(P) \le cn\}$ for fixed $c > 0$:
+\[\liminf_{n \to \infty} \frac{\log k_c^\star(n)}{\log n} \ge e^{-2c}.\]
+
+\subsection{Proof of Theorem~\ref{thm:poly-shield}}
+
+Fix $0 < \alpha < 1$ and choose any $\delta$ with $\alpha < \delta < 1$. We will prove that for all $n$ large enough,
+\[\beta(P) \ge \left(\tfrac{1}{2}\log\tfrac{\delta}{\alpha} - \varepsilon(n)\right)n\]
+whenever $|P| \le n^\alpha$, where $\varepsilon(n) \to 0$ depends on $\delta$ but not on $P$. Optimizing $\delta \to 1^-$ (separately after $n \to \infty$) gives the stated theorem.
+
+\paragraph{Step 1: A prime antichain in $L(P)$.}
+For the chosen $\delta$, let $\pi(x)$ denote the usual prime-counting function and define
+\[Q_\delta(P) = \{p \le n^\delta : p\ \text{prime},\ p \nmid u \text{ for every } u \in P\}.\]
+For $n$ large enough, $n^\delta < n/2$, so every $p \le n^\delta$ with $p \ge 2$ lies in $L$. If in addition $p \nmid u$ for every $u \in P$, then $p \in L(P)$. Distinct primes are incomparable under divisibility, so $Q_\delta(P)$ is an antichain in $L(P)$. Therefore
+\[\beta(P) \ge \sum_{p \in Q_\delta(P)} w_n(p). \tag{1}\]
+
+\paragraph{Step 2: Weight of a small prime.}
+For $p \le n^\delta$:
+\[w_n(p) = \left\lfloor \frac{n}{p} \right\rfloor - \left\lfloor \frac{n}{2p} \right\rfloor - 1.\]
+Since $\lfloor x \rfloor = x + O(1)$ with $|O(1)| \le 1$:
+\[w_n(p) = \frac{n}{2p} + \theta_p,\ \text{where } |\theta_p| \le 2.\]
+
+\paragraph{Step 3: A key total.}
+\[\sum_{p \in Q_\delta(P)} w_n(p) = \frac{n}{2} \sum_{p \in Q_\delta(P)} \frac{1}{p} + \sum_{p \in Q_\delta(P)} \theta_p.\]
+The error sum has absolute value at most $2 \pi(n^\delta) \le 2 \cdot \frac{3 n^\delta}{\log n^\delta}$ for $n$ large (by Chebyshev's bound $\pi(x) \le 3x/\log x$ for $x \ge 2$). Since $\delta < 1$, this is $o(n)$.
+
+Define the covered small primes
+\[C_\delta(P) = \{p \le n^\delta : p\ \text{prime},\ p \mid u\ \text{for some } u \in P\}.\]
+Then $Q_\delta(P)$ and $C_\delta(P)$ partition the primes $\le n^\delta$, so
+\[\sum_{p \in Q_\delta(P)} \frac{1}{p} = \sum_{p \le n^\delta} \frac{1}{p} - \sum_{p \in C_\delta(P)} \frac{1}{p}. \tag{2}\]
+
+\paragraph{Step 4: Bounding the covered-prime sum by an exchange argument.}
+Let $p_1 < p_2 < \cdots$ denote the increasing sequence of all primes. For each prime $p \in C_\delta(P)$, choose some $u \in P$ with $p \mid u$; call it $\phi(p)$. For each $u \in P$, the set $\phi^{-1}(u) \subseteq C_\delta(P)$ consists of distinct primes dividing $u$, so
+\[\prod_{p \in \phi^{-1}(u)} p \,\Big|\, u.\]
+Therefore
+\[\sum_{p \in C_\delta(P)} \log p = \sum_{u \in P} \sum_{p \in \phi^{-1}(u)} \log p \le \sum_{u \in P} \log u \le |P| \log n \le n^\alpha \log n. \tag{3}\]
+
+Claim: among finite sets $S$ of primes with $\sum_{p \in S} \log p \le B$, the sum $\sum_{p \in S} 1/p$ is maximized by taking the initial primes $\{p_1, p_2, \ldots, p_r\}$ for the largest $r$ with $\sum_{i=1}^r \log p_i \le B$.
+
+Proof of claim. If $S$ omits some $p_i$ with $i \le r$ and contains some $q > p_r$, we can exchange $q$ for $p_i$: the log-cost changes by $\log p_i - \log q < 0$ (stays under budget), and the reciprocal-sum changes by $1/p_i - 1/q > 0$ (strictly larger). Greedy induction completes the proof.
+
+Let $y_n$ be the largest prime with $\vartheta(y_n) = \sum_{p \le y_n} \log p \le n^\alpha \log n$. Then by the claim and (3):
+\[\sum_{p \in C_\delta(P)} \frac{1}{p} \le \sum_{p \le y_n} \frac{1}{p}. \tag{4}\]
+
+\paragraph{Step 5: Asymptotic value of $y_n$.}
+By the prime number theorem, $\vartheta(x) = x + o(x)$ as $x \to \infty$. So $\vartheta(y_n) \le n^\alpha \log n$ gives $y_n \le n^\alpha \log n \cdot (1 + o(1))$, and the next-larger prime $p$ has $\vartheta(p) > n^\alpha \log n$ so $p \ge n^\alpha \log n \cdot (1-o(1))$. Hence $y_n = n^\alpha \log n \cdot (1 + o(1))$, and
+\[\log y_n = \alpha \log n + \log\log n + o(1), \quad \log \log y_n = \log \log n + \log \alpha + o(1). \tag{5}\]
+
+\paragraph{Step 6: Mertens' second theorem.}
+Mertens' second theorem states
+\[\sum_{p \le x} \frac{1}{p} = \log \log x + M + o(1) \quad (x \to \infty),\]
+where $M$ is the Meissel-Mertens constant. Using (5) and applying the formula at $x = n^\delta$ and $x = y_n$:
+\[\sum_{p \le n^\delta} \frac{1}{p} - \sum_{p \le y_n} \frac{1}{p} = \log \log n^\delta - \log \log y_n + o(1) = \log \frac{\delta}{\alpha} + o(1),\]
+because $\log \log n^\delta = \log \log n + \log \delta + o(1)$ and $\log \log y_n = \log \log n + \log \alpha + o(1)$.
+
+Combining this with (4) and (2):
+\[\sum_{p \in Q_\delta(P)} \frac{1}{p} \ge \log \frac{\delta}{\alpha} + o(1). \tag{6}\]
+
+\paragraph{Step 7: Conclusion.}
+Combining (1), Step 3, and (6):
+\[\beta(P) \ge \sum_{p \in Q_\delta(P)} w_n(p) = \frac{n}{2} \sum_{p \in Q_\delta(P)} \frac{1}{p} + o(n) \ge \frac{n}{2} \log \frac{\delta}{\alpha} + o(n).\]
+For any fixed $\alpha < \delta < 1$:
+\[\liminf_{n \to \infty} \frac{\beta(P)}{n} \ge \frac{1}{2} \log \frac{\delta}{\alpha}, \qquad \text{uniformly over } P \subseteq U\ \text{with}\ |P| \le n^\alpha.\]
+Taking $\delta \to 1^-$ gives $\liminf \beta(P)/n \ge (1/2)\log(1/\alpha)$, as claimed. $\square$
+
+\subsection{Corollary}
+
+\begin{theorem}[Barrier exponent]
+For every fixed $c > 0$:
+\[\liminf_{n \to \infty} \frac{\log k_c^\star(n)}{\log n} \ge e^{-2c},\]
+where $k_c^\star(n) := \min\{|P| \subseteq U : \beta(P) \le cn\}$.
+\end{theorem}
+
+\begin{proof}
+Suppose $|P| \le n^\alpha$. By Theorem~\ref{thm:poly-shield}, for all $n$ large enough, $\beta(P) \ge ((1/2) \log(1/\alpha) - \varepsilon)n$ for arbitrary $\varepsilon > 0$. If $\beta(P) \le cn$ then $(1/2)\log(1/\alpha) \le c + \varepsilon$, so $\alpha \ge e^{-2(c+\varepsilon)}$. Taking $\varepsilon \to 0$ and $|P| = k_c^\star(n)$: $k_c^\star(n) \ge n^{e^{-2c} - o(1)}$.
+\end{proof}
+
+\end{document}

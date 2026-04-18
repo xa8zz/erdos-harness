@@ -6,3 +6,17 @@ node_modules/
 dist/
 build/
 .claude/settings.local.json
+
+# Codex simulation dumps — large JSON trajectories, regeneratable from phase1/phase2 scripts
+erdos-872/phase1/trajectories/
+erdos-872/phase0/structural/
+erdos-872/phase2/**/logs/
+erdos-872/phase2/**/__pycache__/
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Aristotle extracted Lean build artifacts (keep source + tarballs + summary; drop .lake builds)
+erdos-872/aristotle/*_out/**/.lake/
+erdos-872/aristotle/*_out/**/lake-packages/

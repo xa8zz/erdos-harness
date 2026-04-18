@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\title{Shield Reduction Theorem for the Divisibility Antichain Saturation Game}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Setup}
+
+Fix an integer $n \ge 2$. Define
+\[L = \{m \in \mathbb{Z} : 2 \le m \le \lfloor n/2 \rfloor\}, \qquad U = \{m \in \mathbb{Z} : n/2 < m \le n\}.\]
+For $x \in L$, the \emph{upper shadow} of $x$ is
+\[M(x) = \{u \in U : x \mid u\}.\]
+The \emph{shadow weight} of $x$ is
+\[w_n(x) = |M(x)| - 1.\]
+
+For a set $P \subseteq U$, define
+\[L(P) = \{x \in L : x \nmid u \text{ for every } u \in P\},\]
+and let
+\[\beta(P) = \max\left\{\sum_{x \in B} w_n(x) \, : \, B \subseteq L(P),\ B \text{ is an antichain under divisibility}\right\}.\]
+(The maximum is over antichains; if $L(P)$ is empty, define $\beta(P) = 0$.)
+
+\section{Main theorem}
+
+\begin{theorem}[Shield Reduction]
+\label{thm:shield-reduction}
+Let $P \subseteq U$ and let $A \subseteq \{2, 3, \ldots, n\}$ be a set satisfying:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $A$ is an antichain under divisibility on $\{2, \ldots, n\}$;
+  \item $P \subseteq A$;
+  \item $A$ is maximal: for every $v \in \{2, \ldots, n\} \setminus A$ there exists $a \in A$ with $a \mid v$ or $v \mid a$.
+\end{enumerate}
+Then $|A| \ge |U| - \beta(P)$.
+\end{theorem}
+
+\begin{proof}
+Let $B = A \cap L$. Since $A$ is an antichain, so is $B$.
+
+\textbf{Claim 1.} $B \subseteq L(P)$.
+
+Fix $x \in B$. Since $B \subseteq A$ and $A$ is an antichain, $x$ is incomparable with every element of $A \setminus \{x\}$, in particular with every element of $P \subseteq A$. So for all $u \in P$, $x \nmid u$ and $u \nmid x$. Hence $x \in L(P)$.
+
+\textbf{Claim 2.} $A \cap U = U \setminus \bigcup_{x \in B} M(x)$.
+
+\emph{($\subseteq$)} Let $u \in A \cap U$. For any $x \in B \subseteq A \setminus \{u\}$ (since $x \in L$ and $u \in U$, so $x \ne u$), $A$'s antichain property gives $x \nmid u$. Hence $u \notin \bigcup_{x \in B} M(x)$.
+
+\emph{($\supseteq$)} Let $u \in U$ with $u \notin \bigcup_{x \in B} M(x)$, i.e., no $x \in B$ divides $u$. We claim $u \in A$.
+
+Suppose for contradiction $u \notin A$. By maximality of $A$, there exists $a \in A$ with $a \mid u$ or $u \mid a$. Since $a \in \{2, \ldots, n\}$ and $u \le n$, the case $u \mid a$ forces $a \ge u > n/2$, so $a \in U$ with $u \mid a$. But $u \in U$ too (both in $(n/2, n]$), so $a \le n < 2u$, forcing $a = u$, contradicting $u \notin A$ but $a \in A$.
+
+Therefore $a \mid u$. If $a \in U$, then $a \mid u$ with $u, a \in (n/2, n]$ forces $a = u$, contradicting $a \in A$ and $u \notin A$. So $a \in A \cap L = B$. But then $a \mid u$ means $u \in M(a) \subseteq \bigcup_{x \in B} M(x)$, contradicting our assumption.
+
+Hence $u \in A$.
+
+\textbf{Finishing.} From Claim 2 and the union bound,
+\[|A \cap U| = |U| - \left|\bigcup_{x \in B} M(x)\right| \ge |U| - \sum_{x \in B} |M(x)|.\]
+
+Therefore
+\begin{align*}
+|A| &= |B| + |A \cap U| \\
+    &\ge |B| + |U| - \sum_{x \in B} |M(x)| \\
+    &= |U| - \sum_{x \in B} (|M(x)| - 1) \\
+    &= |U| - \sum_{x \in B} w_n(x) \\
+    &\ge |U| - \beta(P),
+\end{align*}
+where the last inequality uses $B \subseteq L(P)$ (Claim 1), $B$ an antichain, and the definition of $\beta(P)$.
+\end{proof}
+
+\end{document}

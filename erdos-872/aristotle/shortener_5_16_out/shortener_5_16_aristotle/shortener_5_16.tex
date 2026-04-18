@@ -1,0 +1,198 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\title{An upper bound $L(n) \le \tfrac{5}{16}\,n + o(n)$ for the divisibility-antichain saturation game}
+
+\begin{document}
+\maketitle
+
+\section{Setup}
+
+We study a two-player combinatorial game played on the integer set $\{2, 3, \ldots, n\}$.
+
+\begin{itemize}
+  \item Players (\emph{Prolonger} and \emph{Shortener}) alternate choosing integers into a shared set $A \subseteq \{2, \ldots, n\}$.
+  \item The set $A$ must remain an antichain under divisibility: no element of $A$ divides another element of $A$.
+  \item The game ends when $A$ is a \emph{maximal} antichain, i.e., when no further integer in $\{2, \ldots, n\}$ can be added without violating the antichain condition.
+  \item Prolonger moves first and seeks to maximize the final $|A|$; Shortener seeks to minimize.
+  \item Let $L(n)$ denote the value of the game under optimal play.
+\end{itemize}
+
+It is classical that $L(n) \ge (1 + o(1))\,n/\log n$.
+
+\begin{theorem}[Main Theorem]
+There is an explicit Shortener strategy forcing
+\[
+L(n) \le \tfrac{5}{16}\,n + o(n).
+\]
+\end{theorem}
+
+\section{The Shortener strategy and the Chebyshev bound}
+
+Fix $A > 2$, and set
+\[
+k := \left\lfloor \frac{n}{2 A \log n} \right\rfloor.
+\]
+
+\textbf{The Shortener strategy.} On each of her first $k$ turns, Shortener plays the smallest legal odd prime $q$. After these $k$ turns, Shortener plays arbitrarily.
+
+Let $q_1 < q_2 < \cdots < q_k$ denote the primes chosen during the first phase, and set $D := \{q_1, \ldots, q_k\}$.
+
+If the game ends before Shortener's $k$-th turn, then the total number of moves is less than $2k = o(n)$, which is stronger than the bound claimed by the Main Theorem. So assume Shortener plays all $k$ prefix turns.
+
+\begin{lemma}[Chebyshev upper bound on chosen primes]
+\label{lem:prime-bound-v2}
+For the above Shortener strategy, for all sufficiently large $n$ and every $1 \le j \le k$,
+\[
+q_j \le A\, j \log n.
+\]
+Consequently, $S(D) := \sum_{j=1}^{k} 1/q_j \ge 1/A + o(1)$.
+\end{lemma}
+
+\begin{proof}
+Suppose for contradiction that $q_j > X := A j \log n$. Then every odd prime $p < X$ is blocked before Shortener's $j$-th turn.
+
+A blocked odd prime $p < X$ must satisfy one of:
+\begin{enumerate}
+  \item $p = q_i$ for some $i < j$, or
+  \item $p$ divides one of Prolonger's first $j$ moves $a_1, \ldots, a_j$.
+\end{enumerate}
+
+Therefore the odd Chebyshev function,
+\[
+\vartheta_{\mathrm{odd}}(X) := \sum_{\substack{p \le X \\ p \text{ prime}, p > 2}} \log p,
+\]
+satisfies
+\[
+\vartheta_{\mathrm{odd}}(X) \le \sum_{r=1}^{j} \log \mathrm{rad}_{\mathrm{odd}}(a_r) + \sum_{i < j} \log q_i,
+\]
+where $\mathrm{rad}_{\mathrm{odd}}(a) := \prod_{\substack{p \mid a \\ p > 2}} p$ is the odd radical.
+
+Each Prolonger move $a_r \le n$ has $\log \mathrm{rad}_{\mathrm{odd}}(a_r) \le \log a_r \le \log n$, so $\sum_r \log \mathrm{rad}_{\mathrm{odd}}(a_r) \le j \log n$.
+
+For the Shortener sum: each $q_i < q_j \le X$, so $\log q_i < \log X$, hence $\sum_{i<j} \log q_i < (j-1) \log X$.
+
+Therefore
+\[
+\vartheta_{\mathrm{odd}}(X) \le j \log n + (j-1) \log X.
+\]
+
+Now $\log X = \log(A j \log n) = \log A + \log j + \log\log n$. Since $j \le k = n/(2 A \log n)$, we have $\log j \le \log n - \log(2 A \log n) = \log n - O(\log\log n)$. Hence $\log X \le \log n + O(\log\log n) = (1 + o(1)) \log n$. Therefore the right-hand side is
+\[
+\le j \log n + (j-1) (1 + o(1)) \log n = (2 + o(1)) j \log n.
+\]
+
+By Chebyshev's theorem, $\vartheta(y) = y + o(y)$, and $\vartheta_{\mathrm{odd}}(y) = \vartheta(y) - \log 2$, so $\vartheta_{\mathrm{odd}}(y) = y + o(y)$. Hence for $X \to \infty$,
+\[
+\vartheta_{\mathrm{odd}}(X) = A j \log n + o(j \log n).
+\]
+
+For $A > 2$ and $n$ sufficiently large, $(2 + o(1)) j \log n < A j \log n + o(j \log n)$ is violated, contradicting the previous inequality. So $q_j \le A j \log n$.
+
+For the harmonic sum:
+\[
+\sum_{j=1}^{k} \frac{1}{q_j} \ge \frac{1}{A \log n} \sum_{j=1}^{k} \frac{1}{j} = \frac{\log k + O(1)}{A \log n}.
+\]
+Since $\log k = \log(n / (2 A \log n)) = \log n - \log(2 A \log n) = (1 + o(1)) \log n$, we get $S(D) \ge 1/A + o(1)$.
+\end{proof}
+
+\section{Compression into odd $D$-free integers}
+
+\begin{lemma}[Compression]
+\label{lem:compression-v2}
+Let $A'$ be the antichain of moves made after the first $2k$ moves. For each $x \in A'$, let $\phi(x) := x / 2^{v_2(x)}$ be the odd part of $x$. Then:
+\begin{enumerate}
+  \item $\phi(x)$ is odd, $D$-free (not divisible by any $q_j$), and $\phi(x) \le x \le n$.
+  \item $\phi : A' \to \mathbb{Z}$ is injective.
+\end{enumerate}
+Consequently, $|A'| \le N_D(n)$, where
+\[
+N_D(n) := \#\{m :\ 1 \le m \le n,\ m \text{ odd},\ q \nmid m\ \forall q \in D\}.
+\]
+\end{lemma}
+
+\begin{proof}
+Every $x \in A'$ is divisibility-incomparable with every element of $D$; in particular, no $q_i \in D$ divides $x$, so $x$ is $D$-free. Since $\phi(x) = x / 2^{v_2(x)}$ divides $x$, any $q_i \mid \phi(x)$ would imply $q_i \mid x$, contradiction. So $\phi(x)$ is $D$-free. The integer $\phi(x)$ is odd by construction and $\le x \le n$.
+
+For injectivity: if $\phi(x) = \phi(y)$ for $x, y \in A'$, then $x = 2^{a_x} \phi(x)$, $y = 2^{a_y} \phi(y) = 2^{a_y} \phi(x)$, so $x / y = 2^{a_x - a_y}$, which means one divides the other. Since $A'$ is an antichain, $x = y$.
+\end{proof}
+
+\section{Truncation and the sharpened Bonferroni sieve}
+
+\begin{lemma}[Truncation and $N_D$ bound]
+\label{lem:truncation-v2}
+With $S(D) \ge 1/A + o(1)$ as in Lemma~\ref{lem:prime-bound-v2}, define $s_t := \sum_{j=1}^{t} 1/q_j$, and let $t^*$ be the minimal $t$ with $s_t \ge 1/A - \eta_n$ for an appropriate $\eta_n \to 0$. Set $E := \{q_1, \ldots, q_{t^*}\} \subseteq D$. Then:
+\begin{enumerate}
+  \item $s_{t^*} \in [1/A - \eta_n,\ 1/A + 1/3]$, so $s_{t^*} \in [0, 1]$ for any $A > 6/5$.
+  \item $N_D(n) \le N_E(n)$.
+  \item $N_E(n) \le \frac{n}{2}\left(1 - s_{t^*} + \frac{s_{t^*}^2}{2}\right) + o(n)$, using a sharper pair-product Bonferroni error.
+  \item $N_D(n) \le \frac{n}{2}\left(1 - \frac{1}{A} + \frac{1}{2 A^2}\right) + o(n)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) Since $s_k \ge 1/A - o(1)$, a valid $t^*$ exists. By minimality $s_{t^*-1} < 1/A - \eta_n$ (convention $s_0 = 0$), and $s_{t^*} = s_{t^*-1} + 1/q_{t^*} < 1/A - \eta_n + 1/3$ since $q_{t^*}$ is an odd prime (so $q_{t^*} \ge 3$, $1/q_{t^*} \le 1/3$). So $s_{t^*} < 1/A + 1/3$. For $A > 6/5$: $1/A + 1/3 < 5/6 + 1/3 < 2$, but we need $s_{t^*} \le 1$. For $A = 2 + \varepsilon$ with $\varepsilon \ge 0$: $1/A + 1/3 \le 1/2 + 1/3 = 5/6 < 1$. So $s_{t^*} \in [0, 1]$ for all $A \ge 2$.
+
+(2) $E \subseteq D$ implies any $D$-free integer is also $E$-free, so $N_D(n) \le N_E(n)$.
+
+(3) Let $\mathcal{O}_n$ be the odd integers in $[1, n]$. For $p \in E$, let $U_p := \{m \in \mathcal{O}_n : p \mid m\}$, so $|U_p| = n/(2p) + O(1)$. For $p < r$ in $E$: $|U_p \cap U_r| = |\{m \in \mathcal{O}_n : pr \mid m\}| = n/(2pr) + O(1)$ — but *only when $pr \le n$*, otherwise the intersection is empty.
+
+Second-order Bonferroni:
+\[
+N_E(n) = |\mathcal{O}_n| - |\bigcup_p U_p| \le |\mathcal{O}_n| - \sum_{p \in E} |U_p| + \sum_{\substack{p < r \\ p, r \in E}} |U_p \cap U_r|.
+\]
+
+Split the pair sum by $pr \le n$ vs $pr > n$. For pairs with $pr > n$, $|U_p \cap U_r| = 0$. So
+\[
+\sum_{p < r \in E} |U_p \cap U_r| = \sum_{\substack{p < r \in E \\ pr \le n}} \left(\frac{n}{2pr} + O(1)\right) = \frac{n}{2} \sum_{\substack{p < r \in E \\ pr \le n}} \frac{1}{pr} + O(R_2(n)),
+\]
+where $R_2(n) := \#\{(p, r) : p < r \in E, pr \le n\}$.
+
+\textbf{Bound on $R_2(n)$.} Each pair $(p, r)$ with $p < r$ and $pr \le n$ has $p \le \sqrt n$. For fixed $p \le \sqrt n$, the number of odd primes $r > p$ with $r \le n/p$ is at most $\pi(n/p)$. So $R_2(n) \le \sum_{p \le \sqrt n} \pi(n/p)$.
+
+By the prime number theorem, $\pi(n/p) \sim (n/p) / \log(n/p)$, and $\log(n/p) \ge \log \sqrt n = (1/2)\log n$ for $p \le \sqrt n$, so $\pi(n/p) \le 2(n/p)/\log n + O(n/(p \log^2 n))$. Summing:
+\[
+R_2(n) \ll \frac{n}{\log n} \sum_{p \le \sqrt n} \frac{1}{p} = \frac{n}{\log n} \cdot (\log\log \sqrt n + M + o(1)) = O\!\left(\frac{n \log\log n}{\log n}\right) = o(n).
+\]
+
+Dropping the constraint $pr \le n$ only overestimates the pair-reciprocal sum:
+\[
+\sum_{\substack{p < r \in E \\ pr \le n}} \frac{1}{pr} \le \sum_{p < r \in E} \frac{1}{pr} = \frac{1}{2}\left(\left(\sum_{p \in E}\frac{1}{p}\right)^2 - \sum_{p \in E}\frac{1}{p^2}\right) \le \frac{s_{t^*}^2}{2}.
+\]
+
+Combining:
+\[
+N_E(n) \le \frac{n}{2} + O(1) - \frac{n}{2} s_{t^*} + O(t^*) + \frac{n}{2} \cdot \frac{s_{t^*}^2}{2} + O(R_2(n)) = \frac{n}{2}\left(1 - s_{t^*} + \frac{s_{t^*}^2}{2}\right) + o(n),
+\]
+since $t^* \le k = o(n)$ and $R_2(n) = o(n)$.
+
+(4) Define $f(s) := 1 - s + s^2/2$, so $f'(s) = s - 1$. On $[0, 1]$, $f'(s) \le 0$, so $f$ is decreasing. By (1), $s_{t^*} \in [1/A - \eta_n, 1] \cap [1/A - \eta_n, 1/A + 1/3]$. Since $s_{t^*} \ge 1/A - \eta_n$, we have $f(s_{t^*}) \le f(1/A - \eta_n)$. For $\eta_n \to 0$: $f(1/A - \eta_n) = f(1/A) + o(1) = 1 - 1/A + 1/(2 A^2) + o(1)$.
+
+Hence $N_E(n) \le (n/2)(1 - 1/A + 1/(2A^2)) + o(n)$, and by (2), $N_D(n) \le N_E(n) \le (n/2)(1 - 1/A + 1/(2 A^2)) + o(n)$.
+\end{proof}
+
+\begin{proof}[Proof of Main Theorem]
+By Lemmas~\ref{lem:prime-bound-v2}–\ref{lem:truncation-v2}:
+\[
+L(n) \le 2k + N_D(n) \le 2k + \frac{n}{2}\left(1 - \frac{1}{A} + \frac{1}{2 A^2}\right) + o(n).
+\]
+Since $k = \lfloor n/(2 A \log n) \rfloor = o(n)$, we have $2k = o(n)$. So
+\[
+L(n) \le \frac{n}{2}\left(1 - \frac{1}{A} + \frac{1}{2 A^2}\right) + o(n)
+\]
+for every fixed $A > 2$. Taking the infimum over $A > 2$, i.e., letting $A \downarrow 2$:
+\[
+\inf_{A > 2} \frac{n}{2}\left(1 - \frac{1}{A} + \frac{1}{2 A^2}\right) + o(n) = \frac{n}{2}\left(1 - \frac{1}{2} + \frac{1}{8}\right) + o(n) = \frac{5}{16} n + o(n).
+\]
+
+The infimum is achieved in the limit $A \to 2^+$, and since the bound $L(n) \le \frac{n}{2} (1 - 1/A + 1/(2A^2)) + o(n)$ holds for every $A > 2$, we conclude
+\[
+L(n) \le \frac{5}{16} n + o(n).
+\]
+\end{proof}
+
+\end{document}
