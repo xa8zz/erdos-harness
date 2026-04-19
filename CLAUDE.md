@@ -37,6 +37,7 @@ erdos-872/
     tau_5_24_result.tar.gz
     theorem_A_result.tar.gz
     theorem_A_shield_lower_bound.tex
+  audit-R37-external-synthesis.md
   chatgpt.md
   claude-chat.md
   current_state.md
@@ -115,6 +116,7 @@ erdos-872/
     fast_sim.py
     findings.md
     freshness_toy.py
+    freshness_toy_multiplicity_results.csv
     max_antichain.py
     multirank_attempt.py
     multirank_ford_conjecture.md
@@ -148,6 +150,7 @@ erdos-872/
     audit-14-pro-02-probabilistic-sieve.md
     audit-15-pro-prime-count-refinement.md
     canonical-prompt.md
+    codex-R37-cheap-verification.md
     codex-close-L-sublinear.md
     codex-continuation-fiber-collapse-strategy.md
     codex-extract-optimal-shortener-strategy.md
@@ -159,7 +162,9 @@ erdos-872/
     codex-sigma-vs-simplex-star-cascade.md
     codex-small-h-transversal-empirical.md
     followup-12-pro-closeout.md
+    followup-3-codex-R38-multiplicity-bound.md
     followup-all-R37-freshness-lemma.md
+    followup-all-R38-full-game-gap.md
     followup-codex-R35-closure-gap.md
     followup-fresh-pro-R33-close.md
     followup-fresh-pro-R35-closure-gap.md
@@ -335,6 +340,13 @@ erdos-872/
   researcher-36-pro-A-freshness-lemma-partial.md
   researcher-37-codex-freshness-bounded-depth-partial.md
   researcher-37-codex-freshness-toy-counterexample.md
+  researcher-37-fresh-pro-one-cylinder-closure.md
+  researcher-37-pro-A-per-score-projection-reduction.md
+  researcher-38-codex-first-appearance-reduction.md
+  researcher-38-codex-pair-first-multiplicity-partial.md
+  researcher-38-pro-ford-refutation-independent-plus-chain-generated.md
+  researcher-38-pro-pair-first-charging-plus-ford-refutation.md
+  researcher-39-codex-pair-multiplicity-scaling.md
   verify-R35-codex-adversarial-audit.md
   verify-R35-codex-followup-dynamic-gap.md
   verify-R35-codex-star-cylinder-lower-defect-probe.md

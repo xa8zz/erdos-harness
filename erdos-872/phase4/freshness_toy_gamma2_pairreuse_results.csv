@@ -1,0 +1,4 @@
+variant,h,M,status,scored,useful_shields,pair_bad,pair_max,gamma2_dense_ge_half,gamma2_total,gamma2_mean_density,gamma2_min_density,gamma2_max_density,gamma2_aggregate_num,gamma2_aggregate_den,pair_channel_count,pair_channel_max,pair_channel_mean,max_support_cloud,max_predecessor_pair_reuse
+one-cylinder,5,20,ok,42,35,35,6,20,35,0.367,0.167,0.667,73,204,30,2,1.167,5,2
+one-cylinder,6,16,ok,23,6,6,4,0,6,0.300,0.100,0.400,18,60,6,1,1.000,4,1
+one-cylinder,7,14,ok,14,0,0,0,0,0,0.000,0.000,0.000,0,0,0,0,0.000,0,0

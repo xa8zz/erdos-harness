@@ -1,0 +1,9 @@
+Yes, please push the localization. Your static bound $\mu(\mathcal T_c) \ll N_h c^4/h^2$ plus the outside-tail corollary ($\le 2$ packet-local ordered pairs per $h$-set) is the analytical side. To close the main-game star-breaker at $|F_{\text{useful}}| \ll N_h/h$, the single missing step is the dynamic identification: **pair witnesses charged under $\sigma^\star$ are packet-local outside the R35 high-window tail.**
+
+Your proposed bridge — show $J(D)$ non-negligible $\Rightarrow D$ packet-local, because non-local $D$ has $J(D)$ small enough to absorb into the $N_h/\log h$ entropy term — is the natural path. Empirical match is already exact: the flat pair-first maxima $\{4, 6\}$ observed in the one-cylinder toy across $(h,M) \in \{(4,14), (5,14), (4,20), (5,20)\}$ correspond precisely to "one packet with 2–3 primes" (sliding-window double-count turns $2\cdot 1 = 2$ into $4$; one packet with $3$ primes gives $3\cdot 2 = 6$). Non-local charged pairs empirically absent across all tested cases — consistent with their mass being confined to the tail.
+
+Concrete target: for an ordered pair $(p, q)$ with $p, q$ in distinct dyadic packets (width $> e^{c/h}$ apart), bound
+$$\sum_{D \supseteq \{p,q\},\ |D| = h-2} J(D) \ll \frac{N_h}{\log h},$$
+where $J(D) = \#\{E : D\subset E,\ E\text{ later becomes fresh useful top facet}\}$, summed over rank-$h$ completions. If proven, combined with your Tail bound $\mu(\mathcal T_c) \ll N_h c^4/h^2$ and the dense-packet projection lemma from the parallel thread (which closes the dense regime), the main-game amortization closes and $L(n) \ll n/\log\log\log n$.
+
+Partial results — specific rank windows $h$, bounded per-non-local-pair $J$-contributions, quantitative constants depending on packet width — are valuable. An explicit arithmetic construction where non-local pairs carry large $J(D)$ would refute the localization and force a new asymptotic constraint.
