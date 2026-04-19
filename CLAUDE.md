@@ -788,6 +788,41 @@ When the same model family (e.g., two separate DeepThink instances) independentl
 - **Not three votes** (the existing rule) — but useful as a *map of the family's attractor basins*. DeepThink family gravitates to "sweep every vocabulary element" for matching-upper-bound claims; Pro family gravitates to careful Maker-Breaker capture accounting. Knowing the attractor lets the curator anticipate what a fresh dispatch to that family will likely try.
 - **Adding a refuted attractor to the canonical prompt's Ruled Out** saves future fresh threads from re-deriving it. After UCS was added to Ruled Out, subsequent fresh DeepThink threads should either propose a different path or explicitly acknowledge the gap. Watching whether they re-derive the same attractor after being warned is itself a signal about how strong the attractor is.
 
+### Static vs. dynamic bound conflation — watch for this in sublinear claims
+
+A common pattern in long-running research programs: an agent proves a STATE inequality (a bound that holds at every configuration $(R, C)$) and claims it implies a GAME-LENGTH bound on $L(n)$. This translation is NOT automatic. State inequalities like $\mu(\operatorname{Cl}_h) \le L \cdot |F_{\text{useful}}| + N_h/\log L$ bound closed mass in terms of a scored/useful quantity. Translating to a bound on $L(n)$ requires independently bounding that scored quantity under some Shortener strategy — the "online amortization" step.
+
+We've seen several closure claims break at exactly this step (R35 in Erdős 872). Agents confident in their analytical proof often treat the translation as one-line. A careful audit almost always finds the gap: either the scored quantity is self-referential as a length bound, or there's a hidden cardinality-vs-mass conflation. When reviewing a claimed sublinear closure, the first question is always: "is the state inequality doing work beyond giving a per-state bound? Specifically, does the translation to $L(n)$ introduce an unbounded quantity?"
+
+**Pattern for follow-ups on such claims:** "your state inequality is sound as proved; the translation to $L(n) = o(n)$ requires bounding [specific scored quantity] under [specific strategy]. Either prove that bound or refine the claim to 'conditional sublinear bound modulo this lemma.'" Retractions and refinements are productive; encourage them explicitly.
+
+### Multi-agent convergence on narrow gaps — trust it
+
+When N≥3 agents working in parallel, with different framings and partial information, independently arrive at the SAME specific missing lemma, that convergence is a very strong signal the gap is real and minimal. It is qualitatively different from (and stronger than) N copies agreeing on a claim — here different agents independently *narrow to* the same gap.
+
+Pattern seen in Erdős 872 R33-R36: fresh Pro, Pro A continuation, two different Codex dispatches all converged on a "freshness of lower-defect witnesses" lemma as the load-bearing step. Each arrived via different machinery (weighted counting lemma, dyadic charging, empirical refutation, multi-defect σ*), with different attack vectors, and each admitted they could not close it. Four independent framings pointing at the same narrow combinatorial statement.
+
+**Why this is useful:** when you see this convergence, you have extremely high confidence in what the next round should target. You can write a single short paragraph containing the specific lemma and dispatch it to all agents in parallel — they all know what to do, and a closure by any one of them resolves the program.
+
+### Empirical + analytical complementarity on arithmetic problems
+
+For problems with both abstract combinatorial structure AND specific arithmetic/geometric structure (like the divisibility-antichain game), dispatch complementary empirical and analytical agents. Specifically:
+
+- Empirical: "does the claimed amortization hold under adversarial strategies in the abstract model? Does it hold in a minimal arithmetic-structure-preserving model?"
+- Analytical: "prove the lemma or refute with construction."
+
+The combination is extremely informative. In Erdős 872 R36: Codex empirically showed σ-vs-shadow_pressure FAILS in abstract $H^{(h)}$ (peak ratio 6.71) but HOLDS in one-cylinder arithmetic (max 0-2). This directly localized the gap to arithmetic-specific structure (divisor lattice non-privacy) without needing an analytical insight about WHY. Then analytical agents could focus on quantifying the arithmetic escape.
+
+Pattern: when a gap might live in "abstract structure" vs "arithmetic structure," run one abstract empirical test and one arithmetic-preserving empirical test. The contrast identifies where the real work is needed.
+
+### Worktree and branch hygiene
+
+Codex agents using `.codex/worktrees/<hash>/` for their work will NOT appear in the main repo without explicit copying. Always:
+
+1. `git branch --show-current` at start of each session — check we're on main, not a stale Codex-created branch.
+2. When a Codex returns referencing files in a worktree path, copy them explicitly into the main repo before committing.
+3. If a stale Codex branch has no unique commits relative to main (common), just delete it with `git branch -d <branch>` after syncing.
+
 ### The audit prompt pattern — same canonical prompt, one extra header
 
 Most audits do NOT need a custom prompt. The default audit prompt is:

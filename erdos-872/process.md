@@ -1044,6 +1044,33 @@ The contrarian-framed Round-22 Pro dispatch (asking "assume $L(n) = \Theta(n)$, 
 - **Reformulate rather than patch for order-sensitivity bugs.** The Maker-second-vs-Maker-first gap rarely patches at the lemma level — the original informal "if Breaker, then Maker can" structure doesn't translate. Codex correctly replaced Lemma 2 with a cleanly-stated hypergraph game rather than trying to rephrase the old proof. Pattern-to-watch: when auditing any Maker-Breaker argument, check the order of quantifiers ("for every Breaker move, Maker has a response" vs. "Maker has a move such that for every Breaker reply") — these are different theorems.
 - **Exhaustive sanity checks on small instances are cheap signal.** Codex ran exhaustive search over graph states $\le 5$ vertices (Lemma 1) and 3-uniform hypergraphs on 4 vertices (Lemma 2). Failing a small instance would have killed the repair attempt immediately; passing is weak but positive signal. Cost: seconds of Python. Include this step by default when proposing new abstract lemmas.
 
+### Rounds 22-36: the sublinear upper bound program — from defect-budget to freshness lemma
+
+Summary of the sustained push through R22 (defect-budget invariant), R23-R28 (refutations of natural certificate frameworks), R29 (transversal lemma sharpening, σ extraction), R31-R32 (σ empirical robustness), R33 (multi-cell product-star closed, scale-entropy corrected), R34 (Codex identifies composition failure), R35 (dyadic expanded windows, two claimed closures), R36 (both closures retracted, freshness lemma isolated).
+
+Key structural lesson: the program repeatedly narrowed via a pattern of "propose target → refute by explicit construction → propose corrected target → refute again → close static part → identify dynamic gap." Each refutation was valuable and each correction brought the gap closer to something specific. By R36 the gap is: a freshness lemma on lower-defect witnesses under multi-defect σ⋆, with a backward-charging argument for pre-shielded chains.
+
+Quantitative current state:
+- T1 rigorous: $(1/8 + o(1)) n\log\log n/\log n \le L(n) \le 13/36 \cdot n$
+- T2 rigorous: $L(n) \ge c_\delta n(\log\log n)^2/\log n$
+- R35 static state estimate: $\mu(\operatorname{Cl}_h) \ll (h/\log h) |F_{\text{useful}}| + N_h/\log h$, proved rigorously in the arithmetic/cell-local model
+- Conditional theorem: if $|F_{\text{useful}}| \ll N_h/h$ under σ (via freshness lemma), then $L(n) \ll n/\log\log\log n = o(n)$
+- Empirical evidence: naive amortization FAILS in abstract $H^{(h)}$ (shadow_pressure gives 6.71 at (9,6)), HOLDS in one-cylinder arithmetic probe (max 0-2)
+
+### Methodology lessons from Rounds 22-36
+
+- **The state-vs-game-length gap pattern.** Claims of sublinear upper bounds repeatedly broke at the same specific step: proving a state inequality then implicitly claiming it gives a game-length bound. See CLAUDE.md for the generalized lesson. In Erdős 872 specifically: both R35 closure candidates (fresh Pro weighted counting, Codex dyadic windows) produced the correct static estimate but failed the translation. The bridge is an online amortization step that neither agent proved.
+
+- **Retractions are productive signal.** After adversarial audit, fresh Pro R36 explicitly retracted their unconditional closure claim and restated as a conditional theorem. This is genuinely more useful than the original claim. The harness should actively encourage this pattern via follow-ups that say "close this specific sub-gap OR restate as conditional" rather than "close or admit defeat."
+
+- **Convergence on a narrow gap from different framings is strong signal.** Four R36 agents (fresh Pro, Pro A, two Codex dispatches) independently arrived at the same freshness lemma as the load-bearing step via completely different attack vectors (weighted counting, multi-defect σ⋆, abstract empirical refutation, arithmetic cylinder probe). Single-paragraph parallel dispatch to all four (prompts/followup-all-R37-freshness-lemma.md) is the right response — each agent is missing different parts of the collective context, but one uniform prompt containing all of it works.
+
+- **Empirical abstract-vs-arithmetic contrast localizes the gap.** Codex R36 ran the same σ against shadow_pressure Prolonger in abstract $H^{(h)}$ (where it failed) and in a one-cylinder arithmetic model preserving lower-defect structure (where it succeeded empirically). This directly isolated the gap to arithmetic-specific divisor-lattice structure without needing an analytical insight. Pattern: when an agent claims a closure with arithmetic locality assumption, run one empirical test in each of "pure abstract" and "arithmetic-preserving minimal" models; the contrast will show whether the arithmetic is doing real work or is cosmetic.
+
+- **Multi-defect σ⋆ is a meaningful strengthening.** Pro A's upgrade from "max-degree top-facet" σ to "max-degree over ALL legal proper divisors" σ⋆ is a genuine refinement that enables the conditional amortization via the online budget $\sum_t d_t(x_t) \le N_h$. Analogous pattern worth watching: when a single-layer Maker-Breaker argument fails, try the same argument at "max degree over all layers" before giving up on the strategy.
+
+- **The abstract star-forest counterexample transferability question.** In R36, Pro A gave an abstract $H^{(h)}$ counterexample (disjoint stars with private leaves) showing the amortization fails. Pro A argued this does NOT embed into the arithmetic model because divisors are non-private. Codex R36 empirically supported the non-embedding. Still not a rigorous proof of arithmetic escape. Pattern: abstract counterexamples to arithmetic-model claims often fail to transfer because of specific structural features of arithmetic objects (multiplicative sharing of divisors, prime gap constraints, Dickman smoothness). When processing an abstract counterexample, identify the specific structural feature being used and check whether it transfers.
+
 ## Attribution
 
 Problem and framework authorship:

@@ -1,7 +1,35 @@
 # Current State
 
-> **30-second orientation (updated 2026-04-19, T2 repair complete):**
+> **TRUE 30-second orientation (updated 2026-04-19 post-R36/R37):**
 >
+> **Rigorous bounds:**
+> - **T1** (formally verified): $(1/8 - o(1)) n\log\log n/\log n \le L(n) \le (13/36 + o(1)) n$.
+> - **T2** (rigorous via Codex R21 Maker-first repair + activation audit, not Lean): $L(n) \ge c_\delta n(\log\log n)^2/\log n$.
+> - **R35 static estimate** (rigorous in arithmetic cell-local model): $\mu(\operatorname{Cl}_h) \ll (h/\log h) |F_{\text{useful}}| + N_h/\log h$ via dyadic expanded windows.
+> - **Upper bound**: $L(n) \le 0.18969 n$ (linear).
+>
+> **Linear route to $\Theta(n)$ comprehensively closed.** Fan hierarchy ceilings, Sperner obstruction on same-$b$ cores, dyadic-fiber positive density ≡ the linear conjecture itself.
+>
+> **Sublinear route — candidate closure at $L(n) \ll n/\log\log\log n$ is CONDITIONAL.** R35 static estimate + R33 counting lemma + dyadic windows gave two independent candidate closures (fresh Pro + Codex R35), BOTH refuted at the same bridging step by parallel Pro A critique + Codex R36 audit. The translation to game length requires cardinality bound $|F_{\text{useful}}| \ll N_h/h$ which needs an online amortization not yet proven.
+>
+> **Exact current open lemma:** multi-defect $\sigma^\star$ (claim max-degree over ALL legal proper divisors) plus a **freshness condition** — every useful top-facet shield has a fresh legal lower-defect witness of degree $\ge h$ with $O(1)$ assignment multiplicity. If closed, $L(n) \ll n/\log\log\log n = o(n)$. Codex R37 refuted IMMEDIATE freshness at $(h,M) = (3,7)$ and $(4,8)$ explicit examples; viable remaining form is **bounded-depth recursive backward-charging** (pre-shielded chains admit bounded-branching reduction to a fresh degree-$\gg h$ certificate).
+>
+> **Empirical contrast pinpointing where the gap lives:** Codex R36 ran same $\sigma$ vs `shadow_pressure` Prolonger in two models:
+> - Abstract $H^{(h)}$: naive amortization FAILS (peak useful-top-facet ratios up to 6.71 at $(9,6)$).
+> - One-cylinder arithmetic model: max useful residuals 0-2 across tested grids.
+>
+> Gap is specifically in arithmetic lower-defect backward-charging structure that has no abstract analogue.
+>
+> **Currently dispatched (2026-04-19 end):** parallel follow-up `prompts/followup-all-R37-freshness-lemma.md` to all four agents (both Pros, both Codexs) asking to prove the (recursive) freshness lemma or refute with explicit construction. Single-paragraph uniform prompt containing each agent's missing context.
+>
+> **Empirical (Phase 4):** $L\log n/n \in [1.55, 1.70]$ across $n \in [10^4, 10^7]$. Cannot distinguish candidate rates at accessible $n$ since $\log\log n \le 2.8$.
+>
+> For technical detail see `prompts/canonical-prompt.md` (Established + Ruled Out), `researcher-3*-*.md` for round-by-round, `process.md` for methodology.
+
+---
+
+## Extended state (pre-R36 detail, kept for reference)
+
 > **Current windows.**
 > - **T1 (rigorous, formally verified):** $(1/8 - o(1)) \cdot n\log\log n/\log n \le L(n) \le (13/36 + o(1)) n$.
 > - **T2 (rigorous after Codex 2026-04-19 repair pass; not formally Lean-verified).** Lower bound $L(n) \ge c_\delta n(\log\log n)^2/\log n$ program:
@@ -76,6 +104,7 @@
 > - **Pro A R36 isolates a FRESHNESS lemma.** Proves multi-defect $\sigma^\star$ (claim max degree over ALL legal proper divisors, not just top facets) gives $\sum d_t(x_t) \le N_h$. If every useful shield has a fresh legal lower-defect witness of degree $\ge h$ with $O(1)$ assignment multiplicity, amortization closes. In dyadic arithmetic, candidate witnesses exist: for top facet $bA_{S \setminus \{p\}}$ and block $B \ni p$, the lower lateral $c = bA_{S \setminus B}$ has replacement degree $\prod_{q \in B} M_{\mathcal Q(q)}$. Unresolved: FRESHNESS — $c$ may be pre-shielded by an earlier Prolonger score. Backward recursive charging needed. See researcher-36-pro-A-freshness-lemma-partial.md.
 > - **Codex R36 empirically refutes naive amortization in abstract $H^{(h)}$.** New `shadow_pressure` Prolonger against $\sigma$: peak useful-top-facet proxy ratios at $(11,4), (10,5), (9,6)$ are $1.50, 3.17, 6.71$ — above the $N_h/h$ scale. So the missing theorem CANNOT use max-degree alone in the abstract model; must exploit weighted or lower-defect structure. Matches Pro A's critique. See researcher-36-codex-r35-online-amortization-followup.md.
 > - **Codex R36 followup (star-cylinder probe).** In a minimal "one-cylinder" arithmetic model preserving lower-defect certificates, max-degree $\sigma$ takes singleton/pair/triple certificates and keeps useful closed residual family TINY ($\le 2$ at $h = 3, M = 7$; exactly $0$ at $h = 4, M = 8$ and $h = 5, M = 8$). Arithmetic model may genuinely escape the abstract star-forest counterexample through lower-defect structure. See verify-R35-codex-star-cylinder-lower-defect-probe.md and verify-R35-codex-followup-dynamic-gap.md.
+> - **Codex R37 partial refutation — immediate freshness already fails in the one-cylinder arithmetic toy.** With legality corrected to the actual inclusion-antichain rule, the toy still stays dynamically small, but the strongest local version of Pro A's freshness lemma is false: at $(h,M)=(3,7)$ and $(4,8)$ there are terminal useful residual targets whose every useful top-facet shield has **no immediate fresh legal lower-defect witness of degree $\ge h$**. Explicit example for $(3,7)$: scored stars $(0,1,2),(0,1,4),(0,2,4),(0,1,7),(0,4,7)$, $\sigma^\star$ claims $(3),(5),(6),(2,7)$, final useful residuals $(1,2,4),(1,4,7)$, and for shield $(S,p,T)=((1,2,4),1,(0,2,4))$ the only candidates $\{1\},\{1,2\},\{1,4\}$ are all already stale. So the viable remaining target is the **recursive** bounded-depth stale-chain / backward-charging lemma, not immediate freshness. See researcher-37-codex-freshness-toy-counterexample.md.
 >
 > **What's confirmed sound.** The static state estimate $\mu(\operatorname{Cl}_h) \ll (h/\log h) \cdot (\text{useful boundary mass}) + N_h/\log h$ appears correct — thick-case charging, thin-case exponential tilting, dyadic window locality all look sound under adversarial scrutiny. This IS a genuine advance.
 >

@@ -1,6 +1,7 @@
 import math
 import unittest
 
+from freshness_toy import OneCylinderToy, greedy_useful_residual_sequence
 from transversal_small_h import (
     ExactTopFacetSolver,
     StaticCoverSolver,
@@ -163,6 +164,60 @@ class TopFacetHypergraphTests(unittest.TestCase):
         self.assertEqual(codim_two.unavailable_outside_shadow, 0)
         self.assertEqual(codim_two.claimed_outside_shadow, 0)
         self.assertEqual(codim_two.captured_outside_shadow, 0)
+
+
+class FreshnessToyTests(unittest.TestCase):
+    def test_h3_m7_greedy_sequence_has_useful_residuals_without_fresh_witness(self) -> None:
+        toy, sequence, states = greedy_useful_residual_sequence(3, 7)
+
+        self.assertEqual(
+            sequence,
+            [
+                (0, 1, 2),
+                (0, 1, 4),
+                (0, 2, 4),
+                (0, 1, 7),
+                (0, 4, 7),
+            ],
+        )
+        final_state = states[-1]
+        self.assertEqual(final_state.claims, ((3,), (5,), (6,), (2, 7)))
+        self.assertEqual(toy.useful_residual_targets(final_state), ((1, 2, 4), (1, 4, 7)))
+
+        for shield in toy.useful_shields(final_state):
+            self.assertEqual(toy.fresh_witnesses(shield, final_state, minimum_degree=3), ())
+
+        first_useful_state = states[3]
+        self.assertEqual(toy.useful_residual_targets(first_useful_state), ((1, 2, 4),))
+        for shield in toy.useful_shields(first_useful_state):
+            self.assertEqual(toy.fresh_witnesses(shield, first_useful_state, minimum_degree=3), ())
+
+    def test_h4_m8_greedy_sequence_has_useful_residual_without_fresh_witness(self) -> None:
+        toy, sequence, states = greedy_useful_residual_sequence(4, 8)
+
+        self.assertEqual(
+            sequence,
+            [
+                (0, 1, 2, 3),
+                (0, 1, 2, 5),
+                (0, 1, 2, 7),
+                (0, 1, 3, 5),
+                (0, 2, 3, 5),
+            ],
+        )
+        final_state = states[-1]
+        self.assertEqual(final_state.claims, ((4,), (6,), (8,), (3, 7), (5, 7)))
+        self.assertEqual(toy.useful_residual_targets(final_state), ((1, 2, 3, 5),))
+
+        for shield in toy.useful_shields(final_state):
+            self.assertEqual(toy.fresh_witnesses(shield, final_state, minimum_degree=4), ())
+
+    def test_play_round_rejects_star_containing_claimed_certificate(self) -> None:
+        toy = OneCylinderToy(3, 7)
+        state = toy.play_round(toy.initial_state(), (0, 1, 2))
+        self.assertEqual(state.claims, ((3,),))
+        with self.assertRaises(ValueError):
+            toy.play_round(state, (0, 1, 3))
 
 
 if __name__ == "__main__":
