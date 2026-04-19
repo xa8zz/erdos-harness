@@ -546,6 +546,24 @@ Path("erdos-872/target.md").write_text(blocks[1].strip() + "\n")
 
 If extraction fails outright, fall back to `pbpaste > filename.md` from the user's clipboard — zero curator cost, still byte-faithful.
 
+### Follow-up prompts — salvage novel ideas, pressure specific gaps
+
+When a researcher returns an argument that's wrong overall but contains a *novel mathematical idea*, the follow-up is not a dismissal. The idea often stands independent of the flawed argument around it and can be reused by the same thread (or others) once isolated. Pattern that works:
+
+1. **Open by crediting the novel content** — name the specific idea (e.g., "your Multiplier Lock construction"), say why it's interesting, frame it as worth preserving even if the full claim doesn't survive.
+2. **State the gaps as specific mathematical facts**, each numbered, each with what would close it. Avoid "this step is unclear" — instead, "this step asserts X but X is false for Y-shaped inputs."
+3. **Feed back any new rigorous context** the thread hasn't seen (cross-family theorems, audit findings, empirical data) as validated facts.
+4. **Binary close: patch-or-concede.** Either rigorize with the new context + the novel idea, or state cleanly which specific step can't be closed. Explicit: "clean concession of a specific gap is more useful than a patched argument with the same structural weakness."
+
+This works because (a) models often fix gaps when they're named precisely and (b) a concession with a specific failure mechanism is itself a valuable Ruled Out entry for the canonical prompt.
+
+### Within-family attractor states
+
+When the same model family (e.g., two separate DeepThink instances) independently produces similar flawed arguments (e.g., both gravitate toward the "Universal Sub-Divisor Cover" sweep strategy, or both claim $\Theta(n)$ via different-but-structurally-similar Maker-Breaker reasoning), this is lower signal than cross-family convergence but higher signal than a single response. Interpretation:
+
+- **Not three votes** (the existing rule) — but useful as a *map of the family's attractor basins*. DeepThink family gravitates to "sweep every vocabulary element" for matching-upper-bound claims; Pro family gravitates to careful Maker-Breaker capture accounting. Knowing the attractor lets the curator anticipate what a fresh dispatch to that family will likely try.
+- **Adding a refuted attractor to the canonical prompt's Ruled Out** saves future fresh threads from re-deriving it. After UCS was added to Ruled Out, subsequent fresh DeepThink threads should either propose a different path or explicitly acknowledge the gap. Watching whether they re-derive the same attractor after being warned is itself a signal about how strong the attractor is.
+
 ### The audit prompt pattern — same canonical prompt, one extra header
 
 Most audits do NOT need a custom prompt. The default audit prompt is:
