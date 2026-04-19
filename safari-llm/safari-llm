@@ -1,0 +1,686 @@
+#!/usr/bin/env python3
+"""safari-llm: drive ChatGPT / Claude / Gemini in Safari via AppleScript+JS.
+
+All calls are non-focus-stealing (Apple Events don't activate). JS is passed
+to Safari via base64 to sidestep escaping hell.
+
+Subcommands:
+  tabs                              list Safari tabs (JSON)
+  eval    <tab> '<js>' [--async]    run arbitrary JS (escape hatch)
+  export  <tab>                     current conversation -> markdown
+  threads <tab>                     sidebar thread list (JSON)
+  open    <tab> <ref>               switch to a thread (title-substring / url / idx)
+  send    <tab> <file|-|"text">     type into prompt box + send
+  wait    <tab> [--timeout N]       block until response streaming stops
+  model   <tab> [name]              read / set model (name is substring match)
+
+<tab> accepts:  chatgpt | claude | gemini | <url-substring> | wNtN | <global-idx>
+
+Exit codes: 0 ok / 2 applescript / 3 js-threw / 4 not-found / 5 timeout / 1 usage.
+"""
+
+import argparse
+import base64
+import json
+import os
+import subprocess
+import sys
+import time
+import re
+
+# ---------- osascript bridge ----------
+
+def _osa(script: str):
+    r = subprocess.run(['osascript', '-'], input=script,
+                       capture_output=True, text=True)
+    return r.stdout.rstrip('\n'), r.stderr.rstrip('\n'), r.returncode
+
+
+def die(msg, code=1):
+    print(f"safari-llm: {msg}", file=sys.stderr)
+    sys.exit(code)
+
+
+def activate_tab(window_idx: int, tab_idx: int):
+    """Bring Safari to front AND make the given tab the active tab. Steals focus —
+    use only when necessary (send/wait on streaming responses, since Safari throttles
+    hidden tabs)."""
+    script = (
+        'tell application "Safari"\n'
+        '  activate\n'
+        f'  set current tab of window {window_idx} to tab {tab_idx} of window {window_idx}\n'
+        'end tell'
+    )
+    out, err, rc = _osa(script)
+    if rc != 0:
+        die(f"applescript activate: {err}", 2)
+    # Give Safari a moment to finish the focus transition
+    time.sleep(0.3)
+
+
+_SEP = "|\x1f|"  # unit separator between fields (avoids collision with tab/pipe in URLs/titles)
+
+
+def list_tabs():
+    """[(window_idx, tab_idx, url, title), ...]"""
+    script = f'''tell application "Safari"
+  set SEP to "{_SEP}"
+  set out to ""
+  set winIdx to 0
+  repeat with w in windows
+    set winIdx to winIdx + 1
+    set tabIdx to 0
+    repeat with theTab in tabs of w
+      set tabIdx to tabIdx + 1
+      set out to out & winIdx & SEP & tabIdx & SEP & (URL of theTab) & SEP & (name of theTab) & linefeed
+    end repeat
+  end repeat
+  return out
+end tell'''
+    out, err, rc = _osa(script)
+    if rc != 0:
+        die(f"applescript: {err}", 2)
+    result = []
+    for line in out.split('\n'):
+        if not line.strip():
+            continue
+        parts = line.split(_SEP)
+        if len(parts) >= 4:
+            try:
+                result.append((int(parts[0]), int(parts[1]), parts[2], _SEP.join(parts[3:])))
+            except ValueError:
+                continue
+    return result
+
+
+PROVIDER_HINTS = {
+    'chatgpt': 'chatgpt.com',
+    'openai':  'chatgpt.com',
+    'gpt':     'chatgpt.com',
+    'claude':  'claude.ai',
+    'anthropic': 'claude.ai',
+    'gemini':  'gemini.google.com',
+    'google':  'gemini.google.com',
+    'bard':    'gemini.google.com',
+}
+
+
+def provider_of(url: str):
+    u = (url or '').lower()
+    if 'chatgpt.com' in u: return 'chatgpt'
+    if 'claude.ai' in u:   return 'claude'
+    if 'gemini.google.com' in u: return 'gemini'
+    return None
+
+
+def resolve_tab(selector: str):
+    """Return (window_idx, tab_idx, url, provider)."""
+    tabs = list_tabs()
+    if not tabs:
+        die("no Safari tabs found", 4)
+
+    sel = str(selector)
+    m = re.match(r'w(\d+)t(\d+)$', sel.lower())
+    if m:
+        w, t = int(m.group(1)), int(m.group(2))
+        for (wi, ti, url, title) in tabs:
+            if wi == w and ti == t:
+                return wi, ti, url, provider_of(url)
+        die(f"no tab at w{w}t{t}", 4)
+
+    if sel.isdigit():
+        idx = int(sel)
+        if 1 <= idx <= len(tabs):
+            wi, ti, url, _ = tabs[idx - 1]
+            return wi, ti, url, provider_of(url)
+        die(f"no tab at global index {sel}", 4)
+
+    key = PROVIDER_HINTS.get(sel.lower(), sel.lower())
+    for (wi, ti, url, title) in tabs:
+        if key in url.lower():
+            return wi, ti, url, provider_of(url)
+    die(f"no tab matching {sel!r}", 4)
+
+
+# ---------- JS execution ----------
+
+def _escape_for_applescript_string(s: str) -> str:
+    """Escape JS so it can live inside an AppleScript double-quoted string literal.
+    AppleScript allows literal newlines inside string literals, so we only need
+    to escape backslash and double-quote. (CSP on the chat sites blocks eval(),
+    so we cannot use the base64-atob-eval trick; JS is embedded directly.)"""
+    return s.replace('\\', '\\\\').replace('"', '\\"')
+
+
+def _do_js(window_idx: int, tab_idx: int, js_code: str):
+    """Raw do-JavaScript call. Returns (stdout, stderr, rc)."""
+    escaped = _escape_for_applescript_string(js_code)
+    script = (
+        'tell application "Safari"\n'
+        f'  tell tab {tab_idx} of window {window_idx}\n'
+        f'    do JavaScript "{escaped}"\n'
+        '  end tell\n'
+        'end tell'
+    )
+    return _osa(script)
+
+
+_RE_RETURN = re.compile(r'\breturn\b')
+
+
+def _prep_user_code(code: str) -> str:
+    """If the code looks like a single expression (no `return`, single line),
+    wrap in `return (...)` so the user can write `1+1` and get a value back.
+    Otherwise pass through as function body (user handles `return` themselves).
+    """
+    stripped = code.strip().rstrip(';').strip()
+    if not stripped:
+        return 'return null;'
+    if '\n' in stripped:
+        return code
+    if _RE_RETURN.search(stripped):
+        return code
+    # Heuristic: starts with a JS statement keyword → treat as body verbatim
+    if re.match(r'^(throw|if|for|while|do|switch|try|let|const|var|function|class|async)\b', stripped):
+        return code
+    return f'return ({stripped});'
+
+
+def run_js(window_idx: int, tab_idx: int, js_code: str, async_: bool = False,
+           timeout: float = 30.0, poll_interval: float = 0.1):
+    """Run JS, return parsed result.
+    Code is embedded directly in a wrapping IIFE (no eval — blocked by CSP)."""
+    body = _prep_user_code(js_code)
+
+    if async_:
+        kick = (
+            "(function(){\n"
+            " window.__safllm_done = false;\n"
+            " window.__safllm_err = null;\n"
+            " window.__safllm_res = null;\n"
+            " (async function(){\n"
+            "   try {\n"
+            f"     window.__safllm_res = await (async function(){{ {body} }})();\n"
+            "   } catch(e) {\n"
+            "     window.__safllm_err = String(e) + (e && e.stack ? '\\n'+e.stack : '');\n"
+            "   } finally {\n"
+            "     window.__safllm_done = true;\n"
+            "   }\n"
+            " })();\n"
+            " return 'kicked';\n"
+            "})()"
+        )
+        out, err, rc = _do_js(window_idx, tab_idx, kick)
+        if rc != 0:
+            die(f"applescript (kick): {err}", 2)
+
+        poll = (
+            "(function(){\n"
+            " if (!window.__safllm_done) return '__PENDING__';\n"
+            " if (window.__safllm_err) return '__ERR__' + window.__safllm_err;\n"
+            " try { return '__OK__' + JSON.stringify(window.__safllm_res === undefined ? null : window.__safllm_res); }\n"
+            " catch(e) { return '__SERERR__' + String(e); }\n"
+            "})()"
+        )
+        deadline = time.time() + timeout
+        while time.time() < deadline:
+            out, err, rc = _do_js(window_idx, tab_idx, poll)
+            if rc != 0:
+                die(f"applescript (poll): {err}", 2)
+            if out == '__PENDING__' or out == '':
+                time.sleep(poll_interval)
+                continue
+            if out.startswith('__ERR__'):
+                die(f"js: {out[len('__ERR__'):]}", 3)
+            if out.startswith('__SERERR__'):
+                die(f"js serialize: {out[len('__SERERR__'):]}", 3)
+            if out.startswith('__OK__'):
+                payload = out[len('__OK__'):]
+                try:
+                    return json.loads(payload)
+                except json.JSONDecodeError:
+                    return payload
+            time.sleep(poll_interval)
+        die(f"async timeout after {timeout}s", 5)
+    else:
+        wrapped = (
+            "(function(){\n"
+            " try {\n"
+            f"   const __r = (function(){{ {body} }})();\n"
+            "   return '__OK__' + JSON.stringify(__r === undefined ? null : __r);\n"
+            " } catch(e) {\n"
+            "   return '__ERR__' + JSON.stringify({err: String(e), stack: e && e.stack || null});\n"
+            " }\n"
+            "})()"
+        )
+        out, err, rc = _do_js(window_idx, tab_idx, wrapped)
+        if rc != 0:
+            die(f"applescript: {err}", 2)
+        if out.startswith('__ERR__'):
+            try:
+                ep = json.loads(out[len('__ERR__'):])
+                die(f"js: {ep.get('err')}\n{ep.get('stack') or ''}", 3)
+            except json.JSONDecodeError:
+                die(f"js (unparseable err): {out[:500]}", 3)
+        if out.startswith('__OK__'):
+            payload = out[len('__OK__'):]
+            try:
+                return json.loads(payload)
+            except json.JSONDecodeError:
+                return payload
+        die(f"unexpected return: {out[:500]}", 3)
+
+
+def run_js_file(window_idx: int, tab_idx: int, path: str, **kw):
+    with open(path) as f:
+        return run_js(window_idx, tab_idx, f.read(), **kw)
+
+
+# ---------- provider scripts ----------
+
+_SCRIPT_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'js')
+
+
+def provider_js(provider: str, name: str) -> str:
+    path = os.path.join(_SCRIPT_DIR, provider, f'{name}.js')
+    if not os.path.exists(path):
+        die(f"no script {provider}/{name}.js (path: {path})", 4)
+    with open(path) as f:
+        return f.read()
+
+
+def must_provider(url: str) -> str:
+    p = provider_of(url)
+    if p is None:
+        die(f"tab is not chatgpt/claude/gemini: {url}", 4)
+    return p
+
+
+# ---------- commands ----------
+
+_NEW_URLS = {
+    'chatgpt': 'https://chatgpt.com/',
+    'claude':  'https://claude.ai/new',
+    'gemini':  'https://gemini.google.com/app',
+}
+
+
+def cmd_new(args):
+    """Open a new Safari tab at a provider's home/new URL, wait for it to be
+    interactive, print the tab ref. Doesn't steal focus unless --activate."""
+    key = PROVIDER_HINTS.get(args.provider.lower(), args.provider.lower())
+    if 'chatgpt.com' in key: pkey = 'chatgpt'
+    elif 'claude.ai' in key: pkey = 'claude'
+    elif 'gemini.google.com' in key: pkey = 'gemini'
+    elif key in _NEW_URLS: pkey = key
+    else:
+        die(f"unknown provider: {args.provider} (try: chatgpt | claude | gemini)", 1)
+    url = _NEW_URLS[pkey]
+
+    # Snapshot which chat tabs already exist so we can identify the NEW one
+    pre_keys = set()
+    domain = url.split('/')[2]
+    for (wi, ti, u, title) in list_tabs():
+        if domain in u.lower():
+            pre_keys.add((wi, ti))
+
+    script = (
+        'tell application "Safari"\n'
+        '  if (count of windows) = 0 then\n'
+        f'    make new document with properties {{URL:"{url}"}}\n'
+        '  else\n'
+        '    tell window 1\n'
+        f'      set newTab to make new tab with properties {{URL:"{url}"}}\n'
+        '      set current tab to newTab\n'
+        '    end tell\n'
+        '  end if\n'
+        'end tell'
+    )
+    out, err, rc = _osa(script)
+    if rc != 0:
+        die(f"applescript: {err}", 2)
+
+    # Locate the newly-opened tab
+    deadline = time.time() + 10
+    target = None
+    while time.time() < deadline:
+        for (wi, ti, u, title) in list_tabs():
+            if (wi, ti) in pre_keys:
+                continue
+            if domain in u.lower():
+                target = (wi, ti, u, title)
+                break
+        if target:
+            break
+        time.sleep(0.25)
+    if not target:
+        die(f"could not find newly-opened {pkey} tab", 4)
+    wi, ti, u, title = target
+
+    if args.activate:
+        activate_tab(wi, ti)
+
+    # Wait for the page to be ready (readyState=complete AND input element present)
+    if args.wait > 0:
+        ready_deadline = time.time() + args.wait
+        while time.time() < ready_deadline:
+            try:
+                ready = run_js(wi, ti,
+                               'return document.readyState === "complete" && '
+                               '!!document.querySelector("[contenteditable=true], textarea, .ql-editor")',
+                               timeout=5)
+                if ready:
+                    break
+            except SystemExit:
+                # early in load, eval can transiently fail — retry
+                pass
+            time.sleep(0.4)
+
+    # Final url/title after load
+    for (wi2, ti2, u2, title2) in list_tabs():
+        if (wi2, ti2) == (wi, ti):
+            u, title = u2, title2
+            break
+    print(json.dumps({'ref': f'w{wi}t{ti}', 'provider': pkey, 'url': u, 'title': title}, indent=2))
+
+
+def cmd_focus(args):
+    """Make <tab> the visible tab in its Safari window. Doesn't bring Safari to
+    front by default — use --activate for that."""
+    w, t, url, _ = resolve_tab(args.tab)
+    if args.activate:
+        activate_tab(w, t)
+    else:
+        script = (
+            'tell application "Safari"\n'
+            f'  set current tab of window {w} to tab {t} of window {w}\n'
+            'end tell'
+        )
+        out, err, rc = _osa(script)
+        if rc != 0:
+            die(f"applescript: {err}", 2)
+    print(json.dumps({'ref': f'w{w}t{t}', 'url': url}, indent=2))
+
+
+def cmd_close(args):
+    """Close the given tab."""
+    w, t, url, _ = resolve_tab(args.tab)
+    script = (
+        'tell application "Safari"\n'
+        f'  close tab {t} of window {w}\n'
+        'end tell'
+    )
+    out, err, rc = _osa(script)
+    if rc != 0:
+        die(f"applescript: {err}", 2)
+    print(json.dumps({'closed': f'w{w}t{t}', 'url': url}, indent=2))
+
+
+def cmd_tabs(args):
+    result = []
+    for (w, t, url, title) in list_tabs():
+        result.append({
+            'ref': f'w{w}t{t}',
+            'window': w, 'tab': t,
+            'provider': provider_of(url),
+            'url': url, 'title': title,
+        })
+    print(json.dumps(result, indent=2))
+
+
+def cmd_eval(args):
+    w, t, url, _ = resolve_tab(args.tab)
+    js = args.js
+    if js == '-':
+        js = sys.stdin.read()
+    result = run_js(w, t, js, async_=args.async_, timeout=args.timeout)
+    if isinstance(result, (dict, list)):
+        out = json.dumps(result, indent=2)
+    else:
+        out = '' if result is None else str(result)
+    if args.out:
+        with open(args.out, 'w') as f:
+            f.write(out + ('\n' if not out.endswith('\n') else ''))
+    else:
+        print(out)
+
+
+def cmd_export(args):
+    w, t, url, _ = resolve_tab(args.tab)
+    provider = must_provider(url)
+    js = provider_js(provider, 'export')
+    result = run_js(w, t, js, timeout=args.timeout)
+    if args.json:
+        print(json.dumps(result, indent=2))
+        return
+    # markdown formatting
+    md = format_markdown(result, provider)
+    if args.out:
+        with open(args.out, 'w') as f:
+            f.write(md)
+    else:
+        sys.stdout.write(md)
+
+
+def format_markdown(convo: dict, provider: str) -> str:
+    lines = []
+    title = convo.get('title') or '(untitled)'
+    url = convo.get('url') or ''
+    lines.append(f"# {title}")
+    lines.append("")
+    lines.append(f"_source: {provider} — {url}_")
+    lines.append("")
+    for i, msg in enumerate(convo.get('messages') or []):
+        role = msg.get('role', 'unknown')
+        body = msg.get('text') or ''
+        lines.append(f"## {role}")
+        lines.append("")
+        lines.append(body.rstrip())
+        lines.append("")
+    return '\n'.join(lines) + '\n'
+
+
+def cmd_threads(args):
+    w, t, url, _ = resolve_tab(args.tab)
+    provider = must_provider(url)
+    js = provider_js(provider, 'threads')
+    result = run_js(w, t, js, timeout=args.timeout)
+    print(json.dumps(result, indent=2))
+
+
+def cmd_open(args):
+    w, t, url, _ = resolve_tab(args.tab)
+    provider = must_provider(url)
+    js = provider_js(provider, 'open')
+    code = js + f"\nreturn __open({json.dumps(args.ref)});"
+    result = run_js(w, t, code, timeout=args.timeout)
+    print(json.dumps(result, indent=2))
+
+
+def cmd_send(args):
+    w, t, url, _ = resolve_tab(args.tab)
+    provider = must_provider(url)
+
+    if args.text == '-':
+        text = sys.stdin.read()
+    elif os.path.isfile(args.text):
+        with open(args.text) as f:
+            text = f.read()
+    else:
+        text = args.text
+
+    text = text.rstrip('\n')
+
+    if args.activate:
+        activate_tab(w, t)
+
+    js = provider_js(provider, 'send')
+    code = js + f"\nreturn __send({json.dumps(text)});"
+    result = run_js(w, t, code, async_=True, timeout=args.timeout)
+    print(json.dumps(result, indent=2))
+
+
+def cmd_wait(args):
+    """Poll from Python — each tick is a cheap synchronous DOM probe. This sidesteps
+    Safari's timer throttling on background tabs (setTimeout in hidden tabs is clamped
+    to ~1Hz, making JS-side polling unreliable). Python's sleeps aren't throttled.
+
+    If --activate is given: Safari is brought to front initially so streaming can flow.
+    If --keep-active is also given: whenever polling detects a hidden-tab streaming
+    stall (text length stuck at 0 and tab hidden), re-activate to unstick it."""
+    w, t, url, _ = resolve_tab(args.tab)
+    provider = must_provider(url)
+
+    if args.activate:
+        activate_tab(w, t)
+
+    js = provider_js(provider, 'wait_probe')
+    started = time.time()
+    deadline = started + args.timeout
+    poll_every = 0.4
+    stable_threshold = 5  # 5*0.4s = 2s of stable text
+    stable_count = 0
+    last_len = -1
+    saw_streaming = False
+    saw_hidden = False
+    last_progress_ts = started
+    last_reactivate_ts = 0
+    while time.time() < deadline:
+        probe = run_js(w, t, js, async_=False, timeout=5)
+        if probe.get('hidden'):
+            saw_hidden = True
+        cur = probe.get('len', 0)
+        if probe.get('streaming'):
+            saw_streaming = True
+            stable_count = 0
+            last_len = cur
+            if cur > 0:
+                last_progress_ts = time.time()
+        else:
+            if cur == last_len and cur > 0:
+                stable_count += 1
+                if stable_count >= stable_threshold:
+                    elapsed = round(time.time() - started, 1)
+                    print(json.dumps({'ok': True, 'elapsedSec': elapsed, 'finalLen': cur,
+                                      'sawStreaming': saw_streaming, 'sawHidden': saw_hidden}, indent=2))
+                    return
+            else:
+                stable_count = 0
+                last_len = cur
+                if cur > 0:
+                    last_progress_ts = time.time()
+
+        # --keep-active: if tab is hidden AND we haven't made progress in 5s AND
+        # it's been >10s since last re-activate, briefly re-activate.
+        if args.keep_active and probe.get('hidden') \
+                and (time.time() - last_progress_ts) > 5.0 \
+                and (time.time() - last_reactivate_ts) > 10.0:
+            activate_tab(w, t)
+            last_reactivate_ts = time.time()
+            last_progress_ts = time.time()
+
+        time.sleep(poll_every)
+    elapsed = round(time.time() - started, 1)
+    result = {'ok': False, 'timedOut': True, 'elapsedSec': elapsed,
+              'lastLen': last_len, 'sawStreaming': saw_streaming, 'sawHidden': saw_hidden}
+    print(json.dumps(result, indent=2))
+    sys.exit(5)
+
+
+def cmd_model(args):
+    w, t, url, _ = resolve_tab(args.tab)
+    provider = must_provider(url)
+    # Always use async path: ChatGPT's model_get opens a menu (needs await); Claude/Gemini
+    # model_get are sync but the async wrapper handles sync code fine too.
+    if args.name is None:
+        js = provider_js(provider, 'model_get')
+        result = run_js(w, t, js, async_=True, timeout=args.timeout)
+    else:
+        js = provider_js(provider, 'model_set')
+        code = js + f"\nreturn __model_set({json.dumps(args.name)});"
+        result = run_js(w, t, code, async_=True, timeout=args.timeout)
+    print(json.dumps(result, indent=2))
+
+
+# ---------- arg parsing ----------
+
+def main():
+    ap = argparse.ArgumentParser(prog='safari-llm',
+                                 description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest='cmd', required=True)
+
+    p = sub.add_parser('tabs'); p.set_defaults(fn=cmd_tabs)
+
+    p = sub.add_parser('new', help='open a new Safari tab at chatgpt / claude / gemini')
+    p.add_argument('provider', help='chatgpt | claude | gemini')
+    p.add_argument('--wait', type=float, default=15.0,
+                   help='Seconds to wait for page to become interactive (0 = no wait).')
+    p.add_argument('--activate', action='store_true',
+                   help='Bring Safari to front + make new tab active.')
+    p.set_defaults(fn=cmd_new)
+
+    p = sub.add_parser('focus', help="make <tab> Safari's current tab (doesn't steal focus unless --activate)")
+    p.add_argument('tab')
+    p.add_argument('--activate', action='store_true',
+                   help='Also bring Safari to front.')
+    p.set_defaults(fn=cmd_focus)
+
+    p = sub.add_parser('close', help='close the given tab')
+    p.add_argument('tab')
+    p.set_defaults(fn=cmd_close)
+
+    p = sub.add_parser('eval')
+    p.add_argument('tab'); p.add_argument('js')
+    p.add_argument('--async', dest='async_', action='store_true')
+    p.add_argument('--timeout', type=float, default=30.0)
+    p.add_argument('--out', '-o', help='write result to file instead of stdout')
+    p.set_defaults(fn=cmd_eval)
+
+    p = sub.add_parser('export')
+    p.add_argument('tab')
+    p.add_argument('--out', '-o')
+    p.add_argument('--json', action='store_true')
+    p.add_argument('--timeout', type=float, default=30.0)
+    p.set_defaults(fn=cmd_export)
+
+    p = sub.add_parser('threads')
+    p.add_argument('tab')
+    p.add_argument('--timeout', type=float, default=30.0)
+    p.set_defaults(fn=cmd_threads)
+
+    p = sub.add_parser('open')
+    p.add_argument('tab'); p.add_argument('ref')
+    p.add_argument('--timeout', type=float, default=30.0)
+    p.set_defaults(fn=cmd_open)
+
+    p = sub.add_parser('send')
+    p.add_argument('tab'); p.add_argument('text')
+    p.add_argument('--timeout', type=float, default=30.0)
+    p.add_argument('--activate', action='store_true',
+                   help='Bring Safari to front + make tab active before clicking. '
+                        'Steals focus briefly; needed so the send click + initial '
+                        'streaming aren\'t throttled by Safari hidden-tab behavior.')
+    p.set_defaults(fn=cmd_send)
+
+    p = sub.add_parser('wait')
+    p.add_argument('tab')
+    p.add_argument('--timeout', type=float, default=300.0)
+    p.add_argument('--activate', action='store_true',
+                   help='Bring Safari to front before polling starts.')
+    p.add_argument('--keep-active', dest='keep_active', action='store_true',
+                   help='Re-activate Safari if streaming stalls on a hidden tab '
+                        '(nudges it awake for long responses; steals focus repeatedly).')
+    p.set_defaults(fn=cmd_wait)
+
+    p = sub.add_parser('model')
+    p.add_argument('tab'); p.add_argument('name', nargs='?')
+    p.add_argument('--timeout', type=float, default=30.0)
+    p.set_defaults(fn=cmd_model)
+
+    args = ap.parse_args()
+    args.fn(args)
+
+
+if __name__ == '__main__':
+    main()
