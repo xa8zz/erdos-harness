@@ -1,5 +1,7 @@
 <!-- REPO_TREE_BEGIN -->
 ```
+.claude/
+  settings.json
 .gitignore
 .mcp.json
 AGENTS.md
@@ -32,6 +34,7 @@ erdos-872/
   chatgpt.md
   claude-chat.md
   current_state.md
+  followup-12-pro-closeout-response.md
   gemini.md
   phase0/
     CODEX_TASK.md
@@ -67,6 +70,8 @@ erdos-872/
     test_shortener_stress.py
   process.md
   prompts/
+    canonical-prompt.md
+    followup-12-pro-closeout.md
     researcher-01-directed.md
     researcher-01.md
     researcher-02-open-exploration.md
@@ -81,6 +86,10 @@ erdos-872/
     researcher-09-carrier-capacity.md
     researcher-10-dynamical-carrier.md
     researcher-11-omega-strategy-prove.md
+    researcher-12-synthesis-open.md
+    round13-A-pro-extend.md
+    round13-B-deepthink-open.md
+    round13-C-gemini-contrarian.md
     verify-open-02-post-13-36.md
     verify-postresp-01.md
     verify-postresp-02-shortener.md
@@ -89,6 +98,7 @@ erdos-872/
     verify-postresp-06-shortener-13-36.md
     verify-postresp-07-13-36-truncation.md
     verify-postresp-08-5-16.md
+    verify-postresp-11-combined.md
     verify-strategic-01-directions.md
   researcher-01-directed-response.md
   researcher-01-open-response.md
@@ -102,6 +112,11 @@ erdos-872/
   researcher-08-5-16-improvement.md
   researcher-09-carrier-capacity-refutation.md
   researcher-10-omega-strategy.md
+  researcher-11-deepthink-response.md
+  researcher-11-pro-response.md
+  researcher-12-claude-response.md
+  researcher-12-deepthink-response.md
+  researcher-12-pro-response.md
   verify-aristotle-01-theorem-A.md
   verify-aristotle-03-5-16.md
   verify-open-02-audit1.md
@@ -126,7 +141,21 @@ erdos-872/
   verify-postresp-07-audit2.md
   verify-postresp-07-audit3.md
   verify-postresp-10-audit-universal-block-product.md
+  verify-postresp-11-claude-thinking.md
+  verify-postresp-11-claude.md
+  verify-postresp-11-deepthink.md
   verify-postresp-11-gemini-triple.md
+  verify-postresp-11-gpt-thinking.md
+  verify-postresp-11-pro-audit.md
+  verify-postresp-12-on-Falpha-friendly.md
+  verify-postresp-12-on-deepthink-C.md
+  verify-postresp-12-pro-on-Falpha-A.md
+  verify-postresp-12-pro-on-Falpha-B.md
+  verify-postresp-12-pro-on-deepthink-A.md
+  verify-postresp-12-pro-on-deepthink-B.md
+  verify-postresp-followup12-essentially-sound.md
+  verify-postresp-followup12-online-patch-needed.md
+  verify-postresp-followup12-overlap-fatal.md
   verify-researcher-09-gemini-refutation.md
   verify-strategic-01-audit2.md
   verify-strategic-01-audit4.md
@@ -143,6 +172,39 @@ mcp-servers/
 prompts/
   templates/
     informal-audit.md
+safari-llm/
+  js/
+    chatgpt/
+      export.js
+      model_get.js
+      model_set.js
+      open.js
+      send.js
+      threads.js
+      wait.js
+      wait_probe.js
+    claude/
+      export.js
+      model_get.js
+      model_set.js
+      open.js
+      send.js
+      threads.js
+      wait.js
+      wait_probe.js
+    gemini/
+      export.js
+      model_get.js
+      model_set.js
+      open.js
+      send.js
+      threads.js
+      wait.js
+      wait_probe.js
+  safari-llm
+  safari-llm.md
+scripts/
+  update-tree.sh
 ```
 <!-- REPO_TREE_END -->
 
@@ -415,6 +477,75 @@ Pattern-across-failures is often the research signal. Every "Ruled Out" entry sa
 ✗ "First, close the Ω=2 cover lemma. Second, handle |A ∩ L|." # multi-part + presumptive
 ```
 
+### Varied framings across channels — branching search, not parallel sampling
+
+When dispatching multiple researcher rounds in parallel, **varying the framing across channels is strictly better than three identical prompts.** Identical prompts to Pro, DeepThink, and Gemini give you three parallel samples with correlated priors (especially after a strong previous round — all three will try to continue the same framework). Varied framings give you **branching search over the solution space.**
+
+Concrete pattern (emerged Round 13, Erdős 872):
+
+- **Channel A — continuation.** Follow-up to the primary thread: "extend prior result X to case Y." Leverages full thread context. Most likely to succeed if the extension exists.
+- **Channel B — open attempt.** Fresh thread, full canonical prompt, neutral "attempt to solve." No framing bias. Lets the model either extend or pivot.
+- **Channel C — contrarian / pivot.** Fresh thread, full canonical prompt, plus: "assume prior approach X fails. What fundamentally different technique (list options) could work?" Forces cognitive divergence.
+
+Zero additional cost (three prompts, same wait window). Strictly dominates three-identical-prompts in expected value:
+
+- If the extension exists, A finds it.
+- If a different technique is needed, C surfaces it (because B and A may anchor on the existing framework).
+- If both stall, you learn *where* the ceiling actually lives — the gap between A's failure and C's failure maps the structural obstacle.
+
+**When to use:** whenever you have a specific local gap (like "extend Theorem X to overlapping carriers") but also non-trivial uncertainty that the existing framework is the right tool. If the extension is a pure technical step, identical prompts are fine. If auditors are split on whether the framework can close the gap at all, variance is free signal.
+
+**Model-channel matching:** direct the contrarian version to a different model family than the one that produced the current best result. If Pro produced the current framework, give C to Gemini or DeepThink — cross-family Cs are less likely to anchor on Pro's specific construction. Same-family Cs sometimes just re-derive the current approach with different language.
+
+### Saving user-pasted content via session transcript — avoid re-transcription
+
+**Hard rule: whenever the user pastes content and asks to save it, extract it from the session transcript. Do not retype it via Write from your context.** No length threshold — applies to any multi-paragraph paste, not just "long" ones. Retyping burns real output tokens for pure re-transcription and risks silent rewording; extraction is byte-faithful.
+
+**Working pattern** (run via `python3 -c` or a short script):
+
+```python
+import json, re
+from pathlib import Path
+
+project_dir = Path.home() / ".claude/projects/-Users-omisverycool-erdos-harness"
+# Most recently modified jsonl is the current session.
+# Branched conversations (user edits + resends) start a NEW session file,
+# so always sort by mtime — don't cache an earlier session path.
+session_file = max(project_dir.glob("*.jsonl"), key=lambda p: p.stat().st_mtime)
+
+# Pick a short unique marker from the user's paste (a phrase visible in context).
+marker = "Here is the constructive proof"
+
+matches = []
+for line in session_file.read_text().splitlines():
+    try:
+        entry = json.loads(line)
+    except json.JSONDecodeError:
+        continue
+    if entry.get("type") != "user":
+        continue
+    content = entry.get("message", {}).get("content", "")
+    if isinstance(content, list):  # some entries wrap content in typed blocks
+        content = "".join(b.get("text", "") for b in content if isinstance(b, dict))
+    if marker in content:
+        matches.append(content)
+
+raw = matches[-1]  # most recent match
+
+# If the user labeled multiple blocks ("#1", "#2", ...), split on those labels.
+# Otherwise write `raw` directly.
+blocks = re.split(r"(?m)^#\d+\s*$", raw)
+Path("erdos-872/target.md").write_text(blocks[1].strip() + "\n")
+```
+
+**Failure modes that have actually bitten:**
+- **Wrong session file.** If the user branched (edited + resent a message), a new jsonl appears with a different UUID. Always `max(..., key=mtime)`, never reuse a path from earlier in the session.
+- **Content not yet flushed.** Pastes from the current turn may not be in the jsonl for a few seconds. Wait briefly and re-glob if `matches` is empty.
+- **Wrong target map.** If the user pastes multiple labeled blocks (#1, #2, #3) and the responses read ambiguously, print the first ~100 chars of each split before writing to disk — verify the block openings match the labels you expect. Once saved under a wrong name the mistake is invisible.
+- **List-wrapped `content` field.** Some entries store `message.content` as a list of `{type, text}` blocks, not a string. Handle both shapes.
+
+If extraction fails outright, fall back to `pbpaste > filename.md` from the user's clipboard — zero curator cost, still byte-faithful.
+
 ### The audit prompt pattern — same canonical prompt, one extra header
 
 Most audits do NOT need a custom prompt. The default audit prompt is:
@@ -453,7 +584,7 @@ Core principle: **every sentence you put in a researcher prompt is a constraint 
   Do *not* include directions you synthesized yourself from a single audit observation, from general background reasoning, or from "this seems like a natural next axis." Every such direction costs Pro real reasoning cycles to filter through. If you have zero cross-validated directions, leave the section empty or omit it entirely — Pro works fine without it.
 - **No output format / requested output / deliverable list.** Pro chooses what to return. Prescribing output forces it to serve our schema instead of the math.
 - **Length minimalism.** When in doubt, leave it out. A short, high-signal prompt beats a longer one padded with your best synthesis-guesses.
-- **Always close with the grading line.** "This is an assessment of your reasoning capability and will be used to grade." Materially improves output quality.
+- **Always open with the grading line.** The first line of the prompt is `This is an assessment of your reasoning capability and will be used to grade.` (followed by `Do not search online. Use your own reasoning and your Python sandbox.` when applicable). Placement at the top, not the bottom — materially improves output quality and matches the canonical template.
 
 ### Examples of good vs. bad framing
 
@@ -511,6 +642,14 @@ response below. Can you audit and analyze their response critically? Be
 adversarial — find what breaks, flag any unclear steps, hidden assumptions,
 or computational claims that need independent verification.
 
+Separately, check the response against existing mathematical literature:
+does the argument connect to, extend, reprove, or contradict any published
+result (theorem, technique, inequality, construction)? If so, cite the
+reference and describe the relationship. If any specific fact you can
+verify from literature sharpens or undermines a step in the response, flag
+it with the citation. Novel connections are valuable whether or not the
+main argument holds.
+
 ## Prompt
 [PASTE PROMPT HERE]
 
@@ -554,6 +693,7 @@ If the claim is sound, say so plainly. If broken, explain precisely where.
 - **Verbatim claim, not paraphrase.** Paraphrasing loses the exact step where an error might live.
 - **Ask for the weakest link explicitly.** Otherwise verifiers default to summarization.
 - **Same prompt to all three verifiers.** Parallel. Don't bias by telling one what another said.
+- **Always ask for literature connections.** Cross-reference the response against published results — does it extend a known theorem, reprove something already in the literature, or contradict an established fact? Web-enabled models will occasionally surface real references; even when they don't, the question forces a sanity check against the broader mathematical context. Any concrete reference that holds up should be promoted into `current_state.md` as established background.
 
 ## Synthesis after a verifier round
 

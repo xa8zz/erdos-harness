@@ -658,25 +658,170 @@ User dispatched Round 11 to three parallel Gemini 3.1 Pro instances. All three c
 
 **Bonus structural finding (Pro #1):** cross-semiprime insight — when Prolonger block-products, cross-semiprimes $p_a p_b$ across different blocks remain legal ($\sim n^{2/3}/\log^2 n$ of them). Shortener has ammunition regardless. Not load-bearing for Layer 2 but structurally useful.
 
-### Current tip of the tree (2026-04-18, post Theorem 5)
+### Round 13 — variance-framed attack; rank-3 extension + Circuit Lemma established; central conjecture reopens (2026-04-18)
+
+Dispatched four researcher prompts: A (Pro, extend Theorem 5, same thread), B (Pro, fresh open attempt), C (DeepThink, fresh open), D (DeepThink, contrarian/LP-dual). Two substantive theorems and one lower-bound proposal survived informal audit.
+
+**Pro #1 — Circuit Lemma + Simplex Obstruction.** Response acknowledges the Theorem-5 extension cannot be a bounded-order local repair theory. Proves a structural barrier: any legal circuit $T \subseteq \mathcal{P}$ forces a circuit move $m_T = \prod_{p \in T} p$ whose resolution requires divisibility by $m_T$ itself, and the worst-case $|T|$ in a squarefree overlapping-carrier position reaches $(1+o(1))\log n / \log\log n$ via the simplex family $C_i = 2Q_t/q_i$. The bound is an obstruction on *proof technique* (no fixed-rank repair), not on $L(n)$ — a single $Q_t$ move clears each simplex, and the accumulation budget is $o(n/\log n)$.
+
+**Pro #2 — rank-$\le 3$ overlap extension (Theorem 6).** Response produces a positive new theorem covering the rank-$\le 3$ case. Four-phase strategy (primes → squares → semiprimes → triples) resolves every squarefree Prolonger carrier of rank $\le 3$ on primes $\le y = n^\alpha$ in $O_\alpha(n / \log n)$ Shortener moves. Refutes the prior "pair-repair fails on $\{30,42,70\}$" framing: right repair is 11 (prime), $\{4,9,25,49\}$ (squares), 105 (triple). Phase-4 count $T_\alpha(n) = O_\alpha(n/\log n)$ via split at $pq = n^{1-\alpha}$ with Mertens sum $O_\alpha(1)$ in the high-$pq$ regime. Numerical check at $n = 10^6$: 35,415 triples $\approx 0.489 \cdot n/\log n$.
+
+**DeepThink #1 — loglog-tight lower-bound construction (candidate, not refuted).** Three-phase Prolonger protocol (block-build of size $\sqrt n$, complete graph on blocked small primes $B$, $p^* q$ for large primes $q \in (n^{5/6}, n/2]$) claims to force $L(n) = \Theta(n \log\log n / \log n)$ against 1-to-1 racing Shortener.
+
+**DeepThink #2 — MWU/LP-dual attempt for $O(n/\log n)$.** Abstract framework claim; proof has an obvious algebra error in the $\text{OPT}_f$ estimate. Shelved unless Pro #2 or DeepThink #1 falls.
+
+**Two three-way audits dispatched:**
+- Package A (Pro #2 rank-3 vs DeepThink #1 loglog-tight). 3/3 verify Pro #2's four-phase proof locally sound. 3/3 agree DeepThink #1 does *not* sit inside Pro #2's class (Phase 3 large primes $q > n^{5/6}$ violate the "primes $\le y$" hypothesis), so no direct contradiction. User-flagged most-trusted Audit 6 verified DeepThink #1's Mertens integral, 1-to-1 racing, and six-case $qM$-batching lockout numerically without finding a fatal bug (one likely typo: $\pi(n^{1/3})$ vs $\pi(n^{1/6})$ for block count). Audit 2 flagged one analytic gap: a prefix-density lower bound on $B$ is needed beyond aggregate fraction.
+- Package B (Pro #1 simplex). 3/3 sound after a cosmetic directional-error fix in the Circuit Lemma proof. 2/3 narrow the scope claim — "any overlap-extension must allow repair order $\Omega(\log n/\log\log n)$" should read "any *bounded-rank local-repair* extension," since non-repair proofs (density, entropy, LP) aren't precluded. Audit 5 surfaced a hidden hypothesis (simplex is legal only if none of the $q_i \in T$ were played earlier as primes) and showed the simplex IS reachable online against eager phase-1 play via prime-pool pivoting.
+
+**Central conjecture demoted to open.** Round 12's cross-family $\Theta(n/\log n)$ consensus is no longer safe. The question splits: either $L(n) = \Theta(n/\log n)$ (if DeepThink #1's construction has a hidden bug), or $L(n) = \Theta(n \log\log n / \log n)$ (if the construction holds rigorously).
+
+**Codex empirical falsifier dispatched.** `phase3/CODEX_TASK_deepthink_protocol.md`: simulate DeepThink #1's full 3-phase Prolonger protocol at $n \in \{10^3, \ldots, 10^6\}$ against three Shortener counter-strategies. Diagnostic: does $L \log n / (n \log\log n)$ stabilize (DeepThink correct) or decay (DeepThink wrong)? Existing shortener-stress data uses block-product Prolonger, which doesn't test this construction.
+
+**Pro #2 continuation dispatched.** Into the Pro thread that produced Theorem 6, with the Circuit Lemma + Simplex as validated new facts and two asks: rank-$\ge 4$ extension (circuit-capture), and case (b) blocked large primes.
+
+### Codex empirical run (phase3/) — ambiguous; `S_race` consistent with $\Theta(n \log\log n / \log n)$, better Shortener consistent with $\Theta(n/\log n)$ (2026-04-18)
+
+Simulated DeepThink-1's 3-phase Prolonger protocol against three Shortener strategies at $n \in \{10^3, \ldots, 10^6\}$. Codex's top-line verdict ("consistent with $\Theta(n \log\log n / \log n)$") is based on `S_race`'s trajectory. Critical nuance: `S_smallest_legal_prime` achieves strictly lower $L$ at every $n$ (6–8% gap at $n = 10^6$). Since $L(n) = \min$ over Shortener, the better-Shortener trajectory is the relevant one. That trajectory rises only 5.9% in $L \log n / n$ across $n = 10^4 \to 10^6$, vs the 18% rise a pure $\log\log n$ factor would give — 3× too slow. Data is genuinely ambiguous at this scale ($|B| \le 4$ across the entire grid; the "complete graph on $B$" has at most 6 edges). Mechanism mismatch: DeepThink-1 predicts $|B_{\text{blocked}}|/\pi(y_s) \to 1/2$, but empirically `S_race` has $|B_{\text{blocked}}| = \pi(y_s)$ unanimously while `S_smallest_legal_prime` varies 0.5–0.67. Strong signal that Shortener strategy materially affects installation rates — precisely the online-prevention question.
+
+### Pro #2 continuation response — static post-hoc obstruction on case (b) (2026-04-18, pending 3-way audit)
+
+Pro responded with a rigorous static theorem. For $Q = \{q \text{ prime} : n^\beta \le q \le n^\gamma\}$ with $\alpha < \beta < \gamma < 1/2$, define the squarefree-rank-3 carrier family $\mathcal{E}_Q = \{2ab\} \cup \{2qa : q \in Q\}$. After $\mathcal{E}_Q$ is installed as a prefix, every $m = qab \in \mathcal{M}_Q$ (where $q \in Q$, $a, b$ odd distinct primes, $n/3 < qab \le n$) is an *isolated maximal* legal move — legal by the Circuit Lemma with $T = \{q, a, b\}$, and with no legal proper divisor (illegal via carrier divisibility) or proper multiple ($2m$ contains $2qa$; $3m > n$). Count: $|\mathcal{M}_Q| \gg n \log\log n / \log n$ by Mertens on $\sum_{q \in Q} 1/q \asymp 1$ and $\sum_{a \le n^\delta} 1/a \sim \log\log n$. Numerical: 25,070 isolated 4-prime moves at $n = 10^6$ (unrestricted cone); 7,209 $qab$-moves with $q \in [200, 500]$.
+
+This is the rigorous post-hoc version of DeepThink-1's $qM$-batching-lockout intuition. It rules out Resolution-Theorem-style post-hoc extensions to case (b): any proof of $L(n) = O(n/\log n)$ covering case (b) must be genuinely **online** — Shortener must prevent $\mathcal{E}_Q$ from being installed. The theorem does NOT directly bound $L(n)$; it's an obstruction on *proof strategy*, not on the answer. Budget self-reference: $|\mathcal{E}_Q|$ itself scales as $\sim n \log\log n / \log n$, so the theorem bites only if $L(n)$ is already large enough to support installing it.
+
+**Reframed central question.** No longer "post-hoc resolution vs lower bound." The clean question: can optimal Shortener online-prevent $\mathcal{E}_Q$-style installation? Yes → $L(n) = \Theta(n/\log n)$; No → $L(n) = \Theta(n \log\log n / \log n)$. Codex `S_smallest_legal_prime` trajectory is suggestive evidence for "yes" at tested scales, but not conclusive.
+
+**Next:** 3-way audit on Pro's continuation theorem (scope claim, proper-multiples case analysis, Mertens count, budget self-reference, literature connections). Optional: Codex grid extension to $n \ge 10^7$ with additional Shortener variants probing online-prevention directly.
+
+### Round 13 reachability push — four-way variance dispatch of full factual-dump canonical prompt (2026-04-18)
+
+Fresh canonical-prompt.md dispatch (pure math, all failed attempts with specific failure mechanisms, no attributions) sent 4x: 2 to Pro, 2 to DeepThink. Variance-framed: identical prompts, different models, different threads.
+
+**Response 1 (Pro, fast).** Closed sub-question (c) — sparse-subset analytic gap — with three-family construction $S_{QA} \cup S_{AB} \cup S_{QB}$. Size decomposition: $|S_{QA}|, |S_{AB}| = o(n/\log n)$, $|S_{QB}| = O_{\beta,\gamma}(n/\log n)$ via Mertens. Counting: $|R| \gg_{\beta,\gamma,\delta} n \log\log n / \log n$ via $\sum_{q \in Q} 1/q \cdot \sum_{a \in A} 1/a$. Explicit flag: does not address reachability (a) + (b).
+
+**Response 2 (Pro/DeepThink, identical proof).** Same theorem, same construction, same numerical witness ($|S|/|R| = 0.545$ at $n = 10^6, (\beta,\gamma,\delta) = (0.40, 0.49, 0.20)$). Cross-family convergence on (c).
+
+**Response 3 (DeepThink v1).** Claims full resolution $L(n) = \Theta(n \log\log n / \log n)$ via "Topological Shielding" Maker-Breaker. Prolonger plays 30 to outlaw $\{2,3,5,6,10,15\}$, then shields vertices via $6v$, then installs edges via $2qa/2ab/2qb$. Claim: $(1/2)^4 = 1/16$ fraction of triangles survives (arithmetic error: $(1/2)^2 = 1/4$ from two phases). Quantitative steps heuristic.
+
+**Response 4 (DeepThink v2).** Same resolution claim. Arithmetic corrected to $1/4$. Same Maker-Breaker framework.
+
+**Skeptical follow-up dispatched to DeepThink.** Five specific issues: (1) Shortener's budget $\gg |V|$; (2) blocker enumeration missed ($12v, 6vw$ legal); (3) $(1/2)^4$ arithmetic; (4) phase separation vs interleaved play; (5) circular budget self-reference.
+
+**Response 5 (DeepThink, responding to skepticism).** Reaffirms $L(n) = \Theta(n \log\log n / \log n)$. Introduces two genuine new structural insights:
+- **LCM Obstruction.** For distinct residuals $m_1, m_2 \in (n/3, n]$, $\text{LCM}(m_1, m_2) > n$. Rules out attacks-from-above via common multiples.
+- **Multi-Block Paradox.** Shortener playing $M = 2q a_1 \cdots a_k$ doesn't kill target $q a_i b$ (supports incomparable since $b \notin \text{supp}(M)$); $M$ instead serves as a shielding carrier — Shortener's multi-block is equivalent to Prolonger installing a carrier.
+
+Quantitative Maker-Breaker analysis still non-rigorous. Revises survival fraction to $(1/2)^6 = 1/64$ via "bounded-degree hypergraph matching," but the independence assumption is suspect (faces correlated: Shortener kill on $q$ destroys three faces).
+
+**Response 6 (Pro, reachability follow-up: Shortener prevents triangle).** Key new result: Shortener has an online strategy that prevents the sparse-$S$ triangle family from being installed. The "multiplicative star-throttle" move $T(q, C_j, a) := 2q \prod_{r \in C_j \setminus \{a\}} r$ makes every future carrier $2qr$ for $r \in C_j \setminus \{a\}$ illegal (since $2qr \mid T$). Caps per-$q$ captured reciprocal mass at $O(1)$, killing the $\log\log n$ factor. Sub-question (a) **false for triangle family specifically**; sub-question (b) **true** for this regime. Caveat: other lower-bound mechanisms not ruled out.
+
+**Response 7 (Pro, reachability follow-up: Upper-half fan lower bound).** Provides the "other lower-bound mechanism" Response 6 left open: upper-half semiprime fan $2ab \in (n/2, n]$ with $a \in \mathcal{A} = \{$primes $\le n^\delta\}$, $b \in I_a = (n/(4a), n/(2a)]$. Key structural insight: upper-half targets have no proper multiples $\le n$, so Shortener cannot attack from above via any composite move — forced to use only $\{a, 2a, b, 2b, ab\}$ from below. Two-phase argument (activation pairing gives $\sum_{a \in \mathcal{A}_0} 1/a \ge (1/2) \log\log n$; max-degree-greedy capture gives $D \le C$ and $C + X \ge |E|/2$). Concludes $L(n) \ge c_\delta \cdot n \log\log n / \log n$, ruling out $L(n) = O(n/\log n)$.
+
+**Synthesis across 7 responses.**
+- Sparse-subset closeout (c): multi-sourced established (3/3 independent).
+- Triangle-family reachability: refuted (Response 6's star-throttle).
+- Lower bound direction: appears established via Response 7's upper-half fan (pending rigorization).
+- DeepThink's Maker-Breaker framework points in the right direction but quantitative steps need refinement. LCM Obstruction and Multi-Block Paradox are genuine insights, and the upper-half fan argument specifically leverages the LCM property.
+- Matching upper bound $L(n) = O(n \log\log n / \log n)$ is the new open question.
+
+**Immediate next (dispatched).**
+- Pro #2 thread: rigorization follow-up targeting the max-degree-greedy bound $D \le C$, activation-damage bound, exhaustive Shortener move enumeration, explicit $c_\delta$, and optional matching upper bound.
+- Other three threads (one Pro + two DeepThinks): cross-family verification prompt presenting the upper-half fan argument as a candidate theorem to verify or find gaps in; attempt matching upper bound if verified.
+
+### Round 13 cross-family verification — upper-half fan rigorously established (2026-04-18)
+
+Four responses returned to the verification prompts. Three distinct derivations, all rigorous:
+
+**Pro #1 audit.** Four-section walk-through of the $2ab$-fan argument: structural insight correct (proper divisors exactly $\{2, a, b, 2a, 2b, ab\}$, higher-rank moves can't be comparable with upper-half targets because they'd exceed $n$), activation pairing gives $\sum_{\mathcal{A}_0} 1/a \ge (1/2) \log\log n$ with minor-correction flag (a-kill damage should be measured only over activated $a$'s), Phase-1 damage $O(|\mathcal{A}|^2) = O(n^{2\delta}/(\log n)^2) = o(|E|)$, capture-phase accounting $|E| = C + D + X \le 2C + X$ so $C + X \ge |E|/2$. Flags matching upper bound as NOT following from current machinery; enumerates why standard Shortener techniques fail.
+
+**Pro #2 strengthened.** Presents the **odd upper-half fan**: $ab \in (n/2, n]$ without the factor of 2. Only three proper divisors $\{a, b, ab\}$. Explicit constant:
+$$\liminf_{n \to \infty} \frac{L(n) \log n}{n \log\log n} \ge \frac{1}{8}.$$
+Includes a standalone formal **Max-degree capture lemma** (Maker-Breaker on bipartite graph, $D \le C$ per turn by max-degree rule, $C + X \ge |E|/2$). Gives explicit safe bound $L(n) \ge (1/32) \cdot n \log\log n / \log n$ for the $2ab$ version.
+
+**DeepThink #1 + #2 (verification).** Both declare the argument "mathematically flawless and completely rigorous." Independently derive the rank-4 ceiling: for a hypothetical $\Omega=4$ fan with targets $2 a_1 a_2 b$, Shortener plays $a_1 b$ which divides every target $2 a_1 a_y b$, killing $\sim |\mathcal{A}|$ edges per move. Breaks the 1-to-1 Maker-Breaker economy. Consequence: rank-3 is the topological limit of this construction family; $(\log\log n)^1$ is the natural ceiling. Suggests $\Theta(n \log\log n / \log n)$ is the sharp rate.
+
+**Cross-family convergence.** 4 responses × 3 distinct derivations all agree on the rigor of the lower bound. Essentially multi-sourced established. The lower bound $L(n) \ne O(n/\log n)$ is settled.
+
+**Rigorous bounds:**
+$$\left(\frac{1}{8} - o(1)\right) \frac{n \log\log n}{\log n} \le L(n) \le \frac{5n}{16} + o(n).$$
+
+The dichotomy is resolved on the lower side: $L(n) \ne O(n/\log n)$. Matching upper bound $L(n) = O(n \log\log n / \log n)$ is the remaining central question, and does NOT follow from current machinery per both Pros' explicit flagging.
+
+**Outcome for the program.** This is the single biggest Round 13 advance: a sublinear lower bound strictly above the classical $n/\log n$ rate, cross-family rigorously verified, with explicit constant. Unlike the triangle-family's failure of dynamic reachability, the upper-half fan's structural simplification (via upper-half targets locking out attacks from above) makes the Maker-Breaker lower bound clean and achievable.
+
+**Next:**
+- Aristotle formalization of upper-half fan theorem.
+- Cross-family attempt on matching upper bound $L(n) = O(n \log\log n / \log n)$.
+- Independent verification of rank-4 collapse (single-family at present).
+
+### Round 13 matching-upper-bound dispatch — fractures the rate conjecture (2026-04-18)
+
+Six-way dispatch on the matching upper bound: 4 follow-ups to existing threads + 2 fresh threads. Four follow-ups returned first, plus one fresh.
+
+**Two Pro follow-ups (#1 and #2) independently converge on: no matching upper bound, second-order obstruction at $(\log\log n)^2$.**
+- #1: dense pair-carrier graph $\mathcal{E}_2 = \{2pq : 2pq \le n\}$ has size $n \log\log n / \log n$ (inside the candidate upper-bound budget), but triangle-rich subgraphs force $(1/4) n (\log\log n)^2 / \log n$ residual moves. Reduces the problem to online triangle-suppression on the product graph $H_n$ with edges $pq$ for $2pq \le n$.
+- #2: triple fan — activate primes Phase 1, then activate pairs Phase 2 via triples $pqb \in (n/2, n]$. Pair harmonic mass $(\log\log n)^2$. Gives the star-example refutation of rank-4 collapse: for fixed $b$ with activated-pair star $\{pq_i\}$, Prolonger plays $pq_1 b$ (auto-shielding $pb$), Shortener kills $q_2 b$, Prolonger plays $pq_3 b$, etc. 2-vs-1 protection economy sustains.
+
+**Two DeepThink follow-ups (#3 and #4) span opposite answers.**
+- #3: claims matching upper bound via Universal Sub-Divisor Cover $S_n = \{ab : a^2 b \le n\}$ of size $O(n/\log n)$, covering every $\Omega \ge 3$ integer. Theorem 1 (covering) and Theorem 2 ($|S_n| = O(n/\log n)$) are both correct. But the "game ends when $V = P \cup S_n \cup P^{(2)}$ is exhausted" termination step has a gap: rank-$\ge 3$ legal moves whose $S_n$-divisors are killed-but-not-in-$A$ remain legal.
+- #4: claims $L(n) = \Theta(n)$ via Hierarchical Rank-$(k+2)$ Upper-Half Fan. Capacity inequality $t_j + M \binom{k}{j} \le \binom{A}{j}$ bounds Shortener's damage; Prolonger forces $n (\log\log n)^k / \log n$ for each fixed $k$, and scaling $k = \log n / \log\log n$ gives $\Theta(n)$.
+
+Within-family DeepThink split ($O(n \log\log n / \log n)$ vs $\Theta(n)$) is the clean "we don't know" signal. Cross-family partial convergence: both Pros and DeepThink #4 all identify that playing a target auto-shields its proper divisors, refuting the earlier rank-4 collapse argument.
+
+**Fresh thread (Pro) delivers a rigorous second-order lower bound.**
+
+**Theorem (fresh Pro, pending audit, cross-family consistent).** For every fixed $\delta \in (0, 1/4)$,
+$$L(n) \ge c_\delta \cdot \frac{n (\log\log n)^2}{\log n}.$$
+
+Construction: three-prime upper-half fan $\mathcal{T} = \{acb : a < c \in \mathcal{A}, b \in J_{a,c} \cap \mathbb{P}\}$ with $\mathcal{A} = \{a \text{ prime} : a \le n^\delta\}$, $J_{a,c} = (n/(2ac), n/(ac)]$. Raw count $|\mathcal{T}| \gg n (\log\log n)^2 / \log n$ via double Mertens.
+
+Two-lemma proof: (Lemma 1) weighted pair-graph capture gives Prolonger $\ge 1/8$ of weighted total via potential $\phi(e) \in \{w/8, w/4, w/2\}$ depending on endpoint capture status; (Lemma 2) two-layer fiber capture gives $\ge 1/8$ of remaining targets forced via $\phi(acb) \in \{1/8, 1/4, 1/2, 1\}$ depending on how many of $\{b, ab, cb\}$ are captured. Each Prolonger target play auto-shields two lateral divisors ($ab, cb$); Shortener kills one per turn.
+
+This **rigorously rules out** the previously-conjectured sharp rate $L(n) = \Theta(n \log\log n / \log n)$.
+
+**Cross-family convergence on the second-order mechanism.** Four independent derivations (fresh Pro rigorous, Pro follow-up #1 triangle-rich, Pro follow-up #2 star example, DeepThink follow-up #4 hierarchical) all identify the same 2-vs-1 protection economy + auto-shielding mechanism. The rank-4 collapse from earlier DeepThinks is now cross-family refuted.
+
+**Implications.**
+- Lower bound jumped from $(\log\log n)^1$ to $(\log\log n)^2$.
+- The "sharp rate" conjecture has been wrong.
+- New primary question: how far does the hierarchy iterate? If $k$ can grow with $n$, $L(n) = \Omega(n)$ becomes plausible and Erdős's conjecture might be TRUE.
+- Pro #1's explicit reduction (online triangle-suppression on $H_n$) is the cleanest single subproblem.
+
+**Still pending:** one fresh thread response.
+
+**Next:** dispatch iteration question (does rank-$(k+2)$ fan work for $k \ge 3$? What's the ceiling?) + audit the fresh Pro's two-lemma proof + audit DeepThink #4's $\Theta(n)$ capacity inequality.
+
+### Current tip of the tree (2026-04-18, post second-order lower bound)
 
 - **Formally verified (Aristotle, zero sorry):** Shield Reduction, $5/24$ first-hit cover, $L(n) \le 13n/36 + o(n)$.
-- **Formally verified modulo Mathlib-coverage classical NT sorrys:** Theorem A (5 sorrys at Mertens / Chebyshev / PNT), $L(n) \le 5n/16 + o(n)$ (1 sorry at Chebyshev + game-tree induction).
+- **Formally verified modulo Mathlib-coverage classical NT sorrys:** Theorem A (5 sorrys), $L(n) \le 5n/16 + o(n)$ (1 sorry).
 - **Established (audit-converged, Aristotle not yet submitted):**
   - Universal block-product counter $\sum 1/p \ge (1/2)\log\log n$.
-  - Layer 1 of $\Omega$-grading $\Xi(B) = O(\log\log n/\log n)$ unconditionally via Mertens.
-  - $F_\alpha$ static reduction: if $A \supseteq F_\alpha$ for $\alpha \in (1/3, 1/2)$, remaining moves are $O_\alpha(n/\log n)$.
-  - $Q_\alpha$ composite-batching-resistance.
-  - **Theorem 5: $L(n) = O(n/\log n)$ against the disjoint small-prime carrier class, including universal block-product Prolonger.** 3/3 informal audits sound; Aristotle pending.
-- **Disproved:** static Carrier Capacity Bound; dynamical bounded-$\sum 1/p$ Shortener; strict $\Xi = O(1/\log n)$; one-step $\Omega=2$ cover lemma ($R_y$ counterexample); cross-block semiprime batch (antichain violation).
-- **Open question, refined:** Does Theorem 5 extend to overlapping-carrier Prolonger strategies? Two specific remaining cases:
-  - (a) Overlapping small-prime carriers. Naive phase-4 triple-repair costs $n(\log\log n)^2/\log n$, off target by $(\log\log n)^2$. 2/3 audits say this is a genuine obstruction to the Theorem-5 approach. A Prolonger move-count inefficiency lever (overlap uses ~0.75 primes/move vs block-product's $\asymp \log n/\log\log n$) has not been exploited.
-  - (b) Blocked large primes ($pq$ with $p \le y < q$). Naive repair overshoots by $\log\log n$.
-- **Secured contribution:** $L(n) \le 5n/16 + o(n)$ (general). Plus $L(n) = O(n/\log n)$ against block-product (and disjoint-carrier class).
-- **Conjectural final answer** (cross-family consensus): $L(n) = \Theta(n/\log n)$. Erdős's original question would resolve *negatively* at the tightest possible asymptotic.
-- **Declared solved / stop extending:** static AND dynamical sieve-over-$B(P)$ routes; shield-framework $e^{-1}$ barrier; one-step $\Omega=2$ cover lemma; Theorem 5 against *disjoint* carriers.
-- **Held pending results:** Aristotle submissions (Theorem 5 natural next target once online-execution polish is in writeup); $5/16$ Aristotle rerun with $D = \{3, 5\}$; possible Codex empirical check on overlapping-carrier game dynamics.
-- **Next step:** Round 13 variance-framed attack. Three channels (Pro extend, DeepThink open, Gemini contrarian) on the overlapping-carrier gap. Expected outcomes: A closes by extension, C pivots to new tool, or both stall and we learn where the real ceiling is.
+  - Layer 1 of $\Omega$-grading $\Xi(B) = O(\log\log n/\log n)$ unconditionally.
+  - $F_\alpha$ static reduction and $Q_\alpha$ composite-batching-resistance.
+  - **Theorem 5:** $L(n) = O(n/\log n)$ against disjoint small-prime carriers (includes universal block-product).
+  - **Theorem 6 (Round 13):** $L(n) = O_\alpha(n/\log n)$ against squarefree rank-$\le 3$ overlapping carriers on primes $\le y = n^\alpha$, $\alpha \in (1/3, 1/2)$. 3/3 audits sound.
+  - **Circuit Lemma + Simplex Obstruction (Round 13):** any *bounded-rank local-repair* extension of Theorem 5/6 must fail — the worst-case required move rank in a squarefree overlapping-carrier position reaches $\log n / \log\log n$. 3/3 audits sound after a cosmetic directional-error fix.
+- **First-order upper-half fan lower bound (cross-family rigorous):** $\liminf L(n) \log n / (n \log\log n) \ge 1/8$.
+- **Second-order upper-half fan lower bound (cross-family, pending formal audit):** $L(n) \ge c_\delta \cdot n (\log\log n)^2 / \log n$ for $\delta < 1/4$, via three-prime $acb$-fan with two-lemma proof. Refutes the earlier $\Theta(n \log\log n / \log n)$ conjecture.
+- **Rank-4 collapse argument (prior) — REFUTED cross-family:** missed auto-shielding. Playing a target makes its lateral divisors illegal. 2-vs-1 protection economy (each target shields 2 laterals, Shortener kills 1) sustains the fan at rank $\ge 4$.
+- **Sparse-subset realization theorem (cross-family established):** 3 independent derivations of the three-family construction $S = S_{QA} \cup S_{AB} \cup S_{QB}$ with $|S| = O(n/\log n)$ isolating $\gg n \log\log n / \log n$ residuals. Dynamically unreachable (triangle-$\mathcal{E}_Q$ refuted), but stands as an independent static theorem.
+- **Triangle-family reachability — refuted:** Shortener's multiplicative star-throttle caps per-$q$ captured mass at $O(1)$.
+- **LCM Obstruction + Multi-Block Paradox (structural insights):** LCM of distinct residuals in $(n/3, n]$ exceeds $n$; Shortener's multi-blocks $M = 2q a_1 \cdots a_k$ do not kill target $q a_i b$. Both leveraged by the upper-half fan (which uses upper-half targets to lock out attacks from above entirely).
+- **Rank-4 ceiling (single-family, needs independent verification):** Shortener's $a_1 b$ sub-divisor kills $\sim |\mathcal{A}|$ rank-4 targets $2 a_1 a_y b$ per move, collapsing the upper-half fan at rank 4. Suggests $(\log\log n)^1$ is the natural ceiling; favors $\Theta(n \log\log n / \log n)$ as the sharp rate.
+- **Disproved:** static Carrier Capacity Bound; dynamical bounded-$\sum 1/p$ Shortener; strict $\Xi = O(1/\log n)$; one-step $\Omega=2$ cover lemma; cross-block semiprime batch; pair-repair-only obstruction on $\{30, 42, 70\}$; triangle-$\mathcal{E}_Q$-family reachability; $L(n) = O(n/\log n)$ (by upper-half fan). Round-13 pre-audit error on triple-repair cost ($(\log\log n)^2$ estimate was wrong).
+- **Rigorous bounds:** $c \cdot n (\log\log n)^2 / \log n \le L(n) \le 5n/16 + o(n)$.
+- **Central question (reframed):** How far does the upper-half fan hierarchy iterate? If rank-$(k+2)$ works for arbitrary $k$ and $k$ can grow with $n$ up to $\Theta(\log n / \log\log n)$, then $L(n) = \Theta(n)$ (Erdős's conjecture TRUE). If the hierarchy ceiling is at some finite $k^*$, $L(n) = \Theta(n (\log\log n)^{k^* - 1} / \log n)$.
+- **Open sub-questions:**
+  - Iterate the fan hierarchy to rank 4+ ($k \ge 3$): does the two-lemma proof structure generalize? (primary)
+  - Can $k$ grow with $n$? DeepThink #4 claims yes; capacity inequality is load-bearing and not cross-verified.
+  - Audit fresh Pro's two-lemma proof rigorously (the current load-bearing new result).
+  - Aristotle formalization (first-order theorem now; second-order once rigorized).
+  - Matching upper bound above the new lower bound: $5n/16$ is still the only unconditional upper bound; no log-scale refinement available.
+- **Rigorous bounds unchanged:** $(1 + o(1)) n/\log n \le L(n) \le 5n/16 + o(n)$.
+- **Secured contribution:** $L(n) \le 5n/16 + o(n)$ + Theorem 5 + Theorem 6 + Circuit Lemma/Simplex. The post-hoc obstruction on case (b) adds substantial structural content once audited.
+- **Next step:** 3-way audit on Pro's continuation theorem. Optional: Codex grid extension (larger $n$ and additional Shortener variants probing online-prevention directly).
 
 ## Additional process lesson (from Round 11 cross-family divergence)
 
@@ -706,3 +851,4 @@ Private research in this repo (GPT-5.4 Pro, Claude 4.7 verifiers, Gemini 3 verif
 - Shield-Reduction and $5/24$ formal verifications — Aristotle, Apr 2026.
 
 Everything in `researcher-*.md`, `verify-*.md`, and the verifier conversation dumps is verbatim model output. Everything in `current_state.md`, `process.md`, and the top-level prompts is human-authored (Om + Claude Code curator) distillation.
+tillation.
