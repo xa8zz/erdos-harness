@@ -1,0 +1,11 @@
+variant,h,M,status,scored,useful_shields,pair_bad,pair_max,pair_mean,pair_mean_per_shield,m1_bad,m1_max,m1_mean,m1_mean_per_shield,m2_bad,m2_max,m2_mean,m2_mean_per_shield,notes
+one-cylinder,4,14,ok,16,20,20,4,2.222,2.400,20,13,3.333,9.000,20,13,3.333,9.000,
+one-cylinder,5,14,ok,19,10,10,3,2.500,2.600,10,7,2.500,5.200,10,7,2.500,5.200,
+one-cylinder,6,12,ok,10,0,0,0,0.000,0.000,0,0,0.000,0.000,0,0,0.000,0.000,
+one-cylinder,4,20,ok,34,56,56,6,2.800,3.429,56,34,6.222,22.071,56,34,6.222,22.071,
+one-cylinder,5,20,ok,42,35,35,6,2.692,3.343,35,23,3.889,15.743,35,23,3.889,15.743,
+clustered,4,14,ok,16,20,20,4,2.222,2.400,20,13,3.333,9.000,20,13,3.333,9.000,dense_size=h
+clustered,5,14,ok,17,15,15,3,2.500,2.600,15,12,3.750,9.800,15,12,3.750,9.800,dense_size=h
+clustered,6,12,ok,10,6,6,4,3.000,3.333,6,5,3.000,4.333,6,5,3.000,4.333,dense_size=h
+clustered,4,20,ok,34,56,56,6,2.800,3.429,56,34,6.222,22.071,56,34,6.222,22.071,dense_size=h
+clustered,5,20,timeout,,,,,,,,,,,,,,did not finish within about 60 seconds in the current greedy bitset audit

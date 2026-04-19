@@ -1,7 +1,16 @@
 import math
+import sys
 import unittest
+from pathlib import Path
 
-from freshness_toy import OneCylinderToy, greedy_useful_residual_sequence
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from freshness_toy import (
+    FastOneCylinderAudit,
+    OneCylinderToy,
+    analyze_useful_shield_multiplicity,
+    greedy_useful_residual_sequence,
+)
 from transversal_small_h import (
     ExactTopFacetSolver,
     StaticCoverSolver,
@@ -167,6 +176,18 @@ class TopFacetHypergraphTests(unittest.TestCase):
 
 
 class FreshnessToyTests(unittest.TestCase):
+    def test_h3_m7_first_useful_charge_multiplicities(self) -> None:
+        toy, sequence, states = greedy_useful_residual_sequence(3, 7)
+        analysis = analyze_useful_shield_multiplicity(toy, sequence, states, minimum_degree=3)
+
+        self.assertEqual(analysis["first_useful_shield_count"], 6)
+        self.assertEqual(analysis["no_fresh_pair_shield_count"], 6)
+        self.assertEqual(analysis["no_fresh_degree_h_shield_count"], 6)
+        self.assertEqual(analysis["pair_charge_counts"], {2: 1, 3: 2, 4: 1, 5: 2})
+        self.assertEqual(analysis["prime_charge_counts"], {1: 3, 2: 2, 4: 1})
+        self.assertEqual(analysis["max_pair_charge"], 2)
+        self.assertEqual(analysis["max_prime_charge"], 3)
+
     def test_h3_m7_greedy_sequence_has_useful_residuals_without_fresh_witness(self) -> None:
         toy, sequence, states = greedy_useful_residual_sequence(3, 7)
 
@@ -189,6 +210,10 @@ class FreshnessToyTests(unittest.TestCase):
 
         first_useful_state = states[3]
         self.assertEqual(toy.useful_residual_targets(first_useful_state), ((1, 2, 4),))
+        self.assertEqual(
+            toy.same_prime_prehistory_counts(first_useful_state, (1, 2, 4)),
+            {1: 2, 2: 2, 4: 2},
+        )
         for shield in toy.useful_shields(first_useful_state):
             self.assertEqual(toy.fresh_witnesses(shield, first_useful_state, minimum_degree=3), ())
 
@@ -208,9 +233,29 @@ class FreshnessToyTests(unittest.TestCase):
         final_state = states[-1]
         self.assertEqual(final_state.claims, ((4,), (6,), (8,), (3, 7), (5, 7)))
         self.assertEqual(toy.useful_residual_targets(final_state), ((1, 2, 3, 5),))
+        self.assertEqual(
+            toy.same_prime_prehistory_counts(final_state, (1, 2, 3, 5)),
+            {1: 4, 2: 4, 3: 3, 5: 3},
+        )
 
         for shield in toy.useful_shields(final_state):
             self.assertEqual(toy.fresh_witnesses(shield, final_state, minimum_degree=4), ())
+
+    def test_fast_one_cylinder_matches_h4_m8_greedy_sequence(self) -> None:
+        _, slow_sequence, _ = greedy_useful_residual_sequence(4, 8)
+        fast = FastOneCylinderAudit(4, 8)
+        fast_sequence, fast_states = fast.greedy_sequence()
+
+        self.assertEqual(fast_sequence, slow_sequence)
+        self.assertEqual(
+            fast.useful_shields(fast_states[-1]),
+            (
+                ((1, 2, 3, 5), 1, (0, 2, 3, 5)),
+                ((1, 2, 3, 5), 2, (0, 1, 3, 5)),
+                ((1, 2, 3, 5), 3, (0, 1, 2, 5)),
+                ((1, 2, 3, 5), 5, (0, 1, 2, 3)),
+            ),
+        )
 
     def test_play_round_rejects_star_containing_claimed_certificate(self) -> None:
         toy = OneCylinderToy(3, 7)

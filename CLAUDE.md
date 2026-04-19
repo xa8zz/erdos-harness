@@ -114,6 +114,7 @@ erdos-872/
     fan_prolonger.py
     fast_sim.py
     findings.md
+    freshness_toy.py
     max_antichain.py
     multirank_attempt.py
     multirank_ford_conjecture.md
@@ -129,6 +130,8 @@ erdos-872/
     test_transversal_small_h.py
     trajectory.py
     transversal_small_h.py
+    transversal_small_h_amortization_audit.py
+    transversal_small_h_amortization_audit_results.csv
     transversal_small_h_empirical.md
     transversal_small_h_g_plot.png
     transversal_small_h_results.csv
@@ -156,13 +159,17 @@ erdos-872/
     codex-sigma-vs-simplex-star-cascade.md
     codex-small-h-transversal-empirical.md
     followup-12-pro-closeout.md
+    followup-all-R37-freshness-lemma.md
+    followup-codex-R35-closure-gap.md
     followup-fresh-pro-R33-close.md
+    followup-fresh-pro-R35-closure-gap.md
     followup-fresh-pro-bernoulli-update.md
     followup-pro-A-R33-close.md
     followup-pro-A-R35-online-amortization.md
     followup-pro-A-defect-budget-push.md
     followup-pro-A-resilience-lemma-close.md
     followup-pro-A-scale-local-transversal.md
+    followup-pro-A-star-breaker-push.md
     fresh-pro-resilience-lemma.md
     researcher-01-directed.md
     researcher-01.md
@@ -322,6 +329,16 @@ erdos-872/
   researcher-35-codex-L-sublinear-proof.md
   researcher-35-fresh-pro-arithmetic-closure-candidate.md
   researcher-35-pro-A-dyadic-state-estimate-closed.md
+  researcher-35-pro-A-online-domination-partial-with-critique.md
+  researcher-36-codex-r35-online-amortization-followup.md
+  researcher-36-fresh-pro-closure-retraction.md
+  researcher-36-pro-A-freshness-lemma-partial.md
+  researcher-37-codex-freshness-bounded-depth-partial.md
+  researcher-37-codex-freshness-toy-counterexample.md
+  verify-R35-codex-adversarial-audit.md
+  verify-R35-codex-followup-dynamic-gap.md
+  verify-R35-codex-star-cylinder-lower-defect-probe.md
+  verify-R37-codex-freshness-sharpness-and-high-window-counterexample.md
   verify-aristotle-01-theorem-A.md
   verify-aristotle-03-5-16.md
   verify-open-02-audit1.md

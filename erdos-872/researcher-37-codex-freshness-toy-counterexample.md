@@ -82,6 +82,12 @@ The same happens for all six useful shields in this state.
 Moreover, this is already true at the **first** moment the residual
 \((1,2,4)\) becomes useful (after the third scored star), so the failure is not
 an artefact of waiting until the terminal state.
+At that first-useful state, the same-prime prehistory counts are exactly
+\[
+r_1 = r_2 = r_4 = 2 = h-1,
+\]
+so the toy failure begins precisely at the linear-in-\(h\) threshold suggested
+by the bounded-depth corollary.
 
 ## Second counterexample state at \((h,M) = (4,8)\)
 
@@ -100,6 +106,14 @@ At the terminal state the useful residual family is
 \]
 and again **every** useful shield has zero fresh witnesses of degree
 \(\ge h = 4\).
+
+Here the first useful residual \((1,2,3,5)\) appears with same-prime
+prehistory counts
+\[
+r_1 = r_2 = 4,\qquad r_3 = r_5 = 3,
+\]
+so again the obstruction lives at prehistory scale comparable to \(h\), not in
+the bounded-depth regime.
 
 So the failure is not a rank-3 artifact.
 
