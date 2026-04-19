@@ -40,8 +40,12 @@ erdos-872/
   chatgpt.md
   claude-chat.md
   current_state.md
+  direct-On-over-logn-attempt-2026-04-18.md
   followup-12-pro-closeout-response.md
+  ford-integration-audit.md
   gemini.md
+  matching-T2-self-attempt-2026-04-18.md
+  matching-T2-upper-bound-attempt-2026-04-18.md
   phase0/
     CODEX_TASK.md
     compute_psi.py
@@ -80,6 +84,8 @@ erdos-872/
     CODEX_TASK_reachability_verification.md
     CODEX_TASK_shortener_constants.md
     CODEX_TASK_sparse_subset.md
+    O_n_log_n_target_refuted_codex_report.md
+    S_y_dynamic_negative_codex_report.md
     deepthink_protocol.csv
     deepthink_protocol.py
     deepthink_protocol_summary.md
@@ -89,6 +95,8 @@ erdos-872/
     fan_hierarchy_probeB.csv
     fan_hierarchy_probeC.csv
     fan_hierarchy_summary.md
+    literature_survey_codex_report.md
+    residual_width_refuted_codex_handoff.md
     shortener_constants.csv
     shortener_constants.py
     shortener_constants_codex_report.md
@@ -100,6 +108,33 @@ erdos-872/
     test_fan_hierarchy.py
     test_shortener_constants.py
     test_sparse_subset.py
+  phase4/
+    analysis.md
+    claude_parallel_session_handoff.md
+    fan_prolonger.py
+    fast_sim.py
+    findings.md
+    max_antichain.py
+    multirank_attempt.py
+    multirank_ford_conjecture.md
+    residual.py
+    shortener_duel.py
+    sim.py
+    sim2.py
+    sim3.py
+    submarkov_1196_adaptation_report.md
+    t2_constant_fix.md
+    t2_constant_fix_8x.md
+    t2_maker_first_lemmas.md
+    test_transversal_small_h.py
+    trajectory.py
+    transversal_small_h.py
+    transversal_small_h_empirical.md
+    transversal_small_h_g_plot.png
+    transversal_small_h_results.csv
+    transversal_small_h_sigma_vs_cascade_results.csv
+    transversal_small_h_strategy.py
+    transversal_small_h_strategy_results.csv
   process.md
   prompts/
     audit-13-A-rank3-vs-loglog.md
@@ -108,8 +143,27 @@ erdos-872/
     audit-13-reachability-claim.md
     audit-14-pro-01-log-density.md
     audit-14-pro-02-probabilistic-sieve.md
+    audit-15-pro-prime-count-refinement.md
     canonical-prompt.md
+    codex-close-L-sublinear.md
+    codex-continuation-fiber-collapse-strategy.md
+    codex-extract-optimal-shortener-strategy.md
+    codex-followup-close-matching-T2.md
+    codex-followup-unify-reductions.md
+    codex-generalize-R23-refutation.md
+    codex-new-submarkov-adaptation.md
+    codex-prolonger-counter-construction-search.md
+    codex-sigma-vs-simplex-star-cascade.md
+    codex-small-h-transversal-empirical.md
     followup-12-pro-closeout.md
+    followup-fresh-pro-R33-close.md
+    followup-fresh-pro-bernoulli-update.md
+    followup-pro-A-R33-close.md
+    followup-pro-A-R35-online-amortization.md
+    followup-pro-A-defect-budget-push.md
+    followup-pro-A-resilience-lemma-close.md
+    followup-pro-A-scale-local-transversal.md
+    fresh-pro-resilience-lemma.md
     researcher-01-directed.md
     researcher-01.md
     researcher-02-open-exploration.md
@@ -125,6 +179,7 @@ erdos-872/
     researcher-10-dynamical-carrier.md
     researcher-11-omega-strategy-prove.md
     researcher-12-synthesis-open.md
+    researcher-18-ford-bandwise-upper-bound.md
     round13-A-pro-extend.md
     round13-B-deepthink-open.md
     round13-C-gemini-contrarian.md
@@ -141,6 +196,20 @@ erdos-872/
     round14-shortener-compression-focused-as-dispatched.md
     round14-shortener-compression-focused.md
     round15-shortener-push-past-022.md
+    round16-matching-sublinear-upper-bound.md
+    round16-multi-rank-shielding-attack.md
+    round18-direct-n-over-log-n-upper-bound.md
+    round19-matching-T2-upper-bound.md
+    round19-residual-width-lemma.md
+    round19-slow-growth-matching-upper-bound.md
+    round19-two-core-reduction-lemma.md
+    round19B-Sy-focused-matching-T2.md
+    round20-two-shadow-control.md
+    round22-A-neutral-sublinear.md
+    round22-B-directed-multiplicative-closure.md
+    round22-C-contrarian-linear.md
+    round23-pro-bernoulli-closure-attack.md
+    verify-R35-closure-candidate.md
     verify-open-02-post-13-36.md
     verify-postresp-01.md
     verify-postresp-02-shortener.md
@@ -207,6 +276,52 @@ erdos-872/
   researcher-14-pro-shortener-upperbound-04-infinity-bonferroni-flawed.md
   researcher-14-pro-shortener-upperbound-05-randomized-martingale-handwavy.md
   researcher-14-pro-shortener-upperbound-06-mwu-revisits-refuted.md
+  researcher-15-codex-S_y-static-certificate.md
+  researcher-15-pro-shortener-upperbound-prime-count-refinement.md
+  researcher-16-codex-S_y-dynamic-negative.md
+  researcher-17-codex-negative-on-separate-rank-fan-route.md
+  researcher-18-codex-slow-growth-reduction.md
+  researcher-18-pro-O-n-log-n-refuted-via-T1.md
+  researcher-18-pro-matching-sublinear-reduction-lemma.md
+  researcher-18-pro-multi-rank-coupling-refuted.md
+  researcher-19-codex-matching-T2-closeout-handoff.md
+  researcher-19-codex-matching-T2-closeout.md
+  researcher-19-pro-lemma-A-disproved.md
+  researcher-20-codex-residual-width-framework-refuted.md
+  researcher-20-pro-matching-T2-negative-confirmation.md
+  researcher-20-pro-two-shadow-disproof.md
+  researcher-21-codex-T2-audit-demotion.md
+  researcher-21-codex-T2-embedding-verification.md
+  researcher-21-codex-T2-maker-first-repair.md
+  researcher-21-codex-strategic-synthesis.md
+  researcher-22-codex-T2-activation-audit.md
+  researcher-22-pro-certificate-family-gap-isolated.md
+  researcher-22-pro-defect-budget-invariant.md
+  researcher-22-pro-dyadic-fiber-collapse.md
+  researcher-22-pro-fresh-canonical-confirmation.md
+  researcher-23-codex-ford-route-correction.md
+  researcher-23-pro-bernoulli-star-refuted.md
+  researcher-24-codex-band-local-closure-explosion.md
+  researcher-25-codex-directed-rank3-budget.md
+  researcher-26-codex-online-rank3-race-formulation.md
+  researcher-27-codex-fiber-collapse-partial.md
+  researcher-27-codex-submarkov-1196-adaptation.md
+  researcher-28-codex-R23-generalization.md
+  researcher-29-codex-small-h-empirical-supports-sublinear.md
+  researcher-29-pro-A-followup-transversal-static-cover-sharpened.md
+  researcher-30-pro-canonical-confirmation-2.md
+  researcher-31-codex-prolonger-counter-search.md
+  researcher-31-codex-summary.md
+  researcher-32-codex-optimal-shortener-strategy.md
+  researcher-32-codex-sigma-rule-summary.md
+  researcher-32-pro-A-simplex-star-refutation.md
+  researcher-33-codex-sigma-vs-cascade.md
+  researcher-33-fresh-pro-defect-layer-counting-lemma.md
+  researcher-33-pro-A-thickness-dichotomy.md
+  researcher-34-codex-resilience-online-promotion.md
+  researcher-35-codex-L-sublinear-proof.md
+  researcher-35-fresh-pro-arithmetic-closure-candidate.md
+  researcher-35-pro-A-dyadic-state-estimate-closed.md
   verify-aristotle-01-theorem-A.md
   verify-aristotle-03-5-16.md
   verify-open-02-audit1.md
@@ -258,6 +373,10 @@ erdos-872/
   verify-postresp-14-pro02-probabilistic-sieve-chatgpt.md
   verify-postresp-14-pro02-probabilistic-sieve-claude.md
   verify-postresp-14-pro02-probabilistic-sieve-gemini.md
+  verify-postresp-15-pro-prime-count-refinement-audit1.md
+  verify-postresp-15-pro-prime-count-refinement-audit2.md
+  verify-postresp-15-pro-prime-count-refinement-audit3-codex.md
+  verify-postresp-18-claude-T1-T2-audit.md
   verify-postresp-followup12-essentially-sound.md
   verify-postresp-followup12-online-patch-needed.md
   verify-postresp-followup12-overlap-fatal.md

@@ -87,10 +87,34 @@ Codex also added empirical sanity checks via `compute_state_shadow_stats` in pha
 
 ## Why this might still be wrong
 
+### The specific concern flagged by a parallel Pro A audit (researcher-35-pro-A-online-domination-partial-with-critique.md)
+
+**Pro A, working in parallel on their own R35 continuation, produced an adversarial critique of the R35 closure candidates.** The concern:
+
+> "R35's static thickness argument handles the resulting mass, but only after the set of useful witnesses is known; it does NOT by itself bound how many such witnesses Prolonger can create online."
+
+In detail: the R35 state inequality $\mu(\operatorname{Cl}_h) \ll L \cdot \text{scored} + N_h/\log L$ holds as a STATE bound at any time. Translating to a game-length bound requires controlling Prolonger's cumulative useful score mass. Pro A's own online domination lemma gives a WEIGHTED bound (degree-weighted):
+$$\sum_t \sum_{\substack{u \subsetneq S_t \\ |S_t \setminus u| = k}} d_t'(u) \le \binom{h}{k} N_h,$$
+but NOT a cardinality bound on useful stolen certificates. Recovering $|F_{\text{useful}}| \ll N_h/h$ would need an anti-concentration lower bound: useful stolen certs average live degree $\gg h$.
+
+**Specifically check:**
+
+1. Does fresh Pro's translation "$L(n) \ll n \cdot g(h)/h$" implicitly require a cardinality bound on useful scored mass? Or does the mass-weighted version only need mass control (which R35's state inequality gives directly)?
+2. Does Codex's argument (state-local charging on stolen top facets) have the same ambiguity?
+3. Does the R35 static state inequality compose with a straightforward online argument to yield game length, or is the "lower-defect star-breaker" principle Pro A identifies actually needed?
+
+### Other structural concerns
+
 - The arithmetic locality used in thick-case charging ("scored star shields $S\setminus\{p\}$ via $q \asymp p$") is a structural claim about the actual divisibility game, not the abstract hypergraph. Verify the claim holds in the divisibility-antichain game: given a legal Shortener move $Q \in C_n$ shielding the top-facet $bA_{S\setminus\{p\}}$, is $Q$ forced to have the form $bA_{S\setminus\{p\}} q$ with $q$ prime in some comparable range?
 - The "central rank" regime $h = (1+o(1)) \log\log y$ is invoked for the exponential-tilting approximation. Does the argument extend to boundary $h$ values in the Poisson window $h = H \pm O(\sqrt H)$?
 - The charging argument claims "each scored star absorbs charge $\le 1$." Verify this bound is tight, not off by a log factor.
 - The game-length translation $L(n) \ll n \cdot g(h)/h$ is invoked — verify it correctly accounts for all game phases (activation, residual, cleanup).
+
+### Pro A's abstract star-forest counterexample
+
+Pro A exhibited an abstract countermodel: $r$ disjoint stars each with center of degree $d$, private edge leaves. Prolonger can force $\Omega(rd)$ scores even with static center cover of size $r$, because once he steals a star's center, private leaves only allow one-for-one trade. This shows that **in the abstract $H^{(h)}$ model**, max-degree $\sigma$ cannot prove the amortization.
+
+Pro A argues this does NOT embed into the arithmetic divisibility model (targets have lower divisors that are NOT private — lower-defect certificates remain available). But this requires a "lower-defect star-breaker" argument to complete. Check: does the R35 closure implicitly prove or sidestep this?
 
 ## What you are asked to do
 
