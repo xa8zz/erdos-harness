@@ -5,6 +5,13 @@ import random
 from typing import Any, Iterable
 
 
+def _iter_bits(mask: int):
+    while mask:
+        bit = mask & -mask
+        yield bit.bit_length() - 1
+        mask ^= bit
+
+
 def _available_vertices(state: Any) -> tuple[int, ...]:
     return state.hypergraph.available_vertex_indices(state)
 
@@ -31,6 +38,26 @@ def _vertex_hit_score(state: Any, vertex_index: int) -> tuple[object, ...]:
         hypergraph.vertex_degrees[vertex_index],
         tuple(-value for value in hypergraph.vertex_label(vertex_index)),
     )
+
+
+def _shadow_vertex_mask(state: Any) -> int:
+    mask = 0
+    unresolved = state.unresolved_edges_mask
+    while unresolved:
+        bit = unresolved & -unresolved
+        edge_index = bit.bit_length() - 1
+        mask |= state.hypergraph.edge_vertex_masks[edge_index]
+        unresolved ^= bit
+    return mask
+
+
+def _captured_shadow_profile(state: Any) -> tuple[int, int]:
+    useful_mask = state.captured_mask & _shadow_vertex_mask(state)
+    useful_degree = sum(
+        state.hypergraph.vertex_hit_count(state.unresolved_edges_mask, vertex_index)
+        for vertex_index in _iter_bits(useful_mask)
+    )
+    return useful_mask.bit_count(), useful_degree
 
 
 def choose_max_degree_vertex(state: Any) -> int:
@@ -91,6 +118,40 @@ def make_prolonger_lookahead_one(shortener_policy):
             return (
                 after_reply.unresolved_edges_mask.bit_count(),
                 hypergraph.vertex_hit_count(short_state.unresolved_edges_mask, reply),
+                tuple(-value for value in hypergraph.edge_label(edge_index)),
+            )
+
+        return max(_unresolved_edges(state), key=score)
+
+    return policy
+
+
+def make_prolonger_shadow_pressure(shortener_policy):
+    """Greedy Prolonger policy that maximizes post-reply captured top-shadow."""
+
+    def policy(state: Any, rng: random.Random | None = None) -> int:
+        hypergraph = state.hypergraph
+        chooser = rng if rng is not None else random.Random(0)
+        current_useful, _ = _captured_shadow_profile(state)
+
+        def score(edge_index: int) -> tuple[object, ...]:
+            next_captured = state.captured_mask | hypergraph.edge_vertex_masks[edge_index]
+            short_state = hypergraph.state_view(state.claimed_mask, next_captured, True)
+            if short_state.unresolved_edges_mask == 0:
+                after_state = hypergraph.state_view(state.claimed_mask, next_captured, False)
+            else:
+                reply = shortener_policy(short_state, chooser)
+                after_state = hypergraph.state_view(
+                    state.claimed_mask | (1 << reply),
+                    next_captured,
+                    False,
+                )
+            useful_count, useful_degree = _captured_shadow_profile(after_state)
+            return (
+                useful_count - current_useful,
+                useful_count,
+                -useful_degree,
+                -after_state.unresolved_edges_mask.bit_count(),
                 tuple(-value for value in hypergraph.edge_label(edge_index)),
             )
 

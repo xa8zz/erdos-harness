@@ -7,12 +7,14 @@ from transversal_small_h import (
     TopFacetHypergraph,
     brute_force_game_value,
     compute_state_shadow_stats,
+    measure_shadow_profile,
     simulate_game,
     solve_against_fixed_prolonger,
 )
 from transversal_small_h_strategy import (
     audit_shortener_policy_against_exact,
     audit_shortener_policy_on_principal_variations,
+    make_prolonger_shadow_pressure,
     make_prolonger_simplex_star_cascade,
     make_shortener_sigma,
 )
@@ -90,6 +92,36 @@ class TopFacetHypergraphTests(unittest.TestCase):
         self.assertEqual(optimal["principal_variation"][0], ("P", (0, 1, 2)))
         self.assertEqual(greedy["T"], optimal["T_best"])
 
+    def test_shadow_pressure_prolonger_targets_post_reply_shadow(self) -> None:
+        sigma = make_shortener_sigma()
+        shadow_pressure = make_prolonger_shadow_pressure(sigma)
+        hypergraph = TopFacetHypergraph(6, 4)
+
+        first_state = hypergraph.state_view(0, 0, False)
+        first_edge = hypergraph.edge_label(shadow_pressure(first_state, None))
+        self.assertEqual(first_edge, (0, 1, 2, 3))
+
+        first_edge_index = hypergraph.edges.index(first_edge)
+        captured_mask = hypergraph.edge_vertex_masks[first_edge_index]
+        reply_state = hypergraph.state_view(0, captured_mask, True)
+        reply_vertex = sigma(reply_state, None)
+        claimed_mask = 1 << reply_vertex
+
+        second_state = hypergraph.state_view(claimed_mask, captured_mask, False)
+        second_edge = hypergraph.edge_label(shadow_pressure(second_state, None))
+        self.assertEqual(second_edge, (1, 2, 4, 5))
+
+    def test_measure_shadow_profile_tracks_useful_top_facets(self) -> None:
+        sigma = make_shortener_sigma()
+        shadow_pressure = make_prolonger_shadow_pressure(sigma)
+        profile = measure_shadow_profile(4, 3, sigma, shadow_pressure)
+
+        self.assertEqual(profile["T"], 1)
+        self.assertEqual(profile["max_useful_top_facets"], 5)
+        self.assertEqual(profile["max_useful_top_facets_turn"], 3)
+        self.assertEqual(profile["max_closed_edges"], 2)
+        self.assertEqual(profile["max_normalized_captured_boundary"], 3.0)
+
     def test_shadow_stats_track_closed_and_live_layers(self) -> None:
         hypergraph = TopFacetHypergraph(4, 3)
         captured_mask = (
@@ -109,16 +141,28 @@ class TopFacetHypergraphTests(unittest.TestCase):
         top = layers[1]
         self.assertEqual(top.shadow_total, 5)
         self.assertEqual(top.unavailable_total, 4)
+        self.assertEqual(top.claimed_total, 1)
+        self.assertEqual(top.captured_total, 3)
         self.assertEqual(top.unavailable_in_shadow, 3)
+        self.assertEqual(top.claimed_in_shadow, 0)
+        self.assertEqual(top.captured_in_shadow, 3)
         self.assertEqual(top.available_in_shadow, 2)
         self.assertEqual(top.unavailable_outside_shadow, 1)
+        self.assertEqual(top.claimed_outside_shadow, 1)
+        self.assertEqual(top.captured_outside_shadow, 0)
 
         codim_two = layers[2]
         self.assertEqual(codim_two.shadow_total, 4)
         self.assertEqual(codim_two.unavailable_total, 4)
+        self.assertEqual(codim_two.claimed_total, 2)
+        self.assertEqual(codim_two.captured_total, 3)
         self.assertEqual(codim_two.unavailable_in_shadow, 4)
+        self.assertEqual(codim_two.claimed_in_shadow, 2)
+        self.assertEqual(codim_two.captured_in_shadow, 3)
         self.assertEqual(codim_two.available_in_shadow, 0)
         self.assertEqual(codim_two.unavailable_outside_shadow, 0)
+        self.assertEqual(codim_two.claimed_outside_shadow, 0)
+        self.assertEqual(codim_two.captured_outside_shadow, 0)
 
 
 if __name__ == "__main__":

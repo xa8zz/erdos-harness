@@ -15,6 +15,7 @@ import numpy as np
 from scipy.optimize import Bounds, LinearConstraint, milp
 from transversal_small_h_strategy import (
     make_prolonger_lookahead_one,
+    make_prolonger_shadow_pressure,
     make_prolonger_simplex_star_cascade,
     make_shortener_sigma,
     prolonger_max_claimed_overlap,
@@ -56,9 +57,15 @@ class DefectLayerShadowStats:
     subset_size: int
     shadow_total: int
     unavailable_total: int
+    claimed_total: int
+    captured_total: int
     unavailable_in_shadow: int
+    claimed_in_shadow: int
+    captured_in_shadow: int
     available_in_shadow: int
     unavailable_outside_shadow: int
+    claimed_outside_shadow: int
+    captured_outside_shadow: int
 
 
 @dataclass(frozen=True)
@@ -71,6 +78,8 @@ class StateShadowStats:
     closed_edges: int
     normalized_available_boundary: float
     normalized_unavailable_boundary: float
+    normalized_claimed_boundary: float
+    normalized_captured_boundary: float
     layers: tuple[DefectLayerShadowStats, ...]
 
 
@@ -200,6 +209,12 @@ def compute_state_shadow_stats(
     live_edges_mask = hypergraph.unresolved_edges_mask(claimed_mask, captured_mask)
     unavailable_mask = claimed_mask | captured_mask
 
+    claimed_top_facets = tuple(
+        hypergraph.vertex_label(vertex_index) for vertex_index in _iter_bits(claimed_mask)
+    )
+    captured_top_facets = tuple(
+        hypergraph.vertex_label(vertex_index) for vertex_index in _iter_bits(captured_mask)
+    )
     unavailable_top_facets = tuple(
         hypergraph.vertex_label(vertex_index) for vertex_index in _iter_bits(unavailable_mask)
     )
@@ -208,6 +223,8 @@ def compute_state_shadow_stats(
     layers: list[DefectLayerShadowStats] = []
     normalized_available_boundary = 0.0
     normalized_unavailable_boundary = 0.0
+    normalized_claimed_boundary = 0.0
+    normalized_captured_boundary = 0.0
     for defect in range(1, hypergraph.h):
         subset_size = hypergraph.h - defect
         shadow = {
@@ -215,27 +232,49 @@ def compute_state_shadow_stats(
             for edge in unhit_edges
             for subset in combinations(edge, subset_size)
         }
+        claimed = {
+            subset
+            for facet in claimed_top_facets
+            for subset in combinations(facet, subset_size)
+        }
+        captured = {
+            subset
+            for facet in captured_top_facets
+            for subset in combinations(facet, subset_size)
+        }
         unavailable = {
             subset
             for facet in unavailable_top_facets
             for subset in combinations(facet, subset_size)
         }
+        claimed_in_shadow = len(shadow & claimed)
+        captured_in_shadow = len(shadow & captured)
         unavailable_in_shadow = len(shadow & unavailable)
         available_in_shadow = len(shadow - unavailable)
+        claimed_outside_shadow = len(claimed - shadow)
+        captured_outside_shadow = len(captured - shadow)
         unavailable_outside_shadow = len(unavailable - shadow)
         layer = DefectLayerShadowStats(
             defect=defect,
             subset_size=subset_size,
             shadow_total=len(shadow),
             unavailable_total=len(unavailable),
+            claimed_total=len(claimed),
+            captured_total=len(captured),
             unavailable_in_shadow=unavailable_in_shadow,
+            claimed_in_shadow=claimed_in_shadow,
+            captured_in_shadow=captured_in_shadow,
             available_in_shadow=available_in_shadow,
             unavailable_outside_shadow=unavailable_outside_shadow,
+            claimed_outside_shadow=claimed_outside_shadow,
+            captured_outside_shadow=captured_outside_shadow,
         )
         layers.append(layer)
         normalizer = math.comb(hypergraph.h, defect)
         normalized_available_boundary += available_in_shadow / normalizer
         normalized_unavailable_boundary += unavailable_in_shadow / normalizer
+        normalized_claimed_boundary += claimed_in_shadow / normalizer
+        normalized_captured_boundary += captured_in_shadow / normalizer
 
     return StateShadowStats(
         claimed_vertices=claimed_mask.bit_count(),
@@ -246,6 +285,8 @@ def compute_state_shadow_stats(
         closed_edges=(unhit_edges_mask & ~live_edges_mask).bit_count(),
         normalized_available_boundary=normalized_available_boundary,
         normalized_unavailable_boundary=normalized_unavailable_boundary,
+        normalized_claimed_boundary=normalized_claimed_boundary,
+        normalized_captured_boundary=normalized_captured_boundary,
         layers=tuple(layers),
     )
 
@@ -820,6 +861,109 @@ def solve_against_fixed_prolonger(
         "positions_evaluated": len(cache),
         "principal_variation": principal_variation,
     }
+
+
+def measure_shadow_profile(
+    N: int,
+    h: int,
+    shortener_policy: VertexPolicy,
+    prolonger_policy: EdgePolicy,
+    seed: int = 0,
+) -> dict[str, object]:
+    """Track captured-shadow pressure over the full move-by-move transcript."""
+
+    hypergraph = TopFacetHypergraph(N, h)
+    rng = random.Random(seed)
+    claimed_mask = 0
+    captured_mask = 0
+    shortener_moves = 0
+    move_index = 0
+    transcript: list[tuple[str, tuple[int, ...]]] = []
+    max_useful_top_facets = 0
+    max_useful_top_facets_turn = 0
+    max_closed_edges = 0
+    max_normalized_captured_boundary = 0.0
+
+    def observe() -> None:
+        nonlocal max_useful_top_facets
+        nonlocal max_useful_top_facets_turn
+        nonlocal max_closed_edges
+        nonlocal max_normalized_captured_boundary
+        stats = compute_state_shadow_stats(hypergraph, claimed_mask, captured_mask)
+        top = next(layer for layer in stats.layers if layer.defect == 1)
+        if top.captured_in_shadow > max_useful_top_facets:
+            max_useful_top_facets = top.captured_in_shadow
+            max_useful_top_facets_turn = move_index
+        max_closed_edges = max(max_closed_edges, stats.closed_edges)
+        max_normalized_captured_boundary = max(
+            max_normalized_captured_boundary,
+            stats.normalized_captured_boundary,
+        )
+
+    observe()
+    while True:
+        pro_state = hypergraph.state_view(claimed_mask, captured_mask, False)
+        if pro_state.unresolved_edges_mask == 0:
+            break
+        edge_index = prolonger_policy(pro_state, rng)
+        captured_mask |= hypergraph.edge_vertex_masks[edge_index]
+        transcript.append(("P", hypergraph.edge_label(edge_index)))
+        move_index += 1
+        observe()
+
+        short_state = hypergraph.state_view(claimed_mask, captured_mask, True)
+        if short_state.unresolved_edges_mask == 0:
+            break
+        vertex_index = shortener_policy(short_state, rng)
+        claimed_mask |= 1 << vertex_index
+        shortener_moves += 1
+        transcript.append(("S", hypergraph.vertex_label(vertex_index)))
+        move_index += 1
+        observe()
+
+    return {
+        "N": N,
+        "h": h,
+        "T": shortener_moves,
+        "transcript": tuple(transcript),
+        "max_useful_top_facets": max_useful_top_facets,
+        "max_useful_top_facets_turn": max_useful_top_facets_turn,
+        "max_closed_edges": max_closed_edges,
+        "max_normalized_captured_boundary": max_normalized_captured_boundary,
+    }
+
+
+def run_amortization_audit(
+    cases: list[tuple[int, int]],
+    shortener_policy: VertexPolicy,
+    prolonger_policies: dict[str, EdgePolicy],
+    seed: int = 0,
+) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for N, h in cases:
+        edge_count = math.comb(N, h)
+        edge_scale = edge_count / h
+        for policy_name, prolonger_policy in prolonger_policies.items():
+            profile = measure_shadow_profile(N, h, shortener_policy, prolonger_policy, seed)
+            rows.append(
+                {
+                    "N": N,
+                    "h": h,
+                    "policy": policy_name,
+                    "T": profile["T"],
+                    "edge_count": edge_count,
+                    "max_useful_top_facets": profile["max_useful_top_facets"],
+                    "max_useful_top_facets_turn": profile["max_useful_top_facets_turn"],
+                    "max_useful_top_facets_over_edges_per_h": profile["max_useful_top_facets"] / edge_scale,
+                    "max_useful_top_facets_over_edges": profile["max_useful_top_facets"] / edge_count,
+                    "max_closed_edges": profile["max_closed_edges"],
+                    "max_normalized_captured_boundary": profile["max_normalized_captured_boundary"],
+                    "max_normalized_captured_boundary_over_edges_per_h": (
+                        profile["max_normalized_captured_boundary"] / edge_scale
+                    ),
+                }
+            )
+    return rows
 
 
 def run_grid(
