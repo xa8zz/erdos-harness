@@ -457,7 +457,18 @@ With $g(h) = O(h/\log h)$: $L(n) \ll n/\log\log\log n$. Still strictly $o(n)$, s
 $$|\operatorname{Cl}_h| \ll L \cdot (\text{scored or stolen boundary mass}) + \frac{N_h}{\log(hL)},$$
 with $L \asymp h/\log h$. Pro R33 closed this for clean product-star cylinders. Remaining online promotion: (1) replacements across neighboring short cells not just exactly the same cell, (2) lower-defect certificates not only top facets, (3) adversarial interleaving of Shortener claims and Prolonger steals, (4) summation over full central rank window. Item 1 may cost a slowly varying factor if bundling short cells into factor-$<2$ windows; would give $g(h) = O(h/\log\log h)$ as a slightly weaker but still-sublinear fallback. See researcher-33-pro-A-thickness-dichotomy.md.
 
-**Empirical note (Codex R32).** Extracted optimal Shortener strategy $\sigma$ = "claim vertex of max unresolved-edge degree, tiebreak on initial degree then lexicographic." Matches 95.6% of exact-minimax Shortener states. Achieves $g \approx 1 + O(1/h)$ on tested grids (better than the $O(\log h)$ target). BUT: the simplex-star cascade Prolonger was NOT in Codex's test suite; $\sigma$-vs-cascade performance is open. See researcher-32-codex-sigma-rule-summary.md.
+**Empirical note (Codex R32).** Extracted optimal Shortener strategy $\sigma$ = "claim vertex of max unresolved-edge degree, tiebreak on initial degree then lexicographic." Matches 95.6% of exact-minimax Shortener states. Achieves $g \approx 1 + O(1/h)$ on tested grids (better than the $O(\log h)$ target). Codex R33 empirically tested $\sigma$ against the simplex-star cascade: worst ratio $\sigma/\tau_{\text{lower}} = 1.133$; cascade is NOT Prolonger-optimal in online play. See researcher-32-codex-sigma-rule-summary.md and researcher-33-codex-sigma-vs-cascade.md.
+
+**Codex R34 — gap now isolated to ONE online shadow anti-concentration statement.** The R33 ingredients (Pro A thickness dichotomy + fresh Pro counting lemma) do NOT compose cleanly. Obstruction:
+- Thickness dichotomy: target-level bound.
+- Counting lemma: reduces $|\operatorname{Cl}_h|$ to certificate counts $|C_{h-k}|$.
+- Passing certificates back to targets costs $D_{h,k}/\binom{h}{k} \asymp h$ at $k=1$ in central range.
+- Desired scored multiplier is only $L \asymp h/\log h$.
+- Factor-$\log h$ gap between composition bound ($h \cdot$ scored) and target ($h/\log h \cdot$ scored).
+
+Items (2) lower-defect certs and (4) central-rank summation are closed by the counting lemma and Poisson tail. Item (1) neighboring-cell replacements is at most a slowly varying $\log\log h$ loss. **Item (3) adversarial interleaving is the single remaining load-bearing gap.** The missing lemma:
+$$|C_{h-k} \cap \partial_{h-k} R| \le O(\log h) |U_{h-k}| + O(\binom{h}{k}) \cdot (\text{scored})$$
+needs a *certificate-level* anti-concentration argument (not the target-level thickness dichotomy alone). Standard online set cover results (Alon et al 2003, Gupta et al 2016) are too weak or in the wrong model. See researcher-34-codex-resilience-online-promotion.md.
 
 **Cross-core singleton cleanup also fails at the same rate identity (Pro R29).** For rank $h$, the target mass containing a fixed small prime $p \le y$ is $N_h(p) \asymp (h/H) \cdot (1/p) \cdot N_h$. A legal singleton move $p$ kills mass $\asymp (h/(pH)) N_h$. Shortener's low-prime moves act on reciprocal mass $H$; Prolonger shields an $h$-set per move. Same rate identity: certificates per target $\sim h$, targets per certificate $\sim H \sim h$. No positive drift at the one-prime layer — this confirms the defect-budget $\mathfrak B_h$ is the correct object and cannot be replaced by pure low-divisor cleanup.
 
