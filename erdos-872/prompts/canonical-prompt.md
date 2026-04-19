@@ -437,7 +437,17 @@ In the unshielded case (all small primes available), this is $\asymp 1/(b \log t
 
 3. **$g(h) = O(\log h)$ is enough.** Plugging into the reduction: $L(n) \ll n (\log\log\log n)/\log\log n + n/(\log n)^{1-o(1)} = o(n)$.
 
-The remaining missing statement is a **resilience upgrade** of the $O(\log h)$ static cover: $|\operatorname{Cl}_h(R, C)| \le O(\log h \cdot \mathfrak B_h(R, C) + \text{already scored})$. This bounds the number of fully closed residual targets against Prolonger's boundary-stealing cascades. A static cover gives the right scale; the online resilience upgrade is what Prolonger's boundary stealing makes non-trivial.
+**Plain resilience lemma REFUTED (Pro R32).** The specific state inequality
+$$|\operatorname{Cl}_h(R, C)| \le O(\log h \cdot \mathfrak B_h(R, C) + \text{already scored})$$
+is false. Simplex-star cascade counterexample: take $X = \{0\} \cup Y$ with $|Y| = M$, scored star $\mathcal F = \{\{0\} \cup D : D \in \binom{Y}{h-1}\}$, residual $R = \binom{Y}{h}$; then every $S \in R$ has every proper subset in the down-closure of $\mathcal F$ (choose $D \supseteq E$ of size $h-1$), so $R \subseteq \operatorname{Cl}_h$ and $\mathfrak B_h = 0$ by construction, while $|\operatorname{Cl}_h|/|\mathcal F| = (M-h+1)/h$ is arbitrarily large. Embeds into divisibility geometry: score targets $b \cdot r \cdot A_D$ for $D \in \binom{Y}{h-1}$ with $I = [P, (1+\eta)P]$ a short prime interval; then $\{bA_S : S \in \binom{Y}{h}\}$ is fully closed.
+
+**Corrected scale-entropy target (Pro R32).** The sublinear route is still alive. The dangerous cascade has reciprocal mass $\alpha_I \asymp 1/(h\log P)$ in a narrow prime interval, so cell-star mass is $(\alpha_I/H)^h$ times full rank-$h$ mass — exponentially small when $h \sim H$. The corrected form adds a concentration term:
+$$|\operatorname{Cl}_h(R, C)| \le O(\log h) \mathfrak B_h(R, C) + O(\text{scored}) + \sum_{\mathcal Q} O\!\left(\frac{n}{\log n} \frac{\alpha(\mathcal Q)^h}{h!}\right),$$
+where $\mathcal Q$ ranges over product-compatible short prime-scale cells. The required global estimate:
+$$\sum_{\mathcal Q} \frac{n}{\log n} \frac{\alpha(\mathcal Q)^h}{h!} = o\!\left(\frac{\log h}{h} N_h\right).$$
+True for single-cell stars since $\max \alpha(\mathcal Q) = o(H)$; the hard remaining case is **multi-cell product stars**, where each coordinate of $S$ is replaced inside its own short prime cell. Proof would require a scale-local arithmetic robust transversal theorem charging local simplex-star explosions to their exponentially small cells. See researcher-32-pro-A-simplex-star-refutation.md.
+
+**Empirical note (Codex R32).** Extracted optimal Shortener strategy $\sigma$ = "claim vertex of max unresolved-edge degree, tiebreak on initial degree then lexicographic." Matches 95.6% of exact-minimax Shortener states. Achieves $g \approx 1 + O(1/h)$ on tested grids (better than the $O(\log h)$ target). BUT: the simplex-star cascade Prolonger was NOT in Codex's test suite; $\sigma$-vs-cascade performance is open. See researcher-32-codex-sigma-rule-summary.md.
 
 **Cross-core singleton cleanup also fails at the same rate identity (Pro R29).** For rank $h$, the target mass containing a fixed small prime $p \le y$ is $N_h(p) \asymp (h/H) \cdot (1/p) \cdot N_h$. A legal singleton move $p$ kills mass $\asymp (h/(pH)) N_h$. Shortener's low-prime moves act on reciprocal mass $H$; Prolonger shields an $h$-set per move. Same rate identity: certificates per target $\sim h$, targets per certificate $\sim H \sim h$. No positive drift at the one-prime layer — this confirms the defect-budget $\mathfrak B_h$ is the correct object and cannot be replaced by pure low-divisor cleanup.
 

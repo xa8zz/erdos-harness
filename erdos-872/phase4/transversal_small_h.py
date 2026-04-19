@@ -13,16 +13,16 @@ from typing import Callable
 import networkx as nx
 import numpy as np
 from scipy.optimize import Bounds, LinearConstraint, milp
+from transversal_small_h_strategy import (
+    make_prolonger_lookahead_one,
+    make_shortener_sigma,
+    prolonger_max_claimed_overlap,
+    prolonger_random_degree_weighted,
+)
 
 
 VertexPolicy = Callable[["StateView", random.Random], int]
 EdgePolicy = Callable[["StateView", random.Random], int]
-
-
-@dataclass(frozen=True)
-class PolicyRegistry:
-    shortener: dict[str, VertexPolicy]
-    prolonger: dict[str, EdgePolicy]
 
 
 @dataclass(frozen=True)
@@ -369,6 +369,36 @@ class ExactTopFacetSolver:
             "principal_variation": self._principal_variation(),
         }
 
+    def position_value(self, claimed_mask: int, captured_mask: int, shortener_turn: bool) -> int:
+        return self._solve_value(claimed_mask, captured_mask, shortener_turn)
+
+    def solved_states(self, shortener_turn: bool | None = None) -> tuple[tuple[int, int, bool], ...]:
+        states = []
+        for claimed_mask, captured_mask, turn in self.transposition:
+            if shortener_turn is None or shortener_turn == turn:
+                states.append((claimed_mask, captured_mask, turn))
+        return tuple(sorted(states))
+
+    def optimal_shortener_moves(self, claimed_mask: int, captured_mask: int) -> tuple[int, ...]:
+        state = self.hypergraph.state_view(claimed_mask, captured_mask, True)
+        current_value = self._solve_value(claimed_mask, captured_mask, True)
+        optimal = []
+        for vertex_index in self.hypergraph.available_vertex_indices(state):
+            candidate = 1 + self._solve_value(claimed_mask | (1 << vertex_index), captured_mask, False)
+            if candidate == current_value:
+                optimal.append(vertex_index)
+        return tuple(optimal)
+
+    def optimal_prolonger_moves(self, claimed_mask: int, captured_mask: int) -> tuple[int, ...]:
+        state = self.hypergraph.state_view(claimed_mask, captured_mask, False)
+        current_value = self._solve_value(claimed_mask, captured_mask, False)
+        optimal = []
+        for edge_index in self.hypergraph.unresolved_edge_indices(state):
+            candidate = self._solve_value(claimed_mask, captured_mask | self.hypergraph.edge_vertex_masks[edge_index], True)
+            if candidate == current_value:
+                optimal.append(edge_index)
+        return tuple(optimal)
+
 
 def brute_force_game_value(N: int, h: int) -> dict[str, int]:
     """Independent exhaustive solver for small sanity checks."""
@@ -541,6 +571,9 @@ def shortener_random_high_degree(state: StateView, rng: random.Random) -> int:
     return rng.choice(ranked[:window])
 
 
+shortener_sigma = make_shortener_sigma()
+
+
 def prolonger_smallest_neighborhood(state: StateView, rng: random.Random) -> int:
     hypergraph = state.hypergraph
     return min(
@@ -577,110 +610,6 @@ def prolonger_highest_degree_vertex(state: StateView, rng: random.Random) -> int
             ),
             tuple(-value for value in hypergraph.edge_label(edge_index)),
         ),
-    )
-
-
-def _edge_captured_overlap(hypergraph: TopFacetHypergraph, state: StateView, edge_index: int) -> int:
-    return (hypergraph.edge_vertex_masks[edge_index] & state.captured_mask).bit_count()
-
-
-def _edge_new_capture_count(hypergraph: TopFacetHypergraph, state: StateView, edge_index: int) -> int:
-    return (hypergraph.edge_vertex_masks[edge_index] & ~state.captured_mask).bit_count()
-
-
-def _edge_core_vertex_count(
-    hypergraph: TopFacetHypergraph,
-    edge_index: int,
-    core_points: tuple[int, ...],
-) -> int:
-    if len(core_points) >= hypergraph.h:
-        return 0
-    edge = hypergraph.edge_label(edge_index)
-    if not set(core_points).issubset(edge):
-        return 0
-    return hypergraph.h - len(core_points)
-
-
-def _fixed_core_policy(state: StateView, core_points: tuple[int, ...]) -> int:
-    hypergraph = state.hypergraph
-    return max(
-        hypergraph.unresolved_edge_indices(state),
-        key=lambda edge_index: (
-            _edge_core_vertex_count(hypergraph, edge_index, core_points),
-            _edge_captured_overlap(hypergraph, state, edge_index),
-            -_post_capture_resolved_count(hypergraph, state, edge_index),
-            -_edge_new_capture_count(hypergraph, state, edge_index),
-            tuple(-value for value in hypergraph.edge_label(edge_index)),
-        ),
-    )
-
-
-def prolonger_fixed_pair_core(state: StateView, rng: random.Random) -> int:
-    return _fixed_core_policy(state, (0, 1))
-
-
-def prolonger_fixed_triple_core(state: StateView, rng: random.Random) -> int:
-    return _fixed_core_policy(state, (0, 1, 2))
-
-
-def prolonger_max_captured_overlap(state: StateView, rng: random.Random) -> int:
-    hypergraph = state.hypergraph
-    return max(
-        hypergraph.unresolved_edge_indices(state),
-        key=lambda edge_index: (
-            _edge_captured_overlap(hypergraph, state, edge_index),
-            -_post_capture_resolved_count(hypergraph, state, edge_index),
-            -_edge_new_capture_count(hypergraph, state, edge_index),
-            _edge_core_vertex_count(hypergraph, edge_index, (0, 1)),
-            tuple(-value for value in hypergraph.edge_label(edge_index)),
-        ),
-    )
-
-
-def prolonger_pair_core_overlap(state: StateView, rng: random.Random) -> int:
-    hypergraph = state.hypergraph
-    return max(
-        hypergraph.unresolved_edge_indices(state),
-        key=lambda edge_index: (
-            _edge_core_vertex_count(hypergraph, edge_index, (0, 1)),
-            _edge_captured_overlap(hypergraph, state, edge_index),
-            -_post_capture_resolved_count(hypergraph, state, edge_index),
-            -_edge_new_capture_count(hypergraph, state, edge_index),
-            tuple(-value for value in hypergraph.edge_label(edge_index)),
-        ),
-    )
-
-
-def prolonger_weighted_overlap_random(state: StateView, rng: random.Random) -> int:
-    hypergraph = state.hypergraph
-    candidates = list(hypergraph.unresolved_edge_indices(state))
-    weights = []
-    for edge_index in candidates:
-        overlap = _edge_captured_overlap(hypergraph, state, edge_index)
-        pair_core = _edge_core_vertex_count(hypergraph, edge_index, (0, 1))
-        resolved_penalty = _post_capture_resolved_count(hypergraph, state, edge_index)
-        weight = (1 + overlap) ** 3 * (1 + pair_core) / (1 + resolved_penalty)
-        weights.append(weight)
-    return rng.choices(candidates, weights=weights, k=1)[0]
-
-
-def build_policy_registry() -> PolicyRegistry:
-    return PolicyRegistry(
-        shortener={
-            "max_degree": shortener_max_degree,
-            "min_edge_best_vertex": shortener_min_edge_best_vertex,
-            "random_high_degree": shortener_random_high_degree,
-        },
-        prolonger={
-            "smallest_neighborhood": prolonger_smallest_neighborhood,
-            "random": prolonger_random,
-            "highest_degree_vertex": prolonger_highest_degree_vertex,
-            "fixed_pair_core": prolonger_fixed_pair_core,
-            "fixed_triple_core": prolonger_fixed_triple_core,
-            "max_captured_overlap": prolonger_max_captured_overlap,
-            "pair_core_overlap": prolonger_pair_core_overlap,
-            "weighted_overlap_random": prolonger_weighted_overlap_random,
-        },
     )
 
 
@@ -732,65 +661,114 @@ def run_grid(
     exact_limits: dict[int, int] | None = None,
     static_cover_exact_limits: dict[int, int] | None = None,
     heuristic_trials: int = 32,
-    instances: list[tuple[int, int]] | None = None,
-    registry: PolicyRegistry | None = None,
 ) -> list[dict[str, object]]:
     if exact_limits is None:
         exact_limits = {3: 8, 4: 7, 5: 6}
     if static_cover_exact_limits is None:
         static_cover_exact_limits = {3: 12, 4: 9, 5: 8}
-    if instances is None:
-        instances = [
-            (N, h)
-            for h, max_N in ((3, 12), (4, 10), (5, 8))
-            for N in range(h + 1, max_N + 1)
-        ]
-    if registry is None:
-        registry = build_policy_registry()
+
+    shortener_policies: dict[str, VertexPolicy] = {
+        "max_degree": shortener_max_degree,
+        "min_edge_best_vertex": shortener_min_edge_best_vertex,
+        "random_high_degree": shortener_random_high_degree,
+    }
+    prolonger_policies: dict[str, EdgePolicy] = {
+        "smallest_neighborhood": prolonger_smallest_neighborhood,
+        "random": prolonger_random,
+        "highest_degree_vertex": prolonger_highest_degree_vertex,
+    }
 
     results: list[dict[str, object]] = []
-    for N, h in instances:
+    for h, max_N in ((3, 12), (4, 10), (5, 8)):
+        for N in range(h + 1, max_N + 1):
+            row: dict[str, object] = {
+                "N": N,
+                "h": h,
+                "vertex_count": math.comb(N, h - 1),
+                "edge_count": math.comb(N, h),
+            }
+            static_lower = row["edge_count"] / (N - h + 1)
+            row["tau_lower"] = static_lower
+            static_cover_limit = static_cover_exact_limits.get(h, h)
+            row["tau_exact"] = StaticCoverSolver(N, h).solve() if N <= static_cover_limit else None
+            exact_limit = exact_limits.get(h, h)
+            if N <= exact_limit:
+                exact = ExactTopFacetSolver(N, h).solve()
+                row["T_star"] = exact["T_star"]
+                row["exact_positions"] = exact["positions_evaluated"]
+                row["exact_elapsed_seconds"] = exact["elapsed_seconds"]
+                row["principal_variation"] = exact["principal_variation"]
+                row["g_lower"] = exact["T_star"] / static_lower
+                row["g_exact"] = (
+                    exact["T_star"] / row["tau_exact"] if row["tau_exact"] is not None else None
+                )
+            else:
+                row["T_star"] = None
+                row["exact_positions"] = None
+                row["exact_elapsed_seconds"] = None
+                row["principal_variation"] = ()
+                row["g_lower"] = None
+                row["g_exact"] = None
+
+            for short_name, shortener_policy in shortener_policies.items():
+                for pro_name, prolonger_policy in prolonger_policies.items():
+                    scores = [
+                        simulate_game(N, h, shortener_policy, prolonger_policy, seed)["T"]
+                        for seed in range(heuristic_trials)
+                    ]
+                    key_prefix = f"{short_name}__{pro_name}"
+                    row[f"{key_prefix}__mean"] = sum(scores) / len(scores)
+                    row[f"{key_prefix}__max"] = max(scores)
+                    row[f"{key_prefix}__min"] = min(scores)
+            results.append(row)
+    return results
+
+
+def evaluate_shortener_strategy(
+    cases: list[tuple[int, int]],
+    shortener_policy: VertexPolicy,
+    prolonger_policies: dict[str, EdgePolicy],
+    heuristic_trials: int = 16,
+    static_cover_exact_limits: dict[int, int] | None = None,
+) -> list[dict[str, object]]:
+    if static_cover_exact_limits is None:
+        static_cover_exact_limits = {3: 12, 4: 9, 5: 8, 6: 9, 7: 10}
+
+    rows: list[dict[str, object]] = []
+    for N, h in cases:
         row: dict[str, object] = {
             "N": N,
             "h": h,
             "vertex_count": math.comb(N, h - 1),
             "edge_count": math.comb(N, h),
         }
-        static_lower = row["edge_count"] / (N - h + 1)
-        row["tau_lower"] = static_lower
-        static_cover_limit = static_cover_exact_limits.get(h, h)
-        row["tau_exact"] = StaticCoverSolver(N, h).solve() if N <= static_cover_limit else None
-        exact_limit = exact_limits.get(h, h)
-        if N <= exact_limit:
-            exact = ExactTopFacetSolver(N, h).solve()
-            row["T_star"] = exact["T_star"]
-            row["exact_positions"] = exact["positions_evaluated"]
-            row["exact_elapsed_seconds"] = exact["elapsed_seconds"]
-            row["principal_variation"] = exact["principal_variation"]
-            row["g_lower"] = exact["T_star"] / static_lower
-            row["g_exact"] = (
-                exact["T_star"] / row["tau_exact"] if row["tau_exact"] is not None else None
-            )
-        else:
-            row["T_star"] = None
-            row["exact_positions"] = None
-            row["exact_elapsed_seconds"] = None
-            row["principal_variation"] = ()
-            row["g_lower"] = None
-            row["g_exact"] = None
-
-        for short_name, shortener_policy in registry.shortener.items():
-            for pro_name, prolonger_policy in registry.prolonger.items():
-                scores = [
-                    simulate_game(N, h, shortener_policy, prolonger_policy, seed)["T"]
-                    for seed in range(heuristic_trials)
-                ]
-                key_prefix = f"{short_name}__{pro_name}"
-                row[f"{key_prefix}__mean"] = sum(scores) / len(scores)
-                row[f"{key_prefix}__max"] = max(scores)
-                row[f"{key_prefix}__min"] = min(scores)
-        results.append(row)
-    return results
+        row["tau_lower"] = row["edge_count"] / (N - h + 1)
+        static_limit = static_cover_exact_limits.get(h, h)
+        row["tau_exact"] = StaticCoverSolver(N, h).solve() if N <= static_limit else None
+        row["tau_log_upper"] = math.log(max(h, 2)) * row["tau_lower"]
+        observed_values = []
+        for pro_name, prolonger_policy in prolonger_policies.items():
+            scores = [
+                simulate_game(N, h, shortener_policy, prolonger_policy, seed)["T"]
+                for seed in range(heuristic_trials)
+            ]
+            row[f"{pro_name}__min"] = min(scores)
+            row[f"{pro_name}__mean"] = sum(scores) / len(scores)
+            row[f"{pro_name}__max"] = max(scores)
+            observed_values.append(max(scores))
+        row["sigma_observed_min"] = min(observed_values)
+        row["sigma_observed_max"] = max(observed_values)
+        row["sigma_over_tau_lower_min"] = row["sigma_observed_min"] / row["tau_lower"]
+        row["sigma_over_tau_lower_max"] = row["sigma_observed_max"] / row["tau_lower"]
+        row["sigma_over_tau_exact_min"] = (
+            row["sigma_observed_min"] / row["tau_exact"] if row["tau_exact"] is not None else None
+        )
+        row["sigma_over_tau_exact_max"] = (
+            row["sigma_observed_max"] / row["tau_exact"] if row["tau_exact"] is not None else None
+        )
+        row["sigma_over_log_upper_max"] = row["sigma_observed_max"] / row["tau_log_upper"]
+        rows.append(row)
+    return rows
 
 
 def write_results(
@@ -831,12 +809,6 @@ def main() -> None:
         default=[],
         help="Override exact static-cover limits as h:N (for example 4:9)",
     )
-    parser.add_argument(
-        "--instance",
-        action="append",
-        default=[],
-        help="Run only the specified N:h instance (repeatable, for example 10:6)",
-    )
     args = parser.parse_args()
 
     exact_limits = {3: 8, 4: 7, 5: 6}
@@ -847,18 +819,11 @@ def main() -> None:
     for item in args.static_cover_limit:
         h_text, N_text = item.split(":", 1)
         static_cover_exact_limits[int(h_text)] = int(N_text)
-    instances = None
-    if args.instance:
-        instances = []
-        for item in args.instance:
-            N_text, h_text = item.split(":", 1)
-            instances.append((int(N_text), int(h_text)))
 
     rows = run_grid(
         exact_limits=exact_limits,
         static_cover_exact_limits=static_cover_exact_limits,
         heuristic_trials=args.heuristic_trials,
-        instances=instances,
     )
     write_results(rows, args.csv)
 

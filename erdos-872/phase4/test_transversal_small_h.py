@@ -1,16 +1,16 @@
 import math
-import random
 import unittest
 
 from transversal_small_h import (
     ExactTopFacetSolver,
     StaticCoverSolver,
     TopFacetHypergraph,
-    build_policy_registry,
     brute_force_game_value,
-    prolonger_fixed_pair_core,
-    prolonger_max_captured_overlap,
-    run_grid,
+)
+from transversal_small_h_strategy import (
+    audit_shortener_policy_against_exact,
+    audit_shortener_policy_on_principal_variations,
+    make_shortener_sigma,
 )
 
 
@@ -31,42 +31,36 @@ class TopFacetHypergraphTests(unittest.TestCase):
         expected = math.comb(6, 2) - (6 * 6 // 4)
         self.assertEqual(solver.solve(), expected)
 
-    def test_fixed_pair_core_opens_on_edge_containing_pair(self) -> None:
-        hypergraph = TopFacetHypergraph(6, 4)
-        state = hypergraph.state_view(0, 0, False)
-        edge_index = prolonger_fixed_pair_core(state, random.Random(0))
-        self.assertTrue({0, 1}.issubset(hypergraph.edge_label(edge_index)))
-
-    def test_max_captured_overlap_prefers_overlap_one_after_first_capture(self) -> None:
-        hypergraph = TopFacetHypergraph(6, 4)
-        first_edge = hypergraph.edges.index((0, 1, 2, 3))
-        captured_mask = hypergraph.edge_vertex_masks[first_edge]
-        state = hypergraph.state_view(0, captured_mask, False)
-        edge_index = prolonger_max_captured_overlap(state, random.Random(0))
-        overlap = (
-            hypergraph.edge_vertex_masks[edge_index] & captured_mask
-        ).bit_count()
-        self.assertEqual(overlap, 1)
-
-    def test_policy_registry_includes_counter_search_strategies(self) -> None:
-        registry = build_policy_registry()
-        self.assertIn("fixed_pair_core", registry.prolonger)
-        self.assertIn("max_captured_overlap", registry.prolonger)
-        self.assertIn("weighted_overlap_random", registry.prolonger)
-
-    def test_run_grid_accepts_custom_instances_and_registry(self) -> None:
-        rows = run_grid(
-            exact_limits={3: 4},
-            static_cover_exact_limits={3: 4},
-            heuristic_trials=1,
-            instances=[(4, 3)],
-            registry=build_policy_registry(),
+    def test_sigma_matches_all_exact_principal_variations(self) -> None:
+        sigma = make_shortener_sigma()
+        audit = audit_shortener_policy_on_principal_variations(
+            sigma,
+            cases=((4, 3), (5, 3), (6, 3), (5, 4), (6, 4), (6, 5)),
         )
-        self.assertEqual(len(rows), 1)
-        row = rows[0]
-        self.assertEqual((row["N"], row["h"]), (4, 3))
-        self.assertIn("max_degree__fixed_pair_core__mean", row)
-        self.assertIn("random_high_degree__weighted_overlap_random__min", row)
+        self.assertTrue(all(item["mismatch_count"] == 0 for item in audit), msg=audit)
+
+    def test_sigma_has_high_exact_state_agreement(self) -> None:
+        sigma = make_shortener_sigma()
+        audit = audit_shortener_policy_against_exact(
+            sigma,
+            cases=((4, 3), (5, 3), (6, 3), (5, 4), (6, 4), (6, 5)),
+        )
+        total_states = sum(item["total_states"] for item in audit)
+        mismatches = sum(item["mismatch_count"] for item in audit)
+        self.assertLess(mismatches / total_states, 0.05, msg=audit)
+
+    def test_sigma_matches_principal_variation_first_reply(self) -> None:
+        sigma = make_shortener_sigma()
+        solver = ExactTopFacetSolver(6, 4)
+        result = solver.solve()
+        first_edge = result["principal_variation"][0][1]
+
+        hypergraph = solver.hypergraph
+        edge_index = hypergraph.edges.index(first_edge)
+        state = hypergraph.state_view(0, hypergraph.edge_vertex_masks[edge_index], True)
+
+        chosen = hypergraph.vertex_label(sigma(state, None))
+        self.assertEqual(chosen, result["principal_variation"][1][1])
 
 
 if __name__ == "__main__":
