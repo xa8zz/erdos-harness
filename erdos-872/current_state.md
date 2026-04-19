@@ -1,14 +1,86 @@
 # Current State
 
-> **30-second orientation (updated 2026-04-18, post-second-order lower bound):**
-> - **Rigorous lower bound has jumped one level.** New theorem (fresh Pro thread, pending audit): $L(n) \ge c_\delta \cdot n (\log\log n)^2 / \log n$ for every fixed $\delta \in (0, 1/4)$, via a **three-prime upper-half fan** $acb \in (n/2, n]$ with $a < c$ small primes $\le n^\delta$, $b \in J_{a,c} = (n/(2ac), n/(ac)]$. Two-lemma proof: weighted pair-graph capture + two-layer fiber capture with explicit potential.
-> - **Rigorous bounds now:** $c \cdot n (\log\log n)^2 / \log n \le L(n) \le 5n/16 + o(n)$.
-> - **The $\Theta(n \log\log n / \log n)$ conjecture is refuted.** Prior work on Round 13 favored this as the sharp rate. The second-order lower bound rules it out: $L(n) \ne O(n \log\log n / \log n)$.
-> - **Prior "rank-4 collapse" argument was structurally wrong.** The DeepThink claim (that Shortener's lateral move $a_1 b$ kills $\sim |\mathcal{A}|$ rank-4 targets $2 a_1 a_y b$ and thus caps the fan at rank 3) missed that playing a target *auto-shields* its proper divisors. Once Prolonger plays any $acb$, the lateral $ab$ becomes illegal (as $ab \mid acb$). Shortener must deploy laterals before auto-shielding kicks in, and Prolonger's 2-vs-1 protection economy (each target auto-shields two laterals $ab, cb$) sustains the fan at rank $\ge 4$.
-> - **Cross-family convergence on second-order lower bound (strong).** Four independent derivations: fresh Pro (rigorous two-lemma proof), Pro follow-up #1 (dense pair-carrier graph $\mathcal{E}_2$ + triangle-rich residual), Pro follow-up #2 (triple fan + star example + 2-vs-1 protection economy), DeepThink follow-up #4 (hierarchical rank-$(k+2)$ fan, claimed $\Theta(n)$ overall). All identify the same mechanism: upper-half rank-$(k+2)$ targets with activation + auto-shielding preserve Prolonger's dominance at each rank.
-> - **New central questions.** (1) **How far does the hierarchy iterate?** Does $k$-prime upper-half fan give $n (\log\log n)^{k-1} / \log n$ for arbitrary $k$? (2) **Can $k$ grow with $n$?** DeepThink follow-up #4 claims yes, arguing $k$ can reach $\log n / \log\log n$ and $L(n) = \Theta(n)$. If correct, Erdős's original conjecture $L(n) \ge \varepsilon n$ is TRUE. (3) **Matching upper bound.** No longer at $n \log\log n / \log n$. The tightest known upper bound is still $5n/16$. What's the correct upper bound?
-> - **Status of DeepThink attempts.** (a) Matching upper bound claim via "Universal Sub-Divisor Cover" $S_n = \{ab : a^2 b \le n\}$: correct that $|S_n| = O(n/\log n)$ and every $\Omega \ge 3$ integer has a divisor in $S_n$, but the game-termination step ("game ends when $V$ is exhausted") has a gap for rank-$\ge 3$ moves whose $S_n$-divisors are killed-but-not-in-$A$. Not rigorous as stated. (b) Linear $\Theta(n)$ claim via hierarchical rank-$(k+2)$ fan: the core capacity inequality $t_j + M \binom{k}{j} \le \binom{A}{j}$ is novel and load-bearing; not cross-verified.
-> - **Immediate next:** (1) Audit the fresh Pro's two-lemma proof (the new rigorous result). (2) Dispatch iteration question: does $k$-prime fan work, and how far can $k$ grow? (3) Audit DeepThink #4's $\Theta(n)$ capacity inequality.
+> **30-second orientation (updated 2026-04-19, T2 repair complete):**
+>
+> **Current windows.**
+> - **T1 (rigorous, formally verified):** $(1/8 - o(1)) \cdot n\log\log n/\log n \le L(n) \le (13/36 + o(1)) n$.
+> - **T2 (rigorous after Codex 2026-04-19 repair pass; not formally Lean-verified).** Lower bound $L(n) \ge c_\delta n(\log\log n)^2/\log n$ program:
+>   - **Lemma 1 (Maker-first weighted pair-capture).** Potential $\phi(e) \in \{w/8, w/4, w/2, w\}$ by endpoint-capture count. Max-gain Maker move dominates every single Breaker reply. Exhaustive sanity check passes on all graph states $\le 5$ vertices. ✓
+>   - **Lemma 2 (Maker-first scored 3-uniform hypergraph capture).** Reformulated game on slots $(b, ab, cb)$ with Breaker scored-edge plays counting into the final length. Potential $Q = S + \sum \phi(e)$ Maker-first nondecreasing. Exhaustive check passes on all 3-uniform hypergraphs on 4 vertices. ✓
+>   - **Divisibility → hypergraph embedding (done, 2026-04-19 follow-up).** For live target $t = acb > n/2$ with $a, c, ac$ already unavailable: only harmful future moves are $\{b, ab, cb, t\}$. Slot plays $b, ab, cb$ are exactly vertex deletions in the slot hypergraph. Exact-target play $t$ is modeled as a scored edge (targets in $(n/2, n]$ are pairwise incomparable, so $t$-play doesn't kill other targets; extra divisibility side-effects only remove future Breaker options). Converse: live hypergraph edges remain legal actual moves. **Residual divisibility game is strictly Maker-friendlier than the scored hypergraph game**, so the abstract hypergraph lemma is a valid lower-bound model for Lemma 2. ✓
+>   - **Activation-stage bookkeeping / fresh-prime supply (done, 2026-04-19 follow-up).** Tokenize each pair-edge $(a,c)$ by its live large-prime set $B_{a,c}=J_{a,c}\cap\mathbb P$. With activation score $S_t$ and current live token counts $w_t(e)$, the correct graph quantity is
+>     \[
+>     Q_t = S_t + \sum_{e\ \mathrm{claimed}} w_t(e) + \sum_{e\ \mathrm{unclaimed}} c_e\, w_t(e),\qquad c_e\in\{1/8,1/4,1/2\}.
+>     \]
+>     Maker's max-gain graph move still dominates graph deletions. Off-model Shortener moves only delete target tokens, so they contribute a subtractive error term $E$ equal to the total number of killed tokens. Each such deletion lowers $Q_t$ by at most $1$, hence
+>     \[
+>     Q_{\rm end}\ge W_0/8 - E,
+>     \]
+>     where $W_0=\sum_{a<c}|J_{a,c}\cap\mathbb P|$. Large-prime moves kill at most $O(Y^2/\log^2Y)$ tokens per round, lateral moves at most $O(Y/\log Y)$, exact targets one, across $R=O(Y^2/\log^2Y)$ activation rounds, so
+>     \[
+>     E\ll Y^4/\log^4Y=o\!\big(n(\log\log n)^2/\log n\big)
+>     \]
+>     for $\delta<1/4$. Since $Q_{\rm end}$ equals activation moves plus residual live target weight on secured pairs, and the activation score itself is $o(n(\log\log n)^2/\log n)$, the secured pairs still carry residual weight $\gg_\delta n(\log\log n)^2/\log n$. This closes the last bookkeeping gap. ✓
+>   - See [phase4/t2_maker_first_lemmas.md](phase4/t2_maker_first_lemmas.md), [researcher-22-codex-T2-activation-audit.md](researcher-22-codex-T2-activation-audit.md).
+> - **Upper bound (T2-side, cross-derived):** $L(n) \le (\mathcal{W}/2 + o(1)) n \approx 0.18969 n$. Linear.
+>
+> **Linear route to $\Theta(n)$ is comprehensively closed** (Rounds 13, 17, 18):
+> - Probe B empirical: cross-rank Prolonger shielding collapses at $h = 2$.
+> - Separate-rank fan harvesting provably sublinear: $\max_h W_h \sim n/\sqrt{\log\log n}$; $\sum_h F_h \le n/(\log n)^{1-o(1)}$.
+> - Uniform multi-rank Prolonger coupling rigorously refuted: same-$b$ upper-half cores form a Sperner family, each earlier move shields at most one top-lateral divisor.
+>
+> **Matching-upper-bound programs refuted convergently (Rounds 19-20):**
+> - Static harmonic-sum Lemma A is false ($\sum_{d \in \mathcal{D}_y(n)} 1/d \asymp_\alpha \log n$, not $(\log\log n)^2$). Triple-confirmed.
+> - "$\omega_y \le 2$" hypothesis is game-impossible ($x = 2 \cdot 3 \cdot 5 \cdot q$ is a legal first move).
+> - Residual-width lemma (abstract static form) refuted by $\lambda_n(c)$ counterexample.
+> - **Online 2-shadow control theorem (all three formulations) refuted** by Pro's explicit $\Omega(n)$ counterexample: after a setup phase of $\binom{\pi(n^\beta)}{2}$ Prolonger moves $x_{pq} = pq R_{pq}$ preempting all pairs in $\{p\le n^\beta\}$, Prolonger can harvest $\gg n$ upper-half moves $w = p_1 p_2 p_3 \cdot c \cdot \ell$ with $\omega_y(w) \ge 3$ and $c$ a squarefree smooth factor contributing harmonic mass $\asymp \log n$. Codex's attempted DTK+Buchstab proof of a stronger bound (Round-20 high-support proof) is flagged as broken (DTK's $\sqrt{\pi(p-1)}$ divisor does not apply to the full $(<p)$-smooth antichain ≤ T; max antichain is $\Theta(\Psi_{<p}(T))$, not $\Psi/\sqrt{\pi(p)}$).
+> - Structural lesson: 2-shadow reciprocal mass controls only the pair layer, not the multiplicative closure generated by a safe small-prime set. Future matching-upper-bound programs must track squarefree closure.
+>
+> **Conditional partial theorem (Codex, rigorous).** Under "$\omega_y \le 2$" + large-prime stability, $L(n) = O_\alpha(n(\log\log n)^2/\log n)$. Hypothesis non-enforceable but framework sound.
+>
+> **Open gaps (updated 2026-04-19 late evening, post Pro's certificate-family gap isolation):**
+>
+> **New rigorous reduction (Pro).** $L(n) \le 2|C_n| + 1 + \sup_{\text{reachable}} w(R_{C_n}(P, S))$ for any certificate family $C_n$. Reduces the problem of proving $L(n) = o(n)$ to finding a sublinear $C_n$ with sublinear residual width.
+>
+> 1. **Directed higher-rank multiplicative-closure control (upper-bound side; Shortener-strategy framing).** Shortener plays rank-3 closure skeletons $pqr$ in each high prime band. Round 25 cleared the move-count budget at $O(n\log\log n/\log n)$, below T2. Load-bearing gap: the online race between Shortener's installations and Prolonger's high-support preemptions $bc\ell$.
+> 2. **Residual-width proof for a sublinear certificate family (upper-bound side; certificate-reduction framing).** Reduction above isolates the exact missing lemma: for $C_y = \{d \le n/2 : d \text{ squarefree}, P^+(d) \le y\}$ with $y = \exp((\log n)^{1/2})$ (sublinear since $|C_y| \le \Psi(n, y) = o(n)$), prove $\sup_P \sum_{d \in \mathcal{K}(P)} 1/\varphi(d) = o(\log y)$, where $\mathcal{K}(P)$ is the down-closed complex generated by Prolonger's actually-activated $C_y$-divisors. Naive crude-divisor-incidence fails quantitatively (entropy calculation: for $C_k$ with $\omega = k = \theta \log\log n$, exponent gap $\theta(1-\log\theta) - \mathsf{H}(\theta) > 0$). See researcher-22-pro-certificate-family-gap-isolated.md.
+> 3. ~~**Within-$b$-fiber capture theorem.**~~ **Collapsed by Round 22 Pro:** the single-fiber positive-density theorem is exactly the original linear conjecture rescaled. Because $b > \sqrt{n}$ makes cross-fiber laterals incomparable, multi-fiber value $\le \sum_b L_{\mathrm{upper}}(K_b)$. Positive-density dyadic theorem $\iff L(n) = \Omega(n)$. See researcher-22-pro-dyadic-fiber-collapse.md.
+>
+> **Gap convergence.** Gaps 1 and 2 reduce to the same underlying missing theorem: **dynamic control of the full squarefree multiplicative closure generated by Prolonger's sweep moves.** Two different framings (Shortener-strategy vs. certificate-reduction), one common bottleneck.
+>
+> **Sharpened reduction (Pro Round-22 third return, 2026-04-19 late evening).** The right invariant is the **defect-layer closure budget** $\mathfrak B_h(R, C) = \sum_{k=1}^h |\partial_{h-k} R \setminus C_{h-k}|/\binom{h}{k}$ (full squarefree-closure analogue of pair-shadow mass), with total scale $B_h \asymp (1+o(1)) N_h/H$ dominated by the top-facet layer. The identity $V_{h,k}/\binom{h}{k} = N_h/D_{h,k}$ shows no positive drift at any fixed defect layer, explaining uniformly why pair-shadow, rough-cofactor, and static rank-$k$ approaches all fail. **Sublinear $L(n)$ follows from a robust central transversal lemma** with $g(h) = o(h)$; specifically $g(h) = O(\log h)$ gives $L(n) \ll n \log\log\log n / \log\log n$. The precise missing statement: for the online $h$-uniform hypergraph where Shortener claims one certificate per turn and Prolonger steals the $h$-vertex boundary of one target per turn, Shortener can build an approximate robust transversal at size $O(g(h) N_h/H)$. Ordinary covering number is the right size but static Rödl-style constructions do not survive Prolonger's downset stealing. See researcher-22-pro-defect-budget-invariant.md.
+>
+> **Four live angles ranked (updated after Codex 2026-04-19 T2 repair, Ford-route correction, and Round 24 closure theorem):**
+> 1. Reformulate the dead 2-shadow route around **directed higher-rank closure control** on the safe small-prime set $S_t$.
+> 2. Push the certificate-family route (Pro Round-18 matching-sublinear reduction lemma).
+> 3. If Ford is used, use the **corrected** version only: either force whole-number roughness plus a divisor band, or prove a separate bandwise reciprocal-mass bound on the closure skeletons. The old "rough complementary factor" reduction is invalid.
+> 4. Only then revisit linear lower bounds — they need qualitatively new ideas.
+>
+> **Newest narrowing (Codex 2026-04-19 late, Round 25 budget audit).** The natural directed rank-3 cleanup is **not** blocked by raw move count. For a fixed-power band `I=(X,X^\lambda]\subseteq[2,y]`, the number of same-band triple blockers
+> \[
+> T_I(n)=\#\{p<q<r\in I:\ pqr\le n/2\}
+> \]
+> satisfies `T_I(n)\ll_{\alpha,\lambda} n/\log n`, and summing over the standard fixed-power cover of `[2,y]` gives total blocker budget
+> \[
+> O_{\alpha,\lambda}\!\left(\frac{n\log\log n}{\log n}\right),
+> \]
+> safely below T2 scale. So the remaining obstacle is genuinely **online fiber persistence**: once Prolonger preempts one triple `b=pqr` via an upper-half move `bc\ell`, Shortener loses the blocker `b`, and that preempted triple does not itself block later moves on the same `b`-fiber. Standalone writeup: [researcher-25-codex-directed-rank3-budget.md](researcher-25-codex-directed-rank3-budget.md).
+>
+> **Newest sharpening (Codex 2026-04-19 late, Round 26 race formulation).** The pure "beat Prolonger to the triple blockers `b=pqr`" game is itself unwinnable for Shortener. On a one-band core system with weights
+> \[
+> \omega_Y(b)=\sum_{c:\ bc\in\mathcal A_Y}\frac1{bc},
+> \qquad
+> \sum_b\omega_Y(b)\gg 1,
+> \]
+> Prolonger, moving first and greedily taking the heaviest remaining core each turn, guarantees at least half the total core mass. In particular no fixed ordering such as smallest-first or weight-first can make Shortener "beat Prolonger to each `b`"; Pro simply stays one step ahead and captures the odd-indexed cores. So the right higher-rank theorem is no longer a blocker-ordering theorem but a **post-activation fiber-collapse theorem**: after losing many cores `b`, can Shortener still destroy the corresponding `c`-fibers before Prolonger harvests them? Standalone writeup: [researcher-26-codex-online-rank3-race-formulation.md](researcher-26-codex-online-rank3-race-formulation.md).
+>
+> **Empirical (Phase 4):** $L\log n/n$ stable at 1.55-1.70 across $n \in [10^4, 10^7]$. Ford-$\delta \approx 0.086$ fit refuted at $n = 10^7$. Data leans sublinear and closer to $n/\log n$ than $n(\log\log n)^2/\log n$, but cannot distinguish asymptotic rate at accessible $n$ because $\log\log n \le 2.8$.
+>
+> **Upper-bound chain so far:** $5n/16 \to 0.22002n \to 0.18969n$, all linear. Upper bound loose by factor $\sim \log n$ at practical scales.
+>
+> **Currently dispatched:** with Codex's 2026-04-19 activation audit, T2 should now be treated as rigorous in the harness (still worthwhile to get fresh cross-family audit / Aristotle when convenient). Primary open effort should shift back to the upper-bound side: multiplicative-closure control, certificate-family residual width, and especially a **directed higher-rank closure theorem** after the new band-local closure explosion result.
+>
+> For technical detail see `prompts/canonical-prompt.md` (Established theorems + Ruled Out with specific failure mechanisms).
 
 ## Problem
 
@@ -216,6 +288,16 @@ $L(n) \ge (1 + o(1)) n / \log n$.
 - **Carrier Capacity Bound (static, universal-over-antichains).** Pro + Gemini DeepThink independently refuted Lemma 1: "for every Prolonger sequence of size $\varepsilon n$, $\sum_{p \in B(P)} 1/p \le C$" is false. The top $\varepsilon n$ consecutive integers in $U = (n/2, n]$ form a legal game-achievable Prolonger sequence with $\sum 1/p \ge \log\log(\varepsilon n) \to \infty$. Any proof of $L(n) = O(n/\log n)$ that bounds Prolonger's prime-reciprocal coverage universally fails. Audit #2 (strategic round)'s super-carrier exhaustion direction is dead in the static form. Finite-prime vaccination does not rescue it.
 
 - **Dynamical bounded-reciprocal-mass Shortener.** By the universal block-product counter (Round 9b, Established), no $\sigma$ forces $\sum_{p \in B(P)} 1/p = O(1)$. Both the static and dynamical "bounded carrier" routes to $O(n/\log n)$ are closed.
+
+- **Dynamic realization of the static \(S_y\) certificate at \(O(n/\log n)\) cost.** Round 15's static theorem says that if Shortener could install
+  $$
+  S_y=\{p\le y\} \cup \{z<p\le n/2\} \cup \{ab\le n/2:\ a,b>y\},\qquad y=n^\alpha,\ 1/3<\alpha<1/2,\ z=\lfloor n/(2y)\rfloor,
+  $$
+  or equivalently reach any state after which every future legal move has no prime factor \(\le y\), then only \(O_\alpha(n/\log n)\) moves would remain (upper primes + medium semiprimes). This program is now impossible in the hoped-for form: combined with the current rigorous lower bound
+  $$
+  L(n)\ge c_\delta\,\frac{n(\log\log n)^2}{\log n},
+  $$
+  it follows that the game cannot enter the \(S_y\)-residual regime after only \(O(n/\log n)\) moves. More generally, the time needed to eliminate the small-prime layer \(\{p\le y\}\) is itself \(\Omega\!\bigl(n(\log\log n)^2/\log n\bigr)\) (up to the \(O_\alpha(n/\log n)\) terminal tail). So the unresolved small-prime block in Round 15 is not bookkeeping; it carries the full second-order obstruction.
 
 - **Strict semiprime exposure $\Xi(B) = O(1/\log n)$** (Pro's original Round 10 target). The universal counter places Prolonger's primes in $[\log n, n^{1/3}]$ so $\log(n/p) \asymp \log n$, giving $\Xi(B) \ge (c/\log n) \sum 1/p = \Omega(\log\log n/\log n)$. Gemini 3.1 Pro algebra correction (`verify-postresp-10-gemini-omega.md`) + Codex empirical confirmation. The *softened* target $\Xi(B) = O(\log\log n/\log n)$ survives and is nearly trivial via Mertens.
 
@@ -1506,7 +1588,23 @@ The mechanism evaporates between $h=1$ and $h=2$. Structural reason: higher-rank
 
 ### Implications
 
-Combining Probe B with the structural argument: **the uniform multi-rank Prolonger shielding theorem — the load-bearing lemma for an $L(n) = \Omega(n)$ proof via fans — appears to be false.** Cross-rank shielding is not present in the empirical data at the window ranks, and the structural reason (divisor specificity at higher rank) is robust.
+Codex in-repo sharpened the negative side of the hierarchy route: the **separate-rank fan architecture is definitively sublinear**. More precisely:
+- the raw target count of a single rank \(h\) is \(W_h \asymp (n/\log n)\,H^h/h!\) with \(H \sim \log\log n\), so even the best single rank has size only \(n/\sqrt{\log\log n} = o(n)\);
+- within the current two-phase divisor-shadow implementation, the rank-\(h\) proved contribution is
+  $$
+  F_h(n) \asymp \frac{n}{\log n}\frac{H^h}{h!}2^{-2(2^h-1)},
+  $$
+  and optimizing / summing over all ranks still gives only
+  $$
+  \sum_h F_h(n)
+  =
+  \frac{n}{\log n}\exp\!\left(\left(\frac1{\log 2}+o(1)\right)\log\log\log n\cdot\log\log\log\log n\right)
+  =
+  \frac{n}{(\log n)^{1-o(1)}}=o(n).
+  $$
+So the existing variable-rank fan route to \(\Theta(n)\) is dead in its **separate-rank** form. Any linear lower bound would need a genuinely new multi-rank coupling theorem, not rank-by-rank harvesting.
+
+Combining this with Probe B: **the uniform multi-rank Prolonger shielding theorem — the remaining load-bearing lemma for an $L(n)=\Omega(n)$ proof via fans — now looks not merely unsupported but strongly disfavored.** Cross-rank shielding is not present in the empirical data at the window ranks, and the structural reason (divisor specificity at higher rank) is robust.
 
 This shifts the probability distribution toward $L(n) = o(n)$, with the true rate sitting near $n/(\log n)^{1-o(1)}$ (the slow-growth bound). The question is no longer "which side of the dichotomy" but "can we prove a matching sublinear upper bound that beats $5/16$?"
 
@@ -1583,6 +1681,71 @@ These do not affect validity of the techniques as building blocks for subsequent
 
 Round 15 focused prompt drafted (`prompts/round15-shortener-push-past-022.md`): sharpen upper bound below $0.22002n$, ideally to strictly sublinear. Refined Chebyshev + log-density stated as available tool. Named unexplored leads: adaptive Shortener hijacking, rigorous randomized Shortener + martingale, rank-split compression, entropy/Kruskal-Katona, VC-dimension, Shield-reduction dualization, Prolonger-forced prime redistribution toward $du/u$. Dispatched to 6+ threads plus Codex-in-repo.
 
+## Round 15 closeout (2026-04-18, push past 0.22n → 0.19n)
+
+### Second upper-bound improvement in two rounds
+
+Pro response to Round 15 focused prompt produced a concrete constant improvement from $0.22002n$ to $\approx 0.18969n$.
+
+**Theorem (pending model-sequence repair).** $L(n) \le (\mathcal{W}/2 + o(1)) n \approx 0.18969 n$, where
+$$\mathcal{W} = \sum_{r=0}^\infty (-1)^r J_r, \qquad J_r = \frac{1}{r!} \int_{u_1 + \cdots + u_r \le 1} \prod_j \rho(u_j) du_j, \qquad \rho(u) = \frac{1}{(\lfloor 1/u \rfloor + 1) u}.$$
+
+### Key new insight — prime-count-per-range constraint
+
+Round 14's refined Chebyshev used Prolonger's *total* log-budget ($j \log n$ across $j$ moves). Round 15 adds a structural arithmetic constraint: each Prolonger move contains **at most $h$ distinct primes $> n^{1/(h+1)}$** (since $h+1$ primes all exceeding $n^{1/(h+1)}$ would product-exceed $n$). This gives piecewise log-scale density $\rho(u) = 1/((h+1) u)$ on $u \in (1/(h+1), 1/h]$, strictly dominating $du/(1+u)$ on every interval.
+
+Total captured reciprocal mass: $\int_0^1 \rho(u) du = \sum_{m \ge 2} (1/m) \log(m/(m-1)) \approx 0.78853$ (vs. Round 14's $\log 2 \approx 0.69315$).
+
+### Audit status
+
+Three audits now on file. All agree on:
+- Prime-count-per-range bound: rigorously sound.
+- Piecewise density $\rho(u)$: correct local limit.
+- Numerical values of $J_r$ and $\mathcal{W}$: independently recomputed and verified.
+- Bonferroni even-truncation gives $\mathcal{W} < 0.3795$, $\mathcal{W}/2 < 0.18975$.
+
+Audits disagree on rigor bar:
+- **Audit #1 (conservative):** not yet rigorously earned. The monotone model sequence $b_j$ from Round 14's machinery isn't explicitly constructed; the pointwise upper bound $U_j$ is not monotone, drops at each breakpoint $u = 1/h$. Repairable, not done.
+- **Audit #2 (permissive):** mathematically valid. Monotone envelope $m_j$ needs flat regions at breakpoints, creating atoms in the log-scale measure, but their reciprocal-mass contribution is $O(1/\log n) \to 0$, so the continuous piecewise $\rho(u)$ captures the exact asymptotic.
+- **Audit #3 (Codex in-repo, independent recomputation):** constants independently verified (\(\mathcal{W} \approx 0.379374\)), but theorem still pending. Boundary-uniformity is only justified away from \(u = 1/h\), and the proof still lacks an explicit monotone comparison sequence across the breakpoints. Repair target: build a cumulative lower envelope on compact subintervals away from the breakpoints, then invert it to a model sequence.
+
+Net verdict: **likely-correct constant, not yet promoted theorem.** The new density and the numerics are well supported, but two of the three audits still want the boundary/model-sequence repair written explicitly before promotion. So this currently sits a half-step below the Round 14 \(0.22002n\) result in rigor status.
+
+### Updated window
+
+- **T1:** $(1/8 - o(1)) n \log\log n / \log n \le L(n) \le (13/36 + o(1)) n$.
+- **T2:** $n / (\log n)^{1-o(1)} \le L(n) \le (\mathcal{W}/2 + o(1)) n \approx 0.18969 n$.
+
+## Round 16 closeout (2026-04-18, $S_y$ dynamic realization refuted)
+
+### Codex in-repo: structural negative result on the $S_y$ certificate direction
+
+Codex agent running in-repo produced a clean negative result on a parallel attack direction (the "$S_y$ static certificate" program).
+
+**Static theorem (Codex, sound):** with $y = n^\alpha$ ($1/3 < \alpha < 1/2$), $z = \lfloor n/(2y) \rfloor$:
+$$S_y = \{p \le y : p \text{ prime}\} \cup \{z < p \le n/2 : p \text{ prime}\} \cup \{ab \le n/2 : a, b > y \text{ prime}\}.$$
+If an antichain contains $S_y$, every surviving upper legal move is either an upper prime or an upper semiprime $qr$ with $y < q \le r \le z$. Total remaining game length $O_\alpha(n/\log n)$.
+
+**Hypothesis refuted:** "Shortener can dynamically realize $S_y$ in $O(n/\log n)$ moves, giving total $L(n) = O(n/\log n)$."
+
+**Proof of refutation:** the second-order T2 lower bound $L(n) \ge c_\delta n(\log\log n)^2 / \log n$ forces: if $T_y(n)$ is the earliest move at which the game enters the $S_y$-residual regime, then $L(n) \le T_y(n) + O_\alpha(n/\log n)$, so $T_y(n) \ge L(n) - O_\alpha(n/\log n) = \Omega(n(\log\log n)^2/\log n)$. The time needed to eliminate the small-prime layer $\{p \le y\}$ is itself $\Omega(n(\log\log n)^2/\log n)$.
+
+**Interpretation:** the unresolved small-prime block in the $S_y$ program is not a technical leftover — it is the **full second-order obstruction**. The $S_y$ program cannot give $O(n/\log n)$ in its hoped-for direct form.
+
+**Corollary (non-fatal for the direction):** $S_y$ might still yield a matching upper bound at $n(\log\log n)^2/\log n$ scale if the small-prime dynamics are worked out carefully — which would *close* the rank-3 lower bound with a matching upper.
+
+### Summary of Round 15 + 16
+
+- **Two upper-bound improvements** ($5/16 \to 0.22 \to 0.19$) in two rounds via new structural refinements.
+- **One negative result** ($S_y$ cannot give $O(n/\log n)$).
+- **No progress on $o(n)$** — still an open direction.
+- **New tools added to the arsenal:** refined Chebyshev + log-density, prime-count-per-range constraint, piecewise $\rho(u)$ density, $S_y$ static certificate characterization.
+- **Both new upper-bound proofs have repairable uniformity/boundary gaps** that don't affect validity of the techniques as building blocks.
+
+### Dispatched next
+
+TBD — options include: further Shortener-compression sharpening (more structural constraints on Prolonger moves), adaptive/randomized Shortener (genuinely new mechanism, not constraint-tightening), literature survey on saturation games + biased Maker-Breaker + weighted sieves, lower-bound push to see if Prolonger can reach the $n(\log\log n)^2/\log n$ ceiling matching $S_y$.
+
 ## The Open Question (deprecated, post Round 5)
 
 Given Phase 1's confirmation of $n/\log n$ scaling across 24 pairs, plus Round 4's Vaccinated Shield obstruction, plus Round 5's resolution of the upper-half-cost sub-question, the picture is now:
@@ -1609,6 +1772,378 @@ Given Phase 1's confirmation of $n/\log n$ scaling across 24 pairs, plus Round 4
 **Still formally open** but increasingly implausible per the data:
 - $L(n) = \Theta(n)$ with a positive constant.
 - $L(n) = o(n/\log n)$ (a faster-than-primorial-baseline Shortener).
+
+---
+
+## Round 17 closeout (2026-04-18, separate-rank fan harvesting provably sublinear)
+
+Codex-in-repo rigorously established that no separate-rank fan architecture can yield $\Omega(n)$:
+- **Theorem A (single-rank ceiling):** $\max_h W_h(n) \asymp n/\sqrt{\log\log n} = o(n)$. By Stirling, $H^h/h!$ peaks at $h \approx H = \log\log n$, giving single-rank raw capacity only $o(n)$.
+- **Theorem B (separate-rank divisor-shadow ceiling):** summing rankwise contributions $F_h(n) := (n/\log n) \cdot H^h/h! \cdot 2^{-(2^{h+1}-2)}$ gives $\sum_h F_h \le n/(\log n)^{1-o(1)} = o(n)$.
+
+Both with explicit proof; see `researcher-17-codex-negative-on-separate-rank-fan-route.md`. The $\Theta(n)$ linear route via current fan architecture is definitively dead. Any linear lower bound requires a genuinely new multi-rank coupling theorem.
+
+## Round 18 closeout (2026-04-18, multi-rank Prolonger coupling rigorously refuted)
+
+Pro produced a rigorous no-go theorem on the last remaining linear route:
+
+**Sperner obstruction.** Same-$b$ upper-half cores cannot be nested. If $S \subsetneq T$ and $A_Sb, A_Tb \in (n/2, n]$, then $A_T b = A_S b \cdot A_{T \setminus S} \ge 2 A_S b > n$, contradiction. So the proposed "rank-$(h+1)$ target shields rank-$h$ upper-half targets with same $b$" has empty target set — lower-rank cores map below $n/2$.
+
+**Top-lateral LCM bound.** Each earlier compatible Prolonger move $z \le n$ shields at most one top-lateral divisor $bA_{T \setminus \{p\}}$ of a target $y = A_T b$. If $z$ shielded two, their LCM is $bA_T = y$, forcing $y \mid z$ hence $z = y$ (since $y > n/2, z \le n$), contradicting "earlier compatible."
+
+**Consequence.** Even granting pure-core shielding, $b$-lateral divisor family $\{bA_D : D \subsetneq S\}$ has $2^h - 1$ members, forcing ceiling
+$$G_h(n) \sim (n/\log n) \cdot H^h/h! \cdot 2^{-(2^h-1)}, \qquad \max_h G_h = n/(\log n)^{1-o(1)} = o(n).$$
+Matches Round 17's separate-rank ceiling. **Fan-hierarchy route to $\Omega(n)$ is comprehensively closed.** Any linear lower bound requires a genuinely new within-$b$-fiber capture theorem, not a rank-coupled potential.
+
+Simultaneously: Claude Phase 4 Option B refuted the Ford-$\delta$ conjecture at $n = 10^7$. Cleanest empirical fit remains $L \sim 1.6 n/\log n$ at accessible $n$, BUT this cannot be the true rate (contradicts T1 asymptotically). Empirical trajectory cannot identify the sharp rate among $\{n \log\log n/\log n, n(\log\log n)^2/\log n, n/(\log n)^{1-o(1)}\}$ at $n \le 10^7$.
+
+## Round 19 closeout (2026-04-18, matching-T2 static frameworks refuted)
+
+Multiple attacks converged on the same structural gap for matching-T2 upper bound $L = O(n(\log\log n)^2/\log n)$.
+
+**Conditional partial theorem (Codex, rigorous).** Under hypothesis "every Prolonger move has at most 2 primes $\le y = n^\alpha$," the charging-to-small-core argument gives T2 scale rigorously. One-prime cores contribute $\sum_p n/(p\log n) \ll n\log\log n/\log n$; two-prime cores contribute $\sum_{a<b} n/(ab\log n) \ll n(\log\log n)^2/\log n$. Clean proof.
+
+**Multiple independent refutations of the obvious extensions:**
+- **Lemma A (static harmonic sum) false.** $\sum_{d \in \mathcal{D}_y(n)} 1/d \asymp_\alpha \log n$, not $(\log\log n)^2$. Via $\sum_{d \le y, \mu^2(d)=1} 1/d = (6/\pi^2)\log y + O(1) = (6\alpha/\pi^2)\log n + O(\log\log n)$. Charging to all possible smooth cores gives $O(n)$, linear.
+- **"$\omega_y \le 2$" hypothesis game-impossible.** $x = 2 \cdot 3 \cdot 5 \cdot q$ with $q$ prime in $(n/60, n/30]$ is a legal first move with three small primes. No Shortener strategy prevents this.
+- **Direct $O(n/\log n)$ refuted by T1.** $L \ge (1/8)n\log\log n/\log n$ and $\log\log n \to \infty$.
+- **Direct $O(n\log\log n/\log n)$ refuted by T2.** Same argument with T2's stronger bound.
+
+Triple independent confirmation (2 Pro + 1 Codex) on Lemma A disproof and missing-lemma characterization.
+
+**Convergent remaining gap:** the missing lemma must be genuinely DYNAMIC — bound reciprocal mass of cores ACTUALLY ACTIVATED by Prolonger during specific play, not all possible cores. Static hypotheses on certificate-cover of $C$ + cardinality of $A$ are insufficient.
+
+**Claude T1/T2 audit:** no bugs. T2 constant $\approx 1/4096$ via tight analysis; improved to $\approx 1/512$ via strategic-dominance argument (prime vertex-kills dominate edge/fiber-kills, reducing potential slots). Still 100× below empirical at $n = 10^7$, explaining why $(\log\log n)^2$ growth is numerically invisible at accessible scales.
+
+## Round 20 closeout (2026-04-18, Codex residual-width refutation)
+
+The residual-width lemma proposed in Round 18 / Round 19 is false as stated.
+
+**Upper-half lift obstruction.** For any certificate family \(C \subseteq \{2,\dots,n\}\), define
+\[
+\lambda_n(c) := c\Big\lceil \frac{\lfloor n/2 \rfloor + 1}{c}\Big\rceil \in (n/2,n].
+\]
+Then \(c \mid \lambda_n(c)\). Hence
+\[
+A := \{\lambda_n(c) : c \in C\} \subseteq (n/2,n]
+\]
+is an antichain with \(|A| \le |C|\) and \(C \subseteq \mathrm{Comp}(A)\). But every element of \((n/2,n] \setminus A\) is incomparable with every element of \(A\), so
+\[
+w(R(A)) \ge |(n/2,n]| - |A| \ge \frac n2 - |C| - O(1).
+\]
+
+Applying this to \(C = C_{n,h} = \{m \le n : \Omega(m) \le h\}\), for every \(h\) with \(|C_{n,h}| = o(n)\) one gets an admissible antichain \(A\) with
+\[
+w(R(A)) = \left(\frac12 + o(1)\right)n,
+\]
+so the proposed bound
+\[
+w(R(A)) \le \frac{n}{(\log n)^{1-o(1)}}
+\]
+cannot hold.
+
+**Implication.** The domination-only abstraction
+\[
+C \subseteq \mathrm{Comp}(A), \qquad |A| = O(|C|)
+\]
+is fundamentally too weak for a sublinear upper bound. Any salvage of the residual-width route must use additional game-dynamical structure of the actual antichain \(A_0\) produced by certificate play (for example, requiring many actual certificate elements inside \(A_0\), or forbidding the whole certificate family from being lifted into the upper half).
+
+Standalone writeup: [researcher-20-codex-residual-width-framework-refuted.md](/Users/omisverycool/erdos-harness/erdos-872/researcher-20-codex-residual-width-framework-refuted.md).
+
+---
+
+## Round 20 follow-up closeout (2026-04-19, Pro disproves 2-shadow control)
+
+Pro's response to the two-shadow-control prompt disproves Theorems 2 and 3 via an explicit $\Omega(n)$ counterexample. Theorem 1 holds literally but is too weak.
+
+**Construction.** Choose $\beta \in (\alpha/3, \alpha/2)$, set $z = n^\beta$, $S = \{p \le z \text{ prime}\}$. In setup, Prolonger plays $x_{pq} = pq R_{pq}$ for each pair $p < q$ in $S$, where $R_{pq}$ is a prime in $(n/(2pq), n/(pq)]$. Because $n/(2z^2) > n^\alpha = y$ for large $n$ (since $1 - 2\beta > \alpha$), every $R_{pq}$ is a large prime $> y$. All setup moves lie in $(n/2, n]$, hence antichain.
+
+In harvest phase, choose $u = (\alpha + \eta/2)/3$, $\varepsilon > 0$, $\gamma \in (0, u)$. Let $\mathcal{B}$ be squarefree triples $b = p_1 p_2 p_3$ with $p_i \in [n^u, n^{u+\varepsilon}]$, and $\mathcal{C}$ the squarefree integers $c \le n^\gamma$ with $P^+(c) < n^u$. Mertens on fixed logarithmic intervals gives $\sum_b 1/b \gg 1$ and $\sum_c 1/c \asymp \log n$. For each $(b, c, \ell)$ with $\ell$ prime in $(n/(2bc), n/(bc)]$, the move $w = bc\ell$ satisfies: $n/2 < w \le n$; $\omega_y(w) \ge 3$; no played prime, semiprime, or large-prime from Shortener's advertised steps divides $w$. Count: $\gg (n/\log n) \cdot 1 \cdot \log n = n$.
+
+**Structural lesson.** 2-shadow reciprocal mass controls only the pair layer of $S$. Once all pairs are preempted, Shortener's prime/semiprime program no longer prevents Prolonger from using products $bc$ with many safe small-prime factors, and the extra squarefree factor $c$ contributes harmonic mass $\asymp \log n$, producing $\Omega(n)$ legal upper-half high-support moves. The right state variable for matching-upper-bound control must track **squarefree multiplicative closure**.
+
+Codex's own attempted DTK+Buchstab proof of a stronger bound ($\#\{x \in A : \omega_y \ge 3\} \ll n\log\log n/\log n$ for any antichain) is broken. The flaw: the DTK bound $W_p(T) \ll \Psi_{<p}(T)/\sqrt{\pi(p-1)}$ is tighter than what holds for max antichain in $(<p)$-smooth integers $\le T$. The set $\{k \in (T/2, T] : k \text{ is } (<p)\text{-smooth}\}$ is already an antichain of size $\Theta(\Psi_{<p}(T))$, with no $\sqrt{\pi(p)}$ divisor. The DTK layer decomposition applies to the divisor lattice of a single $N$, not to the $\le T$ ideal of a multi-variable product poset.
+
+Standalone writeups: [researcher-20-pro-two-shadow-disproof.md](/Users/omisverycool/erdos-harness/erdos-872/researcher-20-pro-two-shadow-disproof.md).
+
+---
+
+## Round 21 closeout (2026-04-19, T2 demoted; strategic synthesis)
+
+**T2 re-audit result (Codex).** The $\Omega(n(\log\log n)^2/\log n)$ lower bound is downgraded from rigorous to plausible pending a standalone Maker-first online lemma.
+
+- Raw counting layer: $|\mathcal{T}| \gg_\delta n(\log\log n)^2/\log n$ audit as rigorous.
+- Activation-supply estimate: audit as rigorous.
+- Game-theoretic Lemmas 1 and 2 (weighted pair-capture; two-layer fiber): both argue "if Shortener deletes $X$, Prolonger can capture $Y$, therefore potential never decreases." This implicitly treats Maker as moving after Breaker; in the alternating game Maker (Prolonger) moves first, and no monotonicity argument convertible to Maker-first is currently written down.
+- T1 capture phase (max-degree right-vertex) has correct Maker-first structure. T2 has no analogous order-aware writeup.
+- `phase4/t2_constant_fix*.md` notes explicitly admit the subgame/induction step isn't fully proved.
+- No counterexample to T2 itself; just missing proof infrastructure.
+
+**Codex Maker-first repair (2026-04-19 follow-up).** Codex produced clean Maker-first abstractions for both lemmas; writeup at [phase4/t2_maker_first_lemmas.md](phase4/t2_maker_first_lemmas.md).
+
+- **Lemma 1 repair (weighted pair-capture, graph game).** Edge potential $\phi(e) \in \{w/8, w/4, w/2, w\}$ by endpoint-capture count. Domination: for uncaptured $x$, $P(x) := \sum_{e \ni x} \phi(e)$ and every live $f \ni x$ has $\Delta(f) \ge P(x)$ (Maker's gain from $f$ dominates the loss from Breaker's vertex deletion at $x$). Also $\Delta(g) \ge \phi(g)$ for any live $g$, so Maker dominates edge deletions. Max-gain Maker move makes potential Maker-first nondecreasing; initial $W/8$ is the final claimed-weight lower bound. Sanity-checked on all graph states $\le 5$ vertices.
+- **Lemma 2 repair (scored 3-uniform hypergraph capture).** Target-slot hypergraph with slots $(b, ab, cb)$. Breaker moves either delete one uncaptured slot or SCORE one live hyperedge (adds weight to final score). Maker moves score a live hyperedge and capture all three slots. Potential $Q := S + \sum_{e \text{ live}} \phi(e)$ with $\phi(e) \in \{w/8, w/4, w/2, w\}$ by slot-capture count. Breaker scored-edge move: $\Delta Q = w(g) - \phi(g) \ge 0$. Breaker slot deletion: $\Delta Q = -P(v) \ge -\Delta(f_*)$. $Q$ Maker-first nondecreasing; initial $W/8$ is final $S$ lower bound. Sanity-checked on all 3-uniform hypergraphs on 4 vertices.
+
+**Embedding verified (2026-04-19 follow-up).** Codex verified items (1) and (2) of the pending list:
+
+- For a live target $t = acb > n/2$ with $a, c, ac$ already unavailable after activation, the divisors of $t$ are $\{1, a, c, ac, b, ab, cb\}$, so the only harmful future moves are exactly $\{b, ab, cb, t\}$. This matches the abstract hypergraph game's move set.
+- **Slot moves delete exactly incident hyperedges.** If Shortener plays $b$, exactly the targets in the $b$-fiber die ($b \mid a'c'b' \iff b = b'$). If Shortener plays $ab$, then $ab \mid a'c'b'$ forces $b = b'$ and $a \in \{a', c'\}$, so killed targets are exactly those using the pair $(a, b)$ — matches "delete slot $ab$." Symmetric for $cb$.
+- **Exact-target plays are scored edges, not new attacks.** All targets lie in $(n/2, n]$, so distinct targets are pairwise incomparable and $t$-play does not kill any other target. Side-effects (making slots $b, ab, cb$ unavailable) only remove future Shortener options, making the abstract model strictly Maker-friendlier than the divisibility game.
+- **Converse: live hypergraph edges are legal actual moves.** If a target $t = acb$ is hypergraph-live (none of $b, ab, cb, t$ played; $a, c, ac$ unavailable from activation), then no proper multiple of $t$ exists in $\{2, \ldots, n\}$ (since $t > n/2$), and every proper divisor is in the accounted set. So $t$ is legal.
+
+**Conclusion.** The residual divisibility game on the surviving target family is strictly Maker-friendlier than the scored 3-uniform hypergraph game. Hence the abstract hypergraph lemma (already Maker-first and sanity-checked) is a valid lower-bound model for Lemma 2.
+
+**Activation-stage audit completed (2026-04-19 follow-up).** The last pending T2 item was closed by a tokenized activation-stage estimate; see [researcher-22-codex-T2-activation-audit.md](researcher-22-codex-T2-activation-audit.md).
+
+- For each pair-edge `e=(a,c)`, treat each `b\in J_{a,c}\cap\mathbb P` as one live token.
+- If `S_t` is the number of activation moves already scored and `w_t(e)` is the current live-token count on edge `e`, the correct graph quantity is
+  \[
+  Q_t = S_t + \sum_{e\ \mathrm{claimed}} w_t(e) + \sum_{e\ \mathrm{unclaimed}} c_e\,w_t(e), \qquad c_e\in\{1/8,1/4,1/2\}.
+  \]
+  Maker's max-gain graph move still dominates the graph deletions `(a),(c),(ac)`, exactly as in the repaired Maker-first Lemma 1.
+- Every off-model harmful Shortener move during activation is either a large prime `b`, a lateral semiprime `pb`, or an exact target `acb`; such a move only deletes target tokens. Each deleted token lowers `Q_t` by at most `1`, so if `E` is the total number of deleted tokens then
+  \[
+  Q_{\rm end}\ge W_0/8 - E,
+  \]
+  where `W_0=\sum_{a<c}|J_{a,c}\cap\mathbb P|`.
+- Across `R=O(Y^2/\log^2Y)` activation rounds, large-prime moves kill at most `O(Y^2/\log^2Y)` tokens each, lateral moves `O(Y/\log Y)`, exact targets `1`, hence
+  \[
+  E\ll Y^4/\log^4Y = o\!\big(n(\log\log n)^2/\log n\big)
+  \]
+  because `4\delta<1`.
+- Since `Q_{\rm end}` equals activation score plus residual live target weight on secured pairs, and the activation score itself is only `O(Y^2/\log^2Y)=o(n(\log\log n)^2/\log n)`, the secured pairs still carry residual target weight
+  \[
+  \gg_\delta n(\log\log n)^2/\log n.
+  \]
+  This is exactly the input needed for Lemma 2.
+
+**Conclusion.** The repaired Maker-first lemmas plus the embedding verification plus the activation-stage token audit restore T2 to rigorous status (still not formally Lean/Aristotle checked).
+
+Standalone writeups: [researcher-21-codex-T2-maker-first-repair.md](researcher-21-codex-T2-maker-first-repair.md), [researcher-21-codex-T2-embedding-verification.md](researcher-21-codex-T2-embedding-verification.md), [researcher-22-codex-T2-activation-audit.md](researcher-22-codex-T2-activation-audit.md), [phase4/t2_maker_first_lemmas.md](phase4/t2_maker_first_lemmas.md).
+
+## Round 23 closeout (2026-04-19, Ford-route correction)
+
+Codex re-audited the surviving slow-growth / Ford-band upper-bound direction and found a real flaw in the current reduction.
+
+**Invalid step in the old reduction.** [researcher-18-codex-slow-growth-reduction.md](researcher-18-codex-slow-growth-reduction.md) assumed that if every unresolved upper move has a distinguished factorization
+\[
+u = a m,\qquad a\in(Y,2Y],\qquad P^-(m)>Y^\delta,
+\]
+then Ford 2019 implies a bandwise bound
+\[
+\#\{\text{survivors in band }Y\}\ll n/\log^2Y.
+\]
+But Ford 2019's imported quantity
+\[
+H(x,y,2y;\mathcal R_w)
+=
+\#\{n\le x:\ P^-(n)>w,\ \exists d\mid n,\ y<d\le 2y\}
+\]
+counts numbers that are themselves `w`-rough. Roughness of the **cofactor** `m` alone is not enough; the skeleton `a` may contain many primes below `w`, so `u` need not belong to `\mathcal R_w`.
+
+**Band-local counterexample.** Fix `0<\beta<1/(1+\delta)`, set `Y=n^\beta`, `C=Y/30`, and let
+\[
+\mathcal A=\{30c:\ c\in(C,2C],\ c\text{ odd squarefree}\}\subseteq (Y,2Y].
+\]
+Then
+\[
+\sum_{a\in\mathcal A}\frac1a \gg 1.
+\]
+For each `a\in\mathcal A` and prime
+\[
+\ell\in(n/(2a),\,n/a],
+\]
+the number `u=a\ell` lies in `(n/2,n]` and has a distinguished factorization
+\[
+u=a m,\qquad a\in(Y,2Y],\qquad m=\ell,\qquad P^-(m)=\ell>Y^\delta
+\]
+for large `n`, because `\beta(1+\delta)<1`. Yet the number of such upper-half integers is
+\[
+\gg \frac{n}{\log n}\sum_{a\in\mathcal A}\frac1a
+\gg \frac{n}{\log n},
+\]
+which is much larger than `n/\log^2Y \asymp n/\log^2 n`. So the old rough-cofactor Ford reduction is false as a counting principle.
+
+**Corrected lesson.** Any viable Ford-style route must use one of the following stronger inputs:
+
+1. **Whole-number roughness.** Force survivors to satisfy
+   \[
+   P^-(u)>Y^\delta
+   \quad\text{and}\quad
+   \exists d\mid u \text{ with } Y<d\le 2Y,
+   \]
+   so Ford 2019 legitimately applies.
+2. **Bandwise closure control.** If whole-number roughness is too strong, prove a separate theorem controlling the reciprocal mass of the actual skeleton set inside each dyadic band. Rough cofactor alone does not control multiplicative-closure overlap.
+
+Standalone writeup: [researcher-23-codex-ford-route-correction.md](researcher-23-codex-ford-route-correction.md).
+
+## Round 24 closeout (2026-04-19, band-local closure explosion)
+
+Codex pushed directly on the multiplicative-closure variable and obtained a rigorous structural theorem showing how closure mass survives dyadic banding.
+
+**Band-local closure explosion theorem.** Fix constants `\lambda>1` and `0<\gamma<1`. Let
+\[
+\mathcal P_{\mathrm{hi}}=\{p\text{ prime}: X\le p\le X^\lambda\},
+\qquad
+\mathcal C_X(\gamma)=\{c\le X^\gamma:\mu^2(c)=1\},
+\]
+and let
+\[
+\mathcal B_X(\lambda)=\{pqr: p<q<r,\ p,q,r\in \mathcal P_{\mathrm{hi}}\}.
+\]
+Then there exists a dyadic band `(Y,2Y]` and a set
+\[
+\mathcal A_Y \subseteq \{a=bc:\ b\in \mathcal B_X(\lambda),\ c\in\mathcal C_X(\gamma)\}\cap(Y,2Y]
+\]
+with
+\[
+\sum_{a\in\mathcal A_Y}\frac1a \gg_{\lambda,\gamma} 1.
+\]
+
+Proof sketch:
+- high prime band has constant reciprocal mass `\sum_{p\in\mathcal P_{\mathrm{hi}}}1/p \sim \log\lambda`, so the triple-product reciprocal mass
+  \[
+  \sum_{b\in\mathcal B_X(\lambda)}\frac1b
+  \]
+  is `\gg_\lambda 1` by the elementary symmetric-polynomial identity
+  \[
+  e_3 = \frac16\big((\sum x_i)^3 - 3(\sum x_i)(\sum x_i^2) + 2\sum x_i^3\big)
+  \]
+  with `x_i=1/p_i`;
+- low squarefree pool has
+  \[
+  \sum_{c\le X^\gamma}\frac{\mu^2(c)}c = (6/\pi^2)\gamma\log X + O(1);
+  \]
+- products `a=bc` therefore have total reciprocal mass `\gg_{\lambda,\gamma}\log X`;
+- these products lie in `(X^3, X^{3\lambda+\gamma}]`, which meets only `O_{\lambda,\gamma}(\log X)` dyadic bands, so one band carries constant reciprocal mass.
+
+**Upper-half consequence.** If `Y\le n^{1-\eta}` and all proper divisors of the `a\ell` are already unavailable, then
+\[
+\#\{a\ell:\ a\in \mathcal A_Y,\ \ell\text{ prime},\ n/(2a)<\ell\le n/a\}
+\gg_{\lambda,\gamma,\eta}
+\frac{n}{\log n}.
+\]
+
+**Structural lesson.** Closure is stronger than "many candidate skeletons exist globally." Even after dyadic decomposition, a high prime band together with a lower squarefree pool forces one **single skeleton band** with constant reciprocal mass. Any successful closure-control upper bound must dynamically suppress at least one of:
+
+1. constant triple reciprocal mass in a high prime band,
+2. logarithmic squarefree mass in the lower pool,
+3. the transfer of their product mass into one dyadic skeleton band.
+
+This sharpens the post-Round-20 message: the right upper-bound theorem must be a genuinely **directed higher-rank closure theorem**, not a pair-level or rough-cofactor surrogate.
+
+Standalone writeup: [researcher-24-codex-band-local-closure-explosion.md](researcher-24-codex-band-local-closure-explosion.md).
+
+## Round 25 closeout (2026-04-19 late, directed rank-3 budget audit)
+
+Codex audited the most obvious repair of Round 24: let Shortener dynamically play the same-band rank-3 closure skeletons `pqr` before Prolonger can exploit them.
+
+**Budget theorem.** Fix `\alpha\in(1/3,1/2)`, `y=n^\alpha`, and `\lambda>1`. Cover `[2,y]` by fixed-power bands
+\[
+I_j=(X_j,X_{j+1}],\qquad X_{j+1}=X_j^\lambda.
+\]
+For one band define
+\[
+T_{I_j}(n):=\#\{p<q<r:\ p,q,r\in I_j,\ pqr\le n/2\}.
+\]
+Then uniformly in `j`,
+\[
+T_{I_j}(n)\ll_{\alpha,\lambda}\frac{n}{\log n},
+\]
+and therefore
+\[
+\sum_j T_{I_j}(n)\ll_{\alpha,\lambda}\frac{n\log\log n}{\log n}.
+\]
+
+**Proof sketch.**
+- For contributing `p<q` in one band,
+  \[
+  \#\{r\in I_j:\ q<r\le n/(2pq)\}
+  \ll_\alpha \frac{n}{pq\log n},
+  \]
+  because `p,q\le y=n^\alpha` forces `n/(2pq)\ge n^{1-2\alpha}/2`.
+- Hence
+  \[
+  T_{I_j}(n)\ll_\alpha \frac{n}{\log n}\sum_{p<q\in I_j}\frac1{pq}.
+  \]
+- Mertens on a fixed-power interval gives
+  \[
+  \sum_{p\in I_j}\frac1p=\log\lambda+o(1),
+  \]
+  so the pair reciprocal sum on each band is `O_\lambda(1)`.
+- There are only `O_\lambda(\log\log n)` bands up to `y`.
+
+**Strategic consequence.** The Round-24 obstruction is **not a budget obstruction**. If the directed rank-3 cleanup fails, it fails for the same structural reason the semiprime cleanup failed one rank lower: once Prolonger preempts one triple `b=pqr` by playing an upper-half multiple `bc\ell`, the blocker `b` is lost to Shortener, but that preempted triple does not itself block the rest of the `b`-fiber.
+
+**What this does *not* imply.** This audit does **not** prove the directed rank-3 strategy works, and it also does **not** prove that failure of this one strategy would force
+\[
+L(n)\neq O\!\left(\frac{n(\log\log n)^2}{\log n}\right).
+\]
+That negative conclusion would require a much stronger online no-go theorem showing that **every** T2-scale higher-rank cleanup fails to deplete the relevant triple reciprocal mass / low-pool squarefree mass configuration.
+
+Standalone writeup: [researcher-25-codex-directed-rank3-budget.md](researcher-25-codex-directed-rank3-budget.md).
+
+---
+
+## Round 22 closeout (2026-04-19 late, Pro's dyadic-fiber positive-density theorem collapses to the linear conjecture)
+
+One of three Round-22 Pro dispatches (contrarian framing: "assume $L(n) = \Theta(n)$, find the mechanism") returned with a structural self-refutation of the dyadic-fiber positive-density approach. Pro retracted its earlier framing and isolated the exact point where the would-be linear-LB proof fails.
+
+**Structural reduction.** Fix a large prime $b > \sqrt n$, let $K = \lfloor n/b \rfloor$, and consider the single-fiber target set $\mathcal T_b = \{bc : K/2 < c \le K\}$. Lateral Shortener moves are $bd$ with $2 \le d \le K/2$, and divisibility inside the fiber is exactly divisibility at scale $K$ (via the isomorphism $bd \leftrightarrow d$). Because $b > \sqrt n$, a lateral move $bd$ is incomparable with every target $b'c'$ in a DIFFERENT fiber $b' \ne b$ (since $b \nmid c'$ and $c' < n/b' < \sqrt n < b$). Therefore the lateral-only game inside one $b$-fiber is an **exact scaled copy** of the original divisibility-antichain game on $\{2, \ldots, K\}$, with Prolonger restricted to upper-half moves $c \in (K/2, K]$.
+
+**Consequence.** A positive-density theorem "Prolonger captures $\eta |\mathcal T_b| \asymp \eta K$ inside one fiber" immediately implies $L(K) \ge \eta' K$ for the original game at scale $K$ — that is already the linear conjecture.
+
+**Multi-fiber argument cannot rescue this.** Suppose the dyadic board uses primes $b \in (n^\beta, n^\gamma)$ with $\beta > 1/2$ and fiber sizes $K_b = \lfloor n/b \rfloor$. Shortener can ignore all pure-divisor moves and all cross-fiber structure, running an independent optimal lateral strategy in each fiber. Because different large-prime fibers are lateral-incomparable, these component strategies do not interfere. Thus the value of the multi-fiber dyadic game is bounded above by $\sum_b L_{\mathrm{upper}}(K_b)$, where $L_{\mathrm{upper}}(K) \le L(K)$ is the value of the original game at scale $K$ with Prolonger restricted to upper-half targets.
+
+**Cross-fiber pure shielding is a red herring.** Pure divisor coordinates $d$ are shared across all fibers — a single Prolonger move $bc$ does globally shield every pure divisor $d \mid c$. But Shortener does NOT need pure coordinates to defeat the theorem: lateral coordinates $bd$ are private to each fiber and reproduce the original game at scale $K_b$. So cross-fiber pure shielding cannot by itself force positive density.
+
+**Conclusion (Pro's boxed statement).** A positive-density dyadic-core/fiber theorem is equivalent in strength to proving $L(n) = \Omega(n)$. It is not ruled out, but it is not a lower-bound "machinery" that bypasses the known obstructions. To prove it one must prove a genuinely new single-fiber theorem: $\exists \eta > 0$ such that Prolonger can force $\eta K$ moves in the upper-half divisibility game on $[2, K]$ — which is just the original problem at scale $K$.
+
+**Strategic implication.** Gap #3 from the Round-21 synthesis ("within-$b$-fiber capture theorem") is not an independent gap; it is the central conjecture packaged differently. The linear-lower-bound revival, if it exists, must come from machinery outside the fan / shadow-capture / dyadic-fiber architecture. This sharpens the case that the program's remaining open targets are purely on the upper-bound side (multiplicative-closure control and certificate-family residual width).
+
+Standalone writeup: [researcher-22-pro-dyadic-fiber-collapse.md](researcher-22-pro-dyadic-fiber-collapse.md). Two other Round-22 Pro dispatches (neutral sublinear-UB; directed multiplicative-closure) still in flight.
+
+---
+
+## Round 22 second closeout (2026-04-19 late evening, Pro isolates the exact missing closure lemma)
+
+The second returning Round-22 Pro dispatch pursued the dynamic multiplicative-closure reduction theorem $L(n) \le 2|C_n| + 1 + \sup_{\text{reachable}} w(R_{C_n}(P, S))$ through to the next concrete question: produce an explicit sublinear $C_n$ with sublinear residual width. Pro concluded honestly that this step is the unresolved gap, located the exact missing lemma, and ruled out the crude divisor-incidence approach via an entropy calculation.
+
+**Reduction (now rigorous, Pro).** For any certificate family $C_n \subseteq \{2, \ldots, n\}$,
+$$L(n) \le 2|C_n| + 1 + \sup_{\text{reachable } (P, S)} w(R_{C_n}(P, S)),$$
+where $R_{C_n}(P, S)$ is the residual legal-move set after certificate $C_n$ is swept and $(P, S)$ are Prolonger/Shortener histories, $w(\cdot)$ antichain width. Proof: Shortener plays $C_n$ moves fast, then uses Dilworth's theorem on the residual poset. Counts $C_n$ moves at most twice (once when played, once against possible Prolonger retaliation), plus one parity move, plus the residual width.
+
+**Natural candidate.** $C_y = \{d \le n/2 : d \text{ squarefree}, P^+(d) \le y\}$ with $y = \exp((\log n)^{1/2})$ or similar. Sublinear: $|C_y| \le \Psi(n, y) = n \exp(-(1+o(1))u \log u)$ where $u = \log n/\log y \to \infty$.
+
+**The precise missing lemma (boxed by Pro).** If Prolonger's moves during the sweep stage activate a $C_y$-down-closed complex
+$$\mathcal{K}(P) := \{d \in C_y : d \mid p \text{ for some Prolonger sweep move } p\},$$
+then a sufficient estimate closing $L(n) = o(n)$ is
+$$\sup_{\text{reachable } P} \sum_{d \in \mathcal{K}(P)} \frac{1}{\varphi(d)} = o(\log y).$$
+Under this bound, the number of residual integers is $\ll (n/\log y) \cdot o(\log y) + o(n) = o(n)$, closing the sublinear upper bound.
+
+**Crude divisor-incidence fails quantitatively.** For the central-divisor family $C_k = \{d : \omega(d) = k\}$ with $k \sim \theta \log\log n$: typical $x$ with $\omega(x) \sim H := \log\log n$ has $\binom{H}{\theta H} \approx \exp(H\,\mathsf{H}(\theta) + o(H))$ $C_k$-divisors (binary entropy), while $\sum_{d \in C_k} 1/d \le (1/k!) (\sum_p 1/p)^k \approx \exp(\theta H(1 - \log\theta) + o(H))$. Exponent comparison: $\theta(1 - \log\theta) - \mathsf{H}(\theta) = \theta + (1-\theta)\log(1-\theta) > 0$ for $0 < \theta < 1$. So crude incidence gives no $o(n)$ residual. The real obstruction is that $\mathcal{K}(P)$ is not controlled by pair-shadow, by number of Prolonger moves, or by any static smooth-number estimate — Prolonger can build overlapping facets of the squarefree smooth complex. Need new control of the full squarefree multiplicative closure generated by Prolonger's sweep moves.
+
+**Gap convergence.** This is the same underlying theorem as the directed higher-rank rank-3 Shortener strategy (Round 24, 25): dynamic control of the squarefree multiplicative closure generated by Prolonger's actual sweep moves. Two framings (Shortener-strategy vs. certificate-reduction), one shared bottleneck.
+
+Standalone writeup: [researcher-22-pro-certificate-family-gap-isolated.md](researcher-22-pro-certificate-family-gap-isolated.md). One Round-22 Pro dispatch (neutral sublinear-UB) still in flight.
+
+---
+
+**Strategic synthesis (Codex after ingesting Pro's 2-shadow disproof).** Four theorem-sized gaps remain:
+
+1. **T2 re-audit / Maker-first lemma.** Highest leverage: if T2 survives, any matching upper bound must scale to $n(\log\log n)^2/\log n$. If it weakens, $n/\log n$ or slower becomes plausible.
+2. **Multiplicative closure control.** Pair-shadow is dead. The right invariant is the squarefree multiplicative closure generated by the "safe" small primes $S_t = \{p \le y : p \text{ still usable by Prolonger}\}$.
+3. **Robust residual-width for a sublinear certificate family.** The reduction in [researcher-18-pro-matching-sublinear-reduction-lemma.md](researcher-18-pro-matching-sublinear-reduction-lemma.md) says: find $C_n = o(n)$ such that after $C_n$ is made illegal, residual antichain width is also $o(n)$. Natural candidate $\{\Omega \le h\}$ with slowly growing $h$; no residual-width theorem yet.
+4. **Within-$b$-fiber capture theorem.** Any linear-lower-bound revival requires positive-density capture inside a single $b$-fiber. The fan/shadow architecture provably cannot do this.
+
+**Ranked live angles (updated after the Ford-route correction).**
+
+1. Reformulate the dead 2-shadow route around multiplicative closure of $S_t$.
+2. Push the certificate-family route (Pro Round-18 matching-sublinear reduction).
+3. If Ford is used, require either whole-number roughness plus a divisor band, or a new bandwise reciprocal-mass theorem for closure skeletons; the old rough-cofactor reduction is invalid.
+4. Only then revisit linear lower bounds — they need qualitatively new machinery.
+
+Standalone writeups: [researcher-21-codex-strategic-synthesis.md](researcher-21-codex-strategic-synthesis.md), [researcher-21-codex-T2-audit-demotion.md](researcher-21-codex-T2-audit-demotion.md), [researcher-23-codex-ford-route-correction.md](researcher-23-codex-ford-route-correction.md).
 
 ---
 

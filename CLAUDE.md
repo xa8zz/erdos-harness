@@ -20,6 +20,8 @@ chat-export/
 docs/
   plans/
     2026-04-18-deepthink-protocol-implementation.md
+    2026-04-18-fan-hierarchy-implementation.md
+    2026-04-18-shortener-constants-implementation.md
     2026-04-18-sparse-subset-implementation.md
 erdos-872/
   _forum_transcript.md
@@ -74,15 +76,29 @@ erdos-872/
     test_shortener_stress.py
   phase3/
     CODEX_TASK_deepthink_protocol.md
+    CODEX_TASK_fan_hierarchy_audit.md
     CODEX_TASK_reachability_verification.md
+    CODEX_TASK_shortener_constants.md
     CODEX_TASK_sparse_subset.md
     deepthink_protocol.csv
     deepthink_protocol.py
     deepthink_protocol_summary.md
+    fan_hierarchy.py
+    fan_hierarchy_codex_report.md
+    fan_hierarchy_probeA.csv
+    fan_hierarchy_probeB.csv
+    fan_hierarchy_probeC.csv
+    fan_hierarchy_summary.md
+    shortener_constants.csv
+    shortener_constants.py
+    shortener_constants_codex_report.md
+    shortener_constants_summary.md
     sparse_subset.csv
     sparse_subset.py
     sparse_subset_summary.md
     test_deepthink_protocol.py
+    test_fan_hierarchy.py
+    test_shortener_constants.py
     test_sparse_subset.py
   process.md
   prompts/
@@ -90,6 +106,8 @@ erdos-872/
     audit-13-B-simplex-obstruction.md
     audit-13-pro2-continuation.md
     audit-13-reachability-claim.md
+    audit-14-pro-01-log-density.md
+    audit-14-pro-02-probabilistic-sieve.md
     canonical-prompt.md
     followup-12-pro-closeout.md
     researcher-01-directed.md
@@ -118,6 +136,11 @@ erdos-872/
     round13-pro-reachability-followup.md
     round13-pro2-upper-half-rigorize.md
     round13-upper-half-cross-family.md
+    round14-entropy-compression.md
+    round14-probabilistic-shortener.md
+    round14-shortener-compression-focused-as-dispatched.md
+    round14-shortener-compression-focused.md
+    round15-shortener-push-past-022.md
     verify-open-02-post-13-36.md
     verify-postresp-01.md
     verify-postresp-02-shortener.md
@@ -152,9 +175,19 @@ erdos-872/
   researcher-13-deepthink-linear-claim.md
   researcher-13-deepthink-loglog-tight.md
   researcher-13-deepthink-matching-upper-claim.md
+  researcher-13-deepthink-multiplier-lock-concession.md
   researcher-13-deepthink-mwu-upperbound.md
   researcher-13-deepthink-upper-half-verification-2.md
   researcher-13-deepthink-upper-half-verification.md
+  researcher-13-fresh-dichotomy-lean-sublinear.md
+  researcher-13-fresh-dichotomy-unresolved-rigorous.md
+  researcher-13-fresh-dichotomy-unresolved-slowgrowth.md
+  researcher-13-fresh-divisor-shadow-hierarchy.md
+  researcher-13-fresh-fixed-rank-hierarchy.md
+  researcher-13-fresh-theta-n-block-shielding.md
+  researcher-13-post-probeB-conservative-1.md
+  researcher-13-post-probeB-conservative-2.md
+  researcher-13-post-probeB-grindmode-shortener.md
   researcher-13-pro-A-obstruction.md
   researcher-13-pro-fresh-second-order-lower-bound.md
   researcher-13-pro-matching-obstruction-dense-pair.md
@@ -167,6 +200,13 @@ erdos-872/
   researcher-13-pro2-continuation-response.md
   researcher-13-pro2-odd-fan-strengthened.md
   researcher-13-sparse-subset-closeout-2.md
+  researcher-14-claude-cot-summaries.md
+  researcher-14-pro-shortener-upperbound-01-log-density.md
+  researcher-14-pro-shortener-upperbound-02-probabilistic-sieve.md
+  researcher-14-pro-shortener-upperbound-03-bonferroni-2.md
+  researcher-14-pro-shortener-upperbound-04-infinity-bonferroni-flawed.md
+  researcher-14-pro-shortener-upperbound-05-randomized-martingale-handwavy.md
+  researcher-14-pro-shortener-upperbound-06-mwu-revisits-refuted.md
   verify-aristotle-01-theorem-A.md
   verify-aristotle-03-5-16.md
   verify-open-02-audit1.md
@@ -212,6 +252,12 @@ erdos-872/
   verify-postresp-13-simplex-audit-1.md
   verify-postresp-13-simplex-audit-3.md
   verify-postresp-13-simplex-audit-5.md
+  verify-postresp-14-pro01-log-density-chatgpt.md
+  verify-postresp-14-pro01-log-density-claude.md
+  verify-postresp-14-pro01-log-density-gemini.md
+  verify-postresp-14-pro02-probabilistic-sieve-chatgpt.md
+  verify-postresp-14-pro02-probabilistic-sieve-claude.md
+  verify-postresp-14-pro02-probabilistic-sieve-gemini.md
   verify-postresp-followup12-essentially-sound.md
   verify-postresp-followup12-online-patch-needed.md
   verify-postresp-followup12-overlap-fatal.md

@@ -875,6 +875,175 @@ Pattern: the three working proofs all independently derived refined Chebyshev. T
 
 Dispatched: focused Pro prompt (`prompts/round15-shortener-push-past-022.md`) citing refined Chebyshev + log-density as available tool, and naming unexplored leads: adaptive Shortener hijacking, rigorous randomized + martingale, rank-split compression, entropy / Kruskal-Katona, VC-dimension, Shield-reduction dualization, Prolonger-forced prime redistribution. Also dispatched to Codex in-repo for a context-aware attempt. Pending responses.
 
+### Round 15 — $0.22n \to 0.19n$ via prime-count-per-range constraint (2026-04-18)
+
+Pro returned with a clean structural advance. The key insight: Round 14's refined Chebyshev used Prolonger's *total* log-budget ($j \log n$) but ignored that each Prolonger move $\le n$ contains at most $h$ primes $> n^{1/(h+1)}$. Adding this arithmetic constraint per range gave piecewise log-density $\rho(u) = 1/((h+1) u)$ on $(1/(h+1), 1/h]$, strictly tighter than the uniform $du/(1+u)$ from Round 14. Resulting bound: $L(n) \le \mathcal{W}/2 \cdot n \approx 0.18969 n$, where $\mathcal{W} = \sum (-1)^r J_r$ with piecewise-density simplex integrals $J_r$.
+
+**Proof pattern observation.** Pro's response demonstrates the "building block composition" discipline: Round 15's prompt cited Round 14's machinery (refined Chebyshev, monotone replacement, exact finite inclusion-exclusion via $\delta$-cutoff, dominated convergence) as *available tools*, not as puzzles to re-solve. Pro added one new structural observation and composed it with the Round 14 infrastructure. Total work: identify new constraint → compute new density → evaluate new constant. Not a full proof rewrite.
+
+**Audit status.** Two audits dispatched. Both agree on the math (prime-count bound sound, piecewise density correct, numerics verified). Disagree on rigor bar: one conservative ("monotone model sequence not constructed, not rigorously earned yet"), one permissive ("phantom atoms at breakpoints are measure-zero via $1/\log n$ reciprocal mass, result stands"). Net verdict: repairable gap ("monotone envelope across breakpoints + flat-region measure-zero"), sound as a building block for further work.
+
+### Round 16 — Codex in-repo: $S_y$ dynamic realization refuted (2026-04-18)
+
+Codex agent running in-repo (with full access to the research docs) produced a clean negative result on a parallel direction. Codex had earlier established a static $S_y$ theorem (antichain = primes $\le y$ + primes in $(z, n/2]$ + medium semiprimes, with residual upper primes + semiprime strata of size $O(n/\log n)$). Hypothesis: dynamic realization at $O(n/\log n)$ cost would give matching upper bound $L(n) = O(n/\log n)$.
+
+**Refutation via composition.** Codex composed the static $S_y$ theorem with the T2 rank-3 lower bound $L(n) \ge c_\delta n(\log\log n)^2/\log n$. If Shortener enters the $S_y$-residual regime at move $T_y$, then $L(n) \le T_y + O(n/\log n)$. The lower bound forces $T_y = \Omega(n(\log\log n)^2/\log n)$. So the $O(n/\log n)$ dynamic hope is impossible; the small-prime elimination carries the full second-order obstruction.
+
+**Codex-in-repo value-add.** The Codex agent had access to the actual research docs (current_state.md, canonical-prompt.md, all round responses). This let it identify the composition without being explicitly told. The composition itself is ~5 lines of elementary logic, but knowing *which* two theorems to compose required seeing both in context. This is qualitatively different from Codex's Phase 3c/3d verification work — here Codex acted as a mini-researcher with persistent knowledge, not a verifier on a specific task.
+
+**Corollary (not fatal for $S_y$).** The $S_y$ program can't give $O(n/\log n)$, but might still yield a *matching* upper bound at $n(\log\log n)^2/\log n$ scale — closing the rank-3 lower bound with a matching upper. Whether this is achievable remains open.
+
+### Methodology lessons from Rounds 15 + 16
+
+- **Building-block composition discipline works.** Round 14's techniques were stated as available tools in Round 15's prompt; Pro composed them with one new observation rather than re-deriving. This is the right shape for iterative refinement — each round adds one structural piece.
+- **Codex-in-repo is a qualitatively different tool than verification.** Giving an AI agent persistent access to the full research context lets it spot compositions that focused prompts miss. Worth using more.
+- **Negative results that compose established theorems are cheap and valuable.** The $S_y$ refutation is 5 lines of logic, but rules out an entire direction. These "combinatorial-algebra" negative results should be easier to generate than positive advances and should be dispatched proactively.
+- **Audits continue to split on rigor bars for composed proofs.** Both Round 14 and Round 15 audits produced similar patterns: math verified, numerics verified, conservative auditor flags missing formal step, permissive auditor argues measure-theoretic autolift. The answer is usually "both right: explicit step needed, probably automatic once written."
+
+### Round 17 — separate-rank fan harvesting provably sublinear (Codex, 2026-04-18)
+
+Codex-in-repo composed Round 13's fixed-rank hierarchy with Stirling's formula to prove: no separate-rank fan architecture can prove $\Omega(n)$. Single-rank ceiling $\max_h W_h \asymp n/\sqrt{\log\log n}$ and summed separate-rank ceiling $\sum_h F_h \le n/(\log n)^{1-o(1)}$. Sharpened the Round 13 negative by giving rigorous asymptotic ceilings.
+
+Methodology: **Codex-in-repo continues to produce structural negative results via theorem composition.** Round 16 ($S_y$ refutation) + Round 17 (separate-rank ceiling) + Round 20 (residual-width $\lambda_n(c)$ counterexample) are all 5-10 line refutations that compose existing rigorous theorems to rule out proof directions. This mode is reliably cheaper than positive-result generation and should continue.
+
+### Round 18 — multi-rank Prolonger coupling rigorously refuted (Pro, 2026-04-18)
+
+Pro on multi-rank coupling prompt produced a clean Sperner-lattice obstruction: same-$b$ upper-half cores can't be nested ($A_Tb \ge 2A_Sb > n$ for $S \subsetneq T$), so rank-$(h+1)$ targets can't shield rank-$h$ upper-half targets with same $b$. LCM bound on top-lateral shielding: each earlier compatible move shields at most one top-lateral divisor. Combined ceiling $G_h(n) \sim (n/\log n) H^h/h! \cdot 2^{-(2^h-1)}$, same $n/(\log n)^{1-o(1)}$ asymptote as Round 17's separate-rank ceiling.
+
+**Complementary to Round 17:** Codex used factorial/primorial arithmetic; Pro used Sperner-lattice + LCM in the specific game. Both close the fan-to-linear route from different angles.
+
+Simultaneously: Claude Phase 4 Option B refuted the Ford-$\delta = 0.086$ empirical conjecture at $n = 10^7$. $c(\delta)$ doesn't stabilize; cleanest empirical fit is $L \sim 1.6 n/\log n$ at accessible $n$, but this can't be the true asymptotic (contradicts T1).
+
+### Round 19-20 — matching-T2 static frameworks refuted, dynamic gap isolated (2026-04-18)
+
+Four independent attacks converged on the same conclusion: static frameworks for proving matching $L = O(n(\log\log n)^2/\log n)$ all fail; the remaining gap is dynamic.
+
+**Dispatched:** Pro #A on round18-direct-$O(n/\log n)$ (target later confirmed impossible by Codex, Pro #A also independently derived the impossibility), Pro #B on round16-matching-sublinear-slow-growth, Codex on matching-T2 self-attempt, Codex on residual-width lemma.
+
+**Returns:**
+- Pro #A: $O(n/\log n)$ refuted by T1 asymptotic contradiction. Expected.
+- Pro #B: produced abstract reduction (certificate lemma: $C_n = \{\Omega \le h\}$ with required residual-width control). Residual-width sub-lemma couldn't close.
+- Codex self-attempt: conditional partial theorem under "$\omega_y \le 2$" hypothesis; charging argument rigorous. Missing lemma flagged.
+- Codex residual-width attempt: disproved Pro #B's reduction via $\lambda_n(c)$ counterexample. Static framework dead.
+- Pro #C (follow-up on matching-T2): independent third confirmation that Lemma A is false ($\sum 1/d \asymp \log n$), "$\omega_y \le 2$" hypothesis game-impossible, remaining gap is dynamic activated-core bound.
+
+**Methodology value:** dispatching MULTIPLE concurrent attacks with slightly different framings produced CONVERGENT refutation of several static approaches, with consistent identification of the dynamic gap. This is what parallel-dispatch is for.
+
+**Round 20 dispatch (in flight):** two-shadow control theorem targeting dynamic activated-core bound. Three alternative formulations — Pro can pick whichever lands. Targets exactly the gap all four Round 19 attacks converged on.
+
+### Methodology lessons from Rounds 17 — 20
+
+- **Convergent refutation is a positive signal.** Four independent attacks (Round 19 Pro #B, Codex self-attempt, Codex residual-width, Round 20 Pro) all refuted static frameworks for matching-T2 and identified the same dynamic gap. High-confidence that the gap is sharp.
+- **"$O(n/\log n)$ is impossible via T1" obvious but not caught for several rounds.** My Pro #4 prompt targeted $O(n/\log n)$ before Codex pointed out T1 rules this out. Lesson: when formulating targets, explicitly check target vs. established lower bounds. Add a "target compatibility check" step to future prompt-drafting.
+- **Codex-in-repo catches my anchoring errors.** Codex spotted the $O(n/\log n)$ issue via 2 minutes of comparing the target to current_state.md. Running Codex in "audit-the-curator" mode would catch such errors before dispatch.
+- **Conditional theorems are high-value.** Codex's "$\omega_y \le 2$ ⇒ matching-T2" isn't the target theorem, but it's a clean building block. Other targets may have similar conditional partial proofs that isolate the exact remaining step.
+
+### Round 20 follow-up — 2-shadow control refuted; Codex's own proof broken (2026-04-19)
+
+Pro returned a disproof of the two-shadow control theorem family (Theorems 2 and 3) via an explicit $\Omega(n)$ counterexample: Prolonger's setup phase preempts all pairs $pq$ with $p, q \le n^\beta$ for a specific $\beta$, then harvests $w = bc\ell$ with $b$ a prime triple, $c$ a squarefree smooth factor, $\ell$ a large prime. The counterexample gives $\Omega(n)$ legal upper-half moves with $\omega_y(w) \ge 3$, refuting both the residual-width form and the high-support form.
+
+Codex, in its own response to the same prompt, attempted a stronger bound via DTK+Buchstab but the proof was broken. The DTK step $W_p(T) \ll \Psi_{<p}(T)/\sqrt{\pi(p-1)}$ is tighter than what actually holds for max antichain in $(<p)$-smooth integers $\le T$: the "upper half" $\{k \in (T/2, T] : k\text{ smooth}\}$ is already an antichain of size $\Theta(\Psi_{<p}(T))$ with no $\sqrt{\pi(p)}$ divisor. The classical DTK for divisor lattices of single integers doesn't transport to the $\le T$ ideal of a multi-variable product poset. Codex acknowledged "my last high-support proof should be treated as broken."
+
+**Structural lesson.** 2-shadow reciprocal mass controls only the pair layer. Once safe small primes' pairs are preempted, Prolonger can use squarefree multiplicative closure to build $\Omega(n)$ high-support antichain moves. Any matching-upper-bound reformulation must track squarefree multiplicative closure, not just $\sigma_2$.
+
+### Round 21 — T2 re-audit demotes the second-order lower bound (2026-04-19)
+
+Dispatched Codex to independently re-audit the T2 lower bound story after the 2-shadow disproof redirected strategic focus. Codex's finding: T2 is **plausible but not currently proved**. The raw counting layer ($|\mathcal T| \gg n(\log\log n)^2/\log n$) and activation-supply estimate audit as rigorous, but both Maker-Breaker lemmas (weighted pair-capture and two-layer fiber capture) are written in a Maker-second form — "if Shortener deletes $X$, Prolonger can capture $Y$, therefore potential never decreases" — which implicitly treats Prolonger as responding after Shortener. In the alternating game Prolonger moves first. The T1 first-order capture lemma has correct Maker-first structure (max-degree right vertex picked first); T2's weighted-pair and fiber lemmas do not. `phase4/t2_constant_fix*.md` notes explicitly admit the induction step isn't fully proved.
+
+No counterexample to T2 itself; the gap is in the writeup. Codex extracting the exact standalone online lemma whose proof would restore T2 to rigorous.
+
+### Round 21 follow-up — Maker-first repair attempted; online-order gap probably repairable (2026-04-19)
+
+Codex produced candidate Maker-first repairs for both lemmas ([phase4/t2_maker_first_lemmas.md](erdos-872/phase4/t2_maker_first_lemmas.md)).
+
+**Lemma 1 (weighted pair-capture) repair.** Keep the original potential $\phi(e) = (w/8, w/4, w/2, w)$ by endpoint-capture count. Key new domination: for every uncaptured vertex $x$, $P(x) = \sum_{e \ni x} \phi(e)$ satisfies $\Delta(f) \ge P(x)$ for every live edge $f \ni x$ (Maker's gain from $f$ dominates the loss from Breaker's potential vertex deletion at $x$). Also $\Delta(g) \ge \phi(g)$ for any live $g$. So the max-gain Maker move already dominates any single Breaker reply. Maker-first proof complete.
+
+**Lemma 2 (two-layer fiber) reformulation.** The original "same layered idea" informal sentence doesn't survive Maker-first scrutiny. The right abstraction is a **scored 3-uniform hypergraph capture game** on target-slot triples $(b, ab, cb)$, where Breaker moves are either (a) delete one uncaptured slot, or (b) SCORE one live hyperedge (its weight is added to the final total $S$; this is how Breaker's exact-target-play $acb$ is handled — the target $acb$ IS counted into the game length). Potential $Q = S + \sum_{e \text{ live}} \phi(e)$ with $\phi(e) \in \{w/8, w/4, w/2, w\}$ by slot-capture count. Breaker scored-edge move increases $Q$ by $w(g) - \phi(g) \ge 0$; slot-deletion costs at most Maker's $\Delta(f_*)$. $Q$ Maker-first nondecreasing; final $S \ge W/8$.
+
+**Sanity checks.** Exhaustive search over all graph states $\le 5$ vertices (Lemma 1) and all 3-uniform hypergraphs on 4 vertices (Lemma 2 local domination) — no counterexamples found.
+
+**Pending list (historical, now completed).** (1) Exact embedding of the surviving target family into the 3-uniform hypergraph formalism. (2) Verification that every Shortener move in the actual divisibility game corresponds to either slot-deletion or scored-edge-play. (3) Re-verification of activation-stage bookkeeping and fresh-$b$ supply estimates under the corrected Lemma 2.
+
+### Round 21 second follow-up — Embedding verification complete; activation bookkeeping is the last remaining item (2026-04-19)
+
+Codex checked items (1) and (2) of the pending list — the divisibility-to-hypergraph translation is sound.
+
+**Key observations.**
+- For a live target $t = acb > n/2$ with $a, c, ac$ already unavailable from activation, the divisors of $t$ are exactly $\{1, a, c, ac, b, ab, cb\}$. Since $t$ has no proper multiple $\le n$, the only harmful future moves on $t$ are $\{b, ab, cb, t\}$ — matches the abstract hypergraph game.
+- Plays of $b$, $ab$, $cb$ delete exactly the hyperedges incident to that slot. For $ab$: $ab \mid a'c'b'$ forces $b = b'$ and $a \in \{a', c'\}$, so killed targets are exactly the ones using pair $(a, b)$ — this is the "delete slot $ab$" picture.
+- Exact-target play $t$ is modeled as a scored edge. Since targets are mutually incomparable (all in $(n/2, n]$), $t$-play kills no other target. Side-effects (making $b, ab, cb$ unavailable) only remove future Shortener options, so the abstract model is strictly Maker-friendlier than the real game.
+- Converse: live hypergraph edges correspond to legal actual target moves.
+
+**Conclusion.** The residual divisibility game on surviving targets is strictly Maker-friendlier than the scored hypergraph game. Hence the scored hypergraph lemma is a valid lower-bound model for Lemma 2.
+
+**2026-04-19 final bookkeeping pass.** Codex's activation-stage token audit closed item (3) as well. The correct activation quantity is
+\[
+Q_t = S_t + \sum_{e\ \mathrm{claimed}} w_t(e) + \sum_{e\ \mathrm{unclaimed}} c_e w_t(e),
+\]
+where `S_t` is activation score and `w_t(e)` is current live target-count on pair-edge `e`. Graph deletions are still handled by the Maker-first weighted graph lemma; off-model Shortener moves contribute only a subtractive token-deletion error `E`. Because `E \ll Y^4/\log^4Y = o(n(\log\log n)^2/\log n)` for `\delta<1/4`, the secured pairs still carry residual target mass `\gg_\delta n(\log\log n)^2/\log n`. T2 should now be treated as rigorous in the harness (though still not formally Lean-verified).
+
+The activation stage uses Lemma 1 (weighted pair-capture graph) which now has a Maker-first proof, and the token audit above closes the fresh-prime / bookkeeping issue as well.
+
+### External tool noted — Erdős #1196 sub-Markov-chain framework (2026-04-19)
+
+Erdős Problem #1196 (bounding $\sum_{a \in A} 1/(a \log a)$ over primitive sets $A \subseteq [x, \infty)$) was solved by GPT-5.4 Pro on April 13, 2026. The technique: construct a sub-Markov chain on $\mathbb{N}$ with visit probabilities $\propto 1/(n \log n)$; any antichain has total hit probability $\le 1$; combined with analytic normalization gives sharp constant $1 + O(1/\log x)$. Tao's framing: "a tighter connection between the anatomy of integers and the theory of Markov processes."
+
+**Relevance to #872.** Both problems involve divisibility antichains. The specific #1196 bound (harmonic sum) does NOT directly tighten $L(n)$ upper bounds — translated to the game antichain, it gives $|A| \le O(n \log n)$ for $A \subseteq (n/2, n]$, weaker than trivial. But the *method* — engineered sub-Markov chain + first-hit mass — is a new probabilistic tool not yet tried in the #872 program. Adapting with different visit probabilities could in principle bound $|A|$ or the multiplicative-closure reciprocal sum. Added as a Classical Estimates entry in canonical-prompt.md so future Pro dispatches know the framework is available. Codex task if we want to pursue: fetch the published proof, extract the sub-Markov chain as a standalone lemma, and check whether the construction adapts to a weighting useful for #872's cardinality or closure-mass question.
+
+### Round 23 — Ford-band rough-cofactor reduction refuted (2026-04-19)
+
+Codex attempted the best remaining upper-bound direction (Ford-band slow-growth from researcher-18-codex-slow-growth-reduction.md) directly and found a genuine counting error. The old reduction claimed: if every surviving upper move $u = am$ has $a \in (Y, 2Y]$ and $P^-(m) > Y^\delta$, then Ford 2019 gives $\#\{\text{survivors}\} \ll n/\log^2 Y$ per band. But Ford 2019 counts integers that are THEMSELVES $w$-rough, not integers with rough cofactors. Codex's explicit counterexample: $\mathcal{A} = \{30c : c \in (Y/30, 2Y/30]\text{ odd squarefree}\}$ gives $\sum 1/a \gg 1$, and for each $a \in \mathcal{A}$ with prime $\ell \in (n/(2a), n/a]$, the integer $u = a\ell$ has rough cofactor $m = \ell$ but $u$ itself contains $2, 3, 5$ so is not $w$-rough. Counting: $\gg n/\log n$ such upper-half $u$ in a single dyadic band, vs. the claimed $O(n/\log^2 Y) = O(n/\log^2 n)$.
+
+**Consequence.** One of the three previously-live matching-upper-bound frameworks is eliminated. Only two remain: multiplicative-closure control (for the dead 2-shadow route) and the certificate-family residual-width reduction. Ford-style techniques are still potentially applicable but only in corrected form — either forcing whole-survivor roughness or supplementing with a bandwise reciprocal-mass bound on the actual skeleton set of the safe-prime multiplicative closure.
+
+**Methodology note.** Self-directed refutation of an existing "live" framework is a positive outcome: it narrows the search space without costing a parallel Pro dispatch. Codex's confidence in the Ford direction was partially driven by the named literature reference ("Ford 2019 applies"), but Codex correctly rechecked the precise hypothesis and found it didn't match. Lesson: when a direction invokes an external theorem by name, explicitly restate the theorem's exact hypothesis set and verify each hypothesis against the reduction.
+
+### Round 24 — Band-local closure explosion theorem (2026-04-19)
+
+Codex produced a rigorous structural theorem formalizing the multiplicative-closure obstruction: a high prime band $[X, X^\lambda]$ + a low squarefree pool $c \le X^\gamma$ with disjoint prime support, combined, force a single dyadic skeleton band $(Y, 2Y]$ with constant reciprocal mass $\gg 1$, hence $\Omega(n/\log n)$ upper-half legal moves if divisors are unavailable. This is a *positive* theorem about the obstruction, not just a refutation — it identifies the specific configuration any successful upper-bound theorem must suppress. See researcher-24-codex-band-local-closure-explosion.md.
+
+### Round 25 — Directed rank-3 Shortener budget clears (2026-04-19)
+
+Follow-up to R24: Codex audited the natural directed higher-rank Shortener strategy suggested by R24 (Shortener plays rank-3 skeletons $pqr$ in each active high band fast enough to remove triple reciprocal mass). Budget side works cleanly: for fixed-power band $I = (X, X^\lambda]$, $T_I(n) := \#\{p<q<r \in I : pqr \le n/2\} \ll_{\alpha,\lambda} n/\log n$ via the direct estimate $T_I(n) \le \sum_{p<q \in I} \pi(n/(2pq)) \ll (n/\log n) \sum_{p<q \in I} 1/(pq) = O_\lambda(n/\log n)$ (pair reciprocal sum bounded by $(\log\lambda)^2 + O(1)$ on fixed-power interval). Summed over fixed-power cover of $[2, y]$: total blocker budget $O_{\alpha,\lambda}(n \log\log n/\log n)$, comfortably below T2 scale.
+
+**Load-bearing issue now fully online.** The directed rank-3 cleanup is NOT blocked by raw move count. The remaining obstacle is game-theoretic: once Prolonger preempts a triple $b = pqr$ via an upper-half move $bc\ell$, Shortener loses the blocker $b$ (since $b \mid bc\ell$ makes $b$ illegal), and the preempted triple doesn't itself kill the rest of the $b$-fiber's harmonic mass. So the question reduces to whether Shortener can install enough rank-3 blockers before Prolonger preempts them via high-support upper-half moves, which requires an online reachability analysis.
+
+**Negative conclusion not automatic.** Failure of this specific directed rank-3 cleanup would NOT by itself imply $L(n) \ne O(n(\log\log n)^2/\log n)$. A proof that $L(n)$ exceeds T2 scale would require an online no-go theorem ruling out *any* T2-scale higher-rank cleanup, not just this specific construction. See researcher-25-codex-directed-rank3-budget.md.
+
+### Round 22 (second) — Pro isolates the exact certificate-family missing lemma (2026-04-19)
+
+The second returning Round-22 Pro (from the directed-multiplicative-closure framing) produced a rigorous dynamic reduction theorem and concluded honestly that the natural next step is the unresolved gap. Two substantive deliverables:
+
+**New rigorous reduction.** $L(n) \le 2|C_n| + 1 + \sup_{\text{reachable}} w(R_{C_n}(P, S))$ for any certificate family $C_n$. Proof uses Dilworth on the residual poset after sweep. This is a new result, useful as a reduction framework for any future sublinear UB attempt.
+
+**Precise missing lemma.** For smooth-squarefree candidate $C_y = \{d \le n/2 : \mu^2(d) = 1, P^+(d) \le y\}$ with $y = \exp((\log n)^{1/2})$ (sublinear by Dickman), the specific sufficient estimate is
+$$\sup_{\text{reachable } P} \sum_{d \in \mathcal{K}(P)} \frac{1}{\varphi(d)} = o(\log y)$$
+where $\mathcal{K}(P)$ is the Prolonger-activated $C_y$-complex. If this holds, $L(n) = o(n)$ follows immediately.
+
+**Crude-divisor-incidence refuted by entropy.** For $C_k$ with $\omega = k = \theta \log\log n$, the number of $C_k$-divisors per $x$ is $\sim \exp(H \mathsf{H}(\theta))$ while reciprocal mass is $\exp(\theta H(1 - \log \theta))$. Gap $\theta(1-\log\theta) - \mathsf{H}(\theta) > 0$ for all $\theta \in (0,1)$ blocks the residual bound. So the missing lemma really requires genuinely new multiplicative-closure control, not crude counting.
+
+**Methodological value of honest Pro concessions.** This is the second time this round Pro returned with "I cannot honestly close the step" rather than forcing through a wrong proof (first: the dyadic-fiber collapse). Both times the concession was MORE valuable than a speculative attempt because it isolated the exact missing lemma. Lesson: when Pro is transparently uncertain, the right continuation is to fold the precise gap statement into canonical-prompt.md rather than pressure for a closure.
+
+**Gap convergence.** Pro's missing lemma ("control $\sum 1/\varphi(d)$ over Prolonger-activated $C_y$-complex") is structurally the same theorem as Codex's R25 gap ("Shortener wins the online race against Prolonger's high-support preemptions"). Two framings (certificate-reduction vs. Shortener-strategy), same underlying obstruction: dynamic control of the full squarefree multiplicative closure.
+
+### Round 22 — Pro's dyadic-fiber positive-density theorem collapses to the linear conjecture (2026-04-19)
+
+The contrarian-framed Round-22 Pro dispatch (asking "assume $L(n) = \Theta(n)$, find the mechanism") self-refuted its own dyadic-fiber approach. Pro's retraction is a structural reduction: for large prime $b > \sqrt n$ and fiber $\mathcal T_b = \{bc : K/2 < c \le K\}$ ($K = \lfloor n/b \rfloor$), the lateral-only game inside one fiber is an EXACT scaled copy of the original divisibility-antichain game on $\{2, \ldots, K\}$. Because $b > \sqrt n$ makes cross-fiber laterals incomparable, Shortener runs independent optimal strategies per fiber, reducing the multi-fiber value to $\sum_b L_{\mathrm{upper}}(K_b)$. A positive-density dyadic theorem "Prolonger captures $\eta K$ in one fiber" is therefore equivalent in strength to the linear conjecture itself — not an independent auxiliary route.
+
+**Consequence for the gap inventory.** The Round-21 third theorem-sized gap ("within-$b$-fiber capture theorem") is not independent; it's the central conjecture rescaled. The linear revival, if it exists, must come from machinery outside the fan / shadow-capture / dyadic-fiber architecture.
+
+**Methodology value of contrarian dispatches.** This is exactly the outcome the contrarian framing was designed to produce: either find new linear-LB machinery (didn't happen), or sharpen the case against linearity (did happen). Pro identified the precise structural reason dyadic fibers can't serve as an auxiliary — and that reason (cross-fiber lateral incomparability) is a clean algebraic fact, not heuristic. High-quality negative result from the contrarian framing, which would not have come out of a straight "prove sublinear UB" dispatch.
+
+### Methodology lessons from Rounds 20 — 21
+
+- **Re-audit rigorous results opportunistically when strategic focus shifts.** T2 stood unaudited for 8 rounds as "cross-derived, pending uniformity-bookkeeping writeup" because it wasn't the current research bottleneck. Once the 2-shadow route died and the matching-upper-bound program needed T2 as its target, re-auditing T2 was the highest-value next move. Lesson: when strategic focus shifts to a direction that LOAD-BEARS on an older result, trigger a fresh independent audit even if no new evidence has appeared — the order-sensitivity bug in T2 had been latent for 8 rounds.
+- **Cross-model self-correction is real.** Codex independently attempted its own T2 proof, wrote a DTK+Buchstab argument, then acknowledged the argument was broken after seeing Pro's counterexample — all within one round. Multi-agent rounds where each agent sees the others' work and can flag its own errors compress audit-correction cycles by an order of magnitude relative to sequential audits.
+- **Two separate bugs in the same round can be disentangled.** In Round 20, Pro disproved Theorems 2 and 3 while Codex (in the same paste) claimed to prove a stronger form. The responses LOOK contradictory but both can be locally correct under different interpretations. Resolution: Pro's construction produces antichain elements (not just legal moves), so Codex's DTK bound is the one that breaks (DTK bound is too tight). Lesson: when two concurrent responses contradict, locate the specific mathematical step in each where they disagree, not just the headline claims.
+- **"Plausible pending standalone lemma" is a valid intermediate status.** T2 is not ruled out; it's not rigorous. The canonical prompt should admit this middle state explicitly. Don't force every result into a binary Established/Ruled Out bin; track a third "plausible pending X" state for results whose status is under audit.
+- **Find-the-bug → propose-the-repair within one agent thread.** Codex went demote-T2 → produce-concrete-Maker-first-repair in a single follow-up. The repair included a *reformulation* (Lemma 2 becomes a scored 3-uniform hypergraph game, not a fiber-by-fiber argument) rather than a literal fix to the old writeup. Lesson: when an audit identifies a specific structural bug, the same agent is well-positioned to propose the abstract reformulation — don't hand off demote and repair to different threads.
+- **Reformulate rather than patch for order-sensitivity bugs.** The Maker-second-vs-Maker-first gap rarely patches at the lemma level — the original informal "if Breaker, then Maker can" structure doesn't translate. Codex correctly replaced Lemma 2 with a cleanly-stated hypergraph game rather than trying to rephrase the old proof. Pattern-to-watch: when auditing any Maker-Breaker argument, check the order of quantifiers ("for every Breaker move, Maker has a response" vs. "Maker has a move such that for every Breaker reply") — these are different theorems.
+- **Exhaustive sanity checks on small instances are cheap signal.** Codex ran exhaustive search over graph states $\le 5$ vertices (Lemma 1) and 3-uniform hypergraphs on 4 vertices (Lemma 2). Failing a small instance would have killed the repair attempt immediately; passing is weak but positive signal. Cost: seconds of Python. Include this step by default when proposing new abstract lemmas.
+
 ## Attribution
 
 Problem and framework authorship:
