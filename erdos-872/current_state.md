@@ -1,33 +1,47 @@
 # Current State
 
-> **TRUE 30-second orientation (updated 2026-04-19 post-R38 synthesis):**
+> **TRUE 30-second orientation (updated 2026-04-19 post-R44 synthesis):**
 >
-> **Rigorous bounds:**
+> **Rigorous bounds (unchanged):**
 > - **T1** (formally verified): $(1/8 - o(1)) n\log\log n/\log n \le L(n) \le (13/36 + o(1)) n$.
 > - **T2** (rigorous via Codex R21 Maker-first repair + activation audit, not Lean): $L(n) \ge c_\delta n(\log\log n)^2/\log n$.
-> - **R35 static estimate** (rigorous in arithmetic cell-local model): $\mu(\operatorname{Cl}_h) \ll (h/\log h) |F_{\text{useful}}| + N_h/\log h$ via dyadic expanded windows.
+> - **R35 static estimate** (rigorous in arithmetic cell-local model): $\mu(\operatorname{Cl}_h) \ll (h/\log h) \mu(F_{\text{useful}}) + N_h/\log(h/\log h)$ via dyadic expanded windows. Note: residual floor is $\asymp N_h/\log h$.
 > - **Upper bound**: $L(n) \le 0.18969 n$ (linear).
 >
-> **Linear route to $\Theta(n)$ comprehensively closed.** Fan hierarchy ceilings, Sperner obstruction on same-$b$ cores, dyadic-fiber positive density ≡ the linear conjecture itself.
+> **Linear route to $\Theta(n)$ comprehensively closed.**
 >
-> **Sublinear route — candidate closure at $L(n) \ll n/\log\log\log n$ is CONDITIONAL.** R35 static estimate + R33 counting lemma + dyadic windows gave two independent candidate closures (fresh Pro + Codex R35), BOTH refuted at the same bridging step by parallel Pro A critique + Codex R36 audit. The translation to game length requires cardinality bound $|F_{\text{useful}}| \ll N_h/h$ which needs an online amortization not yet proven.
+> **R44 round outcome — the picture is now clean.** An "open full-solution" dispatch to five Pro threads returned:
+> - 1 honest concession (no proof claimed) → produced the genuine new candidate **SFLU-E (lifted harmonic measure + strong freshness + local usefulness)** → then independently self-refuted at the critical steps on formal follow-up.
+> - 3 attractor hallucinations converging on $\Theta(n(\log\log n)^2/\log n)$ via the same invalid hand-wave: "$\sigma^\star$ + online harmonic domination trivially bound $\mu(F_{\text{useful}})$." Online domination is on Shortener's claims $u_t$, not on Prolonger's useful shields. This attractor is now Ruled Out.
+> - External adversarial audit of SFLU-E independently converged with Pro #1's self-refutation on every point.
 >
-> **Exact current open lemma:** multi-defect $\sigma^\star$ (claim max-degree over ALL legal proper divisors) plus a **recursive freshness condition** strong enough to force $|F_{\text{useful}}| \ll N_h/h$. Codex R37 refuted IMMEDIATE freshness at $(h,M) = (3,7)$ and $(4,8)$ explicit examples, but the main-game bounded-depth partial shows that in the low-window regime (degree $\ge h$ already static-accessible at defect $k = O(1)$), freshness can fail only when same-prime prehistory has length $\ge h-k$, i.e. linear in $h$. The remaining live closure routes are now: per-score dyadic projection, same-prime chain persistence under $\sigma^\star$, or a Ford-type short-interval divisor bound.
+> **What SFLU-E formalized as conditional theorem.** The lifted harmonic measure $\nu_{h,k}(D) = \mu_h(\operatorname{Sh}^{\text{loc}}_h(D))/\binom{h}{k}$ combined with strong freshness (no prior Shortener OR Prolonger sterilization) and local usefulness (replacement window $q/p \in (1/2, 2)$) yields
+> $$\nu_{h,k}^\Sigma(\mathcal E_{k,\theta}^{\text{sf,loc}}) \ll_C \theta^{-1}(Ck/h)^{s(k)} N_h \quad \text{(SFLU-E)}$$
+> with $s(k) = \min\{k-1, \lfloor h/\log h \rfloor\}$, **CONDITIONAL on a certificate-packing estimate** $\sum_D \nu(C(D)) \ll N_h$.
 >
-> **Motivating parallel, but NOT a main-game partial:** fresh Pro's monotone-deletion one-cylinder relaxation closes $L(n) \ll n/\log\log\log n$ because scored top facets do not stale lower divisors. This has now been checked carefully: no single-cylinder restriction or induced monotone subfamily of the true divisibility game realizes that rule. It is a clean relaxation motivating the Ford / short-interval route, not a subgame-theoretic theorem for the main game.
+> **Why packing is not a consequence of strong freshness.** Explicit local star obstruction: fix $C = \{c_1, \ldots, c_{h-1}\}$, $W = \{w_1, \ldots, w_M\}$ with $M = \lfloor \log h \rfloor$. Defect-two shields $D_i = C \setminus \{c_i\}$ all share the *same* defect-1 coface $C$, all satisfy the density condition (1) at $\theta \asymp 1/\log h$, all are strongly fresh before Prolonger activates. Family-level union lift $\nu_{h,2}^\cup(\{D_i\}) \asymp M^2/h$; single-coface lift $\nu_{h,1}(C) \asymp M/h$. The ratio gap is a factor of $h$. This is the local version of the star-at-depth-2 phenomenon — strong freshness plus locality alone does not imply charged-shadow disjointness.
 >
-> **Empirical contrast pinpointing where the gap lives:** Codex R36 ran same $\sigma$ vs `shadow_pressure` Prolonger in two models:
-> - Abstract $H^{(h)}$: naive amortization FAILS (peak useful-top-facet ratios up to 6.71 at $(9,6)$).
-> - One-cylinder arithmetic toy: witness-star multiplicity over useful shields stays $O(1)$ on tested grids, but not uniformly $\le 2$; max values are $2$ at $(3,9),(4,9),(5,9)$, $1$ at $(5,12)$, and $3$ with mean $1.25$ at $(4,14)$. The $(6,9)$ greedy run has no terminal useful shields.
-> - **R39 sharpened first-useful audit:** same-prime first-appearance multiplicity is already large in the one-cylinder toy (e.g. \(M_1^{\max}=13\) at \((4,14)\), \(34\) at \((4,20)\), \(23\) at \((5,20)\)), while the **pair-first** per-score multiplicity stays small on the computed grid (max \(4\) at \((4,14)\), \(3\) at \((5,14)\), \(6\) at \((4,20)\) and \((5,20)\)). Cluster-biased one-cylinder runs increase the number of bad useful shields but still do not show a large pair-first multiplicity explosion on computed cases. So the empirical burden has shifted further toward Pro R38's pair-level / lower-defect projection route rather than Codex's earlier first-appearance route. See `researcher-39-codex-pair-multiplicity-scaling.md`.
+> **R35 residual floor — new structural obstruction to the sharp rate.** Even in the idealized case $\mu(F_{\text{useful}}) = 0$, the R35 error term $N_h/\log(h/\log h) \asymp N_h/\log h$ sums over central ranks $h \sim \log\log n$ to give only $L(n) \ll n/\log\log\log n$. The conjectured sharp rate $n(\log\log n)^2/\log n$ is **strictly smaller** than this floor (by factor $\log n / ((\log\log n)^2 \log\log\log n) \to \infty$). So R35 alone, even idealized, cannot reach the conjectured sharp rate. Closing the sharp rate requires a new state inequality with residual floor $\ll N_h \cdot (\log\log n)^2/\log n$ at central rank.
 >
-> Gap is specifically in arithmetic lower-defect backward-charging structure that has no abstract analogue. The old $(4,5)$ sharpness counterexample is now confirmed tail-only: embedded at $M \ge 6$, fresh degree-$\ge h$ witnesses reappear immediately. By contrast the low-window $(4,8)$ terminal toy counterexample persists only with same-prime prehistory $r_p \in \{3,4\}$, exactly matching the bounded-depth corollary.
+> **Three precisely stated open lemmas (R44 closing summary).**
+> - **(A) Certificate-packing theorem.** Under strong freshness + local usefulness: $\sum_{D \in \mathcal E_{k,\theta}^{\text{sf,loc}}} \nu(C(D)) \ll N_h$. Must handle simultaneous activation and shared cofaces.
+> - **(B) Sharper defect-two estimate.** $\mu(\mathcal E_{2, 1/\log h}^{\text{sf,loc}}) \ll N_h/h$. (SFLU-E gives $(\log h/h) N_h$ — off by factor $\log h$ against the $L = h/\log h$ multiplier in R35.)
+> - **(C) Replacement state inequality** with residual $\ll N_h \cdot (\log\log n)^2/\log n$ at central rank.
 >
-> **Current best dispatch prompt:** `prompts/followup-all-R38-full-game-gap.md`, which states the main-game partial, the monotone-relaxation caveat, the three convergent reformulations, and the updated toy evidence.
+> **What (A)+(B)+(C) give.**
+> - (A) + (B) ⟹ $\mu(F_{\text{useful}}) \ll N_h/h$ ⟹ $\mu(\text{Cl}_h) \ll N_h/\log h$ (via R35) ⟹ $L(n) \ll n/\log\log\log n$ ⟹ closes $L(n) = o(n)$ rigorously.
+> - (A) + (B) + (C) ⟹ $L(n) \ll n(\log\log n)^2/\log n$ ⟹ closes the conjectured sharp rate.
 >
-> **Empirical (Phase 4):** $L\log n/n \in [1.55, 1.70]$ across $n \in [10^4, 10^7]$. Cannot distinguish candidate rates at accessible $n$ since $\log\log n \le 2.8$.
+> **Status of the $\Theta(n(\log\log n)^2/\log n)$ conjecture.** Attractor evidence from independent Pro threads is strong — the number-theoretic scale matches $\#\{m \le n : \Omega(m) = 3\}$ (Sathe-Selberg). But there is now a specific structural obstruction to closing it from existing rigorous ingredients, namely the R35 residual floor. Live possibility: the true sharp rate may be $n/\log\log\log n$, not $n(\log\log n)^2/\log n$.
 >
-> For technical detail see `prompts/canonical-prompt.md` (Established + Ruled Out), `researcher-3*-*.md` for round-by-round, `process.md` for methodology.
+> **Empirical (Phase 4):** $L\log n/n \in [1.55, 1.70]$ across $n \in [10^4, 10^7]$. Cannot distinguish candidate rates at accessible $n$ since $\log\log n \le 2.8$. Observed ratio is flatter than the Sathe-Selberg prediction $(\log\log n)^2/4 \in \{1.23, 1.49, 1.72, 1.93\}$, consistent with either rate at this range.
+>
+> **Current dispatch priorities** (R45 plan):
+> 1. **(A) certificate packing** — most tractable; Carleson-style bound in lifted harmonic measure. Cross-family dispatch (Pro + Codex + Gemini).
+> 2. **(B) sharper defect-two** — requires a sharper dense-packet projection at $k=2$ beyond the naive $k^2/\theta$ bound. Pro continuation with explicit $k=2$ focus.
+> 3. **(C) replacement state inequality** — hardest and most speculative. Contrarian framing: "either prove (C) or prove $L(n) \not\asymp n(\log\log n)^2/\log n$."
+>
+> For technical detail see `prompts/canonical-prompt.md` (Established + Ruled Out), `researcher-3*-*.md` and `researcher-4*-*.md` for round-by-round, `process.md` for methodology.
 
 ---
 
@@ -2259,6 +2273,58 @@ Theorem A audited by Claude, Gemini, GPT-thinking:
 
 ### Forum contributors to watch
 Thomas Bloom (site owner), Liam Price, Adenwalla, Xiao_Hu, Desmond Weisenberg, natso26, StijnC.
+
+## Round 44 (2026-04-19) — SFLU-E conditional theorem + R35 residual floor diagnosed
+
+**Dispatch.** Open full-solution prompt (`prompts/researcher-R44-pro-open-full-solution.md`) to five Pro threads. Prompt contained all rigorous established theorems + comprehensive Ruled Out list + numerical evidence, with "Find a full solution to the problem" as the only ask. No anchoring direction, no prescribed output format.
+
+**Returns (5):**
+
+- **Pro #1 (honest concession).** Rigorous window stated, sharp rate not determined by established facts. Natural conjectural answer $\Theta(n(\log\log n)^2/\log n)$ clearly flagged as conjecture. Explicitly identified the missing estimate: a harmonic strong-freshness/local-usefulness bound that also controls the exceptional class $\mathcal E$ appearing in the sharpened dense-packet projection. See `researcher-44-pro-1-honest-no-proof.md`.
+
+- **Pros #2, #3, #4 (attractor hallucinations).** All three claimed closure at $\Theta(n(\log\log n)^2/\log n)$ via the same hand-wave: "$\sigma^\star$ + online harmonic domination trivially bound $\mu(F_{\text{useful}})$." Online harmonic domination $\sum_t \mu(u_t) \le N_h$ bounds *Shortener's* claims $u_t$, not Prolonger's useful shields. Additional common errors: (a) misreading "single-fiber positive-density theorem is equivalent to $L(n) = \Omega(n)$" as "$\Omega(n)$ is disproved"; (b) reversing refutations into proofs (e.g., "collision-forcing REFUTED at defect 2" → "Prolonger succeeds at defect 2 and Shortener is helpless"); (c) misreading empirical data as ruling out $\Theta(n)$ when at accessible $n$ the data explicitly cannot distinguish rates. See `researcher-44-pro-2-closure-via-defect-2.md`, `researcher-44-pro-3-closure-via-defect-2.md`, `researcher-44-pro-4-closure-via-3-almost-primes.md`.
+
+- **Sathe-Selberg calibration (surfaced by Pro #4).** $\#\{m \le n : \Omega(m) = 3\} \sim n(\log\log n)^2/(2\log n)$, so $\#\{m \in (n/2, n] : \Omega(m) = 3\} \sim n(\log\log n)^2/(4\log n)$. At $n=10^6$, predicts $124{,}765$, actual count is $124{,}591$. This is not a closure argument but it *is* the natural number-theoretic scale matching T2 — worth keeping as background that grounds the attractor conjecture.
+
+**Follow-up to Pro #1.** Prompt explicitly asked for the missing estimate. Pro #1 returned the lifted harmonic measure framework with **(SFLU-E)** claim. See `researcher-44-pro-1-followup-sflu-e-estimate.md`.
+
+**External adversarial audit** (`verify-R44-pro-1-sflu-e-audit-refutes.md`) identified four specific gaps:
+1. Step (3) first-activation thinning is an extra disjointness assumption, not a consequence of $\sigma^\star$.
+2. Step (1) density-increment extraction is circular — $\mathcal E$ is underdefined and the extraction is either tautological or requires an unproven quantified entropy dichotomy.
+3. "Strong freshness" is used in four mutually incompatible ways.
+4. Arithmetic doesn't close: $k=2$ residue $(\log h/h) N_h$ multiplied by R35's $L = h/\log h$ gives full rank-scale $N_h$, not $N_h/\log h$.
+
+**Second follow-up to Pro #1** (after audit but sent in parallel) returned a **formal self-concession** independently matching the audit on all four points, plus a fifth structural finding. See `researcher-44-pro-1-followup-2-formal-concession.md`.
+
+### R44 Established (promoted)
+
+- **(SFLU-E) as conditional theorem.** Under strong freshness (no prior Shortener OR Prolonger sterilization) + local usefulness (replacement window $q/p \in (1/2, 2)$) + certificate-packing hypothesis:
+  $$\nu_{h,k}^\Sigma(\mathcal E_{k,\theta}^{\text{sf,loc}}) \ll_C \theta^{-1}(Ck/h)^{s(k)} N_h, \quad s(k) = \min\{k-1, \lfloor h/\log h \rfloor\}.$$
+  The per-shield comparison, the binomial ratio bound, and the exceptional-class definition are all rigorous. Only the family-level packing step is conditional.
+
+- **Local star obstruction (Pro #1's self-refutation).** Fix $C = \{c_1, \ldots, c_{h-1}\}$, $W = \{w_1, \ldots, w_M\}$ with $M = \lfloor \log h \rfloor$. Defect-two shields $D_i = C \setminus \{c_i\}$ all share coface $C$. All satisfy density condition (1) at $\theta \asymp 1/\log h$. All strongly fresh before Prolonger acts. Union lift $\nu_{h,2}^\cup(\{D_i\}) \asymp M^2/h$ vs single-coface lift $\nu_{h,1}(C) \asymp M/h$: gap factor $h$. Establishes rigorously that **strong freshness + locality alone do not imply charged-shadow disjointness**; the packing step is a genuinely new assumption.
+
+- **R35 residual floor is structural.** The R35 state inequality $\mu(\text{Cl}_h) \ll (h/\log h) \mu(F_{\text{useful}}) + N_h/\log(h/\log h)$ has residual floor $\asymp N_h/\log h$. Summed over central ranks $h \sim \log\log n$: even with $\mu(F_{\text{useful}}) = 0$, best possible is $L(n) \ll n/\log\log\log n$. Since $(\log\log n)^2/\log n = o(1/\log\log\log n)$, the R35 residual alone blocks reaching the conjectured sharp rate $n(\log\log n)^2/\log n$.
+
+### R44 Ruled Out (promoted)
+
+- **Closure via "$\sigma^\star$ + online domination trivially give matching upper bound."** Attractor pattern confirmed across three independent Pro threads (#2, #3, #4). Online harmonic domination bounds Shortener's Shortener-claimed mass, not Prolonger's useful-shield mass. Any argument that asserts $\sigma^\star$ controls $\mu(F_{\text{useful}})$ without an explicit packing/charging lemma is the same hand-wave.
+
+- **"Strong freshness + locality ⟹ first-activation thinning ⟹ $\sum_D \nu(C(D)) \ll N_h$."** Refuted by Pro #1's own local star construction above. The static sum is not bounded by any dynamic inequality of the form $\sum_t \mu_t(u_t) \le N_h$ without a genuine injective-charging lemma.
+
+### R44 Open Question (precisely stated)
+
+Three lemmas, each of which would push the program forward:
+
+- **(A) Certificate-packing theorem.** Under strong freshness + local usefulness:
+  $$\sum_{D \in \mathcal E_{k,\theta}^{\text{sf,loc}}} \nu(C(D)) \ll N_h.$$
+  Must handle simultaneous activation and shared cofaces. The local star construction shows this requires work beyond strong freshness; candidates include Carleson-style packing bounds, a structural theorem showing high-multiplicity shared-coface stars are absorbed by the dense-packet projection, or a dynamic injective-charging lemma under $\sigma^\star$.
+
+- **(B) Sharper defect-two estimate.** $\mu(\mathcal E_{2,1/\log h}^{\text{sf,loc}}) \ll N_h/h$ (rather than the $(\log h/h) N_h$ from conditional SFLU-E). Requires a sharper dense-packet projection specifically at $k=2$, or an argument that the defect-two residue is absorbed elsewhere before entering $F_{\text{useful}}$.
+
+- **(C) Replacement state inequality** with residual floor $\ll N_h \cdot (\log\log n)^2/\log n$ at central rank, not $N_h/\log h$. This is the requirement for closing the conjectured sharp rate. Possibly the correct conclusion is that (C) is impossible and the true sharp rate is $n/\log\log\log n$ rather than $n(\log\log n)^2/\log n$.
+
+(A) + (B) ⟹ $L(n) = o(n)$ at rate $n/\log\log\log n$. (A) + (B) + (C) ⟹ conjectured sharp rate $n(\log\log n)^2/\log n$.
 
 ## Appendix: Public forum transcript
 
