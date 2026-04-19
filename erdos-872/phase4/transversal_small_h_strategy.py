@@ -114,6 +114,33 @@ def prolonger_random_degree_weighted(state: Any, rng: random.Random | None = Non
     return chooser.choices(edges, weights=weights, k=1)[0]
 
 
+def _lexicographic_unresolved_edge(state: Any, rng: random.Random | None = None) -> int:
+    del rng
+    return min(_unresolved_edges(state), key=lambda edge_index: state.hypergraph.edge_label(edge_index))
+
+
+def make_prolonger_simplex_star_cascade(
+    pivot: int = 0,
+    fallback=None,
+):
+    """Steal all unresolved edges through one pivot before anything else."""
+
+    fallback_policy = fallback or _lexicographic_unresolved_edge
+
+    def policy(state: Any, rng: random.Random | None = None) -> int:
+        hypergraph = state.hypergraph
+        star_edges = [
+            edge_index
+            for edge_index in _unresolved_edges(state)
+            if pivot in hypergraph.edge_label(edge_index)
+        ]
+        if star_edges:
+            return min(star_edges, key=lambda edge_index: hypergraph.edge_label(edge_index))
+        return fallback_policy(state, rng)
+
+    return policy
+
+
 def _post_capture_resolved_count(state: Any, edge_index: int) -> int:
     hypergraph = state.hypergraph
     next_captured = state.captured_mask | hypergraph.edge_vertex_masks[edge_index]

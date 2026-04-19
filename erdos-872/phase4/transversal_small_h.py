@@ -15,6 +15,7 @@ import numpy as np
 from scipy.optimize import Bounds, LinearConstraint, milp
 from transversal_small_h_strategy import (
     make_prolonger_lookahead_one,
+    make_prolonger_simplex_star_cascade,
     make_shortener_sigma,
     prolonger_max_claimed_overlap,
     prolonger_random_degree_weighted,
@@ -572,6 +573,7 @@ def shortener_random_high_degree(state: StateView, rng: random.Random) -> int:
 
 
 shortener_sigma = make_shortener_sigma()
+prolonger_simplex_star_cascade = make_prolonger_simplex_star_cascade()
 
 
 def prolonger_smallest_neighborhood(state: StateView, rng: random.Random) -> int:
@@ -657,6 +659,71 @@ def simulate_game(
     }
 
 
+def solve_against_fixed_prolonger(
+    N: int,
+    h: int,
+    prolonger_policy: EdgePolicy,
+) -> dict[str, object]:
+    """Exact optimal Shortener play against a fixed deterministic Prolonger policy."""
+
+    hypergraph = TopFacetHypergraph(N, h)
+    chooser = random.Random(0)
+    cache: dict[tuple[int, int], tuple[int, tuple[tuple[str, tuple[int, ...]], ...]]] = {}
+
+    def ordered_shortener_moves(state: StateView) -> tuple[int, ...]:
+        return tuple(
+            sorted(
+                hypergraph.available_vertex_indices(state),
+                key=lambda vertex_index: (
+                    -hypergraph.vertex_hit_count(state.unresolved_edges_mask, vertex_index),
+                    -hypergraph.vertex_degrees[vertex_index],
+                    hypergraph.vertex_label(vertex_index),
+                ),
+            )
+        )
+
+    def solve(claimed_mask: int, captured_mask: int) -> tuple[int, tuple[tuple[str, tuple[int, ...]], ...]]:
+        key = (claimed_mask, captured_mask)
+        cached = cache.get(key)
+        if cached is not None:
+            return cached
+
+        pro_state = hypergraph.state_view(claimed_mask, captured_mask, False)
+        if pro_state.unresolved_edges_mask == 0:
+            cache[key] = (0, ())
+            return cache[key]
+
+        edge_index = prolonger_policy(pro_state, chooser)
+        next_captured = captured_mask | hypergraph.edge_vertex_masks[edge_index]
+        pro_move = ("P", hypergraph.edge_label(edge_index))
+
+        short_state = hypergraph.state_view(claimed_mask, next_captured, True)
+        if short_state.unresolved_edges_mask == 0:
+            cache[key] = (0, (pro_move,))
+            return cache[key]
+
+        best_value = math.inf
+        best_line: tuple[tuple[str, tuple[int, ...]], ...] = ()
+        for vertex_index in ordered_shortener_moves(short_state):
+            child_value, child_line = solve(claimed_mask | (1 << vertex_index), next_captured)
+            candidate_value = 1 + child_value
+            if candidate_value < best_value:
+                best_value = candidate_value
+                best_line = (pro_move, ("S", hypergraph.vertex_label(vertex_index)), *child_line)
+
+        cache[key] = (int(best_value), tuple(best_line))
+        return cache[key]
+
+    T_best, principal_variation = solve(0, 0)
+    return {
+        "N": N,
+        "h": h,
+        "T_best": T_best,
+        "positions_evaluated": len(cache),
+        "principal_variation": principal_variation,
+    }
+
+
 def run_grid(
     exact_limits: dict[int, int] | None = None,
     static_cover_exact_limits: dict[int, int] | None = None,
@@ -676,6 +743,7 @@ def run_grid(
         "smallest_neighborhood": prolonger_smallest_neighborhood,
         "random": prolonger_random,
         "highest_degree_vertex": prolonger_highest_degree_vertex,
+        "simplex_star_cascade": prolonger_simplex_star_cascade,
     }
 
     results: list[dict[str, object]] = []

@@ -6,10 +6,13 @@ from transversal_small_h import (
     StaticCoverSolver,
     TopFacetHypergraph,
     brute_force_game_value,
+    simulate_game,
+    solve_against_fixed_prolonger,
 )
 from transversal_small_h_strategy import (
     audit_shortener_policy_against_exact,
     audit_shortener_policy_on_principal_variations,
+    make_prolonger_simplex_star_cascade,
     make_shortener_sigma,
 )
 
@@ -61,6 +64,30 @@ class TopFacetHypergraphTests(unittest.TestCase):
 
         chosen = hypergraph.vertex_label(sigma(state, None))
         self.assertEqual(chosen, result["principal_variation"][1][1])
+
+    def test_simplex_star_cascade_prioritizes_pivot_star_edges(self) -> None:
+        hypergraph = TopFacetHypergraph(5, 3)
+        cascade = make_prolonger_simplex_star_cascade(pivot=0)
+
+        first_state = hypergraph.state_view(0, 0, False)
+        first_edge = hypergraph.edge_label(cascade(first_state, None))
+        self.assertEqual(first_edge, (0, 1, 2))
+
+        first_edge_index = hypergraph.edges.index(first_edge)
+        second_state = hypergraph.state_view(0, hypergraph.edge_vertex_masks[first_edge_index], False)
+        second_edge = hypergraph.edge_label(cascade(second_state, None))
+        self.assertEqual(second_edge, (0, 1, 3))
+
+    def test_sigma_matches_exact_best_response_against_small_simplex_star(self) -> None:
+        sigma = make_shortener_sigma()
+        cascade = make_prolonger_simplex_star_cascade(pivot=0)
+
+        optimal = solve_against_fixed_prolonger(4, 3, cascade)
+        greedy = simulate_game(4, 3, sigma, cascade, seed=0)
+
+        self.assertEqual(optimal["T_best"], 1)
+        self.assertEqual(optimal["principal_variation"][0], ("P", (0, 1, 2)))
+        self.assertEqual(greedy["T"], optimal["T_best"])
 
 
 if __name__ == "__main__":
