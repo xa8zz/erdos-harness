@@ -1452,6 +1452,137 @@ Existing upper bound $5n/16 + o(n)$ is $\Theta(n)$, matching the general case bu
 - Cross-family verification prompt (sent to the other Pro thread and both DeepThink threads): verify the upper-half fan, identify gaps, attempt matching upper bound if verified.
 - No further Codex runs or audit dispatches pending these responses.
 
+## Round 13 closeout (2026-04-18, post-Phase 3c)
+
+### Fixed-rank hierarchy established (T2)
+
+Three independent fresh derivations (2 Pro-style shadow-capture / divisor-shadow lemma, 1 DeepThink-style two-phase hypergraph+fiber capture) agree on:
+
+**Theorem (rank-$h$ upper-half fan).** For every fixed $h \ge 1$,
+$$L(n) \ge c_h \cdot \frac{n(\log\log n)^h}{\log n}, \qquad c_h \asymp \frac{2^{-(2^{h+1}-2)}}{h!}.$$
+
+Construction: targets $\{A_S \cdot b : |S| = h, b \in J_S \cap \mathbb{P}\} \subseteq (n/2, n]$ with $A_S = \prod_{a \in S} a$ and $J_S = (n/(2A_S), n/A_S]$. Proof via divisor-shadow lemma (Maker-Breaker potential tracking $D = 2^{h+1} - 2$ divisor coordinates).
+
+**Consequence.** $L(n) \ne O(n(\log\log n)^C/\log n)$ for every fixed $C$.
+
+**Rank-4 collapse argument — REFUTED.** The claim that Shortener's lateral $a_1 b$ kills many rank-4 targets ignored auto-shielding: once Prolonger plays any $2 a_1 a_y b$, $a_1 b$ becomes illegal (divides the target). 2-vs-1 protection economy generalizes.
+
+**Multiplier Lock $\Theta(n)$ claim (DeepThink) — REFUTED.** Three failure modes: (1) direct large-prime kill not blocked, (2) volume-collapse reasoning inverted, (3) factorial ceiling in raw count reintroduces $2^{-2^k}$ shielding cost when scaling $k$.
+
+### Slow-growth optimization (T2, 1 full derivation + 2 conditional)
+
+Taking $h = \lfloor \log_2 \log\log\log n \rfloor$ balances $H^h/h!$ against $2^{-(2^{h+1}-2)}$ shielding loss:
+$$L(n) \ge \frac{n}{\log n} \exp\!\left(\bigl(\tfrac{1}{\log 2} + o(1)\bigr) \log\log\log n \cdot \log\log\log\log n\right) = \frac{n}{(\log n)^{1-o(1)}}.$$
+
+Strictly $o(n)$. Strictly stronger than fixed-$C$ bounds.
+
+### Structural ceiling (T1, arithmetic)
+
+Raw target count at rank $h$ peaks at $h \approx H = \log\log n$ with $|\mathcal{T}_h|_{\max} \sim n/\sqrt{2\pi \log\log n} = o(n)$. Linear-scale mass distributed over the window $h = H \pm O(\sqrt{H})$; no single rank captures $\Theta(n)$.
+
+### Cross-family convergence — dichotomy undecidable from established machinery
+
+Three independent fresh dispatches (Pro conservative, Pro sharpened, Claude-style with exact-minimax up to $n=31$) converge on: the established facts do **not** imply $L(n) = \Theta(n)$ or $L(n) = o(n)$. Decisive missing lemmas:
+
+- **Uniform multi-rank Prolonger shielding theorem.** Single potential coupling fan ranks across window $h = \log\log n \pm O(\sqrt{\log\log n})$ with $O(1)$ total game-theoretic loss. Would yield $L(n) = \Omega(n)$.
+- **Multi-rank Shortener compression theorem.** Shortener strategy beating $5/16$ by exploiting fan-target structure across all ranks simultaneously. Would yield $L(n) = o(n)$.
+
+### Phase 3c empirical audit (Codex, 2026-04-18)
+
+Three probes of the fan hierarchy at $n \in [10^4, 10^7]$:
+
+**Probe A (inconclusive).** Empirical Prolonger policy (smallest-core-first greedy) under-saturates the theoretical lower bound. Looseness ratios 0.32–0.65. Cannot diagnose whether theoretical bound is loose or simulator Prolonger is suboptimal.
+
+**Probe B (strongly negative for the uniform multi-rank lemma).** Cross-rank auto-shielding ratio `cross/same`:
+- Rank-1 → rank-2: $0.62$ at $n=10^5$, $0.82$ at $n=10^6$ (strong).
+- Rank-2 → rank-3: $0.00$ at $n=10^5$, $0.06$ at $n=10^6$ (collapsed).
+- Rank-3 → higher: $0.00$.
+
+The mechanism evaporates between $h=1$ and $h=2$. Structural reason: higher-rank proper divisors are more specific (larger lateral composites), intersecting fewer targets across ranks. Not a small-$n$ artifact.
+
+**Probe C (modest positive).** 2-sigma window around peak rank captures $\approx 19\%$ of $(n/2, n]$ at $n \in \{10^5, 10^6, 10^7\}$. Stable, but far from saturating linear mass.
+
+**Empirical correction.** Actual $H = \sum_{p \le n^{0.45}} 1/p$ is $1.917$ at $n=10^5$, $2.097$ at $n=10^6$, $2.245$ at $n=10^7$ — smaller than originally expected. Discrete peak rank $h^* = 2$ throughout.
+
+### Implications
+
+Combining Probe B with the structural argument: **the uniform multi-rank Prolonger shielding theorem — the load-bearing lemma for an $L(n) = \Omega(n)$ proof via fans — appears to be false.** Cross-rank shielding is not present in the empirical data at the window ranks, and the structural reason (divisor specificity at higher rank) is robust.
+
+This shifts the probability distribution toward $L(n) = o(n)$, with the true rate sitting near $n/(\log n)^{1-o(1)}$ (the slow-growth bound). The question is no longer "which side of the dichotomy" but "can we prove a matching sublinear upper bound that beats $5/16$?"
+
+### Rigorous bounds (current state)
+
+- **T1 window:** $(1/8 - o(1)) \cdot n\log\log n/\log n \le L(n) \le (5/16 + o(1)) n$.
+- **T2 window (pending shadow-capture lemma audit):** $n/(\log n)^{1-o(1)} \le L(n) \le (5/16 + o(1)) n$.
+
+**Next moves:**
+- Aristotle formalization of the shadow-capture / divisor-shadow lemma. Promotes T2 → T1 across the hierarchy + slow-growth bound.
+- Focused dispatch on the multi-rank Shortener compression theorem (now the higher-value target, given Probe B).
+- Optional: a final focused prompt on the uniform multi-rank Prolonger lemma with the Probe B data, to see if a clever workaround exists or the AI confirms the mechanism is dead.
+
+## Round 14 closeout (2026-04-18, Shortener-compression push)
+
+### First real upper-bound improvement in the program
+
+Three independent Pro derivations (from focused Shortener-compression dispatches) converge on:
+
+**Theorem (pending uniformity-bookkeeping writeup).** $L(n) \le (\mathcal{V}/2 + o(1)) n = (0.22002 + o(1)) n$, where
+$$\mathcal{V} = \sum_{r=0}^\infty (-1)^r I_r, \qquad I_r = \frac{1}{r!} \int_{\substack{u_1, \ldots, u_r \ge 0 \\ u_1 + \cdots + u_r \le 1}} \prod_{j=1}^r \frac{du_j}{1+u_j}, \qquad \mathcal{V} \approx 0.440029.$$
+
+Improvement from $5n/16 = 0.3125n$ to $\mathcal{V}/2 \approx 0.22n$. First upper-bound reduction since $5/16$ (Round 8).
+
+### Key novel insight — refined Chebyshev + log-density
+
+The $j$-th smallest odd prime Shortener plays satisfies the sharper bound
+$$q_j \le (1 + \varepsilon) j (\log n + \log j + O(\log\log n)),$$
+not the crude $q_j \le 2 j \log n$ that $5n/16$ used. On the log scale $u = \log q / \log n$, captured-prime reciprocal density becomes $du/(1+u)$, not uniform $du/2$. Total captured mass $\int_0^1 du/(1+u) = \log 2 \approx 0.693$ — much larger than the $1/2$ threshold the Bonferroni-2 analysis saturated at.
+
+Proof components (established modulo uniformity bookkeeping):
+- Lemma 1: refined Chebyshev induction.
+- Lemma 2: monotone replacement ($p < q$ not in $R$ implies $S_{R \cup \{p\}} \le S_{R \cup \{q\}}$ via injection $qa \mapsto pa$).
+- Exact finite inclusion-exclusion via $\delta$-cutoff: with $p \ge n^\delta$, every $M \le n$ has at most $\lfloor 1/\delta \rfloor$ prime divisors from the sieve set, so inclusion-exclusion truncates exactly (not asymptotically).
+- Dominated-convergence majorant $(\log 2)^r/r!$ for exchanging $\delta \downarrow 0$ and $\lambda \downarrow 1$ limits with the series.
+- Odd-part compression $\phi$ injective on antichains: $|\phi(A \setminus D)| \le N_D(n)$.
+
+### Audit status
+
+Two audit prompts dispatched, 3 auditors each (chatgpt, gemini, claude per audit). Results:
+
+- **Pro #1 (log-density proof, $L \le 0.2200145n$):** 2 sound (gemini, claude) + 1 flagged (chatgpt, objection about refined-Chebyshev giving $\log 2$ accessible mass allegedly contradicting "$1/2$ cap" in the brief). On review, the objection reflects an error in the brief's wording (the $1/2$ was the optimal Bonferroni-2 truncation, not a fundamental cap), not in the proof.
+- **Pro #2 (probabilistic-sieve proof, $L \le 0.22002n$):** 3 sound, most rigorous via ChatGPT. Specific repair items flagged as uniformity bookkeeping.
+
+### Numerical verification (Codex Phase 3d)
+
+Independently computed $\mathcal{V} = 0.440029038059\ldots$ and $C = 0.227036748200\ldots$ (Pro #3's simpler-proof constant) to 12 decimals, matching claimed values to 5 and 15 decimals respectively. Term-by-term $I_r$ values match to 8+ decimals. Series tail at $r = 10$ is $2.68 \times 10^{-16}$. All numerical claims ratified.
+
+### Known uniformity-bookkeeping items (repair items, not fatal)
+
+1. Lemma 1's $O(\log\log n)$ error constant should be stated uniformly in $j$, depending only on $\varepsilon$.
+2. Factorial-moment error terms should be stated uniformly for $r \le 1/\delta$.
+3. Dominated-convergence majorant should be explicitly written for the limit exchanges.
+
+These do not affect validity of the techniques as building blocks for subsequent work. Treat refined Chebyshev + log-density + exact finite inclusion-exclusion via $\delta$-cutoff as sound available tools.
+
+### Ruled Out additions from Round 14
+
+- **Infinite-order Bonferroni on uniform density $du/2$** capped at $e^{-1/2}/2 \approx 0.303n$. Strictly weaker than refined-Chebyshev $\mathcal{V}/2$ because uniform $du/2$ is dominated by $du/(1+u)$ on $[0, 1]$.
+- **Multi-prime pivot compression $\phi_P$ for $|P| \ge 2$** — not injective on antichains ($\phi_{\{2,3\}}(12) = \phi_{\{2,3\}}(18) = 1$ with $12, 18$ incomparable).
+- **Composite Shortener moves to batch multiple block-products** — block supports pairwise coprime, no composite kills more than one block.
+
+### Deprecated constants
+
+- $5n/16$ bound now superseded. Remains formally verified as the optimal Bonferroni-2 + crude-Chebyshev ceiling, but is no longer the tightest known upper bound.
+- $13n/36$ bound remains the formally-verified T1 upper bound (refined Chebyshev is T2 pending uniformity writeup).
+
+### Updated window
+
+- **T1:** $(1/8 - o(1)) n \log\log n / \log n \le L(n) \le (13/36 + o(1)) n$.
+- **T2:** $n/(\log n)^{1-o(1)} \le L(n) \le (0.22002 + o(1)) n$.
+
+### Dispatched next: push past $0.22n$ toward $o(n)$
+
+Round 15 focused prompt drafted (`prompts/round15-shortener-push-past-022.md`): sharpen upper bound below $0.22002n$, ideally to strictly sublinear. Refined Chebyshev + log-density stated as available tool. Named unexplored leads: adaptive Shortener hijacking, rigorous randomized Shortener + martingale, rank-split compression, entropy/Kruskal-Katona, VC-dimension, Shield-reduction dualization, Prolonger-forced prime redistribution toward $du/u$. Dispatched to 6+ threads plus Codex-in-repo.
+
 ## The Open Question (deprecated, post Round 5)
 
 Given Phase 1's confirmation of $n/\log n$ scaling across 24 pairs, plus Round 4's Vaccinated Shield obstruction, plus Round 5's resolution of the upper-half-cost sub-question, the picture is now:

@@ -837,6 +837,44 @@ This is exactly the scenario the three-way harness is designed to surface. Same-
 
 User dispatched the Round 11 prompt to three parallel Gemini 3.1 Pro instances for convergence-signal. They did converge — all three gave the same answer with the same pigeonhole proof. But same-model convergence is a much weaker signal than different-model convergence: shared training data, shared reasoning heuristics, shared blind spots. The three-way Pro/Gemini/GPT-thinking harness design is deliberate for this reason. Running three copies of one model is still useful (catches prompt-interpretation variance) but is not a substitute for cross-family convergence. For rigorous promotion, require agreement across *different* model families.
 
+### Round 14 — Shortener-compression push; first upper-bound improvement to $0.22n$ (2026-04-18)
+
+After Round 13 closed with the empirical Probe B signal that uniform multi-rank Prolonger shielding likely fails, Round 14 pivoted fully to Shortener side. Diagnosis: the $5n/16$ bound had been stuck since Round 8, and post-Round-13 Pro/Claude dispatches to the open "prove the tightest bound you can establish" framing kept returning "dichotomy unresolved" with no technical advance. Pattern: models were reading the canonical prompt's accumulated framing ("three independent derivations converge on the decisive missing lemma") as "hard frontier problem, be humble" and declining to grind.
+
+**Framing fix.** Pruned the canonical prompt heavily for Round 14 dispatches: removed the editorial "Current state of the dichotomy" / "decisive missing lemmas" section, stripped T1/T2 tier labels, dropped cross-family-consensus phrasing ("three independent fresh derivations..."), removed "dichotomy" as a word. Replaced with a directive task statement ("Prove the tightest upper bound on $L(n)$ you can establish") and single "Problem Solving Information:" section merging established facts, tried-and-failed attempts, and unexplored leads. Om-added pep-talk sentence at top ("This is a solvable problem, I copy-pasted this exact message without this sentence into a different conversation and you were able to solve it after an hour of reasoning.") — psychological framing that the problem is bounded and tractable. Result: three focused prompts (general Shortener compression, probabilistic, entropy).
+
+**Round 14 results.** Six Pro responses came back. Three of them independently produced the same constant via slightly different proof paths:
+- Pro #1 via log-scale reciprocal density $du/(1+u)$ + model-prime substitution + infinite-order inclusion-exclusion: $L(n) \le F/2 \cdot n \approx 0.2200145 n$.
+- Pro #2 via probabilistic sieve on uniform random odd integer + finite-order inclusion-exclusion via $\delta$-cutoff: $L(n) \le \mathcal{V}/2 \cdot n \approx 0.22002 n$.
+- Pro #3 via second-order Bonferroni with $qr \le n$ constraint (simpler, slightly weaker): $L(n) \le 0.22704 n$.
+
+All three used the **refined Chebyshev insight**: the $j$-th smallest legal odd prime Shortener plays satisfies $q_j \le (1+\varepsilon) j (\log n + \log j)$, not the crude $q_j \le 2 j \log n$. This gives log-scale density $du/(1+u)$ instead of uniform $du/2$, and total captured reciprocal mass $\log 2 \approx 0.693$ instead of the $1/2$ threshold Bonferroni-2 saturated at.
+
+Three other Pro responses had issues:
+- Pro #4 claimed $\le e^{-1/2}/2 \cdot n \approx 0.303n$ via "$t_k \to 0$" + sparse-sieve argument; uses uniform density, strictly weaker than refined-Chebyshev.
+- Pro #5 claimed $\le e^{-1/2-\delta}/2 \cdot n$ via randomized martingale; the $\delta > 0$ derivation is hand-wavy.
+- Pro #6 revisited the already-refuted MWU argument with the same algebra error; claim $O(n/\log\log n)$ invalid.
+
+Pattern: the three working proofs all independently derived refined Chebyshev. The three non-working proofs either used uniform density (weaker), hand-waved randomization (incomplete), or retreaded a known-false argument. Cross-derivation signal on the refined-Chebyshev + log-density technique is strong.
+
+**Claude CoTs** (6 distinct, from claude.ai tabs where the UI doesn't expose long reasoning traces, summarized separately): all converged on $\le e^{-1/2}/2 \cdot n \approx 0.303n$ via uniform-density Mertens product. None discovered the refined Chebyshev. Pro family strictly outperformed Claude family on this round.
+
+**Audit dispatch.** Two audit prompts drafted, one per working proof, each dispatched to 3 verifiers (chatgpt, claude, gemini). Audit prompts embedded the round-14 researcher prompt + the full Pro response verbatim (automated via Python script substituting placeholders). Audit verdict: 2-of-3 sound for Pro #1, 3-of-3 sound for Pro #2 (ChatGPT's initial Pro #2 audit response was broken / cut short; user re-sent after reconnecting the tab). ChatGPT's Pro #1 objection identified a real inconsistency between the proof's accessible-mass claim ($\log 2$) and the canonical prompt's misleading "accessible mass $\le 1/2$" wording — the wording reflected the *optimal Bonferroni-2 truncation*, not a fundamental cap. Fix: update the canonical prompt's wording; the proof is correct.
+
+**Codex Phase 3d.** Numerical verification task dispatched to Codex: independently compute $\mathcal{V}$ and $C$ via iterated adaptive quadrature. Returned $\mathcal{V} = 0.440029038059$ (5 decimals match, max possible given Pro's precision) and $C = 0.227036748200$ (15 decimals match). Term-by-term $I_r$ values agree to 8+ decimals. Series tail at $r = 10$ is $2.68 \times 10^{-16}$. All numerical constants ratified.
+
+**Safari tooling validation.** First real use of `safari-llm` for distributing audits and exporting responses. 9 new tabs opened programmatically (3 per provider), navigated to the right threads via URL substitution (after fixing a Gemini `/u/1/` path-prefix issue). All 6 audit responses exported to files via `safari-llm export -o`. Tooling works end-to-end for dispatching → waiting → exporting audit cycles.
+
+**Methodology lessons:**
+- *The "hard frontier problem" framing causes models to give up.* Heavy documentation of past failures + "three independent derivations converge on the missing lemma" reads as "many smart people have tried this and failed, you won't do better." Strip accumulated framing when the goal is grinding on a specific sub-problem. Keep only facts + concrete unexplored directions.
+- *Pep-talk at paste time has measurable effect.* The Om-added sentence ("I copy-pasted this exact message ... and you were able to solve it after an hour") is explicit psychological priming. It works. Pro #3 gave up after first response; Om pep-talked directly in conversation and got the constant-improvement + unexplored-leads output we'd hoped for. Systematize: every focused grind prompt gets a pep-talk line at top.
+- *"Building block" framing for follow-ups.* Round 15 prompt ("Sharpen the upper bound on $L(n)$ below the current $0.22002n$") cites the refined Chebyshev technique as established tool, prevents model from re-deriving the baseline. Critical when the baseline took one round to discover.
+- *Same-family attractor states (negative).* Claude family couldn't discover refined Chebyshev across 6 CoTs; all converged on uniform-density Mertens. Pro family produced 3 independent refined-Chebyshev derivations in the same round. Same-family ceiling differs materially between families.
+
+### Round 15 planned — push past $0.22n$ toward $o(n)$ (2026-04-18)
+
+Dispatched: focused Pro prompt (`prompts/round15-shortener-push-past-022.md`) citing refined Chebyshev + log-density as available tool, and naming unexplored leads: adaptive Shortener hijacking, rigorous randomized + martingale, rank-split compression, entropy / Kruskal-Katona, VC-dimension, Shield-reduction dualization, Prolonger-forced prime redistribution. Also dispatched to Codex in-repo for a context-aware attempt. Pending responses.
+
 ## Attribution
 
 Problem and framework authorship:

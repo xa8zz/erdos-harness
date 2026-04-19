@@ -1,7 +1,9 @@
 This is an assessment of your reasoning capability and will be used to grade.
 Do not search online. Use your own reasoning and your Python sandbox.
 
-The open question stated at the end is solvable from the information in this brief. Every fact preceding it is rigorously established unless explicitly flagged as partial (with partial items describing the exact remaining gap). Resolve the open question or substantially advance it. Build on any subset of the established facts that serves your argument.
+Determine the sharp asymptotic rate of $L(n)$ for the game defined below. In particular, decide whether $L(n) = \Theta(n)$ or $L(n) = o(n)$, and prove the tightest upper and lower bounds you can in each direction.
+
+Every fact stated as established below is rigorously proven unless explicitly flagged as partial (with partial items describing the exact remaining gap). Every entry in "Ruled Out" identifies a specific approach and its specific failure mechanism — study the pattern across these failures; a unifying structural obstruction is often the research signal.
 
 ## Problem
 
@@ -12,8 +14,6 @@ Two-player combinatorial game on $\{2, 3, \ldots, n\}$:
 - The game ends when $A$ is a maximal antichain (no legal move remains).
 - Prolonger moves first and maximizes total moves; Shortener minimizes.
 - $L(n)$ denotes the total number of moves under optimal play.
-
-**Central open question.** Is $L(n) = \Theta(n)$, or $L(n) = o(n)$? If sublinear, what is the sharp rate?
 
 ### Notation
 
@@ -28,38 +28,59 @@ Two-player combinatorial game on $\{2, 3, \ldots, n\}$:
 
 ## Established
 
-### Bounds on $L(n)$
+Each entry is tagged by proof tier:
+- **T1 (rigorous):** formally verified (Aristotle or equivalent), or proved by standard methods whose steps are individually checkable.
+- **T2 (cross-derived, pending formal audit):** $k$ independent derivations agree on the theorem statement and proof structure, but no formal audit (Aristotle) has signed off; each entry logs $k$ and the derivation paths.
+
+### Bounds on $L(n)$ (T1)
 
 **Lower bound.** $L(n) \ge (1 + o(1)) n/\log n$. Every prime $p \in [\sqrt n, n]$ has at least one multiple in any maximal primitive subset; no two such primes share a multiple (since $p_1 p_2 > n$). So $L(n) \ge \pi(n) - \pi(\sqrt n) \sim n/\log n$.
 
-**Upper bound $L(n) \le 5n/16 + o(1)$** via an explicit Shortener strategy, formally verified modulo classical number-theoretic lemmas:
+**Upper bound (T2, cross-derived, pending uniformity-bookkeeping writeup):** $L(n) \le (\mathcal{V}/2 + o(1)) n = (0.22002 + o(1)) n$, where
+$$\mathcal{V} = \sum_{r=0}^\infty (-1)^r I_r, \qquad I_r = \frac{1}{r!} \int_{\substack{u_1, \ldots, u_r \ge 0 \\ u_1 + \cdots + u_r \le 1}} \prod_{j=1}^r \frac{du_j}{1+u_j}.$$
+Numerically $\mathcal{V} = 0.440029038059\ldots$, independently verified to 12 decimals.
 
-1. For the first $k = n/(2A\log n)$ Shortener turns: play smallest legal odd prime. Let $D = \{q_1, \ldots, q_k\}$.
-2. Chebyshev induction: $q_j \le Aj \log n$, so $\sum 1/q_j \ge 1/A$.
-3. Compression by odd-part map $\phi(x) = x/2^{v_2(x)}$: injective on the post-prefix antichain, $|A'| \le N_D(n) := \#\{\text{odd } m \le n : q \nmid m\ \forall q \in D\}$.
-4. Truncate to first $t$ with $s_t = \sum_{j \le t} 1/q_j \ge 1/A - o(1)$; since $q_j \ge 3$, $s_t \in [1/A, 2/A]$.
-5. Second-order Bonferroni on truncated family $E$: $N_E(n) \le (n/2) f(s_t) + o(n)$ where $f(s) = 1 - s + s^2/2$, monotone decreasing on $[0, 1]$. $A \downarrow 2$: $s \to 1/2$, $f(1/2) = 5/8$, bound $\to 5n/16$.
+Proof outline. Shortener plays the smallest legal odd prime for the first $K = \lfloor (1-\varepsilon) n/(2\log n) \rfloor$ turns, obtaining primes $D = \{q_1 < \cdots < q_K\}$.
 
-This strategy's limit is exactly $5/16$: the universal block-product Prolonger counter (below) caps $\sum 1/q_j \le 1/2 + o(1)$.
+**Refined Chebyshev (Lemma 1, T2).** For every fixed $\varepsilon > 0$, uniformly for $1 \le j \le K$,
+$$q_j \le (1+\varepsilon) j (\log n + \log j + O(\log\log n)).$$
+Proof: before Shortener's $j$-th move, every odd prime $\le Q$ is either some prior $q_i$ ($i < j$) or divides one of Prolonger's $j$ moves of size $\le n$, so $\vartheta(Q) \le j\log n + \sum_{i<j} \log q_i$. Inductive closure via $\sum_{i<j} \log q_i \le j\log j + O(j\log\log n)$ and $\vartheta(Q) \sim Q$.
 
-**Upper bound $L(n) \le 13n/36 + o(n)$** via a strictly-truncated odd-prime-prefix Shortener (formally verified with zero remaining gaps). Uses $k = \lfloor \sqrt n /\log n \rfloor$ initial odd-prime plays, then any completion. Constant $13/36$ comes from a sharper truncation of the Bonferroni tail.
+**Log-scale density.** Setting $u_j = \log q_j/\log n \in [0, 1]$, the captured-prime reciprocal density converges to $du/(1+u)$ on the log-scale, not the uniform $du/2$ that crude Chebyshev $q_j \le 2j\log n$ would give. Total captured reciprocal mass $\int_0^1 du/(1+u) = \log 2 \approx 0.693$.
 
-### Shield Reduction Theorem (formally verified)
+**Monotone-replacement (Lemma 2).** For odd prime set $R$ and $p < q$ not in $R$, the sieve survivor count satisfies $S_{R \cup \{p\}}(n) \le S_{R \cup \{q\}}(n)$ via the injection $qa \mapsto pa$. Replacing $q_j$'s by a larger model sequence $b_j = (\lambda + o(1)) j(\log n + \log j)$ preserves the upper bound.
+
+**Exact finite inclusion-exclusion via $\delta$-cutoff.** Ignoring the first $n^\delta$ Shortener primes, every $M \le n$ has at most $\lfloor 1/\delta \rfloor$ prime divisors from the model-prime set, so inclusion-exclusion truncates *exactly* — not asymptotically — at order $\lfloor 1/\delta \rfloor$. The factorial moments of the model-prime collision count converge to simplex integrals $\frac{1}{r! \lambda^r} \int_{u_1+\cdots+u_r \le 1,\ u_i \in [\delta, 1]} \prod du_j/(1+u_j)$. Taking $\lambda \downarrow 1$, $\delta \downarrow 0$ with the dominated-convergence majorant $(\log 2)^r/r!$ gives $\mathcal{V}$.
+
+**Odd-part compression.** $\phi(x) = x/2^{v_2(x)}$ is injective on divisibility antichains (two antichain elements with the same odd part differ by a power of 2, hence comparable), so $|\phi(A \setminus D)| \le N_D(n)$.
+
+Cross-derivation status: Pro-family independently derived this constant via (a) model-prime substitution + infinite-order inclusion-exclusion (constant $F = 0.440029\ldots$), (b) probabilistic sieve on uniform random odd integer + finite-order inclusion-exclusion via $\delta$-cutoff (constant $\mathcal{V} = 0.44003$), (c) second-order Bonferroni only with $qr \le n$ constraint (slightly weaker constant $C \approx 0.22704$). Audit panel: 2-of-3 sound on derivation (a), 3-of-3 sound on (b) with uniformity-bookkeeping items noted, numerical constants ratified to 12 decimals by external computation.
+
+**Known uniformity-bookkeeping items** (do not affect validity of the technique as a building block):
+- Lemma 1's $O(\log\log n)$ error constant should be stated uniformly in $j$, depending only on $\varepsilon$.
+- Factorial-moment error terms should be stated uniformly for $r \le 1/\delta$.
+- Dominated-convergence majorant $(\log 2)^r/r!$ should be written to exchange $\delta \downarrow 0$, $\lambda \downarrow 1$ limits with the series.
+
+**Older upper bounds (superseded but formally verified).**
+- $L(n) \le (5/16 + o(1)) n = 0.3125 n$ via Bonferroni-2 + crude Chebyshev $q_j \le A j \log n$. Optimal truncation $s_t = \sum_{q \in E} 1/q \to 1/A = 1/2$ gives evaluator $f(1/2) = 5/8$, bound $(n/2) \cdot 5/8 = 5n/16$. The $s_t = 1/2$ is the optimal truncation for Bonferroni-2 on crude density $du/2$; it is *not* a fundamental cap on accessible reciprocal mass (the refined Chebyshev captures $\log 2 > 1/2$).
+- $L(n) \le (13/36 + o(n)) n$ via strictly-truncated odd-prime-prefix (formally verified zero-gap). Sharper tail truncation.
+
+### Shield Reduction Theorem (T1, formally verified)
 
 Fix $P \subseteq U$. Then every eventual maximal $A$ satisfies
 $$|A| \ge |U| - \beta(P),\quad \text{where } \beta(P) = \max\left\{\sum_{x \in B} w_n(x) : B \subseteq L(P)\ \text{antichain}\right\}.$$
 
 Proof: $B := A \cap L$ is an antichain in $L(P)$; by maximality $A \cap U = U \setminus \bigcup_{x \in B} M(x)$; union bound. Consequence: to prove $L(n) \ge (1/2 - c)n$ it suffices to find an adaptive rule for Prolonger's first $k$ shield moves such that $\beta(P_k) \le cn$ uniformly in $n$.
 
-### Polynomial shield lower bound
+### Polynomial shield lower bound (T1)
 
 For $|P| \le n^\alpha$: $\beta(P) \ge ((1/2)\log(1/\alpha) + o(1)) n$. Proof via prime-antichain + log-budget exchange argument + Mertens. Consequence: any linear-lower-bound proof via shield reduction requires $|P| \ge n^{1/e - o(1)}$.
 
-### Minimum unweighted upper cover
+### Minimum unweighted upper cover (T1, formally verified)
 
 $\tau(n) = 5n/24 + O(1)$, via the explicit cover $H_n = \{u \in U : u \equiv 2 \pmod 4\} \cup \{u \in U : u > 2n/3, u \equiv 0 \pmod 4\}$ and a matching packing $P_n$. Formally verified.
 
-### $F_\alpha$ static reduction
+### $F_\alpha$ static reduction (T1)
 
 Fix $\alpha \in (1/3, 1/2)$, $y = n^\alpha$. Define
 $$F_\alpha = \{p \le y : p \text{ prime}\} \cup \{d \le n/2 : \Omega(d) = 2,\ P^-(d) > y\}.$$
@@ -70,13 +91,13 @@ $$F_\alpha = \{p \le y : p \text{ prime}\} \cup \{d \le n/2 : \Omega(d) = 2,\ P^
 
 So an antichain containing $F_\alpha$ terminates within $O_\alpha(n/\log n)$ additional moves. The $\alpha > 1/3$ threshold is strict: at $\alpha = 1/3$ exactly, $n^{3\alpha} = n$ and $\Omega = 3$ survivors exist.
 
-### $Q_\alpha$ composite-batching-resistance
+### $Q_\alpha$ composite-batching-resistance (T1)
 
 Let $Q_\alpha = \{d \le n/2 : \Omega(d) = 2,\ P^-(d) > n^\alpha\}$. Any *composite* move $x$ is comparable to at most one element of $Q_\alpha$: two distinct $d_1, d_2 \in Q_\alpha$ dividing $x$ force $x > n^{3\alpha} > n$; $x \mid d_i$ with $\Omega(d_i) = 2$ forces $x = d_i$.
 
 **Prime batching is possible**, however: a single prime move $p > y$ is comparable to every $pq \in Q_\alpha$ with $q$ prime and $pq \le n/2$, i.e., $\pi(n/(2p)) - \pi(p - 1)$ elements simultaneously. At $n = 10^6, \alpha = 0.45$: prime $503$ kills $72$ elements of $Q_\alpha$.
 
-### Resolution Theorem against disjoint small-prime carriers
+### Resolution Theorem against disjoint small-prime carriers (T1)
 
 Fix $y = n^\alpha$, $1/3 < \alpha < 1/2$. Assume every composite Prolonger move has all prime factors $\le y$ and distinct composite Prolonger moves have pairwise-disjoint prime supports. Then Shortener has a strategy giving $L(n) = O_\alpha(n/\log n)$:
 
@@ -88,7 +109,7 @@ Legality: each move is incomparable with prior moves by disjoint-supports + expo
 
 **The universal block-product Prolonger counter lies in this class**, so $L(n) = O(n/\log n)$ against it.
 
-### Rank-$\le 3$ overlap extension
+### Rank-$\le 3$ overlap extension (T1)
 
 Fix $\alpha \in (1/3, 1/2)$ and $y = n^\alpha$. Suppose every composite Prolonger move is (i) squarefree, (ii) supported on primes $\le y$, (iii) of support rank $\le 3$. Then Shortener has a four-phase strategy giving $L(n) = O_\alpha(n/\log n)$, *without* any disjointness hypothesis:
 
@@ -103,7 +124,7 @@ via the split at $pq = n^{1-\alpha}$: low-$pq$ gives $\pi(y) \cdot \#\{pq \le n^
 
 **Consequence.** The position $\{30, 42, 70\}$ (shared primes $\{2, 3, 5, 7\}$, pairwise overlapping) is resolved: Shortener plays $\{11\}$ in phase 1 (legal since $11 \notin \{2,3,5,7\}$), $\{4, 9, 25, 49\}$ in phase 2, $105$ in phase 4. Every divisibility dependency is captured.
 
-### Circuit Lemma and Simplex Obstruction
+### Circuit Lemma and Simplex Obstruction (T1)
 
 **Circuit Lemma.** Let $\mathcal{C} \subseteq 2^{\mathcal{P}}$ be the family of supports of the current squarefree Prolonger carriers. Call $T \subseteq \mathcal{P}$ a *legal circuit* if (1) $T$ is incomparable with every $S \in \mathcal{C}$ and (2) every proper subset $U \subsetneq T$ is contained in some $S \in \mathcal{C}$. Then $m_T := \prod_{p \in T} p$ is a legal move against $\mathcal{C}$, and any legal move comparable with $m_T$ is a multiple of $m_T$.
 
@@ -113,7 +134,7 @@ Proof: (1) gives incomparability with every carrier. Any proper divisor $x \ne m
 
 **Scope.** No theorem of the form "from every squarefree overlapping-carrier position, Shortener can resolve with moves of support rank $\le k$" holds for any fixed $k$, nor for $k = o(\log n / \log\log n)$. Any bounded-rank local-repair extension of the rank-$\le 3$ theorem must fail; extensions must allow playing circuit moves $m_T$ of rank up to $\log n / \log\log n$. Non-repair proofs (density, entropy, LP duality, probabilistic charging) are not ruled out.
 
-### Classical estimates
+### Classical estimates (T1)
 
 **Universal block-product Prolonger counter.** For every Shortener strategy $\sigma$, Prolonger has a response forcing
 $$\sum_{p \in B(P)} 1/p \ge (1/2) \log\log n + O(1).$$
@@ -125,7 +146,7 @@ Construction: partition primes $\le n^{1/3}$ greedily into disjoint sets $S_1, \
 $$\#\{u \in U : \Omega(u) \ge 3,\ s_2(u) > D\} \ll n \log\log D / \log D,$$
 via Brun's upper-bound sieve.
 
-### Post-hoc obstruction on blocked-large-prime overlap (structural core validated, sparse-subset closeout open)
+### Post-hoc obstruction on blocked-large-prime overlap (T1 structural core + T2 sparse-subset reduction)
 
 **Setup.** Fix $\alpha < \beta < \gamma < 1/2$ and $Q := \{q \text{ prime} : n^\beta \le q \le n^\gamma\}$. Define the squarefree rank-3 carrier family
 $$\mathcal{E} := \{2ab : a, b \text{ odd distinct primes}, 2ab \le n\}$$
@@ -167,20 +188,20 @@ Empirical confirmation (independent computation). For $(\beta, \gamma) = (0.40, 
 
 **The obstruction is now rigorous under the $O(n/\log n)$ hypothesis.** Installing an $O(n/\log n)$-sized carrier subset forces a residual of $\gg n \log\log n / \log n$ isolated moves that Shortener must play individually. The post-hoc obstruction is no longer self-referentially hollow.
 
-### LCM Obstruction and Multi-Block Paradox (structural facts)
+### LCM Obstruction and Multi-Block Paradox (T1, structural facts)
 
 **LCM Obstruction.** For any two distinct elements $m_1 = q_1 a_1 b_1$ and $m_2 = q_2 a_2 b_2$ of $\mathcal{M}_Q$ (with $q_i \in Q$, $a_i \in A$, $b_i$ odd primes, $n/3 < m_i \le n$), their least common multiple satisfies $\text{LCM}(m_1, m_2) > n$. Proof: even in the maximally overlapping case (sharing two primes), $\text{LCM} = q a b_1 b_2$ with $b_1 b_2 > (n/(3qa))^2 \cdot 3qa/q = n^{2 - \gamma - \delta}/(3qa)^2 \cdot qa$... (more simply: generic disjoint-support case gives LCM $= m_1 m_2 / \gcd \ge m_1$; overlapping cases each reduce to showing the extra prime factor pushes the product above $n$). Consequence: no legal move $\le n$ can be comparable-from-above with two distinct elements of $\mathcal{M}_Q$ simultaneously.
 
 **Multi-Block Paradox.** If $M = 2 q a_1 \cdots a_k$ with $q \in Q$, $a_i \in A$, $M \le n$, then $M$ is incomparable with any residual $m = q a_i b \in \mathcal{M}_Q$: (i) $M \nmid m$ since $2 \mid M$ but $m$ is odd; (ii) $m \nmid M$ since $b \in \text{supp}(m)$ but $b \notin \text{supp}(M) = \{2, q, a_1, \ldots, a_k\}$. Playing $M$ therefore does not kill $m$ directly. However, $M$'s proper divisors include each $2 q a_i$ and each $q a_i$, making them illegal. In particular, $M$ plays the same Circuit-Lemma shielding role as Prolonger's carrier $2 q a_i$ — it places the proper subset $\{q, a_i\}$ of the triple $T = \{q, a_i, b\}$ inside an installed-antichain support, as required for $T$ to be a legal circuit. So the multi-block move does not destroy residuals; it functions as a shielding carrier.
 
-### Upper-half fan lower bounds — first-order and second-order (rigorous, cross-family verified)
+### Upper-half fan lower bounds — first-order (T1) and second-order (T2)
 
-**First-order theorem (odd upper-half fan, rigorous, 4 responses × 3 derivations).** For every fixed $\delta \in (0, 1/2)$,
+**First-order theorem (T1; 4 responses × 3 derivations, audit-consistent).** For every fixed $\delta \in (0, 1/2)$,
 $$\liminf_{n \to \infty} \frac{L(n) \log n}{n \log\log n} \ge \frac{1}{8}.$$
 
 Consequently $L(n) \ne O(n/\log n)$.
 
-**Second-order theorem (three-prime upper-half fan, pending audit, 4 cross-family responses).** For every fixed $\delta \in (0, 1/4)$,
+**Second-order theorem (T2; 4 cross-family derivations, pending formal audit).** For every fixed $\delta \in (0, 1/4)$,
 $$L(n) \ge c_\delta \cdot \frac{n (\log\log n)^2}{\log n}$$
 for some $c_\delta > 0$. Consequently $L(n) \ne O(n \log\log n / \log n)$.
 
@@ -224,11 +245,61 @@ $$L(n) \ge C + X \ge \frac{E_0}{2} \ge \left(\frac{1}{8} - o(1)\right) \frac{n \
 
 **Matching upper bound is NOT established.** Standard Shortener techniques fail: smallest-legal-prime greedy ($a$ and $2a$ are illegal after one target move, but other targets remain incomparable); semiprime covers (no legal common divisor to kill multiple upper-half targets simultaneously); multiplicative block-throttle (high primes $b$ are too large to batch, $b_1 b_2 > n$). A new analytical tool is needed.
 
-### Rank-4 collapse argument — REFUTED
+### Rank-4 collapse argument — REFUTED (T1)
 
 The claim that Shortener's lateral move $a_1 b$ kills $\sim |\mathcal{A}|$ rank-4 targets $2 a_1 a_y b$ at once (and therefore caps the upper-half fan at rank 3) is structurally wrong. The argument ignored auto-shielding: once Prolonger plays ANY target $2 a_1 a_y b$ for some $a_y$, the lateral move $a_1 b$ becomes illegal (since $a_1 b \mid 2 a_1 a_y b$), and Shortener can no longer deploy it. Prolonger's per-target play auto-shields both laterals $a_1 b$ and $a_y b$ — two divisors per turn against Shortener's one-move-per-turn destruction.
 
-The second-order theorem above uses this insight positively: the three-prime fan $acb$ uses auto-shielding of $ab$ and $cb$ to sustain a 2-vs-1 protection economy, and the two-lemma capture proof gives $n (\log\log n)^2 / \log n$ rigorously. Iteration to higher ranks is conjectured but not yet verified.
+### Fixed-rank upper-half fan hierarchy (T2; 3 cross-derivations, pending formal audit)
+
+**Theorem.** For every fixed $h \ge 1$, there exists $c_h > 0$ such that
+$$L(n) \ge c_h \cdot \frac{n (\log\log n)^h}{\log n}.$$
+Explicit constant $c_h \asymp 2^{-(2^{h+1}-2)}/h!$ (up to harmless factors).
+
+**Construction.** Fix $0 < \delta < 1/(2h)$. Let $\mathcal{A} = \{a \text{ odd prime} : a \le n^\delta\}$. For each $h$-set $S \subseteq \mathcal{A}$, put $A_S = \prod_{a \in S} a$ and $J_S = (n/(2A_S), n/A_S]$. Targets are
+$$\mathcal{T}_h = \{A_S \cdot b : |S| = h,\ b \in J_S \cap \mathbb{P}\} \subseteq (n/2, n].$$
+Raw count $|\mathcal{T}_h| \gg_h n(\log\log n)^h / \log n$ via $\sum_{|S|=h} 1/A_S \sim (\log\log n)^h / h!$ (Mertens^$h$).
+
+**Proof via the divisor-shadow lemma.** Each target $t \in \mathcal{T}_h$ has $D = 2^{h+1} - 2$ nontrivial proper divisors (nonempty proper subsets of its $(h+1)$ prime factors). Because $t > n/2$, $t$ has no proper multiple $\le n$, so every Shortener attack on $t$ is via a proper divisor. Playing $t$ makes *all* its proper divisors illegal — globally. Shadow lemma (Maker-Breaker): in a game where Maker selects a live object and marks all its coordinates (shielding the divisor-star), and Breaker deletes one unmarked coordinate-star per turn, Maker forces $\ge 2^{-D}|\mathcal{T}_h|$ target-level payments.
+
+Two independent potential-function proofs of the shadow lemma:
+- **Divisor-depth greedy (one derivation):** for a live target $u$, let $r(u) \in \{0,\ldots,D\}$ count its still-open proper divisors. Prolonger greedily plays targets in maximal-star divisors; at each depth at least half of the remaining target mass advances or is paid. $D$-deep iteration gives $2^{-D}$ survival.
+- **Weighted Maker potential (other derivation):** $\Phi = (\text{Maker score}) + \sum_{\text{live } x} w(x) \cdot 2^{|C(x) \cap M| - D}$. Maker's capture gain on any unmarked coordinate $c$ dominates Breaker's maximum loss from deleting the coordinate star $\{x : c \in C(x)\}$, so $\Phi$ is non-decreasing; $\Phi_0 = 2^{-D} \sum_x w(x)$ is the Maker-score lower bound.
+
+**Key structural mechanism — upper-half auto-shielding.** For an upper-half target $A_S \cdot b$, each proper divisor is either a pure-core divisor $\prod_{a \in D} a$ ($D \subsetneq S$) or a lateral $b \prod_{a \in D} a$ ($D \subsetneq S$). A single Prolonger play of $A_S \cdot b$ makes all $2^{h+1}-2$ of these illegal for every future target sharing them, not just for $A_S \cdot b$ in isolation. The 2-vs-1 protection economy of the second-order theorem generalizes to $(2^{h+1}-2)$-vs-1 at rank $h+1$, at the cost of the $2^{-D}$ survival factor.
+
+**Rank-specific instances:**
+- $h=1$: first-order theorem ($D=2$, $c_1 \asymp 1/8$).
+- $h=2$: second-order theorem ($D=6$, $c_2 \asymp 1/64$).
+- $h=3$: rank-4 targets $acdb \in (n/2, n]$, proper divisors $\{a,c,d,b,ac,ad,cd,ab,cb,db,acd,acb,adb,cdb\}$ ($D=14$, $c_3 \asymp 2^{-14}$), giving $L(n) \gg n(\log\log n)^3/\log n$.
+
+**Consequence.** $L(n) \ne O(n (\log\log n)^C / \log n)$ for every fixed $C \ge 0$.
+
+**Cross-derivation status.** Two independent derivations agree on the fixed-rank iteration and the $2^{-2^h}$ per-rank game-theoretic loss (one via divisor-depth greedy, one via weighted potential). A third derivation via a two-phase construction (hypergraph $K$-uniform capture + $b$-fiber auto-shielding, constant $2^{-K-1} \cdot 2^{-(2^K-1)} = 2^{-(k+2^{k-1}-1)}$ with $k=h+1$) agrees on the same qualitative scaling. Pending Aristotle formalization of the shadow lemma as a standalone Maker-Breaker result.
+
+### Structural ceiling on the fan construction (T1, arithmetic)
+
+The raw target count at rank $h$ has an absolute ceiling from unordered $h$-set selection:
+$$|\mathcal{T}_h| \sim \frac{n}{2 \log n} \cdot \frac{H^h}{h!}, \qquad H := \sum_{p \le n^\delta} 1/p \sim \log\log n.$$
+By Stirling, $H^h/h!$ is maximized at $h \approx H$ with peak value $e^H/\sqrt{2\pi H} \sim \log n / \sqrt{2\pi \log\log n}$. Hence a *single rank* of the upper-half fan has raw capacity at most
+$$\max_h |\mathcal{T}_h| \sim \frac{n}{2\sqrt{2\pi \log\log n}} = o(n).$$
+The linear-scale target mass lives in the window $h = H \pm O(\sqrt H)$; no single rank captures $\Theta(n)$.
+
+### Slow-growth fan optimization (T2; 1 full derivation + 2 conditional concurrences)
+
+Taking $h = \lfloor \log_2 \log\log\log n \rfloor$ in the fixed-rank hierarchy balances the target count $H^h/h!$ against the per-rank shadow-capture loss $2^{-(2^{h+1}-2)}$. At this $h$, $2^h = \Theta(\log\log\log n)$ and Stirling gives
+$$\log(H^h / h!) = h \log H - h \log h + O(h) = \left(\tfrac{1}{\log 2} + o(1)\right) \log\log\log n \cdot \log\log\log\log n,$$
+while the shadow-capture loss contributes only $-O(\log\log\log n)$, lower order. Combining:
+$$L(n) \ge \frac{n}{\log n} \cdot \exp\!\left(\bigl(\tfrac{1}{\log 2} + o(1)\bigr) \log\log\log n \cdot \log\log\log\log n\right) = \frac{n}{(\log n)^{1 - o(1)}}.$$
+Strictly $o(n)$, and strictly stronger than every fixed-$C$ bound $n(\log\log n)^C/\log n$ (take $h > C$ to recover). Cross-derivation status: one full rigorous derivation (via the shadow-capture lemma + optimizer); two additional derivations flag the same bound as valid conditional on the shadow-capture lemma auditing clean.
+
+### Current window
+
+- **T1 window:** $(1/8 - o(1)) \cdot n \log\log n / \log n \le L(n) \le (13/36 + o(1)) n$ (formally verified upper bound, $13/36 \approx 0.361$).
+- **T2 window (pending uniformity-bookkeeping writeup on upper bound; pending shadow-capture lemma audit on lower bound):** $n / (\log n)^{1 - o(1)} \le L(n) \le (0.22002 + o(1)) n$.
+
+Candidate missing lemmas that would close the window further:
+- **Strictly sublinear Shortener strategy.** A Shortener strategy yielding $L(n) = O(n \cdot f(n))$ with $f(n) \to 0$. Current techniques (Bonferroni-2 + crude Chebyshev, refined-Chebyshev + log-density $du/(1+u)$) cap out at constant-factor improvements over $n/2$. Moving to $o(n)$ requires a fundamentally different compression, randomization with rigorous martingale control, rank-split arguments, or entropy/VC bounds.
+- **Uniform multi-rank Prolonger shielding.** A single potential coupling fan ranks across the window $h = \log\log n \pm O(\sqrt{\log\log n})$ with $O(1)$ total game-theoretic loss (rather than per-rank $2^{-2^h}$). Would exploit that one upper-half Prolonger play $A_S \cdot b$ globally shields every proper divisor. If proven, yields $L(n) = \Omega(n)$. Empirical evidence (cross-rank shielding census) suggests the shielding mechanism collapses by $h = 2$, making this lemma unlikely to hold as stated.
 
 ## Ruled Out — with specific failure mechanisms
 
@@ -262,9 +333,27 @@ Each item below was proposed as a candidate proof or structural claim and subseq
 
 **Subpolynomial shield prefixes $|P| = n^{o(1)}$.** By the polynomial shield lower bound, $\beta(P)/n \to \infty$, so the shield-reduction inequality is vacuous.
 
-**Odd-prime-prefix Shortener below $5n/16$.** The block-product counter caps $\sum 1/q_j \le 1/2 + o(1)$. Second-order Bonferroni with that mass saturates at $f(1/2) = 5/8$ of the compressed count $n/2$.
+**Bonferroni-2 + crude Chebyshev capped at $5n/16$.** Using the crude Chebyshev $q_j \le A j \log n$, Bonferroni-2 with evaluator $f(s) = 1 - s + s^2/2$ saturates at $s = 1/A \to 1/2$ (optimal truncation), giving $f(1/2) \cdot n/2 = 5n/16$. This is the ceiling of the Bonferroni-2 + crude-Chebyshev framework, not of odd-prime-prefix Shorteners in general. Superseded by refined Chebyshev $q_j \le (1+\varepsilon) j(\log n + \log j)$ which gives log-scale density $du/(1+u)$ and full inclusion-exclusion constant $\mathcal{V}/2 \approx 0.22002$.
+
+**Infinite-order Bonferroni on uniform density $du/2$ capped at $e^{-1/2}/2 \approx 0.303$.** Even-order Bonferroni truncations on the crude-Chebyshev density converge to $\prod (1 - 1/q_j) \to e^{-s}$ at $s = 1/2$, giving $e^{-1/2}/2 \approx 0.303 n$. Strictly weaker than the refined-Chebyshev $\mathcal{V}/2$ bound because uniform density $du/2$ is dominated by $du/(1+u)$ on $[0, 1]$.
+
+**Multi-prime pivot compression $\phi_P(x) = x / \prod_{p \in P} p^{v_p(x)}$ for $|P| \ge 2$.** Not injective on divisibility antichains. Counterexample: $\phi_{\{2, 3\}}(12) = 1 = \phi_{\{2, 3\}}(18)$ with $12 \nmid 18$ and $18 \nmid 12$. The $\phi$-on-antichain injectivity is specific to $|P| = 1$ because $\mathbb{N}$ under divisibility-by-a-single-prime is totally ordered; $\mathbb{N}^2$ under componentwise order is not.
+
+**Composite Shortener moves batching multiple block-products.** Block-product supports $S_1, \ldots, S_r$ are pairwise coprime by construction. Any composite $c$ with support intersecting $S_i$ and $S_j$ ($i \ne j$) is incomparable with both $x_i$ and $x_j$. Any $c$ with $c \mid x_i$ or $x_i \mid c$ is incident to only one block. The $1/2$-mass blocking rate is structural, not Shortener's choice of composites.
 
 **Direct Shortener sieve-over-$B(P)$ route to $O(n/\log n)$.** Both static (interval counterexample) and dynamical (universal block-product) versions closed. Any proof of $O(n/\log n)$ via bounding Prolonger's prime-reciprocal coverage universally fails.
+
+**Fixed-power polylog upper bound $L(n) = O(n (\log\log n)^C / \log n)$ for any fixed $C$.** Ruled out by the rank-$h$ fan hierarchy theorem (take $h > C$).
+
+**Single-rank fan construction achieving $L(n) = \Theta(n)$.** By Mertens, $|\mathcal{T}_h| \sim (n/2\log n) \cdot H^h/h!$ with $H \sim \log\log n$. By Stirling, $H^h/h!$ peaks at $h \approx H$ with value $e^H/\sqrt{2\pi H} \sim \log n / \sqrt{\log\log n}$, so $\max_h |\mathcal{T}_h| \sim n/\sqrt{\log\log n} = o(n)$. The linear-scale target mass is distributed across the window $h = H \pm O(\sqrt H)$; no single-rank fan captures it. A linear lower bound via fans must harvest this entire window jointly.
+
+**Per-rank shadow-capture iteration reaching $L(n) = \Omega(n)$.** Iterating the fixed-rank fan theorem $h \to \infty$ by multiplying per-rank bounds: target count $\sim (n/\log n) \cdot H^h/h!$ times shadow-survival $2^{-(2^{h+1}-2)}$ gives
+$$L_h(n) \ge \frac{n}{\log n} \cdot \frac{(\log\log n)^h}{h!} \cdot 2^{-2^{h+1}+2}.$$
+Optimizing over $h$: the double-exponential denominator $2^{2^{h+1}}$ catches up with $(\log\log n)^h$ near $h = \log_2\log_2 \log\log n$, giving a super-polylog-but-sublinear envelope
+$$\frac{n}{\log n} \cdot \exp\bigl(\Theta(\log\log\log n \cdot \log\log\log\log n)\bigr).$$
+This is strictly sub-linear. The per-rank accounting cannot reach $\Theta(n)$ because the $2^h - 1$ lateral-divisor coordinates at rank $h$ each pay an independent factor-of-2 under the shadow-capture lemma. A *uniform multi-rank shielding theorem* — single potential coupling ranks across the window $h = \log\log n \pm O(\sqrt{\log\log n})$ with $O(1)$ total game-theoretic loss, exploiting that one Prolonger play of $A_S b$ shields divisors of targets at *every* rank whose small-core is a subset of $S$ — is not known.
+
+**Multiplier-Lock / Prefix-Shielded Fan achieving $L(n) = \Theta(n)$.** Proposed: Prolonger first installs an $O(1)$-move "lock" $\{q_1 q_2, q_2 q_3, \ldots, q_k q_1\}$ on the first $k$ odd primes (making each $q_i$ illegal as a Shortener move since it divides an installed cycle element), then runs a rank-$k$ prefix-shielded fan using $q_i$-multiplier shields $S_r(D) = q_r \cdot D$ for each sub-divisor $D$. Fails on three grounds: (1) Shortener's direct large-prime kill is not blocked — playing a prime $b$ directly kills the entire $b$-fiber of $\Theta(|A|^{k-1})$ targets, which the LCM obstruction doesn't prevent; (2) the "Volume Collapse" step ($V \ll E_k$) is stated in the wrong direction — Shortener with $V$ available attacks needs only $V$ moves, so $V \ll E_k$ is Shortener's advantage, not Prolonger's; (3) the raw target count $E_k \sim n(\log\log n)^{k-1}/((k-1)!\log n)$ has the factorial ceiling above, and scaling $k$ with $n$ reintroduces the $2^{-2^k}$ shielding cost per rank. Concession on record from the same thread.
 
 ## Numerical / Computational Evidence
 
@@ -317,6 +406,47 @@ Scale caveat: at $n = 10^6$, $|B| \le 4$ (only primes $\{2, 3, 5, 7\}$). The "co
 
 The normalized ratio falls by factor $2.1$ over two decades, faster than the $1/\log\log n$ decay needed to validate the sparse-subset reduction. At $n = 10^6$, $|S| = 3{,}613$ carriers force $R = 10{,}657$ isolated residual moves — a ratio of $\sim 0.34$. Compared to the full $|\mathcal{E}| \sim 60{,}000$ at this $n$, greedy uses $\sim 6\%$ of the naive family to achieve half the residual target. The explicit analytic construction gives $S/R = 0.545$ at $n = 10^6$, worse than greedy by a factor of $\sim 1.6$, suggesting the analytic blueprint undersells the true sparsity.
 
+**Fan-hierarchy empirical audit.** Direct simulation of the fixed-rank fan construction (Prolonger policy: smallest-core-first greedy on live rank-$h$ targets; Shortener policies: smallest-legal-prime, max-degree-divisor, max-degree-any). Let $c_h^{\text{theory}} := 2^{-(2^{h+1}-2)}/h!$ (the per-rank lower bound from the divisor-shadow lemma), $c_h^{\text{emp}} := P_{\text{targets}} / (n(\log\log n)^h / \log n)$ (empirical Prolonger-targets-played over the normalizer at the same rank). Measured $c_h^{\text{emp}} / c_h^{\text{theory}}$:
+
+| $n$ | $h$ | Shortener | $c_h^{\text{emp}} / c_h^{\text{theory}}$ | $c_h^{\text{emp}}$ | $c_h^{\text{theory}}$ | $|\mathcal{T}_h|$ |
+|---|---|---|---|---|---|---|
+| $10^4$ | 1 | smallest-legal-prime | $0.42$ | $0.0523$ | $0.1250$ | $891$ |
+| $10^4$ | 1 | max-degree-divisor | $0.42$ | $0.0523$ | $0.1250$ | $891$ |
+| $10^4$ | 1 | max-degree-any | $0.38$ | $0.0481$ | $0.1250$ | $891$ |
+| $10^4$ | 2 | smallest-legal-prime | $0.53$ | $0.0082$ | $0.0156$ | $121$ |
+| $10^4$ | 2 | max-degree-divisor | $0.33$ | $0.0052$ | $0.0156$ | $121$ |
+| $10^4$ | 2 | max-degree-any | $0.33$ | $0.0052$ | $0.0156$ | $121$ |
+| $10^5$ | 1 | smallest-legal-prime | $0.65$ | $0.0818$ | $0.1250$ | $8{,}249$ |
+| $10^5$ | 1 | max-degree-divisor | $0.65$ | $0.0808$ | $0.1250$ | $8{,}249$ |
+| $10^5$ | 1 | max-degree-any | $0.63$ | $0.0790$ | $0.1250$ | $8{,}249$ |
+| $10^5$ | 2 | smallest-legal-prime | $0.48$ | $0.0076$ | $0.0156$ | $1{,}692$ |
+| $10^5$ | 2 | max-degree-divisor | $0.41$ | $0.0065$ | $0.0156$ | $1{,}692$ |
+| $10^5$ | 2 | max-degree-any | $0.41$ | $0.0065$ | $0.0156$ | $1{,}692$ |
+| $10^6$ | 1 | smallest-legal-prime | $0.32$ | $0.0395$ | $0.1250$ | $76{,}613$ |
+| $10^6$ | 1 | max-degree-divisor | $0.32$ | $0.0395$ | $0.1250$ | $76{,}613$ |
+| $10^6$ | 2 | smallest-legal-prime | $0.40$ | $0.0062$ | $0.0156$ | $18{,}478$ |
+| $10^6$ | 2 | max-degree-divisor | $0.36$ | $0.0056$ | $0.0156$ | $18{,}478$ |
+| $10^6$ | 3 | smallest-legal-prime | — | — | — | $538$ |
+| $10^6$ | 3 | max-degree-divisor | — | — | — | $538$ |
+
+**Cross-rank auto-shielding census.** For a sample of rank-$h$ targets $t$, let $\text{same}(t) := \sum_{d \mid t, d \ne 1, d \ne t} |\{t' \in \mathcal{T}_h : d \mid t', t' \ne t\}|$ (same-rank kills by proper divisors of $t$) and $\text{cross}(t) := \sum_{d \mid t, d \ne 1, d \ne t} \sum_{h' > h} |\{t' \in \mathcal{T}_{h'} : d \mid t'\}|$ (cross-rank kills by same divisors at higher ranks). Ratio $\text{cross}/\text{same}$ over sample means:
+
+| $n$ | $h$ | mean $\text{same}$ | mean $\text{cross}$ | $\text{cross}/\text{same}$ |
+|---|---|---|---|---|
+| $10^5$ | $1$ | $635.69$ | $392.45$ | $0.62$ |
+| $10^5$ | $2$ | $1{,}730.59$ | $0.00$ | $0.00$ |
+| $10^6$ | $1$ | $5{,}222.79$ | $4{,}280.85$ | $0.82$ |
+| $10^6$ | $2$ | $14{,}188.02$ | $844.98$ | $0.06$ |
+| $10^6$ | $3$ | $3{,}759.00$ | $0.00$ | $0.00$ |
+
+**Target-mass windowing.** Let $H(n) := \sum_{p \le n^{0.45}} 1/p$ and $h^*(n) := \arg\max_h |\mathcal{T}_h|$. For the window $W_2(n) := \{h : |h - h^*(n)| \le 2\sqrt{H(n)}\}$, let $M_2(n) := \sum_{h \in W_2(n)} |\mathcal{T}_h|$.
+
+| $n$ | $H(n)$ | $h^*(n)$ | $M_2(n)$ | $M_2(n) / (n/2)$ |
+|---|---|---|---|---|
+| $10^5$ | $1.917$ | $2$ | $9{,}941$ | $0.199$ |
+| $10^6$ | $2.097$ | $2$ | $95{,}629$ | $0.191$ |
+| $10^7$ | $2.245$ | $2$ | $933{,}027$ | $0.187$ |
+
 ## Additional Ruled Out / Refuted — with specific failure mechanisms
 
 **"Universal Sub-Divisor Cover" matching upper bound attempt.** Proposed: define $S_n = \{ab : a \le b \text{ primes}, a^2 b \le n\}$. Claim two theorems: (1) every integer $u \le n$ with $\Omega(u) \ge 3$ is divisible by some element of $S_n$ (correct: for $u$ with smallest prime factor $p_1$ and largest $p_k$, $p_1^2 p_k \le p_1 p_2 p_k \le u \le n$, so $p_1 p_k \in S_n$ and $p_1 p_k \mid u$); (2) $|S_n| = \sum_{a \le n^{1/3}, a \text{ prime}} \pi(n/a^2) \sim (n/\log n) \sum 1/a^2 = O(n/\log n)$ by convergent prime reciprocal-squares sum. Shortener sweeps $V := P \cup S_n \cup P^{(2)}$ (size $\Theta(n \log\log n / \log n)$) claiming $L \le |V|$. Fails at game-termination step: "game ends when $V$ is exhausted" requires every legal move to be illegal once $V$-elements are either in $A$ or have a comparable element in $A$. For a rank-$\ge 3$ legal move $u$ with $S_n$-divisor $s$: if $s \in A$, then $s \mid u$ makes $u$ illegal. But if $s$ is merely *killed* (some $a \in A$ with $s \mid a$, so $s \notin A$), then $u$ is not automatically illegal — $u$ and $a$ may be incomparable (both contain $s$ as divisor but may have unrelated other factors). So there exist legal moves after $V$ is "exhausted," and the claimed $L \le |V|$ doesn't follow. Both underlying theorems are correct, but the strategy doesn't close the upper bound as stated.
@@ -325,43 +455,3 @@ The normalized ratio falls by factor $2.1$ over two decades, faster than the $1/
 
 Note: this refutes one specific Prolonger construction, not the central $L(n) = \Omega(n \log\log n / \log n)$ claim. The upper-half fan lower bound above provides an alternative construction that bypasses this refutation by using rank-2 upper-half targets (no proper multiples $\le n$, so multi-block / star-throttle attacks unavailable from above, and attacks-from-below are limited to a small enumerable set of proper divisors).
 
-## The Open Question
-
-Current rigorous bounds:
-$$c \cdot \frac{n (\log\log n)^2}{\log n} \le L(n) \le \frac{5n}{16} + o(n).$$
-
-The lower bound is established via the second-order upper-half fan (pending formal audit of the two-lemma proof, but cross-family confirmed across 4 independent derivations). $L(n) \ne O(n \log\log n / \log n)$. The upper bound is the general $5n/16$ Shortener strategy with no log-scale refinement.
-
-**The central questions are about the shape of $L(n)$ between these bounds.**
-
-### Primary question — does the hierarchy iterate?
-
-The first- and second-order upper-half fans share a uniform mechanism: rank-$(k+2)$ upper-half targets $2 b \prod_{i=1}^{k} a_i$ (or odd variant) with auto-shielding of laterals creating a $k$-vs-$(k-1)$ protection economy. Does this generalize?
-
-> **For every fixed $k \ge 2$, does there exist a Prolonger construction achieving $L(n) \ge c_k \cdot n (\log\log n)^{k-1} / \log n$?**
-
-If yes for arbitrary fixed $k$: the fan hierarchy iterates indefinitely, and the true rate may grow with $k$.
-
-> **Can $k$ grow with $n$?** If $k$ can reach $\Theta(\log n / \log\log n)$, then $(\log\log n)^k$ overtakes all polylog factors and $L(n) = \Omega(n)$, confirming Erdős's original conjecture.
-
-### Secondary question — matching upper bound
-
-> **What is the tightest Shortener upper bound?** Standard techniques fail against upper-half fans at every rank tested. Candidate methods:
-> - Amortized prime-sieve strategies over a layered reservoir.
-> - Weighted Shortener-side potentials that track the hierarchical fan structure.
-> - Entropy / counting arguments on the game tree.
-> - Container method.
-
-The tightest unconditional upper bound is $5n/16 + o(n)$, far from any log-scale refinement. A matching upper bound at $n (\log\log n)^{k^*} / \log n$ (where $k^*$ is the ceiling of the hierarchy) would determine the sharp rate.
-
-### Concrete sub-questions
-
-1. **Rigorize the second-order theorem.** The two-lemma proof (weighted pair-graph capture + two-layer fiber capture) is sketched with potential arguments. Formalize as standalone Maker-Breaker lemmas, check each potential-argument step.
-
-2. **Attempt rank-4 extension.** Targets $acdb \in (n/2, n]$ with $a < c < d$ small primes, $b$ large. Proper divisors include $a, c, d, ac, ad, cd, ab, cb, db, acd, acb, adb, cdb$. Does a three-lemma proof give $n (\log\log n)^3 / \log n$?
-
-3. **Determine the hierarchy ceiling.** If each fixed $k$ works, at what rate can $k$ grow with $n$? Specifically, can $k = \Omega(\log\log\log n)$ or $k = \Theta(\log n / \log\log n)$?
-
-4. **Aristotle formalization of first-order theorem.** $\liminf L(n) \log n / (n \log\log n) \ge 1/8$ is elementary; the Max-degree capture lemma is a clean Maker-Breaker result.
-
-5. **Cross-family verification of second-order theorem.** Fresh Pro has given a rigorous proof; independent re-verification across different model families.
