@@ -50,6 +50,30 @@ class StateView:
     shortener_turn: bool
 
 
+@dataclass(frozen=True)
+class DefectLayerShadowStats:
+    defect: int
+    subset_size: int
+    shadow_total: int
+    unavailable_total: int
+    unavailable_in_shadow: int
+    available_in_shadow: int
+    unavailable_outside_shadow: int
+
+
+@dataclass(frozen=True)
+class StateShadowStats:
+    claimed_vertices: int
+    captured_vertices: int
+    unavailable_vertices: int
+    unhit_edges: int
+    live_edges: int
+    closed_edges: int
+    normalized_available_boundary: float
+    normalized_unavailable_boundary: float
+    layers: tuple[DefectLayerShadowStats, ...]
+
+
 class TopFacetHypergraph:
     """Complete top-facet hypergraph on (h-1)-subsets of [N]."""
 
@@ -150,6 +174,80 @@ def _iter_bits(mask: int):
 
 def _choose_one_bit(mask: int) -> int:
     return (mask & -mask).bit_length() - 1
+
+
+def compute_state_shadow_stats(
+    hypergraph: TopFacetHypergraph,
+    claimed_mask: int,
+    captured_mask: int,
+) -> StateShadowStats:
+    """Shadow accounting on the unhit family induced by a game state.
+
+    The unavailable top-facet set is the union of Shortener-claimed and
+    Prolonger-captured vertices. Shadows are computed on the unhit family,
+    i.e. hyperedges not already deleted by a Shortener claim.
+    """
+
+    hit_edges_mask = 0
+    claimed = claimed_mask
+    while claimed:
+        bit = claimed & -claimed
+        vertex_index = bit.bit_length() - 1
+        hit_edges_mask |= hypergraph.incident_edge_masks[vertex_index]
+        claimed ^= bit
+
+    unhit_edges_mask = hypergraph.all_edges_mask & ~hit_edges_mask
+    live_edges_mask = hypergraph.unresolved_edges_mask(claimed_mask, captured_mask)
+    unavailable_mask = claimed_mask | captured_mask
+
+    unavailable_top_facets = tuple(
+        hypergraph.vertex_label(vertex_index) for vertex_index in _iter_bits(unavailable_mask)
+    )
+    unhit_edges = tuple(hypergraph.edge_label(edge_index) for edge_index in _iter_bits(unhit_edges_mask))
+
+    layers: list[DefectLayerShadowStats] = []
+    normalized_available_boundary = 0.0
+    normalized_unavailable_boundary = 0.0
+    for defect in range(1, hypergraph.h):
+        subset_size = hypergraph.h - defect
+        shadow = {
+            subset
+            for edge in unhit_edges
+            for subset in combinations(edge, subset_size)
+        }
+        unavailable = {
+            subset
+            for facet in unavailable_top_facets
+            for subset in combinations(facet, subset_size)
+        }
+        unavailable_in_shadow = len(shadow & unavailable)
+        available_in_shadow = len(shadow - unavailable)
+        unavailable_outside_shadow = len(unavailable - shadow)
+        layer = DefectLayerShadowStats(
+            defect=defect,
+            subset_size=subset_size,
+            shadow_total=len(shadow),
+            unavailable_total=len(unavailable),
+            unavailable_in_shadow=unavailable_in_shadow,
+            available_in_shadow=available_in_shadow,
+            unavailable_outside_shadow=unavailable_outside_shadow,
+        )
+        layers.append(layer)
+        normalizer = math.comb(hypergraph.h, defect)
+        normalized_available_boundary += available_in_shadow / normalizer
+        normalized_unavailable_boundary += unavailable_in_shadow / normalizer
+
+    return StateShadowStats(
+        claimed_vertices=claimed_mask.bit_count(),
+        captured_vertices=captured_mask.bit_count(),
+        unavailable_vertices=unavailable_mask.bit_count(),
+        unhit_edges=unhit_edges_mask.bit_count(),
+        live_edges=live_edges_mask.bit_count(),
+        closed_edges=(unhit_edges_mask & ~live_edges_mask).bit_count(),
+        normalized_available_boundary=normalized_available_boundary,
+        normalized_unavailable_boundary=normalized_unavailable_boundary,
+        layers=tuple(layers),
+    )
 
 
 class ExactTopFacetSolver:

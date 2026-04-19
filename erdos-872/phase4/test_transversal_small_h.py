@@ -6,6 +6,7 @@ from transversal_small_h import (
     StaticCoverSolver,
     TopFacetHypergraph,
     brute_force_game_value,
+    compute_state_shadow_stats,
     simulate_game,
     solve_against_fixed_prolonger,
 )
@@ -88,6 +89,36 @@ class TopFacetHypergraphTests(unittest.TestCase):
         self.assertEqual(optimal["T_best"], 1)
         self.assertEqual(optimal["principal_variation"][0], ("P", (0, 1, 2)))
         self.assertEqual(greedy["T"], optimal["T_best"])
+
+    def test_shadow_stats_track_closed_and_live_layers(self) -> None:
+        hypergraph = TopFacetHypergraph(4, 3)
+        captured_mask = (
+            (1 << hypergraph.vertex_index[(0, 1)])
+            | (1 << hypergraph.vertex_index[(0, 2)])
+            | (1 << hypergraph.vertex_index[(1, 2)])
+        )
+        claimed_mask = 1 << hypergraph.vertex_index[(0, 3)]
+
+        stats = compute_state_shadow_stats(hypergraph, claimed_mask, captured_mask)
+        layers = {layer.defect: layer for layer in stats.layers}
+
+        self.assertEqual(stats.unhit_edges, 2)
+        self.assertEqual(stats.live_edges, 1)
+        self.assertEqual(stats.closed_edges, 1)
+
+        top = layers[1]
+        self.assertEqual(top.shadow_total, 5)
+        self.assertEqual(top.unavailable_total, 4)
+        self.assertEqual(top.unavailable_in_shadow, 3)
+        self.assertEqual(top.available_in_shadow, 2)
+        self.assertEqual(top.unavailable_outside_shadow, 1)
+
+        codim_two = layers[2]
+        self.assertEqual(codim_two.shadow_total, 4)
+        self.assertEqual(codim_two.unavailable_total, 4)
+        self.assertEqual(codim_two.unavailable_in_shadow, 4)
+        self.assertEqual(codim_two.available_in_shadow, 0)
+        self.assertEqual(codim_two.unavailable_outside_shadow, 0)
 
 
 if __name__ == "__main__":
