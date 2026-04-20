@@ -1,3 +1,19 @@
+---
+id: R13-fresh-dichotomy-unresolved-slowgrowth
+type: research
+date: 2026-04-18
+intent: >
+  Fresh canonical-prompt dispatch: optimize the growing-rank fan hierarchy
+  to squeeze the lower bound as close to n/log n as possible.
+predecessors: []
+siblings: [R13-fresh-dichotomy-lean-sublinear, R13-fresh-dichotomy-unresolved-rigorous]
+action:
+  kind: standalone
+claim: >
+  Dichotomy unresolved. Tightest rigorous lower bound from growing-rank fan:
+  L(n) >= n/(log n)^{1-o(1)} by taking h = log_2(log log log n). Window:
+  n/(log n)^{1-o(1)} <= L(n) <= (5/16 + o(1))n.
+---
 # Fresh session #2 — dichotomy unresolved; L(n) ≥ n/(log n)^{1-o(1)} via h = log_2 log log log n
 
 I do **not** see a sound way to decide the dichotomy (L(n)=\Theta(n)) versus (L(n)=o(n)) from the presently valid machinery. The strongest rigorous conclusion I can defend is

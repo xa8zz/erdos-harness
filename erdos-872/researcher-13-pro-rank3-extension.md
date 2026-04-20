@@ -1,3 +1,22 @@
+---
+id: R13-pro-rank3-extension
+type: research
+date: 2026-04-18
+intent: >
+  Attempt positive extension of Theorem 5 to overlapping carriers; if
+  possible, extend to squarefree rank-<=3 and resolve the {30, 42, 70}
+  counterexample.
+predecessors: [R12-pro-response]
+prompt: erdos-872/prompts/round13-B-deepthink-open.md
+action:
+  kind: extends
+  target: R12-pro-response
+claim: >
+  Squarefree rank-<=3 overlapping carriers on primes <= y = n^alpha give
+  L(n) = O_alpha(n/log n) via four-phase strategy: play-all-primes + prime
+  squares + semiprimes + triples. Resolves {30, 42, 70} counterexample. First
+  genuine overlap barrier is at rank >= 4. Best guess: true rate L(n) ~ n/log n.
+---
 # Round 13 Pro response — Channel B/D (positive extension)
 
 **Result:** new theorem — squarefree rank-≤3 overlapping carriers on primes ≤ y = n^α give L(n) = O_α(n/log n). Resolves {30, 42, 70} via play-all-primes + squares + semiprimes + triples (four-phase). Claims first genuine overlap barrier is at rank ≥ 4, not at rank 3.

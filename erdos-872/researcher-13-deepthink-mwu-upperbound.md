@@ -1,3 +1,22 @@
+---
+id: R13-deepthink-mwu-upperbound
+type: research
+date: 2026-04-18
+intent: >
+  Contrarian pivot: abandon explicit semiprime/triple repair scripts and
+  instead prove L(n) = O(n/log n) via Online Fractional Set Cover with
+  Multiplicative Weights Update over the divisibility poset.
+predecessors: [R12-deepthink-response]
+siblings: [R13-deepthink-loglog-tight]
+prompt: erdos-872/prompts/researcher-13-C-gemini-contrarian.md
+action:
+  kind: standalone
+claim: >
+  L(n) = O(n/log n) via LP-dual potential function + MWU Online Fractional
+  Set Cover: Shortener tracks dual weights on surviving U_comp, adjusts
+  covering sets dynamically as Prolonger deletes available covers. Total
+  regret bounded by O(n/log n) from LP bound.
+---
 # Round 13 DeepThink response #2 — proposes L(n) = O(n / log n) via MWU / LP-dual
 
 **Framing inferred from content:** contrarian / pivot. DeepThink explicitly abandons explicit combinatorial scripts and invokes Online Fractional Set Cover with Multiplicative Weights Update as a fundamentally different technique, matching the Channel C contrarian framing.

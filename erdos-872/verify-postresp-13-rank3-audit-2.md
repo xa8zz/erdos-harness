@@ -1,3 +1,21 @@
+---
+id: R13-rank3-audit-2
+type: verification
+date: 2026-04-18
+intent: >
+  First of three adversarial audits of Pro Channel A/B rank-3 extension
+  theorem (Theorem 5 overlap extension to rank-<=3 carriers).
+predecessors: [R13-pro-rank3-extension]
+action:
+  kind: confirms
+  target: R13-pro-rank3-extension
+claim: >
+  Phase-2 legality (p^2 legal for p in B): airtight given squarefree carriers
+  and alpha < 1/2. Phase-4 counting lemma T_alpha(n) = O_alpha(n/log n):
+  technically correct for fixed alpha, degenerates as alpha -> 1/2. "No legal
+  move survives" induction: basically sound.
+siblings: [R13-rank3-audit-4, R13-rank3-audit-6]
+---
 # Audit of Package A — rank-3 vs loglog (first of three)
 
 Here is the adversarial audit.

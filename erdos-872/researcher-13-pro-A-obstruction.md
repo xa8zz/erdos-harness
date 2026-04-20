@@ -1,3 +1,20 @@
+---
+id: R13-pro-A-obstruction
+type: research
+date: 2026-04-18
+intent: >
+  Attempt to extend Theorem 5 to overlapping carriers; find structural
+  obstruction if extension is impossible.
+predecessors: [R12-pro-response]
+prompt: erdos-872/prompts/round13-A-pro-extend.md
+action:
+  kind: standalone
+claim: >
+  No overlap-extension of Theorem 5 can be a bounded-order k-tuple repair
+  theory. The "legal circuit" obstruction shows worst-case circuit order is
+  Theta(log n / log log n). The simplex obstruction: a complete-graph carrier
+  family on k primes forces Shortener to play the full product m_T = prod T.
+---
 # Round 13 Pro response — Channel A (continuation / extend Theorem 5)
 
 **Result:** no full extension; instead proves a structural **obstruction**. Any overlap-extension of Theorem 5 cannot be a bounded-order pair/triple/k-tuple repair theory — the worst-case circuit order reaches Θ(log n / log log n). Introduces the "legal circuit" concept and the "simplex obstruction."

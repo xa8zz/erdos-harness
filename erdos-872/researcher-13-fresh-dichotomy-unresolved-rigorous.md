@@ -1,3 +1,19 @@
+---
+id: R13-fresh-dichotomy-unresolved-rigorous
+type: research
+date: 2026-04-18
+intent: >
+  Fresh canonical-prompt dispatch: state tightest rigorous bounds provable
+  from the given machinery without overclaiming.
+predecessors: []
+siblings: [R13-fresh-dichotomy-lean-sublinear, R13-fresh-dichotomy-unresolved-slowgrowth]
+action:
+  kind: standalone
+claim: >
+  Dichotomy unresolved. Rigorous window: (1/8 - o(1)) n log log n / log n <=
+  L(n) <= (5/16 + o(1))n. If fixed-rank divisor-shadow lemma accepted, lower
+  side improves to n/log n * exp(c * log log log n * log log log log n).
+---
 # Fresh session #3 — dichotomy unresolved; rigorous (1/8) n log log n / log n ≤ L(n) ≤ (5/16) n
 
 I would not honestly claim that the data supplied proves either (L(n)=\Theta(n)) or (L(n)=o(n)). The strongest fully justified conclusion I can extract is

@@ -1,3 +1,19 @@
+---
+id: R13-pro-upper-half-fan-lower-bound
+type: research
+date: 2026-04-18
+intent: >
+  Prove L(n) = Omega(n log log n / log n) via a Prolonger construction
+  that bypasses the star-throttle refutation of the sparse-S triangle family.
+predecessors: [R13-pro-reachability-shortener-prevents]
+action:
+  kind: standalone
+claim: >
+  L(n) >= c_delta * n log log n / log n for every fixed delta in (0,1/2).
+  Upper-half semiprime targets 2ab in (n/2,n]: no proper multiples <= n, so
+  Shortener limited to proper divisors. Tight Maker-Breaker bipartite edge
+  race on (a,b) pairs. Rules out L(n) = O(n/log n).
+---
 # Pro reachability response #2 — Upper-half semiprime fan gives $L(n) = \Omega(n \log\log n / \log n)$ (2026-04-18)
 
 **Result.** Proves $L(n) \ge c_\delta \cdot n \log\log n / \log n$ for every fixed $\delta \in (0, 1/2)$ and all sufficiently large $n$. Uses a cleaner mechanism than the sparse-$S$ triangle family: upper-half semiprime targets $2ab \in (n/2, n]$. Because targets are in the upper half, they have no proper multiples $\le n$, so Shortener's multi-block / star-throttle attacks are blocked from above. Shortener can only attack from below via proper divisors of each target, forcing a tight Maker-Breaker bipartite edge race.

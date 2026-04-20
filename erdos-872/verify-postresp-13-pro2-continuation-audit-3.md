@@ -1,3 +1,21 @@
+---
+id: R13-pro2-continuation-audit-3
+type: verification
+date: 2026-04-18
+intent: >
+  Third adversarial audit of Pro-2 continuation static obstruction theorem;
+  pressure budget argument and assess scope against actual Resolution Theorem.
+predecessors: [R13-pro2-continuation-response]
+action:
+  kind: confirms
+  target: R13-pro2-continuation-response
+claim: >
+  Mathematical core holds. Critical strategic vulnerability: Prolonger needs
+  O(n/log n) moves just to install E_Q (move budget critical); sparse-subset
+  optimization required. Scope narrower than implied: result rules out
+  post-hoc extension to E_Q specifically, not all Resolution Theorem variants.
+siblings: [R13-pro2-continuation-audit-1, R13-pro2-continuation-audit-2]
+---
 # Audit #3 of Pro-2 continuation theorem (static post-hoc obstruction on case (b))
 
 This is a rigorous, adversarial audit of the proposed static obstruction theorem. The mathematical core of the response holds up under pressure, but it contains a critical strategic vulnerability regarding Prolonger's move budget that requires a sparse-subset optimization to fix. Furthermore, its scope against the actual Resolution Theorem is narrower than it implies. 

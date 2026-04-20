@@ -1,3 +1,21 @@
+---
+id: R13-deepthink-upper-half-verification
+type: verification
+date: 2026-04-18
+intent: >
+  DeepThink audit of the upper-half fan lower bound; verify structural
+  insight, activation pairing, damage bound, and capture-phase accounting.
+predecessors: [R13-pro-upper-half-fan-lower-bound]
+action:
+  kind: confirms
+  target: R13-pro-upper-half-fan-lower-bound
+claim: >
+  Upper-half fan argument is mathematically flawless. Rank-4 extension fails
+  via sub-divisor mass-destruction (a_1*b kills all 2a_1*a_y*b targets).
+  Upper-half semiprime fan is structurally locked to rank-3; conjecture
+  n log log n / log n is the sharp rate.
+siblings: [R13-deepthink-upper-half-verification-2]
+---
 # DeepThink verification of upper-half fan lower bound (2026-04-18)
 
 Two DeepThink instances returned byte-identical responses. Treated as one within-family vote.

@@ -1,3 +1,22 @@
+---
+id: R13-pro2-continuation-audit-1
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of Pro-2 continuation static obstruction theorem;
+  verify circuit-lemma application, counting, and game-theoretic scope.
+predecessors: [R13-pro2-continuation-response]
+action:
+  kind: confirms
+  target: R13-pro2-continuation-response
+claim: >
+  Theorem basically correct at structural level but scope overstated. Circuit-
+  lemma application sound; proper-multiples argument sound; counting off
+  (numerical 7,209 does not reproduce — closest 7,855). Self-reference gap:
+  counting uses |M_Q| as if static, but budget argument is circular. Static
+  result valid; game-theoretic conclusion overstated.
+siblings: [R13-pro2-continuation-audit-2, R13-pro2-continuation-audit-3]
+---
 # Audit #1 of Pro-2 continuation theorem (static post-hoc obstruction on case (b))
 
 I'll audit this carefully. Let me work through each point, running Python where it helps.The 25,070 count matches exactly. Now the fiber construction:19,308, not 7,209 as Pro claimed. Let me check whether the discrepancy is because Pro may have additionally required the $a, b \ne 2$ *and* perhaps that the multiples $2qa, 2qb, 2ab$ all be $\le n$ (i.e., that the carriers needed to make each $m$ isolated actually exist):The exact value 7,209 does not reproduce under any natural reading of Pro's construction. Closest I get at Q=(200,300) is 7,855. Let me note this and move on to the structural audit:# Audit verdict

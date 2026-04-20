@@ -1,3 +1,21 @@
+---
+id: R13-pro2-continuation-audit-2
+type: verification
+date: 2026-04-18
+intent: >
+  Second adversarial audit of Pro-2 continuation static obstruction theorem;
+  pressure counting and budget arguments independently.
+predecessors: [R13-pro2-continuation-response]
+action:
+  kind: confirms
+  target: R13-pro2-continuation-response
+claim: >
+  Circuit/maximality mechanism basically sound. Counting proof not rigorous:
+  double-sum to distinct-m lower bound is the weakest link. Budget issue:
+  theorem is a valid static statement but does not show Prolonger can realize
+  the obstruction inside an O(n/log n)-scale game. Same verdict as audit #1.
+siblings: [R13-pro2-continuation-audit-1, R13-pro2-continuation-audit-3]
+---
 # Audit #2 of Pro-2 continuation theorem (static post-hoc obstruction on case (b))
 
 My verdict: the **circuit/maximality mechanism is basically sound**, but the **counting proof as written is not rigorous**, and the **game-theoretic conclusion is overstated**. The weakest mathematical link is the passage from the double sum to a lower bound on **distinct** (m)’s. The weakest conceptual link is the budget issue: the theorem is a valid **static** statement about a huge completed prefix, but it does **not** yet show Prolonger can realize that obstruction inside an (O(n/\log n))-scale game.

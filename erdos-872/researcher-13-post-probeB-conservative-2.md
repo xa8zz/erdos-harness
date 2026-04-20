@@ -1,3 +1,19 @@
+---
+id: R13-post-probeB-conservative-2
+type: research
+date: 2026-04-18
+intent: >
+  Post-Probe-B fresh session: provide tightest honest bounds from T1+T2
+  combined; characterize the gap between T1 and T2 lower bounds.
+predecessors: []
+siblings: [R13-post-probeB-conservative-1, R13-post-probeB-grindmode-shortener]
+action:
+  kind: standalone
+claim: >
+  Dichotomy unresolved. T1+T2 window: (1/8-o(1)) n log log n / log n <=
+  L(n) <= (5/16+o(1))n. T2 with fixed-rank divisor-shadow lemma improves
+  lower to n/log n * exp(c * log log log n * log log log log n).
+---
 # Fresh session post-Probe-B #2 — dichotomy unresolved; T1+T2 windows
 
 I do **not** have a valid proof that decides the dichotomy (L(n)=\Theta(n)) versus (L(n)=o(n)). The tightest conclusion I can honestly defend from the stated machinery is:

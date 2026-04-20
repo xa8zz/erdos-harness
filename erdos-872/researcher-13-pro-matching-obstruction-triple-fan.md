@@ -1,3 +1,21 @@
+---
+id: R13-pro-matching-obstruction-triple-fan
+type: research
+date: 2026-04-18
+intent: >
+  Second follow-up attempt at matching upper bound; identify why the
+  rank>=4 collapse heuristic is insufficient and describe the triple-fan
+  second-order obstruction.
+predecessors: [R13-pro-upper-half-fan-lower-bound]
+siblings: [R13-pro-matching-obstruction-dense-pair]
+action:
+  kind: standalone
+claim: >
+  No matching upper bound visible. Upper-half triple fan (Omega=3 targets
+  2a_1 a_2 b) is a concrete second-order obstruction not neutralized by
+  lateral moves a_1*b alone. Rigorous state: (1/8-o(1)) n log log n / log n
+  <= L(n) <= (5/16+o(1))n.
+---
 # Round 13 matching-upper-bound follow-up — response #2
 
 I do **not** see a rigorous matching upper bound from the supplied facts. More importantly, I think the current “rank-(\ge4) collapse” heuristic is not strong enough to justify (O(n\log\log n/\log n)). There is a concrete second-order obstruction that any matching upper proof must defeat.

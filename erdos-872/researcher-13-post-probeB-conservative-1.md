@@ -1,3 +1,19 @@
+---
+id: R13-post-probeB-conservative-1
+type: research
+date: 2026-04-18
+intent: >
+  Post-Probe-B fresh session: reassess dichotomy with T1/T2 context; provide
+  most honest rigorous window from the combined machinery.
+predecessors: []
+siblings: [R13-post-probeB-conservative-2, R13-post-probeB-grindmode-shortener]
+action:
+  kind: standalone
+claim: >
+  Dichotomy unresolved. Rigorous T1 window: (1/8 - o(1)) n log log n / log n
+  <= L(n) <= (5/16 + o(1))n. If fixed-rank shadow-capture lemma accepted,
+  lower side improves. Neither Theta(n) nor o(n) established.
+---
 # Fresh session post-Probe-B #1 — dichotomy unresolved; T1 rigorous window
 
 The most honest conclusion I can defend is that the dichotomy is **not presently resolved by the established machinery**. I do **not** have a sound proof that (L(n)=\Theta(n)), and I do **not** have a sound proof that (L(n)=o(n)).

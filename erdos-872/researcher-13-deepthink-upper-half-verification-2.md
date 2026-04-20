@@ -1,3 +1,20 @@
+---
+id: R13-deepthink-upper-half-verification-2
+type: verification
+date: 2026-04-18
+intent: >
+  Second independent DeepThink audit of the upper-half fan lower bound;
+  verify the four-step argument and assess the rank-4 collapse claim.
+predecessors: [R13-pro-upper-half-fan-lower-bound]
+action:
+  kind: confirms
+  target: R13-pro-upper-half-fan-lower-bound
+claim: >
+  Upper-half fan lower bound L(n) >= c * n log log n / log n is rigorous.
+  Rank-4 extension collapses via Shortener's sub-divisor a_1*b killing
+  Theta(|A|) targets per move. Within-family convergence with verification #1.
+siblings: [R13-deepthink-upper-half-verification]
+---
 # DeepThink verification #2 of upper-half fan lower bound (2026-04-18)
 
 Second independent DeepThink response. Same mathematical conclusions as verification #1 (upper-half fan rigorous; rank-4 collapses via Shortener's sub-divisor $a_1 b$), with different presentation and a few tighter technical details.

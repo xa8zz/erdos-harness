@@ -1,3 +1,20 @@
+---
+id: R13-fresh-divisor-shadow-hierarchy
+type: research
+date: 2026-04-18
+intent: >
+  Verify that the upper-half fan iterates at every fixed rank using the
+  divisor-shadow lemma, and characterize the factorial ceiling that prevents
+  growing-rank from reaching linearity.
+predecessors: []
+siblings: [R13-fresh-fixed-rank-hierarchy]
+action:
+  kind: standalone
+claim: >
+  For every fixed h >= 1: L(n) >= c_h * n(log log n)^h / log n. The
+  H^h/h! ceiling correction shows constants c_h ~ 2^{-(2^h)} / h! -> 0,
+  preventing the hierarchy from reaching linearity by growing h with n.
+---
 # Fresh session #4 — fixed-rank hierarchy iterates (divisor-shadow lemma) + H^h/h! ceiling correction
 
 I did not use online search. The main advance I can extract is that the upper-half fan **does iterate at every fixed rank**. This does not by itself settle (L(n)=\Theta(n)) versus (o(n)), because the constants and the factorial loss become decisive once the rank grows with (n). But it answers the primary fixed-(k) question in the affirmative and pushes the rigorous lower scale beyond every fixed power of (\log\log n).

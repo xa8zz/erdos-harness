@@ -1,3 +1,21 @@
+---
+id: R13-rank3-audit-6
+type: verification
+date: 2026-04-18
+intent: >
+  Third of three adversarial audits of Pro rank-3 extension theorem; most
+  thorough numerical verification, user-flagged as most trustworthy.
+predecessors: [R13-pro-rank3-extension]
+action:
+  kind: confirms
+  target: R13-pro-rank3-extension
+claim: >
+  All four pressure points verified: Phase-2 legality correct (online-ordering
+  patch routine); Phase-4 counting numerically verified at n=10^4 to 10^12;
+  survivor induction correct; overall theorem valid. User-flagged as most
+  trustworthy audit of the three.
+siblings: [R13-rank3-audit-2, R13-rank3-audit-4]
+---
 # Audit of Package A — rank-3 vs loglog (third of three, user-flagged as most trustworthy)
 
 Audit findings

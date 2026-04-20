@@ -1,3 +1,21 @@
+---
+id: R13-simplex-audit-3
+type: verification
+date: 2026-04-18
+intent: >
+  Second of three adversarial audits of Pro simplex obstruction; focus on
+  directional error in core lemma proof and hidden game-history assumption.
+predecessors: [R13-pro-A-obstruction]
+action:
+  kind: confirms
+  target: R13-pro-A-obstruction
+claim: >
+  Core lemma true but proof has directional error: "carrier divides x" should
+  be "x divides carrier" (squarefree divisibility direction). Conclusion
+  still holds. Simplex construction structurally sound but relies on implicit
+  assumption that prime 2 is unplayed.
+siblings: [R13-simplex-audit-1, R13-simplex-audit-5]
+---
 # Audit of Package B — simplex obstruction (second of three)
 
 Here is a rigorous audit of the response, pressuring the five specific points you identified.

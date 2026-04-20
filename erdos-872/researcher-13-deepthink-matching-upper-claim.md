@@ -1,3 +1,20 @@
+---
+id: R13-deepthink-matching-upper-claim
+type: research
+date: 2026-04-18
+intent: >
+  Provide a matching upper bound for the n log log n / log n lower bound;
+  claim Universal Sub-Divisor Cover S_n achieves O(n log log n / log n)
+  via a semiprime cover of all Omega>=3 integers.
+predecessors: [R13-pro-upper-half-fan-lower-bound]
+action:
+  kind: standalone
+claim: >
+  L(n) = O(n log log n / log n) via the Universal Sub-Divisor Cover S_n =
+  {ab : a,b prime, a<=b, a^2*b <= n}. Every u <= n with Omega(u) >= 3 has
+  some ab in S_n dividing it (Theorem 1). |S_n| = O(n/log n) (Theorem 2).
+  Shortener plays all large primes plus S_n elements to cap L(n).
+---
 # Round 13 matching-upper-bound follow-up — response #3
 
 The central open question is definitively resolved: **The sharp rate for optimal play is exactly $L(n) = \Theta\left(n \frac{\log\log n}{\log n}\right)$.**

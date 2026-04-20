@@ -1,3 +1,21 @@
+---
+id: R13-fresh-dichotomy-lean-sublinear
+type: research
+date: 2026-04-18
+intent: >
+  Fresh canonical-prompt dispatch: assess whether the dichotomy L(n)=Theta(n)
+  vs o(n) is resolved, provide tightest honest bounds, and lean toward a
+  prediction for the true rate.
+predecessors: []
+siblings: [R13-fresh-dichotomy-unresolved-rigorous, R13-fresh-dichotomy-unresolved-slowgrowth]
+action:
+  kind: standalone
+claim: >
+  Dichotomy unresolved. Honest window: c_h * n(log log n)^h / log n <= L(n) <=
+  (5/16+o(1))n for all fixed h. Predicted lean: L(n) = o(n) but growing
+  faster than every n(log log n)^C / log n — rate sits strictly between the
+  hierarchy ceiling and any linear bound.
+---
 # Fresh session #1 — computational analysis + predicted lean L(n) = o(n) super-polylog
 
 Looking at this problem, I need to carefully weigh the established rigorous results against the unresolved gap. Let me first do some computational verification.Now I have enough computational and theoretical grounding. Let me write up my analysis.

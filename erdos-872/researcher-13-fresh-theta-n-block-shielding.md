@@ -1,3 +1,19 @@
+---
+id: R13-fresh-theta-n-block-shielding
+type: research
+date: 2026-04-18
+intent: >
+  Fresh dispatch claiming L(n) = Theta(n) via dynamic block-shielding with
+  squarefree-core target space and fiber capture argument.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  L(n) = Theta(n). Raw target space T = {Ab : A squarefree core <= n^delta,
+  b large prime} has |T| = Theta(n). Dynamic block-shielding protects sub-
+  divisors via prime interval blocks; Shortener's small-prime attacks
+  countered by upper-half repair moves.
+---
 # Fresh session #1 — Θ(n) claim via dynamic block-shielding + fiber capture
 
 **Resolution of the Central Open Question:** $L(n) = \Theta(n)$. 

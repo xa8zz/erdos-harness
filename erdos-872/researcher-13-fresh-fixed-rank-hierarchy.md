@@ -1,3 +1,20 @@
+---
+id: R13-fresh-fixed-rank-hierarchy
+type: research
+date: 2026-04-18
+intent: >
+  Verify that the upper-half fan lower bound extends to rank k via
+  shadow-capture lemma; prove L(n) >= c_k n(log log n)^{k-1} / log n for
+  every fixed k.
+predecessors: []
+siblings: [R13-fresh-divisor-shadow-hierarchy]
+action:
+  kind: standalone
+claim: >
+  For every fixed k >= 2: L(n) >= c_k * n(log log n)^{k-1} / log n (taking
+  h = k-1). Fixed-rank rank-4 extension rigorous; clean rank-3 lower bound
+  L(n) >= c_3 * n(log log n)^3 / log n for fixed delta < 1/4.
+---
 # Fresh session #2 — fixed-rank hierarchy iterates (shadow-capture lemma)
 
 The fixed-rank hierarchy **does iterate**. In particular, for every fixed (h\ge 1),

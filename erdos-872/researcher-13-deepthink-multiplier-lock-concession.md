@@ -1,3 +1,23 @@
+---
+id: R13-deepthink-multiplier-lock-concession
+type: research
+date: 2026-04-18
+intent: >
+  Concede the L(n) = Theta(n) claim from the Multiplier Lock construction
+  and provide a patched fixed-rank theorem valid for every fixed k.
+predecessors: [R13-deepthink-linear-claim-v2]
+action:
+  kind: refutes
+  target: R13-deepthink-linear-claim-v2
+claim: >
+  L(n) = Theta(n) is false. The Rank-k Upper-Half Fan theorem holds for every
+  fixed k: L(n) >= c_k * n(log log n)^{k-1} / log n with
+  c_k = 2^{-k - 2^{k-1} + 1}. The constant c_k -> 0 prevents taking k -> inf.
+failure_mechanism: >
+  The 1/(k-1)! factorial loss in E_k collapses the constant c_k to zero as
+  k grows with n; Volume Collapse reasoning was backwards; large-prime b
+  attacks from Shortener were not addressed.
+---
 # DeepThink follow-up (Multiplier Lock gaps) — concession + patched fixed-rank theorem
 
 **Clean Concession:**

@@ -1,3 +1,26 @@
+---
+id: R13-pro-fresh-second-order-lower-bound
+type: research
+date: 2026-04-18
+intent: >
+  Establish a rigorous second-order lower bound L(n) = Omega(n(log log n)^2
+  / log n) via three-prime upper-half fan, refuting L(n) = Theta(n log log n
+  / log n) as the sharp rate.
+predecessors: []
+action:
+  kind: refutes
+  target: R13-deepthink-upper-half-verification
+claim: >
+  L(n) = Omega(n(log log n)^2 / log n) via three-prime upper-half fan
+  acb in (n/2,n] with a<c<=n^delta, delta<1/4. Two-lemma proof: weighted
+  pair-graph capture (Prolonger wins 1/8 of pair mass) + two-layer fiber
+  capture. Rules out L(n) = O(n log log n / log n) as matching upper bound.
+failure_mechanism: >
+  DeepThink's rank-4 collapse claim is wrong: lateral divisor ab becomes
+  illegal once Prolonger plays acb (auto-shielded), so Shortener must attack
+  ab BEFORE it is auto-shielded; the 2-vs-1 protection economy sustains the
+  second-order fan without rank-4 collapse.
+---
 # Fresh Pro thread — rigorous second-order lower bound $\Omega(n(\log\log n)^2/\log n)$ (2026-04-18)
 
 Three-prime upper-half fan $acb \in (n/2, n]$ with $a < c \le n^\delta$ primes ($\delta < 1/4$), $b \in J_{a,c} = (n/(2ac), n/(ac)]$ large prime. Raw target count $\gg n(\log\log n)^2/\log n$ via double Mertens. Two-lemma proof: (1) weighted pair-graph capture on $\mathcal{A}$ via potential argument giving Prolonger $1/8$ of weighted pair mass; (2) two-layer fiber capture giving $1/8$ of remaining targets forced via layered potential $\phi(acb)$ varying with how many of $\{b, ab, cb\}$ are captured. Key insight refuting rank-4 collapse: lateral divisor $ab$ is killed (becomes illegal) once Prolonger plays any target $acb$, so lateral moves must attack BEFORE being auto-shielded. 2-vs-1 protection economy sustains second-order fan.

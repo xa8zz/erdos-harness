@@ -1,3 +1,22 @@
+---
+id: R13-deepthink-full-resolution-claim
+type: research
+date: 2026-04-18
+intent: >
+  Claim full resolution of the central question via Topological Shielding
+  Maker-Breaker strategy: Prolonger forces installation of sparse-S triangle
+  family, giving L(n) = Theta(n log log n / log n) as sharp rate.
+predecessors: [R13-deepthink-loglog-tight]
+siblings: [R13-deepthink-full-resolution-v2]
+action:
+  kind: standalone
+claim: >
+  L(n) = Theta(n log log n / log n). Sub-question (c) closed (sparse subset
+  exists). Sub-questions (a)+(b) via Topological Shielding Maker-Breaker with
+  50%-per-phase survival, yielding a constant fraction of residuals forced.
+  Pending audit: survival fraction unjustified, vertex-budget mismatch not
+  addressed.
+---
 # DeepThink claimed full resolution — L(n) = Θ(n log log n / log n) (2026-04-18, PENDING AUDIT)
 
 **Claim.** The central open question is resolved: $L(n) = \Theta(n \log\log n / \log n)$. Sub-question (c) closed rigorously (matches prior independent derivations). Sub-questions (a) + (b) claimed via a Maker-Breaker-style "Topological Shielding" strategy: Prolonger plays 30 on turn 1 (outlawing $\{2, 3, 5, 6, 10, 15\}$ for both players), then shields vertices via $6v$ moves ($v \in V$), then installs edges via $2qa/2ab/2qb$ moves. Claim: 50% of each phase's mass is Maker-won, yielding a constant fraction of $R$ forced isolated, giving $L(n) \ge c \cdot n \log\log n / \log n$.

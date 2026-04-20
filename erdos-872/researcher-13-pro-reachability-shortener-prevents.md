@@ -1,3 +1,22 @@
+---
+id: R13-pro-reachability-shortener-prevents
+type: research
+date: 2026-04-18
+intent: >
+  Answer sub-question (a): can Prolonger force the sparse-S triangle family
+  online? Provide explicit Shortener counter-strategy if answer is no.
+predecessors: [R13-pro-sparse-subset-closeout]
+siblings: [R13-pro-upper-half-fan-lower-bound]
+prompt: erdos-872/prompts/researcher-13-pro-reachability-followup.md
+action:
+  kind: standalone
+claim: >
+  Sub-question (a) is FALSE for the sparse-S triangle construction: Shortener
+  plays multiplicative star-throttle T(q, C_j, a) = 2q * prod(C_j \ {a}) to
+  cap Prolonger's per-q captured reciprocal mass at O(1). Sub-question (b)
+  TRUE for this E-style regime. Does not rule out alternative Prolonger
+  mechanisms.
+---
 # Pro reachability response #1 — Shortener online-prevents the sparse-$S$ triangle family (2026-04-18)
 
 **Result.** The specific sparse-$S$ triangle construction from sub-question (c) is **NOT** dynamically forceable. Shortener has a "multiplicative star-throttle" online strategy that caps Prolonger's per-$q$ captured reciprocal mass at $O(1)$, not $\log\log n$. Therefore sub-question (a) is **false** for the established sparse construction; sub-question (b) is **true** for this $\mathcal{E}$-style regime.

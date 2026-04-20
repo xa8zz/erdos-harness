@@ -1,3 +1,21 @@
+---
+id: R13-rank3-audit-4
+type: verification
+date: 2026-04-18
+intent: >
+  Second of three adversarial audits of Pro rank-3 extension theorem; focus
+  on phase-4 counting degeneration near alpha=1/2 and induction structure.
+predecessors: [R13-pro-rank3-extension]
+action:
+  kind: confirms
+  target: R13-pro-rank3-extension
+claim: >
+  Phase-2 legality airtight (relies strictly on alpha < 1/2 boundary).
+  Phase-4 counting lemma: correct for strictly fixed alpha, violently
+  degenerates as alpha -> 1/2 (Mertens sum blows up). Induction step for
+  "no legal move survives": largely sound. Overall theorem valid for fixed alpha.
+siblings: [R13-rank3-audit-2, R13-rank3-audit-6]
+---
 # Audit of Package A — rank-3 vs loglog (second of three)
 
 Here is an adversarial audit of the two responses, breaking down the claims rigorously against the constraints of the game's state space.

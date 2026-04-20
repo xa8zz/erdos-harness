@@ -1,3 +1,21 @@
+---
+id: R13-sparse-subset-closeout-2
+type: research
+date: 2026-04-18
+intent: >
+  Independent second derivation of the sparse obstruction theorem (sub-question
+  c); verify numerically at n=10^6 and confirm cross-family convergence.
+predecessors: []
+siblings: [R13-pro-sparse-subset-closeout]
+action:
+  kind: confirms
+  target: R13-pro-sparse-subset-closeout
+claim: >
+  Independent confirmation of sparse obstruction theorem: three-family S_QA u
+  S_AB u S_QB, |S| = O(n/log n), isolates >> n log log n / log n residuals.
+  Numerical sanity at n=10^6: |R|=14521, |S|=7910, |S|/|R|=0.545.
+  Two-source convergence on theorem, construction, and numerical witness.
+---
 # Sparse-subset closeout — independent derivation #2 (2026-04-18)
 
 Cross-family duplicate of the first sparse-subset closeout: three-family construction, same size bounds, same Mertens-based counting, same Circuit-Lemma isolation argument. Adds direct Python sieve sanity at $n = 10^6$, $(\beta, \gamma, \delta) = (0.40, 0.49, 0.20)$: $|R| = 14521$, $|S| = 7910$, $|S|/|R| = 0.545$ — matches the explicit-construction figure from the greedy run and the Codex empirical measurement.

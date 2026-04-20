@@ -1,3 +1,25 @@
+---
+id: R13-deepthink-linear-claim
+type: research
+date: 2026-04-18
+intent: >
+  Refute the O(n log log n / log n) matching upper bound claim and prove
+  L(n) = Theta(n) via the Hierarchical Rank-k Upper-Half Fan construction
+  with auto-shielding sub-divisors.
+predecessors: [R13-deepthink-matching-upper-claim]
+siblings: [R13-deepthink-linear-claim-v2]
+action:
+  kind: refutes
+  target: R13-deepthink-matching-upper-claim
+claim: >
+  L(n) = Theta(n). The rank-4 collapse is illusory; Hierarchical Rank-k
+  Upper-Half Fan with auto-shielding gives L(n) >= c_k * n(log log n)^k /
+  log n for any fixed k. Letting k grow with n reaches linearity.
+failure_mechanism: >
+  The matching upper bound O(n log log n / log n) fails because sub-divisor
+  auto-shielding (targets self-shield proper divisors when played) breaks
+  Shortener's mass-destruction economy at every rank.
+---
 # Round 13 matching-upper-bound follow-up — response #4
 
 **Verdict: No such Shortener strategy exists. The matching upper bound $O(n \log\log n / \log n)$ is mathematically false.**

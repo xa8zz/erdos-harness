@@ -1,3 +1,19 @@
+---
+id: R13-deepthink-full-resolution-v2
+type: research
+date: 2026-04-18
+intent: >
+  Second independent dispatch of the same canonical prompt; same Topological
+  Shielding conclusion as v1 with corrected survival fraction (1/2)^2 = 1/4.
+predecessors: [R13-deepthink-loglog-tight]
+siblings: [R13-deepthink-full-resolution-claim]
+action:
+  kind: standalone
+claim: >
+  L(n) = Theta(n log log n / log n). Survival fraction (1/2)^2 = 1/4 from
+  two phases (vertex shield, edge shield); corrects the (1/2)^4 = 1/16
+  arithmetic error in v1. Reachability argument still informal.
+---
 # DeepThink full resolution claim — v2 (second original-prompt dispatch, 2026-04-18)
 
 Same overall conclusion as v1: L(n) = Θ(n log log n / log n). Same Topological Shielding Maker-Breaker framework. One quantitative correction: survival fraction now stated as (1/2)² = 1/4 (vertex shield × edge shield), not the (1/2)⁴ = 1/16 from v1 — so the arithmetic error in v1 was indeed internal.

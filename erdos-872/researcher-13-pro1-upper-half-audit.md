@@ -1,3 +1,20 @@
+---
+id: R13-pro1-upper-half-audit
+type: verification
+date: 2026-04-18
+intent: >
+  Pro #1 cross-verification of Pro #2's upper-half semiprime fan lower bound;
+  confirm or refute the four-step argument.
+predecessors: [R13-pro-upper-half-fan-lower-bound]
+action:
+  kind: confirms
+  target: R13-pro-upper-half-fan-lower-bound
+claim: >
+  Upper-half semiprime fan argument survives. Rigorous lower bound L(n) >=
+  c_delta * n log log n / log n established. L(n) = O(n/log n) ruled out.
+  Tightest known: c * n log log n / log n <= L(n) <= 5n/16 + o(n).
+siblings: [R13-pro2-odd-fan-strengthened]
+---
 # Pro #1 audit of upper-half fan lower bound (2026-04-18)
 
 **Verdict.** The upper-half semiprime fan argument **survives the audit**. With a few formalization fixes it gives a rigorous lower bound $L(n) \ge c_\delta \cdot n \log\log n / \log n$ for every fixed $\delta \in (0, 1/2)$. $L(n) = O(n/\log n)$ is ruled out.

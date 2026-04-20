@@ -1,3 +1,20 @@
+---
+id: R13-post-probeB-grindmode-shortener
+type: research
+date: 2026-04-18
+intent: >
+  Grind-mode attempt to prove L(n) <= (5/16 - epsilon)n for explicit epsilon
+  via rank-split Bonferroni on the F_alpha framework.
+predecessors: []
+siblings: [R13-post-probeB-conservative-1, R13-post-probeB-conservative-2]
+action:
+  kind: standalone
+claim: >
+  Adaptive Shortener can achieve epsilon ~= 0.008 improvement below 5n/16
+  via rank-split Bonferroni with alpha ~= 0.4. Shortener plays F_alpha
+  semiprimes adaptively, exploiting the 5/16 - epsilon savings gap in the
+  Omega=2 layer. Result tentative; counting gap identified in Omega=2 layer.
+---
 # Fresh session post-Probe-B #3 — grind-mode attempt at L(n) ≤ (5/16 - ε)n; ε≈0.008 constant, adaptive-Shortener lead
 
 Yeah. Let me try.

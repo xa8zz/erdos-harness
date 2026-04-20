@@ -1,3 +1,22 @@
+---
+id: R13-pro2-continuation-response
+type: research
+date: 2026-04-18
+intent: >
+  Pro-2 continuation: prove a static obstruction for case (b) — if the
+  E_Q carrier family is installed, residual legal moves >> n log log n / log n,
+  blocking any post-hoc Resolution Theorem extension.
+predecessors: [R12-pro-response]
+prompt: erdos-872/prompts/researcher-13-pro2-continuation.md
+action:
+  kind: standalone
+claim: >
+  Static obstruction theorem: if Prolonger installs E_Q (squarefree 2ab
+  carriers with a,b odd primes, <= n), then residual isolated maximal
+  qab-moves in (n/3,n] satisfy |M_Q| >> n log log n / log n. Post-hoc
+  Resolution Theorem extension to case (b) impossible; online prevention
+  is the only remaining route to O(n/log n).
+---
 # Round 13 Pro-2 continuation response — static obstruction on case (b)
 
 **Result.** Proves a rigorous static obstruction: if Prolonger succeeds in installing a specific squarefree 3-prime carrier family $\mathcal{E}_Q$ (for $Q = \{q \text{ prime} : n^\beta \le q \le n^\gamma\}$), then the residual legal move set $\mathcal{M}_Q$ of isolated maximal $qab$-moves in $(n/3, n]$ has $|\mathcal{M}_Q| \gg n \log\log n / \log n$. Consequence: any Resolution-Theorem-style *post hoc* extension to case (b) is ruled out; the only remaining route to $O(n/\log n)$ is genuinely online (Shortener must prevent $\mathcal{E}_Q$ from being installed). Does not settle $L(n)$.

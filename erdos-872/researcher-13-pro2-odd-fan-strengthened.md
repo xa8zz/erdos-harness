@@ -1,3 +1,21 @@
+---
+id: R13-pro2-odd-fan-strengthened
+type: verification
+date: 2026-04-18
+intent: >
+  Pro #2 cross-verification of Pro #2's upper-half fan; strengthen to odd
+  fan without factor of 2, derive explicit constant 1/8.
+predecessors: [R13-pro-upper-half-fan-lower-bound]
+action:
+  kind: confirms
+  target: R13-pro-upper-half-fan-lower-bound
+claim: >
+  Upper-half fan rigorous. Odd fan ab in (n/2,n] (without factor 2) cleaner
+  and gives explicit constant: liminf L(n) log n / (n log log n) >= 1/8.
+  Contains standalone Max-degree capture lemma for bipartite Maker-Breaker.
+  Matching upper bound remains open.
+siblings: [R13-pro1-upper-half-audit]
+---
 # Pro #2 audit of upper-half fan lower bound — strengthens to odd fan with explicit constant (2026-04-18)
 
 **Verdict.** The upper-half fan argument is rigorous. Presents a STRENGTHENED version: the odd upper-half fan $ab \in (n/2, n]$ (without the factor of 2) is cleaner, has fewer Shortener attacks, and gives explicit constant:

@@ -1,3 +1,22 @@
+---
+id: R13-deepthink-loglog-tight
+type: research
+date: 2026-04-18
+intent: >
+  Open dispatch to determine sharp rate of L(n); DeepThink proposes
+  L(n) = Theta(n log log n / log n) via complete-graph overlapping carriers
+  plus algebraic residual isolation.
+predecessors: [R12-deepthink-response]
+siblings: [R13-deepthink-mwu-upperbound]
+prompt: erdos-872/prompts/researcher-13-deepthink-open.md
+action:
+  kind: standalone
+claim: >
+  L(n) = Theta(n log log n / log n). Prolonger plays a complete graph on
+  small primes <= n^{1/6} (blocking Shortener's batching), then installs
+  residual 2qa-type carriers; Shortener blocked from all semiprime repairs.
+  Sharp rate claimed but reachability informal.
+---
 # Round 13 DeepThink response #1 — proposes L(n) = Θ(n log log n / log n)
 
 **Framing inferred from content:** open / lower-bound attempt. DeepThink claims the sharp rate is **Θ(n log log n / log n)**, via a concrete Prolonger construction, contradicting the Round 12 cross-family consensus conjecture of Θ(n / log n).

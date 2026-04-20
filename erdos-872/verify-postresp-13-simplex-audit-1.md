@@ -1,3 +1,21 @@
+---
+id: R13-simplex-audit-1
+type: verification
+date: 2026-04-18
+intent: >
+  First of three adversarial audits of Pro Channel A simplex obstruction
+  theorem (legal circuit + bounded-order repair impossibility).
+predecessors: [R13-pro-A-obstruction]
+action:
+  kind: confirms
+  target: R13-pro-A-obstruction
+claim: >
+  Core support-theoretic lemma and simplex construction basically correct.
+  Obstruction genuinely kills bounded-order local repair for arbitrary
+  overlapping squarefree families. Weakest link: claim that one move Q_t
+  clears the circuit is false in game-theoretic sense. Scope overstated.
+siblings: [R13-simplex-audit-3, R13-simplex-audit-5]
+---
 # Audit of Package B — simplex obstruction (first of three)
 
 Here is the adversarial audit.

@@ -1,3 +1,20 @@
+---
+id: R13-pro-sparse-subset-closeout
+type: research
+date: 2026-04-18
+intent: >
+  Rigorously close sub-question (c): prove existence of S subset E with
+  |S| = O(n/log n) isolating >> n log log n / log n distinct residual moves.
+predecessors: []
+siblings: [R13-sparse-subset-closeout-2]
+action:
+  kind: standalone
+claim: >
+  Sub-question (c) resolved: sparse obstruction theorem. Three-family union
+  S_QA u S_AB u S_QB with |S| = O(n/log n) isolates >> n log log n / log n
+  distinct residual qab-moves via Circuit Lemma. Dominant term: |S_QB| =
+  O(n/log n). Residual count by Mertens on H_Q * log log n.
+---
 # Sparse-subset closeout — rigorous proof (2026-04-18, fresh Pro dispatch from canonical-prompt.md)
 
 **Result.** Sub-question (c) resolved affirmatively: there exists $S \subseteq \mathcal{E}$ with $|S| = O_{\beta,\gamma}(n/\log n)$ that isolates $\gg_{\beta,\gamma} n \log\log n / \log n$ distinct residual moves. Construction: three-family union $S_{QA} \cup S_{AB} \cup S_{QB}$ over $A = \{$odd primes $\le n^\delta\}$ with $\delta < \min(\beta, (1-\gamma)/2)$. Size bounds: $|S_{QA}|, |S_{AB}| = o(n/\log n)$; $|S_{QB}| = O(n/\log n)$ is the dominant term. Residual count by Mertens on $H_Q \cdot \log\log n$. Isolation via Circuit Lemma.

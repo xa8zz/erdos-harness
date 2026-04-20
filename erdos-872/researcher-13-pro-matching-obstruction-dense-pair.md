@@ -1,3 +1,21 @@
+---
+id: R13-pro-matching-obstruction-dense-pair
+type: research
+date: 2026-04-18
+intent: >
+  Attempt to prove L(n) = O(n log log n / log n) matching upper bound; if
+  impossible, identify the structural obstruction at that scale.
+predecessors: [R13-pro-upper-half-fan-lower-bound]
+siblings: [R13-pro-matching-obstruction-triple-fan]
+prompt: erdos-872/prompts/round13-matching-upper-bound-followup.md
+action:
+  kind: standalone
+claim: >
+  No matching upper bound visible. Dense pair-carrier graph E_2 = {2pq : p<q
+  odd primes, 2pq<=n} is the next structural obstruction: residual |M_Q|
+  after E_2 installation is >> n log log n / log n, blocking the O(n log log n
+  / log n) upper bound.
+---
 # Round 13 matching-upper-bound follow-up — response #1
 
 I do **not** see a rigorous matching upper bound from the material in the brief. More importantly, trying to prove one exposes a new structural obstruction at exactly the proposed upper-bound scale.

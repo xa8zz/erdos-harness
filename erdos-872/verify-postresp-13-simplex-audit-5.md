@@ -1,3 +1,21 @@
+---
+id: R13-simplex-audit-5
+type: verification
+date: 2026-04-18
+intent: >
+  Third of three adversarial audits of Pro simplex obstruction; confirm
+  directional error in core lemma proof and assess scope phrasing precision.
+predecessors: [R13-pro-A-obstruction]
+action:
+  kind: confirms
+  target: R13-pro-A-obstruction
+claim: >
+  Directional error in core lemma proof confirmed (same as audit #2): "carrier
+  divides x" is backwards, should be "x divides carrier". Conclusion still
+  holds. One hidden assumption about game history. Scope phrasing tighter
+  than response implies. Three-audit convergence on same wording bug.
+siblings: [R13-simplex-audit-1, R13-simplex-audit-3]
+---
 # Audit of Package B — simplex obstruction (third of three)
 
 # Audit of the Simplex Obstruction

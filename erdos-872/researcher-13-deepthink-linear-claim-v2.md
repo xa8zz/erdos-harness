@@ -1,3 +1,22 @@
+---
+id: R13-deepthink-linear-claim-v2
+type: research
+date: 2026-04-18
+intent: >
+  Fresh DeepThink thread claiming L(n) = Theta(n) via Multiplier Lock
+  construction and Prefix-Shielded Fan: k locked primes force rank-k fan
+  targets, scaling k to infinity gives linear.
+predecessors: []
+siblings: [R13-deepthink-linear-claim]
+action:
+  kind: standalone
+claim: >
+  L(n) = Theta(n). Multiplier Lock (k cycle semiprimes over first k primes)
+  combined with Prefix-Shielded Fan gives L(n) >= Omega(n (log log n)^{k-1} /
+  log n) for each fixed k; taking k arbitrarily large claims linearity.
+  Gaps: large-prime b attacks unaddressed; Volume Collapse reasoning
+  backwards; 1/(k-1)! constant collapse not analyzed.
+---
 # Fresh DeepThink thread — $L(n) = \Theta(n)$ claim via Multiplier Lock + Prefix-Shielded Fan (2026-04-18)
 
 **Claim.** $L(n) = \Theta(n)$. Rank-$k$ upper-half fan iterates to give $L(n) \ge \Omega(n (\log\log n)^{k-1} / \log n)$ for each fixed $k$, and scaling $k$ arbitrarily gives linear.
