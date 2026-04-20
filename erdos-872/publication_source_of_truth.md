@@ -87,45 +87,72 @@ A "Prior work" section is currently not yet drafted into any paper-facing note i
 
 The paper has a lot of results. Not all need the same level of verification. This section triages by **criticality to the paper's headline narrative**, and prescribes **Lean-versus-prose** treatment for each tier.
 
+**Strategy-dependence legend** (per R54 audit, Section 3A.1):
+- `strategy-independent` = result does not depend on any specific Shortener strategy.
+- `sigma^*-dependent` = proof explicitly uses the max-unresolved-harmonic-degree rule `sigma^*` and does NOT survive strategy replacement. `sigma^*` was proved suboptimal by R53 cooperative embedding, so `sigma^*`-dependent results are **conditional** and do not contribute to a closure proof under an alternative Shortener strategy.
+- `sigma^*-specific` = a refutation that constructs a state reachable specifically against `sigma^*`; may not apply to other strategies.
+- `strategy-specific` = proof uses a specific named strategy, but that strategy is NOT `sigma^*`. E.g., the `13/36`, `5/16`, and `0.19n` proofs each specify their own static or semi-dynamic strategy independent of `sigma^*`.
+
 ### Tier 1 — paper-critical (headline or infrastructure; error here invalidates the paper)
 
-| Claim | Statement | Criticality | Verification | Notes |
+| Claim | Statement | Strategy-dep. | Verification | Notes |
 |---|---|---|---|---|
-| **0.19n upper bound (R57)** | `L(n) <= (W_4/2 + o(1)) n` with `W_4/2 ~ 0.18971` | Headline. If wrong, main contribution collapses. | **Heavy prose audit (Gemini + GPT-thinking). Lean is overkill for this analytic proof; months of work for marginal reviewer gain.** | Canonical source: `researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md`. Dependency: Round 14 factorial-moment comparison theorem — verify it's rigorous somewhere in the `13/36` Aristotle artifact or add a short stand-alone proof. |
-| **Shield Reduction Theorem** | `|A| >= |U| - beta(P)` for terminal antichain `A`, `P subseteq U` | Infrastructure. Used in both upper and lower bound reductions. | **Lean-verified, 0 sorries** (`aristotle/shield_reduction_out/RequestProject/ShieldReduction.lean`) | ✓ Done. |
-| **T1 / Theorem A** | `L(n) >= (1/8 - o(1)) n log log n / log n`; `beta(P) >= ((1/2) log(1/alpha) + o(1)) n` for `|P| <= n^alpha` | Infrastructure + lower-bound side. | **Lean-verified modulo classical-NT imports**: 6 sorries in `ShieldMainTheorem.lean`, 0 in Defs/BasicLemmas/Main. Sorries are PNT-adjacent Mathlib gaps per prior audits. | Acceptable for paper as "Lean-verified modulo PNT-adjacent Mathlib-gap sorries, enumerated in Appendix." One Codex sprint could close them if tractable; do not block paper on this. |
+| **0.19n upper bound (R57)** | `L(n) <= (W_4/2 + o(1)) n` with `W_4/2 ~ 0.18971` | **strategy-specific** (Shortener plays smallest legal odd prime on first `K = (1-eps) n/(2 log n)` turns — NOT sigma^*) | **Heavy prose audit (Gemini + GPT-thinking). Lean is overkill for this analytic proof.** | Canonical source: `researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md`. Dependency: Round 14 factorial-moment comparison theorem — verify it's rigorous somewhere in `13/36` infrastructure. Does NOT depend on sigma^*. |
+| **Shield Reduction Theorem** | `|A| >= |U| - beta(P)` for terminal antichain `A`, `P subseteq U` | **strategy-independent** | **Lean-verified, 0 sorries** | ✓ Done. |
+| **T1 / Theorem A** | `L(n) >= (1/8 - o(1)) n log log n / log n`; `beta(P) >= ((1/2) log(1/alpha) + o(1)) n` for `|P| <= n^alpha` | **strategy-independent** (Prolonger construction, no Shortener strategy involved) | **Lean-verified modulo 6 PNT-adjacent Mathlib sorries.** | Acceptable for paper as "Lean-verified modulo classical-NT imports." |
 
 ### Tier 2 — paper-important (anchors one section; error loses that section but paper survives)
 
-| Claim | Statement | Verification | Notes |
-|---|---|---|---|
-| **13/36 upper bound** | `L(n) <= (13/36 + o(1)) n ~ 0.361 n` | **Lean-verified, 0 sorries** (`aristotle/shortener_13_36_v2_out/`) | ✓ Done. Second-best headline if 0.19n audit fails. |
-| **5/16 upper bound** | `L(n) <= (5/16 + o(1)) n = 0.3125 n` via longer prime prefix + sharper Bonferroni | **Lean-verified modulo Chebyshev imports**: 5 sorries in `aristotle/shortener_5_16_out/Shortener516/Theorems.lean`; 15 theorems fully proved (algebraic optimization, compression injection, Bonferroni sieve, game-value induction, `\varepsilon`-limit assembly) per repo history. Sorries are Chebyshev-$\vartheta(x)$-adjacent. | **Elegant intermediate result.** Tight limit of the odd-prime-prefix Shortener family per block-product counter. Good candidate for a short standalone section in the paper — cleaner proof architecture than either 13/36 or 0.19n. Codex can close the 5 sorries in one dispatch (substitute `D = {3, 5}` as the `13/36` proof did). |
-| **5/24 exact cover** | `tau(n) = 5n/24 + O(1)` with explicit cover `H_n` + packing `P_n` | **Lean-verified, 0 sorries** (`aristotle/tau_5_24_out/`) for structural identities; cardinality `|H_n| = |P_n| = 5n/24 + O(1)` is a trivial floor-sum not itself machine-checked. | ✓ Structural content verified; cardinality count is elementary. |
-| **T2 lower bound** | `L(n) >= c_delta n (log log n)^2 / log n` for `delta < 1/4` | **Rigorous prose; finite cores Lean'd in `aristotle/t2_finite_core/`** (Codex in progress). Activation-stage wrapper remaining for full Lean. | Paper can cite as "rigorous prose + partial Lean; activation-stage wrapper to appear separately." |
-| **R52 transversal-integrality / Sherali-Adams barrier** | Integrality gap `>= Omega(N/log N)`; SA level `r <= l/2` barrier | **Prose + exhaustive sandbox** (93,671 SA constraints checked via exact rational arithmetic). | No Lean needed for paper. Pro audit-confirmed and sharpened. |
-| **R53 q-shadow / covering dichotomy** | Spectral/comparability dichotomy with central-scale constants `delta_q = (e + o(1)) h^{-2}` | **Prose + exhaustive sandbox** (12.5M union-bound cases, spectral params match to `10^-16`). | No Lean needed. Pro audit-confirmed and sharpened. |
-| **R56 finite odd-carrier / separator-only barrier** | No separator-only closure proves `o(n)` upper bound; explicit Prolonger counter-construction. | **Prose + N=3 cross-family convergence** (two Pros + one Codex independently named the class and proved the barrier). | No Lean needed. Strongest cross-family agreement signal in the program. |
-| **Theorem 5 / Theorem 6 (restricted classes)** | `O(n/log n)` against disjoint small-prime carriers and rank-<=3 squarefree carriers | **Prose** (notes in `phase4/theorem5_disjoint_carriers_note.md`, `phase4/theorem6_rank3_squarefree_note.md`). | No Lean needed for paper. |
-| **F_alpha framework (R12)** | `beta(P_alpha) <= (1 - gamma_alpha) n + o(n)` via omitted-vertex shadowing | **Prose** (Round 12 in `current_state.md`). | Supporting. No Lean needed. |
-| **85/1008 ratio-independent sieve** | Density `85/1008 ~ 0.0843` sieve construction underlying Round 15 piecewise-density | **Prose + sandbox numerics.** | Supporting. Cite in Round 15 section. |
+| Claim | Statement | Strategy-dep. | Verification | Notes |
+|---|---|---|---|---|
+| **13/36 upper bound** | `L(n) <= (13/36 + o(1)) n ~ 0.361 n` | **strategy-specific** (smallest-legal-odd-prime Shortener with truncation at `s_t >= 1/3`) | **Lean-verified, 0 sorries** | ✓ Done. Weaker than 0.19n; retain for completeness / historical. |
+| **5/16 upper bound** | `L(n) <= (5/16 + o(1)) n = 0.3125 n` | **strategy-specific** (same family as 13/36; longer prefix, sharper Bonferroni) | **Math is rigorous.** Lean artifact has 5 Chebyshev-adjacent sorries but **Lean closure is NOT needed** — dominated by 0.19n, and the prose proof is standalone. | **Elegant intermediate result** and the tight limit of the odd-prime-prefix Shortener family. Worth a compact section in the paper for the truncation technique alone. No new Lean effort. |
+| **5/24 exact cover** | `tau(n) = 5n/24 + O(1)` with explicit cover `H_n` + packing `P_n` | **strategy-independent** (about the unweighted cover problem) | **Lean-verified, 0 sorries** for structural identities. | ✓ Done. Cardinality `|H_n| = 5n/24 + O(1)` is elementary floor-sum. |
+| **T2 lower bound** | `L(n) >= c_delta n (log log n)^2 / log n` for `delta < 1/4` | **strategy-independent** (Maker-first hypergraph capture, no Shortener strategy involved) | **Rigorous prose; finite cores Lean'd, activation wrapper in progress.** | Cite as "rigorous prose + partial Lean." |
+| **R52 transversal-integrality / Sherali-Adams barrier** | Integrality gap `>= Omega(N/log N)`; SA level `r <= l/2` | **strategy-independent** (purely static combinatorial) | Prose + 93k exact-rational SA checks. | No Lean. |
+| **R53 q-shadow / covering dichotomy** | Spectral/comparability dichotomy; `delta_q = (e + o(1)) h^{-2}`, `|C| > (1/e - o(1)) h^2` | **strategy-independent** (uses only spectral separator theorem + union bound) | Prose + 12.5M sandbox cases. | No Lean. |
+| **R56 finite odd-carrier / separator-only barrier** | No separator-only proof closes `o(n)` upper bound; explicit Prolonger upper-half dyadic counter | **strategy-specific** (quantifies over the separator-only Shortener class; theorem-level result is about the class, not about any single Shortener) | Prose + N=3 cross-family convergence. | No Lean. |
+| **Theorem 5 / Theorem 6 (restricted classes)** | `O(n/log n)` against disjoint small-prime carriers and rank-<=3 squarefree carriers | **strategy-specific** (four-phase explicit Shortener strategy; not sigma^*) | Prose. | No Lean. |
+| **F_alpha framework (R12)** | `beta(P_alpha) <= (1 - gamma_alpha) n + o(n)` via omitted-vertex shadowing | **strategy-independent** | Prose. | Supporting. |
+| **85/1008 ratio-independent sieve** | Density `85/1008 ~ 0.0843` sieve construction underlying Round 15 | **strategy-independent** | Prose + sandbox. | Supporting. Cite in Round 15 / 0.19n section. |
 
 ### Tier 3 — taxonomy / supporting (error loses a subsection bullet; paper survives trivially)
 
-All items here are **prose-only with sandbox verification where applicable**. No Lean required. Listed for completeness; see Section 3 (structural negatives) and Section 4 (computational evidence) for full entries.
+All items here are **prose-only with sandbox verification where applicable**. No Lean required.
 
-- Universal block-product carrier-mass counter.
-- Separate-rank fan no-go theorems (single-rank ceiling, multi-rank coupling, Sperner/LCM obstruction).
-- Residual-width lemma refutation.
-- Ford-route correction.
-- Band-local closure explosion theorem.
-- Directed rank-3 cleanup bound.
-- Dyadic-fiber positive-density collapse.
-- R44 residual-floor diagnosis + local-star obstruction.
-- R46 conditional smallest-legal-prime lemma + ST-capture refutation.
-- R54 strategy-dependence classification (a meta-theorem; subsection of a "Proof-Class Taxonomy" in the paper).
-- Sparse-subset realization.
-- Phase 0/1/2/3/4 empirical results.
+| Item | Strategy-dep. | Notes |
+|---|---|---|
+| Universal block-product carrier-mass counter | **strategy-independent** (explicit Prolonger construction) | Prose. |
+| Separate-rank fan no-go (single-rank + multi-rank coupling + Sperner/LCM) | **strategy-independent** | Prose. |
+| Residual-width lemma refutation | **strategy-independent** (static counterexample) | Prose. |
+| Ford-route correction | **strategy-independent** | Prose. |
+| Band-local closure explosion theorem | **strategy-independent** | Prose. |
+| Directed rank-3 cleanup bound | **strategy-independent** | Prose. |
+| Dyadic-fiber positive-density collapse | **strategy-independent** | Prose. |
+| R44 residual-floor diagnosis + local-star obstruction | **sigma^*-framework** (diagnoses the residual floor of sigma^*-type state inequalities) | Prose. Important to flag sigma^* dependency when citing. |
+| R46 conditional smallest-legal-prime lemma | **sigma^*-dependent** (lemma is about sigma^*'s response in specific states) | Prose. |
+| R46 ST-capture refutation | **sigma^*-specific** (refutation uses forced-leaf under sigma^*) | Prose. |
+| sigma^*-suboptimality theorem (R53 cooperative embedding) | **sigma^*-specific theorem (cost o(r_1) against sigma^*)**, but the theorem itself is rigorous independent of which strategy we focus on. | Prose. Goes in "Proof-Class Barriers" section. |
+| R54 strategy-dependence classification (meta-theorem) | **about sigma^*** (classifies which late-stage ingredients depend on sigma^*) | Prose. Subsection of "Proof-Class Taxonomy." |
+| Dyadic packet collision tail `mu(coll(S) >= s) <<_s N_h (c^2/h)^s` | **strategy-independent** | Prose. Supporting machinery for dense-packet arguments. |
+| Dense-packet projection `mu(D_{k,theta}) <<_C (k^2/theta h^2) N_h + mu(E)` | **sigma^*-dependent** (upper-bound role uses online harmonic domination, which is sigma^*-dependent) | Prose. Paper's "barriers under sigma^*" subsection. |
+| Sathe-Selberg central-rank Euler factors | **strategy-independent** (analytic number theory) | Prose. |
+| Bernoulli Legal-Separator Lemma | **strategy-independent** (static existence) | Prose. |
+| Apex-singleton CPD | **strategy-independent** | Prose. |
+| Spectral Live-Space Separator Theorem (single-level, R52 spectral note) | **strategy-independent** | Prose. |
+| Sparse-subset realization | **strategy-independent** | Prose. |
+| Phase 0/1/2/3/4 empirical results | **strategy-independent** (computational) | Empirical section. |
+
+### sigma^*-dependent items in the paper — handling guidance
+
+Results marked `sigma^*-dependent` or `sigma^*-specific` above cannot be used as the basis of an unconditional upper-bound closure at `r_1` (since `sigma^*` is provably suboptimal, R53). They remain publication-worthy in the paper **as conditional results** or **as diagnostic insight into why the state-inequality paradigm does not close `r_1`**. Suggested treatment:
+
+- **R35 state inequality + online harmonic domination** (from Round 35 / Round 14 / dense-packet projection chain): cite as "conditional sigma^*-dependent tools" in a clearly-labeled subsection. Explicitly note that these do not survive strategy replacement per R54.
+- **R44 / R46 sigma^*-specific results**: present as part of the "Proof-Class Taxonomy" section, alongside the R54 classification meta-theorem. Don't frame them as closure candidates.
+- **R53 sigma^*-suboptimality theorem**: a standalone result worth a theorem number. It shows `sigma^*` is not the minimax-optimal Shortener; this is itself a contribution and motivates the R54 classification.
+- The **headline 0.19n upper bound (R57) does NOT depend on sigma^***. This matters for the paper's narrative: the headline is not conditional.
+
+This `sigma^*` distinction should be surfaced explicitly in the paper so reviewers don't confuse the conditional state-inequality tools with the main headline result.
 
 ### What this triage implies for the Lean sprint
 
