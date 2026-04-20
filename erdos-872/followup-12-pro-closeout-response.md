@@ -1,3 +1,31 @@
+---
+id: R12-followup-pro-resolution-disjoint-carriers
+type: research
+date: 2026-04-18
+intent: >
+  Prove or refute the conditional resolution lemma — if Shortener can force
+  all primes <= n^{1/3+eps} to be resolved in O(n/log n) turns, then
+  L(n) = O(n/log n) — and determine whether it survives against the
+  universal block-product Prolonger construction.
+predecessors: [R12-pro-response]
+prompt: erdos-872/prompts/followup-12-pro-closeout.md
+action:
+  kind: extends
+  target: R12-pro-response
+claim: >
+  (Theorem 5) Fix y = n^alpha with 1/3 < alpha < 1/2. If every composite
+  Prolonger move has all prime factors <= y and the prime supports of
+  distinct composite moves are pairwise disjoint, then Shortener can force
+  all primes <= y to be resolved in O(n/log n) turns; consequently
+  L(n) = O(n/log n) under this hypothesis. Theorem 5 covers the universal
+  block-product Prolonger construction. The remaining open case is
+  overlapping carriers plus mixed-pair (p <= y < q) batching.
+implications:
+  - The universal block-product Prolonger is not the actual obstruction.
+  - Remaining gap localized to overlapping-carrier pair-repair failure (e.g., 30, 42, 70 share pairs from {3,5,7}) and mixed-pair cost O(n log log n / log n) missing target by log log n.
+confidence_at_time: high
+---
+
 # Pro follow-up response — Theorem 5 (resolution against disjoint small-prime carriers)
 
 **Source:** GPT Pro, continuation of Round 12 thread, responding to `prompts/followup-12-pro-closeout.md`.

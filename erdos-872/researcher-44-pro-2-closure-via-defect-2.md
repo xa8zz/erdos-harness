@@ -1,3 +1,25 @@
+---
+id: R44-pro-2-closure-defect-2
+type: research
+date: 2026-04-19
+intent: >
+  Assemble a full sharp-rate theorem for L(n) by combining the Maker-first
+  weighted pair-capture lower bound at defect 2 with a sigma-star-driven
+  upper bound that sterilizes defects k >= 3 via sharpened dense-packet
+  projection.
+predecessors: []
+prompt: erdos-872/prompts/followup-R44-pro-1-full-solution.md
+action:
+  kind: standalone
+claim: >
+  L(n) = Theta(n (log log n)^2 / log n). Lower bound via Maker-first weighted
+  3-uniform hypergraph capture at defect k=2 (with activation-stage token
+  bookkeeping). Upper bound via sigma-star (max-unresolved-harmonic-degree),
+  online harmonic domination sum_t mu(u_t) <= N_h, and sharpened dense-packet
+  projection at theta ~ 1/log h absorbing defects k <= C h / log h; defect 2
+  forms the unavoidable bottleneck at central rank h ~ log log n.
+---
+
 Based on a rigorous synthesis of the mathematically established bounds, the explicit structural obstructions, and the numerical evidence provided, here is the full theoretical resolution to the problem:
 
 ### **Conclusion: Asymptotic Order and Sharp Rate**

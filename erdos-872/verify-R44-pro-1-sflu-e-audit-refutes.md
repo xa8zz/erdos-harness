@@ -1,3 +1,44 @@
+---
+id: R44-verify-pro-1-sflu-e-audit
+type: verification
+date: 2026-04-19
+intent: >
+  Audit the SFLU-E (Strongly Fresh, Locally Useful - Estimate) claim —
+  nu_h(E_{k,theta}^{sf,loc}) bounded via lifted harmonic measure and
+  first-activation thinning — to determine whether it closes L(n) = o(n).
+predecessors: [R44-pro-1-followup-sflu-e]
+action:
+  kind: refutes
+  target: R44-pro-1-followup-sflu-e
+claim: >
+  The SFLU-E proof does not rigorously close L(n) = o(n). Step (3)
+  first-activation thinning is not a consequence of sigma-star but an extra
+  disjointness assumption; Step (1) density-increment extraction is
+  underdefined and possibly circular; "strong freshness" is used in mutually
+  incompatible ways; and the final closure loses exactly the factor needed
+  to reach n / log log log n.
+failure_mechanism: >
+  The static-to-dynamic bridge fails. The lifted-measure bound
+  nu_h(D) <= theta^{-1} (k/h)^s nu_h(C(D)) is stated for one shield, but the
+  proof silently upgrades to a family sum by asserting
+  sum_D nu_h(C(D)) <= sum_t mu(u_t) <= N_h. The sigma-star online domination
+  only gives sum_t mu_t(u_t) <= N_h (dynamic unresolved mass), not a bound
+  on the static sum of certificate shadows. Multiple shields D_1, D_2, ...
+  can share the same extracted coface C(D_1) = C(D_2) = C before sigma-star
+  resolves C; marking shadows "stale for accounting" does not make them
+  disappear from the actual game. Inserting even the advertised exceptional
+  bound (log h / h) N_h into the R35 state inequality
+  mu(Cl_h) << L mu(F_useful) + N_h / log L with L = h / log h gives a full
+  rank-scale term L (log h / h) N_h = N_h, not the needed N_h / log h, so
+  rank-summation loss is not eliminated and the displayed bounds leave a
+  linear-scale residue at central rank h ~ log log n.
+implications:
+  - Any salvaged SFLU-E needs an explicit dynamic no-recycling / injective charging lemma for certificate shadows.
+  - "Strong freshness" must be pinned down to a single definition consistent across (a) blocking common-core, (b) using R35 state inequality, (c) charging to sigma-star, (d) getting disjoint shadows.
+  - Defect-one coface C(D) needs a certificate-legality lemma — static rank is not dynamic Shortener-legality.
+confidence_at_time: high
+---
+
 **Verdict:** the claimed proof does **not** rigorously close (L(n)=o(n)). The fatal break is Step (3): the “first-activation thinning” is not a consequence of (\sigma^\star); it is an extra disjointness assumption. Step (1) is also underdefined enough to be circular, the “strong freshness” notion is used inconsistently, and the final (R35) closure loses exactly the factor one would need to get (n/\log\log\log n).
 
 The cleanest failure mechanism is this:

@@ -1,3 +1,40 @@
+---
+id: R23-pro-bernoulli-star-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Determine whether the missing certificate lemma (star) —
+  sup_{reachable P} Pr(D_y in K(P)) = o(1) — holds for the smooth-squarefree
+  candidate C_y with y = exp((log n)^{1/2}), which would close the sublinear
+  L(n) program via the dynamic multiplicative-closure reduction.
+predecessors: [R22-pro-certificate-family-gap-isolated]
+prompt: erdos-872/prompts/round23-pro-bernoulli-closure-attack.md
+action:
+  kind: refutes
+  target: R22-pro-certificate-family-gap-isolated
+claim: >
+  Under the reachability definition given, (star) is false: the supremum is
+  asymptotically 1, not o(1). Hence the smooth-squarefree candidate C_y does
+  not yield sublinear L(n) via the R22 reduction, though the reduction
+  framework itself (L(n) <= 2|C_n| + 1 + sup w(R_{C_n})) still holds.
+failure_mechanism: >
+  Explicit Prolonger construction. For y = exp((log n)^{1/2}), N = pi(y),
+  mu = sum_{p<=y} 1/p, k = ceil(mu + sqrt(mu) log mu). For each k-subset F
+  of primes <= y, Prolonger plays x_F = d_F q_F in (n/2, n] (with d_F the
+  product of F and q_F a prime in (n/(2 d_F), n/d_F)). Shortener plays
+  s_F <= y^{k+1} < n/2, a squarefree integer on a (k+1)-set G_F containing
+  F. The alternating sweep uses only binom(N, k) = n^{o(1)} moves. The
+  generated complex contains every nonempty squarefree y-smooth integer with
+  <= k prime factors, so Pr(1 <= omega(D_y) <= k) = 1 - o(1). Crude
+  Prolonger budget O(|C_y|) is far too weak to force small Bernoulli mass.
+  Failure localized to medium rank k ~ mu ~ log log n.
+implications:
+  - R22 reduction framework survives; only the specific C_y candidate is refuted.
+  - Does not refute Gap 1 (abstract h-uniform hypergraph closure budget) — naive Gap 1 <=> Gap 2 equivalence was wrong.
+  - Any salvaged (star) requires a stronger Shortener-strategy-constrained reachability notion, not mere existence of a sweep completion.
+confidence_at_time: high
+---
+
 # Round 23 Pro — Bernoulli form of certificate lemma $(\star)$ REFUTED
 
 ## Context

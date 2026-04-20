@@ -1,3 +1,26 @@
+---
+id: R03-vaccinated-shield
+type: research
+date: 2026-04-17
+intent: >
+  Extend the shield reduction theorem to arbitrary lower/upper prefixes, and
+  derive structural obstructions on which prefix shapes can underpin a
+  subpolynomial shield-based lower-bound attempt.
+predecessors: []
+prompt: erdos-872/prompts/researcher-02-open-exploration.md
+action:
+  kind: standalone
+claim: >
+  (Vaccinated Shield Reduction) For every primitive lower prefix D and upper
+  prefix P subseteq U_D, every maximal extension A satisfies
+  |A| >= |D| + |U_D| - beta_D(P). Quantitative consequence: any subpolynomial
+  prefix attempt (|D|+|P| = n^{o(1)}) forces sigma(D) = 1 - o(1), ruling out
+  medium/large lower-half moves at subpolynomial scale.
+implications:
+  - Kills any "subpolynomial cleanup + invoke shield" strategy unless reciprocal mass sigma(D) approaches 1.
+  - Directly eliminates the zero-shadow layer (n/3, n/2] extension.
+---
+
 # Researcher output — Vaccinated Shield Reduction + prefix obstruction
 
 **Source:** ChatGPT Pro, "broad search" thread. Prompt: `prompts/researcher-02-open-exploration.md` (no directions suggested, pure exploration).
