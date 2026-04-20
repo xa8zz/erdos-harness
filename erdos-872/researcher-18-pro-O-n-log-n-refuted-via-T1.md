@@ -1,3 +1,24 @@
+---
+id: R18-pro-O-n-log-n-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Determine whether L(n) = O(n/log n) is achievable; check for asymptotic
+  contradictions given the known lower bound T1: L(n) >= (1/8 - o(1)) n log log n / log n.
+predecessors: []
+prompt: erdos-872/prompts/round18-direct-n-over-log-n-upper-bound.md
+action:
+  kind: standalone
+claim: >
+  The target L(n) = O(n/log n) is refuted by T1: since L(n) >= (1/8 - o(1))
+  n log log n / log n, we have L(n) / (n/log n) >= (1/8 - o(1)) log log n
+  -> infinity. The O(n/log n) upper bound directly contradicts the
+  established lower bound.
+failure_mechanism: >
+  T1 lower bound (1/8 - o(1)) n log log n / log n grows faster than n/log n
+  by a log log n factor, making L(n) = O(n/log n) asymptotically false.
+---
+
 # Round 18 Pro #1 — O(n/log n) target refuted by T1 (asymptotic contradiction)
 
 Taking the stated “Problem Solving Information” at face value, the requested theorem is **not true**. There is a direct asymptotic contradiction inside the prompt.

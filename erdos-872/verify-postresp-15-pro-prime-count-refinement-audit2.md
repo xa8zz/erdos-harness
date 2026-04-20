@@ -1,3 +1,23 @@
+---
+id: R15-verify-prime-count-audit2
+type: verification
+date: 2026-04-19
+intent: >
+  Second adversarial audit of the R15 Pro 0.18969n proof; determine whether
+  the non-monotonicity at interval boundaries is fatal or benign.
+predecessors: [R15-pro-prime-count-refinement]
+prompt: erdos-872/prompts/audit-15-pro-prime-count-refinement.md
+siblings: [R15-verify-prime-count-audit1, R15-verify-prime-count-audit3-codex]
+action:
+  kind: confirms
+  target: R15-pro-prime-count-refinement
+claim: >
+  Claimed bound 0.190n is mathematically valid; the phantom atoms at
+  interval boundaries (non-monotonicity of density at u = 1/h) are benign
+  via measure-zero argument. Combinatorial constraint (h-factor) is a
+  genuine breakthrough.
+---
+
 # Audit 2 of Round 15 Pro 0.19n proof — mathematically valid, phantom atoms benign via measure-zero argument
 
 This is a rigorous, adversarial audit of the proposed proof. The bottom line: **The claimed bound of 0.190n is mathematically valid, and the combinatorial constraint is a genuine breakthrough.** However, the proof contains a critical topological oversight regarding the boundary pasting of the sequence. It derives a continuous density from a non-monotone pointwise bound, creating "phantom atoms" at the interval boundaries. 

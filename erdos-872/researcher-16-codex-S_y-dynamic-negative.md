@@ -1,3 +1,28 @@
+---
+id: R16-codex-Sy-dynamic-negative
+type: refutation
+date: 2026-04-19
+intent: >
+  Determine whether Prolonger can force the state S_y to be installed during
+  the game, converting the R15 static certificate to a game-length bound.
+predecessors: [R15-codex-Sy-static-certificate]
+action:
+  kind: refutes
+  target: R15-codex-Sy-static-certificate
+claim: >
+  Dynamic realization of S_y is impossible: for any alpha in (1/3, 1/2),
+  Shortener can prevent S_y from being installed. The small-prime subset
+  {p <= y} requires ~pi(y) Prolonger moves, but Shortener can respond to
+  each Prolonger semiprime move with a legal prime move, keeping the
+  game linear in n.
+failure_mechanism: >
+  S_y contains ~pi(y) = n^alpha/log(n^alpha) distinct small primes. For
+  Prolonger to install each, Shortener can respond with a prime move
+  (cheaply legal), forcing the game to length ~n. The static certificate
+  has O(n/log n) residual, but the installation cost is Theta(n) moves.
+  Dynamic conversion fails at the Theta(n) installation cost.
+---
+
 # Round 16 Codex — definitive negative result for the dynamic `S_y` program
 
 ## Statement

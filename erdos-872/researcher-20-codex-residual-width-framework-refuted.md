@@ -1,3 +1,26 @@
+---
+id: R20-codex-residual-width-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Test whether the residual-width lemma from R18-R19 can be pushed to close
+  the sublinear upper bound; check the domination-only formulation.
+predecessors: [R18-pro-matching-sublinear-reduction]
+action:
+  kind: refutes
+  target: R18-pro-matching-sublinear-reduction
+claim: >
+  The residual-width framework is false as stated. For any certificate C,
+  there exists an antichain A in (n/2, n] with |A| <= |C| such that
+  C <= Comp(A) while w(R(A)) >= n/2 - |C| - O(1). The domination-only
+  lemma fails: residual width is always Omega(n) regardless of certificate size.
+failure_mechanism: >
+  Upper antichain A = {primes in (n/2, n]} has size ~n/(2 log n) and forces
+  any certificate C to be dominated, yet the residual R(A) contains all
+  composites in (n/2, n] not covered by A -- an Omega(n) set. Residual
+  width cannot be controlled by |C| alone.
+---
+
 # Residual-width framework closeout: the domination-only lemma is false
 
 ## Executive summary

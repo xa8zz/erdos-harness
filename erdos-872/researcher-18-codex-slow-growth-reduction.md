@@ -1,3 +1,21 @@
+---
+id: R18-codex-slow-growth-reduction
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to prove L(n) <= n/(log n)^{1-o(1)} via the Ford band route;
+  determine what specific theorem about Ford-band roughness would close it.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Unconditional slow-growth upper bound not proved. A sharp reduction
+  established: L(n) <= n/(log n)^{1-o(1)} would follow from a specific
+  Ford-band theorem — existence of gamma(n) = (log n)^{-o(1)} and delta >
+  1 - 1/log 4 ~ 0.279 such that Shortener forces the Ford-band covering
+  in at most n/(log n)^{1-o(1)} moves.
+---
+
 # Round 18 Codex — slow-growth upper bound not proved; Ford band+roughness reduction
 
 A codex came back with this:

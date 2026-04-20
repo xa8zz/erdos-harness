@@ -1,3 +1,21 @@
+---
+id: R15-verify-prime-count-audit3-codex
+type: verification
+date: 2026-04-19
+intent: >
+  Codex adversarial audit of the R15 Pro 0.18969n proof; independently
+  verify the constant and check the boundary/model-sequence repair status.
+predecessors: [R15-pro-prime-count-refinement]
+prompt: erdos-872/prompts/audit-15-pro-prime-count-refinement.md
+siblings: [R15-verify-prime-count-audit1, R15-verify-prime-count-audit2]
+action:
+  kind: standalone
+claim: >
+  Constant ~0.18969 verified independently. New combinatorial input is real.
+  Proof not yet at rigorous theorem status: boundary/model-sequence repair
+  needed at u = 1/h breakpoints. Verdict between Audit 1 and Audit 2.
+---
+
 # Audit 3 of Round 15 Pro 0.19n proof — constants verified, theorem still pending boundary/model-sequence repair
 
 ## Verdict

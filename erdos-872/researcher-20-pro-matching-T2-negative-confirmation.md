@@ -1,3 +1,21 @@
+---
+id: R20-pro-matching-T2-negative-confirm
+type: research
+date: 2026-04-19
+intent: >
+  Independent third confirmation that the matching-T2 upper bound route fails;
+  identify precisely which gap remains (dynamic activated-core bound).
+predecessors: [R19-codex-matching-T2-closeout, R19-pro-lemma-A-disproved]
+action:
+  kind: extends
+  target: R19-pro-lemma-A-disproved
+claim: >
+  Third independent confirmation: Lemma A false, arbitrary-small-core
+  harmonic-sum conjecture false. Conditional T2-scale bound holds if
+  Prolonger can force at most 2 distinct small prime factors per activated
+  composite; this hypothesis is the precise open gap.
+---
+
 # Round 20 Pro — independent third confirmation: Lemma A false, hypothesis unenforceable, dynamic activated-core bound is the gap
 
 I did not search online. I worked from the game definition and the material in your prompt.

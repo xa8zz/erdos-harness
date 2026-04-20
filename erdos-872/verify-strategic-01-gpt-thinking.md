@@ -1,3 +1,22 @@
+---
+id: R01-verify-strategic-gpt-thinking
+type: verification
+date: 2026-04-17
+intent: >
+  GPT-thinking strategic audit with web search; assess obstruction drift
+  and provide literature-grounded recommendations for next directions.
+predecessors: []
+prompt: erdos-872/prompts/verify-strategic-01-directions.md
+siblings: [R01-verify-strategic-deepthink, R01-verify-strategic-audit2, R01-verify-strategic-audit4]
+action:
+  kind: standalone
+claim: >
+  "Strategic progress, not front-line progress" confirmed. Packing Lemma
+  reformulated as online set-cover theorem on divisor incidence graph is
+  #1 priority. Provides strongest literature citations of the four audits
+  (Ford 2008, arxiv, combinatorics.org).
+---
+
 # Strategic Audit #3 — GPT-thinking (with web search / literature citations)
 
 **Source:** ChatGPT with thinking mode + web search enabled, given the literature citations to arxiv / combinatorics.org / cambridge.

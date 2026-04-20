@@ -1,3 +1,22 @@
+---
+id: R19-codex-matching-T2-closeout
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to close the matching-T2 upper bound L(n) = O_alpha(n(log log n)^2/log n)
+  by controlling the non-residual mixed stage via the harmonic-sum lemma.
+predecessors: []
+prompt: erdos-872/prompts/round19-matching-T2-upper-bound.md
+action:
+  kind: standalone
+claim: >
+  Matching-T2 upper bound does not follow from the harmonic-sum lemma route.
+  Two negative findings: (1) the harmonic sum over D_y(n) is Theta(log n)
+  not O((log log n)^2), so the non-residual mixed stage cannot be controlled
+  this way; (2) the k <= 2 constraint (since alpha > 1/3) is false --
+  k_max = (1 + o(1)) log n / log log n.
+---
+
 # Researcher 19 Codex — matching-T2 closeout
 
 ## Executive verdict

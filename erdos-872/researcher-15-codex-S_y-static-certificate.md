@@ -1,3 +1,20 @@
+---
+id: R15-codex-Sy-static-certificate
+type: research
+date: 2026-04-19
+intent: >
+  Establish a rigorous static certificate for S_y: a lower antichain with
+  O(n/log n) residual elements outside it, leaving dynamic realization open.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  For fixed y in [2, sqrt(n/2)], the antichain S_y = {primes <= y} u
+  {primes in (z, n/2]} u {products ab <= n/2 with a,b > y prime} has
+  O_y(n/log n) residual elements not covered by S_y-multiples. Static
+  theorem rigorous; whether Prolonger can force this state is open.
+---
+
 # Round 15 Codex (in-repo) — S_y static certificate with O(n/log n) residual; dynamic realization open
 
 I kept pushing, and I do have a new rigorous theorem. It does not finish the full game yet, but it’s a real structural advance.

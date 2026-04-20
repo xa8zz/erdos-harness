@@ -1,3 +1,21 @@
+---
+id: R19-codex-matching-T2-handoff
+type: synthesis
+date: 2026-04-19
+intent: >
+  Synthesize R19 Codex findings on the matching-T2 upper bound; identify the
+  specific remaining gap (2-shadow control) after Lemma A is disproved.
+predecessors: [R19-codex-matching-T2-closeout]
+action:
+  kind: extends
+  target: R19-codex-matching-T2-closeout
+claim: >
+  Lemma A is false (k can be up to log n / log log n, not <= 1/alpha).
+  The harmonic-sum route fails decisively. Remaining gap isolated as
+  2-shadow control: need to bound |{x <= n/2 : omega_y(x) >= 2}| = o(n)
+  under Shortener's strategy, which is the precise open problem.
+---
+
 # Round 19 Codex closeout handoff — Lemma A false; 2-shadow control is the remaining gap
 
 A codex also came back:

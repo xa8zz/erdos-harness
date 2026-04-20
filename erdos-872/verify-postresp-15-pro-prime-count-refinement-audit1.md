@@ -1,3 +1,23 @@
+---
+id: R15-verify-prime-count-audit1
+type: verification
+date: 2026-04-19
+intent: >
+  Adversarial audit of the R15 Pro 0.18969n proof; identify the weakest link
+  in the jump from interval-count lemma to the monotone model sequence.
+predecessors: [R15-pro-prime-count-refinement]
+prompt: erdos-872/prompts/audit-15-pro-prime-count-refinement.md
+siblings: [R15-verify-prime-count-audit2, R15-verify-prime-count-audit3-codex]
+action:
+  kind: standalone
+claim: >
+  New combinatorial observation is meaningful and numerics consistent, but
+  proof does not yet rigorously earn the constant. Weakest link: jump from
+  interval-count lemma to a fully specified monotone model sequence usable
+  by R14's replacement/factorial-moment machinery. Boundary behavior at
+  u = 1/h not uniform as stated.
+---
+
 # Audit 1 of Round 15 Pro 0.19n proof — not yet rigorously earned, weakest link is model-sequence construction
 
 My verdict: the new combinatorial observation is meaningful, and the **numerics look consistent**, but the proof as written does **not yet rigorously earn** the claimed constant. The weakest link is not the integral calculation; it is the jump from the interval-count lemma to a fully specified monotone model sequence that the Round 14 replacement/factorial-moment machinery can actually use.

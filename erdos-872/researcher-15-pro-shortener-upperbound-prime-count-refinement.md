@@ -1,3 +1,23 @@
+---
+id: R15-pro-prime-count-refinement
+type: research
+date: 2026-04-19
+intent: >
+  Improve the L(n) upper bound beyond 0.22002n by exploiting the constraint
+  that one Prolonger move cannot contain more than h = floor(1/u) primes
+  in the range (n^{1/(h+1)}, n^{1/h}].
+predecessors: [R14-pro-1-log-density, R14-pro-2-probabilistic-sieve]
+prompt: erdos-872/prompts/round15-shortener-push-past-022.md
+action:
+  kind: extends
+  target: R14-pro-1-log-density
+claim: >
+  L(n) <= (0.18969 + o(1))n via piecewise density rho(u) = 1/((h(u)+1)*u)
+  where h(u) = floor(1/u). The interval-count constraint (one Prolonger
+  move has at most h distinct prime factors in a log-range) gives a
+  genuinely stronger sieve density.
+---
+
 # Round 15 Pro — L(n) ≤ 0.18969n via prime-count-per-range refinement
 
 I found a strict constant improvement. It does **not** give sublinearity, but it pushes the current upper bound from

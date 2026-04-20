@@ -1,3 +1,27 @@
+---
+id: R20-pro-two-shadow-disproof
+type: refutation
+date: 2026-04-19
+intent: >
+  Test whether a two-shadow control theorem can bound the residual legal
+  moves after Shortener's small-semiprime phase to o(n).
+predecessors: []
+prompt: erdos-872/prompts/round20-two-shadow-control.md
+action:
+  kind: standalone
+claim: >
+  Two-shadow control Theorem 2 and Theorem 3 are false: stronger residual
+  statements do not hold under stated hypotheses. Theorem 1 (static bound
+  on sum over small semiprimes) is trivially true but insufficient.
+  Omega(n) legal moves remain after the semiprime phase regardless of
+  the shadow bound.
+failure_mechanism: >
+  Static Mertens bound sum_{pq in U} 1/(pq) <= (1/2)(sum 1/p)^2 is trivially
+  provable but does not control the game. The residual set of legal composites
+  in (n/2, n] not blocked by U is Omega(n) because large primes in (n/2, n]
+  form an independent Omega(n/log n) antichain untouched by small-prime shadow.
+---
+
 # Round 20 Pro — two-shadow control theorem disproved via Ω(n) legal-moves counterexample
 
 The requested nontrivial online-control theorem is not true as stated. There is a simple formal proof of **Theorem 1** as written, but it is only the static bound over all small semiprimes and it does **not** close the gap. In fact, the stronger residual statements, **Theorem 2** and **Theorem 3**, are false under the stated hypotheses.

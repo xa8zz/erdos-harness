@@ -1,3 +1,20 @@
+---
+id: R18-verify-T1-T2-claude
+type: verification
+date: 2026-04-19
+intent: >
+  Claude audit of the T1 and T2 rank-h fan proofs; check for uniformity gaps
+  and verify the constant in T2.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  T1 proof is tight; proof structure and factor-of-8 constant are correct.
+  T2 (rank-3 fan) proof logic is sound but the constant c_delta ~
+  1/4096 is so small that the empirical bound dominates by ~1000x.
+  No logical bugs found in either proof.
+---
+
 # Claude audit of T1/T2 rank-h fan proofs — no bugs, T2 constant ~1/4096 (empirical dominates by 1000x)
 
 Audit of T1 and T2 rank-$h$ fan proofs, looking for the uniformity/constant gap:

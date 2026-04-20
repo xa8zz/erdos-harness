@@ -1,3 +1,21 @@
+---
+id: R01-verify-strategic-deepthink
+type: verification
+date: 2026-04-17
+intent: >
+  Deep Think strategic audit of the research program direction; assess
+  obstruction drift and identify highest-priority next directions.
+predecessors: []
+prompt: erdos-872/prompts/verify-strategic-01-directions.md
+siblings: [R01-verify-strategic-audit2, R01-verify-strategic-gpt-thinking, R01-verify-strategic-audit4]
+action:
+  kind: standalone
+claim: >
+  "Obstruction Drift" confirmed emphatically by Deep Think. Packing Lemma
+  is #1 priority. Shield refinements should be abandoned. Online set-cover
+  on divisor incidence graph is the correct reframe.
+---
+
 # Strategic Audit #1 — Deep Think (powerful model, 70k thinking tokens / ~5 min reasoning)
 
 **Source:** Deep Think (Gemini 3 Pro with extended thinking), via MCP.

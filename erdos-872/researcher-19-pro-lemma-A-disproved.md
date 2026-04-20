@@ -1,3 +1,27 @@
+---
+id: R19-pro-lemma-A-disproved
+type: refutation
+date: 2026-04-19
+intent: >
+  Determine whether Route A (Lemma A: d = p1...pk <= n with pi <= y = n^alpha
+  implies k <= 1/alpha) is valid for closing the matching-T2 upper bound.
+predecessors: []
+prompt: erdos-872/prompts/round19-matching-T2-upper-bound.md
+action:
+  kind: standalone
+claim: >
+  Lemma A is false. The implication d <= n, pi <= y => k <= 1/alpha is
+  invalid: small primes can accumulate without the product reaching n.
+  Example: alpha = 0.4, n = 10^6, y ~ 251; product 2*3*5*7 = 210 < y
+  has k = 4 > 1/alpha = 2.5. Harmonic sum over D_y is Theta(log n),
+  not (log log n)^2.
+failure_mechanism: >
+  The k <= 1/alpha bound requires all prime factors to be near y = n^alpha;
+  but small primes 2,3,5,..., with product << y, form squarefree composites
+  of arbitrarily large k while staying <= n. The constraint p1*...*pk <= n
+  with pi <= y only bounds k by log(n)/log(2) = log n, not 1/alpha.
+---
+
 # Round 19 Pro — Lemma A disproved; harmonic sum ~Θ(log n), not (log log n)^2
 
 One pro came back. 

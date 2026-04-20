@@ -1,3 +1,21 @@
+---
+id: R18-pro-matching-sublinear-reduction
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to prove an unconditional sublinear upper bound on L(n), or reduce
+  it to a minimal certificate condition that Shortener must satisfy.
+predecessors: []
+prompt: erdos-872/prompts/round18-matching-T2-upper-bound.md
+action:
+  kind: standalone
+claim: >
+  No unconditional sublinear bound established; best unconditional remains
+  L(n) <= 0.18969n + o(n). Certificate Reduction Lemma established: for any
+  certificate C_n, after C_n is exhausted the residual R(A_0) bounds
+  remaining moves. Sublinear holds iff |C_n| + max_{A in reach} |R(A)| = o(n).
+---
+
 # Round 18 Pro #2 — matching sublinear not proved; certificate reduction lemma established
 
 I worked this through under your no-search constraint. I do **not** have a rigorous unconditional sublinear upper bound to report. The tightest unconditional upper bound I can honestly stand behind from the material supplied remains the existing linear one, (L(n)\le 0.18969,n+o(n)). I can, however, give a clean reduction that isolates exactly what a sublinear proof would need, and I can rule out several tempting “almost proofs” that would otherwise look convincing.

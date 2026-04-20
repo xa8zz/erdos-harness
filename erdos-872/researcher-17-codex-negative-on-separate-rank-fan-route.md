@@ -1,3 +1,21 @@
+---
+id: R17-codex-separate-rank-fan-negative
+type: research
+date: 2026-04-19
+intent: >
+  Determine whether the separate-rank fan architecture can prove L(n) = Theta(n)
+  via rank-h contributions summing to n.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  The separate-rank fan route to linearity fails: rank-h contribution is
+  ~(n/log n)(H^h/h!) * 2^{-2(2^h - 1)}, which is doubly-exponentially
+  small in h. Total sum over all ranks is O(n/log n), sublinear. The
+  two-phase divisor-shadow implementation cannot prove L(n) = Theta(n)
+  via fixed-rank fans.
+---
+
 # Round 17 Codex — definitive negative result on the separate-rank fan route to linearity
 
 ## Statement

@@ -1,3 +1,27 @@
+---
+id: R18-pro-multi-rank-coupling-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Determine whether multi-rank coupling (shielding lower-rank divisors via
+  a single Prolonger move) can improve the linear lower bound.
+predecessors: []
+prompt: erdos-872/prompts/round16-multi-rank-shielding-attack.md
+action:
+  kind: standalone
+claim: >
+  Multi-rank coupling shielding is refuted: lateral upper-half shields are
+  b-local and dimension-rigid. For fixed large prime b, upper-half targets
+  in the same b-fiber form an inclusion-antichain of cores (Sperner family),
+  blocking nested rank coupling. No-go: same-b upper-half elements cannot
+  shield each other across ranks.
+failure_mechanism: >
+  For x = A_S * b in (n/2, n], the core A_S uniquely determines the rank.
+  Two elements x1 = A1*b and x2 = A2*b with A1 | A2 have x1 | x2, making
+  them comparable — not both antichain members. So distinct ranks within a
+  b-fiber cannot coexist in the antichain, killing the coupling idea.
+---
+
 # Round 18 Pro — multi-rank coupling REFUTED (no-go theorem: same-b cores form Sperner family)
 
 The rank-coupled shielding theorem, in the natural form suggested in the prompt, is **false**. The obstruction is not a subtle potential-function issue; it is an upper-half arithmetic obstruction:
