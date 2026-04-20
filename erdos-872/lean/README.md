@@ -35,8 +35,15 @@ Remaining for full T2 Lean: activation-stage wrapper (feeds the actual played se
 - `FlatMass.lean`: bottom/gap flat-mass identities and inequalities (Step 5).
 - `Inversion.lean`: cutoff inversion core behind `q_j <= b_j` (Step 4).
 - `PrimeBounds.lean`: top-tail `pi(x)/x << 1/log x` via `Chebyshev.eventually_primeCounting_le`.
+- `Target.lean` (**zero-sorry endgame theorem, landed 2026-04-20**): packages the reduction
+  `eventually_strict_lt_point19_of_summary_bounds` and the stronger
+  `eventually_strict_lt_point19_of_componentwise_close`. The latter says that if the first four
+  Round 15 moment terms `T_r^{(p)}(n)` are componentwise within `10^-5` of the certified limits
+  `J_1..J_4`, then `L(n) < 0.19 n` eventually. This is the Lean-banked reduction from
+  moment-convergence hypotheses to the headline `L(n) < 0.19 n` conclusion. What remains unproved
+  in Lean is the moment-convergence itself — see the analytic open gap below.
 
-The pinned Mathlib snapshot does not include a full drop-in PNT theorem `pi(x) ~ x / log x`, so the top-tail estimate uses Chebyshev's upper bound. The weak-convergence / factorial-moment layer of the R57 proof is **not** yet Lean-banked.
+The pinned Mathlib snapshot does not include a full drop-in PNT theorem `pi(x) ~ x / log x`, so the top-tail estimate uses Chebyshev's upper bound. The weak-convergence / factorial-moment layer of the R57 proof is **not** yet Lean-banked; the remaining analytic open gap is the moment transfer supplying the componentwise-close hypotheses of `eventually_strict_lt_point19_of_componentwise_close`.
 
 ## Strategy-dependence legend (from the R54 audit)
 
