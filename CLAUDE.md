@@ -895,6 +895,24 @@ When a researcher returns an argument that's wrong overall but contains a *novel
 
 This works because (a) models often fix gaps when they're named precisely and (b) a concession with a specific failure mechanism is itself a valuable Ruled Out entry for the canonical prompt.
 
+### Strategy-assumption audit — when the chain exhausts, check strategy dependence
+
+A long-running upper-bound proof program typically fixes a specific adversary strategy (e.g., $\sigma^\star$ = max-unresolved-harmonic-degree in Erdős 872) and proves everything relative to that strategy. If 10+ rounds of theorem-refutation cycles fail to close the bound, before concluding the paradigm is exhausted, **audit whether the chosen strategy is actually optimal.**
+
+In Erdős 872, this check was skipped for ~40 rounds. A fresh dispatch proved $\sigma^\star$ is suboptimal (Prolonger reaches a target state at $o(r_1)$ cost against $\sigma^\star$). Retroactively, a large fraction of the refutations depended on *$\sigma^\star$-reachable states* — the refutations may not apply under a different, non-$\sigma^\star$ Shortener. Some prior positive results (R35-type state inequalities, spectral separator theorems) can potentially be re-activated with a different strategy.
+
+**The audit prompt pattern:** give a researcher the complete inventory of prior rigorous theorems and refutations and ask them to partition into:
+
+- **Strategy-independent:** result holds for any adversary strategy.
+- **Strategy-dependent:** proof uses specific properties of the assumed strategy.
+- **Strategy-specific refutations:** construction reaches a state only reachable against the assumed strategy.
+
+Then ask: given the assumed strategy is known suboptimal, can a different concretely-specified strategy $\tau$ + the strategy-independent results close the bound? Or does every legal strategy share the same vulnerability (→ minimax barrier theorem → conjecture refuted)?
+
+**Red flag in past dispatches:** reliance on "$\sigma^\star$ is natural" without ever arguing it is *optimal* for the minimax. For any multi-round upper-bound program, include a dispatch explicitly asking whether the fixed adversary strategy is suboptimal *before* committing many rounds to it. The cost of this check is one round; the savings if the strategy is wrong is potentially all prior refutation work being retroactively re-classified as strategy-specific and therefore not universally terminal.
+
+**Cross-reference to "Closure-claim via optimal-adversary hand-wave" attractor:** agents will sometimes claim "my construction works against optimal Shortener/Prolonger" by hand-waving the cardinality or adaptation argument ("agent can observe and adjust"). This is the minimax-quantifier-gap attractor: $\exists \pi\ \mathrm{Outcome}(\pi, \sigma^\star) \text{ succeeds}$ does not imply $\exists \pi\ \forall \tau\ \mathrm{Outcome}(\pi, \tau) \text{ succeeds}$. Flag any claimed closure that asserts the latter via the former.
+
 ### Within-family attractor states
 
 When the same model family (e.g., two separate DeepThink instances) independently produces similar flawed arguments (e.g., both gravitate toward the "Universal Sub-Divisor Cover" sweep strategy, or both claim $\Theta(n)$ via different-but-structurally-similar Maker-Breaker reasoning), this is lower signal than cross-family convergence but higher signal than a single response. Interpretation:
