@@ -1,3 +1,23 @@
+---
+id: R11-deepthink-response
+type: research
+date: 2026-04-18
+intent: >
+  Attempt to prove L(n) = O(n log log n / log n) via the Omega-grading
+  two-layer architecture (softened semiprime exposure + online Omega=2 cover).
+predecessors: [R10-omega-strategy]
+prompt: erdos-872/prompts/researcher-11-omega-strategy-prove.md
+action:
+  kind: extends
+  target: R10-omega-strategy
+claim: >
+  L(n) = Theta(n log log n / log n). Layer 1 unconditional (Xi(B) automatic).
+  Layer 2 asserted via pigeonhole — incorrect per R11-pro counterexample.
+  Cover-shattering lower bound: Prolonger forces Omega(n log log n / log n)
+  moves by shattering prime covers q via the p_1*q isolation trick.
+siblings: [R11-pro-response]
+---
+
 # Researcher output — Gemini DeepThink on the $\Omega$-grading proof architecture
 
 **Source:** Gemini DeepThink (Pro-tier, fresh thread, `prompts/researcher-11-omega-strategy-prove.md`).

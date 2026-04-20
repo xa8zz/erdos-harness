@@ -1,3 +1,27 @@
+---
+id: R12-verify-deepthink-C
+type: verification
+date: 2026-04-18
+intent: >
+  Third independent line-by-line audit of DeepThink's cross-block semiprime
+  batch from R12, focusing on the game-theoretic and arithmetic failures.
+predecessors: [R12-deepthink-response]
+action:
+  kind: refutes
+  target: R12-deepthink-response
+claim: >
+  DeepThink's proof is fatally broken: (1) assumes Prolonger is committed to
+  block-product strategy but Prolonger can adapt; (2) turn-economy argument
+  is arithmetically false; (3) cross-block semiprimes are not universally legal.
+  Strategy vs game conflation is the core failure.
+failure_mechanism: >
+  Proof only demonstrates a countermeasure against one specific Prolonger
+  strategy (block-product), not a universal bound. Prolonger can abandon
+  block-products if Shortener plays cross-block semiprimes, collapsing the
+  entire "bypass" argument.
+siblings: [R12-verify-deepthink-A, R12-verify-deepthink-B]
+---
+
 # Round 12 audit — on-deepthink-C (line-by-line, 5 pressure points)
 
 **Source:** informal audit via user's tabs. Extracted from user's manual paste.

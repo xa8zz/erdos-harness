@@ -1,3 +1,22 @@
+---
+id: R12-followup-online-patch-needed
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of Theorem 5 focusing on the offline-vs-online gap:
+  Shortener knowing the carrier family B in advance vs. the actual alternating game.
+predecessors: [R12-followup-pro-resolution-disjoint-carriers]
+action:
+  kind: confirms
+  target: R12-followup-pro-resolution-disjoint-carriers
+claim: >
+  Local combinatorial core of Theorem 5 is mostly right. Hidden issue:
+  proof is written offline (Shortener knows B in advance), not as an
+  online alternating-game strategy. Patch is plausible for the disjoint-support
+  class but is not written.
+siblings: [R12-followup-essentially-sound, R12-followup-overlap-fatal]
+---
+
 # Audit of Theorem 5 — online-patch-needed
 
 **Source:** informal audit via user's tabs. Extracted verbatim from session transcript.

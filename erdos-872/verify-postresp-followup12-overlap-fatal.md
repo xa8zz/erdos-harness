@@ -1,3 +1,23 @@
+---
+id: R12-followup-overlap-fatal
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of Theorem 5 focusing specifically on whether the
+  overlapping-carriers counterexample ({30, 42, 70} leaving 105) is patchable.
+predecessors: [R12-followup-pro-resolution-disjoint-carriers]
+action:
+  kind: confirms
+  target: R12-followup-pro-resolution-disjoint-carriers
+claim: >
+  Theorem 5 is logically sound for its stated disjoint-carrier class.
+  Disjointness assumption is not a minor simplification — it is the only thing
+  keeping the Shortener strategy alive. Overlapping carriers allow Prolonger to
+  veto all semiprimes via omitted-vertex shadowing; Shortener forced into
+  Omega>=3 moves. Gap is genuine and not closable via "slightly stronger strategy."
+siblings: [R12-followup-essentially-sound, R12-followup-online-patch-needed]
+---
+
 # Audit of Theorem 5 — overlap-fatal
 
 **Source:** informal audit via user's tabs. Extracted verbatim from session transcript.

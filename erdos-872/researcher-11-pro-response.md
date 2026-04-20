@@ -1,3 +1,28 @@
+---
+id: R11-pro-response
+type: refutation
+date: 2026-04-18
+intent: >
+  Attempt to prove L(n) = O(n log log n / log n) via Omega-grading, or
+  refute the layer-2 online Omega=2 cover lemma if it is false.
+predecessors: [R10-omega-strategy]
+prompt: erdos-872/prompts/researcher-11-omega-strategy-prove.md
+action:
+  kind: refutes
+  target: R10-omega-strategy
+claim: >
+  Layer 2 (online Omega=2 cover lemma) is FALSE. Counterexample pool
+  R_y = {pqr in U : log n < p <= q <= n^{1/3}, r prime} has size
+  ~n(log log n)^2/log n but every Omega=2 divisor has d > (log n)^2,
+  capping score at n/(log n)^2, far below the required n(log log n)^2/(log n)^2.
+failure_mechanism: >
+  R_y elements are (log n)-rough so Omega=2 divisors have both factors > log n,
+  giving d > (log n)^2. Max multiples of d in U is n/d < n/(log n)^2, but
+  the lemma requires score c*|R_y|/log n ~ n(log log n)^2/(log n)^2.
+  The ratio is (log log n)^2 — lemma false by this factor.
+siblings: [R11-deepthink-response]
+---
+
 # Researcher output — GPT Pro on the $\Omega$-grading proof architecture
 
 **Source:** ChatGPT Pro (fresh thread, `prompts/researcher-11-omega-strategy-prove.md`).

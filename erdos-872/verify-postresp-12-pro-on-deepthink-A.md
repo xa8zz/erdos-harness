@@ -1,3 +1,25 @@
+---
+id: R12-verify-deepthink-A
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of DeepThink's cross-block semiprime batch from R12.
+predecessors: [R12-deepthink-response]
+action:
+  kind: refutes
+  target: R12-deepthink-response
+claim: >
+  DeepThink's cross-block batch proof is not sound; core game-theoretic
+  flaw: assumes Prolonger committed to block-product strategy.
+  Cross-block semiprimes do not universally kill the board against an
+  adaptive Prolonger.
+failure_mechanism: >
+  Prolonger can abandon block-products and play single small primes,
+  collapsing the "cross-block" concept entirely. Strategy vs. game
+  conflation — proof only works against one specific Prolonger strategy.
+siblings: [R12-verify-deepthink-B, R12-verify-deepthink-C]
+---
+
 # Round 12 audit — pro-on-deepthink-A
 
 **User-assigned auditor label:** Deepthink:

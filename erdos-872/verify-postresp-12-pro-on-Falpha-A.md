@@ -1,3 +1,22 @@
+---
+id: R12-verify-Falpha-A
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of Pro's F_alpha framework from R12, with independent
+  Python verification of the 85063 count.
+predecessors: [R12-pro-response]
+action:
+  kind: confirms
+  target: R12-pro-response
+claim: >
+  F_alpha is a valid antichain (verified). Static bound correct. Numerical
+  correction: post-install admissible count is 83933, not 85063 — Pro
+  conflates "structurally eligible" with "post-install admissible."
+  Q_alpha-batchable-by-primes caveat needs explicit statement.
+siblings: [R12-verify-Falpha-B, R12-verify-Falpha-friendly]
+---
+
 # Round 12 audit — pro-on-Falpha-A
 
 **User-assigned auditor label:** Pro:

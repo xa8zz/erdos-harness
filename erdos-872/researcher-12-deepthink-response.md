@@ -1,3 +1,24 @@
+---
+id: R12-deepthink-response
+type: research
+date: 2026-04-18
+intent: >
+  Attempt to prove L(n) = Theta(n/log n) via a cross-block semiprime
+  Maker-Breaker batch strategy for Shortener.
+predecessors: [R11-deepthink-response, R11-pro-response]
+prompt: erdos-872/prompts/canonical-prompt.md
+action:
+  kind: standalone
+claim: >
+  L(n) = Theta(n/log n) via Shortener's cross-block semiprime batch:
+  all large primes > n^{1/6} plus all cross-block semiprimes s=p_a*p_b
+  with p_a in S_a, p_b in S_b (a != b). Claim: these are legal against
+  Prolonger's block-product strategy and collapse the board to O(n/log n).
+  Note: antichain violation found in batch (11 and 77 both included at n=10^6);
+  proof broken.
+siblings: [R12-pro-response, R12-claude-response]
+---
+
 # Round 12 — DeepThink response (cross-block semiprime Maker-Breaker batch)
 
 **Source:** Gemini DeepThink, fresh thread, `prompts/canonical-prompt.md`. Extracted verbatim from session transcript. (Note: DeepThink finished last — unusual, since it normally runs shortest; this one took longer than Pro.)

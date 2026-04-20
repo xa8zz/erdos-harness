@@ -1,3 +1,23 @@
+---
+id: R12-pro-response
+type: research
+date: 2026-04-18
+intent: >
+  Synthesize the state after R11 and identify the clean structural reduction
+  that isolates the remaining gap for the sublinear conjecture.
+predecessors: [R11-pro-response, R11-deepthink-response]
+prompt: erdos-872/prompts/researcher-12-synthesis-open.md
+action:
+  kind: standalone
+claim: >
+  F_alpha = {p <= y} union {d <= n/2 : Omega(d)=2, P^-(d) > y} is an antichain
+  for y = n^alpha (1/3 < alpha < 1/2). Every d in {2,...,n/2} has a multiple in
+  F_alpha's shadow. The key missing lemma is "small-prime resolution above n^{1/3}":
+  Shortener can resolve all primes <= y in o(n) moves if composites have disjoint
+  supports (Theorem 5); overlapping carriers are the remaining open case.
+siblings: [R12-deepthink-response, R12-claude-response]
+---
+
 # Round 12 — GPT Pro response (F_alpha + omitted-vertex shadowing)
 
 **Source:** GPT Pro, fresh thread, `prompts/researcher-12-synthesis-open.md`. Extracted verbatim from session transcript.

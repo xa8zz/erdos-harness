@@ -1,3 +1,23 @@
+---
+id: R12-claude-response
+type: research
+date: 2026-04-18
+intent: >
+  Independent assessment of whether L(n) = Theta(n/log n) or Theta(n log log n / log n),
+  with numerical verification of small-n minimax and trajectory analysis.
+predecessors: [R11-pro-response, R11-deepthink-response]
+prompt: erdos-872/prompts/researcher-12-synthesis-open.md
+action:
+  kind: standalone
+claim: >
+  Reasoned case for L(n) = Theta(n/log n): L log n / n bounded in [1.15, 1.50]
+  across 6 decades with slow decline, ruling out the Theta(n log log n / log n)
+  candidate (which would require L log n / n ~ c log log n, growing). Three
+  independent Shortener heuristics converge to the same ratio. Not a proof;
+  suggests amortized two-phase Shortener as next target.
+siblings: [R12-pro-response, R12-deepthink-response]
+---
+
 # Round 12 — Claude response (two-phase Shortener conjecture)
 
 **Source:** Claude, fresh thread, `prompts/researcher-12-synthesis-open.md`. Extracted verbatim from session transcript.

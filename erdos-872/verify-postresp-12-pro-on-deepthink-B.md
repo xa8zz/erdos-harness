@@ -1,3 +1,26 @@
+---
+id: R12-verify-deepthink-B
+type: verification
+date: 2026-04-18
+intent: >
+  Second adversarial audit of DeepThink's cross-block semiprime batch from R12,
+  with identification of a concrete antichain violation.
+predecessors: [R12-deepthink-response]
+action:
+  kind: refutes
+  target: R12-deepthink-response
+claim: >
+  DeepThink's proposed batch has an antichain violation: 11 and 77 = 7*11 are
+  both included in the batch at n=10^6, but 11 | 77. Batch is not a valid
+  antichain. Proof immediately broken.
+failure_mechanism: >
+  A prime p <= y and a semiprime s = p*q (p in S_a, q prime > p from a different
+  block) are not "cross-block" if p is itself a block's representative prime;
+  when p in S_a, p*q has p as its smaller factor, making p | p*q — violating
+  antichain. Found concretely: 11 and 77 both appear at n=10^6.
+siblings: [R12-verify-deepthink-A, R12-verify-deepthink-C]
+---
+
 # Round 12 audit — pro-on-deepthink-B
 
 **User-assigned auditor label:** Oh no...

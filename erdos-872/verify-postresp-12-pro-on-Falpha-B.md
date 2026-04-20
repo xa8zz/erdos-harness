@@ -1,3 +1,20 @@
+---
+id: R12-verify-Falpha-B
+type: verification
+date: 2026-04-18
+intent: >
+  Second adversarial audit of Pro's F_alpha framework from R12, independently
+  confirming the 83933 numerical correction.
+predecessors: [R12-pro-response]
+action:
+  kind: confirms
+  target: R12-pro-response
+claim: >
+  Independently confirms 85063 -> 83933 correction and the Q_alpha-batchable-by-primes
+  caveat. Static F_alpha bound correct. Framework sound with these corrections.
+siblings: [R12-verify-Falpha-A, R12-verify-Falpha-friendly]
+---
+
 # Round 12 audit — pro-on-Falpha-B
 
 **User-assigned auditor label:** Here is the adversarial audit.

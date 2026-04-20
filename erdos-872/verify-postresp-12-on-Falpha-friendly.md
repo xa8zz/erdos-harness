@@ -1,3 +1,21 @@
+---
+id: R12-verify-Falpha-friendly
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of Pro's F_alpha framework from R12, focusing on the
+  85063 count and the omitted-vertex shadowing mechanism.
+predecessors: [R12-pro-response]
+action:
+  kind: confirms
+  target: R12-pro-response
+claim: >
+  Validation-biased audit: endorses 85063 count and omitted-vertex shadowing
+  as the unifier. Numerically incorrect — conflates "structurally eligible"
+  with "post-install admissible." Correct count is 83933.
+siblings: [R12-verify-Falpha-A, R12-verify-Falpha-B]
+---
+
 # Round 12 audit — on-Falpha-friendly (validation-biased, claims 85063 is correct)
 
 **Source:** informal audit via user's tabs.

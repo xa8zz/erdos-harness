@@ -1,3 +1,20 @@
+---
+id: R11-verify-claude
+type: verification
+date: 2026-04-18
+intent: >
+  Claude tab adversarial audit of the R11 Pro and DeepThink responses.
+predecessors: [R11-pro-response, R11-deepthink-response]
+action:
+  kind: confirms
+  target: R11-pro-response
+claim: >
+  Pro's Layer 2 refutation is correct; DeepThink's cover-shattering Part 3
+  has a salvageable local mechanism but no rigorous global theorem.
+  Pro's multiscale replacement is a plausible direction, not yet a proof.
+siblings: [R11-verify-claude-thinking, R11-verify-deepthink, R11-verify-gpt-thinking, R11-verify-pro-audit]
+---
+
 # Audit #3 on Round 11 responses — Claude (tab)
 
 **Source:** informal audit via user's tabs. Extracted verbatim from session transcript `916f6f0c-...jsonl` line 442.

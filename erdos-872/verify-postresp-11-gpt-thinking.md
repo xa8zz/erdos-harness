@@ -1,3 +1,22 @@
+---
+id: R11-verify-gpt-thinking
+type: verification
+date: 2026-04-18
+intent: >
+  GPT-thinking adversarial audit of R11 Pro and DeepThink responses.
+predecessors: [R11-pro-response, R11-deepthink-response]
+action:
+  kind: confirms
+  target: R11-pro-response
+claim: >
+  Pro's counterexample to Layer 2 is structurally flawless (arithmetic
+  verified numerically). DeepThink's cover-shattering endgame has timing flaw
+  but is repairable — gives solid dynamical lower bound. Pro's multiscale
+  batch-cover replacement has obstruction (adversarial AoE blocking) but is
+  theoretically viable. Conjecture L ~ n log log n / log n is "highly defensible."
+siblings: [R11-verify-claude, R11-verify-claude-thinking, R11-verify-deepthink, R11-verify-pro-audit]
+---
+
 # Audit #2 on Round 11 responses — GPT-thinking (tab)
 
 **Source:** informal audit via user's tabs. Extracted verbatim from session transcript `916f6f0c-...jsonl` line 442.

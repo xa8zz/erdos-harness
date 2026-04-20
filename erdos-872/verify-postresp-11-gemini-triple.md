@@ -1,3 +1,21 @@
+---
+id: R11-verify-gemini-triple
+type: verification
+date: 2026-04-17
+intent: >
+  Three independent Gemini 3.1 Pro instances on the R11 prompt, testing
+  whether same-family convergence would emerge for the Omega-grading architecture.
+predecessors: [R10-omega-strategy]
+action:
+  kind: confirms
+  target: R10-omega-strategy
+claim: >
+  All three Gemini instances converge on L(n) = O(n log log n / log n) conjecturally.
+  Not independent cross-validation — same model family sharing potential blind spots.
+  Layer 1 (Xi(B) automatic) is convergent and verified. Layer 2 asserted without
+  proof by all three (later refuted by Pro in R11).
+---
+
 # Audit — Gemini 3.1 Pro triple-convergence on $\Omega$-grading architecture
 
 **Source:** Three independent Gemini 3.1 Pro instances, dispatched via user's browser tabs with essentially the same prompt (the Round 11 researcher prompt `prompts/researcher-11-omega-strategy-prove.md`).

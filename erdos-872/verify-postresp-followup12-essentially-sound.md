@@ -1,3 +1,22 @@
+---
+id: R12-followup-essentially-sound
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of Theorem 5 (disjoint-carrier Shortener resolution)
+  from followup-12-pro-closeout-response, checking legality and counting.
+predecessors: [R12-followup-pro-resolution-disjoint-carriers]
+action:
+  kind: confirms
+  target: R12-followup-pro-resolution-disjoint-carriers
+claim: >
+  Theorem 5 is essentially correct as a rigorous result for its stated class.
+  No fatal error in legality, resolution, or counting. Two caveats: overlapping
+  carriers are a genuine obstruction (not patchable via "slightly stronger strategy"),
+  and the online patch is needed for the actual alternating game.
+siblings: [R12-followup-online-patch-needed, R12-followup-overlap-fatal]
+---
+
 # Audit of Theorem 5 — essentially-sound
 
 **Source:** informal audit via user's tabs. Extracted verbatim from session transcript.
