@@ -193,11 +193,53 @@ def collect_rounds(root: Path) -> list[dict]:
     rounds = []
     for path in sorted(root.rglob("*.md")):
         fm = extract_frontmatter(path)
-        if not fm or "id" not in fm:
+        if not fm:
+            continue
+        if "id" not in fm:
+            print(f"WARN: {path} has front-matter but no `id` field; skipping", file=sys.stderr)
             continue
         fm["_path"] = path
         rounds.append(fm)
     return rounds
+
+
+def validate_rounds(rounds: list[dict]) -> int:
+    """Emit warnings for missing required fields + conditional requirements.
+    Rendering continues regardless; returns warning count for the caller.
+    """
+    by_id = {r["id"]: r for r in rounds if "id" in r}
+    warnings = 0
+    required = ["type", "date", "intent", "claim"]
+    for r in rounds:
+        rid = r.get("id", "?")
+        for field in required:
+            if not r.get(field):
+                print(f"WARN: [{rid}] missing required field: {field}", file=sys.stderr)
+                warnings += 1
+        if "predecessors" not in r:
+            print(f"WARN: [{rid}] missing `predecessors` (use [] if standalone)", file=sys.stderr)
+            warnings += 1
+        action = r.get("action")
+        if not isinstance(action, dict):
+            print(f"WARN: [{rid}] missing or malformed `action` block", file=sys.stderr)
+            warnings += 1
+            continue
+        akind = action.get("kind")
+        if not akind:
+            print(f"WARN: [{rid}] action.kind missing", file=sys.stderr)
+            warnings += 1
+        elif akind in ("refutes", "supersedes"):
+            if not action.get("target"):
+                print(f"WARN: [{rid}] action.kind={akind} requires action.target", file=sys.stderr)
+                warnings += 1
+            if not r.get("failure_mechanism"):
+                print(f"WARN: [{rid}] action.kind={akind} requires failure_mechanism", file=sys.stderr)
+                warnings += 1
+        elif akind in ("extends", "confirms"):
+            if not action.get("target"):
+                print(f"WARN: [{rid}] action.kind={akind} requires action.target", file=sys.stderr)
+                warnings += 1
+    return warnings
 
 
 def derive_status(rounds: list[dict]) -> dict[str, list[dict]]:
@@ -421,6 +463,10 @@ def main() -> int:
 
     rounds = collect_rounds(root)
     print(f"[scan] {len(rounds)} round docs with front-matter", file=sys.stderr)
+
+    warnings = validate_rounds(rounds)
+    if warnings:
+        print(f"[validate] {warnings} warning(s) — rendering continues", file=sys.stderr)
 
     overrides = derive_status(rounds)
     buckets = bucket(rounds, overrides)
