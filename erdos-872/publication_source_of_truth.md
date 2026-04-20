@@ -83,6 +83,74 @@ Canonical references for any paper from this repo:
 
 A "Prior work" section is currently not yet drafted into any paper-facing note in this repo. Adding it is a gating item before any public release.
 
+## 0E. Publication triage — what needs what
+
+The paper has a lot of results. Not all need the same level of verification. This section triages by **criticality to the paper's headline narrative**, and prescribes **Lean-versus-prose** treatment for each tier.
+
+### Tier 1 — paper-critical (headline or infrastructure; error here invalidates the paper)
+
+| Claim | Statement | Criticality | Verification | Notes |
+|---|---|---|---|---|
+| **0.19n upper bound (R57)** | `L(n) <= (W_4/2 + o(1)) n` with `W_4/2 ~ 0.18971` | Headline. If wrong, main contribution collapses. | **Heavy prose audit (Gemini + GPT-thinking). Lean is overkill for this analytic proof; months of work for marginal reviewer gain.** | Canonical source: `researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md`. Dependency: Round 14 factorial-moment comparison theorem — verify it's rigorous somewhere in the `13/36` Aristotle artifact or add a short stand-alone proof. |
+| **Shield Reduction Theorem** | `|A| >= |U| - beta(P)` for terminal antichain `A`, `P subseteq U` | Infrastructure. Used in both upper and lower bound reductions. | **Lean-verified, 0 sorries** (`aristotle/shield_reduction_out/RequestProject/ShieldReduction.lean`) | ✓ Done. |
+| **T1 / Theorem A** | `L(n) >= (1/8 - o(1)) n log log n / log n`; `beta(P) >= ((1/2) log(1/alpha) + o(1)) n` for `|P| <= n^alpha` | Infrastructure + lower-bound side. | **Lean-verified modulo classical-NT imports**: 6 sorries in `ShieldMainTheorem.lean`, 0 in Defs/BasicLemmas/Main. Sorries are PNT-adjacent Mathlib gaps per prior audits. | Acceptable for paper as "Lean-verified modulo PNT-adjacent Mathlib-gap sorries, enumerated in Appendix." One Codex sprint could close them if tractable; do not block paper on this. |
+
+### Tier 2 — paper-important (anchors one section; error loses that section but paper survives)
+
+| Claim | Statement | Verification | Notes |
+|---|---|---|---|
+| **13/36 upper bound** | `L(n) <= (13/36 + o(1)) n ~ 0.361 n` | **Lean-verified, 0 sorries** (`aristotle/shortener_13_36_v2_out/`) | ✓ Done. Second-best headline if 0.19n audit fails. |
+| **5/16 upper bound** | `L(n) <= (5/16 + o(1)) n = 0.3125 n` via longer prime prefix + sharper Bonferroni | **Lean-verified modulo Chebyshev imports**: 5 sorries in `aristotle/shortener_5_16_out/Shortener516/Theorems.lean`; 15 theorems fully proved (algebraic optimization, compression injection, Bonferroni sieve, game-value induction, `\varepsilon`-limit assembly) per repo history. Sorries are Chebyshev-$\vartheta(x)$-adjacent. | **Elegant intermediate result.** Tight limit of the odd-prime-prefix Shortener family per block-product counter. Good candidate for a short standalone section in the paper — cleaner proof architecture than either 13/36 or 0.19n. Codex can close the 5 sorries in one dispatch (substitute `D = {3, 5}` as the `13/36` proof did). |
+| **5/24 exact cover** | `tau(n) = 5n/24 + O(1)` with explicit cover `H_n` + packing `P_n` | **Lean-verified, 0 sorries** (`aristotle/tau_5_24_out/`) for structural identities; cardinality `|H_n| = |P_n| = 5n/24 + O(1)` is a trivial floor-sum not itself machine-checked. | ✓ Structural content verified; cardinality count is elementary. |
+| **T2 lower bound** | `L(n) >= c_delta n (log log n)^2 / log n` for `delta < 1/4` | **Rigorous prose; finite cores Lean'd in `aristotle/t2_finite_core/`** (Codex in progress). Activation-stage wrapper remaining for full Lean. | Paper can cite as "rigorous prose + partial Lean; activation-stage wrapper to appear separately." |
+| **R52 transversal-integrality / Sherali-Adams barrier** | Integrality gap `>= Omega(N/log N)`; SA level `r <= l/2` barrier | **Prose + exhaustive sandbox** (93,671 SA constraints checked via exact rational arithmetic). | No Lean needed for paper. Pro audit-confirmed and sharpened. |
+| **R53 q-shadow / covering dichotomy** | Spectral/comparability dichotomy with central-scale constants `delta_q = (e + o(1)) h^{-2}` | **Prose + exhaustive sandbox** (12.5M union-bound cases, spectral params match to `10^-16`). | No Lean needed. Pro audit-confirmed and sharpened. |
+| **R56 finite odd-carrier / separator-only barrier** | No separator-only closure proves `o(n)` upper bound; explicit Prolonger counter-construction. | **Prose + N=3 cross-family convergence** (two Pros + one Codex independently named the class and proved the barrier). | No Lean needed. Strongest cross-family agreement signal in the program. |
+| **Theorem 5 / Theorem 6 (restricted classes)** | `O(n/log n)` against disjoint small-prime carriers and rank-<=3 squarefree carriers | **Prose** (notes in `phase4/theorem5_disjoint_carriers_note.md`, `phase4/theorem6_rank3_squarefree_note.md`). | No Lean needed for paper. |
+| **F_alpha framework (R12)** | `beta(P_alpha) <= (1 - gamma_alpha) n + o(n)` via omitted-vertex shadowing | **Prose** (Round 12 in `current_state.md`). | Supporting. No Lean needed. |
+| **85/1008 ratio-independent sieve** | Density `85/1008 ~ 0.0843` sieve construction underlying Round 15 piecewise-density | **Prose + sandbox numerics.** | Supporting. Cite in Round 15 section. |
+
+### Tier 3 — taxonomy / supporting (error loses a subsection bullet; paper survives trivially)
+
+All items here are **prose-only with sandbox verification where applicable**. No Lean required. Listed for completeness; see Section 3 (structural negatives) and Section 4 (computational evidence) for full entries.
+
+- Universal block-product carrier-mass counter.
+- Separate-rank fan no-go theorems (single-rank ceiling, multi-rank coupling, Sperner/LCM obstruction).
+- Residual-width lemma refutation.
+- Ford-route correction.
+- Band-local closure explosion theorem.
+- Directed rank-3 cleanup bound.
+- Dyadic-fiber positive-density collapse.
+- R44 residual-floor diagnosis + local-star obstruction.
+- R46 conditional smallest-legal-prime lemma + ST-capture refutation.
+- R54 strategy-dependence classification (a meta-theorem; subsection of a "Proof-Class Taxonomy" in the paper).
+- Sparse-subset realization.
+- Phase 0/1/2/3/4 empirical results.
+
+### What this triage implies for the Lean sprint
+
+**Goal:** get Tier 1 rigorously verified to reviewer-acceptable level; tier 2 with Lean where already present; tier 3 prose only.
+
+**Concrete short-term tasks** (roughly in order of ROI):
+
+1. **Audit R57 (0.19n) proof** informally via Gemini + GPT-thinking. 1 hour each. Highest-risk claim; catch any logic bugs before submission.
+2. **Verify Round 14 factorial-moment comparison theorem** is rigorous. Locate it in existing `13/36` or `5/16` infrastructure; if missing, close the gap with a short stand-alone proof.
+3. **Close 6 sorries in `ShieldMainTheorem.lean`** (Theorem A) — likely Mathlib-gap imports. One Codex dispatch. Abandon if they require new math; cite as "PNT-adjacent Mathlib gaps."
+4. **Close 5 sorries in `shortener_5_16_out/Theorems.lean`** — likely Chebyshev-adjacent. One Codex dispatch with `D = {3, 5}` substitution as in the `13/36` proof. Abandon if hard.
+5. **T2 activation-stage wrapper Lean** — Codex is actively on this. No additional action needed until their current work lands.
+6. **Everything else: prose only.** R52, R53, R56, Theorems 5/6, F_alpha, structural negatives, taxonomy — all prose with sandbox checks where applicable.
+
+**What NOT to do:**
+- Attempt full Lean verification of the R57 (0.19n) analytic proof. Months of work for marginal reviewer gain. Trust informal audit + Round 14 comparison theorem verification.
+- Attempt Lean of R52 / R53 / R56 barriers. Sandbox-verified and Pro-audit-confirmed is paper-grade for combinatorics venues.
+- Attempt Lean of Theorems 5, 6, or any tier-3 structural negative.
+
+**Paper's formal-verification language** (draft):
+
+> Shield Reduction (Theorem 1.1) and the `5n/24 + O(1)` cover theorem (Theorem 2.3) are formally verified in Lean 4 via Aristotle with no remaining sorries. The `13/36` upper bound (Theorem 3.1) is formally verified with no remaining sorries. Theorem A (`n^{1/e}` shield barrier, Theorem 2.5) and the `5/16` upper bound (Theorem 3.2) have Lean artifacts with classical-number-theory sorries (PNT- and Chebyshev-`vartheta`-adjacent, enumerated in Appendix A); these are Mathlib-dependency gaps rather than logical holes. T2 has a Lean-verified finite core with the activation-stage wrapper pending. The remaining results — the improved `0.18971...n` upper bound (Theorem 4.1), the proof-class barriers (Section 5), and the restricted-class results (Section 6) — are proved rigorously in prose with multi-verifier audit and sandbox computation where applicable.
+
+That framing is honest, gives the right reviewer signal, and does not block on new Lean work.
+
 ## 1. Highest-priority publishable results
 
 These are the strongest things in the repo to foreground in a paper or serious writeup.
@@ -480,12 +548,13 @@ That is the cleanest way to turn R52-R56 into a coherent obstruction / proof-cla
 
 Two additional artifacts are genuinely publishable independent of the main math paper, and should be planned alongside it rather than as afterthoughts:
 
-### 7A.1 Formalization artifact (ITP / CPP / CAV target)
+### 7A.1 Formalization artifact (optional; ITP / CPP / CAV target)
 
-- **Content.** The Lean / Aristotle artifacts for Shield Reduction, Theorem A core, the `5/24` cover theorem, `13/36` upper bound, T1, and the T2 finite core (graph game + hypergraph game + embedding core + family comparison layer). Plus whatever of `5/16` lands cleanly.
-- **Why it's a standalone contribution.** Formally verified structural results on a named Erdős problem are rare and, as far as I can tell, this would be the first such artifact for Erdős 872. For a formal-verification venue (ITP, CPP, CAV), the artifact itself — not just the theorems it proves — is the contribution.
-- **Relation to the math paper.** Cross-reference; the math paper cites the Lean artifact as "formally verified," and the formalization paper cites the math paper for context and the unformalized conditional results.
-- **Status.** Artifacts exist in `aristotle/*_out/` and `aristotle/t2_finite_core/`. Need a short companion writeup describing the formalization architecture (what's Lean-native vs Mathlib-dependent, where the gaps are, reproducibility).
+- **Content.** The Lean / Aristotle artifacts for Shield Reduction (0 sorries), the `5/24` cover theorem (0 sorries), `13/36` upper bound (0 sorries), Theorem A / T1 (6 sorries in `ShieldMainTheorem.lean`, PNT-adjacent Mathlib gaps), `5/16` upper bound (5 sorries in `Theorems.lean`, Chebyshev-adjacent Mathlib gaps), and the T2 finite core (graph / hypergraph / embedding / family comparison layers; activation-stage wrapper in progress).
+- **Why this could be a standalone contribution.** Several Erdős-named theorems have already been Lean-formalized in Mathlib (Erdős-Ko-Rado, Erdős-Ginzburg-Ziv, Erdős-Selberg proof of PNT, Erdős-Gallai), so this is **not** the first Lean formalization of an Erdős-named result. A narrower accurate claim: **these would be the first formally verified structural results on Erdős problem #872 specifically** (the antichain divisibility game). That narrower claim is still publication-worthy for an ITP / CPP venue.
+- **Paper integration option.** Rather than a separate ITP paper, the formalization can simply be **a section of the main math paper** (Section 7 or an appendix) listing verified theorems, sorry counts, and Mathlib-gap notes. This is now the preferred approach — see Section 0E above.
+- **Separate ITP submission is optional.** If pursued, it would be a short standalone note describing the formalization architecture (Aristotle dispatch pattern, what's Lean-native vs Mathlib-dependent, reproducibility). Not required for the math paper's publication.
+- **Status.** Artifacts exist in `aristotle/*_out/` and `aristotle/t2_finite_core/`. Tarballs committed at `aristotle/*_result.tar.gz`.
 
 ### 7A.2 Methodology paper (arXiv cs.AI / multi-agent research systems)
 
