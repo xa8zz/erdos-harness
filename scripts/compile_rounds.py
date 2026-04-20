@@ -217,11 +217,31 @@ def derive_status(rounds: list[dict]) -> dict[str, list[dict]]:
 
 
 def bucket(rounds: list[dict], overrides: dict[str, list[dict]]) -> dict[str, list[dict]]:
-    buckets = {"Established": [], "Ruled Out": [], "Open / Partial": [], "Retracted chains": []}
+    by_id = {r["id"]: r for r in rounds if "id" in r}
+    buckets: dict[str, list] = {
+        "Established": [],
+        "Ruled Out": [],
+        "Open / Partial": [],
+        "Retracted chains": [],
+        "Pending-target refutations": [],
+    }
     for r in sorted(rounds, key=lambda r: str(r.get("date", ""))):
         rid = r["id"]
         overriders = overrides.get(rid, [])
         t = r.get("type", "research")
+        action = r.get("action") or {}
+        if not isinstance(action, dict):
+            action = {}
+        akind = action.get("kind")
+        atgt = action.get("target")
+
+        # If this round refutes/supersedes a target that isn't in the corpus
+        # yet, surface it in its own bucket so the verdict isn't silently lost
+        # during incremental backfill.
+        if akind in ("refutes", "supersedes") and atgt and atgt not in by_id:
+            buckets["Pending-target refutations"].append(r)
+            continue
+
         if overriders:
             # Walk chain — was the overrider itself overridden?
             chain_tail = overriders[-1]
@@ -276,6 +296,20 @@ def render(buckets: dict[str, list[dict]], rounds: list[dict]) -> str:
         lines.append("")
         for item in buckets["Retracted chains"]:
             lines.append(_format_chain(item["round"], item["chain"]))
+        lines.append("")
+
+    # Pending-target refutations (targets not yet backfilled)
+    if buckets["Pending-target refutations"]:
+        lines.append("## Pending-target refutations")
+        lines.append("")
+        lines.append(
+            "_These rounds refute or supersede a target that isn't yet in the "
+            "corpus. Expected during incremental backfill; will resolve once "
+            "the target is added._"
+        )
+        lines.append("")
+        for r in buckets["Pending-target refutations"]:
+            lines.append(_format_pending_refutation(r))
         lines.append("")
 
     # Indices
@@ -350,6 +384,28 @@ def _format_chain(r: dict, chain: list[dict]) -> str:
     rid = r["id"]
     ids = " → ".join([rid] + [c["id"] for c in chain])
     return f"- {ids}"
+
+
+def _format_pending_refutation(r: dict) -> str:
+    path = r["_path"]
+    rid = r["id"]
+    claim = r.get("claim", "")
+    action = r.get("action") or {}
+    if not isinstance(action, dict):
+        action = {}
+    tgt = action.get("target", "?")
+    akind = action.get("kind", "refutes")
+    fm = r.get("failure_mechanism", "")
+    date_s = r.get("date", "")
+    prompt = r.get("prompt", "")
+    parts = [f"- **[{rid}]({path})** ({date_s}): {akind} `{tgt}` (target not yet in corpus)"]
+    if claim:
+        parts.append(f"  Claim: {claim}")
+    if fm:
+        parts.append(f"  Failure mechanism: {fm}")
+    if prompt:
+        parts.append(f"  Prompt: [{prompt}]({prompt})")
+    return "\n".join(parts)
 
 
 def main() -> int:

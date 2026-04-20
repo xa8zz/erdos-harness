@@ -50,6 +50,8 @@ Examples:
 
 Keep ids short. If a filename has a long descriptive tail, truncate the slug to the meaningful part (~4–5 tokens max).
 
+**Preserve sibling discriminators** (`pro-1`, `pro-2`, `pro-3`, `pro-4`) when multiple files answer the same prompt. Example: `researcher-44-pro-2-closure-via-defect-2.md` → `R44-pro-2-closure-defect-2`, not `R44-closure-defect-2` (which would collide with `researcher-44-pro-3-closure-via-defect-2.md`). Similarly for `deepthink-1` / `deepthink-2`, `fresh-1` / `fresh-2`, etc.
+
 ### `type`
 
 - `researcher-*` → usually `research`; but if the response is itself a refutation of a prior round, `refutation`
@@ -101,7 +103,22 @@ The specific arithmetic/combinatorial feature that killed the target's claim. In
 
 ### `prompt` (optional)
 
-Look for a corresponding file under `erdos-872/prompts/`. Matching heuristic: for `researcher-NN-xxx-yyy.md`, check for `prompts/researcher-NN.md`, `prompts/researcher-NN-xxx.md`, etc. If you find one, set `prompt: erdos-872/prompts/<match>.md`. Otherwise omit.
+Look for a corresponding file under `erdos-872/prompts/`. Matching heuristics:
+
+- `researcher-NN-xxx-yyy.md` → check `prompts/researcher-NN.md`, `prompts/researcher-NN-xxx.md`
+- `followup-NN-xxx.md` → check `prompts/followup-NN-xxx.md`, `prompts/followup-NN.md`
+- `verify-NN-xxx.md` / `verify-postresp-NN-xxx.md` → usually uses the global `prompts/templates/informal-audit.md`; you can omit `prompt` or set it to the template path
+- Round-named prompts: `researcher-RNN-xxx.md` → check `prompts/researcher-RNN-xxx.md`
+
+If you find a match, set `prompt: erdos-872/prompts/<match>.md`. Otherwise omit the field.
+
+### `siblings` (optional)
+
+For parallel dispatches to the same prompt (e.g., `researcher-44-pro-1-*`, `researcher-44-pro-2-*`, `researcher-44-pro-3-*`, `researcher-44-pro-4-*` all answering the same prompt), set `siblings: [R44-pro-1-<slug>, R44-pro-3-<slug>, R44-pro-4-<slug>]` on each (i.e., all other sibling ids, excluding self). These are **not** predecessors.
+
+### `failure_mechanism`
+
+**Required whenever `action.kind ∈ {refutes, supersedes}`**, regardless of `type`. A `type: verification` doc whose `action.refutes` a target needs `failure_mechanism` just as much as a `type: refutation` doc does.
 
 ### `verifiers_at_time`, `confidence_at_time`, `strategy_dependence`
 
@@ -109,13 +126,43 @@ Only set when the file itself surfaces this information. Otherwise omit. These a
 
 ## Workflow
 
+**Phase 0 — Pre-indexing (~15 min, do before any writes).** Dump every in-scope file's path → id mapping to a temporary reference. This prevents forward-reference errors when setting `predecessors` / `action.target` / `siblings`.
+
+```bash
+ls erdos-872/*.md | python3 -c "
+import sys, re
+for line in sys.stdin:
+    path = line.strip()
+    name = path.rsplit('/', 1)[-1].removesuffix('.md')
+    # Skip out-of-scope meta files:
+    skip_names = {'current_state', 'process', '_forum_transcript', 'chatgpt',
+                  'claude-chat', 'gemini', 'ford-integration-audit',
+                  'audit-R37-external-synthesis', 'paper_strengthening_plan',
+                  'round15_upper_bound_status'}
+    if name in skip_names:
+        continue
+    if name.startswith(('worker_', 'matching-T2-', 'direct-On-over-logn-attempt')):
+        continue
+    m = re.match(r'(?:researcher|verify|followup|verify-postresp|verify-aristotle|audit)-(\d+)-(.*)', name)
+    if m:
+        nn = int(m.group(1))
+        slug = m.group(2)
+        print(f'{path}\t{name}\tR{nn:02d}-{slug}')
+" > /tmp/round-id-index.tsv
+wc -l /tmp/round-id-index.tsv
+```
+
+Review the mapping. Flag ambiguities before writing anything. Save this file; reference it while backfilling.
+
 **Phase 1 — Calibration (first 5 files).** Pick 5 files across the program (one from R1–R10, one from R20–R30, one from R40–R50, one verification, one followup). Add front-matter to each. Run `scripts/compile_rounds.py --root erdos-872/ --out -` to see how they render. Verify the output looks right. Commit this batch.
 
-**Phase 2 — Systematic backfill, batches of 10–15.** Process chronologically (R1, R2, R3, ...). After each batch:
+**Phase 2 — Systematic backfill, batches grouped by round number.** Batch all files belonging to the same round together (e.g., R13 has ~20 files — `researcher-13-*`, `verify-postresp-13-*`, `round13-*`). Processing them together lets you reuse the `intent` and `prompt` fields across siblings and resolve `siblings` references correctly. Target ~10–15 files per commit.
 
-1. Run the compile script, check output for anomalies.
+After each batch:
+
+1. Run the compile script, check output for anomalies (especially the "Pending-target refutations" bucket).
 2. `git add` the modified files by name (never `git add -A`).
-3. Commit with message `Backfill front-matter: rounds R<start>–R<end>`.
+3. Commit with message `Backfill front-matter: round R<NN>` or `rounds R<start>–R<end>` for multi-round batches.
 
 **Do not:**
 

@@ -31,13 +31,14 @@ This is the **only** mechanism by which a round affects another round's status. 
 
 | Field | Type | Used for |
 |---|---|---|
-| `failure_mechanism` | string | **Required for `type: refutation`**. The specific arithmetic/combinatorial feature that killed the target. Include constants, prime ranges, shield sets, lemmas. |
+| `failure_mechanism` | string | **Required whenever `action.kind ∈ {refutes, supersedes}`, regardless of `type`.** The specific arithmetic/combinatorial feature that killed the target claim. Include constants, prime ranges, shield sets, lemmas. A `type: verification` doc with `action.refutes` carries `failure_mechanism` just like a `type: refutation`. |
 | `implications` | list | Concrete consequences (e.g., "narrows attack space to X"). |
 | `verifiers_at_time` | list | `[[verifier_id, verdict], ...]` where verdict ∈ `{agrees, disagrees, partial}`. |
 | `confidence_at_time` | enum | `low` / `medium` / `high`. |
 | `strategy_dependence` | string | Problem-specific axis (e.g., `independent` / `sigma-star-dependent` / `sigma-star-specific`). |
 | `numerics` | list | For empirical rounds: `[{regime: "n=10^6", value: 0.887}, ...]`. |
 | `prompt` | path | Repo-relative path to the prompt doc that produced this round (e.g., `erdos-872/prompts/researcher-R56-sep-first.md`). Skip if unknown or not applicable. |
+| `siblings` | list of ids | For parallel dispatches to the same prompt (e.g., `pro-1`, `pro-2`, `pro-3`, `pro-4` all answering the same round), list the other instance ids. These are **not** `predecessors` — they have no causal dependency. Skip if no sibling dispatches. |
 
 All optional fields are also immutable once written.
 
