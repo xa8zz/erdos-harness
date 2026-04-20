@@ -166,7 +166,7 @@ Why this order:
 
 Progress note (2026-04-20):
 
-- T2 item now has a genuine Lean foothold: `aristotle/t2_finite_core/` builds cleanly and formalizes both
+- T2 item now has a genuine Lean foothold: `lean/erdos_872_core/` builds cleanly and formalizes both
   - the graph-potential `Q8` core (`Q8_empty_eq_totalWeight`, `Q8_terminal_eq_eight_claimedWeight`, `Q8_maker_ge_add_selfPot`), and
   - the scored 3-uniform `HQ8` slot-game core (`HQ8_empty_eq_totalWeight`, `HQ8_terminal_eq_eight_scoredWeight`, `HQ8_maker_ge`, `HQ8_breaker_score_ge`).
 - The local arithmetic part of the embedding is now Lean-banked too: `EmbeddingCore.lean` proves `smallDivisors_eq_divisors_ac`, `dvd_value_mem_smallDivisors_or_b_mul_smallDivisor`, `mem_slots_or_eq_value_of_dvd_value_not_small`, the exact harmful-move characterization `mem_harmfulMoves_iff`, the slot-incidence lemmas `eq_b_of_b_dvd_value`, `eq_b_and_a_eq_or_eq_of_ab_dvd_value`, `eq_b_and_c_eq_or_eq_of_cb_dvd_value`, the exact incidence iff-statements `b_dvd_value_iff_mem_slots`, `ab_dvd_value_iff_mem_slots`, `cb_dvd_value_iff_mem_slots`, and the value-uniqueness lemma `eq_of_value_eq`.

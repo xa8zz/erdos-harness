@@ -25,7 +25,7 @@ confidence_at_time: high
 **Submitted:** 2026-04-17 (during Round 1 synthesis, after Claude/Gemini/GPT-thinking informal audits unanimously concluded the proof sound).
 **Completed:** 2026-04-17 late night.
 **Status:** ✅ core combinatorial content formally verified, ⚠️ 5 remaining `sorry`s — all classical analytic number theory (Mertens, Chebyshev, PNT) that is not yet in Mathlib, plus the final assembly that depends on those prerequisites.
-**Artifact:** `aristotle/theorem_A_result.tar.gz`; extracted project at `aristotle/theorem_A_out/theorem_A_shield_lower_bound_aristotle/`.
+**Artifact:** `aristotle/theorem_A_result.tar.gz`; extracted project at `lean/theorem_A/theorem_A_shield_lower_bound_aristotle/`.
 **Source:** `aristotle/theorem_A_shield_lower_bound.tex`.
 
 ## What was verified (sorry-free, standard axioms only)

@@ -564,7 +564,7 @@ Aristotle submission held pending Pro response (Aristotle runs take hours; no po
 
 ### Aristotle $13/36$ formalization completed (2026-04-18 late night)
 
-Job `4abf7b27-fc08-4611-9411-90e78ddfb136` returned COMPLETE with zero sorry and standard axioms only. 4-file Lean 4 project under `aristotle/shortener_13_36_v2_out/`: `Defs / Compression / Sieve / MainTheorem`. Main theorem: for every $\varepsilon > 0$, all sufficiently large $n$, there exists $D$ of odd primes such that every $D$-free antichain $A$ satisfies $|A| \le (13/36 + \varepsilon)n$.
+Job `4abf7b27-fc08-4611-9411-90e78ddfb136` returned COMPLETE with zero sorry and standard axioms only. 4-file Lean 4 project under `lean/shortener_13_36/`: `Defs / Compression / Sieve / MainTheorem`. Main theorem: for every $\varepsilon > 0$, all sufficiently large $n$, there exists $D$ of odd primes such that every $D$-free antichain $A$ satisfies $|A| \le (13/36 + \varepsilon)n$.
 
 **Nuance on Chebyshev.** Mathlib lacks Chebyshev's theorem in the form needed. Aristotle substituted $D = \{3\}$ (one prime, $\sum 1/q = 1/3$) rather than formalizing the $k = \sqrt n/\log n$ prefix. Same $13/36$ coefficient, simpler strategy, strictly stronger theorem.
 
@@ -628,7 +628,7 @@ Methodology lesson being tested: varied framings across cross-family models crea
 
 ### Aristotle $5/16$ formalization — COMPLETE_WITH_ERRORS (2026-04-18)
 
-Job `4c1f85cd-54f5-42ec-b797-529d5b9ac6ee` returned COMPLETE_WITH_ERRORS. **15 theorems proved with zero sorry** covering the entire combinatorial and algebraic content. **One remaining sorry** in `game_value_per_parameter`, classified as Mathlib-coverage limit (needs Chebyshev $\vartheta(x) \ge cx$ and routine game-tree induction for legal-prime existence). Same pattern as Theorem A. Details in `verify-aristotle-03-5-16.md`; output at `aristotle/shortener_5_16_out/`.
+Job `4c1f85cd-54f5-42ec-b797-529d5b9ac6ee` returned COMPLETE_WITH_ERRORS. **15 theorems proved with zero sorry** covering the entire combinatorial and algebraic content. **One remaining sorry** in `game_value_per_parameter`, classified as Mathlib-coverage limit (needs Chebyshev $\vartheta(x) \ge cx$ and routine game-tree induction for legal-prime existence). Same pattern as Theorem A. Details in `verify-aristotle-03-5-16.md`; output at `lean/shortener_5_16/`.
 
 Core combinatorial content now formally verified: odd-part compression, second-order Bonferroni, algebraic optimization $g(2) = 5/16$, structural antichain bound, game-value induction, $\varepsilon$-limit assembly via continuity.
 

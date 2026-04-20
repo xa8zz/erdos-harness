@@ -186,7 +186,7 @@ These are the strongest things in the repo to foreground in a paper or serious w
 ### 1.1 Shield Reduction Theorem
 
 - `Banked`
-- Best source: `current_state.md` ("Shield Reduction Theorem"), Aristotle output in `aristotle/shield_reduction_out/`
+- Best source: `current_state.md` ("Shield Reduction Theorem"), Aristotle output in `lean/shield_reduction/`
 - Why it matters: it is the first clean conceptual reduction from the game to the weighted lower-half quantity `beta(P)`.
 - Why it is good: short, elegant, genuinely structural, and formally verified in Lean/Aristotle.
 - Publishability: very high. This should absolutely be in any main paper.
@@ -194,7 +194,7 @@ These are the strongest things in the repo to foreground in a paper or serious w
 ### 1.2 Polynomial shield lower bound / "Theorem A"
 
 - `Banked`
-- Best source: `current_state.md` ("Polynomial shield lower bound -- Theorem A"), Aristotle output in `aristotle/theorem_A_out/`
+- Best source: `current_state.md` ("Polynomial shield lower bound -- Theorem A"), Aristotle output in `lean/theorem_A/`
 - Statement-level value: if `|P| <= n^alpha`, then `beta(P) >= ((1/2) log(1/alpha) + o(1)) n`, implying the `n^(1/e)` barrier for any linear lower bound via shield reduction.
 - Why it matters: this is a genuine barrier theorem for one of the central Prolonger paradigms. It says the short-shield-prefix route cannot possibly prove linearity unless the shield set is polynomially large with exponent at least `1/e`.
 - Why it is good: novel, sharp-looking, conceptually clean, and close to formally complete; the remaining Aristotle gaps are classical number theory imports, not logical holes.
@@ -203,7 +203,7 @@ These are the strongest things in the repo to foreground in a paper or serious w
 ### 1.3 The `5/24` first-hit cover / exact upper cover theorem for `L`
 
 - `Banked`
-- Best source: `current_state.md` ("The 5/24 first-hit cover"), Aristotle output in `aristotle/tau_5_24_out/`
+- Best source: `current_state.md` ("The 5/24 first-hit cover"), Aristotle output in `lean/tau_5_24/`
 - Statement-level value: explicit upper cover `H_n`, matching packing `P_n`, and `tau(n) = 5n/24 + O(1)`.
 - Why it matters: exact structure theorem for the unweighted cover problem sitting inside the game.
 - Why it is good: explicit construction, exact asymptotics, and formally verified structural content.
@@ -212,7 +212,7 @@ These are the strongest things in the repo to foreground in a paper or serious w
 ### 1.4 First unconditional Shortener upper-bound improvements
 
 - `Banked` for `13/36 + o(1)`, `Near-banked / computationally certified` for a sub-`0.19` Round 15 headline, `Near-banked` for `5/16 + o(1)` as the older formally cleaner route, and `Conditional / numerical` for the sharper `0.18969 + o(1)` constant
-- Best source: `current_state.md` ("L(n) <= 13n/36 + o(n)" and "Upper bound on L(n)"), Aristotle outputs in `aristotle/shortener_13_36_v2_out/` and `aristotle/shortener_5_16_out/`
+- Best source: `current_state.md` ("L(n) <= 13n/36 + o(n)" and "Upper bound on L(n)"), Aristotle outputs in `lean/shortener_13_36/` and `lean/shortener_5_16/`
 - Why they matter: these are real record-type unconditional upper bounds coming from explicit Shortener strategies.
 - What is banked:
   - `L(n) <= (13/36 + o(1)) n` is fully formalized and safe to cite as a theorem.
@@ -235,7 +235,7 @@ These are the strongest things in the repo to foreground in a paper or serious w
 - Caution:
   - T2 is only as banked as you believe the R21/R22 repair chain. The current repo treats it as rigorous again after the Maker-first repair and activation audit, but it is not formally Lean-checked.
 - New formalization progress:
-  - As of 2026-04-20, `aristotle/t2_finite_core/` now contains clean Lean artifacts for both finite Maker-first cores:
+  - As of 2026-04-20, `lean/erdos_872_core/` now contains clean Lean artifacts for both finite Maker-first cores:
     - graph core in `RequestProject/T2Finite/GraphGame.lean` (`Q8_empty_eq_totalWeight`, `Q8_terminal_eq_eight_claimedWeight`, `Q8_maker_ge_add_selfPot`);
     - scored 3-uniform core in `RequestProject/T2Finite/HyperGame.lean` (`HQ8_empty_eq_totalWeight`, `HQ8_terminal_eq_eight_scoredWeight`, `HQ8_maker_ge`, `HQ8_maker_ge_add_selfPot_of_count_le_two`, `HQ8_breaker_score_ge`).
   - The same project now also contains a local arithmetic embedding core in `RequestProject/T2Finite/EmbeddingCore.lean`, including `smallDivisors_eq_divisors_ac`, `dvd_value_mem_smallDivisors_or_b_mul_smallDivisor`, `mem_slots_or_eq_value_of_dvd_value_not_small`, `mem_harmfulMoves_iff`, `eq_b_of_b_dvd_value`, `eq_b_and_a_eq_or_eq_of_ab_dvd_value`, `eq_b_and_c_eq_or_eq_of_cb_dvd_value`, the exact incidence iff-statements `b_dvd_value_iff_mem_slots`, `ab_dvd_value_iff_mem_slots`, `cb_dvd_value_iff_mem_slots`, the value-uniqueness lemma `eq_of_value_eq`, and the local legal-live-edge criterion `value_legal_against_of_disjoint_smallDivisors_and_harmfulMoves`. That banks the key arithmetic facts that, after removing `{1,a,c,ac}`, the harmful-move set for one residual target `t = acb` is exactly `{b,ab,cb,t}`, that `b`-, `ab`-, and `cb`-slot divisibility are exactly the same as slot incidence across two residual targets, that equal upper-half target values correspond to the same residual target, and that once those accounted-for divisors and harmful moves are excluded, `t.value` is automatically incomparable with every already-played number in the local residual state.
@@ -582,7 +582,7 @@ Two additional artifacts are genuinely publishable independent of the main math 
 - **Why this could be a standalone contribution.** Several Erdős-named theorems have already been Lean-formalized in Mathlib (Erdős-Ko-Rado, Erdős-Ginzburg-Ziv, Erdős-Selberg proof of PNT, Erdős-Gallai), so this is **not** the first Lean formalization of an Erdős-named result. A narrower accurate claim: **these would be the first formally verified structural results on Erdős problem #872 specifically** (the antichain divisibility game). That narrower claim is still publication-worthy for an ITP / CPP venue.
 - **Paper integration option.** Rather than a separate ITP paper, the formalization can simply be **a section of the main math paper** (Section 7 or an appendix) listing verified theorems, sorry counts, and Mathlib-gap notes. This is now the preferred approach — see Section 0E above.
 - **Separate ITP submission is optional.** If pursued, it would be a short standalone note describing the formalization architecture (Aristotle dispatch pattern, what's Lean-native vs Mathlib-dependent, reproducibility). Not required for the math paper's publication.
-- **Status.** Artifacts exist in `aristotle/*_out/` and `aristotle/t2_finite_core/`. Tarballs committed at `aristotle/*_result.tar.gz`.
+- **Status.** Artifacts exist in `aristotle/*_out/` and `lean/erdos_872_core/`. Tarballs committed at `aristotle/*_result.tar.gz`.
 
 ### 7A.2 Methodology paper (arXiv cs.AI / multi-agent research systems)
 

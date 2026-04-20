@@ -77,7 +77,7 @@ Three-line argument: $B := A \cap L$ is antichain; by maximality, $A \cap U = U 
 
 ### 2.3 Formal verification note
 
-Point to `aristotle/shield_reduction_out/RequestProject/ShieldReduction.lean`. 0 sorries.
+Point to `lean/shield_reduction/RequestProject/ShieldReduction.lean`. 0 sorries.
 
 ## 3. Lower Bounds
 
@@ -269,7 +269,7 @@ The fiber route is equivalent to the main conjecture.
 
 One paragraph:
 
-> "Shield Reduction (Theorem X.1), the $5n/24$ cover (Theorem X.4), and the $13/36$ upper bound (Theorem X.5.1) are formally verified in Lean 4 via Aristotle with no remaining sorries. Theorem A (Theorem X.3.1) and the $5/16$ upper bound (Theorem X.5.2) have Lean artifacts with classical-number-theory sorries (PNT- and Chebyshev-$\vartheta$-adjacent), enumerated in Appendix A; these are Mathlib-dependency gaps, not logical holes. T2 has a Lean-verified finite core (`aristotle/t2_finite_core/`) with the activation-stage wrapper in progress. The remaining results — the main upper bound $L(n) \le (\mathcal{W}_4/2 + o(1))n$ (Theorem X.6), the proof-class barriers (Section 8), and the restricted-class results (Section 7) — are proved rigorously in prose with multi-verifier audit and sandbox computation where applicable."
+> "Shield Reduction (Theorem X.1), the $5n/24$ cover (Theorem X.4), and the $13/36$ upper bound (Theorem X.5.1) are formally verified in Lean 4 via Aristotle with no remaining sorries. Theorem A (Theorem X.3.1) and the $5/16$ upper bound (Theorem X.5.2) have Lean artifacts with classical-number-theory sorries (PNT- and Chebyshev-$\vartheta$-adjacent), enumerated in Appendix A; these are Mathlib-dependency gaps, not logical holes. T2 has a Lean-verified finite core (`lean/erdos_872_core/`) with the activation-stage wrapper in progress. The remaining results — the main upper bound $L(n) \le (\mathcal{W}_4/2 + o(1))n$ (Theorem X.6), the proof-class barriers (Section 8), and the restricted-class results (Section 7) — are proved rigorously in prose with multi-verifier audit and sandbox computation where applicable."
 
 Table: theorem | file | sorries | Mathlib-gap notes.
 

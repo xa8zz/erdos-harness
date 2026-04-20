@@ -19,7 +19,5 @@ __pycache__/
 *.pyc
 
 # Aristotle extracted Lean build artifacts (keep source + tarballs + summary; drop .lake builds)
-erdos-872/aristotle/*_out/**/.lake/
-erdos-872/aristotle/*_out/**/lake-packages/
-erdos-872/aristotle/t2_finite_core/.lake/
-erdos-872/aristotle/t2_finite_core/lake-packages/
+erdos-872/lean/**/.lake/
+erdos-872/lean/**/lake-packages/

@@ -58,7 +58,7 @@ If the goal is to strengthen the paper fastest, the best order is:
   - **(a) Zero-sorry combinatorial core**: replace the Chebyshev invocation by fixing `D = {3, 5}` explicitly (`Σ 1/q = 8/15 > 1/2`), and prove the corresponding `countOddDFree` / antichain compression bound with no strategy-executability dependence.
     - **Progress (2026-04-20)**: landed in `RequestProject/Shortener516/Theorems.lean` as `antichain_card_le_countOddDFree`, `countOddDFree_three_five_bound`, and `antichain_three_five_core_bound`; `lake build RequestProject.Shortener516.Theorems` succeeds and the only remaining `sorry` in that file is still `game_value_per_parameter`.
   - **(b) Full game theorem**: treat separately. The fixed `D = {3,5}` substitution does **not** by itself prove the actual game-theoretic `L(n) ≤ 5n/16 + o(n)` strategy, because a fixed `D` is not the same as proving Shortener can realize that prefix in every game tree.
-- **Files**: [aristotle/shortener_5_16.tex](aristotle/shortener_5_16.tex), [aristotle/shortener_5_16_out/](aristotle/shortener_5_16_out/)
+- **Files**: [aristotle/shortener_5_16.tex](aristotle/shortener_5_16.tex), [lean/shortener_5_16/](lean/shortener_5_16/)
 - **Effort**: ~30 min.
 - **Impact**:
   - **(a)** gives a zero-sorry Lean verification of the 5/16 sieve/compression core, which is still strong paper support and likely worth citing the same way the 13/36 Aristotle artifact is cited.
@@ -83,13 +83,13 @@ If the goal is to strengthen the paper fastest, the best order is:
 ## Tier 2 — Formalize core rigorous-prose results
 
 ### 4. Attempt Lean formalization of the T2 lower bound
-- **Status**: Rigorous prose after R21/R22 Codex repair + activation audit. Strong Lean progress landed on 2026-04-20: both the finite graph-potential core and the abstract scored 3-uniform slot-hypergraph core are now formalized in `aristotle/t2_finite_core/`; the arithmetic embedding and finite-family comparison layers are largely Lean-banked; and `phase4/t2_core_paper_note.md` now consolidates the paper-grade wrapper. The remaining formal-only gap is the final integrated Lean theorem.
+- **Status**: Rigorous prose after R21/R22 Codex repair + activation audit. Strong Lean progress landed on 2026-04-20: both the finite graph-potential core and the abstract scored 3-uniform slot-hypergraph core are now formalized in `lean/erdos_872_core/`; the arithmetic embedding and finite-family comparison layers are largely Lean-banked; and `phase4/t2_core_paper_note.md` now consolidates the paper-grade wrapper. The remaining formal-only gap is the final integrated Lean theorem.
 - **Type**: Direct Lean 4 port. Maker-first hypergraph capture with Q_t potential + activation bookkeeping. May need Mathlib hypergraph coverage.
 - **Files**: [phase4/t2_core_paper_note.md](phase4/t2_core_paper_note.md), [phase4/t2_maker_first_lemmas.md](phase4/t2_maker_first_lemmas.md), [researcher-21-codex-T2-maker-first-repair.md](researcher-21-codex-T2-maker-first-repair.md), [researcher-22-codex-T2-activation-audit.md](researcher-22-codex-T2-activation-audit.md)
 - **Effort**: 2–3 hrs; accept graceful failure.
 - **Impact**: Formally verifies the entire lower-bound direction. Even a partial formalization (main potential + union bound, with Mathlib sorries for prime counting) is valuable.
 - **Progress (2026-04-20)**:
-  - New Lean project: `aristotle/t2_finite_core/`
+  - New Lean project: `lean/erdos_872_core/`
   - Build status: `~/.elan/bin/lake build RequestProject` passes cleanly.
   - Banked finite-core graph lemmas:
     - `Q8_empty_eq_totalWeight`
@@ -249,7 +249,7 @@ Codex's `publication_source_of_truth.md` still flags most of R52–R55 as not fu
 ### 17. Close the 5 remaining Theorem A sorries
 - **Status**: Mertens' second theorem, Chebyshev π(x) ≤ 3x/log x, PNT θ(x) ~ x.
 - **Type**: Lean — requires Mathlib analytic NT imports that largely don't exist. Alternative: prove weaker admissible versions in-place.
-- **Files**: [aristotle/theorem_A_shield_lower_bound.tex](aristotle/theorem_A_shield_lower_bound.tex), [aristotle/theorem_A_out/](aristotle/theorem_A_out/)
+- **Files**: [aristotle/theorem_A_shield_lower_bound.tex](aristotle/theorem_A_shield_lower_bound.tex), [lean/theorem_A/](lean/theorem_A/)
 - **Effort**: 3+ hrs with high failure risk.
 - **Impact**: Theorem A becomes fully sorry-free. Nice-to-have, not load-bearing.
 

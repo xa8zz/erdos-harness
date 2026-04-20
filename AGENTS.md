@@ -357,3 +357,7 @@ Save verifier replies verbatim. Synthesize only when building the next researche
 - R55 hidden-packet reduction as stated is too strong for Shortener and collapses immediately: with q0>=1 and l>=1, any first blocker or shield leaves an uncovered legal packet singleton p, so Shortener can claim p and permanently prevent Pro from ever covering {p}. Any meaningful packet subgame must include a lag / attention-budget parameter measuring how many non-packet separators Shortener burns before it can attack that packet.
 
 - For `erdos-872` T2 Maker-first notes, do not use the shorthand “deleting an uncaptured vertex x loses exactly P(x)” in the graph/hypergraph potential argument: a simple three-vertex path state already falsifies that equality, so the post-Maker vertex-deletion bound must be treated as a separate wrapper theorem to prove or formalize.
+
+## Tooling Learnings
+
+- In the Lean 4.28.0 Mathlib snapshot used by `erdos-872/lean/erdos_872_core`, `Mathlib.NumberTheory.Chebyshev` exposes `Chebyshev.eventually_primeCounting_le`, but an obvious full PNT theorem `π(x) ~ x / log x` is not surfaced under the expected names; for Round 15 top-tail formalization, bank the Chebyshev upper bound first.

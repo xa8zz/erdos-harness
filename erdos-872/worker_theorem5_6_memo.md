@@ -14,10 +14,10 @@ Useful anchors:
 - Theorem 5 statement and caveats: `erdos-872/current_state.md:1338-1368`, `erdos-872/followup-12-pro-closeout-response.md:48-73`
 - Theorem 6 statement and audit summary: `erdos-872/current_state.md:1459-1485`, `erdos-872/researcher-13-pro-rank3-extension.md:19-95`
 - Existing Lean game definitions already available:
-  - `erdos-872/aristotle/shortener_5_16_out/shortener_5_16_aristotle/RequestProject/Shortener516/Defs.lean:37-52`
-  - `erdos-872/aristotle/shortener_13_36_v2_out/shortener_13_36_v2_aristotle/RequestProject/Shortener/Defs.lean:16-30,55-58`
+  - `erdos-872/lean/shortener_5_16/shortener_5_16_aristotle/RequestProject/Shortener516/Defs.lean:37-52`
+  - `erdos-872/lean/shortener_13_36/shortener_13_36_v2_aristotle/RequestProject/Shortener/Defs.lean:16-30,55-58`
 - Existing finite-set / prime-cover bookkeeping pattern worth copying:
-  - `erdos-872/aristotle/theorem_A_out/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldMainTheorem.lean:88-113,145-170`
+  - `erdos-872/lean/theorem_A/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldMainTheorem.lean:88-113,145-170`
 
 ## 1. Clean paper statement for Theorem 5
 
@@ -99,8 +99,8 @@ Reuse, do not reinvent:
 
 These already exist in the prior Aristotle projects:
 
-- `erdos-872/aristotle/shortener_5_16_out/shortener_5_16_aristotle/RequestProject/Shortener516/Defs.lean:37-52`
-- `erdos-872/aristotle/shortener_13_36_v2_out/shortener_13_36_v2_aristotle/RequestProject/Shortener/Defs.lean:16-30,55-58`
+- `erdos-872/lean/shortener_5_16/shortener_5_16_aristotle/RequestProject/Shortener516/Defs.lean:37-52`
+- `erdos-872/lean/shortener_13_36/shortener_13_36_v2_aristotle/RequestProject/Shortener/Defs.lean:16-30,55-58`
 
 Add only:
 

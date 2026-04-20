@@ -24,7 +24,7 @@ confidence_at_time: high
 **Job:** `4c1f85cd-54f5-42ec-b797-529d5b9ac6ee`
 **Status:** COMPLETE_WITH_ERRORS (1 remaining sorry)
 **Created:** 2026-04-18
-**Output:** `aristotle/shortener_5_16_out/shortener_5_16_aristotle/`
+**Output:** `lean/shortener_5_16/shortener_5_16_aristotle/`
 **Paper:** `aristotle/shortener_5_16.tex`
 
 ## Summary

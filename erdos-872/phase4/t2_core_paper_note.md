@@ -4,7 +4,7 @@ This note consolidates the current repaired T2 lower-bound core into one place.
 
 The point is not to re-run every numerical or Lean detail from scratch. The point is to state the exact finite game lemmas, the residual divisibility-to-hypergraph comparison theorem, and the activation bookkeeping inequality in a form that is clean enough to cite in a paper draft.
 
-The supporting Lean artifacts are now in `aristotle/t2_finite_core/`. In particular:
+The supporting Lean artifacts are now in `lean/erdos_872_core/`. In particular:
 
 - `GraphGame.lean` formalizes the scaled graph-potential core and the Maker gain lemmas for pair capture,
 - `HyperGame.lean` formalizes the scaled scored 3-uniform potential core, the Maker gain lemmas, and the Breaker scored-edge monotonicity,

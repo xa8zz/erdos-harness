@@ -162,15 +162,15 @@ This is the part to postpone. The harness itself now records the same split: abs
 
 ## 4. Best first Lean file and definitions
 
-The existing Aristotle outputs in this repo already separate definitions from lemma files, for example [ShieldDefs.lean](/Users/omisverycool/erdos-harness/erdos-872/aristotle/theorem_A_out/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldDefs.lean:1), [ShieldBasicLemmas.lean](/Users/omisverycool/erdos-harness/erdos-872/aristotle/theorem_A_out/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldBasicLemmas.lean:1), and [ShieldReduction.lean](/Users/omisverycool/erdos-harness/erdos-872/aristotle/shield_reduction_out/shield_reduction_aristotle/RequestProject/ShieldReduction.lean:14). I would follow that shape.
+The existing Aristotle outputs in this repo already separate definitions from lemma files, for example [ShieldDefs.lean](/Users/omisverycool/erdos-harness/erdos-872/lean/theorem_A/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldDefs.lean:1), [ShieldBasicLemmas.lean](/Users/omisverycool/erdos-harness/erdos-872/lean/theorem_A/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldBasicLemmas.lean:1), and [ShieldReduction.lean](/Users/omisverycool/erdos-harness/erdos-872/lean/shield_reduction/shield_reduction_aristotle/RequestProject/ShieldReduction.lean:14). I would follow that shape.
 
 Recommended first project layout:
 
-- `erdos-872/aristotle/t2_finite_core/RequestProject/T2Finite/Defs.lean`
-- `erdos-872/aristotle/t2_finite_core/RequestProject/T2Finite/GraphGame.lean`
-- `erdos-872/aristotle/t2_finite_core/RequestProject/T2Finite/Rank3ScoreGame.lean`
-- `erdos-872/aristotle/t2_finite_core/RequestProject/T2Finite/DivisibilityEmbedding.lean`
-- `erdos-872/aristotle/t2_finite_core/RequestProject/Main.lean`
+- `erdos-872/lean/erdos_872_core/RequestProject/T2Finite/Defs.lean`
+- `erdos-872/lean/erdos_872_core/RequestProject/T2Finite/GraphGame.lean`
+- `erdos-872/lean/erdos_872_core/RequestProject/T2Finite/Rank3ScoreGame.lean`
+- `erdos-872/lean/erdos_872_core/RequestProject/T2Finite/DivisibilityEmbedding.lean`
+- `erdos-872/lean/erdos_872_core/RequestProject/Main.lean`
 
 Best first file to create:
 
