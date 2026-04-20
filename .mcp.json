@@ -5,6 +5,10 @@
       "command": "/Users/omisverycool/erdos-harness/mcp-servers/deep-think/run.sh",
       "args": [],
       "env": {}
+    },
+    "alphaxiv": {
+      "type": "http",
+      "url": "https://api.alphaxiv.org/mcp/v1"
     }
   }
 }

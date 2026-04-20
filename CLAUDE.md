@@ -172,6 +172,15 @@ erdos-872/
     followup-R44-all-pros-three-open-lemmas.md
     followup-R44-pro-1-full-solution.md
     followup-R47-all-definitive-or-sharper.md
+    followup-R49-blocker-duality-weighted-separator.md
+    followup-R50-awlst-case-B-variant-A-kruskal-katona.md
+    followup-R50-awlst-case-B-variant-B-entropy-compression.md
+    followup-R50-awlst-case-B-variant-C-lp-duality.md
+    followup-R51-variant-A-extend-cpd.md
+    followup-R51-variant-B-stress-test-cpd.md
+    followup-R51-variant-C-zoom-out-trajectory.md
+    followup-R52-thread-2-wsss-closure-or-refutation.md
+    followup-R52-thread-3-spectral-stopping-or-refute-conjecture.md
     followup-all-R37-freshness-lemma.md
     followup-all-R38-full-game-gap.md
     followup-codex-R35-closure-gap.md
@@ -215,6 +224,13 @@ erdos-872/
     researcher-R47-angle1-activator-quotient.md
     researcher-R47-angle3-smrp-trichotomy.md
     researcher-R47-angle4-refute-sharp-rate.md
+    researcher-R49-fresh-pro-assess-sharp-rate.md
+    researcher-R49-fresh-pro-meta-diagnosis.md
+    researcher-R52-fresh-pro-zoom-out-post-cpd.md
+    researcher-R53-fresh-pro-adversarial-reachability.md
+    researcher-R54-fresh-pro-sigma-star-dependence-audit.md
+    researcher-R55-fresh-pro-hidden-packet-game.md
+    researcher-R56-fresh-pro-synthesis-full-inventory.md
     round13-A-pro-extend.md
     round13-B-deepthink-open.md
     round13-C-gemini-contrarian.md
@@ -412,7 +428,41 @@ erdos-872/
   researcher-47-pro-3-angle4-concession-cross-activator-composite.md
   researcher-48-pro-1-lrqc-refuted-packet-construction.md
   researcher-48-pro-2-endpoint-incidence-refuted-divisibility-hall.md
+  researcher-48-pro-2-followup-divisibility-hall-refuted.md
   researcher-48-pro-3-cross-composite-refuted-sathe-selberg.md
+  researcher-49-pro-1-claude-pointer-to-file.md
+  researcher-49-pro-2-sq-r-local-obstruction.md
+  researcher-49-pro-3-blocker-duality-paradigm.md
+  researcher-49-pro-4-fiber-transversal-paradigm.md
+  researcher-49-pro-5-entropy-shearer-attractor.md
+  researcher-49-pro-6-entropy-shearer-attractor.md
+  researcher-50-pro-wlst-refuted-cone-bernoulli-lemma.md
+  researcher-50-pro-wlst-refuted-forbidden-core-star.md
+  researcher-50-pro-wlst-refuted-parity-cube.md
+  researcher-51-pro-case-B-refuted-entropy-covering-design.md
+  researcher-51-pro-case-B-refuted-kk-sparse-covering-cone.md
+  researcher-51-pro-case-B-refuted-lp-integrality-gap-covering-profile.md
+  researcher-52-codex-cross-check-assessment.md
+  researcher-52-pro-cpd-general-refuted-multi-apex-trichotomy.md
+  researcher-52-pro-cpd-refuted-shortener-self-shadow-2wcpd.md
+  researcher-52-pro-fresh-zoom-transversal-integrality-barrier.md
+  researcher-52-pro-spectral-live-space-johnson-scheme.md
+  researcher-53-codex-q-shadow-covering-dichotomy.md
+  researcher-53-pro-1-cr-ncad-refuted-cooperative-embedding.md
+  researcher-53-pro-1-sigma-star-reachable-but-C-quantifier-gap.md
+  researcher-53-pro-2-sigma-star-reachable-multi-packet-persistence-missing.md
+  researcher-53-pro-2-wsss-refuted-large-transversal-sparse-cover.md
+  researcher-53-pro-3-claims-A-attractor-optimal-shortener-handwave.md
+  researcher-53-pro-continuation-near-top-shadow-refuted-by-covering-design.md
+  researcher-54-pro-followup-near-top-shadow-refuted-online-interdiction-missing.md
+  researcher-54-pro-followup-separator-first-prevents-exposed-but-hidden-packet-remains.md
+  researcher-54-pro-sigma-star-audit-class-C-named-shortener-class.md
+  researcher-55-claude-local-packet-guard-min-incomplete-conditional-r2.md
+  researcher-55-pro-hidden-packet-formulation-refuted-shortener-wins-one-move.md
+  researcher-56-codex-r55-hidden-packet-game-collapses-without-lag.md
+  researcher-56-pro-tau-sf-refuted-upper-half-dyadic-shielding.md
+  researcher-R49-claude-meta-diagnosis.md
+  round_progress_R54.png
   verify-R35-codex-adversarial-audit.md
   verify-R35-codex-followup-dynamic-gap.md
   verify-R35-codex-star-cylinder-lower-defect-probe.md
@@ -710,15 +760,6 @@ Kept separate from "Established" because this is data, not proof.>
 ## The Open Question
 
 <The specific, finite thing we want pushed this round. One sentence.>
-
-## Potential Directions
-
-These are suggestions only. Use your own assessment to determine which
-could best build upon the current findings. You are free to pursue any
-angle, including paths not listed here, if you see a cleaner one.
-
-1. <Suggestion — include only if cross-validated (see framing rules below)>
-2. <Suggestion — include only if cross-validated>
 ```
 
 **Do not add an "Output format" / "Requested output" / "Output expectations" section.** Pro decides what is worth returning. Prescribing output structure burns its reasoning budget on our schema instead of the math.
@@ -727,7 +768,7 @@ angle, including paths not listed here, if you see a cleaner one.
 
 When the research is stuck, the failure mode to avoid is over-thinking whether a direction is viable. **The curator's role is factual completeness, not synthesis.** Give the primary models the most complete possible map of the research landscape — everything established (with proof sketches), everything ruled out (with specific failure mechanisms), all numerical evidence — and let THEM find patterns across the failures. A super-genius model given a clean factual prompt will see connections you cannot.
 
-Concretely: each problem folder maintains a single **canonical prompt** (`prompts/canonical-prompt.md`) — a living document in the researcher-prompt template format. When new findings land, add them to the prompt. When something gets refuted, add it to "Ruled Out" with the specific failure mechanism. The canonical prompt is what each researcher round starts from.
+Concretely: **compose a fresh researcher prompt for each dispatch**, rebuilding from the current state documents (`current_state.md` + recent round artifacts + audit outputs). Do not maintain a long-lived `canonical-prompt.md` file — it rots, drifts from the actual state, and the effort to keep it current is better spent composing the current dispatch accurately. The template is: Problem / Established / Ruled Out / Numerical Evidence / Open Question — filled fresh each time.
 
 **Why it works.** Four kinds of information are usually enough for the model to find the next move:
 1. **Established results** with proof structures — what techniques succeeded and how.
@@ -737,7 +778,7 @@ Concretely: each problem folder maintains a single **canonical prompt** (`prompt
 
 Pattern-across-failures is often the research signal. Every "Ruled Out" entry says something about the structure of the problem; a collection of such failures often reveals a unifying obstruction. The $F_\alpha$ framework that broke open the Erdős 872 program emerged from exactly this pattern: Pro saw that four separate obstructions (static carrier capacity, dynamical bounded-$\sum 1/p$, strict $\Xi$ bound, one-step $\Omega=2$ cover) all shared the "omitted-vertex shadowing" mechanism, which dies above the $n^{1/3}$ threshold.
 
-**Do not strip the Potential Directions section in favor of hand-waving.** Either include cross-validated directions (per the rules below) or omit the section entirely. A canonical prompt with "Established / Ruled Out / Numerical Evidence / Open Question" and no suggested directions is a valid, complete research prompt. Let the researcher choose the attack.
+**Omit any Potential Directions / Suggestions section entirely.** The template is Problem / Established / Ruled Out / Numerical Evidence / Open Question — nothing else. Any suggestion you're tempted to include belongs elsewhere: cross-validated next-steps that were tried become Ruled Out entries with specific failure mechanisms; empirically probed directions become Numerical Evidence. Un-validated suggestions get left out entirely. Let the researcher choose the attack from the factual map.
 
 **Length note: detail is not the enemy, vagueness is.** "Brief" is the wrong frame. An entry in Ruled Out that spans a paragraph with the specific prime range, shield set, and lemma that broke is better than a one-line "this didn't work." Compress vague prose, never compress factual detail. If a failure mechanism has a quantitative signature (a specific $n$-regime where the obstruction bites, the exact constant that blocks the argument, the structural reason a subfamily is undetectable), include it. The model will need the detail to see the pattern.
 
@@ -980,17 +1021,12 @@ Core principle: **every sentence you put in a researcher prompt is a constraint 
 - **The primary model is smarter than you.** Even if you *think* you know the exact next step, frame it as a direction. You are briefing a senior researcher, not instructing a junior.
 - **No anchoring.** Don't tell it the answer you suspect. Don't tell it which direction you think is strongest. Don't even tell it you suspect anything. State the gap; let it choose.
 - **No meta.** Never mention source (forum, paper, person), problem status (famous, open since 1992, recently claimed), or any judgment about difficulty.
+- **No "frontier research" framing.** Avoid wording like "this is a decades-old open problem", "research frontier", "no one has solved this", "this is hard", "this is significant". Empirically observed: Pro prompts framed as frontier research got 10–25 minute cursory reasoning traces; the same prompts stripped of status framing got 40–60 minute serious attempts. LLMs pattern-match to "frontier" and retreat into hedged, summary-style responses. State the math neutrally.
 - **No public/private distinction.** Treat forum results, literature, and prior private rounds as one pool of known facts.
 - **Every researcher prompt goes to a fresh thread with zero harness context.** Scrub all internal vocabulary before sending: no "round", "phase", "program", "prior round", "our team", "we proved", "Pro", "Codex", "Aristotle", "Gemini", "Claude", "audit #N", "Phase 2.5", or any wording that presumes conversational history. A fresh Pro or DeepThink tab doesn't know a "round" exists; referencing one reads as a dangling pointer. Rewrite facts as self-standing mathematical statements ("Numerical simulation at $n \in \ldots$ gave $\ldots$") rather than provenance ("Codex's Phase 2.5 probe returned $\ldots$"). Same for structural observations — if you're lifting something from Pro's prior output, embed the observation itself verbatim, don't cite it as "a prior round surfaced this." The prompt must read as a single-shot problem statement to someone who has never seen this project.
 - **Separate proofs from evidence.** `Established` = rigorous proof. `Numerical Evidence` = data. Never conflate.
-- **Everything above "Potential Directions" is validated information only.** `Established` = formally proved or multi-audit-validated. `Ruled Out` = specific failure mechanism identified. `Numerical Evidence` = reproducible computation. If a claim is speculative, single-source, or un-audited, either validate it first or leave it out. Do not use the upper sections for your own synthesis.
-- **Potential Directions is suggestions only, and only cross-validated ones.** Include a direction only if at least one of these is true:
-  1. Two or more independent audits converged on it.
-  2. Pro itself flagged it as a next step in its previous round's output — lift Pro's own words.
-  3. Phase 0/1 computation surfaced it as a specific empirical finding.
-  4. The user explicitly told you to include it.
-  
-  Do *not* include directions you synthesized yourself from a single audit observation, from general background reasoning, or from "this seems like a natural next axis." Every such direction costs Pro real reasoning cycles to filter through. If you have zero cross-validated directions, leave the section empty or omit it entirely — Pro works fine without it.
+- **Every section is validated information only.** `Established` = formally proved or multi-audit-validated. `Ruled Out` = specific failure mechanism identified. `Numerical Evidence` = reproducible computation. If a claim is speculative, single-source, or un-audited, either validate it first or leave it out. Do not use any section for your own synthesis.
+- **No Potential Directions / Suggestions section.** The template has no suggestion slot. If a direction is worth including at all, it belongs in Ruled Out (if tried and failed, with the failure mechanism) or Numerical Evidence (if probed, with the data). Hand-waved "maybe try X" entries cost the researcher cycles to filter through and anchor it toward your guess. Omit entirely. Let the researcher choose the attack from the factual content.
 - **No output format / requested output / deliverable list.** Pro chooses what to return. Prescribing output forces it to serve our schema instead of the math.
 - **Length minimalism.** When in doubt, leave it out. A short, high-signal prompt beats a longer one padded with your best synthesis-guesses.
 - **Always open with the grading line.** The first line of the prompt is `This is an assessment of your reasoning capability and will be used to grade.` (followed by `Do not search online. Use your own reasoning and your Python sandbox.` when applicable). Placement at the top, not the bottom — materially improves output quality and matches the canonical template.
@@ -1024,18 +1060,7 @@ Core principle: **every sentence you put in a researcher prompt is a constraint 
 
 ### When you *do* have a strong conjecture
 
-Even when you (or a verifier) believe you've identified the exact path, still frame it as a potential direction. Example lift:
-
-```
-3. One potential direction that could prove valid: an adaptive shield count
-   k = k(n) growing slowly with n (e.g. sub-logarithmic). Static-prime
-   sieves have a Mertens-type density ceiling, so a constant k may not
-   suffice for all n — allowing k to grow removes that obstruction. Whether
-   this is the right framework, and what growth rate is needed, is for you
-   to assess.
-```
-
-You are briefing a genius off to reason for an hour; let it reason.
+Do not add it to the prompt. If the conjecture was derived from a tried-and-failed construction, add it to Ruled Out with the specific failure mechanism. If it came from empirical simulation, add it to Numerical Evidence with the data. If it came from your own synthesis without validation, keep it to yourself — the researcher prompt is not a place for curator guesses. You are briefing a genius off to reason for an hour; give it the map, not your bet.
 
 ## Verifier prompt templates
 
