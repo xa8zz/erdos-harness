@@ -6,6 +6,7 @@ node_modules/
 dist/
 build/
 .claude/settings.local.json
+.claude/worktrees/
 
 # Codex simulation dumps — large JSON trajectories, regeneratable from phase1/phase2 scripts
 erdos-872/phase1/trajectories/
