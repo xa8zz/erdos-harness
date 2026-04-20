@@ -1,6 +1,18 @@
 # Current State
 
-> **TRUE 30-second orientation (updated 2026-04-19 post-R44 synthesis):**
+> **TRUE 30-second orientation (updated 2026-04-19 post-R46 synthesis):**
+>
+> **R46 outcome — Angle 2 (ST-capture / Carleson packing) rigorously refuted; Angle 1 (activator-quotient) survived attempted refutations.** Three independent Pros converged on the same game-legal construction: prime packet $I = [P, 2P]$ with core $C$ and leaves $W$, burn-in forcing $\sigma^\star$ to claim all primes below the packet, then Prolonger activator $F_0 = w_1 \cdot \prod C$, after which $\sigma^\star$ is forced to claim the smallest remaining legal prime — a single leaf, touching only $O(1/h)$ of the shield's local shadow. Capture ratio $\to 0$. Two Pros attempted to refute Angle 1 via "global burst-star" and "disjoint matching-star" constructions; both failed on the same game-legality error (claiming $\sigma^\star$ plays a prime that divides Prolonger's activator, which is illegal in the antichain game).
+>
+> **New established lemma (R46, proved by $\sigma^\star$ replacement inequality).** Among legal primes $p < q$, $\deg_t(p) > \deg_t(q)$: replacing $q$ by $p$ in any rank-$h$ squarefree facet gives an unresolved facet of no larger product and strictly larger harmonic weight. Composites have degree $\le$ their min prime factor. Therefore $\sigma^\star$ *always* claims the smallest remaining legal prime. This is a genuine dynamic property of $\sigma^\star$ and constrains what any Carleson-type embedding can achieve.
+>
+> **New Ruled Out (R46).** (i) ST-capture lemma $\mu_h(S(D) \cap U_{\tau(D)}) \ge c \nu(C(D))$ — refuted by burn-in + forced-leaf construction. (ii) "$\sigma^\star$ can claim prime divisors of Prolonger's played elements" — game-legality attractor; once $F$ is played, its prime factors are illegal Shortener claims by the antichain rule. Any refutation argument that relies on $\sigma^\star$ claiming such primes is invalid.
+>
+> **Current live angles** (post-R46): **Angle 1** (activator-quotient state inequality, Pro #1 R45): replace R35 with $\mu(\operatorname{Cl}_h) \ll (h/\log h) Q_h + N_h H^2/\log n$ where $Q_h$ counts each activator facet once; **Angle 3** (sparse matching-residue packing trichotomy, Pro #3 R45); **Angle 4** (rigorous refutation of the conjectured sharp rate via Prolonger lower-bound construction against $\sigma^\star$, noting game-legality must be respected).
+>
+> Angles 1 and 4 are logically opposing — Angle 1 closes the sharp conjectured rate, Angle 4 refutes it. A definitive answer on either resolves the program.
+>
+
 >
 > **Rigorous bounds (unchanged):**
 > - **T1** (formally verified): $(1/8 - o(1)) n\log\log n/\log n \le L(n) \le (13/36 + o(1)) n$.
@@ -2325,6 +2337,49 @@ Three lemmas, each of which would push the program forward:
 - **(C) Replacement state inequality** with residual floor $\ll N_h \cdot (\log\log n)^2/\log n$ at central rank, not $N_h/\log h$. This is the requirement for closing the conjectured sharp rate. Possibly the correct conclusion is that (C) is impossible and the true sharp rate is $n/\log\log\log n$ rather than $n(\log\log n)^2/\log n$.
 
 (A) + (B) ⟹ $L(n) = o(n)$ at rate $n/\log\log\log n$. (A) + (B) + (C) ⟹ conjectured sharp rate $n(\log\log n)^2/\log n$.
+
+## Round 46 (2026-04-19) — Angle 2 (ST-capture) refuted; Angle 1 survived
+
+**Dispatch.** R46 prompt (`prompts/researcher-R46-pro-pick-one-angle.md`) asked Pros to pick one of four live angles and work until definitive proof/refutation. Five Pros returned.
+
+**Pros #1, #2, #3 — all picked Angle 2, all refuted it with convergent construction.** Three independent Pros converged on the same burn-in + forced-leaf mechanism:
+
+1. Choose prime packet $I = [P, 2P]$ with at least $h^2 + h$ primes
+2. Core $C = \{c_1, \ldots, c_{h-1}\} \subset I$, leaf set $W = \{w_1, \ldots, w_M\} \subset I$ with $M = h^2$ (Pro #1, #3) or $M = \log h$ (Pro #2)
+3. Defect-2 shield $D = C \setminus \{c_1\}$, coface $C(D) = C$, local shadow $S(D) = \{C^\times \cdot q : q \in W \cup \{z\}\}$
+4. **Burn-in.** Prolonger plays fresh large primes $R_p$ outside the packet. Under $\sigma^\star$, Shortener is forced to claim every prime $p < $ (smallest packet prime) in increasing order. None touches $S(D)$
+5. **Activator.** Prolonger plays $F_0 = w_1 \cdot C^\times$. Strongly fresh, locally useful. First-hits $S(D)$
+6. **Forced first touch via single leaf.** After $F_0$, all cores $c_i$ and $w_1$ are illegal ($\mid F_0$). Smallest legal prime is now $z$ or $w_2$. $\sigma^\star$ is forced to claim this leaf. But the leaf touches only ONE element of $S(D)$
+7. **Capture ratio.** $\mu_h(S(D) \cap U_{\tau(D)}) / \nu(C(D)) \le 2h/M$, which $\to 0$ for $M = h^2$ or $\log h$
+
+Python sandbox verification in Pros #1 and #2 confirms the ratio decays as predicted.
+
+**Key new technical content proved in the refutation (now Established):**
+- **$\sigma^\star$ smallest-legal-prime lemma.** Among legal primes $p < q$: replacing $q$ by $p$ in any rank-$h$ squarefree facet gives an unresolved facet of no larger product and strictly larger harmonic weight, so $\deg_t(p) > \deg_t(q)$. Composites have degree at most the degree of their min prime factor. Therefore $\sigma^\star$ claims the smallest remaining legal prime at every turn. Fully rigorous.
+
+**Pros #4, #5 — both picked Angle 1, both failed.** Both attempted to refute the activator-quotient state inequality via "global burst-star" (Pro #4) and "disjoint matching-star" (Pro #5) constructions. Both made the same fundamental error: after Prolonger plays activator $F$ containing primes $\{x_1, \ldots, x_h\}$ (Pro #4) or $C \cup \{w_1\}$ (Pro #5), both assumed $\sigma^\star$ can claim a prime factor of $F$ (specifically $x_1$ or $c_1$). This is illegal in the antichain game — once $F$ is picked, no divisor of $F$ can be picked without violating antichain. So the "$(1 - 2/h)$ fraction of completions killed" (Pro #4) and "$(h-2)$ shadows collapsed" (Pro #5) do not occur. The claimed LHS mass is fiction.
+
+Compare Pros #1/#2/#3 who set up their constructions correctly: the forced-leaf $z$ is NOT in $F_0$, so $\sigma^\star$'s claim of $z$ is legal. The game-legality check is the distinguishing feature.
+
+### R46 Established (promoted)
+
+- **$\sigma^\star$ smallest-legal-prime lemma.** $\sigma^\star$ always claims the smallest remaining legal prime at each turn. Derived from the replacement inequality + composite degree domination.
+
+### R46 Ruled Out (promoted)
+
+- **ST-capture / time-resolved Carleson packing (Angle 2 as stated).** Refuted by burn-in + forced-leaf construction: after activator, $\sigma^\star$'s max-degree rule forces it to claim the smallest remaining legal prime, which is a leaf of the shield's shadow touching only $O(1/M)$ of the shadow mass. Convergent across three independent Pro threads with sandbox verification. The proposed "salvage" — a legal-leaf balance bound $p_{\min}^{\text{legal}}(C) \cdot \sum_{q \in W(C)} 1/q \ll \binom{h}{r(D)}$ — is false by construction.
+
+- **Game-legality attractor: "$\sigma^\star$ claims prime divisors of Prolonger's played elements."** Two Pros independently made this error attempting to refute Angle 1. In the antichain game, once Prolonger plays $F$, no prime factor of $F$ is a legal Shortener claim (the new set would violate the antichain rule). Any refutation or proof that relies on $\sigma^\star$ claiming such a prime is invalid. Pros #1/#2/#3 of R46 give the right template: force-smallest-legal-prime is only productive when the smallest legal prime is NOT a divisor of the activator, which requires careful pre-activator preparation.
+
+### R46 Open Question — three live angles remain
+
+Angle 2 is dead. Remaining live angles:
+
+- **Angle 1 — Activator-quotient state inequality.** $\mu(\operatorname{Cl}_h) \ll (h/\log h) Q_h + N_h H^2/\log n$ with $Q_h = \sum_F w(F) \mathbf{1}[\mathcal S(F) \neq \varnothing]$ counting each activator facet once regardless of multiplicity. Plus $Q_h \ll N_h H^2 \log h/(h \log n)$. Survived attempted refutation in R46 (both attempts had game-legality errors). Remains the best candidate framework.
+
+- **Angle 3 — Sparse matching-residue packing trichotomy.** Either $\nu_{h,2}^\cup(\mathcal F) \ll N_h/h$, or dense defect-three completion, or sparse matching-residue packing bound. Untested in R46.
+
+- **Angle 4 — Refute the conjectured sharp rate.** Construct Prolonger strategy forcing $\mu(\operatorname{Cl}_h) \ge c N_h/\log h$ against $\sigma^\star$, respecting game-legality (critical: the construction must handle $\sigma^\star$'s forced smallest-legal-prime response without using illegal divisors). Untested in R46.
 
 ## Appendix: Public forum transcript
 
