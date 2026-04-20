@@ -31,9 +31,9 @@ The labels above say whether something is publication-worthy. This second key sa
 As of 2026-04-20, the repo is in a good publication state, but not all claims have the same rigor level.
 
 - `Formally verified + banked`: Shield Reduction, Theorem A's core artifact, the exact `5/24` cover theorem, the `13/36` upper bound, and T1.
-- `Rigorous prose + banked`: T2, Theorem 5, Theorem 6, the universal block-product counter, the separate-rank / residual-width / band-local obstruction chain, R44, R46, and the clean R56 separator-only barrier.
+- `Rigorous prose + banked`: T2, Theorem 5, Theorem 6, the universal block-product counter, the separate-rank / residual-width / band-local obstruction chain, R44, R46, the clean R56 separator-only barrier, the **R52 transversal-integrality / Sherali-Adams barrier** (audit-confirmed and sharpened), and the **R53 q-shadow / covering dichotomy** (audit-confirmed and sharpened). All of these are strategy-independent (they do not depend on the `sigma^*` Shortener assumption).
 - `Computationally certified but not theorem-safe`: the Round 15 sub-`0.19` upper-bound candidate, and the sharper `0.18969n` limit constant.
-- `Promising late-round material not yet fully integrated`: the R52 transversal-integrality / Sherali-Adams barrier, the R52 spectral live-space separator theorem, the R53 q-shadow / covering dichotomy, the R54 strategy-dependence classification, the R55 hidden-packet lag diagnosis, and the more aggressive R56 single-certificate divisor barriers.
+- `Promising late-round material not yet fully integrated`: the R52 spectral live-space separator theorem (as a standalone Johnson-scheme statement), the R54 strategy-dependence classification, the R55 hidden-packet lag diagnosis, and the more aggressive R56 single-certificate divisor barriers.
 
 This means we already have enough for an honest paper draft now. What we do **not** yet have is theorem-grade justification for using sub-`0.19` as the main theorem headline.
 
@@ -276,6 +276,33 @@ These are some of the most valuable things in the repo. Several are more publish
 - Why it matters: this is stronger than mere "support text." It is a genuine theorem about a precisely defined proof class, and it explains why the late separator-first packet program does not currently supersede the refined prime-prefix upper-bound line.
 - Publishability: high, especially inside an obstruction/taxonomy paper. This is the cleanest late packet-era theorem to elevate out of prose support and into the main structural-negative inventory.
 
+### 3.12 R52 transversal-integrality / Sherali-Adams barrier (audit-confirmed and sharpened)
+
+- `Banked` (strategy-independent)
+- Best source: `researcher-58-pro-R52-integrality-barrier-audit-confirmed-sharpened.md`, with raw source `researcher-52-pro-fresh-zoom-transversal-integrality-barrier.md`.
+- Statement-level value:
+  - **Covering-design random construction.** For every `N`-point set `P`, fixed `0 < alpha < 1`, `l = floor(N/log N)`, `q = floor(alpha N)`: there is a family `C subseteq binom(P, l)` avoiding every `q`-set from some element, with `log|C| = l log(1/(1-alpha)) + O_alpha(l^2/N)`. Size is tight on the exponential scale: any `q`-avoidance family has `|C| >= 1/delta`.
+  - Consequently `tau_Z(C) > alpha N` while `tau_f(C) <= N/l`, giving integrality gap `G(C) >= alpha l = (alpha + o(1)) N/log N`.
+  - **Sherali-Adams barrier.** For every `l`-uniform family `H subseteq binom(P, l)` and every level `0 <= r < l`: `SA_r(H) <= N/(l - r)`. In particular for `r <= l/2`, `SA_r(C) <= (2 + o(1)) log N`, while `tau_Z(C) > alpha N`. Therefore level-`r` SA integrality gap `>= (2/alpha + o(1)) N/log N`.
+- Why it matters: this is a universal lower bound on LP-hierarchy proofs of the antichain game's transversal structure. Any proof technique whose entire certificate factors through level-`r` SA with `r <= l/2` (including many natural local-incidence, fractional-separator, and rounded-transversal arguments) is provably blind to `Theta(N/log N)`-scale integrality gaps.
+- Sharpening over the original draft: `alpha` range extended from `< 1/2` to `< 1`; SA bound improved from `r + O(log N)` to `N/(l-r)` with no additive `r`, valid for any `l`-uniform family (not only the random construction), valid through `r = l - 1`. Original draft's fixed-cardinality `M` proof had an edge-case defect at `r = l - 1`; sharper product-Bernoulli pseudo-distribution proof sidesteps it cleanly.
+- Verification: audit-confirmed with 93,671 SA constraints exhaustively checked for `N <= 7` via exact rational arithmetic; counting identities and numerical tables independently verified.
+- Strategy-dependence: independent of `sigma^*`. The theorem is purely static combinatorics and holds for any Shortener strategy.
+- Publishability: high. Landscape-of-impossibility section headline theorem explaining why LP-hierarchy / local-fractional-rounded-integral methods cannot close `r_1`.
+
+### 3.13 R53 q-shadow / covering dichotomy (audit-confirmed and sharpened)
+
+- `Banked` (strategy-independent)
+- Best source: `researcher-59-pro-R53-q-shadow-dichotomy-audit-confirmed-sharpened.md`, with raw source `researcher-53-codex-q-shadow-covering-dichotomy.md`.
+- Statement-level value (fixed-rank shadow / capture dichotomy): let `P` have size `K = h + L` with `h, L >= 1`, and fix `1 <= q <= h`. For blocker family `D subseteq 2^P`, played complement family `C subseteq binom(P, L)`, live complement space `R subseteq binom(P, L)` with density `r = |R|/|Y| > 0`: if no legal `q`-separator in `A_q(D, C)` captures at least `(1/2) delta_q |R|` live complements, then `sigma_q(D) + |C| delta_q > 1 - 4 lambda_q^2 / r`.
+- Consequence: in the fixed-`q` packet race with `q`-only Shortener moves, failure of `(1/2) delta_q`-capture at live-density threshold `eta` forces `|C| > (1 - 4 lambda_q^2 / eta - |S|/|Q_q|)/delta_q`.
+- Central-scale specialization: for `L = floor(h/log h)`, `q = floor(2 (log h)^2)`, the sharper constants `delta_q = (e + o(1)) h^{-2}` and `lambda_q^2 = (2 + o(1)) log h / h` yield `|C| > (1/e - o(1)) h^2` when `sigma_q(D) = o(1)`, and `|C| > (epsilon/e - o(1)) h^2` when `sigma_q(D) <= 1 - epsilon`.
+- Why it matters: this is the cleanest positive theorem from the late packet era. It identifies online control of Shortener's own `q`-shadow `sigma_q(D)` as the precise missing ingredient for the spectral stopping program, rather than another mixing estimate. The result survives the R52-R53 era refutations of universal stopping theorems.
+- Sharpening over the original draft: normalization requiring `L >= 1` and `1 <= q <= h` (original failed strictly at `q = 0`); use of actual live density `r` in the conclusion, not only threshold `eta`; central-scale constants tightened from `h^{-2 + o(1)}` to `(e + o(1)) h^{-2}`.
+- Verification: audit-confirmed with 640 binomial identity checks, 12,589,120 union-bound cases, 250,952 fixed-rank pair checks, 74 spectral parameter tests with error `~10^{-16}`, and central-scale numerics at `h in {10^3, ..., 10^{20}}`.
+- Strategy-dependence: independent of `sigma^*`. The theorem uses only the strategy-independent spectral separator theorem (entry 9 in the R54 audit) and union-bound counting.
+- Publishability: high. The cleanest surviving positive theorem from the late packet era and a genuine Johnson-scheme structural result. Good main-paper section on the spectral route, or standalone companion note.
+
 ## 3A. Proof-Class Taxonomy
 
 This is not a single theorem, but it is a real mathematical contribution type in this repo.
@@ -371,20 +398,11 @@ These are worth preserving and possibly writing up later, but I would not use th
 
 ### 5.3 Q-shadow / covering dichotomy (R53)
 
-- `Promising but not yet integrated`
-- Best source: `researcher-53-codex-q-shadow-covering-dichotomy.md`
-- Why it matters: this is one of the few late packet-era results that is genuinely positive rather than purely negative.
-- Why I would not bank it yet: it is not folded into `current_state.md`, and I did not find the same level of multi-audit integration as for earlier core results.
-- Recommendation: preserve it as a possible later note or appendix theorem.
+- **Promoted to Section 3.13** as of 2026-04-20 after Pro audit-confirmation and sharpening. See Section 3.13 for the canonical statement and `researcher-59-pro-R53-q-shadow-dichotomy-audit-confirmed-sharpened.md` for the paper-grade proof.
 
 ### 5.4 R52 transversal-integrality / Sherali-Adams barrier
 
-- `Promising but not yet integrated`
-- Best source: `researcher-52-pro-fresh-zoom-transversal-integrality-barrier.md`
-- Why it matters: this is probably the strongest salvage candidate from R52-R55. It gives a clean explanation of why local incidence, fractional transversals, and low-rank LP / Sherali-Adams methods can look harmless while still missing a genuinely large integral separator cost.
-- Why it is good: unlike some packet-era statements, this one has a crisp abstract combinatorial shape. It reads like a real obstruction theorem about online blocker clutters / sparse covering designs, not just a one-off packet anecdote.
-- Why it is not banked yet: it does not yet have a canonical paper note, and it has not been distilled back into `current_state.md` with the same level of synthesis as R44 / R46 / R56.
-- Recommendation: if we rescue one more late packet-era theorem for a paper or appendix, this is the first thing to promote.
+- **Promoted to Section 3.12** as of 2026-04-20 after Pro audit-confirmation and sharpening. See Section 3.12 for the canonical statement and `researcher-58-pro-R52-integrality-barrier-audit-confirmed-sharpened.md` for the paper-grade proof.
 
 ### 5.5 R52 spectral live-space separator theorem
 
@@ -510,13 +528,13 @@ If I had to rank the repo's best publishable math today, in order, I would say:
 8. Separate-rank fan no-go theorems
 9. Residual-width / Ford / band-local closure obstruction chain
 10. R44 residual-floor diagnosis, R46 smallest-legal-prime + ST-capture refutation, and the R56 separator-only barrier theorem
+11. **R52 transversal-integrality / Sherali-Adams barrier (audit-confirmed and sharpened)**
+12. **R53 q-shadow / covering dichotomy (audit-confirmed and sharpened)**
 
-Those ten items are the clearest "this is genuinely good math, not just process residue" outputs of the repo as it stands.
+Those twelve items are the clearest "this is genuinely good math, not just process residue" outputs of the repo as it stands. R52 and R53 were promoted from tier-2 salvage to banked on 2026-04-20 after Pro audit-confirmation and quantitative sharpening.
 
-Just below that top ten, the next most promising salvage candidates are:
+Just below that top twelve, the next most promising salvage candidates are:
 
-11. R52 transversal-integrality / Sherali-Adams barrier
-12. R53 q-shadow / covering dichotomy
 13. R54 strategy-dependence taxonomy
 14. R55 hidden-packet lag diagnosis
 
