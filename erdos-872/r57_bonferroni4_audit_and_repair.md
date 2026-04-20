@@ -1,3 +1,29 @@
+---
+id: R57-codex-bonferroni4-audit-repair
+type: verification
+date: 2026-04-20
+intent: >
+  Audit the R57 Pro proof of L(n) <= (W_4/2 + o(1))n; close any provenance
+  gaps or bookkeeping issues; produce a repaired comparison theorem if
+  needed.
+predecessors: [R57-pro-bonferroni4-L-le-0.19n]
+action:
+  kind: extends
+  target: R57-pro-bonferroni4-L-le-0.19n
+claim: >
+  R57 Steps 3-5 are rigorous as written (envelope, inversion, flat-block
+  bookkeeping, excision control). The quoted "already-established
+  comparison theorem" could not be located in the repo in the exact form
+  used; replaced with the correct prime-sequence Bonferroni-4 comparison
+  theorem (Theorem 2.1) + prime-rounding bridge (Theorem 4.1) from the
+  Round 14 machinery. Numerical discrepancy reconciled: 0.189710592 is
+  coarse 2^17 grid; ~0.189709753 is Richardson-refined. Both < 0.19.
+verifiers_at_time:
+  - [sandbox, agrees]
+confidence_at_time: high
+strategy_dependence: strategy-specific
+---
+
 # R57 Bonferroni-4 Audit And Repair
 
 Last updated: 2026-04-20

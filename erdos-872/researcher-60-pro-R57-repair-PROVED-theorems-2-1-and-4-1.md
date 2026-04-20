@@ -1,3 +1,43 @@
+---
+id: R60-pro-R57-repair-theorems-2-1-4-1
+type: verification
+date: 2026-04-20
+intent: >
+  Audit the R57 repair in r57_bonferroni4_audit_and_repair.md; prove or
+  refute the prime-sequence Bonferroni-4 comparison theorem (Theorem 2.1)
+  and the prime-rounding bridge (Theorem 4.1).
+predecessors: [R57-pro-bonferroni4-L-le-0.19n, R57-codex-bonferroni4-audit-repair]
+prompt: erdos-872/prompts/researcher-R60-fresh-pro-R57-repair-audit-or-prove.md
+action:
+  kind: confirms
+  target: R57-codex-bonferroni4-audit-repair
+claim: >
+  Both theorems proved rigorously. Theorem 2.1: odd-part injection +
+  monotone replacement N(q) <= N(p) + 4th-order Bonferroni with
+  M_r(n) = O_r(n (log log n)^{r-1} / log n) = o(n) error. Theorem 4.1:
+  the Round 57 local-density envelope bound (half odd-prime density)
+  supplies the slack for the bin-to-next-bin prime-rounding construction;
+  greedy assignment + diagonal delta(n) -> 0 gives sup p_j/b_j = 1 +
+  o(1) uniformly; factorial moment transfer T_r^(p)(n) = T_r^(b)(n) +
+  o(1) = J_r + o(1). Chaining: L(n) <= (W_4/2 + o(1))n = (0.1897112 +
+  o(1))n < 0.19n.
+failure_mechanism: >
+  Flagged one real repair to the bridge proof: the naive "by PNT,
+  p_j/b_j = 1 + O(1/log b_j) uniformly" is NOT justified by PNT alone.
+  The correct argument uses the Round 57 local-density envelope bound
+  forcing b_j density <= (1/2) odd-prime density; that slack is
+  decisive and must appear in the bridge proof.
+verifiers_at_time:
+  - [sandbox, agrees]
+confidence_at_time: high
+strategy_dependence: strategy-specific
+numerics:
+  - {regime: "n=14 exhaustive", value: "odd-part injection across 732 antichains, no violations"}
+  - {regime: "n=10^4, 10^5, 10^6", value: "N(q) <= N(p) confirmed in all test cases"}
+  - {regime: "n=10^4 to 10^8", value: "controlled prime-rounding: T_p - T_b = o(1)"}
+  - {regime: "W_4/2 numeric", value: 0.1897112}
+---
+
 I did not search online. The finite Bonferroni-4 theorem does follow, with one repair to the proposed proof of Theorem 4.1: the sentence “by PNT, p
 j
 	
