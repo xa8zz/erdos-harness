@@ -278,6 +278,49 @@ theorem countOddDFree_bonferroni_bound (D : Finset ℕ)
           exact ⟨ ⌈ ( #D + # ( powersetCard 2 D ) + 1 : ℝ ) / ( ε / 2 ) ⌉₊ + 1, fun n hn => by nlinarith [ Nat.le_ceil ( ( #D + # ( powersetCard 2 D ) + 1 : ℝ ) / ( ε / 2 ) ), mul_div_cancel₀ ( #D + # ( powersetCard 2 D ) + 1 : ℝ ) ( ne_of_gt ( half_pos hε_pos ) ), show ( n : ℝ ) ≥ ⌈ ( #D + # ( powersetCard 2 D ) + 1 : ℝ ) / ( ε / 2 ) ⌉₊ + 1 by exact_mod_cast hn ] ⟩;
         exact Filter.eventually_atTop.mpr ⟨ h_eventually.choose, fun n hn => by nlinarith [ h_count n, h_bound n, h_eventually.choose_spec n hn ] ⟩
 
+/-! ## Section 4a: Compression without strategy realizability
+
+This is the zero-sorry combinatorial compression core analogous to the fully
+formalized `13/36` project. It bounds any positive D-free divisibility
+antichain by the odd D-free count, with no assumption that `D` itself was
+played inside the game tree.
+-/
+
+/-- The odd part of a positive integer is positive. -/
+theorem oddPart_pos (n : ℕ) (hn : 0 < n) : 0 < oddPart n := by
+  unfold oddPart
+  exact Nat.div_pos ( Nat.le_of_dvd hn ( Nat.ordProj_dvd _ _ ) ) ( by positivity )
+
+/-- The odd part is at most the original integer. -/
+theorem oddPart_le (n : ℕ) : oddPart n ≤ n := by
+  unfold oddPart
+  exact Nat.div_le_self _ _
+
+/-- The odd part of a positive integer is odd. -/
+theorem oddPart_odd (n : ℕ) (hn : 0 < n) : Odd (oddPart n) := by
+  have h_not_even : ¬Even (oddPart n) := by
+    rw [ even_iff_two_dvd ]
+    exact Nat.not_dvd_ordCompl ( by norm_num ) ( Nat.ne_of_gt hn )
+  exact Nat.not_even_iff_odd.mp h_not_even
+
+/-- Compression lemma without assuming `D ⊆ A`:
+any positive D-free divisibility antichain injects into the odd D-free
+integers up to `n` via the odd-part map. -/
+theorem antichain_card_le_countOddDFree {n : ℕ} {A D : Finset ℕ}
+    (hA : IsDivAntichain A)
+    (hpos : ∀ a ∈ A, 0 < a)
+    (hle : ∀ a ∈ A, a ≤ n)
+    (hDfree : ∀ a ∈ A, DFree D a) :
+    A.card ≤ countOddDFree D n := by
+      have h_inj : Set.InjOn oddPart (A : Set ℕ) := oddPart_injOn_antichain A hA hpos
+      have h_card_le_image : A.card ≤ (Finset.image oddPart A).card := by
+        rw [ Finset.card_image_of_injOn h_inj ]
+      refine le_trans h_card_le_image <| Finset.card_le_card <| Finset.image_subset_iff.mpr ?_
+      simp +zetaDelta at *
+      exact fun x hx => ⟨ ⟨ oddPart_pos x ( hpos x hx ), le_trans ( oddPart_le x ) ( hle x hx ) ⟩,
+        oddPart_odd x ( hpos x hx ),
+        fun q hq hq' => hDfree x hx q hq ( dvd_trans hq' ( oddPart_dvd x ) ) ⟩
+
 /-! ## Section 4b: Structural Antichain Bound
 
 If a divisibility antichain `A ⊆ {2,...,n}` contains a set `D` of odd primes,
@@ -389,6 +432,44 @@ theorem gameValueAux_prolonger_all_bound {n : ℕ} {A : Finset ℕ} {fuel : ℕ}
     gameValueAux n A true (fuel + 1) ≤ B := by
       rw [ gameValueAux ];
       aesop
+
+/-! ## Section 4c: Fixed-`D` zero-sorry `5/16` core
+
+Fixing `D = {3,5}` gives reciprocal mass `8/15 > 1/2`, so the Bonferroni
+compression core already beats the `5/16` coefficient with no Chebyshev input
+and no game-tree induction.
+-/
+
+/-- The odd `{3,5}`-free count is eventually bounded by `(5/16 + ε)n`. -/
+theorem countOddDFree_three_five_bound (ε : ℝ) (hε : 0 < ε) :
+    ∀ᶠ n in atTop,
+      (countOddDFree ({ 3, 5 } : Finset ℕ) n : ℝ) ≤ (5 / 16 + ε) * (n : ℝ) := by
+        filter_upwards [
+          countOddDFree_bonferroni_bound ({ 3, 5 } : Finset ℕ)
+            ( by intro q hq; simp at hq; rcases hq with rfl | rfl <;> norm_num )
+            ( by intro q hq; simp at hq; rcases hq with rfl | rfl <;> norm_num )
+            ( 8 / 15 : ℝ )
+            ( by norm_num )
+            ( by norm_num )
+            ε hε
+        ] with n hn
+        have hn_nonneg : (0 : ℝ) ≤ n := by positivity
+        nlinarith
+
+/-- Zero-sorry combinatorial core for the `5/16` route:
+any positive antichain of `{3,5}`-free integers is eventually at most
+`(5/16 + ε)n`. This is the formally verified core that does not depend on
+realizing `{3,5}` as an actual Shortener prefix in the game tree. -/
+theorem antichain_three_five_core_bound (ε : ℝ) (hε : 0 < ε) :
+    ∀ᶠ n in atTop, ∀ A : Finset ℕ,
+      IsDivAntichain A →
+      (∀ a ∈ A, 0 < a) →
+      (∀ a ∈ A, a ≤ n) →
+      (∀ a ∈ A, DFree ({ 3, 5 } : Finset ℕ) a) →
+      (A.card : ℝ) ≤ (5 / 16 + ε) * (n : ℝ) := by
+        filter_upwards [ countOddDFree_three_five_bound ε hε ] with n hn
+        intro A hA hpos hle hDfree
+        exact le_trans ( by exact_mod_cast antichain_card_le_countOddDFree hA hpos hle hDfree ) hn
 
 /-- **Per-parameter bound**: For any `A > 2`, Shortener has a strategy ensuring
     the game value satisfies `L(n) ≤ (1/2)(1 - 1/A + 1/(2A²)) · n + o(n)`.

@@ -4,7 +4,7 @@
 >
 > **R46 outcome — Angle 2 (ST-capture / Carleson packing) rigorously refuted; Angle 1 (activator-quotient) survived attempted refutations.** Three independent Pros converged on the same game-legal construction: prime packet $I = [P, 2P]$ with core $C$ and leaves $W$, burn-in forcing $\sigma^\star$ to claim all primes below the packet, then Prolonger activator $F_0 = w_1 \cdot \prod C$, after which $\sigma^\star$ is forced to claim the smallest remaining legal prime — a single leaf, touching only $O(1/h)$ of the shield's local shadow. Capture ratio $\to 0$. Two Pros attempted to refute Angle 1 via "global burst-star" and "disjoint matching-star" constructions; both failed on the same game-legality error (claiming $\sigma^\star$ plays a prime that divides Prolonger's activator, which is illegal in the antichain game).
 >
-> **New established lemma (R46, proved by $\sigma^\star$ replacement inequality).** Among legal primes $p < q$, $\deg_t(p) > \deg_t(q)$: replacing $q$ by $p$ in any rank-$h$ squarefree facet gives an unresolved facet of no larger product and strictly larger harmonic weight. Composites have degree $\le$ their min prime factor. Therefore $\sigma^\star$ *always* claims the smallest remaining legal prime. This is a genuine dynamic property of $\sigma^\star$ and constrains what any Carleson-type embedding can achieve.
+> **R46 positive lemma, now stated conservatively.** Among legal primes $p < q$, $\deg_t(p) > \deg_t(q)$: replacing $q$ by $p$ in any rank-$h$ squarefree facet gives an unresolved facet of no larger product and strictly larger harmonic weight. Therefore, in any state where every legal composite has at least one legal prime factor, $\sigma^\star$ claims the smallest remaining legal prime. This conditional form is what is actually used in the burn-in refutation and survives the later local obstruction from Round 49.
 >
 > **New Ruled Out (R46).** (i) ST-capture lemma $\mu_h(S(D) \cap U_{\tau(D)}) \ge c \nu(C(D))$ — refuted by burn-in + forced-leaf construction. (ii) "$\sigma^\star$ can claim prime divisors of Prolonger's played elements" — game-legality attractor; once $F$ is played, its prime factors are illegal Shortener claims by the antichain rule. Any refutation argument that relies on $\sigma^\star$ claiming such primes is invalid.
 >
@@ -14,11 +14,11 @@
 >
 
 >
-> **Rigorous bounds (unchanged):**
+> **Rigorous bounds + current upper-bound posture:**
 > - **T1** (formally verified): $(1/8 - o(1)) n\log\log n/\log n \le L(n) \le (13/36 + o(1)) n$.
-> - **T2** (rigorous via Codex R21 Maker-first repair + activation audit, not Lean): $L(n) \ge c_\delta n(\log\log n)^2/\log n$.
+> - **T2** (rigorous via Codex R21 Maker-first repair + activation audit; substantially Lean-formalized): $L(n) \ge c_\delta n(\log\log n)^2/\log n$. As of 2026-04-20, `aristotle/t2_finite_core/` now formalizes the finite graph-potential core, the scored 3-uniform slot-hypergraph core, the local arithmetic core of the divisibility embedding, and the family-level comparison layer for both slot deletions and exact-target singleton scoring. In particular it proves the graph lemmas `Q8_empty_eq_totalWeight`, `Q8_terminal_eq_eight_claimedWeight`, `Q8_maker_ge_add_selfPot`, the hypergraph lemmas `HQ8_empty_eq_totalWeight`, `HQ8_terminal_eq_eight_scoredWeight`, `HQ8_maker_ge`, `HQ8_maker_ge_add_selfPot_of_count_le_two`, `HQ8_breaker_score_ge`, the embedding lemmas `smallDivisors_eq_divisors_ac`, `dvd_value_mem_smallDivisors_or_b_mul_smallDivisor`, `mem_slots_or_eq_value_of_dvd_value_not_small`, `mem_harmfulMoves_iff`, `eq_b_of_b_dvd_value`, `eq_b_and_a_eq_or_eq_of_ab_dvd_value`, `eq_b_and_c_eq_or_eq_of_cb_dvd_value`, `b_dvd_value_iff_mem_slots`, `ab_dvd_value_iff_mem_slots`, `cb_dvd_value_iff_mem_slots`, `eq_of_value_eq`, `value_legal_against_of_disjoint_smallDivisors_and_harmfulMoves`, and the family-level comparison lemmas `harmfulTargets_eq_slotIncidentTargets_b`, `harmfulTargets_eq_slotIncidentTargets_ab`, `harmfulTargets_eq_slotIncidentTargets_cb`, `mem_harmfulTargets_value_iff_eq_of_upperHalf`, `harmfulTargets_eq_singleton_value_of_upperHalf`, together with the supporting live-edge / monotonicity / slot-distinctness facts. There is now also a single paper-grade consolidation note at `phase4/t2_core_paper_note.md` that packages the remaining comparison and activation arguments cleanly. The remaining non-Lean gap is no longer a missing proof idea; it is the final global wrapper integration that connects the actual activation-stage played set to the now Lean-banked local legal-live-edge criterion, together with the activation/token bookkeeping, into one formal theorem.
 > - **R35 static estimate** (rigorous in arithmetic cell-local model): $\mu(\operatorname{Cl}_h) \ll (h/\log h) \mu(F_{\text{useful}}) + N_h/\log(h/\log h)$ via dyadic expanded windows. Note: residual floor is $\asymp N_h/\log h$.
-> - **Upper bound**: $L(n) \le 0.18969 n$ (linear).
+> - **Upper-bound posture:** the strongest fully safe theorem remains the banked `13/36` upper bound. Round 15 gives a computationally certified piecewise-density candidate constant below `0.19` (Bonferroni-4 gives `0.189710592` numerically), and the sharper limit constant $L(n) \le (\mathcal W/2 + o(1)) n \approx 0.18969 n$ still looks likely correct, but theorem promotion for either statement still needs the explicit monotone-comparison / breakpoint repair.
 >
 > **Linear route to $\Theta(n)$ comprehensively closed.**
 >
@@ -61,9 +61,24 @@
 
 > **Current windows.**
 > - **T1 (rigorous, formally verified):** $(1/8 - o(1)) \cdot n\log\log n/\log n \le L(n) \le (13/36 + o(1)) n$.
-> - **T2 (rigorous after Codex 2026-04-19 repair pass; not formally Lean-verified).** Lower bound $L(n) \ge c_\delta n(\log\log n)^2/\log n$ program:
+> - **T2 (rigorous after Codex 2026-04-19 repair pass; substantially Lean-verified at the finite-core level as of 2026-04-20).** Lower bound $L(n) \ge c_\delta n(\log\log n)^2/\log n$ program:
 >   - **Lemma 1 (Maker-first weighted pair-capture).** Potential $\phi(e) \in \{w/8, w/4, w/2, w\}$ by endpoint-capture count. Max-gain Maker move dominates every single Breaker reply. Exhaustive sanity check passes on all graph states $\le 5$ vertices. ✓
+>   - **Lean finite-core scaffold (done, 2026-04-20).** New project `aristotle/t2_finite_core/` builds cleanly. It formalizes the finite graph system / state / potential `Q8` and proves the core graph lemmas
+>     - `Q8_empty_eq_totalWeight`,
+>     - `Q8_terminal_eq_eight_claimedWeight`,
+>     - `Q8_maker_ge_add_selfPot`,
+>     together with the supporting monotonicity statements `liveEdge_maker_iff_of_ne`, `capturedCount_mono_after_maker`, and `edgeContrib_mono_after_maker_of_ne`. This cleanly banks the pair-capture potential algebra. ✓
 >   - **Lemma 2 (Maker-first scored 3-uniform hypergraph capture).** Reformulated game on slots $(b, ab, cb)$ with Breaker scored-edge plays counting into the final length. Potential $Q = S + \sum \phi(e)$ Maker-first nondecreasing. Exhaustive check passes on all 3-uniform hypergraphs on 4 vertices. ✓
+>   - **Lean scored-hypergraph core (done, 2026-04-20 follow-up).** The same project now also formalizes the abstract scored 3-uniform capture game via `HyperDefs.lean` / `HyperGame.lean`, including
+>     - `HQ8_empty_eq_totalWeight`,
+>     - `HQ8_terminal_eq_eight_scoredWeight`,
+>     - `HQ8_maker_ge`,
+>     - `HQ8_maker_ge_add_selfPot_of_count_le_two`,
+>     - `HQ8_breaker_score_ge`,
+>     together with the supporting hypergraph live-edge / monotonicity lemmas. This localizes the remaining non-Lean T2 gap to the actual divisibility embedding and the activation/token wrapper rather than the finite Maker-first slot algebra itself. ✓
+>   - **Lean embedding arithmetic core (done, 2026-04-20 later follow-up).** `EmbeddingCore.lean` now formalizes the local divisor classification for one residual target `t = acb`: the small core divisors are exactly `{1,a,c,ac}` via `smallDivisors_eq_divisors_ac`, any divisor of `t` outside that already-accounted-for small set must lie in the slot set `{b,ab,cb}` or equal the target itself via `dvd_value_mem_smallDivisors_or_b_mul_smallDivisor` and `mem_slots_or_eq_value_of_dvd_value_not_small`, the full local harmful-move set is characterized exactly by `mem_harmfulMoves_iff`, the cross-target slot-incidence facts are formalized via `eq_b_of_b_dvd_value`, `eq_b_and_a_eq_or_eq_of_ab_dvd_value`, and `eq_b_and_c_eq_or_eq_of_cb_dvd_value`, and those are upgraded to exact iff-statements `b_dvd_value_iff_mem_slots`, `ab_dvd_value_iff_mem_slots`, and `cb_dvd_value_iff_mem_slots`. ✓
+>   - **Lean family-level comparison layer (done, 2026-04-20 later follow-up).** New file `EmbeddingFamily.lean` defines the finite target-family filters `harmfulTargets` and `slotIncidentTargets`, proves the pointwise equivalences `b_mem_harmfulMoves_iff_mem_slots`, `ab_mem_harmfulMoves_iff_mem_slots`, `cb_mem_harmfulMoves_iff_mem_slots`, and upgrades them to exact family-level equalities `harmfulTargets_eq_slotIncidentTargets_b`, `harmfulTargets_eq_slotIncidentTargets_ab`, `harmfulTargets_eq_slotIncidentTargets_cb`. It now also formalizes the exact-target side of the comparison in the upper-half regime: `mem_harmfulTargets_value_iff_eq_of_upperHalf` and `harmfulTargets_eq_singleton_value_of_upperHalf` prove that a target value `t` hits only its own residual target inside an upper-half family, matching the scored-edge semantics of the abstract hypergraph game. This is now a genuine multi-target Lean layer of the residual embedding, not just pointwise arithmetic. ✓
+>   - **Lean local legal-live-edge criterion (done, 2026-04-20 latest follow-up).** `EmbeddingCore.lean` now also proves `value_legal_against_of_disjoint_smallDivisors_and_harmfulMoves`: if the already-played set `A` lies below a common upper-half bound, avoids the accounted-for small divisors `{1,a,c,ac}` of a residual target `t = acb`, and also avoids the harmful set `{b,ab,cb,t}`, then every `m \in A` is incomparable with `t.value`. This cleanly banks the exact local arithmetic heart of “live hyperedge implies legal actual move.” What remains outside Lean is no longer that arithmetic step itself, but the global wrapper showing that the real activation-stage played set satisfies these disjointness hypotheses. ✓
 >   - **Divisibility → hypergraph embedding (done, 2026-04-19 follow-up).** For live target $t = acb > n/2$ with $a, c, ac$ already unavailable: only harmful future moves are $\{b, ab, cb, t\}$. Slot plays $b, ab, cb$ are exactly vertex deletions in the slot hypergraph. Exact-target play $t$ is modeled as a scored edge (targets in $(n/2, n]$ are pairwise incomparable, so $t$-play doesn't kill other targets; extra divisibility side-effects only remove future Breaker options). Converse: live hypergraph edges remain legal actual moves. **Residual divisibility game is strictly Maker-friendlier than the scored hypergraph game**, so the abstract hypergraph lemma is a valid lower-bound model for Lemma 2. ✓
 >   - **Activation-stage bookkeeping / fresh-prime supply (done, 2026-04-19 follow-up).** Tokenize each pair-edge $(a,c)$ by its live large-prime set $B_{a,c}=J_{a,c}\cap\mathbb P$. With activation score $S_t$ and current live token counts $w_t(e)$, the correct graph quantity is
 >     \[
@@ -78,8 +93,9 @@
 >     E\ll Y^4/\log^4Y=o\!\big(n(\log\log n)^2/\log n\big)
 >     \]
 >     for $\delta<1/4$. Since $Q_{\rm end}$ equals activation moves plus residual live target weight on secured pairs, and the activation score itself is $o(n(\log\log n)^2/\log n)$, the secured pairs still carry residual weight $\gg_\delta n(\log\log n)^2/\log n$. This closes the last bookkeeping gap. ✓
->   - See [phase4/t2_maker_first_lemmas.md](phase4/t2_maker_first_lemmas.md), [researcher-22-codex-T2-activation-audit.md](researcher-22-codex-T2-activation-audit.md).
-> - **Upper bound (T2-side, cross-derived):** $L(n) \le (\mathcal{W}/2 + o(1)) n \approx 0.18969 n$. Linear.
+>   - **Canonical consolidation (done, 2026-04-20 latest follow-up).** [phase4/t2_core_paper_note.md](phase4/t2_core_paper_note.md) now packages the abstract Maker-first lemmas, the residual comparison theorem, and the activation/token inequality in one theorem-proof note intended to be paper-citable. The Lean files remain the formal core; this note is the canonical prose wrapper. ✓
+>   - See [phase4/t2_core_paper_note.md](phase4/t2_core_paper_note.md), [phase4/t2_maker_first_lemmas.md](phase4/t2_maker_first_lemmas.md), [researcher-22-codex-T2-activation-audit.md](researcher-22-codex-T2-activation-audit.md).
+> - **Upper-bound posture (T2-side):** banked theorem `L(n) \le (13/36 + o(1)) n`; Round 15 supplies a computationally certified sub-`0.19` candidate via the finite Bonferroni-4 truncation of the same piecewise-density route, while the sharper limit-form statement $L(n) \le (\mathcal{W}/2 + o(1)) n \approx 0.18969 n$ remains pending the explicit monotone-comparison / breakpoint repair.
 >
 > **Linear route to $\Theta(n)$ is comprehensively closed** (Rounds 13, 17, 18):
 > - Probe B empirical: cross-rank Prolonger shielding collapses at $h = 2$.
@@ -289,7 +305,7 @@ Static sieve programs using all small primes cannot achieve positive density.
 For every Shortener strategy $\sigma$, Prolonger has a response against $\sigma$ such that
 $$\sum_{p \in B(P)} \frac{1}{p} \ge \frac{1}{2}\log\log n + O(1).$$
 
-Construction: block-product Prolonger (partition primes $\le n^{1/3}$ into disjoint sets $S_i$, play $x_i = \prod_{p \in S_i} p \in (\sqrt n, n^{5/6}]$ greedy-descending by $\sum 1/p$). Pairwise coprimality and $x_i x_j > n$ force 1-for-1 Shortener snipes; Prolonger secures $\ge$ half the total harmonic mass. Full proof in `verify-postresp-10-audit-universal-block-product.md`. Empirically corroborated at coefficient ~0.875 across 4 decades (Codex dynamical probe).
+Construction: block-product Prolonger (partition primes $\le n^{1/3}$ into disjoint sets $S_i$, play $x_i = \prod_{p \in S_i} p \in (\sqrt n, n^{5/6}]$ greedy-descending by $\sum 1/p$). Pairwise coprimality and $x_i x_j > n$ force 1-for-1 Shortener snipes; Prolonger secures $\ge$ half the total harmonic mass. Canonical proof note: `phase4/block_product_carrier_mass_note.md`. Original audit artifact: `verify-postresp-10-audit-universal-block-product.md`. Empirically corroborated at coefficient ~0.875 across 4 decades (Codex dynamical probe).
 
 ### Conditional: bounded carrier implies sublinear
 
@@ -1337,7 +1353,7 @@ Pro's follow-up response (in same thread, in reply to `prompts/followup-12-pro-c
 
 **Theorem 5.** Fix $y = n^\alpha$ with $1/3 < \alpha < 1/2$. Assume every composite Prolonger move has all prime factors $\le y$ and pairwise-disjoint supports. Then Shortener can force all primes $\le y$ to be resolved in $O(n/\log n)$ of her own turns; total $L(n) = O(n/\log n)$.
 
-Proof is explicit 3-phase Shortener (primes / higher prime powers / cross-carrier pair semiprimes) with legality and resolution arguments. Move count: $\pi(n) + \pi(y) + \pi(y)^2 = O(n/\log n)$ since $\alpha < 1/2$.
+Proof is explicit 3-phase Shortener (primes / higher prime powers / cross-carrier pair semiprimes) with legality and resolution arguments. Move count: $\pi(n) + \pi(y) + \pi(y)^2 = O(n/\log n)$ since $\alpha < 1/2$. Canonical cleaned-up note: `phase4/theorem5_disjoint_carriers_note.md`.
 
 **The universal block-product Prolonger counter is in this class.** So this is the first rigorous proof that $L(n) = O(n/\log n)$ against the specific strongest-known Prolonger adversary.
 
@@ -1464,7 +1480,7 @@ Variance-framed dispatch: four researcher prompts across Pro (extend Theorem 5, 
 
 **Phase-4 count (load-bearing).** $T_\alpha(n) := \#\{p < q < r \le y : pqr \le n\} = O_\alpha(n / \log n)$, via the split $pq \le n^{1-\alpha}$ (trivial) vs. $pq > n^{1-\alpha}$ (forces $p > n^{1-2\alpha}$, and the Mertens sum $\sum_{n^{1-2\alpha} < p < q \le y} 1/(pq) = O_\alpha(1)$). Numerical check at $n = 10^6$, $\alpha = 0.45$: 35,415 triples $\approx 0.489 \cdot n/\log n$. Constant blows up as $\alpha \to 1/2$ but stays bounded for any fixed $\alpha < 1/2$.
 
-**Audit status.** 3/3 audits agree on local soundness of phases 2, 4, and the survivor induction. Full text at `verify-postresp-13-rank3-audit-{2,4,6}.md`. Aristotle not yet submitted.
+**Audit status.** 3/3 audits agree on local soundness of phases 2, 4, and the survivor induction. Full text at `verify-postresp-13-rank3-audit-{2,4,6}.md`. Aristotle not yet submitted. Canonical paper note: `phase4/theorem6_rank3_squarefree_note.md`.
 
 **Resolution of the $\{30, 42, 70\}$ obstruction.** The prior "pair-repair fails" framing was not a genuine rank-3 obstruction. Shortener plays 11 in phase 1, the four squares in phase 2, and 105 in phase 4 — every dependency is captured without any cross-rank gap.
 
@@ -1788,9 +1804,11 @@ Round 15 focused prompt drafted (`prompts/round15-shortener-push-past-022.md`): 
 
 ### Second upper-bound improvement in two rounds
 
-Pro response to Round 15 focused prompt produced a concrete constant improvement from $0.22002n$ to $\approx 0.18969n$.
+Pro response to Round 15 focused prompt produced a concrete constant improvement from $0.22002n$ to the $0.19n$ range.
 
-**Theorem (pending model-sequence repair).** $L(n) \le (\mathcal{W}/2 + o(1)) n \approx 0.18969 n$, where
+**Current paper-facing computational statement.** The same odd-prime-prefix Shortener strategy together with the finite Bonferroni-4 truncation of the piecewise-density route yields a reproducible candidate constant below `0.19`; numerically, the current verifier gives $W_4/2 = 0.189710592 < 0.19$.
+
+**Sharper conditional constant (still pending writeup repair).** $L(n) \le (\mathcal{W}/2 + o(1)) n \approx 0.18969 n$, where
 $$\mathcal{W} = \sum_{r=0}^\infty (-1)^r J_r, \qquad J_r = \frac{1}{r!} \int_{u_1 + \cdots + u_r \le 1} \prod_j \rho(u_j) du_j, \qquad \rho(u) = \frac{1}{(\lfloor 1/u \rfloor + 1) u}.$$
 
 ### Key new insight — prime-count-per-range constraint
@@ -1806,18 +1824,21 @@ Three audits now on file. All agree on:
 - Piecewise density $\rho(u)$: correct local limit.
 - Numerical values of $J_r$ and $\mathcal{W}$: independently recomputed and verified.
 - Bonferroni even-truncation gives $\mathcal{W} < 0.3795$, $\mathcal{W}/2 < 0.18975$.
+- The independent verifier `phase3/shortener_piecewise_bonferroni4_summary.md` now numerically ratifies the finite truncation with finest-grid value $W_4/2 = 0.189710592 < 0.19$.
 
 Audits disagree on rigor bar:
 - **Audit #1 (conservative):** not yet rigorously earned. The monotone model sequence $b_j$ from Round 14's machinery isn't explicitly constructed; the pointwise upper bound $U_j$ is not monotone, drops at each breakpoint $u = 1/h$. Repairable, not done.
 - **Audit #2 (permissive):** mathematically valid. Monotone envelope $m_j$ needs flat regions at breakpoints, creating atoms in the log-scale measure, but their reciprocal-mass contribution is $O(1/\log n) \to 0$, so the continuous piecewise $\rho(u)$ captures the exact asymptotic.
 - **Audit #3 (Codex in-repo, independent recomputation):** constants independently verified (\(\mathcal{W} \approx 0.379374\)), but theorem still pending. Boundary-uniformity is only justified away from \(u = 1/h\), and the proof still lacks an explicit monotone comparison sequence across the breakpoints. Repair target: build a cumulative lower envelope on compact subintervals away from the breakpoints, then invert it to a model sequence.
 
-Net verdict: **likely-correct constant, not yet promoted theorem.** The new density and the numerics are well supported, but two of the three audits still want the boundary/model-sequence repair written explicitly before promotion. So this currently sits a half-step below the Round 14 \(0.22002n\) result in rigor status.
+Net verdict: **use the Round 15 sub-`0.19` constant as a computationally certified paper-facing candidate, not yet as a promoted theorem; keep `0.18969n` as the sharper numerically certified refinement that still needs the boundary/model-sequence repair.** The new density and the numerics are well supported, and the finite Bonferroni-4 truncation now has a clean reproducible verifier. What is still not fully normalized is the passage from the piecewise pointwise bounds to a global monotone comparison sequence across the breakpoints.
+
+For a clean separation of theorem-safe content, computational certification, and the exact missing repair, see [round15_upper_bound_status.md](/Users/omisverycool/erdos-harness/erdos-872/round15_upper_bound_status.md).
 
 ### Updated window
 
 - **T1:** $(1/8 - o(1)) n \log\log n / \log n \le L(n) \le (13/36 + o(1)) n$.
-- **T2:** $n / (\log n)^{1-o(1)} \le L(n) \le (\mathcal{W}/2 + o(1)) n \approx 0.18969 n$.
+- **T2 / upper-side posture:** rigorous lower bound $n / (\log n)^{1-o(1)} \le L(n)$; best banked upper theorem remains `13/36`, while Round 15 contributes a computationally certified sub-`0.19` candidate and a sharper conditional constant $(\mathcal{W}/2 + o(1)) n \approx 0.18969 n$, both still pending the monotone-envelope repair before theorem promotion.
 
 ## Round 16 closeout (2026-04-18, $S_y$ dynamic realization refuted)
 
@@ -2313,6 +2334,7 @@ Thomas Bloom (site owner), Liam Price, Adenwalla, Xiao_Hu, Desmond Weisenberg, n
 - **(SFLU-E) as conditional theorem.** Under strong freshness (no prior Shortener OR Prolonger sterilization) + local usefulness (replacement window $q/p \in (1/2, 2)$) + certificate-packing hypothesis:
   $$\nu_{h,k}^\Sigma(\mathcal E_{k,\theta}^{\text{sf,loc}}) \ll_C \theta^{-1}(Ck/h)^{s(k)} N_h, \quad s(k) = \min\{k-1, \lfloor h/\log h \rfloor\}.$$
   The per-shield comparison, the binomial ratio bound, and the exceptional-class definition are all rigorous. Only the family-level packing step is conditional.
+  Canonical paper note: `phase4/r44_residual_floor_note.md`.
 
 - **Local star obstruction (Pro #1's self-refutation).** Fix $C = \{c_1, \ldots, c_{h-1}\}$, $W = \{w_1, \ldots, w_M\}$ with $M = \lfloor \log h \rfloor$. Defect-two shields $D_i = C \setminus \{c_i\}$ all share coface $C$. All satisfy density condition (1) at $\theta \asymp 1/\log h$. All strongly fresh before Prolonger acts. Union lift $\nu_{h,2}^\cup(\{D_i\}) \asymp M^2/h$ vs single-coface lift $\nu_{h,1}(C) \asymp M/h$: gap factor $h$. Establishes rigorously that **strong freshness + locality alone do not imply charged-shadow disjointness**; the packing step is a genuinely new assumption.
 
@@ -2361,9 +2383,10 @@ Python sandbox verification in Pros #1 and #2 confirms the ratio decays as predi
 
 Compare Pros #1/#2/#3 who set up their constructions correctly: the forced-leaf $z$ is NOT in $F_0$, so $\sigma^\star$'s claim of $z$ is legal. The game-legality check is the distinguishing feature.
 
-### R46 Established (promoted)
+### R46 Established (promoted, with later correction)
 
-- **$\sigma^\star$ smallest-legal-prime lemma.** $\sigma^\star$ always claims the smallest remaining legal prime at each turn. Derived from the replacement inequality + composite degree domination.
+- **Conditional $\sigma^\star$ smallest-legal-prime lemma.** In any game state where every legal composite has at least one legal prime factor, $\sigma^\star$ claims the smallest remaining legal prime at that turn. Derived from the replacement inequality plus composite domination by a legal prime factor. Canonical note: `phase4/r46_st_capture_refutation_note.md`.
+- **Later local obstruction to the unconditional version.** Round 49 exhibited a legal cross-core state in which a legal composite beats the smallest legal prime in limiting harmonic degree, so the unconditional smallest-legal-prime rule is false. The conditional version above is the stable paper-facing statement.
 
 ### R46 Ruled Out (promoted)
 
