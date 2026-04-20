@@ -1,3 +1,22 @@
+---
+id: R44-pro-4-closure-3-almost-primes
+type: research
+date: 2026-04-19
+intent: >
+  Attempt closure of the sublinear bound via 3-almost-prime structure in
+  the upper half, extending the defect-2 analysis.
+predecessors: [R44-pro-2-closure-defect-2, R44-pro-3-closure-defect-2-v2]
+action:
+  kind: extends
+  target: R44-pro-2-closure-defect-2
+claim: >
+  Closure attempt via 3-almost-prime decomposition of the upper half U.
+  Each maximal antichain element in U has at most 3 prime factors with
+  appropriate size constraints; Shortener exploits this to force L(n) = o(n).
+  Argument structure follows R44-pro-2 with 3-almost-prime instead of
+  defect-2 framework. Full rigor not established.
+---
+
 Let (P_n:={2,3,\dots,n}) with the divisibility order. A legal position is a (finite) **primitive set** (antichain for divisibility). The game ends exactly when the current set is **maximal primitive**, so the game length is the size of the terminal maximal primitive set.
 
 Write

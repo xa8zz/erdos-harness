@@ -1,3 +1,21 @@
+---
+id: R45-pro-4-c-refutation-pre-sterilization
+type: research
+date: 2026-04-19
+intent: >
+  Attempt refutation of Lemma (C) via pre-sterilization construction;
+  claim that L(n) ~ n/log(log(log(n))).
+predecessors: [R45-pro-3-matching-star-refutes-rank-three]
+action:
+  kind: standalone
+claim: >
+  Claimed rigorous refutation of Lemma (C) via pre-sterilization
+  construction: true game length is L(n) ~ n/log(log(log(n))), not
+  Theta(n (log log n)^2 / log n). The pre-sterilization argument says
+  Prolonger can force the state where all small legal certificates are
+  pre-killed before sigma^star claims any of them.
+---
+
 I provide a rigorous refutation of Lemma (C) using an explicit construction and failure mechanism. This definitively resolves the asymptotic-order question by establishing that the true game length is $L(n) \asymp n/\log\log\log n$ and that the conjectured rate of $\Theta(n(\log\log n)^2/\log n)$ is false.
 
 ### Rigorous Refutation of (C): Replacement State Inequality

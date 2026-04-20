@@ -1,3 +1,29 @@
+---
+id: R44-pro-1-followup-2-concession
+type: refutation
+date: 2026-04-19
+intent: >
+  Correct the SFLU-E estimate from R44-pro-1-followup; provide formal
+  concession where the lifted estimate fails.
+predecessors: [R44-pro-1-followup-sflu-e]
+action:
+  kind: refutes
+  target: R44-pro-1-followup-sflu-e
+claim: >
+  Formal concession: the SFLU-E lifted harmonic estimate is not rigorous.
+  Step (3) first-activation thinning requires a certificate-packing
+  hypothesis not implied by strong freshness. Explicit local star
+  obstruction shows Prolonger can activate many exceptional shields sharing
+  the same fresh coface-lift before sigma^star resolves any of them.
+failure_mechanism: >
+  Strong freshness (sigma^star has not previously scored the pre-shielded
+  coface) does not imply first-activation disjointness (sigma^star has not
+  previously activated any exceptional shield sharing the same lifted coface).
+  Prolonger constructs a local star of exceptional shields all charged to
+  the same coface C, all fresh in the strong-freshness sense, with sigma^star
+  forced to resolve C only after all of them are activated.
+---
+
 I need to correct the previous sketch at the point where it matters most. The lifted harmonic estimate can be made rigorous **only after adding a genuine certificate-packing hypothesis**. Strong freshness, even when it excludes Prolonger-scored pre-kills, does **not** by itself imply the first-activation disjointness needed in step (3). In fact, there is a concrete local star obstruction showing that Prolonger can activate many exceptional shields sharing the same fresh coface-lift before (\sigma^\star) resolves any of them.
 
 So the full (o(n)), let alone sharp

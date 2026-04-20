@@ -1,3 +1,29 @@
+---
+id: R46-pro-1-angle2-st-capture-refuted-burn-in
+type: refutation
+date: 2026-04-19
+intent: >
+  Pick Angle 2 (ST-capture lemma) and attempt refutation via burn-in
+  construction.
+predecessors: [R45-pro-2-carleson-reduction]
+action:
+  kind: refutes
+  target: R45-pro-2-carleson-reduction
+claim: >
+  ST-capture lemma refuted via burn-in: sigma^star is forced to first-touch
+  a shield shadow through a single globally-minimum-degree leaf. The leaf
+  has maximum unresolved harmonic degree globally but contributes only one
+  leaf in the local shield shadow. Burn-in argument shows sigma^star
+  can be steered to enter the shadow through a leaf rather than the interior.
+failure_mechanism: >
+  Global degree vs local contribution mismatch: sigma^star picks the
+  globally smallest legal prime (maximum 1/p weight), which may enter
+  a particular shield's S-T boundary from a single leaf edge rather than
+  through the interior of the T-set. The burn-in construction forces
+  sigma^star to exhaust non-shield elements first, leaving the shield
+  boundary accessible only via the leaf.
+---
+
 I pick **Angle 2** and refute the proposed ST-capture lemma.
 
 The failure is not a tie-breaking artifact and not a static packing issue: under (\sigma^\star), Shortener can be forced to first-touch a shield shadow through a single leaf because that leaf is globally the smallest remaining legal prime, hence has maximum unresolved harmonic degree. Its global degree is large, but its conditional contribution inside the particular shield shadow is only one leaf.

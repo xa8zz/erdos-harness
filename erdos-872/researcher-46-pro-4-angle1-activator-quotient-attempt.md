@@ -1,3 +1,27 @@
+---
+id: R46-pro-4-angle1-activator-quotient
+type: refutation
+date: 2026-04-19
+intent: >
+  Attempt to prove the activator-quotient state inequality (Angle 1);
+  refute if false.
+predecessors: [R46-pro-3-angle2-st-capture-refuted-single-leaf]
+action:
+  kind: standalone
+claim: >
+  Activator-quotient state inequality refuted: the inequality fails for
+  the same structural reason as the ST-capture — the activator quotient
+  does not isolate the useful-shield mass at the N_h/h scale because
+  Prolonger can construct activators sharing low-window primes across
+  many useful shields.
+failure_mechanism: >
+  Shared low-window activator: Prolonger constructs useful shields whose
+  activator quotient bA_{S}/bA_{T} lies in the same dyadic cell, so the
+  activator-quotient state inequality counts each dyadic cell multiple
+  times. The useful-shield count is not bounded by the activator quotient
+  sum but by the activator count, which can be Omega(N_h/h) * L.
+---
+
 I select **Angle 1 — Activator-quotient state inequality**.
 
 ### Verdict: Rigorous Refutation

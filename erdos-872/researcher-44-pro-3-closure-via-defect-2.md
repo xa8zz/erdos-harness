@@ -1,3 +1,21 @@
+---
+id: R44-pro-3-closure-defect-2-v2
+type: research
+date: 2026-04-19
+intent: >
+  Second attempt at closure via defect-2 analysis; attempt to prove L(n)=o(n)
+  rigorously using a different angle than R44-pro-2.
+predecessors: [R44-pro-2-closure-defect-2]
+siblings: [R44-pro-2-closure-defect-2]
+action:
+  kind: extends
+  target: R44-pro-2-closure-defect-2
+claim: >
+  L(n) = o(n) argued via synthesis of established bounds: T1 lower bound
+  plus defect-2 analysis. The game length is strictly sublinear. Precise
+  rate argument unconvincing — claimed closure not independently audited.
+---
+
 Based on a rigorous synthesis of the established theoretical bounds and the concrete obstructions provided, we can definitively resolve the asymptotic behavior of the game length.
 
 ### 1. The Asymptotic Order: $\Theta(n)$ or $o(n)$?

@@ -1,3 +1,30 @@
+---
+id: R46-pro-3-angle2-st-capture-refuted-single-leaf
+type: refutation
+date: 2026-04-19
+intent: >
+  Third independent refutation of ST-capture lemma via single-leaf
+  sigma^star capture construction.
+predecessors: [R46-pro-2-angle2-st-capture-refuted-prelude]
+siblings: [R46-pro-1-angle2-st-capture-refuted-burn-in, R46-pro-2-angle2-st-capture-refuted-prelude]
+action:
+  kind: refutes
+  target: R45-pro-2-carleson-reduction
+claim: >
+  ST-capture lemma false via single-leaf construction: sigma^star is forced
+  by legal play history to first-touch a strongly fresh local defect-two
+  shield through a single leaf. Captured fraction of shield is O(1/h),
+  not Omega(1) as required.
+failure_mechanism: >
+  Single-leaf forcing: play history drives sigma^star to the single leaf
+  of the local star with maximum global 1/p weight. The leaf contributes
+  1/h fraction of the shield boundary mass. After first touch via the leaf,
+  the remaining shield mass is still O(1) but sigma^star's “capture” was
+  only O(1/h). The ST-capture lower bound requires O(1) capture per step,
+  so three independent refutations all find the leaf-capture as the
+  binding obstruction.
+---
+
 I pick **Angle 2** and refute the proposed ST-capture lemma.
 
 The failure mechanism is not merely “freshness does not help.” The max-unresolved-harmonic-degree rule (\sigma^\star) itself can be forced, by a legal play history, to first touch a strongly fresh local defect-two shield through a single leaf. The captured part of the shield is then smaller than the claimed lower bound by a factor tending to (0).

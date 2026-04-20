@@ -1,3 +1,22 @@
+---
+id: R45-pro-2-carleson-reduction
+type: research
+date: 2026-04-19
+intent: >
+  Set up the time-resolved Carleson embedding and reduce the gap to a
+  single explicit ST-capture inequality.
+predecessors: [R45-pro-1-density-weighted-refuted]
+action:
+  kind: extends
+  target: R45-pro-1-density-weighted-refuted
+claim: >
+  Time-resolved Carleson embedding constructed cleanly; closure reduced to
+  a single ST-capture lemma: sigma^star must capture the S-T boundary of
+  every useful shield packet within O(h) steps. The Carleson embedding
+  itself is a rigorous partial; the ST-capture missing inequality is the
+  sole remaining gap for the Carleson route.
+---
+
 I can set up the time‑resolved Carleson embedding cleanly and push it all the way to a single *explicit* missing inequality. What I cannot do from your current axioms (strong freshness + local usefulness + (\sigma) being max‑unresolved‑harmonic‑degree) is prove that missing inequality; and without it the Carleson proof does not close.
 
 Here is the precise “attempt‑to‑proof” in full, and the exact additional ingredient it reduces to.

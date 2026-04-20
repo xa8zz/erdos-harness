@@ -1,3 +1,29 @@
+---
+id: R46-pro-5-angle1-activator-quotient-v2
+type: refutation
+date: 2026-04-19
+intent: >
+  Second attempt at the activator-quotient state inequality refutation,
+  from a different angle.
+predecessors: [R46-pro-4-angle1-activator-quotient]
+siblings: [R46-pro-4-angle1-activator-quotient]
+action:
+  kind: refutes
+  target: R46-pro-4-angle1-activator-quotient
+claim: >
+  Second independent refutation of the activator-quotient state inequality:
+  the inequality is false for the same structural reason as the first
+  refutation, with a different explicit construction showing the activator
+  quotient can be O(1) while the useful-shield count is Omega(N_h/h).
+failure_mechanism: >
+  Shared activator with disjoint useful shields: Prolonger constructs a
+  single activator a generating N_h/h useful shields by taking different
+  p in S for each useful top facet. The activator quotient is O(1) for
+  each shield (a/p is distinct but in the same dyadic neighborhood), but
+  the sum over all useful shields of the quotient indicator is Omega(N_h/h),
+  not O(N_h/h^2) as required for closure.
+---
+
 **Selected Angle:** Angle 1 — Activator-quotient state inequality
 
 **Verdict:** Rigorous Refutation

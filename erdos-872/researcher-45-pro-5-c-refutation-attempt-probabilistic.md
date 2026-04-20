@@ -1,3 +1,22 @@
+---
+id: R45-pro-5-c-refutation-probabilistic
+type: research
+date: 2026-04-19
+intent: >
+  Second attempt at refuting Lemma (C) via probabilistic/replacement-state
+  argument.
+predecessors: [R45-pro-4-c-refutation-pre-sterilization]
+siblings: [R45-pro-4-c-refutation-pre-sterilization]
+action:
+  kind: extends
+  target: R45-pro-4-c-refutation-pre-sterilization
+claim: >
+  Second claimed rigorous refutation of Lemma (C) via replacement state
+  inequality: probabilistic construction of a state where the replacement
+  mass exceeds what sigma^star can eliminate in the prescribed time. Uses
+  a different angle from the pre-sterilization construction.
+---
+
 Here is the rigorous refutation of **(C)**, which definitively resolves the asymptotic-order question.
 
 ### **Rigorous Refutation of (C): Replacement State Inequality**

@@ -1,3 +1,28 @@
+---
+id: R45-pro-3-matching-star-refutes-rank-three
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute the weighted rank-three completion dichotomy for defect-two
+  clusters via matching-star counterexample.
+predecessors: [R45-pro-2-carleson-reduction]
+action:
+  kind: standalone
+claim: >
+  Weighted rank-three completion dichotomy false: matching-star
+  counterexample satisfies the defect-two density-increment hypothesis
+  while avoiding every defect-three dense completion. The ST-capture
+  route from R45-pro-2 requires the rank-three dichotomy; its failure
+  blocks the Carleson closure.
+failure_mechanism: >
+  Matching-star construction: defect-two cluster D has a shared coface
+  C with high density, but C's rank-three extensions are all low-density
+  singletons matched to disjoint high-degree primes. The weighted dichotomy
+  requires either a dense defect-three completion or a total separator,
+  but the matching-star has neither — C is dense but its rank-three
+  extensions are sparse, and no total separator covers all of D.
+---
+
 The weighted rank-three completion dichotomy is **false as stated** for arbitrary shared-coface defect-two clusters. The obstruction is not merely the earlier matching-star intuition; it can be written as a clean weighted local counterexample satisfying the defect-two density-increment hypothesis while avoiding every defect-three dense completion.
 
 Here is the counterexample.

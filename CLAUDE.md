@@ -38,21 +38,6 @@ erdos-872/
     shortener_13_36_v2_out.tar.gz
     shortener_5_16.tex
     shortener_5_16_out.tar.gz
-    t2_finite_core/
-      RequestProject/
-        Main.lean
-        T2Finite/
-          Defs.lean
-          EmbeddingCore.lean
-          EmbeddingFamily.lean
-          GraphGame.lean
-          GraphReachable.lean
-          HyperDefs.lean
-          HyperGame.lean
-          ResidualComparison.lean
-      lake-manifest.json
-      lakefile.toml
-      lean-toolchain
     tau_5_24.tex
     tau_5_24_result.tar.gz
     theorem_A_result.tar.gz
@@ -66,9 +51,102 @@ erdos-872/
   followup-12-pro-closeout-response.md
   ford-integration-audit.md
   gemini.md
+  lean/
+    erdos_872_core/
+      RequestProject/
+        Main.lean
+        Round15Bonferroni4/
+          Envelope.lean
+          FlatMass.lean
+          Inversion.lean
+          PrimeBounds.lean
+        T2Finite/
+          Defs.lean
+          EmbeddingCore.lean
+          EmbeddingFamily.lean
+          GraphGame.lean
+          GraphReachable.lean
+          HyperDefs.lean
+          HyperGame.lean
+          ResidualComparison.lean
+      lake-manifest.json
+      lakefile.toml
+      lean-toolchain
+    shield_reduction/
+      shield_reduction_aristotle/
+        ARISTOTLE_SUMMARY.md
+        README.md
+        RequestProject/
+          .gitkeep
+          Main.lean
+          ShieldReduction.lean
+        lake-manifest.json
+        lakefile.toml
+        lean-toolchain
+        shield_reduction.tex
+    shortener_13_36/
+      shortener_13_36_v2_aristotle/
+        ARISTOTLE_SUMMARY.md
+        README.md
+        RequestProject/
+          .gitkeep
+          Main.lean
+          Shortener/
+            Compression.lean
+            Defs.lean
+            MainTheorem.lean
+            Sieve.lean
+        lake-manifest.json
+        lakefile.toml
+        lean-toolchain
+        shortener_13_36_v2.tex
+    shortener_5_16/
+      shortener_5_16_aristotle/
+        ARISTOTLE_SUMMARY.md
+        README.md
+        RequestProject/
+          .gitkeep
+          Main.lean
+          Shortener516/
+            Defs.lean
+            Theorems.lean
+        lake-manifest.json
+        lakefile.toml
+        lean-toolchain
+        shortener_5_16.tex
+    tau_5_24/
+      tau_5_24_aristotle/
+        ARISTOTLE_SUMMARY.md
+        README.md
+        RequestProject/
+          .gitkeep
+          Cover.lean
+          Defs.lean
+          Main.lean
+          Packing.lean
+          Tau.lean
+        lake-manifest.json
+        lakefile.toml
+        lean-toolchain
+        tau_5_24.tex
+    theorem_A/
+      theorem_A_shield_lower_bound_aristotle/
+        ARISTOTLE_SUMMARY.md
+        README.md
+        RequestProject/
+          .gitkeep
+          Main.lean
+          ShieldBasicLemmas.lean
+          ShieldDefs.lean
+          ShieldMainTheorem.lean
+        lake-manifest.json
+        lakefile.toml
+        lean-toolchain
+        theorem_A_shield_lower_bound.tex
   matching-T2-self-attempt-2026-04-18.md
   matching-T2-upper-bound-attempt-2026-04-18.md
   paper_strengthening_plan.md
+  paper_template.md
   phase0/
     CODEX_TASK.md
     compute_psi.py
@@ -312,6 +390,7 @@ erdos-872/
     verify-postresp-11-combined.md
     verify-strategic-01-directions.md
   publication_source_of_truth.md
+  r57_bonferroni4_audit_and_repair.md
   researcher-01-directed-response.md
   researcher-01-open-response.md
   researcher-02-shortener-response.md
@@ -592,10 +671,6 @@ mcp-servers/
     run.sh
     server.py
     smoke_test.sh
-prompts/
-  templates/
-    informal-audit.md
-    round-doc.md
 safari-llm/
   js/
     chatgpt/
@@ -637,6 +712,7 @@ skills/
   README.md
   add-round-doc.md
   commit-round.md
+  onboard-personal.md
   pre-compact-capture.md
   progress-zoom-out.md
   save-pasted-response.md
@@ -644,6 +720,9 @@ skills/
   write-audit-prompt.md
   write-codex-task.md
   write-followup-prompt.md
+templates/
+  informal-audit.md
+  round-doc.md
 ```
 <!-- REPO_TREE_END -->
 

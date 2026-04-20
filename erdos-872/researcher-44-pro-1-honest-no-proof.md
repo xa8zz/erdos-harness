@@ -1,3 +1,20 @@
+---
+id: R44-pro-1-honest-no-proof
+type: research
+date: 2026-04-19
+intent: >
+  Assess whether any of the three R44 open lemmas can be proved or refuted
+  with the supplied ingredients; provide an honest verdict.
+predecessors: [R43-pro-area-C-sharpening-k2-theta, R43-pro-area-B-dense-packet-refuted-common-core]
+action:
+  kind: standalone
+claim: >
+  Honest no-proof verdict: the three open lemmas (SFLU-E estimate, full
+  freshness, pair-multiplicity O(1) bound) cannot be proved or refuted from
+  the supplied ingredients. The state-inequality paradigm is blocked at the
+  current level of formulation; no closure is available.
+---
+
 I did not search online.
 
 The honest conclusion from the material supplied is:

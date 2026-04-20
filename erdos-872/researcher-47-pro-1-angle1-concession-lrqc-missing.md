@@ -1,3 +1,22 @@
+---
+id: R47-pro-1-angle1-concession-lrqc-missing
+type: research
+date: 2026-04-19
+intent: >
+  After R46 refutations of Angle 1 and Angle 2, provide a precise
+  concession and name the minimal missing ingredient.
+predecessors: [R46-pro-4-angle1-activator-quotient, R46-pro-3-angle2-st-capture-refuted-single-leaf]
+action:
+  kind: standalone
+claim: >
+  Precise concession: activator-quotient angle cannot be closed by strong
+  freshness + local usefulness + sigma^star max-harmonic-degree. The missing
+  ingredient is a Legal-Response Quotient Carleson (LRQC) estimate: an
+  inequality tying the legal-response mass of sigma^star to the activator
+  quotient structure. LRQC is a new kind of Carleson inequality not
+  derivable from existing ingredients.
+---
+
 The precise concession is this:
 
 **The activator-quotient angle is not closed by the stated ingredients alone.** The missing ingredient is a genuinely new legal-response Carleson estimate. Strong freshness, local usefulness, and the (\sigma^\star) smallest-legal-prime dynamic do not by themselves force either the quotient state inequality or the (Q_h) budget.

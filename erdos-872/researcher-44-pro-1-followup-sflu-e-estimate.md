@@ -1,3 +1,21 @@
+---
+id: R44-pro-1-followup-sflu-e
+type: research
+date: 2026-04-19
+intent: >
+  Follow up on R44-pro-1 honest verdict; attempt to prove the SFLU-E
+  estimate in the lifted harmonic shadow measure.
+predecessors: [R44-pro-1-honest-no-proof]
+action:
+  kind: extends
+  target: R44-pro-1-honest-no-proof
+claim: >
+  SFLU-E estimate found in the lifted harmonic shadow measure: the
+  lifted-measure first-activation thinning gives nu_h(D) <= theta^{-1}
+  (k/h)^s nu_h(C(D)) with explicit constants. Claimed to close the static
+  side of the R35 state inequality at scale N_h/log(h).
+---
+
 I found a usable estimate, but the key is that it must be stated in the **lifted harmonic shadow measure**, not in raw reciprocal mass. In raw count or raw lower-shadow mass, the star and common-core examples in your obstruction list really do kill the statement.
 
 Here is the estimate.

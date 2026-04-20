@@ -1,3 +1,27 @@
+---
+id: R45-pro-1-density-weighted-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Attempt to prove the target-scale density-weighted dynamic certificate
+  embedding; refute if found false.
+predecessors: [R44-pro-1-followup-2-concession]
+action:
+  kind: standalone
+claim: >
+  Density-weighted dynamic certificate embedding is false: the natural
+  theorem is false, not merely unproved. Explicit burst-star refutation
+  shows Prolonger can produce many useful shields with low total mass,
+  violating the density-weighted lower bound.
+failure_mechanism: >
+  Burst-star construction: Prolonger scores a single high-omega element that
+  creates Omega(h) useful top-facet shields simultaneously, each charged
+  to the same scored certificate. The total mass per shield is O(1/h),
+  but the density-weighted embedding requires Omega(1) mass per useful
+  shield. The burst pattern is achievable in the main game with explicit
+  h=20 examples.
+---
+
 I tried to make the target-scale density-weighted dynamic certificate embedding true. It fails: the natural theorem is false, not merely unproved.
 
 Here is the precise refutation.

@@ -1,3 +1,30 @@
+---
+id: R46-pro-2-angle2-st-capture-refuted-prelude
+type: refutation
+date: 2026-04-19
+intent: >
+  Second independent refutation of ST-capture lemma via prelude-illegality
+  construction.
+predecessors: [R46-pro-1-angle2-st-capture-refuted-burn-in]
+siblings: [R46-pro-1-angle2-st-capture-refuted-burn-in]
+action:
+  kind: refutes
+  target: R45-pro-2-carleson-reduction
+claim: >
+  ST-capture lemma false: prelude-illegality construction forces sigma^star
+  to take a leaf of a local star rather than the core. Prolonger makes all
+  smaller prime atoms illegal before activating a fresh local star; sigma^star
+  is then forced to the leaf because core candidates divide the activator
+  and are illegal.
+failure_mechanism: >
+  Prelude illegality: Prolonger plays the activator a = p_1 * ... * p_k,
+  making all proper sub-products of a illegal. The local star has center a
+  and leaves a/p_i. sigma^star's maximum-degree claim is p_1 (the smallest
+  legal prime), which is a leaf of the star. The core a itself is not
+  legal for sigma^star to claim since sigma^star plays in {2,...,n/2}
+  and a may be in the upper half.
+---
+
 I pick **Angle 2 — ST-capture**.
 
 The stated ST-capture lemma is **false**. The obstruction is not merely “freshness is insufficient”; it survives the actual max-unresolved-harmonic-degree rule (\sigma^\star). The failure mechanism is that Prolonger can make all smaller prime atoms illegal before activating a fresh local star. Then (\sigma^\star) is forced to take the smallest remaining legal prime, which is a **leaf** of the star, while all core claims that would capture a positive fraction of the star are illegal because they divide Prolonger’s activator.
