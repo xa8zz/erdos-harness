@@ -1,5 +1,5 @@
 ---
-id: R22-pro-certificate-family-gap
+id: R22-pro-certificate-family-gap-isolated
 type: research
 date: 2026-04-19
 intent: >
