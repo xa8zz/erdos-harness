@@ -1,3 +1,23 @@
+---
+id: R14-verify-pro2-probabilistic-sieve-gemini
+type: verification
+date: 2026-04-18
+intent: >
+  Gemini adversarial audit of the R14 Pro #2 probabilistic-sieve proof;
+  check all seven pressure points and verify literature connections.
+predecessors: [R14-pro-2-probabilistic-sieve]
+prompt: erdos-872/prompts/audit-14-pro-02-probabilistic-sieve.md
+siblings: [R14-verify-pro2-probabilistic-sieve-chatgpt, R14-verify-pro2-probabilistic-sieve-claude]
+action:
+  kind: confirms
+  target: R14-pro-2-probabilistic-sieve
+claim: >
+  All seven pressure points confirmed valid. Finite support of X via
+  primes >= n^delta is the key structural move that makes IE exact.
+  Confirms kappa ~ 0.22002; the 0.000005 difference from Pro #1 is
+  a numerical truncation artifact, not a theoretical gap.
+---
+
 # Adversarial Game Proof Audit
 
 _source: gemini — https://gemini.google.com/app/be5b5a0219fff5fa_

@@ -1,3 +1,20 @@
+---
+id: R14-claude-cot-summaries
+type: synthesis
+date: 2026-04-18
+intent: >
+  Synthesize 6 distinct Claude CoT outputs on upper bounds for L(n); all
+  converged on (e^{-1/2}/2)n ~ 0.303n as the target, with the sieve/product
+  convergence step as the main unresolved obstacle.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Six independent Claude CoT traces agree: the natural target is L(n) <=
+  (e^{-1/2}/2 + o(1))n ~ 0.303n; the obstruction is rigorous justification
+  of infinite-order Bonferroni convergence beyond 5/16.
+---
+
 # Round 14 Claude responses — CoT summaries (6 distinct)
 
 Note: Claude.ai does not support long reasoning traces, so these sessions produced CoT-only output. A separate AI summarized the 6 distinct CoTs.

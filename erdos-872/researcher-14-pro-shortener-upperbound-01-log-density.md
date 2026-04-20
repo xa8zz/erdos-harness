@@ -1,3 +1,23 @@
+---
+id: R14-pro-1-log-density
+type: research
+date: 2026-04-18
+intent: >
+  Prove the tightest upper bound on L(n) attainable via the prime-prefix
+  sieve framework, refining the Chebyshev bound on the j-th legal odd prime
+  and replacing uniform density du/2 with log-scale density du/(1+u).
+predecessors: []
+prompt: erdos-872/prompts/round14-shortener-compression-focused.md
+siblings: [R14-pro-2-probabilistic-sieve, R14-pro-3-bonferroni-2, R14-pro-4-infinity-bonferroni-flawed, R14-pro-5-randomized-martingale, R14-pro-6-mwu-revisits]
+action:
+  kind: standalone
+claim: >
+  L(n) <= (rho + o(1))n where rho = F/2 = 0.2200145..., with
+  F = sum_{k>=0} (-1)^k/k! * integral over simplex prod du_j/(1+u_j).
+  The log-scale density du/(1+u) replaces the crude du/2 by tracking
+  the logarithmic position of each played prime.
+---
+
 # Round 14 Pro #1 — L(n) ≤ 0.2200145n via log-scale reciprocal density du/(1+u)
 
 I can prove the following upper bound by sharpening the prime-prefix counting argument:

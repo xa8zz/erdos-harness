@@ -1,3 +1,23 @@
+---
+id: R14-pro-2-probabilistic-sieve
+type: research
+date: 2026-04-18
+intent: >
+  Prove a sharp upper bound on L(n) using probabilistic inclusion-exclusion
+  on model primes, with finite exact inclusion-exclusion enabled by restricting
+  to primes >= n^delta.
+predecessors: []
+prompt: erdos-872/prompts/round14-probabilistic-shortener.md
+siblings: [R14-pro-1-log-density, R14-pro-3-bonferroni-2, R14-pro-4-infinity-bonferroni-flawed, R14-pro-5-randomized-martingale, R14-pro-6-mwu-revisits]
+action:
+  kind: standalone
+claim: >
+  L(n) <= (kappa + o(1))n where kappa = V/2 ~ 0.22002, V = sum (-1)^r I_r
+  with I_r = (1/r!) integral_{simplex} prod du_i/(1+u_i). Key technique:
+  primes >= n^delta allow finite exact inclusion-exclusion (at most 1/delta
+  prime factors <= n), bypassing infinite Bonferroni convergence.
+---
+
 # Round 14 Pro #2 — L(n) ≤ 0.22002n via probabilistic sieve + refined Chebyshev
 
 The tightest upper bound I can make rigorous from the prefix/probabilistic-sieve line is

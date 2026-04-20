@@ -1,3 +1,23 @@
+---
+id: R14-verify-pro1-log-density-gemini
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of the R14 Pro #1 log-density sieve proof by Gemini;
+  check all seven pressure points and verify literature connections.
+predecessors: [R14-pro-1-log-density]
+prompt: erdos-872/prompts/audit-14-pro-01-log-density.md
+siblings: [R14-verify-pro1-log-density-chatgpt, R14-verify-pro1-log-density-claude]
+action:
+  kind: confirms
+  target: R14-pro-1-log-density
+claim: >
+  Gemini confirms all seven pressure points are essentially valid; the proof
+  is structurally sound with the floor/domain mismatch as the main technical
+  gap. Literature connection to sieve theory and the Dickman-de Bruijn function
+  is correct.
+---
+
 # Sieve Theory for Combinatorial Games
 
 _source: gemini — https://gemini.google.com/u/1/app/dd92966feb552a1b?pageId=none_

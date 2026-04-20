@@ -1,3 +1,24 @@
+---
+id: R14-verify-pro2-probabilistic-sieve-chatgpt
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of the R14 Pro #2 probabilistic sieve proof by ChatGPT;
+  pressure-test the refined Chebyshev step, monotone replacement, and
+  factorial-moment limit in detail.
+predecessors: [R14-pro-2-probabilistic-sieve]
+prompt: erdos-872/prompts/audit-14-pro-02-probabilistic-sieve.md
+siblings: [R14-verify-pro2-probabilistic-sieve-claude, R14-verify-pro2-probabilistic-sieve-gemini]
+action:
+  kind: confirms
+  target: R14-pro-2-probabilistic-sieve
+claim: >
+  Proof is promising but not fully rigorous; Lemma 1 refined Chebyshev step
+  is hand-wavy (uniformity of C and induction closure need explicit treatment).
+  Finite inclusion-exclusion via delta is correct and elegant; monotonicity
+  lemma is valid.
+---
+
 # Audit of Pro #2 probabilistic-sieve proof — ChatGPT (corrected paste)
 
 ## assistant

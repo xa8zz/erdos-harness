@@ -1,3 +1,22 @@
+---
+id: R14-pro-5-randomized-martingale
+type: research
+date: 2026-04-18
+intent: >
+  Attempt to beat the 1/2 cap on Shortener's accessible prime-reciprocal mass
+  using randomized prime play with martingale analysis of Prolonger's
+  block-building potential.
+predecessors: []
+siblings: [R14-pro-1-log-density, R14-pro-2-probabilistic-sieve, R14-pro-3-bonferroni-2, R14-pro-4-infinity-bonferroni-flawed, R14-pro-6-mwu-revisits]
+action:
+  kind: standalone
+claim: >
+  Claims L(n) <= (e^{-1/2-delta}/2)n via randomized Shortener that forces
+  Shortener's accessible mass past the 1/2 cap. Argument is hand-wavy: the
+  martingale analysis asserts Prolonger's saved mass drops from (1/2)M to
+  (1/2-delta)M by concentration, but does not quantify delta rigorously.
+---
+
 # Round 14 Pro #5 — claims L(n) ≤ (e^(-1/2-δ)/2)n via randomized Shortener + martingale (argument hand-wavy)
 
 To establish the tightest possible upper bound on the game length $L(n)$, we will combine **Higher-order Bonferroni inequalities** with a **Martingale analysis of a Randomized Prefix Shortener**. By randomizing Shortener’s move sequence, we break Prolonger’s deterministic greedy-descending block strategy, strictly increasing Shortener's accessible prime-reciprocal mass beyond the deterministic $s_t = 1/2$ cap.

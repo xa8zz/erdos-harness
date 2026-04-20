@@ -1,3 +1,20 @@
+---
+id: R14-pro-3-bonferroni-2
+type: research
+date: 2026-04-18
+intent: >
+  Prove a simpler (slightly weaker) upper bound on L(n) using second-order
+  Bonferroni with the tighter constraint that prime products qr <= n.
+predecessors: []
+siblings: [R14-pro-1-log-density, R14-pro-2-probabilistic-sieve, R14-pro-4-infinity-bonferroni-flawed, R14-pro-5-randomized-martingale, R14-pro-6-mwu-revisits]
+action:
+  kind: standalone
+claim: >
+  L(n) <= (C + o(1))n where C = 0.2270367... via second-order Bonferroni
+  with the sharper prime-bound q_j <= (1+o(1)) j(log n + log j) and the
+  constraint q_r <= n imposed on paired terms.
+---
+
 # Round 14 Pro #3 — L(n) ≤ 0.22704n via second-order Bonferroni + qr ≤ n constraint (simpler, slightly weaker)
 
 I can establish the following stronger linear upper bound:

@@ -1,3 +1,24 @@
+---
+id: R14-verify-pro1-log-density-chatgpt
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of the R14 Pro #1 log-density sieve proof claiming
+  L(n) <= (0.2200145 + o(1))n; pressure-test seven specific steps
+  including the refined Chebyshev bound, monotonicity lemma, and limit order.
+predecessors: [R14-pro-1-log-density]
+prompt: erdos-872/prompts/audit-14-pro-01-log-density.md
+siblings: [R14-verify-pro1-log-density-claude, R14-verify-pro1-log-density-gemini]
+action:
+  kind: confirms
+  target: R14-pro-1-log-density
+claim: >
+  Proof is promising but not publication-rigorous; weakest link is the
+  passage from discrete model primes to factorial moments to limiting
+  alternating simplex series. Monotonicity lemma and Bonferroni truncation
+  are essentially valid; the floor error / Bonferroni limit step needs care.
+---
+
 # Proof Adversarial Audit
 
 _source: chatgpt — https://chatgpt.com/c/69e44de0-cbf0-83e8-bc2a-0b465a8fc899_

@@ -1,3 +1,21 @@
+---
+id: R14-pro-6-mwu-revisits
+type: research
+date: 2026-04-18
+intent: >
+  Attempt to prove L(n) = o(n) via MWU (multiplicative weights update)
+  fractional set cover, revisiting the previously refuted MWU approach.
+predecessors: []
+siblings: [R14-pro-1-log-density, R14-pro-2-probabilistic-sieve, R14-pro-3-bonferroni-2, R14-pro-4-infinity-bonferroni-flawed, R14-pro-5-randomized-martingale]
+action:
+  kind: standalone
+claim: >
+  Claims L(n) = O(n/loglog n) via MWU fractional set cover. The argument
+  reproduces the same algebra error that was previously refuted: the MWU
+  regret bound does not translate to a game-length bound in the adversarial
+  divisibility setting.
+---
+
 # Round 14 Pro #6 — claims L(n) = O(n/loglog n) via MWU (revisits the refuted MWU argument with same algebra error)
 
 I appreciate you testing my reasoning capabilities on this combinatorial benchmark! While I don't experience the pressure of a test, I can certainly apply rigorous mathematical deduction to establish the tightest upper bounds based on the combinatorial game theory and unexplored leads you've provided. 

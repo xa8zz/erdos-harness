@@ -1,3 +1,23 @@
+---
+id: R14-verify-pro2-probabilistic-sieve-claude
+type: verification
+date: 2026-04-18
+intent: >
+  Claude tab adversarial audit of the R14 Pro #2 probabilistic-sieve proof;
+  systematically check all lemmas and the order of limits.
+predecessors: [R14-pro-2-probabilistic-sieve]
+prompt: erdos-872/prompts/audit-14-pro-02-probabilistic-sieve.md
+siblings: [R14-verify-pro2-probabilistic-sieve-chatgpt, R14-verify-pro2-probabilistic-sieve-gemini]
+action:
+  kind: confirms
+  target: R14-pro-2-probabilistic-sieve
+claim: >
+  All four main pillars of the proof hold; the finite exact inclusion-exclusion
+  (primes >= n^delta) cleanly bypasses infinite Bonferroni convergence.
+  Proof is an exceptionally tight piece of analytic combinatorics that
+  connects to the factorial-moments method with a novel game-theoretic density.
+---
+
 # Auditing a mathematical proof systematically
 
 _source: claude — https://claude.ai/chat/80ac1766-fbb3-4dd7-b800-2dea5caab96e_

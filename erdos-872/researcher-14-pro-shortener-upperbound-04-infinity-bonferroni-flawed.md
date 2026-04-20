@@ -1,3 +1,21 @@
+---
+id: R14-pro-4-infinity-bonferroni-flawed
+type: research
+date: 2026-04-18
+intent: >
+  Attempt to prove L(n) <= (e^{-1/2}/2 + o(1))n via infinite-order Bonferroni
+  by arguing that higher power sums t_k = sum 1/q^k vanish as n -> infinity.
+predecessors: []
+siblings: [R14-pro-1-log-density, R14-pro-2-probabilistic-sieve, R14-pro-3-bonferroni-2, R14-pro-5-randomized-martingale, R14-pro-6-mwu-revisits]
+action:
+  kind: standalone
+claim: >
+  Claims L(n) <= (e^{-1/2}/2 + o(1))n ~ 0.303n via the argument that since
+  primes start at q_1 >= log n, the power sums t_k -> 0 and the product
+  converges to e^{-s_t}. The t_k -> 0 argument has a bug: the bound
+  t_k <= zeta(k)/log^k(n) is incorrect because |E| grows.
+---
+
 # Round 14 Pro #4 — claims L(n) ≤ 0.303n via infinite-order Bonferroni (t_k → 0 argument has bug)
 
 To establish the tightest possible upper bound on $L(n)$, we build upon the existing Shortener strategy of playing odd primes and the injective odd-part compression map $\phi(x) = x/2^{v_2(x)}$. The core challenge is to rigorously justify the infinity-order Bonferroni convergence to bypass the current $\frac{5}{16}n$ limit. We will prove that $L(n) \le \left(\frac{e^{-1/2}}{2} + o(1)\right) n \approx 0.303 n$.

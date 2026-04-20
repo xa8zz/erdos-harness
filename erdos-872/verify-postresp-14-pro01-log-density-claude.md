@@ -1,3 +1,24 @@
+---
+id: R14-verify-pro1-log-density-claude
+type: verification
+date: 2026-04-18
+intent: >
+  Adversarial audit of the R14 Pro #1 log-density sieve proof by Claude tab;
+  independently verify numerical value F = 0.440029... and check the seven
+  pressure points.
+predecessors: [R14-pro-1-log-density]
+prompt: erdos-872/prompts/audit-14-pro-01-log-density.md
+siblings: [R14-verify-pro1-log-density-chatgpt, R14-verify-pro1-log-density-gemini]
+action:
+  kind: confirms
+  target: R14-pro-1-log-density
+claim: >
+  Numerical value F = 0.440029056... confirmed. All seven pressure points
+  essentially valid; floor error / domain mismatch flagged as the weakest
+  link but survivable. Proof connects to continuous sieve theory with a
+  novel game-theoretic density du/(1+u).
+---
+
 # Adversarial audit of sieving proof
 
 _source: claude — https://claude.ai/chat/88ffae4f-3d46-4537-88c8-ce8082bc646c_
