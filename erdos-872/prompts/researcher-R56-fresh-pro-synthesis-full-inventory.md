@@ -101,14 +101,6 @@ $\sigma^\star$ is defined as: at each turn, claim the legal move maximizing $\su
 - At $(K,h,L,s,q) = (13,8,5,2,6)$: greedy $(h)$-set covering design of $|\mathcal A| = 120$ covers every $q$-subset of $P$, leaving live/played ratio $8.73$. At $(16,10,6,2,8)$: $|\mathcal A| = 627$, live/played ratio $10.77$. These saturate the weighted near-top Johnson-shadow multiplier.
 - At $h = 8$, $q_0 = 2$, $P = \{2,3,5,7,11,13,17,19\}$: after Prolonger plays $b_{C_1} = 2310$, $b_{C_2} = 6630$, the separator $91 = 7 \cdot 13$ is a legal Shortener claim and permanently destroys any $q_0 = 2$ cover containing $\{7, 13\}$.
 
-## The open question
+## Open question
 
-Determine $L(n)$'s asymptotic order by producing one of:
-
-**A.** A full rigorous proof of $L(n) \le O(r_1(n))$. Must specify a concrete Shortener strategy $\tau$ move-by-move, prove the $\tau$-analogs of entries 13 and 14, handle the lag / attention budget in the full integer game quantitatively, and prove the online covering-design interdiction property — i.e., that under $\tau$, before Prolonger has paid $\Omega(r_1)$ moves, every live central-rank packet of significant mass retains a legal separator scale $q \le Ch/\log h$ with capture usable for Shortener.
-
-**B.** A full rigorous proof of $L(n) \ge c n/\log\log\log n$ via a game-legal Prolonger strategy that works against every legal Shortener strategy. Must handle separator-first interdiction, the lag parameter, and produce the sparse covering-design state at asymptotic total cost $o(r_1)$ against every $\tau$.
-
-**C.** A full rigorous proof that no Shortener strategy in an explicitly-named technique class can close $L(n) \le O(r_1(n))$, where the technique class is precisely defined (e.g., "every online Shortener whose per-move decision is a function of the current legal move set and a bounded-memory function of the history, and whose state inequality is of the form $\mu(\mathrm{Cl}_h) \ll f(h) \mu(F) + g(h) N_h$ with $g(h) \ge \Omega(1/\log h)$"). Must prove rigorously that every such strategy admits a Prolonger construction forcing $L(n) \ge c r_2$.
-
-Sandbox-verify every computational step. Any reformulation of the open question is not acceptable.
+Determine the asymptotic order of $L(n)$ and prove it rigorously.
