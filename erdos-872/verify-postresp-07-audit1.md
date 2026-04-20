@@ -1,3 +1,21 @@
+---
+id: R07-verify-audit1
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial audit of the R07 truncation-fix proof for the 13/36 upper bound,
+  checking whether the truncation genuinely repairs the Bonferroni monotonicity gap.
+predecessors: [R07-13-36-closeout]
+action:
+  kind: confirms
+  target: R07-13-36-closeout
+claim: >
+  Truncation proof is sound: no new monotonicity bug. Weakest link is
+  upstream fact (A) — the sum 1/q_j >= 1/3 - o(1) with k legal odd prime moves.
+  Not a disguised case-split.
+siblings: [R07-verify-audit2, R07-verify-audit3]
+---
+
 # Audit #1 of the $13/36$ truncation-fix proof (Round 7)
 
 **Source:** unattributed by user. Style (structured headers, concise sub-check style, "headline verdict") suggests Claude-family.

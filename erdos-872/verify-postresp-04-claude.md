@@ -1,3 +1,23 @@
+---
+id: R04-verify-claude
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial audit of the sigma(D)->1 zero-upper-half-cost construction from
+  R04-sigma-one-construction, including numerical reproduction and structural
+  assessment of the fixed-prefix sharpening gap.
+predecessors: [R04-sigma-one-construction]
+action:
+  kind: confirms
+  target: R04-sigma-one-construction
+claim: >
+  Math correct, numerics reproduce exactly. Key gap: construction is
+  cost-shifting, not cost-reduction — it activates the fixed-prefix
+  sharpening (already established), with same effective strength. Optimizing
+  m in the carrier-recycling gives n/log log n obstruction.
+siblings: [R04-verify-gemini, R04-verify-gpt-thinking]
+---
+
 # Audit — Claude on Pro's $\sigma(D) \to 1$ zero-upper-half-cost construction (Round 5)
 
 **Source:** Claude (web, extended-thinking tab with Python sandbox).

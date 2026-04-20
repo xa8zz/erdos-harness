@@ -1,3 +1,24 @@
+---
+id: R05-carrier-recycling
+type: research
+date: 2026-04-17
+intent: >
+  Determine whether the SLP (smallest legal prime) Shortener strategy combined
+  with a Mertens-type sieve can prove L(n) = O(n/log n), or whether Prolonger
+  can prevent Shortener from accumulating enough prime reciprocal mass.
+predecessors: [R02-shortener-response]
+prompt: erdos-872/prompts/researcher-05-packing-lemma.md
+action:
+  kind: extends
+  target: R02-shortener-response
+claim: >
+  For every fixed m >= 1, Prolonger has an explicit upper-half counter-strategy
+  forcing Shortener to capture at most one prime per block of m+1 consecutive
+  primes up to scale n^{1/(m+1)}, so sum 1/q_j <= (1/(m+1)) log log n + O_m(1).
+  This rules out any proof via SLP + Mertens that relies only on prime-mass
+  budgeting; carrier recycling is the barrier.
+---
+
 # Researcher output — carrier-recycling obstruction to naive SLP + Mertens
 
 **Source:** ChatGPT Pro (broad-search thread, Round 6). Prompt: `prompts/researcher-05-packing-lemma.md`.

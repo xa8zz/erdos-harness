@@ -1,3 +1,27 @@
+---
+id: R06-direct-sieve-refutation
+type: refutation
+date: 2026-04-17
+intent: >
+  Determine whether the direct sieve reduction N_D(n) = O(n/log n) follows
+  from the odd-prime-prefix Shortener strategy, or whether Prolonger can
+  force the D-free count to remain large.
+predecessors: [R05-shortener-13-36]
+prompt: erdos-872/prompts/researcher-06-shortener-direct.md
+action:
+  kind: refutes
+  target: R05-shortener-13-36
+claim: >
+  The direct sieve step N_D(n) = O(n/log n) is false for the odd-prime-prefix D.
+  Prolonger's block-product counter forces sum 1/q_j <= 1/2 + o(1) and
+  N_D(n) >= (1/4 - o(1))n, which kills the hoped sieve step.
+failure_mechanism: >
+  Prolonger preempts each Shortener prime q_j with a block product P_j of
+  consecutive odd primes whose log-sum just exceeds log n. This forces
+  q_j > (prime after the block), so sum 1/q_j stays below 1/2 and
+  N_D(n) >= n/4. The direct-sieve bound required sum 1/q_j > 1/2.
+---
+
 # Researcher output — refutation of direct-sieve route to $L(n) = O(n/\log n)$ via odd-prime-prefix Shortener
 
 **Source:** ChatGPT Pro (continuation of the 6B thread). Prompt: `prompts/researcher-06-shortener-direct.md`.

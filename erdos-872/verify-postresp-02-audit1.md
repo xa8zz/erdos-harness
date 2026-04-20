@@ -1,3 +1,21 @@
+---
+id: R02-audit1
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial audit of the R02 S* Shortener construction and the claimed
+  methodological barrier proposition.
+predecessors: [R02-shortener-response]
+action:
+  kind: confirms
+  target: R02-shortener-response
+claim: >
+  The "any proof cannot rely only on log-budget" proposition is sound as a
+  heuristic barrier but overstated as a formal theorem. The L(n) log n / n
+  ~ 1.5 fit claim is not independently reproducible. Numerical exact-minimax
+  table is not verified independently. Two hidden assumptions identified.
+---
+
 # Audit #1 response — adversarial audit of S* Shortener claim
 
 **Source:** External verifier (ChatGPT-thinking or similar, exact provenance not fully tracked — user reported "audit #1").

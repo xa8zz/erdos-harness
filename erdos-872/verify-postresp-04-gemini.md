@@ -1,3 +1,21 @@
+---
+id: R04-verify-gemini
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial Gemini audit of the sigma(D)->1 zero-upper-half-cost construction
+  from R04-sigma-one-construction.
+predecessors: [R04-sigma-one-construction]
+action:
+  kind: confirms
+  target: R04-sigma-one-construction
+claim: >
+  Math sound point-by-point. Weakest links: (a) residual-harmonic-mass
+  conjecture hand-wavy; (b) concatenated D_n is detached from any feasible
+  online Prolonger strategy.
+siblings: [R04-verify-claude, R04-verify-gpt-thinking]
+---
+
 # Audit — Gemini on Pro's $\sigma(D) \to 1$ zero-upper-half-cost construction (Round 5)
 
 **Source:** Gemini (web, extended-thinking tab).

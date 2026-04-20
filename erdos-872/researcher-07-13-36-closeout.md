@@ -1,3 +1,25 @@
+---
+id: R07-13-36-closeout
+type: research
+date: 2026-04-17
+intent: >
+  Repair the broken Bonferroni substitution in the 13/36 upper-bound proof
+  via a truncation argument that avoids the non-monotonicity of f(s) = 1 - s + s^2/2.
+predecessors: [R05-shortener-13-36, R06-direct-sieve-refutation]
+prompt: erdos-872/prompts/researcher-07-shortener-13-36-closeout.md
+action:
+  kind: supersedes
+  target: R05-shortener-13-36
+claim: >
+  L(n) <= (13/36 + o(1))n via a truncated prefix E of the odd-prime sequence.
+  Choose t minimal with sum_{j<=t} 1/q_j >= 1/3 - eta_n; then s_t in [1/3, 2/3)
+  and the second Bonferroni inequality is valid in this range, giving N_E(n) <=
+  (13/36)*(n/2) + o(n) and L(n) <= (13/36 + o(1))n.
+failure_mechanism: >
+  The prior (R05) version applied Bonferroni at s >= 1/2 where f(s) is not monotone;
+  truncating at t with s_t < 2/3 keeps f in the monotone region.
+---
+
 # Researcher output — $L(n) \le \tfrac{13}{36} n + o(n)$ via truncation fix
 
 **Source:** ChatGPT Pro (continuation of the 6B thread). Prompt: `prompts/researcher-07-shortener-13-36-closeout.md`.

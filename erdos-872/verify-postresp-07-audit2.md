@@ -1,3 +1,21 @@
+---
+id: R07-verify-audit2
+type: verification
+date: 2026-04-17
+intent: >
+  Second adversarial audit of the R07 truncation-fix proof, including
+  finite-n empirical simulation.
+predecessors: [R07-13-36-closeout]
+action:
+  kind: confirms
+  target: R07-13-36-closeout
+claim: >
+  Proof sound conditional on (A)-(C). Finite-n bound 2k + N_D is above 13/36
+  at n <= 10^5 (asymptotic only). t ~ n^{1/3} in adversarial regime (not "a few").
+  Weakest link: upstream fact (A).
+siblings: [R07-verify-audit1, R07-verify-audit3]
+---
+
 # Audit #2 of the $13/36$ truncation-fix proof (Round 7)
 
 **Source:** unattributed by user. Style (terse numbered responses, Python simulation, slightly broken LaTeX delimiters) suggests GPT-thinking.

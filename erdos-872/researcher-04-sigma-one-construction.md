@@ -1,3 +1,23 @@
+---
+id: R04-sigma-one-construction
+type: research
+date: 2026-04-17
+intent: >
+  Determine whether the sigma(D)->1 obstruction from the Vaccinated Shield
+  Reduction forces a loss in the upper half, and construct an explicit
+  primitive lower prefix achieving sigma->1 with o(n) upper-half cost.
+predecessors: [R03-vaccinated-shield]
+prompt: erdos-872/prompts/researcher-04-vaccinated-shield-narrow.md
+action:
+  kind: extends
+  target: R03-vaccinated-shield
+claim: >
+  There exist primitive lower prefixes D_n with |D_n| = n^{o(1)},
+  sigma(D_n) -> 1, and |U_{D_n}| = (1 - o(1))|U|. The sigma->1
+  requirement does NOT force positive upper-half cost; the obstruction
+  is to the lower-prefix counting, not the upper half.
+---
+
 # Researcher output — $\sigma(D) \to 1$ construction with zero upper-half cost
 
 **Source:** ChatGPT Pro, continuing the "broad search" thread. Prompt: `prompts/researcher-04-vaccinated-shield-narrow.md`.

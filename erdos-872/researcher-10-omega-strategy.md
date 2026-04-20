@@ -1,3 +1,23 @@
+---
+id: R10-omega-strategy
+type: research
+date: 2026-04-17
+intent: >
+  After the static carrier capacity refutation, construct a dynamical Shortener
+  strategy using Omega-grading to reduce L(n) to O(n/log n) via two-layer
+  semiprime exposure + online Omega=2 cover.
+predecessors: [R09-carrier-capacity-refutation]
+prompt: erdos-872/prompts/researcher-10-dynamical-carrier.md
+action:
+  kind: standalone
+claim: >
+  Proposed two-layer reduction: L(n) = O(n/log n) would follow from (1) Xi(B) =
+  O(1/log n) where Xi(B) = sum_{p in B, p<=sqrt(n)} 1/(p log(n/p)) bounds
+  surviving upper semiprimes, and (2) online Omega=2 cover lemma ensuring any
+  legal position with >K*n/log n elements of Omega>=3 has a legal d with
+  Omega(d)=2 covering >= c*r/log n of them. Both lemmas remain unproved.
+---
+
 # Researcher output — dynamical Shortener via $\Omega$-grading
 
 **Source:** ChatGPT Pro (dynamical Shortener thread). Prompt: `prompts/researcher-10-dynamical-carrier.md`.

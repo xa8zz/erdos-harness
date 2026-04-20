@@ -1,3 +1,21 @@
+---
+id: R06-verify-carrier-chatgpt
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial ChatGPT-thinking audit of the carrier-recycling obstruction
+  theorem from R05-carrier-recycling.
+predecessors: [R05-carrier-recycling]
+action:
+  kind: confirms
+  target: R05-carrier-recycling
+claim: >
+  Core construction sound (legality invariant has expositional gap — repairable).
+  Barrier rhetoric overstated: "no SLP + Mertens proof can work" is not
+  formalized as a theorem. Carrier-recycling reframe is conceptually useful.
+siblings: [R06-verify-carrier-claude, R06-verify-carrier-gemini]
+---
+
 # Audit — ChatGPT-thinking on Pro's carrier-recycling obstruction (Round 6, Prompt 6A)
 
 **Source:** ChatGPT with thinking mode (web tab). Extracted 2026-04-18.

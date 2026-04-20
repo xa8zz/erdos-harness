@@ -1,3 +1,27 @@
+---
+id: R06-verify-13-36-claude
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial Claude audit of the 13/36 upper bound from R05-shortener-13-36,
+  focusing on the Bonferroni step where S can grow to log log n.
+predecessors: [R05-shortener-13-36]
+action:
+  kind: refutes
+  target: R05-shortener-13-36
+claim: >
+  Proof broken at Bonferroni step: f(S) = 1 - S + S^2/2 is an upward parabola
+  requiring S in [1/3, 5/3] for the 13/18 bound to hold, but S can grow to
+  log log n in practice. Strategy likely correct, constant likely correct,
+  proof does not handle full S range.
+failure_mechanism: >
+  Second-order Bonferroni polynomial f(S) is not monotone beyond S=1; Pro
+  only proves S >= 1/3 - o(1) but actual S can be log log n. For large S,
+  f(S) blows up, so the 13/36 bound does not follow. Superseded by the
+  truncation fix in R07-13-36-closeout.
+siblings: [R06-verify-13-36-chatgpt, R06-verify-13-36-gemini]
+---
+
 # Audit — Claude on Pro's 13/36 upper bound (Round 6, Prompt 6B)
 
 **Source:** Claude (web tab, extended-thinking). Extracted 2026-04-18.

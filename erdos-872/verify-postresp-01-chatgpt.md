@@ -1,3 +1,21 @@
+---
+id: R01-verify-chatgpt
+type: verification
+date: 2026-04-17
+intent: >
+  Audit the Shield Reduction Theorem and polynomial-shield lower bound from
+  researchers R01-directed and R01-open via adversarial ChatGPT review with
+  web/literature search.
+predecessors: [R01-directed-response, R01-open-response]
+action:
+  kind: confirms
+  target: R01-directed-response
+claim: >
+  ChatGPT adversarial audit of the two R01 theorems. Proofs assessed for
+  soundness, weakest links, and connections to existing literature on
+  primitive sets and divisibility antichains.
+---
+
 # ChatGPT: AI Theorem Auditing
 
 **URL:** https://chatgpt.com/c/69e1df94-76e0-83e8-8dfd-5a32480bb2ea

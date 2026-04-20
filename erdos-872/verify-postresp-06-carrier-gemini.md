@@ -1,3 +1,22 @@
+---
+id: R06-verify-carrier-gemini
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial Gemini audit of the carrier-recycling obstruction theorem from
+  R05-carrier-recycling, assessing the Ford anatomy-of-integers connection.
+predecessors: [R05-carrier-recycling]
+action:
+  kind: confirms
+  target: R05-carrier-recycling
+claim: >
+  Core construction sound (points 1-7 verified). Ford 2008 connection is
+  logically incoherent: Prolonger's ambush uses only O(n^{1/(m+1)}) moves with
+  abundant distinct carrier primes; no density theorem prevents it. Real lesson:
+  Shortener needs dynamic/top-down prime selection, not a better sieve.
+siblings: [R06-verify-carrier-chatgpt, R06-verify-carrier-claude]
+---
+
 # Audit — Gemini on Pro's carrier-recycling obstruction theorem (Round 6, Prompt 6A)
 
 **Source:** Gemini (web tab). Extracted 2026-04-18.

@@ -1,3 +1,21 @@
+---
+id: R06-verify-13-36-chatgpt
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial audit of the 13/36 upper bound proof from R05-shortener-13-36
+  focusing on executability of the prime prefix and the Bonferroni step.
+predecessors: [R05-shortener-13-36]
+action:
+  kind: confirms
+  target: R05-shortener-13-36
+claim: >
+  Proof essentially correct but not fully rigorous: Bonferroni step is sound
+  (ChatGPT finds the direction correct), weakest link is prefix executability.
+  Disagrees with Gemini's BROKEN verdict on Bonferroni direction.
+siblings: [R06-verify-13-36-claude, R06-verify-13-36-gemini]
+---
+
 # Audit — ChatGPT-thinking on Pro's 13/36 upper bound (Round 6, Prompt 6B)
 
 **Source:** ChatGPT with thinking mode (web tab). Extracted 2026-04-18.

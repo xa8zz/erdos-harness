@@ -1,3 +1,22 @@
+---
+id: R01-verify-claude
+type: verification
+date: 2026-04-17
+intent: >
+  Audit the Shield Reduction Theorem and polynomial-shield lower bound from
+  R01-directed and R01-open via adversarial Claude review with web/literature
+  search.
+predecessors: [R01-directed-response, R01-open-response]
+action:
+  kind: confirms
+  target: R01-directed-response
+claim: >
+  Claude adversarial audit of the two R01 theorems. Proofs assessed for
+  soundness, weakest links, and connections to existing literature on
+  primitive sets and divisibility antichains.
+siblings: [R01-verify-chatgpt, R01-verify-gemini]
+---
+
 # Claude: Claude
 
 **URL:** https://claude.ai/chat/ebe88f9b-b459-4e95-8ff9-d8d4fcd921b2

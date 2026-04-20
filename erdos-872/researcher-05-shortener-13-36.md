@@ -1,3 +1,22 @@
+---
+id: R05-shortener-13-36
+type: research
+date: 2026-04-17
+intent: >
+  Find a concrete Shortener strategy that improves the upper bound on L(n)
+  below the previous 0.416n record via an odd-prime-prefix approach.
+predecessors: [R01-directed-response]
+prompt: erdos-872/prompts/researcher-05-shortener-ceiling.md
+action:
+  kind: standalone
+claim: >
+  Shortener playing the k = floor(sqrt(n)/log n) smallest legal odd primes
+  forces L(n) <= (13/36 + o(1))n = (0.3612 + o(1))n.
+  Note: the Bonferroni substitution step was later found flawed; superseded
+  by researcher-07 truncation fix.
+siblings: [R05-carrier-recycling]
+---
+
 # Researcher output — new upper bound $L(n) \le \frac{13}{36}n + o(n)$ via odd-prime-prefix Shortener
 
 **Source:** ChatGPT Pro (separate thread). Prompt: `prompts/researcher-05-shortener-ceiling.md`.

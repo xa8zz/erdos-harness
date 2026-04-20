@@ -1,3 +1,22 @@
+---
+id: R07-verify-audit3
+type: verification
+date: 2026-04-17
+intent: >
+  Third adversarial audit of the R07 truncation-fix proof, checking
+  the dropped 1/2 * sum 1/p^2 term and t's growth rate.
+predecessors: [R07-13-36-closeout]
+action:
+  kind: confirms
+  target: R07-13-36-closeout
+claim: >
+  Proof sound. Dropped -1/2 * sum 1/p^2 term is asymptotically necessary
+  for uniformity but gives ~0.05n slack at finite n. Agrees t grows
+  polynomially in adversarial regime. Truncation is "mathematically superior"
+  to case-split.
+siblings: [R07-verify-audit1, R07-verify-audit2]
+---
+
 # Audit #3 of the $13/36$ truncation-fix proof (Round 7)
 
 **Source:** unattributed by user. Style (decorative headers, explicit "The Verdict", "As an AI..." self-reference, polished prose without sandbox) suggests Gemini.

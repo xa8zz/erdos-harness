@@ -1,3 +1,28 @@
+---
+id: R09-carrier-capacity-refutation
+type: refutation
+date: 2026-04-17
+intent: >
+  Determine whether the Static Carrier Capacity Bound (sum_{p in B(P)} 1/p
+  bounded by constant C(eps) for |P| = eps*n) holds or can be refuted.
+predecessors: [R05-carrier-recycling]
+prompt: erdos-872/prompts/researcher-09-carrier-capacity.md
+action:
+  kind: refutes
+  target: R05-carrier-recycling
+claim: >
+  The Static Carrier Capacity Bound is false. For any eps < 1/4, the top
+  eps*n consecutive integers form a legal Prolonger antichain P with
+  sum_{p in B(P)} 1/p >= log log(eps*n) -> infinity. No finite prime
+  "vaccination" rescues the bound.
+failure_mechanism: >
+  Consecutive integers in U = (n/2, n] hit every prime p <= |P| = eps*n.
+  The harmonic sum over primes up to eps*n diverges (Mertens), so no
+  constant C(eps) can bound sum 1/p. Arithmetic-progression variants
+  with step d = prod_{q in Q} q (for any fixed Q) give the same divergence
+  over primes not in Q.
+---
+
 # Researcher output — refutation of the Carrier Capacity Bound
 
 **Source:** ChatGPT Pro (fresh tab, open-exploration thread). Prompt: `prompts/researcher-09-carrier-capacity.md`.

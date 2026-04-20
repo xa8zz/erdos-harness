@@ -1,3 +1,24 @@
+---
+id: R01-aristotle-theorem-A
+type: verification
+date: 2026-04-17
+intent: >
+  Formally verify the polynomial-shield lower-bound theorem (any shield prefix
+  achieving beta(P) <= (1/2 - eps)n requires k = Omega(log log n / log log log n))
+  via Aristotle Lean 4 formalization.
+predecessors: [R01-open-response]
+action:
+  kind: confirms
+  target: R01-open-response
+claim: >
+  Core combinatorial content (ShieldDefs, ShieldBasicLemmas, greedy exchange,
+  beta lower bound, shadow weight approximation, covered-primes log bound)
+  formally verified in Lean 4 with zero sorry. Five sorries remain, all in
+  classical analytic number theory (Mertens, Chebyshev, PNT) outside Mathlib
+  coverage. Main theorem follows given those.
+confidence_at_time: high
+---
+
 # Aristotle formalization — Theorem A (polynomial shield lower bound)
 
 **Job id:** `c53ccd8d-708a-4f00-8997-6da709121665`

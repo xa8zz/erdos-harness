@@ -1,3 +1,25 @@
+---
+id: R09-verify-gemini-refutation
+type: verification
+date: 2026-04-17
+intent: >
+  Independent Gemini DeepThink refutation of the Static Carrier Capacity Bound,
+  submitted concurrently with the Pro researcher prompt for R09.
+predecessors: []
+action:
+  kind: refutes
+  target: R05-carrier-recycling
+claim: >
+  Carrier Capacity Bound is false. Argument 1 (interval counterexample):
+  top eps*n consecutive integers form an antichain hitting every prime p <= eps*n,
+  so sum 1/p >= log log(eps*n) -> infinity. Arguments 2 and 3 have flaws but
+  Argument 1 is sufficient. Confirms R09-carrier-capacity-refutation independently.
+failure_mechanism: >
+  Consecutive integers in U = (n/2, n] hit every prime p <= |P|: for each
+  prime p, some element of any p consecutive integers is divisible by p.
+  Therefore B(P) contains all primes up to |P|, and sum 1/p diverges.
+---
+
 # Refutation of the Carrier Capacity Bound — Gemini DeepThink (pre-Pro, same direction)
 
 **Source:** Gemini DeepThink (Pro-tier model, API-level), via user's browser tab. A prior API call timed out; this one succeeded while the matching Pro researcher prompt was still running.

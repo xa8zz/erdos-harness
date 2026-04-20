@@ -1,3 +1,22 @@
+---
+id: R01-verify-gemini
+type: verification
+date: 2026-04-17
+intent: >
+  Audit the Shield Reduction Theorem and polynomial-shield lower bound from
+  R01-directed and R01-open via adversarial Gemini review with web/literature
+  search.
+predecessors: [R01-directed-response, R01-open-response]
+action:
+  kind: confirms
+  target: R01-directed-response
+claim: >
+  Gemini adversarial audit of the two R01 theorems. Proofs assessed for
+  soundness, weakest links, and connections to existing literature on
+  primitive sets and divisibility antichains.
+siblings: [R01-verify-chatgpt, R01-verify-claude]
+---
+
 # Gemini: AI Math Proof Audit: Antichain Games - Google Gemini
 
 **URL:** https://gemini.google.com/app/5be35f58b615a923

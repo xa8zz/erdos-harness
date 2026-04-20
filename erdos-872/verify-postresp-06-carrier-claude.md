@@ -1,3 +1,22 @@
+---
+id: R06-verify-carrier-claude
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial Claude audit of the carrier-recycling obstruction theorem from
+  R05-carrier-recycling, including numerical verification and scope assessment.
+predecessors: [R05-carrier-recycling]
+action:
+  kind: confirms
+  target: R05-carrier-recycling
+claim: >
+  Theorem mathematically correct. Two minor exposition gaps (u-distinctness,
+  Prolonger-first move) easily patched. Framing oversells on barrier scope
+  (too broad) and undersells optimized obstruction: optimal m gives n/log log n
+  barrier, not just n/(log n)^{1/(m+1)}.
+siblings: [R06-verify-carrier-chatgpt, R06-verify-carrier-gemini]
+---
+
 # Audit — Claude on Pro's carrier-recycling obstruction theorem (Round 6, Prompt 6A)
 
 **Source:** Claude (web tab, extended-thinking with Python sandbox). Extracted 2026-04-18.

@@ -1,3 +1,21 @@
+---
+id: R10-verify-universal-block-product
+type: verification
+date: 2026-04-17
+intent: >
+  Audit the claim that no Shortener strategy can bound sum_{p in B(P)} 1/p by
+  a constant, using a universal block-product Prolonger counter-construction.
+predecessors: [R09-carrier-capacity-refutation, R10-omega-strategy]
+action:
+  kind: confirms
+  target: R09-carrier-capacity-refutation
+claim: >
+  Two-part result: (1) bounded-carrier-mass implies L(n) = O(n/log n) via
+  Brun sieve (sound); (2) no such Shortener exists — universal block-product
+  Prolonger forces sum 1/p >= (1/2) log log n against every Shortener.
+  Both parts structurally sound.
+---
+
 # Audit — Universal dynamical refutation of Carrier Capacity (block-product counter)
 
 **Source:** Audit-model response via user browser tab (model identity not captured; distinct from the three primary verifiers). Sent after `researcher-10-dynamical-carrier.md` prompt was dispatched but before Pro's response arrived.

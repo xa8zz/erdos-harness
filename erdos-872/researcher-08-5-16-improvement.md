@@ -1,3 +1,25 @@
+---
+id: R08-5-16-improvement
+type: research
+date: 2026-04-17
+intent: >
+  Improve the 13/36 upper bound by taking a longer odd-prime prefix k = floor(n/(2A log n))
+  and optimizing the parameter A -> 2.
+predecessors: [R07-13-36-closeout]
+prompt: erdos-872/prompts/researcher-08-open-solution.md
+action:
+  kind: supersedes
+  target: R07-13-36-closeout
+claim: >
+  For every A > 2: L(n) <= (1/2 - 1/(2A) + 1/(4A^2) + o(1))n.
+  Optimizing A -> 2 gives L(n) <= (5/16 + o(1))n = (0.3125 + o(1))n,
+  improving the 13/36 ~ 0.3612 bound.
+failure_mechanism: >
+  The 13/36 bound used k = sqrt(n)/log n (too short); the longer k = n/(2A log n)
+  prefix achieves sum 1/q_j >= 1/A via the q_j <= A*j*log n bound,
+  enabling the second Bonferroni at s_t in [1/A, 1/A + 1/3].
+---
+
 # Researcher output — $L(n) \le 5n/16 + o(n)$ via longer odd-prime prefix
 
 **Source:** ChatGPT Pro (continuation of the 6B / 13-36 thread). Prompt: `prompts/researcher-08-open-solution.md`.

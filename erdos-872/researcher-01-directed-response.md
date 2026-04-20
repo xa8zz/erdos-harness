@@ -1,3 +1,22 @@
+---
+id: R01-directed-response
+type: research
+date: 2026-04-17
+intent: >
+  Explore Prolonger and Shortener strategies in the divisibility-antichain
+  game on {2,...,n}, derive explicit bounds on L(n), and identify the
+  5/24 first-hit shield skeleton and weighted threat-potential framework.
+predecessors: []
+prompt: erdos-872/prompts/researcher-01-directed.md
+action:
+  kind: standalone
+claim: >
+  Shield Reduction Theorem (first derivation): for Prolonger's upper prefix P,
+  every eventual maximal A satisfies |A| >= |U| - beta(P). The minimum
+  unweighted upper cover tau(n) = 5n/24 + O(1) via the explicit H_n skeleton.
+  Upper bound L(n) <= (923/2016 + o(1))n via 85/1008 savings pool.
+---
+
 # ChatGPT: Combinatorial Game Analysis
 
 **URL:** https://chatgpt.com/c/69e198fe-88ac-83e8-8a76-837accb19afa

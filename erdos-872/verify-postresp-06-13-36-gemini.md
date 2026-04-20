@@ -1,3 +1,24 @@
+---
+id: R06-verify-13-36-gemini
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial Gemini audit of the 13/36 upper bound from R05-shortener-13-36,
+  independently identifying the Bonferroni-direction failure.
+predecessors: [R05-shortener-13-36]
+action:
+  kind: refutes
+  target: R05-shortener-13-36
+claim: >
+  Proof broken: f(S) upward parabola, lower bound on S does not imply upper
+  bound on f(S) unless S <= 5/3. Proposed fixes: Brun sieve, Mertens product,
+  or LP-dual. Strategy still works in simulation.
+failure_mechanism: >
+  Same diagnosis as R06-verify-13-36-claude: Bonferroni polynomial non-monotone
+  above S=1; actual S can grow to log log n, sending f(S) -> infinity.
+siblings: [R06-verify-13-36-chatgpt, R06-verify-13-36-claude]
+---
+
 # Audit — Gemini on Pro's 13/36 upper bound (Round 6, Prompt 6B)
 
 **Source:** Gemini (web tab). Extracted 2026-04-18.

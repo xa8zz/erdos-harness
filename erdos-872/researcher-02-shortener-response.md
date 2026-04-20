@@ -1,3 +1,22 @@
+---
+id: R02-shortener-response
+type: research
+date: 2026-04-17
+intent: >
+  Construct a candidate Shortener strategy S* (smallest legal prime first,
+  then greedy deletion-count) and prove a methodological barrier: crude
+  blocked-prime log-budget is insufficient to prove sublinearity.
+predecessors: [R01-directed-response, R01-open-response]
+prompt: erdos-872/prompts/researcher-02-shortener-construction.md
+action:
+  kind: standalone
+claim: >
+  S* strategy (smallest legal prime, fallback greedy deletion) is empirically
+  near-optimal. Any proof that S* forces o(n) cannot rely solely on the
+  blocked-prime log-budget; the geometry of batch-blocking is the missing
+  ingredient.
+---
+
 # Researcher output — S* Shortener construction + negative proposition
 
 **Source:** ChatGPT Pro, t9 ("directed" research thread continuing from Round 1). Prompt: `prompts/researcher-02-shortener-construction.md`.

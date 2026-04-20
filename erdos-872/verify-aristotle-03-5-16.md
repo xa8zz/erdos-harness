@@ -1,3 +1,24 @@
+---
+id: R03-aristotle-5-16
+type: verification
+date: 2026-04-17
+intent: >
+  Formally verify the 5n/16 upper bound proof (odd-prime-prefix Shortener)
+  via Aristotle Lean 4 formalization.
+predecessors: [R08-5-16-improvement]
+action:
+  kind: confirms
+  target: R08-5-16-improvement
+claim: >
+  15 theorems covering the entire combinatorial and algebraic content of the
+  5n/16 proof formalized with zero sorry: algebraic optimization g(2)=5/16,
+  compression (odd-part injectivity on antichains), harmonic sum lower bound,
+  Bonferroni sieve, antichain complement DFree bound, game value induction,
+  and main theorem. One remaining sorry in per-parameter game bound requires
+  Mathlib coverage beyond current scope.
+confidence_at_time: high
+---
+
 # Aristotle verification — $L(n) \le 5n/16 + o(n)$
 
 **Job:** `4c1f85cd-54f5-42ec-b797-529d5b9ac6ee`

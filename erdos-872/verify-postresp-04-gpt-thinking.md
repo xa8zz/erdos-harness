@@ -1,3 +1,25 @@
+---
+id: R04-verify-gpt-thinking
+type: verification
+date: 2026-04-17
+intent: >
+  Adversarial GPT-thinking audit of the sigma(D)->1 zero-upper-half-cost
+  construction from R04-sigma-one-construction, focusing on the concatenation step.
+predecessors: [R04-sigma-one-construction]
+action:
+  kind: refutes
+  target: R04-sigma-one-construction
+claim: >
+  Proof has an outright bug: the error schedule rho(D^(k)(y_k)) >= 1 - 2^{-k}
+  is impossible because 1 - r_k ~ exp(-k/e) >> 2^{-k}. Concatenation breaks as
+  written. Central existential claim probably true after repair.
+failure_mechanism: >
+  The schedule rho >= 1 - 2^{-k} is unachievable since 1-rho = 1-r_k is only
+  of order exp(-k/e), far larger than 2^{-k}. Choosing a slower error schedule
+  repairs the claim; the core result likely holds.
+siblings: [R04-verify-claude, R04-verify-gemini]
+---
+
 # Audit — GPT-thinking on Pro's $\sigma(D) \to 1$ zero-upper-half-cost construction (Round 5)
 
 **Source:** ChatGPT (separate thinking-mode tab, independent).
