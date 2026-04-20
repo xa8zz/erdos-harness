@@ -1,3 +1,22 @@
+---
+id: R37-fresh-pro-one-cylinder-closure
+type: research
+date: 2026-04-19
+intent: >
+  Prove the freshness lemma in the one-cylinder arithmetic model and reduce
+  the full game to a concrete analytic number theory statement.
+predecessors: [R36-pro-A-freshness-lemma-partial, R37-codex-freshness-toy-counterexample]
+action:
+  kind: extends
+  target: R36-pro-A-freshness-lemma-partial
+claim: >
+  Freshness lemma proved in the one-cylinder arithmetic model (b fixed). Full
+  game amortization reduces to a divisors-in-short-intervals bound: for
+  every prime p in S, the count of divisors of bA_{S\{p}} in the interval
+  (bA_{S\{p}}/2, bA_{S\{p}}] is O(h). If this NT bound holds, then
+  L(n) << n/log(log(log(n))).
+---
+
 # Round 37 fresh Pro — freshness lemma PROVED in the one-cylinder arithmetic model; full game reduced to a divisors-in-short-intervals bound
 
 ## Status: genuine conditional closure in the one-cylinder arithmetic model

@@ -1,3 +1,27 @@
+---
+id: R43-pro-area-A-sparse-refuted-mesoscopic
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute the sparse estimate from a different angle: the mesoscopic window
+  obstruction shows per-shield harmonic cost << 1 does not imply sparse.
+predecessors: [R43-pro-area-A-sparse-refuted-binomial-layers]
+siblings: [R43-pro-area-A-sparse-refuted-binomial-layers]
+action:
+  kind: standalone
+claim: >
+  Sparse estimate refuted via mesoscopic-window obstruction: per-shield
+  harmonic cost omega(E) << 1 is not sufficient for sparse closure.
+  The decomposition leaves a real mesoscopic regime where omega(E) << 1
+  but the aggregate sum is Omega(N_h/h), breaking the entropy-tail bound.
+failure_mechanism: >
+  Mesoscopic-window regime: targets with one prime in each of Theta(h)
+  dyadic cells near the boundary of the low/high partition. Each such
+  target has omega(E) = Theta(1/h) (per-cell contribution), so omega(E)
+  << 1. But there are Theta(N_h/h) such targets in the natural bipartition,
+  giving aggregate sum Theta(N_h/h) > N_h/log h for h >> log h.
+---
+
 I would **refute the sparse estimate as stated**. The high-window entropy tail is valid for a stronger notion of sparse, but it does not follow from “per-shield harmonic cost (\omega(E)\ll 1).” The decomposition leaves a real middle regime.
 
 Let me write the issue in the cleanest form. Put

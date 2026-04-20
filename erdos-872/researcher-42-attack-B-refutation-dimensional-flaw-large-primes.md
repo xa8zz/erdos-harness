@@ -1,3 +1,29 @@
+---
+id: R42-attack-B-refutation
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute the R42 Attack B chain persistence proof.
+predecessors: [R42-attack-B-proof]
+siblings: [R42-attack-A-refutation]
+action:
+  kind: refutes
+  target: R42-attack-B-proof
+claim: >
+  Chain persistence proof refuted by dimensional flaw and explicit
+  large-prime Prolonger chain at h=30: the binomial ratio argument
+  confuses the rank-h degree with the defect-k degree, and a chain of
+  large-prime replacements keeps the defect-k degree at O(1) while the
+  chain has depth Omega(h).
+failure_mechanism: >
+  Dimensional flaw: the claimed h/k degree lower bound uses the rank-h
+  degree count but the chain pre-shields defect-k certificates whose
+  degree in the k-defect layer is O(1), not O(h/k). Explicit large-prime
+  chain: p_1, p_1*p_2, ..., p_1*...*p_k in the top dyadic window, each
+  step replacing one large prime with another of comparable size. The chain
+  has depth k = h-1 with each defect-k certificate having degree 1.
+---
+
 # R42 Attack B refutation — dimensional flaw + explicit large-prime Prolonger chain
 
 **Attack B:** same-prime chain persistence claimed to force $\sigma^\star$-degree $\Omega(h)$ per chain.

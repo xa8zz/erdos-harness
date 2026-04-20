@@ -1,3 +1,26 @@
+---
+id: R43-pro-area-A-sparse-refuted-binomial-layers
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute the sparse closure argument via explicit binomial-layer obstruction;
+  show the high-window entropy tail does not cover the full sparse regime.
+predecessors: [R42-codex-gamma2-scale, R39-pro-dense-packet-projection]
+action:
+  kind: standalone
+claim: >
+  Sparse closure as stated refuted: the high-window entropy tail covers
+  only the pure high-window family, not the natural complement of the dense
+  regime. Binomial-layer obstruction gives an explicit sparse family in the
+  low dyadic window with full harmonic mass that is not covered by the tail.
+failure_mechanism: >
+  The sparse regime includes targets S with at least one prime in the low
+  dyadic window; the high-window entropy argument only bounds targets with
+  ALL primes in the high window. Binomial layers from low-window primes
+  contribute O(h) * (low-window prime count / h) = O(1) fraction of N_h,
+  which is Omega(N_h) total, not covered by the entropy tail.
+---
+
 I refute the sparse closure as stated. The high-window entropy tail closes only the **pure high-window** family. It does not close the natural complement of Pro A’s dense regime.
 
 One preliminary dimensional point: with the original definition

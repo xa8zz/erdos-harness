@@ -1,3 +1,21 @@
+---
+id: R32-codex-optimal-shortener-strategy
+type: research
+date: 2026-04-19
+intent: >
+  Extract the optimal Shortener rule from the small-h top-facet empirical study.
+predecessors: [R31-codex-summary]
+prompt: erdos-872/prompts/codex-extract-optimal-shortener-strategy.md
+siblings: [R32-codex-sigma-rule-summary]
+action:
+  kind: extends
+  target: R31-codex-summary
+claim: >
+  Optimal Shortener strategy sigma extracted from small-h top-facet data:
+  always play the element of maximum harmonic weight in the current open
+  facet. This sigma rule is the empirically optimal strategy across h <= 8.
+---
+
 # R31 Codex — extracted Shortener rule from the small-$h$ top-facet study
 
 Artifacts for this pass:

@@ -1,3 +1,22 @@
+---
+id: R37-pro-A-per-score-projection
+type: research
+date: 2026-04-19
+intent: >
+  Reduce the full freshness lemma to a minimal extremal inequality inside
+  the divisor lattice; prove the bounded-depth version.
+predecessors: [R36-pro-A-freshness-lemma-partial, R37-codex-freshness-bounded-depth]
+action:
+  kind: extends
+  target: R36-pro-A-freshness-lemma-partial
+claim: >
+  Bounded-depth freshness proved cleanly. Full freshness lemma reduced to a
+  single dyadic supersaturation inequality: if a set of h-1 dyadic-cell
+  representatives is sigma^star-legal, it must contain a certificate of
+  degree >= h/log(h). The freshness lemma follows from this per-score
+  projection bound.
+---
+
 # Round 37 Pro A — freshness lemma reduced to a sharper per-score projection bound
 
 ## Status: bounded-depth version proved; reduced full lemma to a specific dyadic supersaturation inequality

@@ -1,3 +1,21 @@
+---
+id: R39-codex-packet-tail-reduction
+type: research
+date: 2026-04-19
+intent: >
+  Formalize fixed-packet absorption and reduce the remaining gap to a
+  packet-concentration lemma for the sparse recursive case.
+predecessors: [R38-codex-first-appearance-reduction, R38-pro-pair-first-charging]
+action:
+  kind: extends
+  target: R38-codex-first-appearance-reduction
+claim: >
+  Fixed-packet absorption proved rigorously for O(1)-packet families.
+  Remaining gap reduced to a packet-concentration lemma: for the sparse
+  recursive pre-shielding regime, same-prime packets must concentrate
+  enough mass to dominate the useful-shield count at the N_h/h scale.
+---
+
 # Round 39 Codex — fixed-packet absorption and reduction of full closure to a packet-concentration lemma
 
 ## Status

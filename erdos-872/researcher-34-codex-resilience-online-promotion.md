@@ -1,3 +1,20 @@
+---
+id: R34-codex-resilience-online-promotion
+type: research
+date: 2026-04-19
+intent: >
+  Determine whether the R33 static ingredients (thickness dichotomy, multi-cell
+  product-star) can be promoted to an online closure of L(n) = o(n).
+predecessors: [R33-pro-A-thickness-dichotomy, R33-fresh-pro-defect-layer-counting]
+action:
+  kind: standalone
+claim: >
+  R33 ingredients do not yet close the online promotion. The thickness
+  dichotomy is a static result; the online amortization step (translating
+  state inequalities to game-length bounds) requires an independent
+  freshness/witnessing lemma that R33 does not provide.
+---
+
 # Round 34 Codex — the R33 ingredients do not yet close the online promotion
 
 ## Outcome

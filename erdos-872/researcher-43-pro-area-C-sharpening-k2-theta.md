@@ -1,3 +1,22 @@
+---
+id: R43-pro-area-C-sharpening-k2-theta
+type: research
+date: 2026-04-19
+intent: >
+  Sharpen the dense-packet threshold parameter theta after R43 area B
+  refutation; determine the correct k^2/theta tradeoff.
+predecessors: [R43-pro-area-B-dense-packet-refuted-common-core]
+action:
+  kind: extends
+  target: R43-pro-area-B-dense-packet-refuted-common-core
+claim: >
+  The correct dense-packet parameter is k^2/theta, not constant theta.
+  With this sharpening, the dense-packet absorption absorbs targets with
+  Gamma_k >= k^2/theta while the sparse recursive regime requires a
+  separate argument. The tradeoff is: larger theta gives better absorption
+  of the dense regime at the cost of a larger sparse remainder.
+---
+
 The sharpening is possible, but only with a tradeoff. The right dense-packet parameter is not “(\theta) constant”; it is
 
 [

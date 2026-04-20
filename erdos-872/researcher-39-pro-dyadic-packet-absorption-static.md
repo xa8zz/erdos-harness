@@ -1,3 +1,22 @@
+---
+id: R39-pro-dyadic-packet-absorption-static
+type: research
+date: 2026-04-19
+intent: >
+  Prove the static/analytical side of dyadic-packet absorption rigorously
+  with explicit constants, extending the single-cell result to O(1)-packet.
+predecessors: [R39-pro-dense-packet-projection, R38-pro-pair-first-charging]
+siblings: [R39-pro-dense-packet-projection]
+action:
+  kind: extends
+  target: R39-pro-dense-packet-projection
+claim: >
+  Rigorous static dyadic-packet absorption for O(1)-packet families: the
+  tail bound is N_h * c^4/h^2 with explicit constants matching empirical
+  multiplicities. Dynamic game-side localization (converting static mass
+  bound to online amortization) remains open.
+---
+
 # Round 39 Pro (second) — rigorous dyadic-packet absorption (STATIC SIDE); explicit $N_h \cdot c^4/h^2$ tail bound
 
 ## Status: rigorous partial — static/mass side complete with explicit constants; dynamic game-side localization still open

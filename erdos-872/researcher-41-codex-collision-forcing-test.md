@@ -1,3 +1,22 @@
+---
+id: R41-codex-collision-forcing-test
+type: verification
+date: 2026-04-19
+intent: >
+  Empirically test the collision-forcing lemma from R40 against sigma^star
+  in the toy model; determine whether packet collisions occur at the
+  predicted rate.
+predecessors: [R40-pro-collision-forcing-reduction]
+action:
+  kind: confirms
+  target: R40-pro-collision-forcing-reduction
+claim: >
+  Collision-forcing test run in the toy model: sigma^star does force packet
+  collisions empirically, but the collision rate matches h^2 not h, leaving
+  the analytical bound tight. Supports the collision-forcing formulation but
+  does not rule out that a Prolonger strategy avoids collisions.
+---
+
 # R41 Codex Audit — Collision-Forcing Refutation Test
 
 ## Scope note

@@ -1,3 +1,25 @@
+---
+id: R37-codex-freshness-toy-counterexample
+type: refutation
+date: 2026-04-19
+intent: >
+  Test whether immediate freshness holds in the one-cylinder arithmetic toy;
+  construct a counterexample if not.
+predecessors: [R36-pro-A-freshness-lemma-partial, R37-codex-freshness-bounded-depth]
+action:
+  kind: standalone
+claim: >
+  Immediate freshness fails in the one-cylinder arithmetic toy: Prolonger can
+  force a useful top facet whose every degree->>h lower-defect witness was
+  shielded one step earlier. Full freshness must rely on bounded-depth
+  backward-charging, not immediate availability.
+failure_mechanism: >
+  One-cylinder Prolonger constructs a recursive pre-shielding chain of length
+  2: score an edge that pre-shields the natural lower-defect witness for the
+  next useful top facet, then score that top facet. Immediate freshness
+  requires depth 0 but the construction needs depth >= 1.
+---
+
 # Round 37 Codex — immediate freshness fails in the one-cylinder arithmetic toy
 
 ## Outcome

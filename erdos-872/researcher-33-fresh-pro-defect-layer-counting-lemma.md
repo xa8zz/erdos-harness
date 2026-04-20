@@ -1,3 +1,20 @@
+---
+id: R33-fresh-pro-defect-layer-counting
+type: research
+date: 2026-04-19
+intent: >
+  Prove a defect-layer counting lemma and establish a static barrier for
+  the transversal reduction.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Defect-layer counting lemma proved: in any h-uniform hypergraph from the
+  divisibility structure, the number of defect layers is O(h/log h) under
+  sigma^star. Static barrier established as a necessary condition for
+  sublinear game length.
+---
+
 # Round 33 fresh-targeted Pro — defect-layer counting lemma + static barrier
 
 ## Headline

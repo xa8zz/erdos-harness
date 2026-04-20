@@ -1,3 +1,20 @@
+---
+id: R38-codex-pair-first-multiplicity
+type: diagnostic
+date: 2026-04-19
+intent: >
+  Empirically probe pair-first multiplicity in the toy model to bound how
+  many useful shields a single pair-first event can produce.
+predecessors: [R38-codex-first-appearance-reduction]
+action:
+  kind: extends
+  target: R38-codex-first-appearance-reduction
+claim: >
+  Empirical partial: pair-first multiplicity in the toy model stays at O(1)
+  per pair for the tested range, consistent with a constant multiplicity
+  bound. Analytical proof of the O(1) bound is not yet supplied.
+---
+
 # R38 Pair-First Multiplicity: Empirical Partial
 
 Date: 2026-04-19

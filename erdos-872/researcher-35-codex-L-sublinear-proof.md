@@ -1,3 +1,21 @@
+---
+id: R35-codex-L-sublinear-proof
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to close the online promotion gap via direct top-facet charging;
+  produce a candidate proof of L(n) = o(n).
+predecessors: [R34-codex-resilience-online-promotion]
+prompt: erdos-872/prompts/codex-close-L-sublinear.md
+action:
+  kind: standalone
+claim: >
+  Candidate closure via direct top-facet charging. Whether this is a full
+  proof of L(n) = o(n) depends on the online amortization step; the static
+  charging argument is rigorous but the translation to game length requires
+  adversarial verification.
+---
+
 # Round 35 Codex — candidate closure of the online promotion via direct top-facet charging
 
 ## Status

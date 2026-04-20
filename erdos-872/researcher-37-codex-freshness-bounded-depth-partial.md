@@ -1,3 +1,21 @@
+---
+id: R37-codex-freshness-bounded-depth
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to prove the full freshness lemma from R36; isolate a rigorous
+  bounded-depth partial result.
+predecessors: [R36-pro-A-freshness-lemma-partial]
+action:
+  kind: extends
+  target: R36-pro-A-freshness-lemma-partial
+claim: >
+  Bounded-depth freshness lemma proved rigorously: every chain of
+  pre-shielded lower-defect witnesses has depth bounded by O(log h) before
+  reaching a fresh high-degree certificate. Full freshness without the
+  depth bound remains open.
+---
+
 # Round 37 Codex — bounded-depth freshness lemma (rigorous partial)
 
 ## Status

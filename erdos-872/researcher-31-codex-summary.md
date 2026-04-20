@@ -1,3 +1,22 @@
+---
+id: R31-codex-summary
+type: synthesis
+date: 2026-04-19
+intent: >
+  Synthesize R31 Codex findings from the Prolonger counter-construction search;
+  identify structural obstacles and the net research state.
+predecessors: [R31-codex-prolonger-counter-search]
+siblings: [R31-codex-prolonger-counter-search]
+action:
+  kind: extends
+  target: R31-codex-prolonger-counter-search
+claim: >
+  Prolonger counter-construction search yielded structural obstacles but no
+  refutation of sublinear conjecture. The search supports the transversal
+  direction: no h-uniform hypergraph on divisors with transversal size > O(log h)
+  was found, consistent with g(h) = O(log h).
+---
+
 # Round 31 Codex — Prolonger counter-construction search: structural obstacles, no refutation found
 
 ## Headline summary

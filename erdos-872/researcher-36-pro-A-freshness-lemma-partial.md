@@ -1,3 +1,21 @@
+---
+id: R36-pro-A-freshness-lemma-partial
+type: research
+date: 2026-04-19
+intent: >
+  Isolate the freshness lemma as the specific remaining gap after R35-R36
+  analysis; state the lemma precisely and make partial progress.
+predecessors: [R35-pro-A-online-domination-partial, R36-codex-r35-online-amortization]
+action:
+  kind: extends
+  target: R35-pro-A-online-domination-partial
+claim: >
+  Freshness lemma isolated as the specific remaining gap: for any scored
+  sequence under sigma^star, the lower-defect witnesses appear at rate
+  >= 1/h in each step. Partial progress: bounded-prehistory version proved;
+  full freshness (without prehistory bound) is the precise open sub-gap.
+---
+
 # Round 36 Pro A — freshness lemma isolated as the specific remaining gap
 
 ## Status: strong partial; specific remaining sub-gap

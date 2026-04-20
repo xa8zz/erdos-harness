@@ -1,3 +1,22 @@
+---
+id: R32-codex-sigma-rule-summary
+type: synthesis
+date: 2026-04-19
+intent: >
+  Summarize the extracted optimal Shortener strategy sigma with formal
+  statement and key properties.
+predecessors: [R32-codex-optimal-shortener-strategy]
+siblings: [R32-codex-optimal-shortener-strategy]
+action:
+  kind: extends
+  target: R32-codex-optimal-shortener-strategy
+claim: >
+  Sigma rule: at each step, Shortener plays the unplayed element x in the
+  current open facet of maximum omega(x) / prod-degree. Empirically sigma
+  achieves the minimax optimal game length for all tested h <= 8 instances.
+  This is sigma^star, the strategy that most subsequent analysis assumes.
+---
+
 # Round 32 Codex — extracted optimal Shortener strategy $\sigma$
 
 ## The rule

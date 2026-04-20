@@ -1,3 +1,24 @@
+---
+id: R32-pro-A-simplex-star-refutation
+type: refutation
+date: 2026-04-19
+intent: >
+  Test whether the plain resilience lemma (sigma^star achieves sublinear
+  game length) holds; try to prove or refute via simplex-star cascade.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Simplex-star cascade refutes the plain resilience lemma as stated.
+  A specific Prolonger counter-strategy exploiting simplex-star facet geometry
+  forces the game length to be Omega(N_h) under sigma^star, contradicting
+  the resilience lemma.
+failure_mechanism: >
+  In the simplex-star cascade, Prolonger plays elements that create new
+  high-degree open facets faster than sigma^star can close them. The
+  cascade rate exceeds the closing rate by a constant factor at each step.
+---
+
 # Round 32 Pro A (continuation) — simplex-star cascade refutes the plain resilience lemma
 
 ## Headline

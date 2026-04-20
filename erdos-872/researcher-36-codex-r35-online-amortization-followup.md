@@ -1,3 +1,22 @@
+---
+id: R36-codex-r35-online-amortization
+type: research
+date: 2026-04-19
+intent: >
+  Push on the R35 online-amortization gap identified by Pro A; attempt to
+  close the translation from state inequality to game-length bound.
+predecessors: [R35-pro-A-online-domination-partial]
+prompt: erdos-872/prompts/followup-codex-R35-closure-gap.md
+action:
+  kind: extends
+  target: R35-pro-A-online-domination-partial
+claim: >
+  Online amortization is the specific remaining gap. The state inequality
+  mu(Cl_h) <= L * |F_useful| + N_h/log L does not directly give L = o(n)
+  without bounding |F_useful| under some Shortener strategy. Neither the
+  abstract nor arithmetic-specific approach closes this without a new lemma.
+---
+
 # Round 36 Codex — R35 online-amortization follow-up
 
 ## Headline

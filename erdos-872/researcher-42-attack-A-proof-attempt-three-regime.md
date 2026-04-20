@@ -1,3 +1,22 @@
+---
+id: R42-attack-A-proof-attempt
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to prove the weighted (*) via harmonic packet absorption with a
+  three-regime partition of the degree graph G_D.
+predecessors: [R41-three-pros-refute-collision-forcing]
+action:
+  kind: extends
+  target: R41-three-pros-refute-collision-forcing
+claim: >
+  Proof attempt of weighted (*) via three-regime decomposition of G_D:
+  (i) large-packet regime absorbed by dyadic expansion, (ii) medium-packet
+  regime absorbed by harmonic mass concentration, (iii) sparse singleton
+  regime absorbed by high-window entropy tail. Claimed to close
+  Sigma_omega(p,q) = O(N_h/log h).
+---
+
 # R42 Attack A proof attempt — three-regime partition of $G_D$
 
 **Attack A:** harmonic packet absorption proving $(\star_\omega)$.

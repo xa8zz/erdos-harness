@@ -1,3 +1,23 @@
+---
+id: R42-attack-B-proof
+type: research
+date: 2026-04-19
+intent: >
+  Prove the same-prime chain persistence lemma: chains under sigma^star
+  must expose a high-degree certificate before the chain ends.
+predecessors: [R41-three-pros-refute-collision-forcing]
+siblings: [R42-attack-A-proof-attempt]
+action:
+  kind: extends
+  target: R41-three-pros-refute-collision-forcing
+claim: >
+  Chain persistence lemma proved via binomial ratio: any same-prime chain
+  of pre-shielding events of length k forces sigma^star to claim a
+  certificate of degree >= h * C^k / binom(h,k) >= Omega(h/k) at some
+  step. Summing over chains of bounded depth k = O(log h) gives the
+  needed N_h/h amortization.
+---
+
 # R42 Attack B proof — chain persistence lemma via binomial ratio
 
 **Attack B:** same-prime chain persistence under $\sigma^\star$.

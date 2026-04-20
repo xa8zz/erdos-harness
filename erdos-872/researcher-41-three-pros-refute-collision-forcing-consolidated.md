@@ -1,3 +1,28 @@
+---
+id: R41-three-pros-refute-collision-forcing
+type: synthesis
+date: 2026-04-19
+intent: >
+  Synthesize three independent Pro refutations of collision forcing and
+  clarify the correct reformulation in terms of weighted (*).
+predecessors: [R41-pro-collision-forcing-refuted]
+action:
+  kind: supersedes
+  target: R41-pro-collision-forcing-refuted
+claim: >
+  Three independent Pro threads agree: collision forcing as stated is dead.
+  Structural refutation is shared: packet-separated constructions avoid
+  collisions while accumulating useful scores. They diverge on implications
+  for (*): weighted (*) (sum over omega-weighted useful scores <= N_h/h)
+  may still hold while unweighted (*) is refuted. Sole surviving route is
+  weighted-(*) formulation.
+failure_mechanism: >
+  Unweighted (*) fails because Prolonger can force useful scores from non-local
+  defect-2 certificates with packet-separated cores; the collision-forcing
+  route assumed all useful scores come from collision-eligible packet pairs,
+  which the construction violates.
+---
+
 # Round 41 — Three Pros independently refute collision forcing; key caveats on weighted vs. unweighted $(\star)$
 
 ## Status: collision forcing dead as stated; refutation may be attacking the wrong target

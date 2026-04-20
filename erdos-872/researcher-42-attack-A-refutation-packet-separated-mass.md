@@ -1,3 +1,25 @@
+---
+id: R42-attack-A-refutation
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute the R42 Attack A three-regime proof of weighted (*).
+predecessors: [R42-attack-A-proof-attempt]
+action:
+  kind: refutes
+  target: R42-attack-A-proof-attempt
+claim: >
+  Attack A proof refuted: packet-separated family has full harmonic mass
+  Omega(N_h) and is not absorbed by any of the three regimes. The singleton
+  sparse regime is not covered by the high-window entropy tail when the
+  singletons are in the low dyadic windows.
+failure_mechanism: >
+  Packet-separated family with low-window singleton primes has harmonic
+  mass proportional to sum_{p in low-window} 1/p = Omega(log log L), which
+  is Omega(N_h) after multiplying by the N_h base. The three-regime proof
+  treats this as a sparse-singleton tail but it has constant density.
+---
+
 # R42 Attack A refutation — packet-separated family has full harmonic mass
 
 **Attack A:** harmonic packet absorption proving $(\star_\omega) = \Sigma_\omega(p,q) = \binom{h-2}{2}\sum_E\omega(E) \ll N_h/\log h$.

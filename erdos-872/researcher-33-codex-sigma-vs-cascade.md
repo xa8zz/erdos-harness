@@ -1,3 +1,21 @@
+---
+id: R33-codex-sigma-vs-cascade
+type: research
+date: 2026-04-19
+intent: >
+  Empirically test sigma^star against the simplex-star cascade in the
+  abstract H^{(h)} model to determine which regime dominates.
+predecessors: [R32-pro-A-simplex-star-refutation, R32-codex-sigma-rule-summary]
+prompt: erdos-872/prompts/codex-sigma-vs-simplex-star-cascade.md
+action:
+  kind: standalone
+claim: >
+  Empirical test: sigma^star outperforms against simplex-star cascade in
+  the abstract H^{(h)} model (peak ratio 6.71) but not in the
+  one-cylinder arithmetic model (max 0-2). The gap localizes the
+  obstruction to arithmetic-specific structure (divisor lattice non-privacy).
+---
+
 # Codex: sigma vs. the simplex-star cascade
 
 ## Setup

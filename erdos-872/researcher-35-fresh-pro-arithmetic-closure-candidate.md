@@ -1,3 +1,20 @@
+---
+id: R35-fresh-pro-arithmetic-closure
+type: research
+date: 2026-04-19
+intent: >
+  Attempt fresh independent closure of L(n) = o(n) in the arithmetic/cell-local
+  model; check whether the cell-local approach avoids the online amortization gap.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Candidate closure of L(n) = o(n) in arithmetic/cell-local model, pending
+  adversarial verification. The cell-local model restricts Prolonger to a
+  fixed prime band; sublinearity follows in this model from a direct counting
+  argument. Extension to full game is the remaining open question.
+---
+
 # Round 35 fresh-Pro — candidate closure of $L(n) = o(n)$ in the arithmetic/cell-local model
 
 ## Status: CANDIDATE, pending adversarial verification

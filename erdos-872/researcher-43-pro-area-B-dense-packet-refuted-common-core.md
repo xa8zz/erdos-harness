@@ -1,3 +1,29 @@
+---
+id: R43-pro-area-B-dense-packet-refuted-common-core
+type: refutation
+date: 2026-04-19
+intent: >
+  Test whether the R42 large-prime chain defeats the dense-packet
+  self-absorption; refute the dense-packet/sparse-recursion lemma as stated.
+predecessors: [R42-attack-B-refutation, R39-pro-dense-packet-projection]
+action:
+  kind: refutes
+  target: R39-pro-dense-packet-projection
+claim: >
+  Split outcome: (1) R42 large-prime chain does NOT defeat self-absorption --
+  its harmonic mass is absorbed by the high-window entropy tail. (2) The
+  dense-packet/sparse-recursion lemma as stated IS refutable: common-core
+  Prolonger strategy keeps Gamma_k sparse for every k <= C*log(h), produces
+  arbitrarily many weak-fresh useful top scores with no packet collisions.
+failure_mechanism: >
+  Common-core construction: Prolonger builds useful top scores sharing a
+  common defect-2 core c_0. Each useful top score S has bA_{S\c_0} as a
+  lower-defect witness; Prolonger pre-kills these witnesses sequentially
+  without creating packet collisions. Weak freshness allows c_0 to be
+  reused across Omega(N_h/h) useful top scores since the definition of
+  useful does not bound the replacement window.
+---
+
 I get a split outcome.
 
 The canonical **R42 large-prime chain does not defeat self-absorption**: its harmonic mass is swallowed by the high-window entropy tail.

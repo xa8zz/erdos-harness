@@ -1,3 +1,25 @@
+---
+id: R36-fresh-pro-closure-retraction
+type: refutation
+date: 2026-04-19
+intent: >
+  Fresh Pro retraction of R35 closure claim; determine whether the
+  candidate L(n) = o(n) proof survives adversarial scrutiny.
+predecessors: [R35-fresh-pro-arithmetic-closure]
+action:
+  kind: refutes
+  target: R35-fresh-pro-arithmetic-closure
+claim: >
+  R35 closure claim retracted. The arithmetic/cell-local model argument
+  does not extend to the full game: the cell-local restriction on Prolonger
+  is not enforceable in the actual game. A conditional theorem is stated:
+  L(n) = o(n) under the hypothesis that Prolonger stays within a single band.
+failure_mechanism: >
+  The cell-local model assumes Prolonger plays within a fixed prime band;
+  in the actual game Prolonger can cross bands freely. The band-restriction
+  assumption is the non-enforceable hypothesis that makes the argument fail.
+---
+
 # Round 36 fresh Pro — retraction of R35 closure claim
 
 ## Status: retracted, conditional theorem stated

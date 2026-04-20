@@ -1,3 +1,21 @@
+---
+id: R40-codex-packet-formulation-sharpening
+type: research
+date: 2026-04-19
+intent: >
+  Sharpen the packet absorption formulation after R39; identify why the
+  naive fixed-packet statement is insufficient for the clustered-cell regime.
+predecessors: [R39-codex-packet-tail-reduction, R39-pro-dyadic-packet-absorption-static]
+action:
+  kind: extends
+  target: R39-codex-packet-tail-reduction
+claim: >
+  Naive fixed-packet absorption is not the right statement for the
+  clustered-cell case: packets must be defined relative to cell clusters,
+  not individual cells, and the relevant tail bound involves a sum over
+  cluster pairs. Sharpened formulation stated but not yet proved.
+---
+
 # Round 40 Codex — naive fixed-packet absorption is not the right clustered-cell statement
 
 ## Status

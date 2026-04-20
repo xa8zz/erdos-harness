@@ -1,3 +1,21 @@
+---
+id: R41-codex-pair-reuse-bottleneck
+type: research
+date: 2026-04-19
+intent: >
+  After collision-forcing audit, push the packet route further and reduce
+  the remaining gap to a concrete pair-reuse bound.
+predecessors: [R41-codex-collision-forcing-test, R40-codex-packet-formulation-sharpening]
+action:
+  kind: extends
+  target: R40-codex-packet-formulation-sharpening
+claim: >
+  Packet route reduces to a pair-reuse bound: the remaining gap is whether
+  any single cell-pair can be reused as the location of more than O(log h)
+  distinct useful top scores under sigma^star. Pair-reuse bottleneck is the
+  minimal remaining combinatorial statement for the closure route.
+---
+
 # Round 41 Codex — full closure still open; the remaining packet route reduces further to a pair-reuse bound
 
 ## Status

@@ -1,3 +1,21 @@
+---
+id: R35-pro-A-online-domination-partial
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to prove an online domination lemma and critique the R35 closure
+  candidates to determine whether any rigorously closes L(n) = o(n).
+predecessors: [R35-codex-L-sublinear-proof, R35-fresh-pro-arithmetic-closure]
+action:
+  kind: standalone
+claim: >
+  Online domination lemma proved as a partial result; R35 closure candidates
+  both have the same static/dynamic gap: the state inequality is sound but
+  the translation to L(n) introduces an unbounded scored quantity. Neither
+  R35 candidate rigorously closes the sublinear bound without the online
+  amortization step.
+---
+
 # Round 35 Pro A — online domination lemma + critique of R35 closure candidates
 
 ## Headline

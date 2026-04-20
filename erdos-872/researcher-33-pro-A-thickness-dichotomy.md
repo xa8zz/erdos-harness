@@ -1,3 +1,20 @@
+---
+id: R33-pro-A-thickness-dichotomy
+type: research
+date: 2026-04-19
+intent: >
+  Close the multi-cell product-star computation and derive a thickness
+  dichotomy for the transversal size g(h).
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Multi-cell product-star closed. Thickness dichotomy: either the divisibility
+  hypergraph has thick fibers (transversal achievable in O(h/log h) moves) or
+  thin fibers (sigma^star achieves sublinear directly). Combined: g(h) = O(h/log h)
+  in all cases, giving L(n) << n log log log n / log log n.
+---
+
 # Round 33 Pro A — multi-cell product-star closed; thickness dichotomy gives $g(h) = O(h/\log h)$
 
 ## Headline

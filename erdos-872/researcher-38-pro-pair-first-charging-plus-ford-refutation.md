@@ -1,3 +1,22 @@
+---
+id: R38-pro-pair-first-charging
+type: research
+date: 2026-04-19
+intent: >
+  Prove bounded-prehistory freshness cleanly, push pair-first charging to
+  a concrete star-breaker bound, and refute the naive Ford route.
+predecessors: [R37-pro-A-per-score-projection, R37-codex-freshness-bounded-depth]
+action:
+  kind: extends
+  target: R37-pro-A-per-score-projection
+claim: >
+  Three results: (1) bounded-prehistory freshness proved cleanly with
+  explicit constants; (2) pair-first charging gives a star-breaker of size
+  h^2 * N_h (not N_h/h — a gap of h^3 from closure); (3) naive Ford route
+  (lower-defect witnesses independent of the same-prime chain) refuted
+  by explicit h=22 construction.
+---
+
 # Round 38 Pro — bounded-prehistory freshness proved cleanly, pair-first charging gives $h^2 N_h$ star-breaker, naive Ford route refuted
 
 ## Status: three concrete results + sharpened remaining gap

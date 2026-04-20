@@ -1,3 +1,20 @@
+---
+id: R35-pro-A-dyadic-state-estimate
+type: research
+date: 2026-04-19
+intent: >
+  Close the multi-cell product-star state estimate via dyadic expanded windows.
+predecessors: [R33-pro-A-thickness-dichotomy]
+action:
+  kind: extends
+  target: R33-pro-A-thickness-dichotomy
+claim: >
+  Multi-cell product-star state estimate CLOSED via dyadic expanded windows.
+  The estimate mu(Cl_h) <= L * |F_useful| + N_h/log L holds rigorously.
+  The online amortization step (translating to game-length bound) is the
+  remaining open problem.
+---
+
 # Round 35 Pro A continuation — multi-cell product-star state estimate CLOSED via dyadic expanded windows
 
 ## Headline

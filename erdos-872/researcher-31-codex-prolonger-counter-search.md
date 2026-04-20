@@ -1,3 +1,21 @@
+---
+id: R31-codex-prolonger-counter-search
+type: research
+date: 2026-04-19
+intent: >
+  Search for an asymptotic Prolonger counter-construction on H^{(h)} that
+  would disprove the transversal/sublinear conjecture.
+predecessors: []
+prompt: erdos-872/prompts/codex-prolonger-counter-construction-search.md
+siblings: [R31-codex-summary]
+action:
+  kind: standalone
+claim: >
+  No asymptotic Prolonger counter-construction found on H^{(h)}.
+  Structural obstacles identified but no refutation of the sublinear
+  conjecture produced. Search was exhaustive for small h.
+---
+
 # Round 31 Codex — search for an asymptotic Prolonger counter-construction on `H^{(h)}`
 
 ## Context

@@ -1,3 +1,27 @@
+---
+id: R38-pro-ford-refutation-independent
+type: refutation
+date: 2026-04-19
+intent: >
+  Independently refute the Ford-type route 3 (independent lower-defect
+  witnesses suffice) and clarify the chain-generated witness framing.
+predecessors: [R38-pro-pair-first-charging]
+action:
+  kind: standalone
+claim: >
+  Route 3 (independent lower-defect witness families) unconditionally
+  refuted by Ford-type construction at h=25: explicit Prolonger strategy
+  forces useful top scores whose all lower-defect witnesses are pre-killed
+  independently. Chain-generated witnesses (route 2) are the only surviving
+  path.
+failure_mechanism: >
+  Ford construction at h=25 gives N_h/h top facets whose degree-h lower
+  certificates are all consumed by earlier independent Prolonger scores,
+  with no same-prime chain structure forcing sigma^star exposure. Route 3
+  requires witnesses NOT from the same prime chain, so independent kills
+  suffice to block it.
+---
+
 # Round 38 Pro (second) — independent refutation of route 3 with explicit $h=25$ numerics; points back to route 2 / chain-generated witnesses
 
 ## Status: route 3 unconditionally refuted; route 2 is sole surviving path

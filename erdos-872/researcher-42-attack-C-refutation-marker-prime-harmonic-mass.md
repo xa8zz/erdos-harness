@@ -1,3 +1,27 @@
+---
+id: R42-attack-C-refutation
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute Attack C's arithmetic locality claim for the useful-shield
+  state inequality.
+predecessors: [R41-three-pros-refute-collision-forcing]
+siblings: [R42-attack-A-refutation, R42-attack-B-refutation]
+action:
+  kind: standalone
+claim: >
+  Attack C (arithmetic locality preserves the state inequality) refuted:
+  non-local useful witnesses can carry harmonic mass >> N_h via marker-prime
+  constructions. The useful-shield cardinality cannot be bounded by
+  arithmetic locality alone when witnesses are non-local.
+failure_mechanism: >
+  Marker-prime construction: Prolonger uses a fixed prime p_0 (marker) in
+  every top score S, making bA_{S\{p_0}} a useful top facet with lower
+  witness bA_{S\{p_0,q}} for any q in S\{p_0}. These witnesses are NOT
+  local to the p_0-cell — q can range over all of S. Harmonic mass of the
+  non-local witness family is Omega(sum_{q in S} 1/q) = Omega(H) = Omega(N_h).
+---
+
 # R42 Attack C refutation — non-local useful witnesses can carry harmonic mass $\gg N_h$
 
 **Attack C:** arithmetic locality on "useful" preserves state inequality.

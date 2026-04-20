@@ -1,3 +1,28 @@
+---
+id: R41-pro-collision-forcing-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Attempt to refute the collision-forcing lemma from R40 with an explicit
+  Prolonger construction that achieves useful scores without collisions.
+predecessors: [R40-pro-collision-forcing-reduction, R41-codex-collision-forcing-test]
+action:
+  kind: refutes
+  target: R40-pro-collision-forcing-reduction
+claim: >
+  Collision-forcing lemma refuted: explicit main-game Prolonger strategy
+  achieves J(D) >= 3 for non-local defect-2 certificate D with zero
+  collision packets. Stronger than needed — collisions are not necessary
+  for Prolonger's useful top-score accumulation. The (*) framework may
+  require weighted reformulation.
+failure_mechanism: >
+  Packet-separated repeated-core construction: Prolonger scores edges
+  whose defect-2 certificates share a repeated core in a different dyadic
+  cell from all collision candidates. The repeated core is not in any
+  collision-eligible packet pair, so no collision occurs while J(D) grows
+  to 3+.
+---
+
 # Round 41 Pro — collision forcing lemma REFUTED by packet-separated repeated-core construction
 
 ## Status: clean refutation; the definitional loophole is exposed; $(\star)$ itself may be in jeopardy

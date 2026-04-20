@@ -1,3 +1,22 @@
+---
+id: R39-pro-dense-packet-projection
+type: research
+date: 2026-04-19
+intent: >
+  Prove the dense-packet projection lemma separating divisor-lattice
+  behavior from abstract hypergraph in the dense regime.
+predecessors: [R38-pro-pair-first-charging, R39-codex-packet-tail-reduction]
+action:
+  kind: extends
+  target: R38-pro-pair-first-charging
+claim: >
+  Dense-packet projection lemma proved: in the dense regime (gamma_k >= theta
+  for some fixed theta), the divisor lattice non-privacy forces sigma^star
+  to claim a degree-Omega(h) certificate before Prolonger accumulates more
+  than N_h/h useful top scores. Sole remaining gap is the sparse recursive
+  pre-shielding regime (gamma_k < theta for all k).
+---
+
 # Round 39 Pro — dense-packet projection lemma PROVED; remaining gap is sparse recursive pre-shielding
 
 ## Status: genuine arithmetic partial theorem + sharp final gap

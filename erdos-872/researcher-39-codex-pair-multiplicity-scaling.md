@@ -1,3 +1,21 @@
+---
+id: R39-codex-pair-multiplicity-scaling
+type: diagnostic
+date: 2026-04-19
+intent: >
+  Audit first-useful multiplicity scaling after R38 to sharpen the gap
+  between the observed O(1) and the needed O(h) bound.
+predecessors: [R38-codex-pair-first-multiplicity, R39-codex-packet-tail-reduction]
+action:
+  kind: extends
+  target: R38-codex-pair-first-multiplicity
+claim: >
+  First-useful multiplicity stays empirically at O(1) per pair in the
+  tested range; the h^2 factor in R38 Pro's star-breaker is not saturated
+  in practice. Suggests the analytical bound has slack but does not prove
+  the tight O(1) multiplicity analytically.
+---
+
 # Round 39 Codex — first-useful multiplicity audit after R38
 
 ## Status

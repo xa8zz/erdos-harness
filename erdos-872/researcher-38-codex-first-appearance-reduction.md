@@ -1,3 +1,21 @@
+---
+id: R38-codex-first-appearance-reduction
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to close the R37 per-score projection gap; reduce same-prime
+  chain multiplicity to first-appearance events.
+predecessors: [R37-pro-A-per-score-projection, R37-fresh-pro-one-cylinder-closure]
+action:
+  kind: extends
+  target: R37-pro-A-per-score-projection
+claim: >
+  Same-prime chain collapse to first-appearance events proved as a rigorous
+  partial: each same-prime chain of pre-shielding events charges to the
+  first-appearance score in that chain. Multiplicity-per-first-appearance
+  bound is O(h) but not O(1), leaving a factor-of-h gap before full closure.
+---
+
 # Round 38 Codex — same-prime chain collapse to first appearance (rigorous partial)
 
 ## Status

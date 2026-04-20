@@ -1,3 +1,22 @@
+---
+id: R40-pro-collision-forcing-reduction
+type: research
+date: 2026-04-19
+intent: >
+  Push the localization beyond R39's static side; reduce the remaining
+  dynamic gap to a collision-forcing lemma and attempt Lemma C partial.
+predecessors: [R39-pro-dyadic-packet-absorption-static, R40-codex-packet-formulation-sharpening]
+action:
+  kind: extends
+  target: R39-pro-dyadic-packet-absorption-static
+claim: >
+  All-depth packet tail bound proved analytically. Remaining dynamic
+  game-side gap reduced to a single collision-forcing lemma: sigma^star
+  must force a collision between two dyadic-cell packets within O(h) steps
+  whenever Prolonger accumulates more than N_h/h^2 useful scores.
+  Lemma C (packet collision in the main game) proved in a partial case.
+---
+
 # Round 40 Pro (localization push) — all-depth packet tail + reduction to collision forcing + Lemma C partial
 
 ## Status: analytic side strictly stronger; localization reduced to one concrete dynamic lemma

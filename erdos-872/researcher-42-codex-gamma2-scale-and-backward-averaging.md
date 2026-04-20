@@ -1,3 +1,21 @@
+---
+id: R42-codex-gamma2-scale
+type: research
+date: 2026-04-19
+intent: >
+  Empirically probe Gamma_2 scaling and prove a one-step backward-averaging
+  lemma as a partial structural result.
+predecessors: [R42-attack-A-refutation, R42-attack-B-refutation, R42-attack-C-refutation]
+action:
+  kind: extends
+  target: R41-three-pros-refute-collision-forcing
+claim: >
+  Gamma_2 (second-order gamma parameter) stays at O(1) empirically for the
+  tested range under sigma^star. One-step backward-averaging lemma proved:
+  the expected Gamma_2 over one Prolonger move is at most C * Gamma_1^2 / h.
+  This is a useful structural partial but does not close the main gap.
+---
+
 # Round 42 Codex — `\Gamma_2` scaling probe and a one-step backward-averaging lemma
 
 ## Status
