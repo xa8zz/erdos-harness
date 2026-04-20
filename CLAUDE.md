@@ -116,6 +116,7 @@ erdos-872/
     fast_sim.py
     findings.md
     freshness_toy.py
+    freshness_toy_gamma2_pairreuse_results.csv
     freshness_toy_multiplicity_results.csv
     max_antichain.py
     multirank_attempt.py
@@ -149,6 +150,8 @@ erdos-872/
     audit-14-pro-01-log-density.md
     audit-14-pro-02-probabilistic-sieve.md
     audit-15-pro-prime-count-refinement.md
+    audit-R44-sflu-e-estimate-ready.md
+    audit-R44-sflu-e-estimate.md
     canonical-prompt.md
     codex-R37-cheap-verification.md
     codex-close-L-sublinear.md
@@ -163,9 +166,16 @@ erdos-872/
     codex-small-h-transversal-empirical.md
     followup-12-pro-closeout.md
     followup-3-codex-R38-multiplicity-bound.md
+    followup-R39-codex-full-closure-attempt.md
+    followup-R39-pro-chain-generated-push.md
+    followup-R39-pro-pair-first-charging-push.md
+    followup-R44-all-pros-three-open-lemmas.md
+    followup-R44-pro-1-full-solution.md
+    followup-R47-all-definitive-or-sharper.md
     followup-all-R37-freshness-lemma.md
     followup-all-R38-full-game-gap.md
     followup-codex-R35-closure-gap.md
+    followup-codex-R39-continuation-sparse-recursive.md
     followup-fresh-pro-R33-close.md
     followup-fresh-pro-R35-closure-gap.md
     followup-fresh-pro-bernoulli-update.md
@@ -175,6 +185,9 @@ erdos-872/
     followup-pro-A-resilience-lemma-close.md
     followup-pro-A-scale-local-transversal.md
     followup-pro-A-star-breaker-push.md
+    followup-pro-R39-dyadic-packet-localization.md
+    followup-pro-R40-main-game-legality-for-collision-forcing.md
+    followup-pro-R41-refutation-scaling-and-stricter-freshness.md
     fresh-pro-resilience-lemma.md
     researcher-01-directed.md
     researcher-01.md
@@ -192,6 +205,16 @@ erdos-872/
     researcher-11-omega-strategy-prove.md
     researcher-12-synthesis-open.md
     researcher-18-ford-bandwise-upper-bound.md
+    researcher-R39-new-pro-sparse-recursive.md
+    researcher-R40-new-pro-collision-forcing-concise.md
+    researcher-R42-new-pro-A-harmonic-packet-absorption.md
+    researcher-R42-new-pro-B-chain-persistence.md
+    researcher-R42-new-pro-C-arithmetic-locality.md
+    researcher-R44-pro-open-full-solution.md
+    researcher-R46-pro-pick-one-angle.md
+    researcher-R47-angle1-activator-quotient.md
+    researcher-R47-angle3-smrp-trichotomy.md
+    researcher-R47-angle4-refute-sharp-rate.md
     round13-A-pro-extend.md
     round13-B-deepthink-open.md
     round13-C-gemini-contrarian.md
@@ -222,6 +245,8 @@ erdos-872/
     round22-C-contrarian-linear.md
     round23-pro-bernoulli-closure-attack.md
     verify-R35-closure-candidate.md
+    verify-R39-pro-dense-packet-projection-lemma.md
+    verify-codex-R41-pro-refutation-empirical-and-math.md
     verify-open-02-post-13-36.md
     verify-postresp-01.md
     verify-postresp-02-shortener.md
@@ -346,11 +371,54 @@ erdos-872/
   researcher-38-codex-pair-first-multiplicity-partial.md
   researcher-38-pro-ford-refutation-independent-plus-chain-generated.md
   researcher-38-pro-pair-first-charging-plus-ford-refutation.md
+  researcher-39-codex-packet-tail-reduction.md
   researcher-39-codex-pair-multiplicity-scaling.md
+  researcher-39-pro-dense-packet-projection-lemma.md
+  researcher-39-pro-dyadic-packet-absorption-static.md
+  researcher-40-codex-packet-formulation-sharpening.md
+  researcher-40-pro-collision-forcing-reduction.md
+  researcher-41-codex-collision-forcing-test.md
+  researcher-41-codex-pair-reuse-bottleneck.md
+  researcher-41-pro-collision-forcing-refuted.md
+  researcher-41-three-pros-refute-collision-forcing-consolidated.md
+  researcher-42-attack-A-proof-attempt-three-regime.md
+  researcher-42-attack-A-refutation-packet-separated-mass.md
+  researcher-42-attack-B-proof-chain-persistence.md
+  researcher-42-attack-B-refutation-dimensional-flaw-large-primes.md
+  researcher-42-attack-C-refutation-marker-prime-harmonic-mass.md
+  researcher-42-codex-gamma2-scale-and-backward-averaging.md
+  researcher-43-pro-area-A-sparse-refuted-binomial-layers.md
+  researcher-43-pro-area-A-sparse-refuted-mesoscopic-window.md
+  researcher-43-pro-area-B-dense-packet-refuted-common-core.md
+  researcher-43-pro-area-C-sharpening-k2-theta.md
+  researcher-44-pro-1-followup-2-formal-concession.md
+  researcher-44-pro-1-followup-sflu-e-estimate.md
+  researcher-44-pro-1-honest-no-proof.md
+  researcher-44-pro-2-closure-via-defect-2.md
+  researcher-44-pro-3-closure-via-defect-2.md
+  researcher-44-pro-4-closure-via-3-almost-primes.md
+  researcher-45-pro-1-density-weighted-refuted-burst-star.md
+  researcher-45-pro-2-carleson-reduction-to-st-capture.md
+  researcher-45-pro-3-matching-star-refutes-rank-three.md
+  researcher-45-pro-4-c-refutation-attempt-pre-sterilization.md
+  researcher-45-pro-5-c-refutation-attempt-probabilistic.md
+  researcher-46-pro-1-angle2-st-capture-refuted-burn-in.md
+  researcher-46-pro-2-angle2-st-capture-refuted-prelude.md
+  researcher-46-pro-3-angle2-st-capture-refuted-single-leaf.md
+  researcher-46-pro-4-angle1-activator-quotient-attempt.md
+  researcher-46-pro-5-angle1-activator-quotient-attempt.md
+  researcher-47-pro-1-angle1-concession-lrqc-missing.md
+  researcher-47-pro-2-angle3-concession-incidence-budget-missing.md
+  researcher-47-pro-3-angle4-concession-cross-activator-composite.md
+  researcher-48-pro-1-lrqc-refuted-packet-construction.md
+  researcher-48-pro-2-endpoint-incidence-refuted-divisibility-hall.md
+  researcher-48-pro-3-cross-composite-refuted-sathe-selberg.md
   verify-R35-codex-adversarial-audit.md
   verify-R35-codex-followup-dynamic-gap.md
   verify-R35-codex-star-cylinder-lower-defect-probe.md
   verify-R37-codex-freshness-sharpness-and-high-window-counterexample.md
+  verify-R39-pro-dense-packet-codex-audit.md
+  verify-R44-pro-1-sflu-e-audit-refutes.md
   verify-aristotle-01-theorem-A.md
   verify-aristotle-03-5-16.md
   verify-open-02-audit1.md
@@ -798,6 +866,23 @@ Path("erdos-872/target.md").write_text(blocks[1].strip() + "\n")
 - **List-wrapped `content` field.** Some entries store `message.content` as a list of `{type, text}` blocks, not a string. Handle both shapes.
 
 If extraction fails outright, fall back to `pbpaste > filename.md` from the user's clipboard — zero curator cost, still byte-faithful.
+
+### Commit per round, not per milestone
+
+**Save *and* commit each round's responses and prompts when they come in, not in batches at synthesis milestones.** Saving a file leaves it untracked; untracked files are just as lost as non-existent ones if the session ends unexpectedly, the machine reboots, or a filesystem issue bites. Git is the durability layer; writing is just the staging layer.
+
+Common failure mode observed: after extracting 5–10 responses across 3 rounds via transcript, the curator writes them all to disk but doesn't `git add` + `git commit` until a user-prompted "wait, have you been saving?" check. At that point, an entire round of work is at risk for the time between save and commit.
+
+**Working pattern.** After each response save:
+
+1. Save via transcript extraction (byte-faithful, already the rule).
+2. `git add` the specific files added this round. Never `git add -A` — it will sweep in credentials, scratch files, and unrelated modifications.
+3. `git commit -m "..."` with a commit message naming the round and what came back. Concise is fine; the point is the pointer.
+4. Defer the `current_state.md` synthesis to the milestone — that's a separate, heavier edit. But never defer committing the raw responses themselves.
+
+**Commit message per round** should at minimum name: the round number, whether it's a researcher return or a prompt draft, and the headline content ("R53 Pro #1 return: CR-NCAD refuted via cooperative embedding"). Full synthesis goes into commit bodies at milestone commits. Per-round commits are pointers, not essays.
+
+A clean git log of `R39 Pro returns → R39 follow-ups → R40 Pro returns → R40 follow-ups → ...` is the correct shape. Large multi-round batch commits ("R49-R53 backlog") are a sign the commit cadence slipped.
 
 ### Follow-up prompts — salvage novel ideas, pressure specific gaps
 
