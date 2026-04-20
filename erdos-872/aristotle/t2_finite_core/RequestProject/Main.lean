@@ -1,5 +1,6 @@
 import RequestProject.T2Finite.Defs
 import RequestProject.T2Finite.GraphGame
+import RequestProject.T2Finite.GraphReachable
 import RequestProject.T2Finite.HyperDefs
 import RequestProject.T2Finite.HyperGame
 import RequestProject.T2Finite.EmbeddingCore
