@@ -1,0 +1,81 @@
+\section{Formalization Details}\label{app:formalization}
+
+This appendix records the current explicit Lean gaps in the checked-in files.
+The point is not to reproduce the proofs from \Cref{sec:formal-verification},
+but to make the remaining obligations auditable.  All paths below are relative
+to \texttt{erdos-872/lean/}.
+
+\subsection{Closed Projects}
+
+The following projects compile with no remaining \texttt{sorry} terms in their
+main mathematical files:
+\begin{itemize}
+  \item \path{shield_reduction/shield_reduction_aristotle/RequestProject/ShieldReduction.lean};
+  \item \path{tau_5_24/tau_5_24_aristotle/RequestProject/\{Cover,Packing,Tau\}.lean};
+  \item \path{shortener_13_36/shortener_13_36_v2_aristotle/RequestProject/Shortener/MainTheorem.lean};
+  \item \path{erdos_872_core/RequestProject/T2Finite/*.lean};
+  \item \path{erdos_872_core/RequestProject/Round15Bonferroni4/\{Envelope,FlatMass,Inversion,PrimeBounds,Target\}.lean}.
+\end{itemize}
+
+For the last two bullets, ``zero-sorry'' means that the currently formalized
+reductions are closed; it does not mean that the full prose theorems of T2 or
+the full analytic Round~15 proof have been formalized end-to-end.
+
+\subsection{Explicit \texttt{sorry} Inventory}
+
+% source: theorem_A/.../ShieldMainTheorem.lean
+\paragraph{Theorem A / T1.}
+The file
+\path{theorem_A/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldMainTheorem.lean}
+contains the following five explicit \texttt{sorry} sites.
+\begin{enumerate}
+  \item Line~50: \texttt{mertens\_second\_theorem}.  Category: analytic number
+  theory / Mertens' theorem.
+  \item Line~55: \texttt{chebyshev\_upper\_bound}.  Category: prime-counting
+  upper bound.
+  \item Line~63: \texttt{chebyshev\_theta\_asymptotic}.  Category:
+  Chebyshev-$\vartheta$ / PNT-adjacent asymptotics.
+  \item Line~217: \texttt{shield\_lower\_bound}.  Category: final theorem
+  statement depending on the three analytic inputs above.
+  \item Line~224: \texttt{barrier\_exponent}.  Category: corollary depending on
+  the main theorem.
+\end{enumerate}
+
+In other words, the combinatorial shielding core is formalized; the unresolved
+part is the analytic prime-sum infrastructure.
+
+% source: shortener_5_16/.../Theorems.lean
+\paragraph{$5/16$ upper bound.}
+The file
+\path{shortener_5_16/shortener_5_16_aristotle/RequestProject/Shortener516/Theorems.lean}
+contains one remaining explicit \texttt{sorry}:
+\begin{enumerate}
+  \item Line~499: \texttt{game\_value\_per\_parameter}.  Category: bundled
+  analytic / game-tree gap.  As documented in the file, this single placeholder
+  packages two missing ingredients:
+  \begin{itemize}
+    \item a Chebyshev-type theorem supplying the needed prime prefix estimate;
+    \item the game-tree wrapper showing that Shortener can realize the
+    prescribed legal odd-prime prefix for the requisite number of turns.
+  \end{itemize}
+\end{enumerate}
+
+All preceding combinatorial compression statements in that file are
+zero-sorry.
+
+\subsection{Interpretation}
+
+The formalization status is strongest for the static reductions and the
+intermediate $13/36$ strategy theorem.  The remaining formal gaps are of two
+types only:
+\begin{enumerate}
+  \item classical analytic inputs not yet exposed conveniently in the pinned
+  Mathlib snapshot;
+  \item wrappers translating a formally verified finite core into the exact
+  asymptotic theorem stated in the paper.
+\end{enumerate}
+
+This is why the paper treats \Cref{thm:shield-reduction,thm:524-cover,thm:1336}
+and the Round~15 endgame reduction as fully formalized, while
+\Cref{thm:theorem-a,thm:516,thm:t2,thm:main-upper-bound} are presented with
+more precise caveats.

@@ -1,0 +1,267 @@
+\section{Proof-Class Barrier Taxonomy}
+
+This section records rigorous results showing that several natural proof
+programs cannot close the sharp-rate gap.  Unlike the structural negatives of
+\Cref{sec:structural-negatives}, the emphasis here is methodological: each
+subsection isolates a named class of arguments and proves that the class is
+insufficient.  We also keep the strategy-dependence labels explicit.  In
+particular, the headline upper bound of \Cref{thm:main-upper-bound} is proved
+for the specific Shortener strategy $\sigma_{15}$ and does not use the
+max-unresolved-harmonic-degree strategy $\sigma^*$.
+
+\subsection{Transversal-Integrality and Sherali--Adams}
+
+The first barrier is purely static.  It shows that low-level fractional or
+Sherali--Adams relaxations cannot certify the large transversals needed for the
+late separator program.
+
+% source: researcher-58-pro-R52-integrality-barrier-audit-confirmed-sharpened.md
+\begin{theorem}[Transversal-integrality barrier]\label{thm:sa-barrier}
+Fix $0<\alpha<1$.  Let $P$ be an $N$-point set, put
+\[
+\ell=\lfloor \log N\rfloor,
+\qquad
+q=\lfloor \alpha N\rfloor,
+\]
+and write $\tau_{\mathbb Z}(\mathcal C)$ and $\tau_f(\mathcal C)$ for the
+integral and fractional transversal numbers of an $\ell$-uniform family
+$\mathcal C\subseteq \binom{P}{\ell}$.  Then for all sufficiently large $N$
+there exists such a family $\mathcal C$ with
+\[
+\tau_{\mathbb Z}(\mathcal C)> \alpha N,
+\qquad
+\tau_f(\mathcal C)\le \frac{N}{\ell}.
+\]
+Moreover, for every $\ell$-uniform family $\mathcal H\subseteq \binom{P}{\ell}$
+and every $0\le r<\ell$,
+\[
+\mathrm{SA}_r(\mathcal H)\le \frac{N}{\ell-r}.
+\]
+In particular, if $r\le \ell/2$, then
+\[
+\mathrm{SA}_r(\mathcal C)\le \frac{2N}{\ell}=(2+o(1))\frac{N}{\log N},
+\]
+while $\tau_{\mathbb Z}(\mathcal C)>\alpha N$, so the level-$r$ integrality
+gap is at least $(\alpha/2+o(1))\log N$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The family $\mathcal C$ is a random $q$-avoiding covering design.  One chooses
+\[
+s\asymp \delta^{-1}\log \binom{N}{q},
+\qquad
+\delta=\frac{\binom{N-q}{\ell}}{\binom{N}{\ell}},
+\]
+independent $\ell$-subsets of $P$.  The union bound shows that, with positive
+probability, every $q$-subset of $P$ misses at least one chosen block; this is
+equivalent to $\tau_{\mathbb Z}(\mathcal C)>q\ge \alpha N+O(1)$.  On the other
+hand, the uniform fractional weight $\ell/N$ on each vertex gives
+$\tau_f(\mathcal C)\le N/\ell$.
+
+The Sherali--Adams estimate is cleaner and fully deterministic.  For an
+$\ell$-uniform family $\mathcal H$, the standard symmetric level-$r$ assignment
+with marginal $(\ell-r)/N$ is feasible, yielding
+$\mathrm{SA}_r(\mathcal H)\le N/(\ell-r)$.  The resulting gap is therefore
+already logarithmic at all levels $r\le \ell/2$.
+\end{proof}
+
+\begin{remark}
+This theorem is strategy-independent: it is a static obstruction to any proof
+that hopes to derive a strong game upper bound from low-level separator LPs or
+their Sherali--Adams tightenings.
+\end{remark}
+
+\subsection{Fixed-Rank $q$-Shadow / Covering Dichotomy}
+
+The second barrier isolates the precise point where the spectral packet program
+can fail.  Either there is an honest legal separator of the expected size, or
+Shortener's own previously created $q$-shadow already occupies almost all of
+the separator layer.
+
+% source: researcher-59-pro-R53-q-shadow-dichotomy-audit-confirmed-sharpened.md
+\begin{theorem}[Fixed-rank $q$-shadow dichotomy]\label{thm:q-shadow-dichotomy}
+Let $P$ be a set of size $K=h+L$ with $h,L\ge 1$, and fix $1\le q\le h$.  Set
+\[
+Y=\binom{P}{L},
+\qquad
+Q_q=\binom{P}{q}.
+\]
+For a blocker family $\mathcal D\subseteq 2^P$ and a played complement family
+$\mathcal C\subseteq Y$, let $F_q(\mathcal D)\subseteq Q_q$ be the
+comparability shadow of $\mathcal D$ on the $q$-layer, let
+$B_q(C)=\{Q\in Q_q:Q\cap C=\varnothing\}$, and define the legal separator set
+\[
+A_q(\mathcal D,\mathcal C)
+:=
+Q_q\setminus \Bigl(F_q(\mathcal D)\cup \bigcup_{C\in\mathcal C} B_q(C)\Bigr).
+\]
+If $R\subseteq Y$ has density
+\[
+r=\frac{|R|}{|Y|}>0
+\]
+and no legal $q$-separator in $A_q(\mathcal D,\mathcal C)$ captures at least
+$\frac12\delta_q |R|$ live complements, where
+\[
+\delta_q=\frac{\binom{K-q}{L}}{\binom{K}{L}},
+\qquad
+\lambda_q^2=\frac{h(K-q)}{qL},
+\]
+then
+\[
+\sigma_q(\mathcal D)+|\mathcal C|\delta_q
+>
+1-\frac{4\lambda_q^2}{r},
+\qquad
+\sigma_q(\mathcal D):=\frac{|F_q(\mathcal D)|}{|Q_q|}.
+\]
+At the central scale $q\sim 2(\log h)^2$, $L\sim h/\log h$, one has
+\[
+\delta_q=(e+o(1))h^{-2},
+\qquad
+\lambda_q^2=(2+o(1))\frac{\log h}{h},
+\]
+so if $\sigma_q(\mathcal D)=o(1)$, then necessarily
+\[
+|\mathcal C|>\left(\frac{1}{e}-o(1)\right)h^2.
+\]
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The proof packages the Johnson-scheme separator theorem in the exact form
+needed for the packet game.  If no legal $q$-separator captures half of the
+expected mass, then the live set $R$ has negligible projection onto the legal
+separator subspace; quantitatively this forces
+$|A_q(\mathcal D,\mathcal C)|/|Q_q|<4\lambda_q^2/r$.  Rewriting the complement
+of $A_q$ gives the displayed bound on
+$\sigma_q(\mathcal D)+|\mathcal C|\delta_q$.
+
+The central-scale constants are then obtained by direct asymptotics for
+$\delta_q$ and $\lambda_q^2$.  The upshot is conceptual: spectral starvation is
+possible only after Shortener has already accumulated a macroscopic amount of
+her own $q$-shadow or has played on the order of $h^2$ complements.
+\end{proof}
+
+\subsection{The Separator-Only Barrier}
+
+We next record the cleanest theorem to emerge from the late
+separator-first program: any proof that uses only finitely many odd
+lower-half separators, with no genuine composite fallback, cannot yield even an
+$o(n)$ upper bound.
+
+% source: phase4/r56_separator_only_barrier_note.md
+\begin{theorem}[Finite odd-carrier separator-only barrier]\label{thm:separator-only}
+Let $r_1(n)=n(\log\log n)^2/\log n$.  No finite odd-carrier
+separator-only closure can prove $L(n)=O(r_1(n))$.  More precisely, if
+$S_n\subseteq [2,n/2]$ is an odd separator family with
+\[
+|S_n|=o(r_1(n)),
+\qquad
+\sum_{p\mid s\text{ for some }s\in S_n}\frac1p=o(1),
+\]
+and if the only lower-half composite moves used by the method are elements of
+$S_n$, then Prolonger has a legal prefix of length $o(r_1(n))$ after which all
+separators in $S_n$ are dead and at least
+\[
+\frac n2-o(n)
+\]
+elements of $\U$ remain legal.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+If $s\in S_n$ is still legal, Prolonger plays the dyadic multiple
+$x=2^a s\in (n/2,n]$, choosing $a$ so that $n/2<x\le n$.  Since all elements of
+$S_n$ are odd, any previous lower-half separator comparable to $x$ would have
+been comparable to $s$ already, contradicting the legality of $s$.  Distinct
+upper-half moves are automatically incomparable.  Thus each legal separator can
+be preempted at unit cost.
+
+After at most $2|S_n|=o(r_1(n))$ turns, every separator is dead.  The remaining
+illegal elements of $\U$ are those already played in the upper half, together
+with the multiples of the prime carrier set of $S_n$; the reciprocal carrier
+mass assumption bounds the latter by $o(n)$ via the union bound.  Hence
+$|\U_{\mathrm{legal}}|=n/2-o(n)$ at the end of the prefix.
+\end{proof}
+
+\begin{remark}
+The theorem is a class-level statement.  It does not say that every separator
+idea fails; it says that a proof using only finitely many odd separators and no
+composite fallback cannot close the game.  This is the correct reading of the
+failure of the separator-first route and of the specific strategy
+$\tau_{\mathrm{SF}}$.
+\end{remark}
+
+\subsection{Strategy-Dependence Classification}
+
+The previous subsections are all strategy-independent.  The next result is a
+meta-theorem describing which later ingredients survive strategy replacement
+and which do not.
+
+% source: researcher-54-pro-sigma-star-audit-class-C-named-shortener-class.md
+\begin{proposition}[Strategy-dependence classification]\label{prop:strategy-dependence}
+The rigorous ingredients of the program partition into three classes.
+\begin{enumerate}
+  \item \emph{Strategy-independent} results: Shield Reduction, Theorem~A, T2,
+  the Round~15 $\sigma_{15}$ upper bound, the separator theorems of
+  \Cref{thm:sa-barrier,thm:q-shadow-dichotomy,thm:separator-only}, and the
+  structural negatives of \Cref{sec:structural-negatives}.
+  \item \emph{$\sigma^*$-dependent} results: the R35 state inequality, online
+  harmonic domination, and the smallest-legal-prime rule in its unrestricted
+  form.
+  \item \emph{$\sigma^*$-specific} results: the cooperative-embedding
+  construction defeating $\sigma^*$ at cost $n^{o(1)}$, the ST-capture
+  refutation in its forced-leaf formulation, and the residual-floor diagnosis
+  attached to the $\sigma^*$ bookkeeping framework.
+\end{enumerate}
+In particular, the load-bearing ingredients of the older packet closure program
+do not survive strategy replacement, whereas the headline upper bound of
+\Cref{thm:main-upper-bound} is independent of $\sigma^*$.
+\end{proposition}
+
+\begin{proof}[Discussion]
+This is a classification theorem rather than a new counting argument.  The R54
+audit tracks, item by item, which proofs use only legality and combinatorics,
+which rely on the max-unresolved-harmonic-degree rule $\sigma^*$, and which are
+refutations aimed specifically at the states generated by $\sigma^*$.  The
+cooperative-embedding theorem against $\sigma^*$ is decisive here: it shows
+that vulnerability of $\sigma^*$ cannot by itself be promoted to a minimax
+barrier against all Shortener strategies.
+\end{proof}
+
+\subsection{Clearly Labeled Conditional $\sigma^*$ Results}
+
+We record the most useful $\sigma^*$-dependent statements for completeness, but
+we emphasize that none of them is used in \Cref{sec:main-upper-bound}.  Their
+role is diagnostic, not foundational.
+
+% source: researcher-54-pro-sigma-star-audit-class-C-named-shortener-class.md
+% source: phase4/r44_residual_floor_note.md
+% source: phase4/r46_st_capture_refutation_note.md
+\begin{proposition}[Conditional $\sigma^*$ tools]\label{prop:sigma-star-conditional}
+Within the $\sigma^*$ framework one has the following rigorously derived, but
+conditional, statements.
+\begin{enumerate}
+  \item The R35 state inequality and the online harmonic-domination estimate
+  control the cumulative useful mass only under the $\sigma^*$ move rule.
+  \item The smallest-legal-prime principle is valid only under the additional
+  hypothesis that every legal composite has a legal prime factor.
+  \item The ST-capture inequality is false in general, even along
+  $\sigma^*$-reachable forcing traces.
+  \item Even the idealized residual-floor regime with $\mu(F_{\mathrm{useful}})
+  =0$ does not by itself reach the conjectural $r_1(n)$ scale.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[References]
+Items (1) and the dependence on $\sigma^*$ are catalogued in the R54 audit.
+Item (2) is the safe positive lemma isolated in the Round~46 note.  Item (3) is
+the ST-capture refutation of Round~46, and item (4) is the residual-floor
+diagnosis of Round~44.  Together they explain why the older state-inequality
+program is valuable as a diagnostic framework but cannot presently support an
+unconditional sharp upper bound.
+\end{proof}
+
+\begin{remark}
+For reviewers, the key point is simple: the headline theorem of
+\Cref{sec:main-upper-bound} is proved for $\sigma_{15}$ and does not use any of
+the conditional material in this subsection.
+\end{remark}

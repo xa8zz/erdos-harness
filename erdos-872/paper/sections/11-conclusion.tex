@@ -1,0 +1,39 @@
+\section{Conclusion}\label{sec:conclusion}
+
+We have proved
+\[
+\left(\frac18-o(1)\right)\frac{n\log\log n}{\log n}
+\le
+L(n)
+\le
+\left(\frac{\Wfour}{2}+o(1)\right)n
+=
+(0.1897112+o(1))n
+<
+0.19n,
+\]
+and, through T2, we have also shown that the lower-bound side naturally
+reaches the larger scale
+\[
+\frac{n(\log\log n)^2}{\log n}.
+\]
+The exact order of growth therefore remains open.  What has changed is the
+shape of the remaining problem.  The present barrier inventory rules out a
+large number of natural separator, packet, closure, and fan-based routes, so
+the sharp-rate question is no longer just a matter of refining the first
+successful heuristic.
+
+Three directions now appear genuinely distinct.  The first is an improved upper
+bound, ideally an $o(n)$ strategy that goes beyond the odd-prime-prefix family
+of \Cref{sec:intermediate-upper,sec:main-upper}.  The second is a lower bound
+that exceeds the current T2 scale and survives the fan, fiber, and same-core
+obstructions of \Cref{sec:structural-negatives}.  The third is a clearer
+understanding of restricted adversary classes and proof classes: theorems such
+as \Cref{thm:theorem5,thm:theorem6,thm:separator-only,thm:sa-barrier} suggest
+that the game mixes genuine combinatorial rigidity with strong sensitivity to
+the exact modeling framework.
+
+The first-player convention also remains mathematically relevant.  Throughout
+this paper Prolonger moves first, matching the forum literature and all prior
+private rounds in the repository.  A Shortener-first version of the game could
+have a different asymptotic behavior and deserves separate study.

@@ -1,0 +1,81 @@
+\section{Formal Verification}\label{sec:formal-verification}
+
+Shield Reduction (\Cref{thm:shield-reduction}) and the exact
+$5n/24+O(1)$ cover theorem (\Cref{thm:524-cover}) are formally verified in Lean
+4 via Aristotle with no remaining sorries.  The $13/36$ upper bound
+(\Cref{thm:1336}) is likewise formally verified with no remaining sorries.
+Theorem~A (\Cref{thm:theorem-a}) and the $5/16$ upper bound
+(\Cref{thm:516}) have Lean artifacts with classical-number-theory sorries
+(PNT- and Chebyshev-$\vartheta$-adjacent, enumerated in Appendix~A); these are
+Mathlib-dependency gaps rather than logical holes.  T2 has a Lean-verified
+finite core with the activation-stage wrapper pending.  The endgame reduction
+for the Bonferroni--4 theorem --- namely, that if the four Round~15 moment
+terms are componentwise within $10^{-5}$ of their certified limits
+$J_1,\dots,J_4$ plus eventual $o(1)$ error, then $L(n)<0.19n$ eventually --- is
+formally verified in Lean~4 with no remaining sorries in
+\path{erdos_872_core/RequestProject/Round15Bonferroni4/Target.lean}.  The
+supplying moment-convergence hypotheses of \Cref{thm:bonf-comp,thm:prime-bridge}
+are proved rigorously in prose in \Cref{sec:main-upper}, with multi-verifier
+audit and sandbox computation.
+
+All paths in \Cref{tab:lean-summary} are relative to \texttt{erdos-872/lean/}.
+Appendix~A lists the current explicit \texttt{sorry} sites in the checked-in
+files rather than the older aggregate counts recorded in the repository index.
+
+\begin{table}[ht]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|p{0.20\textwidth}|p{0.33\textwidth}|p{0.09\textwidth}|p{0.27\textwidth}|}
+\hline
+\textbf{Result} & \textbf{Lean artifact} & \textbf{Sorries} & \textbf{Status note} \\
+\hline
+Shield Reduction &
+\path{shield_reduction/shield_reduction_aristotle/RequestProject/ShieldReduction.lean} &
+0 &
+Complete formal proof of the terminal inequality \\
+\hline
+Theorem A / T1 &
+\path{theorem_A/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldMainTheorem.lean} &
+5 &
+All remaining sorries are PNT-adjacent analytic inputs \\
+\hline
+Exact $5/24$ cover &
+\path{tau_5_24/tau_5_24_aristotle/RequestProject/\{Cover,Packing,Tau\}.lean} &
+0 &
+Structural identities are formalized; the floor-sum cardinality count remains elementary prose \\
+\hline
+$13/36$ upper bound &
+\path{shortener_13_36/shortener_13_36_v2_aristotle/RequestProject/Shortener/MainTheorem.lean} &
+0 &
+Complete formal proof for the truncation-based strategy \\
+\hline
+$5/16$ upper bound &
+\path{shortener_5_16/shortener_5_16_aristotle/RequestProject/Shortener516/Theorems.lean} &
+1 &
+One bundled Chebyshev / prefix-legality gap remains; the combinatorial core is zero-sorry \\
+\hline
+T2 finite core &
+\path{erdos_872_core/RequestProject/T2Finite/*.lean} &
+0 in current files &
+Graph/hypergraph potentials and residual comparison are formalized; the activation-stage wrapper is still being integrated \\
+\hline
+Round~15 endgame reduction &
+\path{erdos_872_core/RequestProject/Round15Bonferroni4/Target.lean} &
+0 &
+Formalizes \texttt{eventually\_strict\_lt\_point19\_of\_componentwise\_close}; the analytic moment convergence is supplied by \Cref{thm:bonf-comp,thm:prime-bridge} \\
+\hline
+\end{tabular}
+\caption{Current Lean / Aristotle verification status.}
+\label{tab:lean-summary}
+\end{table}
+
+\begin{remark}
+Two distinctions are important.  First, a zero-sorry reduction is not the same
+thing as a full end-to-end formalization of the surrounding theorem: the
+Round~15 Lean file closes the last step of the proof, while the analytic
+moment-convergence input remains in prose.  Second, the T2 project already
+contains zero-sorry formalizations of the finite potential game and residual
+comparison layers, but not yet a single final Lean theorem packaging the full
+activation-stage argument of \Cref{thm:t2}.
+\end{remark}

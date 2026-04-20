@@ -1,0 +1,398 @@
+% source: erdos-872/researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md
+% source: erdos-872/r57_bonferroni4_audit_and_repair.md
+% source: erdos-872/researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md
+% source: erdos-872/lean/erdos_872_core/RequestProject/Round15Bonferroni4/Target.lean
+
+\section{The Main Upper Bound}\label{sec:main-upper}
+
+In this section we prove the paper's headline upper bound
+\[
+  \L(n) \le \left(\frac{\Wfour}{2}+o(1)\right)n < 0.19n.
+\]
+The strategy is \emph{strategy-specific} but not $\sigma^*$-dependent: Shortener
+plays the smallest legal odd prime for a long initial prefix of
+\[
+  K = \left\lfloor \frac{(1-\eps)n}{2\log n}\right\rfloor
+\]
+turns.  Let
+\[
+  q_1 < q_2 < \cdots < q_K
+\]
+be the odd primes she plays during that prefix.  The argument has four layers:
+\begin{enumerate}
+  \item a local density law for the counting function of the $q_j$;
+  \item a monotone envelope and inversion producing a comparison sequence
+    $b_j \ge q_j$ with explicit moment limits;
+  \item a fourth-order Bonferroni comparison theorem for arbitrary increasing
+    odd-prime comparison sequences;
+  \item a prime-rounding bridge that replaces the real sequence $b_j$ by actual
+    odd primes $p_j$, using the key half-density slack from R60.
+\end{enumerate}
+
+\subsection{The Round 15 density}
+
+Write
+\[
+  S_K(X) := \#\{j\le K : q_j \le X\},
+  \qquad
+  u := \frac{\log X}{\log n}.
+\]
+On the interval
+\[
+  u \in \left(\frac{1}{h+1},\frac1h\right],
+\]
+the Round~15 local theorem identifies the limiting captured-prime density as
+\[
+  \rhoU(u) = \frac{1}{(\lfloor 1/u \rfloor+1)u} = \frac{1}{(h+1)u}.
+\]
+
+\begin{proposition}[Local density away from breakpoints]\label{prop:local-density}
+Fix $H\ge 2$.  For each $1\le h\le H-1$, choose a compact interval
+\[
+  I_h \subset \left(\frac{1}{h+1},\frac1h\right)
+\]
+bounded away from the endpoints by a positive amount depending only on $H$.
+Then uniformly for $u\in I_h$,
+\[
+  S_K(n^u)
+  \ge
+  (1-o_H(1))\frac{n^u}{(h+1)u\log n}.
+\]
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+This is the Round~15 local prime-count-per-range lemma.  One compares the count
+of legal odd primes up to $n^u$ with the number of primes in the interval
+$[n^{u-\eta},n^u]$ for a fixed small $\eta>0$ depending only on the distance
+from the breakpoints.  On $I_h$ the local packet ratio is constant and equals
+$1/(h+1)$, so the prime-count lower bound becomes
+\[
+  \frac{\pi(n^u)-\pi(n^{u-\eta})}{h+1}-O_H(1).
+\]
+The prime number theorem then yields the claimed asymptotic lower bound,
+uniformly on each compact interval $I_h$.
+\end{proof}
+
+\subsection{Moment constants and the Bonferroni coefficient}
+
+Define
+\[
+  J_r
+  :=
+  \frac1{r!}
+  \int_{\substack{u_1+\cdots+u_r\le 1\\u_i\in(0,1]}}
+  \prod_{i=1}^r \rhoU(u_i)\,du_1\cdots du_r,
+\]
+and
+\[
+  \Wfour := 1-J_1+J_2-J_3+J_4.
+\]
+The R60 evaluation gives
+\[
+  \Wfour = 0.3794224,
+  \qquad
+  \frac{\Wfour}{2} = 0.1897112 < 0.19.
+\]
+
+For any increasing sequence $b_1\le \cdots \le b_K$ of positive reals, define
+the truncated factorial-moment sums
+\[
+  T_r^{(b)}(n)
+  :=
+  \sum_{\substack{1\le j_1<\cdots<j_r\le K\\b_{j_1}\cdots b_{j_r}\le n}}
+  \frac{1}{b_{j_1}\cdots b_{j_r}}
+  \qquad (1\le r\le 4).
+\]
+
+\subsection{Monotone envelope and inversion}
+
+The local density from \Cref{prop:local-density} is piecewise-defined, so one
+must build a monotone global comparison sequence.  This is exactly the content
+of Steps~3--5 of the Round~57 note.
+
+\begin{proposition}[Envelope and inversion]\label{prop:envelope-inversion}
+For each fixed $H$ there exists a monotone cumulative lower envelope
+$C_{H,n}(X)$ such that:
+\begin{enumerate}
+  \item $C_{H,n}(X)\le S_K(X)$ for all $2\le X\le n$;
+  \item if
+    \[
+      b_j := \inf\{X\in[2,n]: C_{H,n}(X)\ge j\},
+    \]
+    then $q_j \le b_j$ for every $1\le j\le K$;
+  \item after first letting $n\to\infty$ and then $H\to\infty$,
+    \[
+      T_r^{(b)}(n)=J_r+o(1)
+      \qquad (1\le r\le 4).
+    \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+On each compact block $I_h$ from \Cref{prop:local-density}, define a lower
+envelope
+\[
+  A_{n,h}(u) \asymp \frac{n^u}{(h+1)u\log n}.
+\]
+These functions are increasing for large $n$.  The cumulative envelope
+$C_{H,n}(X)$ is obtained by stitching together the blockwise floors
+$\lfloor A_{n,h}(\log_n X)\rfloor$ and filling the breakpoint gaps by constant
+``flat blocks.''  By construction, $C_{H,n}\le S_K$, so the inverse sequence
+$b_j$ satisfies $q_j\le b_j$.
+
+The flat blocks contribute negligible reciprocal mass: each logarithmic cell has
+mass $O(1/\log n)$, and the tuples crossing the boundary layers contribute only
+$o(1)$ to the first four factorial moments.  On the genuine blocks, the weak
+convergence of the empirical measure follows from the same local density law,
+and this gives
+\[
+  T_r^{(b)}(n)=J_r+o(1)
+\]
+for $1\le r\le 4$.
+\end{proof}
+
+\subsection{The prime-sequence Bonferroni comparison theorem}
+
+The audit of R57 identified that the comparison theorem must be stated for
+\emph{prime sequences}, not for arbitrary reals.  The repaired statement is the
+following.
+
+\begin{theorem}[Prime-sequence Bonferroni-4 comparison]\label{thm:bonf-comp}
+Let $q_1<\cdots<q_K$ be the actual odd primes played by Shortener during the
+Round~15 prefix, and let $p_1<\cdots<p_K$ be any increasing sequence of odd
+primes with
+\[
+  q_j \le p_j \qquad (1\le j\le K).
+\]
+Assume that for $1\le r\le 4$,
+\[
+  T_r^{(p)}(n) = \Lambda_r + o(1).
+\]
+Then
+\[
+  \L(n)
+  \le
+  \frac n2\left(1-\Lambda_1+\Lambda_2-\Lambda_3+\Lambda_4+o(1)\right).
+\]
+\end{theorem}
+
+\begin{proof}
+Let $A$ be the final played set.  If the game ends before Shortener completes
+the prefix of length $K$, then $\L(n)=o(n)$ and there is nothing to prove, so
+assume $q_1,\dots,q_K$ were all played.
+
+Define the odd-part map
+\[
+  \varphi(x) := \frac{x}{2^{v_2(x)}}.
+\]
+If $\varphi(x)=\varphi(y)=m$, then $x=2^a m$ and $y=2^b m$.  If $a\neq b$, one
+of $x$ and $y$ divides the other, contradicting that $A$ is an antichain.  So
+$\varphi$ is injective on $A$.
+
+Since each $q_j\in A$, no other element of $A$ can be divisible by any $q_j$.
+Because $q_j$ is odd, divisibility by $q_j$ is preserved under the odd-part
+map.  Hence
+\[
+  \varphi(A)
+  \subseteq
+  \{m\le n : m \text{ odd and } q_j\nmid m \text{ for all } j\}
+  \cup \{q_1,\dots,q_K\}.
+\]
+Therefore
+\[
+  \L(n) \le N(q_1,\dots,q_K) + K = N(q_1,\dots,q_K)+o(n),
+\]
+where $N(q_1,\dots,q_K)$ counts odd integers up to $n$ avoiding all $q_j$.
+
+Now replace the actual sequence $q_j$ by the larger prime sequence $p_j$.  The
+count of odd integers avoiding a finite prime set is monotone in each prime, so
+\[
+  N(q_1,\dots,q_K) \le N(p_1,\dots,p_K).
+\]
+Applying fourth-order Bonferroni to the divisibility events $p_j \mid m$ over
+odd integers $m\le n$ gives
+\[
+\begin{aligned}
+  N(p_1,\dots,p_K)
+  \le\;&
+  \frac n2
+  \left(1-T_1^{(p)}(n)+T_2^{(p)}(n)-T_3^{(p)}(n)+T_4^{(p)}(n)\right) \\
+  &\quad + O(M_2+M_3+M_4),
+\end{aligned}
+\]
+where $M_r$ is the number of odd integers $\le n$ with at least $r$ distinct
+prime divisors from the set $\{p_j\}$.  The standard squarefree divisor-count
+bound gives
+\[
+  M_r = O_r\!\left(\frac{n(\log\log n)^{r-1}}{\log n}\right)=o(n)
+  \qquad (2\le r\le 4),
+\]
+so the error is $o(n)$.  Substituting $T_r^{(p)}(n)=\Lambda_r+o(1)$ yields the
+stated inequality.
+\end{proof}
+
+\subsection{The prime-rounding bridge}
+
+It remains to convert the real comparison sequence $b_j$ from
+\Cref{prop:envelope-inversion} into an actual increasing odd-prime sequence.
+The naive claim
+\[
+  p_j/b_j = 1 + O(1/\log b_j)
+\]
+uniformly in $j$ is \emph{not} justified by the prime number theorem alone and
+must not be used.  The correct repair is the R60 half-density bridge.
+
+\begin{theorem}[Prime-rounding bridge]\label{thm:prime-bridge}
+Let $b_1\le \cdots \le b_K$ be the increasing sequence obtained from the
+Round~57 envelope construction.  Then there exists an increasing sequence of odd
+primes
+\[
+  p_1<\cdots<p_K
+\]
+such that
+\[
+  q_j \le b_j \le p_j \qquad (1\le j\le K)
+\]
+and
+\[
+  \sup_{b_j\le n}\frac{p_j}{b_j}=1+o(1).
+\]
+Consequently, for each fixed $1\le r\le 4$,
+\[
+  T_r^{(p)}(n)=T_r^{(b)}(n)+o(1)=J_r+o(1).
+\]
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+  B_n(X):=\#\{j:b_j\le X\}.
+\]
+The decisive input is the local-density envelope bound inherited from the
+Round~57 construction:
+\[
+  \frac{dB_n}{dX}
+  =
+  \frac{\rhoU(u)}{\log n}
+  \le
+  \frac{1}{2\log X}
+\]
+uniformly for $X$ in the Round~57 range.  Equivalently, for every fixed
+$\Delta>0$,
+\[
+  B_n((1+\Delta)X)-B_n(X)
+  \le
+  \left(\frac12+o(1)\right)\frac{\Delta X}{\log X}.
+\]
+Thus the $b_j$ occupy each short multiplicative interval with density at most
+\emph{half} the odd-prime density.
+
+Fix $\delta>0$ and partition $[n^\alpha,n]$ into multiplicative bins
+\[
+  I_k=[x_k,x_{k+1}),
+  \qquad
+  x_{k+1}=(1+\delta)x_k.
+\]
+Assign the $b_j$ that lie in $I_k$ to distinct odd primes in the \emph{next}
+bin
+\[
+  P_k=[x_{k+1},x_{k+2}).
+\]
+By the prime number theorem,
+\[
+  \#P_k = (1+o(1))\frac{\delta x_{k+1}}{\log x_k},
+\]
+while the local-density bound above shows that the number of $b_j$ in $I_k$ is
+at most
+\[
+  \left(\frac12+o(1)\right)\frac{\delta x_k}{\log x_k}.
+\]
+For large $n$, each next bin therefore contains more than twice as many odd
+primes as there are $b_j$ in the preceding bin.  Greedy assignment within each
+bin produces an increasing odd-prime sequence with
+\[
+  b_j \le p_j \le (1+\delta)^2 b_j.
+\]
+Because the greedy choice is coordinatewise minimal, it is no larger than any
+other feasible increasing prime assignment.
+
+Now choose $\delta=\delta(n)\to 0$ along a diagonal sequence.  This gives
+\[
+  \sup_{b_j\le n}\frac{p_j}{b_j}=1+o(1).
+\]
+Let $\lambda_n$ denote this supremum.  Then for every $r$-tuple
+$I=\{j_1<\cdots<j_r\}$,
+\[
+  b_I \le p_I \le \lambda_n^r b_I,
+  \qquad
+  b_I := \prod_{j\in I} b_j,
+  \quad
+  p_I := \prod_{j\in I} p_j.
+\]
+Hence
+\[
+  T_r^{(p)}(n)\le T_r^{(b)}(n),
+\]
+and also
+\[
+  T_r^{(p)}(n)\ge \lambda_n^{-r}T_r^{(b)}(n/\lambda_n^r).
+\]
+Since $\lambda_n\to 1$ and $T_r^{(b)}(n)=J_r+o(1)=O(1)$, the multiplicative
+coefficient error is $o(1)$.  The remaining boundary layer
+\[
+  T_r^{(b)}(n)-T_r^{(b)}(n/\lambda_n^r)
+\]
+is also $o(1)$, because the same local-density bound gives reciprocal mass
+$O(1/\log n)$ for each logarithmic cell, and only $O((\log n)^{r-1})$ cell
+patterns contribute near the boundary.  Therefore
+\[
+  T_r^{(p)}(n)=T_r^{(b)}(n)+o(1)=J_r+o(1)
+\]
+for $1\le r\le 4$.
+\end{proof}
+
+\subsection{The finite Bonferroni-4 theorem}
+
+\begin{theorem}\label{thm:main-upper}
+Under the Round~15 strategy $\sigfifteen$,
+\[
+  \L(n) \le \left(\frac{\Wfour}{2}+o(1)\right)n
+  = (0.1897112+o(1))n < 0.19n.
+\]
+\end{theorem}
+
+\begin{proof}
+By \Cref{prop:envelope-inversion}, the inverted sequence $b_j$ satisfies
+\[
+  T_r^{(b)}(n)=J_r+o(1)
+  \qquad (1\le r\le 4).
+\]
+By \Cref{thm:prime-bridge}, there is an increasing odd-prime sequence $p_j$
+with $q_j\le p_j$ and
+\[
+  T_r^{(p)}(n)=J_r+o(1)
+  \qquad (1\le r\le 4).
+\]
+Applying \Cref{thm:bonf-comp} with $\Lambda_r=J_r$ gives
+\[
+  \L(n)
+  \le
+  \frac n2\left(1-J_1+J_2-J_3+J_4+o(1)\right)
+  =
+  \left(\frac{\Wfour}{2}+o(1)\right)n.
+\]
+The R60 evaluation yields
+\[
+  \frac{\Wfour}{2}=0.1897112<0.19,
+\]
+so the theorem follows.
+\end{proof}
+
+\begin{remark}
+The Lean file \texttt{Round15Bonferroni4/Target.lean} formalizes the endgame
+reduction: once the first four moment terms are componentwise within
+$10^{-5}$ of the certified constants $J_1,\dots,J_4$, the strict inequality
+$\L(n)<0.19n$ follows eventually.  Theorems~\ref{thm:bonf-comp} and
+\ref{thm:prime-bridge} are the rigorous prose ingredients that supply those
+moment hypotheses.
+\end{remark}

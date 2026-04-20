@@ -1,0 +1,76 @@
+\section{Glossary and Notation}\label{app:glossary}
+
+\subsection{Game Notation}
+
+\begin{description}
+  \item[$L(n)$] Length of the divisibility antichain game on $\{2,\dots,n\}$
+  when both players play optimally and Prolonger moves first.
+  \item[$\U$] The upper half $(n/2,n]\cap \mathbb Z$ of the board.  Any subset
+  of $\U$ is an antichain.
+  \item[$A$] A terminal antichain, or more generally the current played set.
+  \item[$P$] A set of upper-half Prolonger moves, usually a shield set in the
+  Shield Reduction framework.
+  \item[$M_n(x)$] The shadow of $x$ in the upper half:
+  $M_n(x)=\{u\in \U: x\mid u\}$.
+  \item[$w_n(x)$] The shadow weight $|M_n(x)|$.
+  \item[$\beta(P)$] The minimum total lower-half shadow weight needed to cover
+  $P$.
+\end{description}
+
+\subsection{Lower-Bound Notation}
+
+\begin{description}
+  \item[Theorem~A / T1] The polynomial shield lower bound and its corollary on
+  the $n^{1/e}$ barrier for short shield prefixes.
+  \item[T2] The Maker-first hypergraph-capture lower bound at scale
+  $n(\log\log n)^2/\log n$.
+  \item[$r_1(n)$] The scale $n(\log\log n)^2/\log n$, used repeatedly in the
+  later upper-bound and barrier discussions.
+\end{description}
+
+\subsection{Upper-Bound Notation}
+
+\begin{description}
+  \item[$\sigma_{15}$] The Round~15 Shortener strategy: play the smallest legal
+  odd prime during the first
+  $K=\lfloor (1-\varepsilon)n/(2\log n)\rfloor$ turns.
+  \item[$q_1<\dots<q_K$] The odd primes actually claimed by Shortener during the
+  $\sigma_{15}$ prefix.
+  \item[$\rho(u)$] The piecewise density of the Round~15 prefix, namely
+  $\rho(u)=1/((\lfloor 1/u\rfloor+1)u)$ away from the breakpoints $u=1/h$.
+  \item[$J_r$] The $r$th alternating-convolution moment attached to $\rho$.
+  \item[$\Wfour$] The finite Bonferroni--4 constant
+  $1-J_1+J_2-J_3+J_4$.
+  \item[$\mathcal W$] The full alternating series
+  $\sum_{r\ge 0}(-1)^rJ_r$, used only numerically in this paper.
+  \item[$b_j$] The monotone comparison scale obtained from the Round~57 envelope
+  inversion.
+  \item[$p_j$] The increasing odd-prime sequence used in the prime-rounding
+  bridge from $b_j$ to the Bonferroni comparison theorem.
+\end{description}
+
+\subsection{Barrier Notation}
+
+\begin{description}
+  \item[$\sigma^*$] The max-unresolved-harmonic-degree Shortener strategy
+  studied in the packet-era notes.  It is distinct from $\sigma_{15}$.
+  \item[$\tau_{\mathrm{SF}}$] The separator-first / prime-fallback strategy
+  appearing in the late separator program.
+  \item[$\tau_{\mathbb Z}(\mathcal C)$, $\tau_f(\mathcal C)$] Integral and
+  fractional transversal numbers of a uniform family $\mathcal C$.
+  \item[$\mathrm{SA}_r(\mathcal C)$] Level-$r$ Sherali--Adams relaxation value
+  for the same covering instance.
+  \item[$\delta_q$, $\lambda_q^2$] The capture density and Johnson-scheme
+  spectral parameter in the fixed-rank $q$-shadow dichotomy.
+  \item[$\sigma_q(\mathcal D)$] The fraction of the $q$-layer already occupied
+  by the blocker shadow of $\mathcal D$.
+\end{description}
+
+\section*{Acknowledgments}
+
+We thank Liam Price, Abhimanyu Adenwalla, StijnC, natso26, Xiao\_Hu, and
+Desmond Weisenberg for the forum refinement chain leading from the first linear
+bound to the current public record, and Thomas Bloom for maintaining
+\texttt{erdosproblems.com}.  A companion methodology paper records the research
+harness and verification workflow used during the preparation of the present
+paper.\label{lastpage}

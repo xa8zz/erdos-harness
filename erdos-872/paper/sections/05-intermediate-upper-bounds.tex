@@ -1,0 +1,161 @@
+% source: erdos-872/current_state.md (Round 7 / Round 8 upper bounds)
+% source: erdos-872/researcher-08-5-16-improvement.md
+% source: erdos-872/lean/README.md
+
+\section{Intermediate Upper Bounds}\label{sec:intermediate-upper}
+
+Before turning to the Round~15 piecewise-density argument, we record the two
+earlier upper bounds obtained from the odd-prime-prefix Shortener strategy.  The
+same basic mechanism appears in both arguments:
+\begin{enumerate}
+  \item Shortener plays a controlled prefix of legal odd primes;
+  \item the odd-part map injects the final antichain into the odd integers
+    avoiding those primes;
+  \item a low-order Bonferroni truncation bounds the surviving odd integers.
+\end{enumerate}
+
+\subsection{The \texorpdfstring{$13/36$}{13/36} bound}
+
+\begin{theorem}\label{thm:1336}
+Under the strategy ``play the smallest legal odd prime,'' Shortener has
+\[
+  \L(n) \le \left(\frac{13}{36}+o(1)\right)n.
+\]
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Let $q_1<q_2<\cdots$ be the odd primes played by Shortener.  The key uniform
+input is the Chebyshev-type bound
+\[
+  q_j \le \left(\frac32+o(1)\right)j\log n,
+\]
+which guarantees enough legal odd primes during the prefix.
+
+Choose $t$ minimal with
+\[
+  s_t := \sum_{j\le t}\frac1{q_j} \ge \frac13-o(1).
+\]
+Because every $q_j \ge 3$, minimality forces
+\[
+  \frac13-o(1) \le s_t \le \frac23.
+\]
+Let $D=\{q_1,\dots,q_t\}$.  The odd-part map sends the final antichain
+injectively into the set of odd integers not divisible by any prime in $D$,
+together with the already-played prefix itself.  If $N_D(n)$ denotes the number
+of odd integers up to $n$ coprime to $D$, then
+\[
+  \L(n) \le t + N_D(n).
+\]
+Since $t=o(n)$, it remains to bound $N_D(n)$.
+
+Second-order Bonferroni on the odd integers gives
+\[
+  N_D(n)
+  \le
+  \frac n2
+  \left(1-s_t+\frac{s_t^2}{2}\right)
+  + o(n).
+\]
+The function $f(s)=1-s+s^2/2$ is decreasing on $[0,1]$, and the truncation
+ensures $s_t \in [1/3-o(1),2/3] \subset [0,1]$.  Hence
+\[
+  f(s_t) \le f(1/3-o(1)) = \frac{13}{18}+o(1).
+\]
+Therefore
+\[
+  \L(n) \le \frac n2 \cdot \frac{13}{18} + o(n)
+  = \left(\frac{13}{36}+o(1)\right)n.
+\]
+\end{proof}
+
+\begin{remark}
+This theorem is fully verified in Lean with no remaining sorries.  The
+formalized artifact uses a slightly simplified input set in order to avoid a
+Chebyshev bottleneck, but the coefficient is the same.
+\end{remark}
+
+\subsection{The \texorpdfstring{$5/16$}{5/16} bound}
+
+The next observation is that the same odd-prime-prefix idea admits a much longer
+prefix than the original $13/36$ proof used.
+
+\begin{theorem}\label{thm:516}
+For every fixed $A>2$, the odd-prime-prefix Shortener strategy gives
+\[
+  \L(n) \le
+  \left(
+    \frac12 - \frac{1}{2A} + \frac{1}{4A^2} + o(1)
+  \right)n.
+\]
+Letting $A \downarrow 2$ yields
+\[
+  \L(n) \le \left(\frac{5}{16}+o(1)\right)n.
+\]
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Set
+\[
+  k = \left\lfloor \frac{n}{2A\log n}\right\rfloor,
+\]
+and let Shortener play the smallest legal odd prime on her first $k$ turns.
+If the game ends earlier, then the game length is already $o(n)$, so assume the
+prefix exists and denote it by $q_1<\cdots<q_k$.
+
+The longer prefix is available because the same argument as above now gives
+\[
+  q_j \le A j \log n \qquad (1\le j\le k).
+\]
+Consequently
+\[
+  \sum_{j\le k}\frac1{q_j}
+  \ge
+  \frac{1}{A\log n}\sum_{j\le k}\frac1j
+  =
+  \frac1A+o(1).
+\]
+Choose $t\le k$ minimal with
+\[
+  s_t := \sum_{j\le t}\frac1{q_j} \ge \frac1A-o(1),
+\]
+and again let $D=\{q_1,\dots,q_t\}$.  The same odd-part injection and
+second-order Bonferroni argument give
+\[
+  \L(n) \le t + \frac n2\left(1-s_t+\frac{s_t^2}{2}\right) + o(n).
+\]
+Here $t=o(n)$, and $f(s)=1-s+s^2/2$ is decreasing on $[0,1]$, so
+\[
+  \L(n) \le
+  \frac n2\left(1-\frac1A+\frac{1}{2A^2}\right)+o(n)
+  =
+  \left(\frac12 - \frac{1}{2A} + \frac{1}{4A^2} + o(1)\right)n.
+\]
+Sending $A\downarrow 2$ gives the bound $5/16$.
+\end{proof}
+
+\begin{remark}
+The one remaining Lean gap in the current artifact is Chebyshev-adjacent and
+does not affect the mathematical status of the theorem.  For the paper, the
+important point is conceptual: the `13/36' proof did not exhaust the
+odd-prime-prefix method.  The correct limiting constant for that family is
+$5/16$.
+\end{remark}
+
+\subsection{Why this family stops at \texorpdfstring{$5/16$}{5/16}}
+
+The odd-prime-prefix strategy is elegant but not universal.  Later obstruction
+work shows that Prolonger can force
+\[
+  \sum_{j} \frac1{q_j} \le \frac12 + o(1)
+\]
+against this entire style of argument.  Since the second-order truncation
+coefficient is
+\[
+  \frac12\left(1-s+\frac{s^2}{2}\right),
+\]
+the best constant accessible to this family is exactly $5/16$, achieved in the
+limit $s=1/2$.
+
+This is why the main theorem below $0.19n$ must leave the odd-prime-prefix
+framework and instead exploit the Round~15 piecewise density of the actual prime
+sequence.

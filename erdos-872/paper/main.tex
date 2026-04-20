@@ -1,0 +1,50 @@
+\documentclass[11pt]{amsart}
+\input{preamble}
+
+\title[Paper A Draft for Erd\H{o}s Problem 872]{The Divisibility Antichain Saturation Game}
+\author{Draft for internal circulation}
+\date{April 20, 2026}
+
+\begin{document}
+
+\begin{abstract}
+We study the saturation game on the divisibility poset of $\{2,3,\dots,n\}$.
+Two players alternately choose integers subject to the condition that the
+chosen set remains primitive.  We assume that Prolonger moves first and seeks to
+maximize the number of turns, while Shortener seeks to minimize it.  We prove a
+structural reduction from terminal game positions to a weighted lower-half
+optimization problem, establish lower bounds of order
+$n\log\log n/\log n$ and $n(\log\log n)^2/\log n$, determine the exact first-hit
+cover constant $5/24$, and prove the upper bound
+\[
+  \L(n) \le \left(\frac{\Wfour}{2}+o(1)\right)n
+  = (0.1897112+o(1))n < 0.19n.
+\]
+We also prove positive results for two restricted carrier classes and develop a
+taxonomy of proof-class barriers explaining why sharper upper bounds are
+structurally difficult.
+\end{abstract}
+
+\maketitle
+
+\input{sections/01-introduction}
+\input{sections/02-shield-reduction}
+\input{sections/03-lower-bounds}
+\input{sections/04-5-24-cover}
+\input{sections/05-intermediate-upper-bounds}
+\input{sections/06-main-upper-bound}
+\input{sections/07-restricted-class}
+\input{sections/08-proof-class-barriers}
+\input{sections/09-structural-negatives}
+\input{sections/10-formal-verification}
+\input{sections/11-conclusion}
+
+\appendix
+\input{sections/appendix-A-formalization}
+\input{sections/appendix-B-numerical}
+\input{sections/appendix-C-glossary}
+
+\bibliographystyle{amsalpha}
+\bibliography{references}
+
+\end{document}

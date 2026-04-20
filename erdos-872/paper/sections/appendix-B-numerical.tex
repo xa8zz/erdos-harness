@@ -1,0 +1,103 @@
+\section{Numerical Computations}\label{app:numerical}
+
+This appendix records the reproducible numerical checks that accompany the
+proofs in \Cref{sec:main-upper,sec:proof-class-barriers}.  They are not used as
+substitutes for proof, but they do certify the quoted constants and stress-test
+the finite combinatorial steps.
+
+\subsection{Bonferroni--4 Constant}
+
+% source: phase3/shortener_piecewise_bonferroni4_summary.md
+\Cref{thm:main-upper-bound} uses the finite Bonferroni--4 constant
+\[
+\frac{\Wfour}{2}=0.1897112<0.19.
+\]
+Two numerical artifacts accompany this value.
+\begin{enumerate}
+  \item The direct grid computation in
+  \path{phase3/shortener_piecewise_bonferroni4_summary.md}, whose finest-grid
+  output is
+  \[
+  \frac{\Wfour}{2}=0.189710592;
+  \]
+  \item the Round~57/60 reconciliation in
+  \path{r57_bonferroni4_audit_and_repair.md} and
+  \path{researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md}, which
+  gives the paper-facing theorem constant
+  \[
+  \frac{\Wfour}{2}=0.1897112.
+  \]
+\end{enumerate}
+
+The seventh-decimal discrepancy is benign: the theorem only needs a strict
+margin below $0.19$, and both computations provide that margin comfortably.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+Grid & $J_1$ & $J_2$ & $J_3$ & $J_4$ & $\Wfour$ & $\Wfour/2$ \\
+\hline
+$2^{13}$ & 0.78844185 & 0.18676003 & 0.02008041 & 0.00122154 & 0.37945930 & 0.18972965 \\
+$2^{14}$ & 0.78849100 & 0.18679383 & 0.02008737 & 0.00122220 & 0.37943767 & 0.18971883 \\
+$2^{15}$ & 0.78851725 & 0.18681153 & 0.02009097 & 0.00122255 & 0.37942586 & 0.18971293 \\
+$2^{16}$ & 0.78852127 & 0.18681405 & 0.02009149 & 0.00122260 & 0.37942388 & 0.18971194 \\
+$2^{17}$ & 0.78852704 & 0.18681777 & 0.02009220 & 0.00122266 & 0.37942118 & 0.18971059 \\
+\hline
+\end{tabular}
+\caption{Grid convergence for the Bonferroni--4 truncation.}
+\label{tab:grid-bonferroni}
+\end{table}
+
+\subsection{Round 60 Sandbox Checks}
+
+% source: researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md
+The R60 repair included four targeted finite checks:
+\begin{enumerate}
+  \item \emph{Odd-part injection.} Exhaustive verification at $n=14$ over all
+  $732$ antichains; no collision of odd parts occurs.
+  \item \emph{Monotone replacement.} Exact inclusion--exclusion counts at
+  $n=10^4,10^5,10^6$ for several test pairs $(q_j)$ and $(p_j)$ with
+  $q_j\le p_j$, always confirming $N(q_1,\dots,q_K)\le N(p_1,\dots,p_K)$.
+  \item \emph{Squarefree divisor counts.} For $r\le 4$, the counts $M_r(n)$ of
+  relevant squarefree $r$-fold divisors match the scale
+  $O_r(n(\log\log n)^{r-1}/\log n)$ used in the Bonferroni floor-error bound.
+  \item \emph{Controlled prime rounding.} Synthetic monotone $b$-prefixes were
+  rounded upward to increasing odd-prime prefixes at
+  $n=10^4,10^5,10^6,10^8$; the resulting changes in the moment terms were small
+  and always moved in the monotone direction predicted by the proof.
+\end{enumerate}
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{|l|l|}
+\hline
+Check & Recorded outcome \\
+\hline
+Odd-part injection & \texttt{(True, None, None, 732)} at $n=14$ \\
+Monotone replacement & Verified at $n=10^4,10^5,10^6$ for all listed test prefixes \\
+$M_r$ scaling & Ratified for $r=1,2,3,4$ up to $n=10^6$ \\
+Prime-rounding bridge & Tested on synthetic prefixes up to $n=10^8$ \\
+\hline
+\end{tabular}
+\caption{Finite checks recorded in the R60 audit-repair note.}
+\label{tab:r60-checks}
+\end{table}
+
+\subsection{What the Numerics Do and Do Not Say}
+
+The numerical artifacts support three distinct claims:
+\begin{enumerate}
+  \item the quoted theorem constant $\Wfour/2<0.19$ is reproducible;
+  \item the finite steps used in the proof of
+  \Cref{thm:bonf-comp,thm:prime-bridge} behave as expected in representative
+  regimes;
+  \item the sharper full-series value near $0.18969$ is numerically stable.
+\end{enumerate}
+
+They do \emph{not} replace the analytic arguments of \Cref{sec:main-upper}.  In
+particular, the theorem statement in the paper is the finite Bonferroni--4
+bound below $0.19$, not the sharper extrapolated constant from the full
+alternating series.

@@ -361,3 +361,7 @@ Save verifier replies verbatim. Synthesize only when building the next researche
 ## Tooling Learnings
 
 - In the Lean 4.28.0 Mathlib snapshot used by `erdos-872/lean/erdos_872_core`, `Mathlib.NumberTheory.Chebyshev` exposes `Chebyshev.eventually_primeCounting_le`, but an obvious full PNT theorem `π(x) ~ x / log x` is not surfaced under the expected names; for Round 15 top-tail formalization, bank the Chebyshev upper bound first.
+
+## Tooling Access Inventory
+
+- `tectonic` is installed at `/opt/homebrew/bin/tectonic` and works as the fallback LaTeX engine for `erdos-872/paper` when `pdflatex` is unavailable.
