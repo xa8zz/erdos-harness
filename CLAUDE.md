@@ -18,11 +18,16 @@ chat-export/
   format.py
   submit.sh
 docs/
+  medium_user_messages.md
   plans/
     2026-04-18-deepthink-protocol-implementation.md
     2026-04-18-fan-hierarchy-implementation.md
     2026-04-18-shortener-constants-implementation.md
     2026-04-18-sparse-subset-implementation.md
+    2026-04-20-arxiv-and-open-source-plan.md
+  round-doc-schema.md
+  short_user_messages.md
+  transcript-patterns.md
 erdos-872/
   _forum_transcript.md
   aristotle/
@@ -33,6 +38,21 @@ erdos-872/
     shortener_13_36_v2_out.tar.gz
     shortener_5_16.tex
     shortener_5_16_out.tar.gz
+    t2_finite_core/
+      RequestProject/
+        Main.lean
+        T2Finite/
+          Defs.lean
+          EmbeddingCore.lean
+          EmbeddingFamily.lean
+          GraphGame.lean
+          GraphReachable.lean
+          HyperDefs.lean
+          HyperGame.lean
+          ResidualComparison.lean
+      lake-manifest.json
+      lakefile.toml
+      lean-toolchain
     tau_5_24.tex
     tau_5_24_result.tar.gz
     theorem_A_result.tar.gz
@@ -40,6 +60,7 @@ erdos-872/
   audit-R37-external-synthesis.md
   chatgpt.md
   claude-chat.md
+  codex_backlog.md
   current_state.md
   direct-On-over-logn-attempt-2026-04-18.md
   followup-12-pro-closeout-response.md
@@ -47,6 +68,7 @@ erdos-872/
   gemini.md
   matching-T2-self-attempt-2026-04-18.md
   matching-T2-upper-bound-attempt-2026-04-18.md
+  paper_strengthening_plan.md
   phase0/
     CODEX_TASK.md
     compute_psi.py
@@ -102,15 +124,20 @@ erdos-872/
     shortener_constants.py
     shortener_constants_codex_report.md
     shortener_constants_summary.md
+    shortener_piecewise_bonferroni4.csv
+    shortener_piecewise_bonferroni4.py
+    shortener_piecewise_bonferroni4_summary.md
     sparse_subset.csv
     sparse_subset.py
     sparse_subset_summary.md
     test_deepthink_protocol.py
     test_fan_hierarchy.py
     test_shortener_constants.py
+    test_shortener_piecewise_bonferroni4.py
     test_sparse_subset.py
   phase4/
     analysis.md
+    block_product_carrier_mass_note.md
     claude_parallel_session_handoff.md
     fan_prolonger.py
     fast_sim.py
@@ -121,6 +148,9 @@ erdos-872/
     max_antichain.py
     multirank_attempt.py
     multirank_ford_conjecture.md
+    r44_residual_floor_note.md
+    r46_st_capture_refutation_note.md
+    r56_separator_only_barrier_note.md
     residual.py
     shortener_duel.py
     sim.py
@@ -129,8 +159,11 @@ erdos-872/
     submarkov_1196_adaptation_report.md
     t2_constant_fix.md
     t2_constant_fix_8x.md
+    t2_core_paper_note.md
     t2_maker_first_lemmas.md
     test_transversal_small_h.py
+    theorem5_disjoint_carriers_note.md
+    theorem6_rank3_squarefree_note.md
     trajectory.py
     transversal_small_h.py
     transversal_small_h_amortization_audit.py
@@ -152,8 +185,10 @@ erdos-872/
     audit-15-pro-prime-count-refinement.md
     audit-R44-sflu-e-estimate-ready.md
     audit-R44-sflu-e-estimate.md
+    backfill-frontmatter-task.md
     canonical-prompt.md
     codex-R37-cheap-verification.md
+    codex-R57-audit-gap-and-lean.md
     codex-close-L-sublinear.md
     codex-continuation-fiber-collapse-strategy.md
     codex-extract-optimal-shortener-strategy.md
@@ -231,6 +266,9 @@ erdos-872/
     researcher-R54-fresh-pro-sigma-star-dependence-audit.md
     researcher-R55-fresh-pro-hidden-packet-game.md
     researcher-R56-fresh-pro-synthesis-full-inventory.md
+    researcher-R57-fresh-pro-round15-monotone-envelope-repair.md
+    researcher-R58-fresh-pro-R52-integrality-barrier-audit-normalize.md
+    researcher-R59-fresh-pro-R53-q-shadow-dichotomy-audit-normalize.md
     round13-A-pro-extend.md
     round13-B-deepthink-open.md
     round13-C-gemini-contrarian.md
@@ -273,6 +311,7 @@ erdos-872/
     verify-postresp-08-5-16.md
     verify-postresp-11-combined.md
     verify-strategic-01-directions.md
+  publication_source_of_truth.md
   researcher-01-directed-response.md
   researcher-01-open-response.md
   researcher-02-shortener-response.md
@@ -459,9 +498,18 @@ erdos-872/
   researcher-54-pro-sigma-star-audit-class-C-named-shortener-class.md
   researcher-55-claude-local-packet-guard-min-incomplete-conditional-r2.md
   researcher-55-pro-hidden-packet-formulation-refuted-shortener-wins-one-move.md
+  researcher-56-codex-SFPF-negative-structural-theorem.md
   researcher-56-codex-r55-hidden-packet-game-collapses-without-lag.md
+  researcher-56-pro-TPS-negative-static-state-construction.md
+  researcher-56-pro-continuation-single-certificate-divisor-barrier.md
+  researcher-56-pro-finite-odd-carrier-separator-only-negative-theorem.md
   researcher-56-pro-tau-sf-refuted-upper-half-dyadic-shielding.md
+  researcher-57-codex-T2-GraphReachable-progress-note.md
+  researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md
+  researcher-58-pro-R52-integrality-barrier-audit-confirmed-sharpened.md
+  researcher-59-pro-R53-q-shadow-dichotomy-audit-confirmed-sharpened.md
   researcher-R49-claude-meta-diagnosis.md
+  round15_upper_bound_status.md
   round_progress_R54.png
   verify-R35-codex-adversarial-audit.md
   verify-R35-codex-followup-dynamic-gap.md
@@ -532,6 +580,10 @@ erdos-872/
   verify-strategic-01-audit4.md
   verify-strategic-01-deepthink.md
   verify-strategic-01-gpt-thinking.md
+  worker_obstruction_pick_memo.md
+  worker_round15_breakpoint_repair_memo.md
+  worker_t2_finite_core_memo.md
+  worker_theorem5_6_memo.md
 mcp-servers/
   deep-think/
     .gitignore
@@ -543,6 +595,7 @@ mcp-servers/
 prompts/
   templates/
     informal-audit.md
+    round-doc.md
 safari-llm/
   js/
     chatgpt/
@@ -575,7 +628,22 @@ safari-llm/
   safari-llm
   safari-llm.md
 scripts/
+  add_round_doc.py
+  alphaxiv.py
+  compile_rounds.py
+  extract_short_user_messages.py
   update-tree.sh
+skills/
+  README.md
+  add-round-doc.md
+  commit-round.md
+  pre-compact-capture.md
+  progress-zoom-out.md
+  save-pasted-response.md
+  sync-research-state.md
+  write-audit-prompt.md
+  write-codex-task.md
+  write-followup-prompt.md
 ```
 <!-- REPO_TREE_END -->
 
@@ -1068,7 +1136,7 @@ For Claude / Gemini / separate GPT-thinking. Two variants — use (1) by default
 
 ### 1. Informal audit (default)
 
-Shortest useful template. Lives in [`prompts/templates/informal-audit.md`](prompts/templates/informal-audit.md). Paste the exact prompt you sent to the primary and the exact response back — no re-summarizing state, the audit works off the pair.
+Shortest useful template. Lives in [`templates/informal-audit.md`](templates/informal-audit.md). Paste the exact prompt you sent to the primary and the exact response back — no re-summarizing state, the audit works off the pair.
 
 ```
 I gave this prompt on a math problem to an AI and it came back with the
