@@ -1,3 +1,27 @@
+---
+id: R50-pro-wlst-refuted-forbidden-core-star
+type: refutation
+date: 2026-04-19
+intent: >
+  Second independent refutation of WLST via forbidden-core star construction.
+predecessors: [R50-pro-wlst-refuted-cone-bernoulli]
+siblings: [R50-pro-wlst-refuted-cone-bernoulli]
+action:
+  kind: refutes
+  target: R50-pro-wlst-refuted-cone-bernoulli
+claim: >
+  WLST false via forbidden-core star: a single prior claimed legal blocker
+  is the unique small blocker of the current complement clutter; once that
+  core is forbidden by the antichain constraint, every remaining legal
+  relative blocker has rank h and captures only one packet atom.
+failure_mechanism: >
+  Forbidden-core star: the complement clutter has a unique minimum
+  transversal (the core c_0 of the star). c_0 was claimed in a prior
+  Shortener move, making it illegal. All other transversals are supersets
+  of c_0 hence have rank >= h. Each rank-h transversal captures exactly
+  one leaf atom of the packet star.
+---
+
 WLST is false as stated. The obstruction is a **forbidden-core star**: one previously claimed legal blocker can be the unique small blocker of the current complement clutter, and once that core is forbidden, every remaining legal relative blocker has rank (h) and captures only one packet atom.
 
 Here is the exact counterexample.

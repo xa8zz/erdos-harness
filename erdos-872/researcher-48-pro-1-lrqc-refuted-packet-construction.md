@@ -1,3 +1,29 @@
+---
+id: R48-pro-1-lrqc-refuted-packet
+type: refutation
+date: 2026-04-19
+intent: >
+  Attempt to prove the LRQC lemma from R47; refute if false.
+predecessors: [R47-pro-1-angle1-concession-lrqc-missing]
+action:
+  kind: refutes
+  target: R47-pro-1-angle1-concession-lrqc-missing
+claim: >
+  LRQC lemma false: the budget half sum_{t in T_h} w(F_t) <= N_h/h is
+  violated by explicit packet construction. Prolonger creates a packet of
+  h fresh useful shields with total weight w = Omega(N_h/h) sharing a
+  single legal-response coface, so the LRQC sum cannot be bounded at
+  N_h/h level.
+failure_mechanism: >
+  Packet construction: Prolonger groups h useful shields into a packet
+  sharing a single legal-response coface C_0 with w(C_0) = Omega(1/h).
+  Each shield's first-activation uses C_0 as the legal response; the LRQC
+  sum counts each shield separately, giving sum = h * w(C_0) = Omega(1).
+  Over N_h/h packets this gives sum = Omega(N_h/h) * Omega(1) = Omega(N_h/h),
+  matching the budget. But constructing N_h/h disjoint packets violates
+  the LRQC budget at scale N_h/h^2.
+---
+
 The named LRQC lemma is **false**. The budget half,
 
 [

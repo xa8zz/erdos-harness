@@ -1,3 +1,29 @@
+---
+id: R51-pro-case-B-refuted-kk-sparse-covering-cone
+type: refutation
+date: 2026-04-19
+intent: >
+  Second refutation of Case B via Kruskal-Katona sparse covering cone.
+predecessors: [R51-pro-case-B-refuted-entropy-covering-design]
+siblings: [R51-pro-case-B-refuted-entropy-covering-design]
+action:
+  kind: refutes
+  target: R51-pro-case-B-refuted-entropy-covering-design
+claim: >
+  Case B false via sparse forbidden-core covering obstruction: a single prior
+  Shortener blocker forbids the apex; a small Prolonger complement family
+  (sparse covering cone) has large transversal number. Case A fails but the
+  live residual is almost the entire apex cone, far too large to charge to
+  |C|_pi.
+failure_mechanism: >
+  Sparse covering cone: Prolonger's complement family is a sparse
+  (h, h/2, 1)-covering of the apex cone, forcing transversal number
+  Omega(h/log h) for the relative blocker. The forbidden-apex constraint
+  makes the apex inaccessible, so every Shortener move has cost at least
+  the transversal number. Total Shortener budget is exhausted before
+  the live residual is covered.
+---
+
 I found a definitive refutation of the proposed Case B. The obstruction is a sparse version of the forbidden-core cone: a single prior Shortener blocker forbids the apex, while a very small Prolonger complement family has large transversal number. Case A fails, but the live residual is almost the entire apex cone, far too large to charge to (|\mathcal C|_\pi).
 
 Call this the **sparse forbidden-core covering obstruction**.

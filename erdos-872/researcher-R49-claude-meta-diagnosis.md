@@ -1,3 +1,24 @@
+---
+id: R49-claude-meta-diagnosis
+type: synthesis
+date: 2026-04-19
+intent: >
+  Synthesize the R49 structural-exhaustion diagnosis from the Claude
+  perspective; provide a complete negative structural theorem and propose
+  entropy-compression as an alternative.
+predecessors: [R49-pro-5-entropy-shearer-attractor, R49-pro-6-entropy-shearer-attractor-v2]
+action:
+  kind: standalone
+claim: >
+  Negative structural theorem: the state-inequality-plus-dynamic-F_useful
+  paradigm with sigma^star cannot prove L(n) << n/log(log(log(n))). The
+  floor at r_2 follows from two structural conditions (S1) dense-packet
+  projection creates mandatory exceptional-class residual >> N_h/log(h/log h),
+  (S2) the online charging proof cannot exclude this residual without
+  breaking strict-freshness. Entropy-compression paradigm proposed as
+  alternative using Shearer's inequality.
+---
+
 # R49 Meta-Diagnosis: Structural Exhaustion of the State-Inequality Paradigm and an Entropy-Compression Alternative
 
 ## 0. Summary of claims

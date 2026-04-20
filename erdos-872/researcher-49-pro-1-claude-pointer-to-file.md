@@ -1,3 +1,22 @@
+---
+id: R49-pro-1-meta-diagnosis-pointer
+type: synthesis
+date: 2026-04-19
+intent: >
+  Produce a meta-diagnosis of the structural exhaustion of the state-inequality
+  paradigm; save the detailed response to a separate file.
+predecessors: [R48-pro-3-cross-composite-refuted-sathe-selberg, R48-pro-2-followup-divisibility-hall-refuted]
+action:
+  kind: standalone
+claim: >
+  Meta-diagnosis: the state-inequality paradigm floors at r_2 because the
+  residual R^P(h) is bounded below by the static exceptional-class mass
+  mu(E_h) >> N_h/log(h/log h). Any bounded-depth local F_useful predicate
+  either admits a constant fraction of E_h into the residual OR excludes
+  it at the cost of breaking the online charging proof. Detailed analysis
+  in researcher-R49-claude-meta-diagnosis.md.
+---
+
 I'll produce a substantive research-level response addressing the diagnosis task, then save it to the R49 response file.
 
 Response saved to [researcher-R49-claude-meta-diagnosis.md](erdos-872/researcher-R49-claude-meta-diagnosis.md).

@@ -1,3 +1,22 @@
+---
+id: R49-pro-2-sq-r-local-obstruction
+type: research
+date: 2026-04-19
+intent: >
+  Assess claims A, B, C from the R49 dispatch; provide a named local
+  obstruction as the main rigorous result.
+predecessors: [R49-pro-1-meta-diagnosis-pointer]
+action:
+  kind: standalone
+claim: >
+  No proof of A, B, or C found. Core-star quotient gap (SQ-R obstruction)
+  named and proved: for prime r >= 13 and prime q > r, there is a local
+  game state where sigma^star playing "smallest legal prime" is suboptimal
+  by a constant factor. This is a clean checkable failure mode for any
+  r_1-upper-bound or r_2-lower-bound argument assuming sigma^star = smallest
+  legal prime.
+---
+
 I did not find a defensible proof of A, B, or C. The rigorous result I can stand behind is a named local obstruction with an exact decidability criterion. It does not determine (L(n)), but it gives a clean, checkable failure mode for a large class of attempted (r_1)-upper-bound and (r_2)-lower-bound arguments that simplify (\sigma^\star) to “take the smallest legal prime.”
 
 **Core-star quotient gap.**

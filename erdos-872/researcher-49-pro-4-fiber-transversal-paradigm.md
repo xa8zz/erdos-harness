@@ -1,3 +1,23 @@
+---
+id: R49-pro-4-fiber-transversal-paradigm
+type: research
+date: 2026-04-19
+intent: >
+  Provide a second paradigm-level diagnosis proposing fiber-transversal
+  accounting as the correct replacement for first-hit mass.
+predecessors: [R49-pro-3-blocker-duality-paradigm]
+siblings: [R49-pro-3-blocker-duality-paradigm]
+action:
+  kind: extends
+  target: R49-pro-3-blocker-duality-paradigm
+claim: >
+  Fiber-transversal paradigm: the paradigm fails because it prices a global
+  blocker geometry by local first-hit mass. The correct unit is fiber
+  transversal mass — the mass of minimal transversals of the live fiber
+  of each useful shield. Fiber transversal mass is the right dual quantity
+  that bounds the useful-shield count at the N_h/h scale.
+---
+
 My diagnosis is that the exhausted paradigm is not failing because the chosen constants, windows, or definitions of “fresh/useful” are slightly wrong. It is failing because it tries to price a **global blocker geometry** by a **local first-hit mass**. That is the wrong unit of accounting.
 
 The recurring obstruction is this:

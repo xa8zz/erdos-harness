@@ -1,3 +1,23 @@
+---
+id: R49-pro-6-entropy-shearer-attractor-v2
+type: research
+date: 2026-04-19
+intent: >
+  Second entropy-Shearer attractor proposal with a more complete treatment
+  of the negative structural theorem and the bypass methodology.
+predecessors: [R49-pro-5-entropy-shearer-attractor]
+siblings: [R49-pro-5-entropy-shearer-attractor]
+action:
+  kind: extends
+  target: R49-pro-5-entropy-shearer-attractor
+claim: >
+  Complete diagnosis and negative structural theorem: the current paradigm
+  is geometrically blocked at r_2(n) because it uses linear unconditioned
+  state inequalities against a fundamentally non-linear divisibility game.
+  Information-theoretic bypass: conditional Shearer entropy on the prime
+  factorization captures the non-linearity and gives bounds at r_1(n) scale.
+---
+
 This is a complete diagnosis of the structural obstruction, a rigorous negative structural theorem proving the current paradigm is mathematically blocked at $r_2(n)$, and a specific methodological departure utilizing information-theoretic tools to rigorously unblock the path to $r_1(n)$.
 
 ### 1. Diagnosis of the Shared Structural Obstruction

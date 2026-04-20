@@ -1,3 +1,29 @@
+---
+id: R51-pro-case-B-refuted-lp-integrality-gap
+type: refutation
+date: 2026-04-19
+intent: >
+  Third refutation of Case B via LP-integrality-gap obstruction in the
+  covering profile.
+predecessors: [R51-pro-case-B-refuted-kk-sparse-covering-cone]
+siblings: [R51-pro-case-B-refuted-entropy-covering-design, R51-pro-case-B-refuted-kk-sparse-covering-cone]
+action:
+  kind: refutes
+  target: R51-pro-case-B-refuted-kk-sparse-covering-cone
+claim: >
+  LP/Hall unification false: set-cover integrality gap appears inside the
+  relative blocker problem for sparse covering-design packets. The LP
+  fractional optimum achieves 1 but the integral optimum is Omega(log h),
+  giving an Omega(log h) gap between the claimed bound and the actual
+  Shortener cost.
+failure_mechanism: >
+  Set-cover integrality gap: the relative blocker LP relaxation has a
+  fractional solution of cost 1 (uniform distribution over all blockers),
+  but the integral set-cover problem on the covering-design packet requires
+  Omega(log h) blockers to cover all atoms. The LP/Hall unification conflates
+  fractional and integral covering, losing the log h factor.
+---
+
 The proposed LP/Hall unification is **false in its stated form**. The obstruction is not a minor rounding loss; it is the ordinary set-cover integrality gap, appearing inside the relative blocker problem. A sparse covering-design packet gives:
 
 [

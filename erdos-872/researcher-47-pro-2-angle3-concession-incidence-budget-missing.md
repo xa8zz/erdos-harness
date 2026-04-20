@@ -1,3 +1,22 @@
+---
+id: R47-pro-2-angle3-concession-incidence-budget
+type: research
+date: 2026-04-19
+intent: >
+  Attempt Angle 3 (SMRP packing) and provide a precise concession with
+  the minimal missing incidence-budget ingredient.
+predecessors: [R47-pro-1-angle1-concession-lrqc-missing]
+action:
+  kind: extends
+  target: R47-pro-1-angle1-concession-lrqc-missing
+claim: >
+  Angle 3 closes as a precise concession: hypotheses not strong enough
+  to prove the SMRP packing without a legal-exposure Carleson inequality.
+  Missing ingredient precisely named: a sparse-residue incidence budget
+  tying sigma^star's actual future legal claims to the SMRP packing count.
+  This is the Angle 3 analog of R47-pro-1's LRQC.
+---
+
 The angle closes, for me, as the third permitted outcome: **a precise concession**. The stated hypotheses are not strong enough to prove the activator-quotient budget. The exact missing ingredient is not “more density” or another static matching estimate; it is a legal-exposure Carleson inequality that ties sparse residue mass to actual future legal (\sigma^\star) claims.
 
 Here is the missing statement in a form strong enough to imply the desired SMRP packing.

@@ -1,3 +1,26 @@
+---
+id: R53-pro-1-cr-ncad-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Name the CR-NCAD conjecture and refute it via cooperative-embedding
+  construction.
+predecessors: [R52-pro-spectral-live-space]
+action:
+  kind: standalone
+claim: >
+  CR-NCAD (Central-Rank No-Cheap Avoidance-Design Conjecture) named and
+  refuted: cooperative-embedding construction achieves cheap avoidance
+  designs at central rank h. Prolonger cooperatively embeds a sparse
+  covering design into the central-rank families, refuting CR-NCAD.
+failure_mechanism: >
+  Cooperative embedding: Prolonger uses two coordinated sub-strategies
+  that jointly implement a sparse covering design at rank h. Sub-strategy A
+  creates the complement family; sub-strategy B ensures the antichain
+  legality. Neither sub-strategy alone achieves the avoidance design but
+  their cooperation does, violating the no-cheap-avoidance hypothesis.
+---
+
 I would name it the **Central-Rank No-Cheap Avoidance-Design Conjecture**, abbreviated **CR-NCAD**:
 
 [

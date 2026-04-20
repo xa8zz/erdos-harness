@@ -1,3 +1,21 @@
+---
+id: R52-pro-fresh-zoom-transversal
+type: research
+date: 2026-04-19
+intent: >
+  Zoom out from R52 CPD refutations; diagnose the unifying obstruction and
+  propose the transversal-integrality barrier as a paradigm-level finding.
+predecessors: [R52-pro-cpd-refuted-self-shadow]
+action:
+  kind: standalone
+claim: >
+  Unifying obstruction identified: the transversal-integrality gap of an
+  online blocker clutter, equivalently a sparse covering design whose
+  blocker has a large pure-vs-fractional hitting gap. All R50-R52 refutations
+  are projections of this single object. No known technique closes the
+  integrality gap in the online game-legal setting.
+---
+
 My diagnosis is that the recurring obstruction is not “many different bad configurations.” It is one object seen through different projections:
 
 **the transversal-integrality gap of an online blocker clutter**, equivalently a sparse covering design whose blocker has a large pure-vs-fractional hitting gap.

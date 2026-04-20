@@ -1,3 +1,21 @@
+---
+id: R53-pro-continuation-near-top-shadow
+type: research
+date: 2026-04-19
+intent: >
+  Continue from R52-spectral with near-top Johnson-shadow theorem;
+  determine if covering-design states attain the binom(L+s,s) loss.
+predecessors: [R52-pro-spectral-live-space]
+action:
+  kind: extends
+  target: R52-pro-spectral-live-space
+claim: >
+  Weighted near-top Johnson-shadow theorem proved, clean and game-legal.
+  Sharp loss binom(L+s, s) not a proof artifact: covering-design states
+  attain it up to logarithmic factors, and those states are legal packet
+  states. Route does not close L(n) <= O(n (log log n)^2 / log n).
+---
+
 I can prove the natural weighted near-top Johnson-shadow theorem. The theorem is clean and game-legal, but it has a sharp loss (\binom{L+s}{s}). That loss is not a proof artifact: covering-design states attain it up to logarithmic factors, and those states are legal packet states. So this route still does **not** close
 
 [

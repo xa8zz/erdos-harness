@@ -1,3 +1,28 @@
+---
+id: R53-pro-2-wsss-refuted-large-transversal
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute WSSS (Weak Sparse Separator Structure) as a closing invariant.
+predecessors: [R53-pro-2-sigma-star-reachable-multi-packet-persistence]
+action:
+  kind: standalone
+claim: >
+  WSSS false as a closing invariant: for every rho > 0, there are
+  game-legal central-packet states with almost full live residual mass
+  where any Shortener progress inside the packet violates WSSS. If
+  Shortener avoids the packet, the sparse-covering obstruction persists.
+  No Shortener strategy can simultaneously maintain constant-rho WSSS
+  and avoid the sparse-covering-design obstruction.
+failure_mechanism: >
+  Large-transversal sparse-cover: Prolonger constructs a central packet
+  whose live residual has transversal number Omega(h) (large transversal)
+  but harmonic mass Omega(N_h/h) (full residual). Any Shortener move
+  with live-mass progress must claim a transversal element, which has
+  1/p weight 1/p_min > rho / h. The WSSS constant-rho condition requires
+  Shortener's weight per move <= rho/h, violated by any transversal move.
+---
+
 WSSS is false as a closing invariant. More precisely: for every fixed (\rho>0), there are game-legal central-packet states with almost full live residual mass such that **any Shortener move that makes progress inside the packet immediately violates WSSS**. If Shortener refuses to move inside the packet, the sparse-covering obstruction remains untouched. Thus no Shortener strategy can simultaneously maintain constant-(\rho) WSSS and avoid the sparse-covering-design obstruction.
 
 This gives the requested structural endpoint for the chain:

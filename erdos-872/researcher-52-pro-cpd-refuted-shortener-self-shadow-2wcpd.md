@@ -1,3 +1,28 @@
+---
+id: R52-pro-cpd-refuted-self-shadow
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute one-sided CPD via Shortener's self-shadow obstruction and propose
+  two-sided weighted covering-profile dichotomy (2WCPD).
+predecessors: [R52-pro-cpd-general-refuted]
+action:
+  kind: refutes
+  target: R52-pro-cpd-general-refuted
+claim: >
+  Structural negative theorem: one-sided CPD cannot extend to fully
+  game-legal dynamic setting. Shortener's own lower shadow makes every
+  small candidate separator illegal while removing no live packet mass.
+  Correct replacement is the two-sided weighted covering-profile dichotomy
+  (2WCPD), but it exposes a missing invariant not proved here.
+failure_mechanism: >
+  Shortener's self-shadow: prior Shortener blockers b_1, ..., b_k create
+  an antichain constraint making their lower shadows illegal. The live packet
+  lives in the intersection of all lower shadows, so every small relative
+  separator s is dominated by some b_i (s | b_i) and is therefore illegal.
+  Only large (rank-h) separators remain legal, but they capture one atom each.
+---
+
 The definitive outcome is a **structural negative theorem**: the one-sided CPD cannot be extended to the fully game-legal dynamic setting. The obstruction is not Prolonger’s shadow; it is **Shortener’s own lower shadow**. Once full antichain legality is enforced, prior Shortener blockers can make every small candidate separator illegal while removing essentially no live packet mass.
 
 The correct replacement is a two-sided weighted covering-profile dichotomy. I prove it below. But that replacement does not close (r_1) by itself: it exposes a missing invariant that is not optional.

@@ -1,3 +1,23 @@
+---
+id: R52-pro-spectral-live-space
+type: research
+date: 2026-04-19
+intent: >
+  Diagnose the natural limit of the blocker-duality paradigm and propose
+  spectral live-space / Johnson-scheme approach as a departure.
+predecessors: [R52-pro-fresh-zoom-transversal]
+action:
+  kind: extends
+  target: R52-pro-fresh-zoom-transversal
+claim: >
+  Blocker-duality paradigm has reached its natural limit: it identifies
+  the exact covering profile but cannot supply the dynamic budget for
+  O(r_1) upper bound. Spectral live-space approach via Johnson scheme:
+  model the live game state as a point in the Johnson association scheme
+  J(n,h); spectral methods on J(n,h) provide global budget bounds not
+  accessible via local first-hit mass.
+---
+
 The definitive diagnosis is this:
 
 **WLST → AWLST → CPD is real progress as static combinatorics, but it has converged to a set-cover invariant, not to a closing upper-bound method.** The common refutations are not accidental counterexamples to successive formulations. They are witnesses that the blocker-duality paradigm has reached its natural limit: it can identify the exact covering profile of the played complement family, but it cannot by itself supply the dynamic budget needed for an (O(r_1)) upper bound.

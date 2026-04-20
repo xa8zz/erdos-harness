@@ -1,3 +1,20 @@
+---
+id: R52-codex-cross-check
+type: verification
+date: 2026-04-19
+intent: >
+  Cross-check the four new R52 Pro files against prior Codex assessment;
+  confirm or revise alignment.
+predecessors: [R52-pro-cpd-general-refuted, R52-pro-cpd-refuted-self-shadow, R52-pro-fresh-zoom-transversal, R52-pro-spectral-live-space]
+action:
+  kind: standalone
+claim: >
+  Four R52 Pro files align strongly with prior Codex assessment; they mostly
+  sharpen or supersede rather than contradict earlier findings. The CPD
+  refutations and transversal-integrality-barrier are consistent with the
+  Codex’s earlier structural diagnosis.
+---
+
 Yes. After reading the four new R52 files, I’d say they align very strongly with my earlier thoughts, and mostly sharpen or supersede them rather than contradict them.
 
 **How They Line Up**

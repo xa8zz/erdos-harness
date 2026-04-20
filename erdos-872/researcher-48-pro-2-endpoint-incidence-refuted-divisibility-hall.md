@@ -1,3 +1,30 @@
+---
+id: R48-pro-2-endpoint-incidence-refuted-hall
+type: refutation
+date: 2026-04-19
+intent: >
+  Attempt to prove the endpoint-incidence lemma (alternative to LRQC);
+  refute via divisibility-Hall obstruction.
+predecessors: [R48-pro-1-lrqc-refuted-packet]
+action:
+  kind: standalone
+claim: >
+  Endpoint-incidence lemma false: incidence failure caused by legal
+  composites of individually illegal primes. A legal composite x = p*q
+  can be sigma^star's maximum-degree play when both p and q are individually
+  illegal (each divides a prior Prolonger move), but x itself is legal.
+  The incidence structure of such composites violates the endpoint-incidence
+  condition.
+failure_mechanism: >
+  Legal composites of individually illegal primes: Prolonger plays p in move t_1
+  and q in move t_2; now both p and q are illegal. The composite x = p*q*r
+  is still legal if r is prime and has not been played. sigma^star takes x.
+  The endpoint-incidence condition requires x to be incident to a
+  legal-endpoint path from a useful shield, but x's incidence structure
+  is through p and q which are illegal; no legal-endpoint path exists
+  from x to a useful shield.
+---
+
 The named lemma is **false as stated**. The failure is not a constant-loss issue; it is a literal incidence failure caused by legal composites of individually illegal primes.
 
 The endpoint-incidence condition I stated,

@@ -1,3 +1,27 @@
+---
+id: R48-pro-3-cross-composite-refuted-sathe-selberg
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute the Cross-Activator Composite Quotient Budget Lemma from R47-pro-3.
+predecessors: [R47-pro-3-angle4-concession-cross-activator, R48-pro-2-followup-divisibility-hall-refuted]
+action:
+  kind: refutes
+  target: R47-pro-3-angle4-concession-cross-activator
+claim: >
+  Cross-Activator Composite Quotient Budget Lemma false: a single
+  sigma^star-forced legal cross-composite can first-touch a positive
+  proportion of the central rank-h harmonic mass via Sathe-Selberg
+  concentrations. The budget O(N_h/h^2) is violated.
+failure_mechanism: >
+  Sathe-Selberg concentration: sigma^star plays a cross-composite x = p*q
+  where p and q are in neighboring dyadic cells with p*q in the central
+  rank-h range. By Sathe-Selberg, the density of such composites is
+  Omega(N_h/h) at the right harmonic scale. The first-touch mass of x
+  is proportional to the mass of the entire rank-h family containing x
+  (by divisibility), giving first-touch mass Omega(N_h/h), not O(N_h/h^2).
+---
+
 The named **Cross-Activator Composite Quotient Budget Lemma is false** in the operational form needed for the Carleson argument.
 
 A single (\sigma^\star)-forced legal cross-composite can first-touch a positive proportion of the central rank-(h) harmonic mass. That is already much larger than

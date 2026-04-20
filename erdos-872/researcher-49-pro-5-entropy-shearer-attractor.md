@@ -1,3 +1,23 @@
+---
+id: R49-pro-5-entropy-shearer-attractor
+type: research
+date: 2026-04-19
+intent: >
+  Provide a rigorous negative structural theorem and propose the entropy-Shearer
+  attractor as the methodologically distinct approach.
+predecessors: [R49-pro-4-fiber-transversal-paradigm]
+siblings: [R49-pro-6-entropy-shearer-attractor]
+action:
+  kind: extends
+  target: R49-pro-4-fiber-transversal-paradigm
+claim: >
+  Rigorous negative structural theorem: the state-inequality paradigm cannot
+  reach the r_1(n) target rate; it floors at r_2(n). Entropy-Shearer attractor
+  proposed as a bypass: Shearer's entropy inequality applied to the divisor
+  lattice gives a global information-theoretic bound on the antichain mass
+  that is not subject to the local first-hit obstruction.
+---
+
 Here is a rigorous diagnosis of the structural block, a negative structural theorem refuting the capacity of the current paradigm to reach the target rate, and a methodologically distinct approach via global information-theoretic methods that bypasses the obstruction.
 
 ### 1. Diagnosis of the Shared Structural Obstruction

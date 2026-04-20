@@ -1,3 +1,22 @@
+---
+id: R49-pro-3-blocker-duality-paradigm
+type: research
+date: 2026-04-19
+intent: >
+  Provide a paradigm-level diagnosis of why the state-inequality approach
+  is exhausted and propose the blocker-duality paradigm as an alternative.
+predecessors: [R49-pro-2-sq-r-local-obstruction]
+action:
+  kind: standalone
+claim: >
+  Blocker-duality paradigm diagnosis: proofs fail because they measure
+  local closure mass against scalar harmonic removal mass, and one legal
+  activator creates many locally-chargeable shields per Shortener move.
+  The correct dual object is legal Shortener composites as minimal
+  transversals of complements of Prolonger's prior moves. Blocker-duality
+  reframes the accounting around transversals, not primes.
+---
+
 Here is my diagnosis: the exhausted proofs are not failing because the “useful shield” definition has not yet been clever enough. They are failing because they measure the wrong dual object.
 
 The current paradigm charges **local closure mass** to **scalar harmonic removal mass**. Prolonger’s counter-configurations exploit exactly the gap between those two quantities: one legal activator can create many locally chargeable shields, while the Shortener move that should pay for them has only one unit of harmonic budget. The missing operation is not another locality or freshness filter; it is **dualization of legality**. Legal Shortener composites are not generated prime-by-prime. They are minimal transversals of the complements of Prolonger’s previous moves.

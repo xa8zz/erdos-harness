@@ -1,4 +1,23 @@
-**Return: C.** The fixed-(\sigma^\star) reachability question has a positive answer under the natural rank-(h) harmonic-degree definition, but the stated “equivalently”/“this establishes (L(n)\ge r_2)” conclusion is not logically valid. The named obstruction is the **fixed-policy/minimax quantifier gap**:
+---
+id: R53-pro-1-sigma-star-reachable-C-quantifier-gap
+type: research
+date: 2026-04-19
+intent: >
+  Answer the sigma^star reachability question and identify the quantifier
+  gap preventing the L(n) >= r_2 conclusion.
+predecessors: [R53-pro-1-cr-ncad-refuted]
+siblings: [R53-pro-1-cr-ncad-refuted]
+action:
+  kind: standalone
+claim: >
+  sigma^star reachability: positive answer for fixed-sigma^star game.
+  Prolonger can force state S^star against sigma^star at cost o(r_1).
+  However the conclusion L(n) >= r_2 does NOT follow: the fixed-policy
+  minimax quantifier gap (exists pi_Pro: Outcome(pi_Pro, sigma^star) reaches S^star)
+  does NOT imply (exists pi_Pro: forall tau: Outcome(pi_Pro, tau) reaches S^star).
+---
+
+**Return: C.** The fixed-(\sigma^\star) reachability question has a positive answer under the natural rank-(h) harmonic-degree definition, but the stated “equivalently”/”this establishes (L(n)\ge r_2)” conclusion is not logically valid. The named obstruction is the **fixed-policy/minimax quantifier gap**:
 
 [
 \exists \pi_{\rm Pro}; {\rm Outcome}(\pi_{\rm Pro},\sigma^\star)\text{ reaches }\mathbf S^\star

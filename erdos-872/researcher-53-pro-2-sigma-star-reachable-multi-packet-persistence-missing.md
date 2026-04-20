@@ -1,3 +1,23 @@
+---
+id: R53-pro-2-sigma-star-reachable-multi-packet-persistence
+type: research
+date: 2026-04-19
+intent: >
+  Second assessment of sigma^star reachability; identify the multi-packet
+  persistence theorem as the missing ingredient for L(n) >= r_2.
+predecessors: [R53-pro-1-sigma-star-reachable-C-quantifier-gap]
+siblings: [R53-pro-1-sigma-star-reachable-C-quantifier-gap]
+action:
+  kind: extends
+  target: R53-pro-1-sigma-star-reachable-C-quantifier-gap
+claim: >
+  Reachability against sigma^star confirmed positive at cost n^{o(1)}.
+  Conclusion L(n) >= r_2 does NOT follow without a multi-packet persistence
+  theorem: sigma^star is vulnerable to this packet attack but optimal
+  Shortener may not be. Missing: prove the packet state persists against
+  every Shortener strategy, not just sigma^star.
+---
+
 For the literal reachability question against (\sigma^\star), the answer is **yes**: Prolonger can force the stated sparse (q)-avoidance packet state at cost (n^{o(1)}=o(r_1(n))).
 
 But the stronger conclusion attached to option A — that this by itself establishes (L(n)\ge c,n/\log\log\log n) for the optimal game — does **not** follow. The construction shows that (\sigma^\star) is vulnerable to this packet-building attack; it does not prove that an optimal Shortener is. So the correct classification is **C**: the reachability subquestion is decidable and positive, but the claimed equivalence between “reachable against (\sigma^\star)” and “true lower bound (r_2)” is false without an additional multi-packet persistence theorem.

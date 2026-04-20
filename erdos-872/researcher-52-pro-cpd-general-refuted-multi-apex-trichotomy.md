@@ -1,3 +1,27 @@
+---
+id: R52-pro-cpd-general-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute the general-D CPD chain via multi-apex clique cone construction.
+predecessors: [R51-pro-case-B-refuted-lp-integrality-gap]
+action:
+  kind: standalone
+claim: >
+  General-D CPD chain false: multi-apex clique cone obstruction forces a
+  three-outcome replacement. Besides separator and Prolonger-saturation,
+  one must track the (q)-up-shadow of prior Shortener blockers. The
+  missing foundational tool is a weighted forbidden-apex decomposition
+  tracking the Shortener's prior-blocker shadow.
+failure_mechanism: >
+  Multi-apex clique cone: k prior Shortener blockers each forbid a
+  different apex of a k-clique cone. Every relative separator must avoid
+  all k forbidden apices; the only remaining legal separators are the
+  k^2 edges of the clique, each capturing only 1/k fraction of the packet.
+  The trichotomy requires tracking which clique edges are covered by
+  the (q)-up-shadow.
+---
+
 I get a definitive negative for the CPD chain as stated. The obstruction is not another singleton apex; it is a **multi-apex clique cone**. It shows that the general-(\mathcal D) CPD is false, and it forces a strictly sharper three-outcome replacement: besides separator and Prolonger-saturation, one must track the **(q)-up-shadow of prior Shortener blockers**.
 
 The missing foundational tool is therefore:

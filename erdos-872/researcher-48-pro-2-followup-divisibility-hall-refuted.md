@@ -1,3 +1,28 @@
+---
+id: R48-pro-2-followup-divisibility-hall-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Test Divisibility-Hall as a replacement for endpoint-incidence; refute
+  the Hall replacement.
+predecessors: [R48-pro-2-endpoint-incidence-refuted-hall]
+action:
+  kind: refutes
+  target: R48-pro-2-endpoint-incidence-refuted-hall
+claim: >
+  Divisibility-Hall replacement does not close the argument. Hall cut fails
+  on isolated-completion sparse matching even with legal composites handled
+  correctly. Each sparse residue atom has exactly one legal remover, so
+  Hall capacity equals demand and the 1/h quotient saving is impossible.
+failure_mechanism: >
+  Isolated-completion sparse matching: each sparse residue atom has a
+  unique legal remover with exactly the atom's mass as removal mass.
+  Hall's condition requires capacity >= demand/kappa_h; capacity is 1
+  (one remover per atom) but the uniform budget would need capacity >= h
+  for kappa_h = 1/h. The isolated-completion construction achieves
+  capacity = 1 by making each atom's remover useless for all other atoms.
+---
+
 I tested the Divisibility-Hall replacement, and it does **not** close the argument. There is a definitive obstruction: the Hall cut fails on an isolated-completion sparse matching, even when legal composites are handled correctly.
 
 The failure is sharper than the previous endpoint-incidence failure. Divisibility-Hall fixes the problem that (\sigma^\star) can claim (uv) instead of (u) or (v), but it still cannot produce the desired (1/h) quotient saving. In the obstruction below, each sparse residue atom has exactly one legal remover, and that remover’s newly removed mass is exactly the atom’s mass. Therefore the Hall capacity is only (\kappa_h) times the demand. For (\kappa_h=1/h), the Hall inequality requires a constant at least (h), so no uniform budget is possible.

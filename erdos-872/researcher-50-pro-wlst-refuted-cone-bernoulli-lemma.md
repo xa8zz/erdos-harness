@@ -1,3 +1,27 @@
+---
+id: R50-pro-wlst-refuted-cone-bernoulli
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute WLST (Weak Local Separator Theorem) in one-outcome form via
+  cone-Bernoulli lemma construction.
+predecessors: [R49-pro-3-blocker-duality-paradigm]
+action:
+  kind: standalone
+claim: >
+  WLST in one-outcome form is false: a single prior Shortener blocker can
+  turn the relative blocker into full-rank atoms, making every remaining
+  legal separator capture only one residual packet atom. Construction and
+  numerical verification provided.
+failure_mechanism: >
+  Cone-Bernoulli construction: a prior Shortener blocker b_0 in the lower
+  shadow of the packet apex creates a forbidden core for all relative
+  blockers. The remaining legal relative blockers are all forced to be
+  rank-h atoms (since b_0 makes all smaller rank separators illegal). Each
+  rank-h atom captures exactly one packet atom, so no separator captures
+  a constant fraction of the packet.
+---
+
 WLST in the one-outcome form stated is **false**. The obstruction is not a game-legality mistake and not a scalar (F_{\text{useful}}) issue. A single prior Shortener blocker can turn the relative blocker into full-rank atoms, so every remaining legal separator captures only one residual packet atom.
 
 I will give the construction, prove it, verify the scale numerically, and then state the sharper replacement that seems necessary.

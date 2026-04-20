@@ -1,3 +1,24 @@
+---
+id: R47-pro-3-angle4-concession-cross-activator
+type: research
+date: 2026-04-19
+intent: >
+  Attempt Angle 4 (cross-activator composite quotient budget) and provide
+  a precise concession.
+predecessors: [R47-pro-2-angle3-concession-incidence-budget]
+action:
+  kind: extends
+  target: R47-pro-2-angle3-concession-incidence-budget
+claim: >
+  Angle 4 closes as a precise concession: the cross-activator composite
+  obstruction shows the "smallest legal prime" conclusion fails in the
+  actual antichain game. A legal composite can have all prime factors
+  individually illegal (each divides a different prior Prolonger move);
+  sigma^star is then forced to play the composite rather than any prime.
+  The cross-activator composite budget is the missing ingredient for
+  Angle 4 closure.
+---
+
 The angle closes as a **precise concession**, not as a Prolonger lower-bound refutation.
 
 The obstruction is sharper than the listed failed attempts: the “smallest legal prime” conclusion does not follow from the stated (\sigma^\star) degree comparisons in the actual antichain game. A legal composite can have all of its prime factors individually illegal, because those prime factors may divide different earlier Prolonger moves. Such a composite can have larger rank-(h) harmonic degree than the smallest legal prime, and then (\sigma^\star) is forced to play the composite.

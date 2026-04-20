@@ -1,3 +1,28 @@
+---
+id: R50-pro-wlst-refuted-parity-cube
+type: refutation
+date: 2026-04-19
+intent: >
+  Third independent refutation of WLST via parity-cube obstruction.
+predecessors: [R50-pro-wlst-refuted-forbidden-core-star]
+siblings: [R50-pro-wlst-refuted-cone-bernoulli, R50-pro-wlst-refuted-forbidden-core-star]
+action:
+  kind: refutes
+  target: R50-pro-wlst-refuted-cone-bernoulli
+claim: >
+  WLST false via parity-cube obstruction: prior legal Shortener blockers
+  create a residual cube where legal relative blockers are subcube certificates.
+  Dense residual sets contain no large subcube, so the WLST separator
+  cannot capture a constant fraction of the residual.
+failure_mechanism: >
+  Parity-cube: Prolonger creates a packet on the Boolean cube {0,1}^h where
+  each packet atom corresponds to a parity-check vector. Prior Shortener
+  blockers cover one parity half-cube. The remaining residual is the
+  complementary half-cube, which has no subcube of size > 1/2. Each
+  legal relative blocker is a subcube of the residual and captures
+  at most half the residual mass, giving no Omega(1) separator.
+---
+
 The WLST is false as stated.
 
 The obstruction is not a local star or packet trap. It is a **parity-cube obstruction created by prior legal Shortener blockers**. Once (\mathcal D) is allowed, legal relative blockers become subcube certificates inside a residual cube, and dense residual sets can contain no large subcube. A parity half-cube is the clean counterexample.

@@ -1,3 +1,27 @@
+---
+id: R51-pro-case-B-refuted-entropy-covering-design
+type: refutation
+date: 2026-04-19
+intent: >
+  Refute Case B of the WLST/entropy-separator approach via covering-design
+  obstruction.
+predecessors: [R50-pro-wlst-refuted-parity-cube]
+action:
+  kind: standalone
+claim: >
+  Case B false via covering-design obstruction: Bernoulli extraction fails
+  because Prolonger's complements form a sparse covering design for all
+  small proposed Shortener transversals, while the live packet still has
+  essentially full entropy. No prior Shortener blockers are needed; this
+  is a pure game-structure obstruction.
+failure_mechanism: >
+  Covering-design obstruction: Prolonger places packet complements as a
+  sparse (h, h/2, 1)-covering design on the prime-factor positions. Every
+  Shortener transversal of size <= h/2 misses at least one complement block.
+  The covering design ensures no small separator captures a constant fraction
+  of the entropy, even though the packet has full entropy (H = h bits).
+---
+
 Case B, in the stated form, is false.
 
 There is a fourth obstruction beyond apex-star, parity-cube, and atomized relative cones: a **covering-design obstruction**. It has no prior Shortener blockers at all, so it cannot be repaired by a more careful treatment of (\mathcal D). The obstruction is that Bernoulli extraction can fail because Prolonger’s complements form a sparse covering design for all small proposed Shortener transversals, while the live packet still has essentially full entropy.
