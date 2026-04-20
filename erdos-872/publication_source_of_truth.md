@@ -32,21 +32,22 @@ As of 2026-04-20, the repo is in a good publication state, but not all claims ha
 
 - `Formally verified + banked`: Shield Reduction, Theorem A's core artifact, the exact `5/24` cover theorem, the `13/36` upper bound, and T1.
 - `Rigorous prose + banked`: T2, Theorem 5, Theorem 6, the universal block-product counter, the separate-rank / residual-width / band-local obstruction chain, R44, R46, the clean R56 separator-only barrier, the **R52 transversal-integrality / Sherali-Adams barrier** (audit-confirmed and sharpened), and the **R53 q-shadow / covering dichotomy** (audit-confirmed and sharpened). All of these are strategy-independent (they do not depend on the `sigma^*` Shortener assumption).
-- `Computationally certified but not theorem-safe`: the Round 15 sub-`0.19` upper-bound candidate, and the sharper `0.18969n` limit constant.
+- `Rigorous prose but not yet formally verified`: the Round 15 finite Bonferroni-4 upper bound `L(n) <= (W_4/2 + o(1)) n` with `W_4/2 < 0.19`.
+- `Computationally certified but not theorem-safe`: the sharper Round 15 limit constant `0.18969n`.
 - `Promising late-round material not yet fully integrated`: the R52 spectral live-space separator theorem (as a standalone Johnson-scheme statement), the R54 strategy-dependence classification, the R55 hidden-packet lag diagnosis, and the more aggressive R56 single-certificate divisor barriers.
 
-This means we already have enough for an honest paper draft now. What we do **not** yet have is theorem-grade justification for using sub-`0.19` as the main theorem headline.
+This means we already have enough for an honest paper draft now. What we do **not** yet have is a fully formal Lean / Aristotle artifact for the finite sub-`0.19` theorem, or theorem-grade justification for replacing it by the sharper `0.18969n` limit constant.
 
 ## 0. Paper Thesis
 
 If this becomes a single paper, the cleanest one-line thesis is:
 
-- We develop the strongest current Shortener-side upper-bound candidate in the game, pushing the piecewise-density line below `0.19` computationally, and we build a structured taxonomy of proof-class barriers showing why the sharp-rate problem is structurally hard.
+- We develop the strongest current Shortener-side upper-bound theorem candidate in the game, pushing the piecewise-density line rigorously below `0.19` at finite Bonferroni-4 level, and we build a structured taxonomy of proof-class barriers showing why the sharp-rate problem is structurally hard.
 
 In practice, that means the paper should not read as a pile of unrelated results. The strongest narrative arc is:
 
 1. formal core theorems (`Shield Reduction`, Theorem A, `5/24`, `13/36`, possibly T1/T2),
-2. refined upper-bound progress (Round 15 local theorem + sub-`0.19` computational candidate),
+2. refined upper-bound progress (Round 15 local theorem + finite Bonferroni-4 sub-`0.19` theorem-grade prose result),
 3. a "landscape of impossibility" section cataloging why the most natural proof classes fail.
 
 ## 0C. Relation to public discourse
@@ -62,7 +63,7 @@ The problem is listed as Erdős problem 872 on `erdosproblems.com`. Two items to
 Against this baseline:
 
 - **Banked `13/36 + o(1) ≈ 0.361 n` is a 13% constant improvement** over the `0.416 n` forum record.
-- **Near-banked Round 15 sub-`0.19 n` is a factor-of-`~2.2×` improvement** (computational, not yet theorem-grade).
+- **Near-banked Round 15 sub-`0.19 n` is a factor-of-`~2.2x` improvement** and now has theorem-grade prose support (R57 + audit), pending formalization.
 - **T1 and T2 lower bounds are new for this game.** Prior public discourse cites only the `\gg n \log n` bound of Füredi–Seress for the *triangle-saturation* game, which is a different game. Our T1 gives `(1/8 - o(1)) n \log\log n / \log n` and T2 gives `c_\delta n (\log\log n)^2 / \log n`; neither appears in the forum thread or in the cited prior literature for this specific problem.
 
 The paper should be framed as a **substantial improvement on the forum record with matching lower bounds and Lean-verified structural lemmas**, not as "first AI-assisted work on #872" (Price + GPT-5.2 Pro preceded us) or as a full closure (the sharp rate remains open).
