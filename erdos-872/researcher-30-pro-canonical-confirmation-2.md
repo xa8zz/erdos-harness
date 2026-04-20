@@ -1,3 +1,19 @@
+---
+id: R30-pro-canonical-confirm-2
+type: research
+date: 2026-04-19
+intent: >
+  Second canonical-prompt dispatch to Pro; check whether the research state
+  has advanced and whether any new closure is possible.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  No new result. Program state confirmed: current best bounds L(n) >= (1/8-o(1))
+  n log log n / log n and L(n) <= (0.18969+o(1))n stand. The dynamic
+  multiplicative-closure gap remains the central obstacle. Confirmatory.
+---
+
 # Round 30 Pro — second canonical-prompt confirmation (no new result)
 
 ## Context

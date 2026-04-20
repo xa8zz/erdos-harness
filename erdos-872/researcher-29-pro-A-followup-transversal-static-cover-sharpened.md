@@ -1,3 +1,21 @@
+---
+id: R29-pro-A-transversal-static-cover
+type: research
+date: 2026-04-19
+intent: >
+  Sharpen the transversal lemma target; determine whether g(h) = O(log h)
+  is achievable via a static cover argument.
+predecessors: [R22-pro-defect-budget-invariant, R29-codex-small-h-empirical-sublinear]
+action:
+  kind: extends
+  target: R22-pro-defect-budget-invariant
+claim: >
+  Transversal lemma sharpened: g(h) = O(log h) is the realistic target
+  from the static cover approach. A specific weighted-cover construction
+  achieves this bound unconditionally for fixed h, but the extension to
+  growing h under adversarial online play remains open.
+---
+
 # Round 29 Pro A follow-up — transversal lemma sharpened: g(h) = O(log h) is the realistic target
 
 ## Context

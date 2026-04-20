@@ -1,3 +1,20 @@
+---
+id: R21-codex-strategic-synthesis
+type: synthesis
+date: 2026-04-19
+intent: >
+  Synthesize the overall research state after the two-shadow/Omega(n)
+  counterexample; identify theorem-sized gaps and rank live angles.
+predecessors: [R20-pro-two-shadow-disproof]
+action:
+  kind: standalone
+claim: >
+  Four theorem-sized gaps identified and ranked. Five live angles remain.
+  The previous round-20 DTK+Buchstab argument for Theorem 3 is broken.
+  Online multiplicative-closure control is the central gap; the residual-width
+  framework is the primary structural candidate.
+---
+
 # Round 21 Codex — strategic synthesis after 2-shadow/Ω(n) counterexample
 
 ## Context

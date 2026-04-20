@@ -1,3 +1,22 @@
+---
+id: R21-codex-T2-embedding-verification
+type: verification
+date: 2026-04-19
+intent: >
+  Verify that the divisibility-target family embeds correctly into the
+  3-uniform hypergraph formalism and that Shortener moves map faithfully.
+predecessors: [R21-codex-T2-audit-demotion, R21-codex-T2-maker-first-repair]
+action:
+  kind: confirms
+  target: R21-codex-T2-maker-first-repair
+claim: >
+  Embedding verified: divisibility targets embed into 3-uniform hypergraph
+  slots (b, ab, cb); every Shortener move maps to a slot deletion or
+  scored-edge play; residual divisibility game is strictly Maker-friendlier
+  than the scored hypergraph game. Abstract hypergraph lemma is a valid
+  lower-bound model.
+---
+
 # Round 21 Codex — T2 divisibility-to-hypergraph embedding verification
 
 ## Context

@@ -1,3 +1,21 @@
+---
+id: R08-verify-open-audit1
+type: verification
+date: 2026-04-17
+intent: >
+  Open-attempt audit of the program state; model attempts to prove L(n) = Theta(n/log n)
+  but response was cut off; tactical insight extracted.
+predecessors: []
+prompt: erdos-872/prompts/verify-open-02-post-13-36.md
+siblings: [R08-verify-open-audit2, R08-verify-open-audit3]
+action:
+  kind: standalone
+claim: >
+  No theorem. Model believes L(n) = Theta(n/log n) but cannot prove it.
+  Tactical insight: prime powers as Shortener weapons may be the key
+  structural ingredient for sub-linear upper bounds.
+---
+
 # Open-solution Audit #1 (summarized — original response cut off)
 
 **Source:** unattributed; user ran their own AI summarization of the original response which got cut off.

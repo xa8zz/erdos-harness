@@ -1,3 +1,20 @@
+---
+id: R22-codex-T2-activation-audit
+type: verification
+date: 2026-04-19
+intent: >
+  Close the last bookkeeping gap in the repaired T2 program: verify that
+  the activation stage (Prolonger's phase-1 moves) is correctly accounted.
+predecessors: [R21-codex-T2-maker-first-repair, R21-codex-T2-embedding-verification]
+action:
+  kind: confirms
+  target: R21-codex-T2-maker-first-repair
+claim: >
+  Activation-stage bookkeeping gap closed. The Maker-first repair of T2
+  is complete: all three components (activation, pair-capture, fiber-capture)
+  are now rigorous under the scored-hypergraph reformulation.
+---
+
 # Codex activation-stage audit for T2 (2026-04-19)
 
 This closes the last bookkeeping gap in the repaired T2 program.

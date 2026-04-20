@@ -1,3 +1,21 @@
+---
+id: R26-codex-online-rank3-race
+type: research
+date: 2026-04-19
+intent: >
+  Formulate the R24-R25 obstruction as an explicit one-band online game;
+  determine whether it can be resolved.
+predecessors: [R24-codex-band-local-closure-explosion, R25-codex-directed-rank3-budget]
+action:
+  kind: extends
+  target: R25-codex-directed-rank3-budget
+claim: >
+  Online rank-3 race formulated as a one-band game. Two findings: (1) the
+  game is equivalent to a known online covering problem with no efficient
+  offline solution; (2) the race is winnable by Shortener in the one-band
+  model, but the online strategy does not extend to all bands simultaneously.
+---
+
 # Round 26 Codex — online rank-3 race formulated as a concrete game
 
 This note packages the Round-24 / Round-25 obstruction into an explicit one-band online game.

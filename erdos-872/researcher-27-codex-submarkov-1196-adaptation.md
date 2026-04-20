@@ -1,3 +1,20 @@
+---
+id: R27-codex-submarkov-adaptation
+type: research
+date: 2026-04-19
+intent: >
+  Adapt the #1196 sub-Markov chain technique to establish Bernoulli
+  equivalence for the certificate 1/phi-mass problem.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Bernoulli equivalence established for the certificate 1/phi-mass: the
+  distribution of mass under the sub-Markov chain #1196 adapted to divisor
+  graphs is equivalent in distribution to a Bernoulli product measure.
+  This gives a new way to bound the residual width of the certificate family.
+---
+
 # Round 27 Codex — #1196 sub-Markov adaptation: Bernoulli equivalence for certificate $1/\varphi$-mass
 
 ## Context

@@ -1,3 +1,20 @@
+---
+id: R22-pro-defect-budget-invariant
+type: research
+date: 2026-04-19
+intent: >
+  Sharpen the central-fiber multiplicative-closure route to its tightest
+  formulation; identify the precise missing theorem for sublinear L(n).
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Defect-layer closure budget invariant B_h ~ N_h/H derived. Sublinear
+  L(n) reduces to a robust central-transversal theorem: an h-uniform
+  hypergraph from divisibility must have a transversal of size g(h) for
+  some g(h) = o(h). With g(h) = O(log h): L(n) << n log log log n / log log n.
+---
+
 # Round 22 Pro — defect-layer closure budget invariant + robust central transversal lemma as the precise missing theorem
 
 ## Context

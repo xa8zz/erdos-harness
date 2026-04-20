@@ -1,3 +1,21 @@
+---
+id: R28-codex-R23-generalization
+type: synthesis
+date: 2026-04-19
+intent: >
+  Generalize Round 23's smooth-squarefree counterexample into a structural
+  characterization of the certificate-family failure mode.
+predecessors: [R23-codex-ford-route-correction]
+action:
+  kind: extends
+  target: R23-codex-ford-route-correction
+claim: >
+  Structural characterization: any certificate family whose elements have
+  at most k distinct prime factors in (y, z] fails unless the certificate
+  has Omega(n/log^k n) elements. The smooth-squarefree candidate from R23
+  is the k=2 instance. The obstruction grows exponentially with k.
+---
+
 # Round 28 Codex — structural characterization of the R23 certificate refutation
 
 This note is a Codex synthesis/generalization of Round 23's smooth-squarefree counterexample. It is meant as a structural guide for the certificate-family route, not yet as a promoted theorem for `current_state.md`.

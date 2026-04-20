@@ -1,3 +1,26 @@
+---
+id: R23-codex-ford-route-correction
+type: refutation
+date: 2026-04-19
+intent: >
+  Push directly on the Ford-band rough-cofactor upper-bound reduction;
+  determine whether the existing formulation is valid.
+predecessors: [R18-codex-slow-growth-reduction]
+action:
+  kind: refutes
+  target: R18-codex-slow-growth-reduction
+claim: >
+  The existing Ford-band rough-cofactor reduction is invalid as stated.
+  A specific smooth-squarefree certificate counterexample shows the reduction
+  does not extend to the required regime. A corrected certificate-family
+  characterization is provided that avoids the flaw.
+failure_mechanism: >
+  The old reduction assumed the Ford-band covering only requires
+  smooth-squarefree products; but in the relevant prime range, the rough
+  cofactor carries mass that forces Shortener to use O(n/log n) moves
+  instead of o(n/log n), breaking the sublinearity claim.
+---
+
 # Round 23 Codex — the old Ford-band rough-cofactor reduction is invalid as stated
 
 I pushed directly on the best remaining upper-bound direction and found a genuine issue in the existing Ford-band reduction.

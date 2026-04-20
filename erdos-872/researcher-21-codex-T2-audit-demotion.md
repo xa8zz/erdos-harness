@@ -1,3 +1,20 @@
+---
+id: R21-codex-T2-audit-demotion
+type: diagnostic
+date: 2026-04-19
+intent: >
+  Re-audit T2 (Omega(n(log log n)^2/log n) lower bound); determine whether
+  the existing writeup is rigorous or only plausible.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  T2 demoted from rigorous to plausible. The current writeup has an
+  order-sensitivity flaw: Maker-Breaker lemmas implicitly assume Maker
+  (Prolonger) moves after Breaker, but the actual game has Maker moving
+  first. Exact standalone lemma needed to restore T2.
+---
+
 # Round 21 Codex — T2 audit: demoted from rigorous to plausible
 
 ## Context

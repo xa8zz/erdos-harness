@@ -1,3 +1,21 @@
+---
+id: R22-pro-dyadic-fiber-collapse
+type: research
+date: 2026-04-19
+intent: >
+  Pursue the contrarian angle: assume L(n) = Theta(n) and find the
+  mechanism via a dyadic-fiber positive-density theorem.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Dyadic-fiber positive-density theorem collapses: in its single-fiber form
+  it is equivalent in strength to the original linear conjecture, rescaled.
+  The proof attempt fails at the point of translating positive density of
+  fiber elements to positive game length. The approach does not yield an
+  independent auxiliary lemma.
+---
+
 # Round 22 Pro — dyadic-fiber positive-density theorem is equivalent to the linear conjecture
 
 ## Context

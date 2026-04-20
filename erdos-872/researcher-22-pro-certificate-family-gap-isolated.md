@@ -1,3 +1,21 @@
+---
+id: R22-pro-certificate-family-gap
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to construct a sublinear certificate C_n with sublinear residual
+  width, which would give L(n) = o(n) via the certificate reduction.
+predecessors: [R18-pro-matching-sublinear-reduction]
+action:
+  kind: extends
+  target: R18-pro-matching-sublinear-reduction
+claim: >
+  The missing lemma is precisely isolated: natural smooth-squarefree
+  candidate C_y has residual width Omega(n) due to entropy obstruction.
+  The crude divisor-incidence approach fails quantitatively. The gap is
+  equivalent to bounding sum over D_y of 1/d by o(log n).
+---
+
 # Round 22 Pro — certificate-family residual-width gap precisely isolated
 
 ## Context

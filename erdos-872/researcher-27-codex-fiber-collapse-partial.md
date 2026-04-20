@@ -1,3 +1,21 @@
+---
+id: R27-codex-fiber-collapse-partial
+type: research
+date: 2026-04-19
+intent: >
+  Set up the post-activation one-band cleanup game and derive mass calculus
+  for the fiber-collapse partial result.
+predecessors: [R26-codex-online-rank3-race]
+action:
+  kind: extends
+  target: R26-codex-online-rank3-race
+claim: >
+  One-band fiber-collapse partial result: after activation phase, the
+  one-band cleanup mass budget is Theta(n log log n / log^2 n). Shortener
+  can capture this mass in O(n/log^2 n) moves. Remaining multi-band
+  coupling is the open problem.
+---
+
 # Round 27 Codex — one-band fiber-collapse partial result
 
 This note sets up the post-activation one-band cleanup game and derives the first concrete mass calculus.

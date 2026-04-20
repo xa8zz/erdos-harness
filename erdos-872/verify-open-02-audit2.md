@@ -1,3 +1,23 @@
+---
+id: R08-verify-open-audit2
+type: verification
+date: 2026-04-17
+intent: >
+  Open-attempt audit pursuing super-carrier exhaustion via Erdős-Kac / anatomy
+  of integers to prove L(n) = o(n).
+predecessors: []
+prompt: erdos-872/prompts/verify-open-02-post-13-36.md
+siblings: [R08-verify-open-audit1, R08-verify-open-audit3]
+action:
+  kind: standalone
+claim: >
+  Specific validated direction identified: exhaust the pool of super-carriers
+  by pairing Prolonger's blocking requirement (omega(x) ~ log n / log log n
+  per move) against Erdős-Kac/Ford-type bound (pool is n^{1-c+o(1)},
+  subpolynomial). This is the anatomy-of-integers instantiation of Pro R07's
+  suggestion to exploit Prolonger's blocking moves.
+---
+
 # Open-solution Audit #2 — super-carrier exhaustion via Erdős-Kac / anatomy of integers
 
 **Source:** unattributed; extended-thinking model (likely Gemini 3 Pro Deep Think or a thinking-enabled Claude variant given the substantive technical depth).

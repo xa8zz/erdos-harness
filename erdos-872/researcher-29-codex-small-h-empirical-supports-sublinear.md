@@ -1,3 +1,21 @@
+---
+id: R29-codex-small-h-empirical-sublinear
+type: research
+date: 2026-04-19
+intent: >
+  Run empirical simulations for small h to determine whether g(h) appears
+  bounded; assess support for sublinear L(n) from empirical data.
+predecessors: [R22-pro-defect-budget-invariant]
+action:
+  kind: extends
+  target: R22-pro-defect-budget-invariant
+claim: >
+  Empirical data for h <= 8 supports bounded g(h): the transversal size
+  appears O(log h) in all simulated cases. Data is consistent with the
+  sublinear conjecture. Not a proof, but strong positive evidence that
+  the robust central-transversal theorem with g(h) = O(log h) holds.
+---
+
 # Round 29 Codex — small-$h$ empirical data supports bounded $g(h)$ and sublinear $L(n)$
 
 ## Context

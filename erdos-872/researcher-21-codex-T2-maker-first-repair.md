@@ -1,3 +1,21 @@
+---
+id: R21-codex-T2-maker-first-repair
+type: research
+date: 2026-04-19
+intent: >
+  Extract the standalone Maker-first lemma statement that would restore T2
+  to rigorous status; check whether the online-order gap is repairable.
+predecessors: [R21-codex-T2-audit-demotion]
+action:
+  kind: extends
+  target: R21-codex-T2-audit-demotion
+claim: >
+  Online-order gap probably repairable. Lemma 1 (weighted pair-capture) can
+  be proven Maker-first as stated. Lemma 2 (two-layer fiber capture) requires
+  replacement by a scored 3-uniform hypergraph capture game on slots (b,ab,cb).
+  Both abstract lemmas pass exhaustive small-graph sanity checks.
+---
+
 # Round 21 Codex — T2 Maker-first lemma repair attempt
 
 ## Context

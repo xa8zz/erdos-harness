@@ -1,3 +1,20 @@
+---
+id: R22-pro-fresh-canonical-confirm
+type: research
+date: 2026-04-19
+intent: >
+  Fresh canonical-prompt dispatch to Pro (neutral framing) to get an
+  independent confirmation of the current program state.
+predecessors: []
+action:
+  kind: standalone
+claim: >
+  Neither L(n) = Theta(n) nor L(n) = o(n) can be closed from the given
+  material. Current best bounds re-derived independently. The same dynamic
+  multiplicative-closure gap identified across multiple rounds is confirmed
+  as the central obstacle. No new result.
+---
+
 # Round 22 Fresh Pro (neutral framing) — independent confirmation of program state + no new closure
 
 ## Context

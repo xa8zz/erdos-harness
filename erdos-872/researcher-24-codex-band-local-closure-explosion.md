@@ -1,3 +1,22 @@
+---
+id: R24-codex-band-local-closure-explosion
+type: research
+date: 2026-04-19
+intent: >
+  Prove a rigorous structural theorem about the multiplicative-closure
+  obstruction: characterize how closure explodes locally within a prime band.
+predecessors: [R23-codex-ford-route-correction]
+action:
+  kind: extends
+  target: R23-codex-ford-route-correction
+claim: >
+  Band-local closure explosion theorem: within a single prime band
+  [x, 2x], closure under multiplication generates Omega(x/log x)^2 new
+  elements. Any successful closure-control theorem must suppress this
+  explosion. The explosion is not suppressed by simple greedy Shortener
+  strategies.
+---
+
 # Round 24 Codex — band-local closure explosion
 
 This is a rigorous structural theorem about the multiplicative-closure obstruction.

@@ -1,3 +1,21 @@
+---
+id: R25-codex-directed-rank3-budget
+type: research
+date: 2026-04-19
+intent: >
+  Audit the counting budget for a directed higher-rank Shortener strategy
+  on fixed prime-power bands; determine if rank-3 blocking is feasible.
+predecessors: [R24-codex-band-local-closure-explosion]
+action:
+  kind: extends
+  target: R24-codex-band-local-closure-explosion
+claim: >
+  Directed rank-3 blocker budget is insufficient: the band partition
+  generates Theta(1/log x) rank-3 targets per band, while Shortener has
+  only O(1/log x) moves per band. Budget is tight, not sublinear; rank-3
+  blocking alone cannot give o(n) game length.
+---
+
 # Round 25 Codex — directed rank-3 blocker budget audit
 
 This note isolates the **counting budget** for the natural directed higher-rank Shortener idea suggested by Round 24:
