@@ -1,3 +1,27 @@
+---
+id: R55-pro-hidden-packet-formulation-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Analyze the hidden-packet game formulation; determine if Shortener wins
+  trivially or if the formulation captures the intended difficulty.
+predecessors: [R54-pro-followup-separator-first, R55-claude-local-packet-guard-min]
+action:
+  kind: standalone
+claim: >
+  Hidden-packet formulation refuted: under the rules as written, Shortener
+  wins in one move (cost(P) = infinity trivially). The formulation fails
+  to capture the intended difficulty because it allows Shortener to play
+  the packet apex directly, which exposes the packet and defeats it
+  simultaneously.
+failure_mechanism: >
+  Hidden-packet rules allow Shortener to play any legal move, including
+  the packet apex a. Playing a exposes the packet (revealing its structure)
+  AND simultaneously defeats it (a is the separator). So cost(P) is achieved
+  in 1 move, not Omega(h) as intended. The hidden-packet concept requires
+  an additional "exposure cost" parameter to model the true difficulty.
+---
+
 Using the hidden-packet rules exactly as written, the answer is more basic than A/B:
 
 cost(P)=∞

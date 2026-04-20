@@ -1,3 +1,22 @@
+---
+id: R54-pro-followup-near-top-shadow-refuted
+type: research
+date: 2026-04-19
+intent: >
+  Follow up on near-top Johnson-shadow from R53; determine the missing
+  online-interdiction ingredient.
+predecessors: [R53-pro-continuation-near-top-shadow, R54-pro-sigma-star-audit-class-C]
+action:
+  kind: extends
+  target: R53-pro-continuation-near-top-shadow
+claim: >
+  Near-top Johnson-shadow theorem proved with sharp binom(L+s, s) loss;
+  loss not a proof artifact -- covering-design states attain it. Route
+  does not close r_1(n). Missing ingredient identified: an online
+  interdiction lemma that prevents Prolonger from building covering-design
+  packet states faster than Shortener can interdict them.
+---
+
 I can prove the natural weighted near-top Johnson-shadow theorem. The theorem is clean and game-legal, but it has a sharp loss (\binom{L+s}{s}). That loss is not a proof artifact: covering-design states attain it up to logarithmic factors, and those states are legal packet states. So this route still does **not** close
 
 [

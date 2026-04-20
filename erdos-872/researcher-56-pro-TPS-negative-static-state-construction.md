@@ -1,3 +1,23 @@
+---
+id: R56-pro-TPS-negative-theorem
+type: research
+date: 2026-04-19
+intent: >
+  Provide the TPS (Transversal-Packet-Separator) negative structural theorem
+  as the acceptable third outcome when neither O(r_1) nor Omega(r_2) can
+  be proved.
+predecessors: [R56-codex-SFPF-negative-theorem]
+siblings: [R56-codex-SFPF-negative-theorem, R56-pro-finite-odd-carrier-separator-negative]
+action:
+  kind: standalone
+claim: >
+  TPS-class negative structural theorem: the technique class of all proofs
+  using static-state construction (Prolonger pre-builds a configuration,
+  then invokes a state inequality) cannot prove L(n) = O(r_1(n)) or
+  L(n) = Omega(r_2(n)). Explicitly constructs a legal static state
+  separating these bounds.
+---
+
 I will give a rigorous negative structural theorem for a precisely defined technique class. (This is the “acceptable third outcome” you allowed when neither a full O(r
 1
 	

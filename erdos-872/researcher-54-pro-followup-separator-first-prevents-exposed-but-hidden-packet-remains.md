@@ -1,3 +1,22 @@
+---
+id: R54-pro-followup-separator-first
+type: research
+date: 2026-04-19
+intent: >
+  Determine the correct minimax response to packet-building; analyze
+  separator-first strategy and hidden-packet obstruction.
+predecessors: [R54-pro-followup-near-top-shadow-refuted]
+action:
+  kind: extends
+  target: R54-pro-followup-near-top-shadow-refuted
+claim: >
+  Separator-first strategy identified as better than sigma^star for exposed
+  packets: play a low-rank packet separator even with small harmonic degree.
+  Bare cooperative sparse-design is preventable under separator-first.
+  Hidden-packet / shielded-separator ambiguity is the remaining obstruction:
+  Prolonger uses decoy and shield moves to hide the packet from separator-first.
+---
+
 The right minimax response is **not** harmonic-degree maximization. It is a **separator-first strategy**: when Prolonger is building a packet, Shortener should spend a move on a low-rank packet separator even if that move has tiny harmonic degree.
 
 But this gives a third answer rather than the clean “(r_1) upper” or “(r_2) lower” closure. The bare cooperative sparse-design construction is preventable, but that does **not** yet identify a full closed-form minimax-optimal strategy for the whole game, because Prolonger can add decoy and shield moves. The named obstruction is the **hidden-packet / shielded-separator ambiguity**.

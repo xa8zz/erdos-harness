@@ -1,3 +1,19 @@
+---
+id: R57-codex-T2-graph-reachable
+type: verification
+date: 2026-04-19
+intent: >
+  Continue the Lean 4 formalization of T2; add GraphReachable state
+  invariant to restore green status.
+predecessors: [R57-pro-bonferroni4-L-le-0.19n]
+action:
+  kind: standalone
+claim: >
+  Lean project green after adding GraphReachable.lean: claimedVerts and
+  GraphReachable graph-side state invariants formalized. Lean project
+  compiles with zero sorry in the new file.
+---
+
 Yes. I continued, and the Lean project is green again.
 
 I added [GraphReachable.lean](/Users/omisverycool/erdos-harness/erdos-872/lean/erdos_872_core/RequestProject/T2Finite/GraphReachable.lean:10), which now gives the graph-side state invariant we were missing:

@@ -1,3 +1,21 @@
+---
+id: R57-pro-bonferroni4-L-le-0.19n
+type: research
+date: 2026-04-19
+intent: >
+  Prove the finite Bonferroni-4 statement needed for the Round 15
+  L(n) <= 0.19n bound.
+predecessors: [R56-pro-continuation-single-certificate-divisor]
+action:
+  kind: standalone
+claim: >
+  Finite Bonferroni-4 theorem proved: under the sigma_15 strategy, the
+  number of played odd primes q_1, ..., q_K satisfies a fourth-order
+  inclusion-exclusion bound giving L(n) <= (0.18969 + o(1))n. This closes
+  the piecewise-density upper bound from Round 15 with a rigorous
+  fourth-order Bonferroni argument.
+---
+
 I will prove the finite Bonferroni–4 statement.
 
 Let (q_1,\dots,q_K) be the first (K=\lfloor (1-\varepsilon)n/(2\log n)\rfloor) odd primes played by Shortener under (\sigma_{15}), and let

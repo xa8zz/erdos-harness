@@ -1,3 +1,21 @@
+---
+id: R58-pro-R52-integrality-barrier-sharpened
+type: verification
+date: 2026-04-19
+intent: >
+  Audit the R52 transversal-integrality barrier; confirm correctness and
+  sharpen the Sherali-Adams bound.
+predecessors: [R52-pro-fresh-zoom-transversal]
+action:
+  kind: confirms
+  target: R52-pro-fresh-zoom-transversal
+claim: >
+  R52 integrality barrier audit confirmed and sharpened: random construction
+  correct; Sherali-Adams bound weakened to SA(level-r) <= N/(l-r) with
+  no additive r. Hypothesis relaxed from 0 < alpha < 1/2 to 0 < alpha < 1.
+  Covering-family size optimal in the exponential scale.
+---
+
 Result: the random construction is correct, and the Sherali-Adams part is true but much weaker than necessary. A cleaner theorem is available: the hypothesis 0<α<1/2 can be weakened to 0<α<1, the covering-family size is optimal in the exponential scale, and the level-r SA value is at most N/(ℓ−r), with no additive r.
 
 I use natural logarithms throughout.

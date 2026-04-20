@@ -1,3 +1,22 @@
+---
+id: R56-pro-continuation-single-certificate-divisor
+type: research
+date: 2026-04-19
+intent: >
+  Continue from R56 negative theorems; attempt to isolate the single-certificate
+  divisor barrier as the minimal unresolved step.
+predecessors: [R56-pro-TPS-negative-theorem]
+action:
+  kind: extends
+  target: R56-pro-TPS-negative-theorem
+claim: >
+  Single-certificate divisor barrier isolated: for any Shortener claim x in U
+  = (n/2, n], the number of unresolved targets blocked by x is bounded by the
+  divisor count d(x) = O(n^epsilon). This is the bottleneck: x resolves only
+  d(x) targets per move, giving L(n) = Omega(N_h / d_max) = Omega(n / n^epsilon)
+  as a structural lower bound for any single-certificate strategy.
+---
+
 Let [n]={1,2,…,n} and the game be the usual divisibility-antichain game on {2,…,n}: a move x is legal iff for every previously played a we have a∤x and x∤a. Let
 
 U:={⌊n/2⌋+1,…,n}.

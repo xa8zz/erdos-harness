@@ -1,3 +1,20 @@
+---
+id: R39-verify-codex-dense-packet-audit
+type: verification
+date: 2026-04-19
+intent: >
+  Adversarially audit the R39 Pro dense-packet projection lemma; determine
+  if the dense-regime consequence follows.
+predecessors: [R39-pro-dense-packet-projection]
+action:
+  kind: standalone
+claim: >
+  Lemma salvageable (repairably sound after notation cleanup) but dense-regime
+  consequence NOT proved: three high-severity gaps identified in the jump
+  from dense-packet projection lemma to |F_useful| << N_h/h for the dense
+  regime. Closure jump is not established by Pro's R39 argument.
+---
+
 # Round 39 Codex adversarial audit of Pro's dense-packet projection lemma
 
 ## Status: lemma salvageable, dense-regime consequence NOT proved

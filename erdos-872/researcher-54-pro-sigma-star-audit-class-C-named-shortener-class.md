@@ -1,3 +1,22 @@
+---
+id: R54-pro-sigma-star-audit-class-C
+type: research
+date: 2026-04-19
+intent: >
+  Audit whether sigma^star is optimal and whether a strategy replacement
+  can close r_1; provide a named Shortener-class theorem as the outcome.
+predecessors: [R53-pro-1-sigma-star-reachable-C-quantifier-gap, R53-pro-2-sigma-star-reachable-multi-packet-persistence]
+action:
+  kind: standalone
+claim: >
+  Audit returns outcome C (named Shortener-class theorem): no rigorous
+  strategy-replacement-plus-closure theorem and no minimax barrier theorem.
+  The named result is a Shortener-class theorem: the class of all
+  sigma^star-type strategies (max-harmonic-degree) has provable upper bound
+  r_1(n) in some restricted game instances but not the full game. sigma^star
+  suboptimality confirmed for specific packet configurations.
+---
+
 **C. Named Shortener-class theorem.**
 
 The audit does **not** support a rigorous “strategy replacement + closure” theorem from the existing inventory, and it also does **not** support a minimax barrier theorem for all Shortener strategies. The correct conclusion is narrower:

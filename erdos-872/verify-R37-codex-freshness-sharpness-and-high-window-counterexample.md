@@ -1,3 +1,21 @@
+---
+id: R37-verify-codex-freshness-sharpness
+type: verification
+date: 2026-04-19
+intent: >
+  Verify sharpness of the R37 bounded-depth freshness result and probe
+  a high-window toy counterexample.
+predecessors: [R37-codex-freshness-bounded-depth, R37-codex-freshness-toy-counterexample]
+action:
+  kind: standalone
+claim: >
+  Two rigorous negative complements to R37: (1) bounded-depth freshness
+  is tight -- the depth bound O(log h) cannot be improved in the abstract
+  model; (2) high-window toy counterexample shows the full freshness lemma
+  fails without arithmetic structure. Both support the conclusion that the
+  divisor-lattice non-privacy is essential for closing the gap.
+---
+
 # R37 Codex — sharpness of bounded-depth freshness and a high-window toy counterexample
 
 ## Status

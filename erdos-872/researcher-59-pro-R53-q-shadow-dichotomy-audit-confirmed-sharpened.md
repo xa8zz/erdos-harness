@@ -1,3 +1,21 @@
+---
+id: R59-pro-R53-q-shadow-dichotomy-sharpened
+type: verification
+date: 2026-04-19
+intent: >
+  Audit the R53 Q-shadow/covering dichotomy; confirm and sharpen the
+  fixed-q argument.
+predecessors: [R53-codex-q-shadow-covering-dichotomy]
+action:
+  kind: confirms
+  target: R53-codex-q-shadow-covering-dichotomy
+claim: >
+  R53 Q-shadow/covering dichotomy audit confirmed and sharpened: fixed-q
+  argument correct in the nondegenerate separator range. Two sharpenings:
+  (1) use actual live density r not only threshold eta; (2) state the exact
+  covering conclusion before applying union bound. Cleaner formulation given.
+---
+
 Verdict: the fixed-q argument is correct in the nondegenerate separator range, and it admits a cleaner, sharper formulation. The two useful sharpenings are:
 
 use the actual live density r, not only the threshold η;

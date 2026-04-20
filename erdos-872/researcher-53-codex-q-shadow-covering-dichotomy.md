@@ -1,3 +1,22 @@
+---
+id: R53-codex-q-shadow-covering-dichotomy
+type: research
+date: 2026-04-19
+intent: >
+  Prove a positive theorem that survives the R52 spectral obstruction:
+  a Q-shadow/covering dichotomy for the spectral packet route.
+predecessors: [R52-pro-spectral-live-space, R53-pro-continuation-near-top-shadow]
+action:
+  kind: extends
+  target: R52-pro-spectral-live-space
+claim: >
+  Q-shadow / covering dichotomy proved as a genuine positive theorem that
+  survives the R52 spectral obstruction: for any live-game central packet,
+  either it has a q-shadow separator capturing Omega(1) fraction in O(log h)
+  moves, or the complement family is a sparse covering design with large
+  transversal number. Dichotomy is tight per the R52 constructions.
+---
+
 # Q-Shadow / Covering Dichotomy For The Spectral Packet Route
 
 This is a genuine positive theorem that survives the new R52 spectral obstruction.

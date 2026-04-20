@@ -1,3 +1,21 @@
+---
+id: R35-verify-codex-star-cylinder-probe
+type: diagnostic
+date: 2026-04-19
+intent: >
+  Probe the lower-defect star-breaker in the one-cylinder arithmetic toy
+  to assess whether the dynamic amortization is plausible.
+predecessors: [R35-verify-codex-followup-dynamic-gap]
+action:
+  kind: extends
+  target: R35-verify-codex-followup-dynamic-gap
+claim: >
+  Focused probe of lower-defect star-breaker in one-cylinder arithmetic toy:
+  sigma^star successfully breaks the star structure empirically at low h in
+  the one-cylinder model. Probe does not close the missing dynamic amortization
+  but supports its plausibility in the arithmetic setting.
+---
+
 # R35 follow-up — lower-defect star-breaker probe in the one-cylinder arithmetic toy
 
 ## Status

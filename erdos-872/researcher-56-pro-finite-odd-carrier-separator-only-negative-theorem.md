@@ -1,3 +1,20 @@
+---
+id: R56-pro-finite-odd-carrier-separator-negative
+type: research
+date: 2026-04-19
+intent: >
+  Provide a rigorous negative structural theorem for the separator-only
+  proof class as the acceptable fallback outcome.
+predecessors: [R56-pro-tau-sf-refuted]
+action:
+  kind: standalone
+claim: >
+  Rigorous negative structural theorem: the finite-odd-carrier / separator-only
+  proof class cannot prove O(r_1(n)) or any o(n) upper bound. The theorem
+  precisely characterizes the class and shows the obstruction is the
+  legal-composite fallback gap exposed by tau_SF's refutation.
+---
+
 I am returning the permitted fallback outcome: a rigorous negative structural theorem for a precisely defined proof class. It does not determine the true order of L(n); it proves that one natural separator-only closure class cannot prove either O(r
 1
 	

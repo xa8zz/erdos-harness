@@ -1,3 +1,20 @@
+---
+id: R35-verify-codex-adversarial-audit
+type: verification
+date: 2026-04-19
+intent: >
+  Adversarially audit the R35 closure candidates to determine whether
+  the online amortization gap is real.
+predecessors: [R35-codex-L-sublinear-proof, R35-fresh-pro-arithmetic-closure]
+action:
+  kind: standalone
+claim: >
+  Both R35 closure candidates break at the same load-bearing step: the
+  jump from state inequality to game-length bound (online amortization of
+  useful scored/stolen boundary mass). Static arithmetic closure estimate
+  is the real advance; L(n) = o(n) is NOT yet proved.
+---
+
 # Codex adversarial audit of the R35 closure candidates
 
 ## Verdict

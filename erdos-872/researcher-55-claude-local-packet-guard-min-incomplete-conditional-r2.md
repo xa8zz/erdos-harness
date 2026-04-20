@@ -1,3 +1,20 @@
+---
+id: R55-claude-local-packet-guard-min
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to formalize the packet-guard minimum tau_PG and prove a
+  conditional r_2 lower bound via local packet guard analysis.
+predecessors: [R54-pro-followup-separator-first]
+action:
+  kind: standalone
+claim: >
+  Incomplete conditional: tau_PG formalized cleanly; one tau_PG move kills
+  3/5 remaining blockers and breaks the q_0=1 cover property irrecoverably
+  for small packets. Full multi-packet dynamics and the actual bound are the
+  obstruction to complete r_2 conditional lower bound.
+---
+
 Let me take this seriously. First, let me scan for existing attempts at the packet-guard direction so I don't repeat dead paths.
 
 I'll attempt this honestly. Let me frame realistic scope: I'm one session against 40+ Pro rounds. The best I can do is (a) formalize $\tau_{\mathrm{PG}}$ cleanly, (b) prove whatever sub-lemmas are actually tractable, (c) find the exact obstruction to closure.

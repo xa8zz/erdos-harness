@@ -1,3 +1,22 @@
+---
+id: R56-codex-hidden-packet-collapse
+type: research
+date: 2026-04-19
+intent: >
+  Attempt to turn the R55 packet/separator-first route into a full proof;
+  determine whether a lag parameter is needed.
+predecessors: [R55-pro-hidden-packet-formulation-refuted]
+action:
+  kind: extends
+  target: R55-pro-hidden-packet-formulation-refuted
+claim: >
+  Hidden-packet game collapses without a lag parameter: any formulation
+  without an explicit lag/exposure-cost parameter reduces to a trivial
+  Shortener-wins case. A lag parameter tau_lag is necessary and sufficient
+  to make the hidden-packet route non-trivial. Current route cannot close
+  without introducing tau_lag as a new game parameter.
+---
+
 # The R55 Hidden-Packet Game Collapses Without A Lag Parameter
 
 I tried to turn the current packet / separator-first route into a full proof.

@@ -1,3 +1,21 @@
+---
+id: R35-verify-codex-followup-dynamic-gap
+type: verification
+date: 2026-04-19
+intent: >
+  Follow up on the R35 dynamic gap identified in the adversarial audit;
+  determine if any additional ingredients close it.
+predecessors: [R35-verify-codex-adversarial-audit]
+action:
+  kind: confirms
+  target: R35-verify-codex-adversarial-audit
+claim: >
+  R35 dynamic gap confirmed: closure candidate still does not prove
+  L(n) = o(n). The online amortization step is not implied by any
+  combination of the static arithmetic estimate and the R35 ingredients.
+  Dynamic gap is a genuine unresolved theorem.
+---
+
 # Codex follow-up on the R35 dynamic gap
 
 ## Outcome

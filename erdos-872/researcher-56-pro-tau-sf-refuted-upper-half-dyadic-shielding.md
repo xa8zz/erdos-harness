@@ -1,3 +1,28 @@
+---
+id: R56-pro-tau-sf-refuted
+type: refutation
+date: 2026-04-19
+intent: >
+  Assess tau_SF (separator-first strategy) and determine if it is a
+  complete Shortener strategy; refute if deficient.
+predecessors: [R56-codex-hidden-packet-collapse, R54-pro-followup-separator-first]
+action:
+  kind: refutes
+  target: R54-pro-followup-separator-first
+claim: >
+  tau_SF refuted as a complete Shortener strategy: after "no separator
+  exists" and "no legal prime exists," tau_SF gives no legal composite
+  fallback. Prolonger forces exactly this situation via upper-half dyadic
+  shielding after o(r_1) moves. tau_SF is incomplete and cannot close r_1.
+failure_mechanism: >
+  Upper-half dyadic shielding: Prolonger plays upper-half composites that
+  shield all small legal primes and all small packet separators. After
+  o(r_1) Prolonger moves, no legal prime exists below y and no packet
+  separator of rank < h exists. tau_SF has no fallback for legal composites,
+  so it cannot play. Shortener is stuck with only rank-h composites,
+  losing the O(r_1) budget.
+---
+
 I would choose (b), with one important qualification: as stated, τ
 SF
 	

@@ -1,3 +1,22 @@
+---
+id: R56-codex-SFPF-negative-theorem
+type: research
+date: 2026-04-19
+intent: >
+  Provide the SFPF (Separator-First Packet Formulation) negative structural
+  theorem as the strongest rigorous outcome from the current inventory.
+predecessors: [R56-pro-finite-odd-carrier-separator-negative, R56-pro-tau-sf-refuted]
+siblings: [R56-pro-finite-odd-carrier-separator-negative]
+action:
+  kind: extends
+  target: R56-pro-finite-odd-carrier-separator-negative
+claim: >
+  SFPF(P, q_0) negative structural theorem: no proof scheme in the
+  separator-first packet formulation class SFPF can prove L(n) = O(r_1(n))
+  or any o(n) upper bound. The theorem precisely defines SFPF and proves
+  the obstruction is the legal-composite escape route available to Prolonger.
+---
+
 After checking the saved state in [current_state.md](/Users/omisverycool/.codex/worktrees/a43b/erdos-harness/erdos-872/current_state.md), plus the latest focused writeups [researcher-56-pro-tau-sf-refuted-upper-half-dyadic-shielding.md](/Users/omisverycool/.codex/worktrees/a43b/erdos-harness/erdos-872/researcher-56-pro-tau-sf-refuted-upper-half-dyadic-shielding.md) and [researcher-54-pro-sigma-star-audit-class-C-named-shortener-class.md](/Users/omisverycool/.codex/worktrees/a43b/erdos-harness/erdos-872/researcher-54-pro-sigma-star-audit-class-C-named-shortener-class.md), I do not have a full proof of either sharp rate. The strongest rigorous outcome supported by the current inventory is the following negative structural theorem, which your prompt explicitly permits.
 
 **Theorem**
