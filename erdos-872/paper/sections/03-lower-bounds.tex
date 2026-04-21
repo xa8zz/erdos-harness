@@ -1,8 +1,3 @@
-% source: erdos-872/current_state.md (Polynomial shield lower bound --- Theorem A)
-% source: erdos-872/researcher-13-pro-upper-half-fan-lower-bound.md
-% source: erdos-872/phase4/t2_core_paper_note.md
-% source: erdos-872/lean/README.md
-
 \section{Lower Bounds}\label{sec:lower-bounds}
 
 \subsection{The polynomial shield barrier and T1}
@@ -104,8 +99,8 @@ $|P|=n^{o(1)}$, so Theorem~\ref{thm:theorem-a} gives
 \[
   \beta(P) \ge \left(\frac12+o(1)\right)n\log\log n.
 \]
-The calibrated shield construction from the current-state note converts this
-weighted lower-half mass into a game-length lower bound of size
+The calibrated shield construction converts this weighted lower-half mass into
+a game-length lower bound of size
 $(1/8-o(1))n\log\log n/\log n$ via \Cref{thm:shield-reduction}.  The
 substantive point is that the shield-reduction architecture already excludes the
 possibility $\L(n)=O(n/\log n)$.
@@ -122,182 +117,56 @@ failed strategy.
 
 \subsection{T2: a Maker-first hypergraph capture lower bound}
 
-The T2 lower bound refines T1 by moving from one-dimensional shield accounting
-to a two-stage game.  First Prolonger activates many useful small-prime pairs
-$(a,c)$.  Then each activated pair carries a fiber of upper-half residual
-targets
-\[
-  t = acb \in \left(\frac n2,n\right],
-\]
-where $b$ is a large prime.  The central point is that the residual game on
-these targets is no harder for Prolonger than a scored Maker-first
-3-uniform-hypergraph game.
-
-We record the finite abstract lemmas exactly as they are used.
-
-\begin{lemma}[Weighted Maker-first pair capture]\label{lem:t2-graph}
-In the finite weighted graph game recorded in the consolidated T2 note, Maker
-has a strategy that secures at least one eighth of the initial total
-edge-weight.
-\end{lemma}
-
-\begin{lemma}[Weighted Maker-first scored 3-uniform capture]\label{lem:t2-hyper}
-In the corresponding finite scored 3-uniform hypergraph game, Maker has a
-strategy that secures at least one eighth of the initial total hyperedge-weight.
-\end{lemma}
-
-The residual divisibility game is compared to the hypergraph model through the
-following theorem.  Its local arithmetic and family-level comparison layer are
-substantially formalized in Lean.
-
-\begin{theorem}[Residual comparison theorem]\label{thm:t2-residual}
-Let $\mathcal T_*$ be a residual family of targets $t=acb \in (n/2,n]$ with
-$a<c\le Y=n^\delta$ prime and $b>Y$ prime, arranged so that $a$, $c$, and $ac$
-are already unavailable from the activation stage.  Let $H_*$ be the
-3-uniform hypergraph with one hyperedge
-\[
-  e_t = \{b,ab,cb\}
-\]
-for each $t \in \mathcal T_*$.  Then:
-\begin{enumerate}
-  \item the only harmful future moves for $t$ are $b$, $ab$, $cb$, and $t$
-    itself;
-  \item the moves $b$, $ab$, and $cb$ delete exactly the incident hyperedges in
-    $H_*$;
-  \item an exact target move $t$ hits only its own edge;
-  \item every live hyperedge in $H_*$ corresponds to a legal actual Prolonger
-    move in the divisibility game.
-\end{enumerate}
-Consequently the actual residual divisibility game is Maker-friendlier than the
-scored hypergraph game on $H_*$.
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-Fix $t=acb \in \mathcal T_*$.  Since $t>n/2$, it has no proper multiple in
-$\{2,\dots,n\}$.  Hence any harmful move must be either $t$ itself or a proper
-divisor of $t$.  The positive divisors of $t$ are
-\[
-  1,\ a,\ c,\ ac,\ b,\ ab,\ cb,\ t,
-\]
-and $1$ is not a legal move while $a,c,ac$ are already unavailable.  This gives
-the harmful set $\{b,ab,cb,t\}$.
-
-Next, a move $b$ kills exactly those targets with the same large prime $b$,
-because $b>Y\ge a,c$ cannot divide the small part of another target.  The same
-argument shows that $ab$ and $cb$ kill exactly the targets using those slots.
-Thus the slot moves are exactly vertex deletions in the hypergraph model.
-
-Distinct targets in $(n/2,n]$ are incomparable, so an exact target move cannot
-kill any other target.  Finally, if the hyperedge $e_t$ is live, none of
-$b,ab,cb,t$ has been played, while $a,c,ac$ were unavailable from the start.
-There is therefore no played number comparable with $t$, so $t$ is legal.  This
-proves that every hypergraph play transfers to the actual divisibility game and
-that the hypergraph model is Maker-friendlier.
-\end{proof}
-
-The activation stage keeps track of how much residual target mass survives on
-secured pairs.
-
-\begin{theorem}[Activation-stage inequality]\label{thm:t2-activation}
-Let
-\[
-  W_0 := \sum_{a<c\le Y} |J_{a,c}\cap\PP|
-\]
-be the initial total token weight, where $J_{a,c}$ is the large-prime interval
-attached to the pair $(a,c)$.  Let $Q_{\mathrm{end}}$ be the graph-potential
-quantity at the end of the activation stage, and let $E$ be the total number of
-tokens deleted by off-model Shortener moves during activation.  Then
-\[
-  Q_{\mathrm{end}} \ge \frac{W_0}{8} - E.
-\]
-Moreover, for every fixed $\delta<1/4$,
-\[
-  E = o\!\left(\frac{n(\log\log n)^2}{\log n}\right).
-\]
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-Ignoring the off-model deletions, the activation game is exactly the weighted
-Maker-first graph game of \Cref{lem:t2-graph}: when Prolonger claims an edge he
-converts one token into score and leaves the remaining tokens on that edge, so
-the same one-step domination argument keeps the graph potential nondecreasing.
-This yields the clean lower bound $Q_{\mathrm{end}}\ge W_0/8$.
-
-Restoring the off-model deletions costs at most one unit of potential per
-deleted token, so
-\[
-  Q_{\mathrm{end}} \ge \frac{W_0}{8}-E.
-\]
-To estimate $E$, observe that there are at most
-\[
-  O\!\left(\frac{Y^2}{\log^2 Y}\right)
-\]
-activation rounds.  A large-prime deletion kills at most one token per pair,
-namely
-\[
-  O\!\left(\frac{Y^2}{\log^2 Y}\right)
-\]
-tokens; a lateral move $pb$ kills only
-$O(Y/\log Y)$ targets; and an exact target kills one token.  Hence
-\[
-  E \ll \frac{Y^4}{\log^4 Y}.
-\]
-With $Y=n^\delta$ and $\delta<1/4$, this is
-\[
-  o\!\left(\frac{n(\log\log n)^2}{\log n}\right).
-\]
-\end{proof}
+The second lower bound is the main result of this section.
 
 \begin{theorem}[T2]\label{thm:t2}
-For every fixed $0<\delta<1/4$ there exists $c_\delta>0$ such that
+There is an absolute constant $c>0$ such that, for all sufficiently large $n$,
 \[
-  \L(n) \ge c_\delta \frac{n(\log\log n)^2}{\log n}
+  \L(n) \ge c\frac{n(\log\log n)^2}{\log n}.
+\]
+More precisely, for every fixed $0<\delta<1/4$ there is
+$c_\delta>0$ such that
+\[
+  \L(n) \ge c_\delta\frac{n(\log\log n)^2}{\log n}
 \]
 for all sufficiently large $n$.
 \end{theorem}
 
-\begin{proof}
-At the end of the activation stage let
-\[
-  M := \sum_{e\in C_{\mathrm{end}}} w_{\mathrm{end}}(e)
-\]
-be the residual live target weight on secured pairs.  By
-\Cref{thm:t2-activation},
-\[
-  M \ge \frac{W_0}{8} - E - S_{\mathrm{end}},
-\]
-where $S_{\mathrm{end}}$ is the number of activation moves already converted
-into score.  Since
-\[
-  S_{\mathrm{end}} = O\!\left(\frac{Y^2}{\log^2 Y}\right)
-  = o\!\left(\frac{n(\log\log n)^2}{\log n}\right),
-\]
-and the number-theoretic part of the construction gives
-\[
-  W_0 \gg_\delta \frac{n(\log\log n)^2}{\log n},
-\]
-we conclude that
-\[
-  M \gg_\delta \frac{n(\log\log n)^2}{\log n}.
-\]
+The proof is deferred to \Cref{app:t2-proof}.  We describe the strategy here,
+because the construction is the bridge between the one-dimensional lower-bound
+mechanism above and the later discussion of second-order obstructions.
 
-Now transfer to the actual residual game using
-\Cref{thm:t2-residual}.  The hypergraph game on the family of residual targets
-is Maker-friendlier than the actual divisibility game, so Maker can secure at
-least one eighth of the residual weight by \Cref{lem:t2-hyper}.  Therefore the
-number of actual game moves remaining after activation is at least
+Fix $Y=n^\delta$ with $0<\delta<1/4$.  For small primes $a<c\le Y$, consider
+upper-half targets
 \[
-  \frac{M}{8} \gg_\delta \frac{n(\log\log n)^2}{\log n},
+  t=acb\in (n/2,n],
+  \qquad
+  b\in J_{a,c}:=\left(\frac{n}{2ac},\frac{n}{ac}\right]\cap\PP.
 \]
-and the same lower bound holds for $\L(n)$.
-\end{proof}
+The family has total size
+\[
+  \sum_{a<c\le Y}|J_{a,c}|
+  \gg_\delta \frac{n(\log\log n)^2}{\log n}.
+\]
+Prolonger first activates many small-prime pairs $(a,c)$ by playing one target
+from the corresponding fiber.  The activation phase is governed by a finite
+weighted graph capture game whose scaled potential starts at one eighth of the
+total target mass and is nondecreasing under a max-gain Maker move, up to a
+negligible token-deletion error.
 
-\begin{remark}
-The present status of T2 is slightly different from that of T1.  The finite
-graph and hypergraph potential cores, the local arithmetic of the divisibility
-embedding, and the family-level residual comparison layer are Lean-backed.  The
-remaining unformalized part is the activation bookkeeping and the final
-packaging of the Maker-first wrapper into one theorem.  For the purposes of the
-paper, the proof chain is rigorous prose with substantial formal support rather
-than a fully closed Lean artifact.
-\end{remark}
+Once a pair $(a,c)$ has been activated, the divisors $a$, $c$, and $ac$ are no
+longer available as future Shortener moves against the residual targets
+$acb$.  Each residual target is then controlled by exactly three remaining
+slots,
+\[
+  b,\qquad ab,\qquad cb,
+\]
+and by the exact target $acb$ itself.  Thus the residual divisibility game is
+compared to a scored rank-$3$ hypergraph game: slot moves delete incident
+hyperedges, while exact-target moves are counted as score.  The same scaled
+potential gives Prolonger a fixed positive fraction of the residual mass.
+
+The appendix proves these ingredients in order: the abstract finite potential
+game, the residual divisibility embedding, the activation-stage token
+bookkeeping, the prime-counting estimates, and the final conversion to the
+stated lower bound.

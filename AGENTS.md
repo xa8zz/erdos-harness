@@ -358,6 +358,7 @@ Save verifier replies verbatim. Synthesize only when building the next researche
 
 - For `erdos-872` T2 Maker-first notes, do not use the shorthand “deleting an uncaptured vertex x loses exactly P(x)” in the graph/hypergraph potential argument: a simple three-vertex path state already falsifies that equality, so the post-Maker vertex-deletion bound must be treated as a separate wrapper theorem to prove or formalize.
 
+- For erdos-872 prime-rounding bridge work, do not claim a global sup p_j/b_j -> 1 for every envelope index when flat filler blocks are present; prove close rounding on genuine blocks and carry flat/boundary indices as negligible reciprocal-mass error.
 ## Tooling Learnings
 
 - In the Lean 4.28.0 Mathlib snapshot used by `erdos-872/lean/erdos_872_core`, `Mathlib.NumberTheory.Chebyshev` exposes `Chebyshev.eventually_primeCounting_le`, but an obvious full PNT theorem `π(x) ~ x / log x` is not surfaced under the expected names; for Round 15 top-tail formalization, bank the Chebyshev upper bound first.

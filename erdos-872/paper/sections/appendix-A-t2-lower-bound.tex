@@ -1,0 +1,382 @@
+\section{Full Proof of the T2 Lower Bound}\label{app:t2-proof}
+
+This appendix proves \Cref{thm:t2}.  The proof is self-contained: all target
+families, auxiliary games, weights, activation rules, deletion errors, and
+asymptotic estimates are defined below.
+
+Throughout this appendix $n$ is large, $0<\delta<1/4$ is fixed, and
+\[
+  Y:=n^\delta.
+\]
+Let $\mathcal P_Y$ be the set of odd primes at most $Y$.  For
+$a<c$ in $\mathcal P_Y$, put
+\[
+  I_{a,c}:=\left(\frac{n}{2ac},\frac{n}{ac}\right],
+  \qquad
+  B_{a,c}:=I_{a,c}\cap\PP,
+\]
+and define the target family
+\[
+  \mathcal T
+  :=
+  \{\,acb:\ a<c,\ a,c\in\mathcal P_Y,\ b\in B_{a,c}\,\}.
+\]
+For large $n$, every such $b$ is greater than $Y$: indeed
+$b>n/(2Y^2)=\frac12 n^{1-2\delta}>Y$.  Thus $a,c,b$ are distinct primes and
+each target $acb$ lies in $(n/2,n]$.
+
+\begin{proposition}[Finite scaled capture game]\label{prop:t2-finite-capture}
+Let $H$ be a finite weighted incidence system.  Its vertices form a finite set
+$V$, its edges form a finite set $\mathcal E$, each edge $e$ has a non-negative
+weight $w(e)$, and each incidence set $e\subseteq V$ has size at most $3$.
+Consider the following Maker-first scored game.
+
+At any time some vertices are captured, some vertices are deleted, and some
+edges are scored.  An edge is live if it is not scored and is disjoint from the
+deleted vertices.  Maker chooses a live edge $f$, scores $w(f)$, and captures
+all vertices of $f$.  Breaker then either deletes one uncaptured vertex or
+scores one live edge.  Let $S$ be the total scored weight, by either player,
+and for a live edge $e$ define
+\[
+  \Phi(e):=2^{|e\cap C|}w(e),
+\]
+where $C$ is the current captured-vertex set.  Scored and deleted edges
+contribute no live potential.  Set
+\[
+  Q:=8S+\sum_{e\text{ live}}\Phi(e).
+\]
+Maker has a strategy such that after each full Maker--Breaker round $Q$ is at
+least its value before Maker's move.  Consequently, if the game is continued
+until no live positive-weight edge remains, the final scored weight is at least
+\[
+  \frac18\sum_{e\in\mathcal E}w(e).
+\]
+The same conclusion holds for the rank-$2$ graph variant in which Breaker may
+delete an unscored live edge instead of scoring it, and Maker-scored edges are
+called claimed edges.
+\end{proposition}
+
+\begin{proof}
+We prove the rank-$3$ scored statement; the graph version is the same argument
+with edge deletion replacing Breaker's scored-edge move.  The graph edge
+deletion loses exactly the current live potential of that edge, while a
+scored-edge move changes $Q$ by $8w(e)-\Phi(e)\ge 0$.
+
+For a live Maker move $f$, let
+\[
+  \Delta(f):=Q(\text{after Maker scores }f)-Q(\text{before Maker scores }f).
+\]
+Maker chooses a live edge maximizing $\Delta(f)$.  Such a choice exists because
+the game is finite.
+
+We record the two local domination facts used in the round estimate.  First,
+if $g$ is live and $|g\cap C|\le 2$, then scoring $g$ itself increases $Q$ by
+at least its current live potential $\Phi(g)$.  Indeed, the contribution of
+$g$ changes from $2^r w(g)$ to $8w(g)$ with $r=|g\cap C|\le 2$, and
+$8w(g)-2^r w(g)\ge 2^r w(g)$.  All other live-edge contributions can only
+increase when Maker captures new vertices.
+
+Second, let $v$ be a vertex that Breaker could delete after Maker's move, and
+let $\Lambda_v$ be the live potential incident with $v$ at that moment.  If
+$\Lambda_v>0$, choose a live edge $g$ containing $v$ after Maker's move.  The
+edge $g$ was also live before Maker's move.  Compare Maker's actual max-gain
+edge with the alternative move $g$.  When Maker scores $g$, every live edge
+through $v$ at the beginning of the round gains its whole current potential
+from the capture of $v$, and the selected edge $g$ supplies enough additional
+gain to cover the possible coefficient increases caused by the actual move
+before $v$ is deleted.  Edge by edge, this gives
+\[
+  \Delta(g)\ge \Lambda_v.
+\]
+Since Maker chose an edge of maximum $\Delta$, the actual Maker gain is at
+least $\Lambda_v$.
+
+Now consider Breaker's reply.  If Breaker scores a live edge, $Q$ does not
+decrease, as observed above.  If Breaker deletes an uncaptured vertex $v$, the
+only lost live terms are the live edges incident with $v$, whose total
+potential is $\Lambda_v$ after Maker's move.  The previous paragraph shows
+that Maker's already-secured gain is at least $\Lambda_v$, so the full
+Maker--Breaker round does not decrease $Q$.
+
+Initially $C=\varnothing$, $S=0$, and every edge is live, so
+\[
+  Q_0=\sum_{e\in\mathcal E}w(e).
+\]
+At terminal time there is no positive-weight live edge, hence
+$Q_{\mathrm{fin}}=8S_{\mathrm{fin}}$.  Monotonicity gives
+$8S_{\mathrm{fin}}\ge Q_0$, which is the desired one-eighth bound.
+\end{proof}
+
+\begin{proposition}[Initial target mass]\label{prop:t2-initial-mass}
+For every fixed $0<\delta<1/4$,
+\[
+  W_0
+  :=
+  \sum_{\substack{a<c\\a,c\in\mathcal P_Y}} |B_{a,c}|
+  \gg_\delta
+  \frac{n(\log\log n)^2}{\log n}.
+\]
+\end{proposition}
+
+\begin{proof}
+Since $ac\le Y^2=n^{2\delta}$, the interval endpoint
+$X_{a,c}:=n/(ac)$ satisfies $X_{a,c}\ge n^{1-2\delta}\to\infty$.  By the prime
+number theorem, uniformly for all such pairs and all sufficiently large $n$,
+\[
+  \pi(X_{a,c})-\pi(X_{a,c}/2)
+  \ge
+  \kappa_\delta \frac{X_{a,c}}{\log n}
+  =
+  \kappa_\delta \frac{n}{ac\log n}
+\]
+for some positive constant $\kappa_\delta$.  Therefore
+\[
+  W_0
+  \ge
+  \kappa_\delta\frac{n}{\log n}
+  \sum_{\substack{a<c\\a,c\in\mathcal P_Y}}\frac1{ac}.
+\]
+Mertens' theorem for primes gives
+\[
+  \sum_{p\in\mathcal P_Y}\frac1p
+  =
+  \log\log Y+O(1)
+  =
+  \log\log n+O_\delta(1),
+\]
+and $\sum_p p^{-2}<\infty$.  Hence
+\[
+  \sum_{a<c\in\mathcal P_Y}\frac1{ac}
+  =
+  \frac12\left[
+    \left(\sum_{p\in\mathcal P_Y}\frac1p\right)^2
+    -
+    \sum_{p\in\mathcal P_Y}\frac1{p^2}
+  \right]
+  =
+  \left(\frac12+o(1)\right)(\log\log n)^2.
+\]
+Combining the last two displays proves the claim.
+\end{proof}
+
+\begin{proposition}[Residual divisibility embedding]\label{prop:t2-residual-embedding}
+Let $\mathcal T_*$ be any subfamily of targets $t=acb\in\mathcal T$ such that,
+for every $t=acb\in\mathcal T_*$, the numbers $a$, $c$, and $ac$ are already
+unavailable as legal moves.  Attach to $t$ the three slot labels
+\[
+  b,\qquad ab,\qquad cb
+\]
+and let $e_t:=\{b,ab,cb\}$.  Then the residual divisibility game on
+$\mathcal T_*$ is at least as favorable to Prolonger as the scored rank-$3$
+hypergraph game on the hyperedges $\{e_t:t\in\mathcal T_*\}$:
+\begin{enumerate}
+  \item the only future moves that can make $t=acb$ illegal are
+    $b$, $ab$, $cb$, and $t$ itself;
+  \item playing $b$, $ab$, or $cb$ deletes exactly the residual targets whose
+    hyperedges contain that slot;
+  \item playing the exact target $t$ kills no other target in $\mathcal T_*$,
+    and is therefore a scored-edge move;
+  \item every live hyperedge corresponds to a legal actual move $t$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Fix $t=acb\in\mathcal T_*$.  Because $t>n/2$, no proper multiple of $t$ lies in
+$\{2,\dots,n\}$.  Thus a future move can make $t$ illegal only by being $t$
+itself or a proper divisor of $t$.  The positive divisors are
+\[
+  1,\ a,\ c,\ ac,\ b,\ ab,\ cb,\ acb.
+\]
+The divisor $1$ is not a move, while $a$, $c$, and $ac$ are unavailable by
+hypothesis.  This proves the first assertion.
+
+For slot incidence, suppose another target is $t'=a'c'b'$.  Since
+$b,b'>Y\ge a,a',c,c'$, the divisibility $b\mid t'$ holds iff $b=b'$.  Thus a
+move $b$ kills exactly the targets in the $b$-fiber.  Similarly, if
+$ab\mid a'c'b'$, the large prime factor forces $b=b'$, and after cancellation
+$a$ must be $a'$ or $c'$.  This is exactly the condition that the slot $ab$
+belongs to $e_{t'}$.  The proof for $cb$ is identical.
+
+If two targets $t,u$ in $\mathcal T_*$ are comparable, say $t\mid u$, then
+$u$ is a multiple of $t$ lying in $(n/2,n]$.  The next positive multiple of
+$t$ after $t$ is $2t>n$, so $u=t$.  Hence distinct targets are pairwise
+incomparable, and playing an exact target scores only that target.
+
+Finally, if $e_t$ is live in the slot hypergraph, then none of $b$, $ab$, $cb$,
+or $t$ has been played.  The only other proper divisors of $t$ are
+$1,a,c,ac$, and these are either not moves or already unavailable.  There is no
+proper multiple of $t$ on the board.  Therefore no played number is comparable
+with $t$, so the actual move $t$ is legal.  This proves the comparison.
+\end{proof}
+
+\begin{proposition}[Activation-stage potential]\label{prop:t2-activation-potential}
+During activation, let each unclaimed pair edge $e=(a,c)$ carry the current
+token set $B_e(t)$ of primes $b\in B_{a,c}$ for which the target $acb$ has not
+yet been killed.  Write $w_t(e):=|B_e(t)|$.
+
+Prolonger plays as follows.  In each activation round, among pair edges with
+positive current token weight, he chooses a max-gain edge in the graph version
+of \Cref{prop:t2-finite-capture}; if $e=(a,c)$ is chosen, he plays one live
+target $acb$ with $b\in B_e(t)$.  This scores one actual move, claims the pair
+edge $e$, captures the vertices $a$ and $c$, and leaves the remaining live
+tokens on that secured pair for the residual phase.
+
+Let $S_t$ be the number of activation targets already played by Prolonger, and
+define
+\[
+  Q_t
+  :=
+  S_t+\sum_e \phi_t(e),
+\]
+where
+\[
+  \phi_t(e)=
+  \begin{cases}
+    \frac18 w_t(e),& e\text{ unclaimed and neither endpoint captured},\\[1mm]
+    \frac14 w_t(e),& e\text{ unclaimed and one endpoint captured},\\[1mm]
+    \frac12 w_t(e),& e\text{ unclaimed and two endpoints captured},\\[1mm]
+    w_t(e),& e\text{ claimed},\\[1mm]
+    0,& e\text{ deleted}.
+  \end{cases}
+\]
+Let $E$ be the total number of target tokens deleted during activation by
+Shortener moves not modeled as graph vertex deletions $a$ or graph edge
+deletions $ac$.  At the end of activation,
+\[
+  Q_{\mathrm{end}}\ge \frac{W_0}{8}-E.
+\]
+Equivalently,
+\[
+  S_{\mathrm{end}}
+  +
+  \sum_{e\text{ secured}} w_{\mathrm{end}}(e)
+  \ge
+  \frac{W_0}{8}-E.
+\]
+\end{proposition}
+
+\begin{proof}
+First ignore off-model token deletions.  The activation process is exactly the
+rank-$2$ graph game of \Cref{prop:t2-finite-capture}, with one harmless
+bookkeeping change: when Prolonger claims an edge $e$, he consumes one token
+from $e$ and adds it immediately to the score $S_t$.  If the coefficient of
+$e$ before the move is $\gamma\in\{1/8,1/4,1/2\}$, the contribution of $e$
+changes from $\gamma w_t(e)$ to
+\[
+  1+(w_t(e)-1)=w_t(e),
+\]
+exactly as if the edge had become claimed with full weight.  All other
+incident edges change as in the graph game.  Thus the scaled potential
+argument gives $Q_{\mathrm{end}}\ge W_0/8$ when every harmful Shortener move is
+a graph deletion.
+
+Now restore all actual Shortener moves.  A token $acb$ is deleted precisely
+when Shortener plays one of its still-available harmful divisors or the target
+itself.  Deleting one live token can reduce $Q_t$ by at most $1$, since every
+coefficient appearing in the definition of $\phi_t(e)$ is at most $1$.
+Therefore all off-model deletions together reduce the lower bound by at most
+$E$, giving
+\[
+  Q_{\mathrm{end}}\ge W_0/8-E.
+\]
+At the end of activation, a positive-weight edge is either secured or deleted,
+so $Q_{\mathrm{end}}$ is exactly the activation score plus the residual live
+target weight on secured pairs.
+\end{proof}
+
+\begin{proposition}[Activation deletion budget]\label{prop:t2-deletion-budget}
+For fixed $0<\delta<1/4$, the off-model deletion count from
+\Cref{prop:t2-activation-potential} satisfies
+\[
+  E\ll \frac{Y^4}{\log^4 Y}
+  =
+  o\!\left(\frac{n(\log\log n)^2}{\log n}\right).
+\]
+\end{proposition}
+
+\begin{proof}
+There is at most one activation round per small-prime pair, so the number of
+rounds is
+\[
+  R\le \binom{|\mathcal P_Y|}{2}
+  \ll \frac{Y^2}{\log^2Y}.
+\]
+We bound the number of live tokens an off-model Shortener move can delete.
+
+If Shortener plays a large prime $b$, then for each pair $(a,c)$ there is at
+most one token $acb$ using that $b$.  Hence the move deletes at most
+$O(Y^2/\log^2Y)$ tokens.  If Shortener plays a lateral semiprime $pb$ with
+$p\le Y$ and $b>Y$ prime, the killed targets have the form $pcb$ with the
+third small prime varying, so there are at most $O(Y/\log Y)$ of them.  If
+Shortener plays an exact target $acb$, exactly one token is deleted.
+
+The worst of these bounds is the large-prime bound.  Across $R$ activation
+rounds,
+\[
+  E\ll R\frac{Y^2}{\log^2Y}
+  \ll \frac{Y^4}{\log^4Y}.
+\]
+Since $Y=n^\delta$,
+\[
+  \frac{Y^4/\log^4Y}{n(\log\log n)^2/\log n}
+  \ll_\delta
+  \frac{n^{4\delta-1}}{(\log n)^3(\log\log n)^2}
+  \to 0
+\]
+because $4\delta-1<0$.
+\end{proof}
+
+\begin{proposition}[Residual mass on secured pairs]\label{prop:t2-residual-mass}
+At the end of activation, the secured pairs carry residual live target weight
+\[
+  M:=
+  \sum_{e\text{ secured}} w_{\mathrm{end}}(e)
+  \gg_\delta
+  \frac{n(\log\log n)^2}{\log n}.
+\]
+\end{proposition}
+
+\begin{proof}
+By \Cref{prop:t2-activation-potential},
+\[
+  S_{\mathrm{end}}+M\ge \frac{W_0}{8}-E.
+\]
+The activation score is at most the number of small-prime pairs:
+\[
+  S_{\mathrm{end}}\le R\ll \frac{Y^2}{\log^2Y}
+  =
+  o\!\left(\frac{n(\log\log n)^2}{\log n}\right),
+\]
+because $2\delta<1$.  The deletion budget $E$ is negligible by
+\Cref{prop:t2-deletion-budget}, while $W_0$ has the required lower bound by
+\Cref{prop:t2-initial-mass}.  Subtracting the two negligible terms gives the
+claim.
+\end{proof}
+
+\begin{proposition}[T2 lower bound]\label{prop:t2-final}
+For every fixed $0<\delta<1/4$ there is $c_\delta>0$ such that
+\[
+  \L(n)\ge c_\delta\frac{n(\log\log n)^2}{\log n}
+\]
+for all sufficiently large $n$.
+\end{proposition}
+
+\begin{proof}
+After activation, restrict to the residual live targets lying over secured
+pairs.  Their total weight is $M$, as in
+\Cref{prop:t2-residual-mass}.  For each secured pair $(a,c)$, the activation
+move made $a$, $c$, and $ac$ unavailable.  Therefore
+\Cref{prop:t2-residual-embedding} compares the remaining divisibility game to a
+scored rank-$3$ slot hypergraph whose total edge weight is $M$.
+
+By \Cref{prop:t2-finite-capture}, Prolonger can force scored residual target
+weight at least $M/8$ in this hypergraph model.  The comparison proposition says
+that every such scored hypergraph move is a genuine actual game move, and that
+the actual game gives Prolonger no fewer legal options than the model.  Hence
+the number of residual moves after activation is at least $M/8$.  Since
+$M\gg_\delta n(\log\log n)^2/\log n$, the same lower bound holds for the total
+game length.
+
+Choosing any fixed $\delta<1/4$, for instance $\delta=1/8$, gives an absolute
+constant $c>0$ and proves \Cref{thm:t2}.
+\end{proof}

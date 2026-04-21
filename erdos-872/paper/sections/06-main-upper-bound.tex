@@ -48,30 +48,107 @@ the Round~15 local theorem identifies the limiting captured-prime density as
 \]
 
 \begin{proposition}[Local density away from breakpoints]\label{prop:local-density}
-Fix $H\ge 2$.  For each $1\le h\le H-1$, choose a compact interval
+Fix $H\ge 2$, and set
 \[
-  I_h \subset \left(\frac{1}{h+1},\frac1h\right)
+  \tau_H := \frac{1}{8H^2}.
 \]
-bounded away from the endpoints by a positive amount depending only on $H$.
-Then uniformly for $u\in I_h$,
+For $1\le h\le H-1$, define
+\[
+  \alpha_h := \frac{1}{h+1}+\tau_H,
+  \qquad
+  \beta_h := \frac1h-\tau_H,
+  \qquad
+  I_h := [\alpha_h,\beta_h].
+\]
+Then there exists a function $\xi_H(n)\to 0$ such that, for all sufficiently
+large $n$, for every $1\le h\le H-1$ and every $u\in I_h$,
 \[
   S_K(n^u)
   \ge
-  (1-o_H(1))\frac{n^u}{(h+1)u\log n}.
+  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u\log n}.
 \]
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-This is the Round~15 local prime-count-per-range lemma.  One compares the count
-of legal odd primes up to $n^u$ with the number of primes in the interval
-$[n^{u-\eta},n^u]$ for a fixed small $\eta>0$ depending only on the distance
-from the breakpoints.  On $I_h$ the local packet ratio is constant and equals
-$1/(h+1)$, so the prime-count lower bound becomes
+\begin{proof}
+The intervals $I_h$ are nonempty, because
 \[
+  \beta_h-\alpha_h
+  =
+  \frac1h-\frac1{h+1}-2\tau_H
+  \ge
+  \frac{1}{H(H-1)}-\frac{1}{4H^2}
+  >
+  0.
+\]
+Fix $1\le h\le H-1$ and $u\in I_h$, and put
+\[
+  \eta := \frac{\tau_H}{2},
+  \qquad
+  X := n^u,
+  \qquad
+  Y := n^{u-\eta}.
+\]
+Since $u\in I_h$,
+\[
+  u-\eta \ge \frac{1}{h+1}+\frac{\tau_H}{2} > \frac{1}{h+1},
+  \qquad
+  u \le \frac1h-\tau_H < \frac1h.
+\]
+Hence the entire interval $[u-\eta,u]$ stays inside
+$\bigl(\frac{1}{h+1},\frac1h\bigr)$, so the Round~15 local
+prime-count-per-range lemma applies with the constant packet ratio
+$1/(h+1)$.  It yields
+\[
+  S(X)
+  \ge
+  \frac{\pi(X)-\pi(Y)}{h+1}-O_H(1),
+\]
+where $S(X)$ denotes the number of odd primes played by Shortener up to the
+first time her move exceeds $X$.
+
+We claim that $S(X)=S_K(X)$ for all $u\in\bigcup_{h=1}^{H-1}I_h$ once $n$ is
+large enough.  Indeed, $u\le \beta_1=1-\tau_H$, so by the prime number theorem,
+\[
+  \pi(n^u)
+  \ll \frac{n^{1-\tau_H}}{\log n}
+  =
+  o\!\left(\frac{n}{\log n}\right)
+  =
+  o(K).
+\]
+Therefore all odd primes at most $X=n^u$ are exhausted before the prefix of
+length $K$, and the local counting function $S(X)$ coincides with the truncated
+counting function $S_K(X)$.
+
+Substituting $X=n^u$ and $Y=n^{u-\eta}$ gives
+\[
+  S_K(n^u)
+  \ge
   \frac{\pi(n^u)-\pi(n^{u-\eta})}{h+1}-O_H(1).
 \]
-The prime number theorem then yields the claimed asymptotic lower bound,
-uniformly on each compact interval $I_h$.
+Now $u$ ranges over the fixed compact interval $I_h$, so the prime number
+theorem is uniform there:
+\[
+  \pi(n^u)=\bigl(1+o_H(1)\bigr)\frac{n^u}{u\log n}.
+\]
+Also $u-\eta\le u-\tau_H/2$, hence
+\[
+  \frac{\pi(n^{u-\eta})}{n^u/(u\log n)}
+  \ll_H
+  u\,n^{-\eta}
+  =
+  o_H(1)
+\]
+uniformly for $u\in I_h$.  Since there are only finitely many blocks
+$1\le h\le H-1$, we may absorb the error terms into a single function
+$\xi_H(n)\to 0$, valid simultaneously for every $h$ and every $u\in I_h$.
+This gives
+\[
+  S_K(n^u)
+  \ge
+  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u\log n},
+\]
+as claimed.
 \end{proof}
 
 \subsection{Moment constants and the Bonferroni coefficient}
@@ -108,12 +185,25 @@ the truncated factorial-moment sums
 \subsection{Monotone envelope and inversion}
 
 The local density from \Cref{prop:local-density} is piecewise-defined, so one
-must build a monotone global comparison sequence.  This is exactly the content
-of Steps~3--5 of the Round~57 note.
+must build a monotone global comparison sequence before applying the
+Bonferroni comparison.
 
 \begin{proposition}[Envelope and inversion]\label{prop:envelope-inversion}
-For each fixed $H$ there exists a monotone cumulative lower envelope
-$C_{H,n}(X)$ such that:
+Fix $H\ge 2$, and define $\tau_H,\alpha_h,\beta_h,I_h$ as in
+\Cref{prop:local-density}.  Put
+\[
+  G_H := \bigcup_{h=1}^{H-1} I_h,
+\]
+and for $1\le r\le 4$ define
+\[
+  J_r^{(H)}
+  :=
+  \frac1{r!}
+  \int_{\substack{u_1+\cdots+u_r\le 1\\u_i\in G_H}}
+  \prod_{i=1}^r \rhoU(u_i)\,du_1\cdots du_r.
+\]
+Then for every sufficiently large $n$ there exists a monotone function
+$C_{H,n}:[2,n]\to\{0,1,\dots,K\}$ such that:
 \begin{enumerate}
   \item $C_{H,n}(X)\le S_K(X)$ for all $2\le X\le n$;
   \item if
@@ -121,35 +211,362 @@ $C_{H,n}(X)$ such that:
       b_j := \inf\{X\in[2,n]: C_{H,n}(X)\ge j\},
     \]
     then $q_j \le b_j$ for every $1\le j\le K$;
-  \item after first letting $n\to\infty$ and then $H\to\infty$,
+  \item for every fixed $r\in\{1,2,3,4\}$,
     \[
-      T_r^{(b)}(n)=J_r+o(1)
-      \qquad (1\le r\le 4).
+      T_r^{(b)}(n)=J_r^{(H)}+o_H(1)
+      \qquad (n\to\infty);
+    \]
+  \item for every fixed $r\in\{1,2,3,4\}$,
+    \[
+      0\le J_r-J_r^{(H)}\le \frac{5r}{4H\,r!}.
     \]
 \end{enumerate}
+In particular, there exists an integer-valued function $H_*(n)\to\infty$ and a
+corresponding choice of comparison sequences
+\[
+  b_1^{(n)}\le \cdots \le b_K^{(n)}
+\]
+obtained from the above construction with $H=H_*(n)$ such that
+\[
+  T_r^{(b^{(n)})}(n)=J_r+o(1)
+  \qquad (1\le r\le 4).
+\]
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-On each compact block $I_h$ from \Cref{prop:local-density}, define a lower
-envelope
+\begin{proof}
+By \Cref{prop:local-density}, there is a function $\xi_H(n)\to 0$ such that
+for every large enough $n$, every $1\le h\le H-1$, and every $u\in I_h$,
 \[
-  A_{n,h}(u) \asymp \frac{n^u}{(h+1)u\log n}.
+  S_K(n^u)
+  \ge
+  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u\log n}.
 \]
-These functions are increasing for large $n$.  The cumulative envelope
-$C_{H,n}(X)$ is obtained by stitching together the blockwise floors
-$\lfloor A_{n,h}(\log_n X)\rfloor$ and filling the breakpoint gaps by constant
-``flat blocks.''  By construction, $C_{H,n}\le S_K$, so the inverse sequence
-$b_j$ satisfies $q_j\le b_j$.
+Define
+\[
+  A_{n,h}(u)
+  :=
+  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u\log n}
+  \qquad (u\in I_h).
+\]
+For fixed $H$ and all sufficiently large $n$, the functions $A_{n,h}$ are
+strictly increasing on $I_h$, since
+\[
+  A_{n,h}'(u)
+  =
+  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u}
+  \left(1-\frac{1}{u\log n}\right),
+\]
+and $u\ge \alpha_{H-1}>1/H$.
 
-The flat blocks contribute negligible reciprocal mass: each logarithmic cell has
-mass $O(1/\log n)$, and the tuples crossing the boundary layers contribute only
-$o(1)$ to the first four factorial moments.  On the genuine blocks, the weak
-convergence of the empirical measure follows from the same local density law,
-and this gives
+Set
 \[
-  T_r^{(b)}(n)=J_r+o(1)
+  L_h := \lfloor A_{n,h}(\alpha_h)\rfloor,
+  \qquad
+  R_h := \lfloor A_{n,h}(\beta_h)\rfloor
+  \qquad (1\le h\le H-1).
 \]
-for $1\le r\le 4$.
+Then $L_h\le R_h$.  Moreover, for $2\le h\le H-1$,
+\[
+  \frac{A_{n,h-1}(\alpha_{h-1})}{A_{n,h}(\beta_h)}
+  =
+  n^{2\tau_H}\cdot
+  \frac{(h+1)(1/h-\tau_H)}{h(1/h+\tau_H)}
+  \to \infty,
+\]
+so $R_h\le L_{h-1}$ for all large $n$.  Also
+\[
+  R_1 \ll \frac{n^{1-\tau_H}}{\log n}=o(K),
+\]
+again for large $n$.  Thus, after increasing $n$ if necessary,
+\[
+  0\le L_{H-1}\le R_{H-1}\le L_{H-2}\le R_{H-2}\le \cdots \le L_1\le R_1<K.
+\]
+
+We now define the cumulative lower envelope by
+\[
+  C_{H,n}(X):=
+  \begin{cases}
+    0, & 2\le X<n^{\alpha_{H-1}},\\[1mm]
+    \lfloor A_{n,h}(\log_n X)\rfloor,
+      & n^{\alpha_h}\le X\le n^{\beta_h}\quad (1\le h\le H-1),\\[1mm]
+    R_h, & n^{\beta_h}<X<n^{\alpha_{h-1}}\quad (2\le h\le H-1),\\[1mm]
+    R_1, & n^{\beta_1}<X<n,\\[1mm]
+    K, & X=n.
+  \end{cases}
+\]
+This function is monotone nondecreasing: it is nondecreasing on each genuine
+block because $A_{n,h}$ is increasing, it is constant on each gap, and the
+relations $R_h\le L_{h-1}$ guarantee monotonicity across adjacent pieces.
+
+We next prove that $C_{H,n}(X)\le S_K(X)$ for all $2\le X\le n$.  If
+$X\in[n^{\alpha_h},n^{\beta_h}]$, then
+\[
+  C_{H,n}(X)
+  =
+  \lfloor A_{n,h}(\log_n X)\rfloor
+  \le
+  S_K(X)
+  \qquad
+  \text{by the definition of $A_{n,h}$}.
+\]
+If $X\in(n^{\beta_h},n^{\alpha_{h-1}})$ with $2\le h\le H-1$, then
+\[
+  C_{H,n}(X)=R_h\le S_K(n^{\beta_h})\le S_K(X),
+\]
+since $S_K$ is nondecreasing.  The same argument gives
+$C_{H,n}(X)=R_1\le S_K(X)$ on $(n^{\beta_1},n)$, while
+$C_{H,n}(X)=0\le S_K(X)$ below $n^{\alpha_{H-1}}$ and
+$C_{H,n}(n)=K=S_K(n)$.  This proves part~(1).
+
+Define
+\[
+  b_j := \inf\{X\in[2,n]: C_{H,n}(X)\ge j\}
+  \qquad (1\le j\le K).
+\]
+Because $C_{H,n}$ is nondecreasing, the sequence $(b_j)_{j=1}^K$ is
+nondecreasing.  Moreover,
+\[
+  S_K(b_j)\ge C_{H,n}(b_j)\ge j,
+\]
+so the $j$th prime in the Round~15 prefix satisfies $q_j\le b_j$.  This proves
+part~(2).
+
+For the moment asymptotics, write
+\[
+  u_j := \log_n b_j,
+  \qquad
+  w_j := \frac{1}{b_j}=n^{-u_j},
+  \qquad
+  \mu_{H,n} := \sum_{j=1}^K w_j\,\delta_{u_j}.
+\]
+Split $\mu_{H,n}=\nu_{H,n}+\lambda_{H,n}$, where $\nu_{H,n}$ is the
+contribution from the genuine interval blocks
+$L_h<j\le R_h$, and $\lambda_{H,n}$ is the contribution from the flat filler
+blocks.
+
+The filler blocks have negligible reciprocal mass.  For the bottom block,
+\[
+  |\lambda_{H,n}^{\mathrm{bot}}|
+  =
+  L_{H-1}n^{-\alpha_{H-1}}
+  \le
+  A_{n,H-1}(\alpha_{H-1})n^{-\alpha_{H-1}}
+  =
+  \frac{1-\xi_H(n)}{H\alpha_{H-1}\log n}
+  =
+  O_H\!\left(\frac1{\log n}\right).
+\]
+For a gap block between $I_h$ and $I_{h-1}$, where $2\le h\le H-1$,
+\[
+  |\lambda_{H,n}^{(h)}|
+  =
+  (L_{h-1}-R_h)n^{-\alpha_{h-1}}
+  \le
+  L_{h-1}n^{-\alpha_{h-1}}
+  \le
+  \frac{1-\xi_H(n)}{h\,\alpha_{h-1}\log n}
+  =
+  O_H\!\left(\frac1{\log n}\right).
+\]
+For the top block,
+\[
+  |\lambda_{H,n}^{\mathrm{top}}|
+  =
+  (K-R_1)n^{-1}
+  \le
+  \frac{K}{n}
+  =
+  O\!\left(\frac1{\log n}\right).
+\]
+Since there are only $O_H(1)$ filler blocks,
+\[
+  |\lambda_{H,n}|
+  =
+  O_H\!\left(\frac1{\log n}\right)
+  =
+  o_H(1).
+\]
+
+We next analyze the genuine blocks.  Fix $1\le h\le H-1$.  On the block
+$L_h<j\le R_h$, the value $u_j=:u_{h,j}\in I_h$ is defined by
+$A_{n,h}(u_{h,j})=j$.  Therefore, for every $f\in C^1([0,1])$,
+\[
+  \int f\,d\nu_{H,n}^{(h)}
+  =
+  \sum_{j=L_h+1}^{R_h} f(u_{h,j})n^{-u_{h,j}}
+  =
+  \int_{\alpha_h}^{\beta_h} f(u)n^{-u}\,d\lfloor A_{n,h}(u)\rfloor.
+\]
+Let
+\[
+  R_{n,h}(u):=\lfloor A_{n,h}(u)\rfloor-A_{n,h}(u),
+  \qquad |R_{n,h}(u)|\le 1.
+\]
+Applying Stieltjes integration by parts with
+$g(u):=f(u)n^{-u}$ gives
+\[
+  \int_{\alpha_h}^{\beta_h} g(u)\,d\lfloor A_{n,h}(u)\rfloor
+  =
+  \int_{\alpha_h}^{\beta_h} g(u)\,dA_{n,h}(u)
+  +
+  E_{n,h}(f),
+\]
+where
+\[
+  |E_{n,h}(f)|
+  \le
+  2\|g\|_\infty+\int_{\alpha_h}^{\beta_h}|g'(u)|\,du.
+\]
+Since
+\[
+  g'(u)=\bigl(f'(u)-(\log n)f(u)\bigr)n^{-u},
+\]
+we obtain
+\[
+  |E_{n,h}(f)|
+  \le
+  2\|f\|_\infty n^{-\alpha_h}
+  +(\beta_h-\alpha_h)\|f'\|_\infty n^{-\alpha_h}
+  +(\beta_h-\alpha_h)(\log n)\|f\|_\infty n^{-\alpha_h}
+  =
+  o_H(1).
+\]
+On the other hand,
+\[
+  n^{-u}A_{n,h}'(u)
+  =
+  \bigl(1-\xi_H(n)\bigr)\rhoU(u)
+  \left(1-\frac{1}{u\log n}\right)
+  \qquad (u\in I_h),
+\]
+because $\rhoU(u)=1/((h+1)u)$ on $I_h$.  Hence
+\[
+  \int_{\alpha_h}^{\beta_h} f(u)n^{-u}\,dA_{n,h}(u)
+  =
+  \bigl(1-\xi_H(n)\bigr)\int_{\alpha_h}^{\beta_h}
+  f(u)\rhoU(u)\left(1-\frac{1}{u\log n}\right)\,du
+  =
+  \int_{I_h} f(u)\rhoU(u)\,du+o_H(1),
+\]
+uniformly for fixed $f$.  Combining the last two displays yields
+\[
+  \int f\,d\nu_{H,n}^{(h)}
+  =
+  \int_{I_h} f(u)\rhoU(u)\,du+o_H(1).
+\]
+Summing over $h$ and using $|\lambda_{H,n}|=o_H(1)$, we find that for every
+$f\in C^1([0,1])$,
+\[
+  \int f\,d\mu_{H,n}
+  =
+  \int_{G_H} f(u)\rhoU(u)\,du+o_H(1).
+\]
+In particular, $\mu_{H,n}$ converges weakly to the absolutely continuous
+measure
+\[
+  \mu_H:=\rhoU(u)\mathbf 1_{G_H}(u)\,du.
+\]
+
+Fix $r\in\{1,2,3,4\}$, and write
+\[
+  \Sigma_r:=\{(u_1,\dots,u_r)\in[0,1]^r:u_1+\cdots+u_r\le 1\}.
+\]
+Then
+\[
+  \int_{\Sigma_r} d\mu_{H,n}^{\otimes r}
+  =
+  \sum_{j_1,\dots,j_r}
+  \mathbf 1_{\{u_{j_1}+\cdots+u_{j_r}\le 1\}}
+  \prod_{t=1}^r w_{j_t}.
+\]
+The contribution of distinct ordered $r$-tuples is exactly
+$r!\,T_r^{(b)}(n)$, because
+$u_{j_1}+\cdots+u_{j_r}\le 1$ is equivalent to
+$b_{j_1}\cdots b_{j_r}\le n$.  The repeated-index contribution is negligible:
+\[
+  \max_j w_j \le n^{-\alpha_{H-1}} \to 0,
+\]
+while $\mu_{H,n}([0,1])=O_H(1)$ by the weak convergence with $f\equiv 1$.
+Therefore
+\[
+  0
+  \le
+  \int_{\Sigma_r} d\mu_{H,n}^{\otimes r}-r!\,T_r^{(b)}(n)
+  \le
+  \binom{r}{2}\bigl(\max_j w_j\bigr)\mu_{H,n}([0,1])^{r-1}
+  =
+  o_H(1).
+\]
+Since $\mu_H$ is absolutely continuous, its product measure gives zero mass to
+the boundary $\partial\Sigma_r$.  Weak convergence therefore implies
+\[
+  \int_{\Sigma_r} d\mu_{H,n}^{\otimes r}
+  \to
+  \int_{\Sigma_r} d\mu_H^{\otimes r}
+  =
+  \int_{\substack{u_1+\cdots+u_r\le 1\\u_i\in G_H}}
+  \prod_{i=1}^r \rhoU(u_i)\,du_1\cdots du_r
+  =
+  r!\,J_r^{(H)}.
+\]
+Combining the last two displays proves part~(3):
+\[
+  T_r^{(b)}(n)=J_r^{(H)}+o_H(1).
+\]
+
+It remains to control the excised breakpoint region.  Since
+$0<\rhoU(u)<1$ on $(0,1]$, we have
+\[
+  0\le J_r-J_r^{(H)}
+  \le
+  \frac1{r!}\,
+  \lambda_r\bigl(\{(u_1,\dots,u_r)\in[0,1]^r:\exists i,\ u_i\notin G_H\}\bigr),
+\]
+where $\lambda_r$ denotes $r$-dimensional Lebesgue measure.  Moreover,
+\[
+  |(0,1]\setminus G_H|
+  =
+  \frac1H+2(H-1)\tau_H
+  \le
+  \frac1H+\frac{1}{4H}
+  =
+  \frac{5}{4H}.
+\]
+By the union bound in $[0,1]^r$,
+\[
+  \lambda_r\bigl(\{(u_1,\dots,u_r)\in[0,1]^r:\exists i,\ u_i\notin G_H\}\bigr)
+  \le
+  r\,|(0,1]\setminus G_H|
+  \le
+  \frac{5r}{4H}.
+\]
+This proves part~(4), and the final statement follows immediately by first
+letting $n\to\infty$ for fixed $H$, and then letting $H\to\infty$.
+
+To obtain a single comparison sequence for each $n$, choose $N_H$ so large
+that for all $n\ge N_H$ the above construction is valid and, for every
+$1\le r\le 4$,
+\[
+  \bigl|T_r^{(b)}(n)-J_r^{(H)}\bigr|\le \frac1H.
+\]
+After enlarging if necessary, we may assume $N_H$ is increasing in $H$.  Define
+\[
+  H_*(n):=\max\{H\ge 2:N_H\le n\},
+\]
+and let $b_1^{(n)}\le\cdots\le b_K^{(n)}$ be the comparison sequence produced
+with parameter $H=H_*(n)$.  Then $H_*(n)\to\infty$, and for every
+$1\le r\le 4$,
+\[
+  \bigl|T_r^{(b^{(n)})}(n)-J_r\bigr|
+  \le
+  \bigl|T_r^{(b^{(n)})}(n)-J_r^{(H_*(n))}\bigr|
+  +
+  \bigl|J_r^{(H_*(n))}-J_r\bigr|
+  \le
+  \frac{1}{H_*(n)}+\frac{5r}{4H_*(n)r!},
+\]
+which tends to $0$.  This proves the final statement.
+\qedhere
 \end{proof}
 
 \subsection{The prime-sequence Bonferroni comparison theorem}
@@ -244,112 +661,269 @@ must not be used.  The correct bridge is the half-density construction of
 \Cref{thm:prime-bridge}.
 
 \begin{theorem}[Prime-rounding bridge]\label{thm:prime-bridge}
-Let $b_1\le \cdots \le b_K$ be the increasing sequence obtained from the
-Round~57 envelope construction.  Then there exists an increasing sequence of odd
-primes
+Fix $0<\eps<1$, and let
+\[
+  K=\left\lfloor \frac{(1-\eps)n}{2\log n}\right\rfloor.
+\]
+There exists a choice of comparison sequences
+\[
+  b_1^{(n)}\le \cdots \le b_K^{(n)}
+\]
+from the construction of \Cref{prop:envelope-inversion}, and there exists an
+increasing sequence of odd primes
 \[
   p_1<\cdots<p_K
 \]
 such that
 \[
-  q_j \le b_j \le p_j \qquad (1\le j\le K)
+  q_j \le p_j \qquad (1\le j\le K)
 \]
 and
 \[
-  \sup_{b_j\le n}\frac{p_j}{b_j}=1+o(1).
+  T_r^{(b^{(n)})}(n)=J_r+o(1)
+  \qquad (1\le r\le 4).
 \]
-Consequently, for each fixed $1\le r\le 4$,
+Moreover the primes may be chosen so that, for each fixed $1\le r\le 4$,
 \[
-  T_r^{(p)}(n)=T_r^{(b)}(n)+o(1)=J_r+o(1).
+  T_r^{(p)}(n)=T_r^{(b^{(n)})}(n)+o(1)=J_r+o(1).
 \]
 \end{theorem}
 
 \begin{proof}
-Let
+We first prove a fixed-parameter statement.  Fix $H\ge2$ and
+$\lambda>1$.  Let $\tau_H,\alpha_h,\beta_h,I_h,G_H$ be as in
+\Cref{prop:envelope-inversion}, and let $b_1,\dots,b_K$ be the sequence
+obtained by inverting the envelope $C_{H,n}$ for this fixed $H$.  We shall
+construct increasing odd primes $p_1,\dots,p_K$ such that
 \[
-  B_n(X):=\#\{j:b_j\le X\}.
+  q_j\le p_j \qquad (1\le j\le K)
 \]
-The decisive input is the local-density envelope bound inherited from the
-Round~57 construction:
+and, for $1\le r\le4$,
 \[
-  \frac{dB_n}{dX}
+  T_r^{(p)}(n)=J_r^{(H)}+O_{H,r}(\lambda-1)+o_{H,\lambda}(1).
+  \tag{PB1}
+\]
+Here $n\to\infty$ with $H,\lambda,\eps$ fixed.
+
+Write
+\[
+  B_{H,n}(X):=\#\{j:b_j\le X\}.
+\]
+Since $b_j=\inf\{X:C_{H,n}(X)\ge j\}$ and $C_{H,n}$ is nondecreasing and
+integer-valued,
+\[
+  B_{H,n}(X)=C_{H,n}(X)
+  \qquad (2\le X\le n).
+\]
+We need the following interval count, which is the point at which the
+half-density slack enters.  Fix $\Delta>0$.  For all sufficiently large $n$,
+uniformly in $1\le h\le H-1$ and in all $X$ for which
+$[X,(1+\Delta)X]\subseteq[n^{\alpha_h},n^{\beta_h}]$,
+\[
+  B_{H,n}((1+\Delta)X)-B_{H,n}(X)
+  \le
+  \left(\frac12+o_{H,\Delta}(1)\right)\frac{\Delta X}{\log X}.
+  \tag{PB2}
+\]
+Indeed, put $u=\log_n X$ and
+$\theta=\log(1+\Delta)/\log n$.  On a genuine block,
+$B_{H,n}(Y)=\lfloor A_{n,h}(\log_n Y)\rfloor$, up to an error of at most one
+at each endpoint.  Therefore
+\[
+  B_{H,n}((1+\Delta)X)-B_{H,n}(X)
+  \le
+  A_{n,h}(u+\theta)-A_{n,h}(u)+2.
+\]
+For $v\in[u,u+\theta]$ and $Y=n^v$,
+\[
+  \frac{d}{dY}A_{n,h}(\log_n Y)
   =
-  \frac{\rhoU(u)}{\log n}
+  \frac{1-\xi_H(n)}{(h+1)\log Y}
+  \left(1-\frac{1}{\log Y}\right)
   \le
-  \frac{1}{2\log X}
+  \frac{1+o_H(1)}{(h+1)\log X}.
 \]
-uniformly for $X$ in the Round~57 range.  Equivalently, for every fixed
-$\Delta>0$,
-\[
-  B_n((1+\Delta)X)-B_n(X)
-  \le
-  \left(\frac12+o(1)\right)\frac{\Delta X}{\log X}.
-\]
-Thus the $b_j$ occupy each short multiplicative interval with density at most
-\emph{half} the odd-prime density.
+Since $h+1\ge2$ and $X\ge n^{\alpha_{H-1}}\ge n^{1/H}$, the endpoint error
+$2$ is $o_{H,\Delta}(\Delta X/\log X)$.  This proves \((\mathrm{PB2})\).
 
-Fix $\delta>0$ and partition $[n^\alpha,n]$ into multiplicative bins
+Choose $\delta=\delta(\lambda)>0$ with
 \[
-  I_k=[x_k,x_{k+1}),
-  \qquad
-  x_{k+1}=(1+\delta)x_k.
+  (1+\delta)^2\le\lambda.
 \]
-Assign the $b_j$ that lie in $I_k$ to distinct odd primes in the \emph{next}
-bin
+All uses of the prime number theorem below are uniform for
+$X\ge n^{1/H}$ and for fixed multiplicative intervals, because $H$ and
+$\delta$ are fixed.  Thus, uniformly in such $X$,
 \[
-  P_k=[x_{k+1},x_{k+2}).
+  \#\{p\text{ odd prime}:(1+\delta)X\le p<(1+\delta)^2X\}
+  =
+  (1+o_{H,\delta}(1))\frac{\delta(1+\delta)X}{\log X}.
+  \tag{PB3}
 \]
-By the prime number theorem,
-\[
-  \#P_k = (1+o(1))\frac{\delta x_{k+1}}{\log x_k},
-\]
-while the local-density bound above shows that the number of $b_j$ in $I_k$ is
-at most
-\[
-  \left(\frac12+o(1)\right)\frac{\delta x_k}{\log x_k}.
-\]
-For large $n$, each next bin therefore contains more than twice as many odd
-primes as there are $b_j$ in the preceding bin.  Greedy assignment within each
-bin produces an increasing odd-prime sequence with
-\[
-  b_j \le p_j \le (1+\delta)^2 b_j.
-\]
-Because the greedy choice is coordinatewise minimal, it is no larger than any
-other feasible increasing prime assignment.
+Combining \((\mathrm{PB2})\) and \((\mathrm{PB3})\), for all sufficiently large $n$ every
+multiplicative bin $[X,(1+\delta)X)$ contained in a genuine block contains
+strictly fewer $b_j$ than there are odd primes in the next bin
+$[(1+\delta)X,(1+\delta)^2X)$.
 
-Now choose $\delta=\delta(n)\to 0$ along a diagonal sequence.  This gives
+It remains to keep the bins away from the finitely many artificial boundary
+layers.  Choose a constant $\Gamma_H>4$, depending only on $H$, large enough
+for the reservoir count below.  For each genuine block
+$[n^{\alpha_h},n^{\beta_h}]$, declare exceptional all indices $j$ for which
 \[
-  \sup_{b_j\le n}\frac{p_j}{b_j}=1+o(1).
+  b_j\in
+  [n^{\alpha_h},\Gamma_H n^{\alpha_h}]
+  \cup
+  [\Gamma_H^{-1}n^{\beta_h},n^{\beta_h}],
 \]
-Let $\lambda_n$ denote this supremum.  Then for every $r$-tuple
-$I=\{j_1<\cdots<j_r\}$,
+and also all indices lying in the flat filler blocks of the envelope.  Denote
+the exceptional set by $\mathcal E$ and its complement by $\mathcal G$.
+For fixed $H$ and large $n$, these boundary reservoirs are disjoint and occur
+in the same order as the corresponding indices, because the gaps between
+successive genuine blocks have multiplicative size $n^{2\tau_H}$.
+
+The exceptional set has negligible reciprocal mass.  The flat filler blocks
+already satisfy the estimate proved in \Cref{prop:envelope-inversion},
 \[
-  b_I \le p_I \le \lambda_n^r b_I,
+  \sum_{j\text{ flat}}\frac1{b_j}
+  =
+  O_H\!\left(\frac1{\log n}\right).
+\]
+For a genuine boundary layer, \((\mathrm{PB2})\) with fixed multiplicative length
+implies
+\[
+\sum_{\substack{j:b_j\in[X,\Gamma_H X]\\j\text{ genuine}}}\frac1{b_j}
+  \ll_{H,\Gamma_H}\frac1{\log n},
+\]
+uniformly for $X\ge n^{1/H}$.  There are $O_H(1)$ such layers, hence
+\[
+  \sum_{j\in\mathcal E}\frac1{b_j}
+  =
+  O_{H,\lambda}\!\left(\frac1{\log n}\right).
+  \tag{PB4}
+\]
+
+We next assign primes to the exceptional indices.  On each boundary reservoir
+of the form $[X,\Gamma_H X]$, the number of genuine exceptional indices is at
+most
+\[
+  \left(\frac12+o_H(1)\right)\frac{(\Gamma_H-1)X}{\log X},
+\]
+  by \((\mathrm{PB2})\) applied with $\Delta=\Gamma_H-1$, while the number of odd primes in
+the same reservoir is
+\[
+  (1+o_H(1))\frac{(\Gamma_H-1)X}{\log X}.
+\]
+At a left endpoint one must also place the adjacent flat atom.  Its size is at
+most the value of the envelope at that endpoint, namely
+\[
+  O_H\!\left(\frac{X}{\log X}\right),
+\]
+with an implied constant depending only on $H$; the choice of $\Gamma_H$
+ensures that the reservoir contains enough odd primes for both the flat atom
+and the genuine boundary layer.  More explicitly, the sorted lower bounds
+$b_j$ in the reservoir satisfy the one-dimensional Hall condition: the full
+reservoir has enough primes by the preceding choice of $\Gamma_H$, and every
+proper suffix $[Y,\Gamma_H X]$ contains at most half as many genuine
+exceptional $b_j$ as there are odd primes there, by the interval estimate
+\((\mathrm{PB2})\), uniformly for multiplicative lengths at most $\Gamma_H$,
+and the prime number theorem.  Thus greedy assignment to the smallest unused odd prime
+which is at least the current $b_j$ succeeds inside the reservoir.  The top
+flat block is placed in $[n,\Gamma_H n]$, which has enough odd primes because
+$K\le n/(2\log n)$ and $\Gamma_H>2$.  Consequently all exceptional indices can
+be assigned, in increasing order, to distinct odd primes satisfying
+$b_j\le p_j$ and hence $q_j\le p_j$.  Their total reciprocal mass is
+\[
+  \sum_{j\in\mathcal E}\frac1{p_j}
+  =
+  O_{H,\lambda}\!\left(\frac1{\log n}\right).
+  \tag{PB5}
+\]
+
+Now consider the nonexceptional indices.  In each genuine block, partition the
+remaining interval into consecutive multiplicative bins
+\[
+  [X,(1+\delta)X),
+\]
+discarding at most the first and last partial bin into $\mathcal E$.  For each
+full bin, assign the $b_j$ in that bin, in increasing order, to the odd primes
+in the next bin.  The count comparison \((\mathrm{PB2})\)-\((\mathrm{PB3})\) shows that this is
+  possible for all large $n$.  The prime bins are disjoint and increasing, so
+together with the reservoir assignments this produces one increasing sequence
+of odd primes.  For every $j\in\mathcal G$,
+\[
+  b_j\le p_j\le (1+\delta)^2 b_j\le\lambda b_j.
+  \tag{PB6}
+\]
+
+We compare moments.  The total reciprocal mass of the $b_j$ is $O_H(1)$ by
+\Cref{prop:envelope-inversion}; the same is true for the $p_j$, by
+\((\mathrm{PB5})\) and \((\mathrm{PB6})\).  Hence every $r$-tuple containing at least one
+exceptional index contributes
+\[
+  O_{H,r,\lambda}\!\left(\frac1{\log n}\right)
+  =
+  o_{H,\lambda}(1)
+\]
+to either $T_r^{(b)}(n)$ or $T_r^{(p)}(n)$.  It remains to compare tuples
+lying wholly in $\mathcal G$.
+
+For such a tuple $I=\{j_1<\cdots<j_r\}$, set
+\[
+  b_I:=\prod_{j\in I}b_j,
   \qquad
-  b_I := \prod_{j\in I} b_j,
-  \quad
-  p_I := \prod_{j\in I} p_j.
+  p_I:=\prod_{j\in I}p_j.
 \]
-Hence
+By \((\mathrm{PB6})\),
 \[
-  T_r^{(p)}(n)\le T_r^{(b)}(n),
+  b_I\le p_I\le\lambda^r b_I,
+  \qquad
+  \lambda^{-r}\frac1{b_I}\le\frac1{p_I}\le\frac1{b_I}.
 \]
-and also
+The weight change contributes $O_{H,r}(\lambda-1)$, because the total
+$b$-reciprocal mass is $O_H(1)$.  The only remaining discrepancy is the
+product boundary
 \[
-  T_r^{(p)}(n)\ge \lambda_n^{-r}T_r^{(b)}(n/\lambda_n^r).
+  n/\lambda^r < b_I\le n.
 \]
-Since $\lambda_n\to 1$ and $T_r^{(b)}(n)=J_r+o(1)=O(1)$, the multiplicative
-coefficient error is $o(1)$.  The remaining boundary layer
+For fixed $H$ and $\lambda$, this boundary layer is $o_{H,\lambda}(1)$: in
+logarithmic coordinates it is a strip of width
+$r\log\lambda/\log n$ around the hyperplane
+$u_1+\cdots+u_r=1$, and the empirical measures from
+\Cref{prop:envelope-inversion} converge to an absolutely continuous limit.
+Equivalently, one may partition into unit logarithmic cells
+$[e^a,e^{a+1})$; each cell has reciprocal mass $O_H(1/\log n)$ by
+\((\mathrm{PB2})\), and only $O_{H,\lambda}((\log n)^{r-1})$ cell patterns meet the
+strip.  Thus
 \[
-  T_r^{(b)}(n)-T_r^{(b)}(n/\lambda_n^r)
+  T_r^{(p)}(n)
+  =
+  T_r^{(b)}(n)+O_{H,r}(\lambda-1)+o_{H,\lambda}(1).
 \]
-is also $o(1)$, because the same local-density bound gives reciprocal mass
-$O(1/\log n)$ for each logarithmic cell, and only $O((\log n)^{r-1})$ cell
-patterns contribute near the boundary.  Therefore
+Using \Cref{prop:envelope-inversion},
+$T_r^{(b)}(n)=J_r^{(H)}+o_H(1)$, and this proves \((\mathrm{PB1})\).
+
+It remains to diagonalize.  Choose a sequence $H_m\to\infty$ such that
 \[
-  T_r^{(p)}(n)=T_r^{(b)}(n)+o(1)=J_r+o(1)
+  |J_r^{(H_m)}-J_r|\le\frac1m
+  \qquad (1\le r\le4).
 \]
-for $1\le r\le 4$.
+For each $m$, choose $\lambda_m>1$ so close to $1$ that the constants implicit in
+$O_{H_m,r}(\lambda_m-1)$ in \((\mathrm{PB1})\) are at most $1/m$ for
+all $1\le r\le4$.  For each $m$, the fixed-parameter construction above is
+valid for all $n\ge N_m$ after enlarging $N_m$ so that also
+\[
+  |T_r^{(b)}(n)-J_r^{(H_m)}|\le \frac1m,
+\]
+for every $1\le r\le4$.  We may take $N_m$ increasing.  For
+$N_m\le n<N_{m+1}$ use the construction with $H=H_m$ and
+$\lambda=\lambda_m$.  This gives $H(n)\to\infty$ slowly enough that the
+smallest genuine scale $n^{\alpha_{H(n)-1}}$ still tends to infinity, so the
+uniform prime-number estimates used above remain valid.  The resulting
+comparison and prime sequences satisfy, for every fixed $1\le r\le4$,
+\[
+  T_r^{(b^{(n)})}(n)=J_r+o(1),
+  \qquad
+  T_r^{(p)}(n)=T_r^{(b^{(n)})}(n)+o(1)=J_r+o(1).
+\]
 \end{proof}
 
 \subsection{The finite Bonferroni--4 theorem}
@@ -363,13 +937,14 @@ Under the Round~15 strategy $\sigfifteen$,
 \end{theorem}
 
 \begin{proof}
-By \Cref{prop:envelope-inversion}, the inverted sequence $b_j$ satisfies
+By \Cref{thm:prime-bridge}, there are a comparison sequence
+$b_1\le\cdots\le b_K$ and an increasing odd-prime sequence $p_j$ with
+$q_j\le p_j$ such that
 \[
   T_r^{(b)}(n)=J_r+o(1)
   \qquad (1\le r\le 4).
 \]
-By \Cref{thm:prime-bridge}, there is an increasing odd-prime sequence $p_j$
-with $q_j\le p_j$ and
+The same theorem gives
 \[
   T_r^{(p)}(n)=J_r+o(1)
   \qquad (1\le r\le 4).
