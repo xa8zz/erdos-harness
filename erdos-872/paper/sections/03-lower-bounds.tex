@@ -119,8 +119,11 @@ failed strategy.
 
 The second lower bound is the main result of this section.
 
-\begin{theorem}[T2]\label{thm:t2}
-There is an absolute constant $c>0$ such that, for all sufficiently large $n$,
+\begin{theorem}[Conditional T2]\label{thm:t2}
+Assume the safe-edge hypothesis of \Cref{prop:t2-finite-capture} for the
+activation graph states and residual slot-hypergraph states used in the
+construction of \Cref{app:t2-proof}.  Then there is an absolute constant
+$c>0$ such that, for all sufficiently large $n$,
 \[
   \L(n) \ge c\frac{n(\log\log n)^2}{\log n}.
 \]
@@ -132,9 +135,10 @@ $c_\delta>0$ such that
 for all sufficiently large $n$.
 \end{theorem}
 
-The proof is deferred to \Cref{app:t2-proof}.  We describe the strategy here,
-because the construction is the bridge between the one-dimensional lower-bound
-mechanism above and the later discussion of second-order obstructions.
+The conditional proof is deferred to \Cref{app:t2-proof}.  We describe the
+strategy here, because the construction is the bridge between the
+one-dimensional lower-bound mechanism above and the later discussion of
+second-order obstructions.
 
 Fix $Y=n^\delta$ with $0<\delta<1/4$.  For small primes $a<c\le Y$, consider
 upper-half targets
@@ -151,8 +155,8 @@ The family has total size
 Prolonger first activates many small-prime pairs $(a,c)$ by playing one target
 from the corresponding fiber.  The activation phase is governed by a finite
 weighted graph capture game whose scaled potential starts at one eighth of the
-total target mass and is nondecreasing under a max-gain Maker move, up to a
-negligible token-deletion error.
+total target mass and is nondecreasing under the finite safe-edge hypothesis,
+up to a negligible token-deletion error.
 
 Once a pair $(a,c)$ has been activated, the divisors $a$, $c$, and $ac$ are no
 longer available as future Shortener moves against the residual targets
@@ -166,7 +170,8 @@ compared to a scored rank-$3$ hypergraph game: slot moves delete incident
 hyperedges, while exact-target moves are counted as score.  The same scaled
 potential gives Prolonger a fixed positive fraction of the residual mass.
 
-The appendix proves these ingredients in order: the abstract finite potential
-game, the residual divisibility embedding, the activation-stage token
-bookkeeping, the prime-counting estimates, and the final conversion to the
-stated lower bound.
+The appendix proves these ingredients in order: the counterexample to the
+naive max-gain rule, the conditional finite potential game, the residual
+divisibility embedding, the activation-stage token bookkeeping, the
+prime-counting estimates, and the final conversion to the conditional lower
+bound.

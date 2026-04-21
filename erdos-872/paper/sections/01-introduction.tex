@@ -88,11 +88,15 @@ Consequently
 \]
 \end{theorem}
 
-Our second lower bound comes from a Maker-first hypergraph capture argument.
+Our second lower bound comes from a Maker-first hypergraph capture argument,
+conditional on the finite safe-edge hypothesis stated in
+\Cref{prop:t2-finite-capture}.
 
-% source: erdos-872/phase4/t2_core_paper_note.md
-\begin{theorem}[T2 lower bound]\label{thm:intro-t2}
-For every fixed $0<\delta<1/4$ there exists $c_\delta>0$ such that
+\begin{theorem}[Conditional T2 lower bound]\label{thm:intro-t2}
+Assume the safe-edge hypothesis of \Cref{prop:t2-finite-capture} for the
+activation graph states and residual slot-hypergraph states used in
+\Cref{app:t2-proof}.  Then for every fixed $0<\delta<1/4$ there exists
+$c_\delta>0$ such that
 \[
   \L(n) \ge c_\delta \frac{n(\log\log n)^2}{\log n}
 \]
@@ -157,8 +161,10 @@ Taken together, these results leave open the central asymptotic question:
 \begin{center}
 does $\L(n)$ remain linear in $n$, or does it satisfy $\L(n)=o(n)$?
 \end{center}
-The lower and upper bounds in this paper show that the answer, whichever it is,
-lies between $n(\log\log n)^2/\log n$ and $0.19n$.
+The unconditional lower and upper bounds in this paper show that the answer,
+whichever it is, lies between $n\log\log n/\log n$ and $0.19n$; under the
+finite safe-edge hypothesis of \Cref{prop:t2-finite-capture}, the lower side
+improves to $n(\log\log n)^2/\log n$.
 
 \subsection{Organization}
 
@@ -172,5 +178,5 @@ the prime-rounding bridge of \Cref{thm:prime-bridge}.
 \Cref{sec:proof-class-barriers,sec:structural-negatives} collect the positive
 packet dichotomy and the structural obstruction results.
 \Cref{sec:formal-verification} summarizes the Lean and Aristotle artifacts, and
-the appendices record formalization metadata, numerical checks, and glossary
-information.
+the appendices record the conditional T2 proof, numerical checks,
+formalization metadata, and glossary information.

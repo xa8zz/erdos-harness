@@ -1,8 +1,10 @@
-\section{Full Proof of the T2 Lower Bound}\label{app:t2-proof}
+\section{Conditional Proof of the T2 Lower Bound}\label{app:t2-proof}
 
-This appendix proves \Cref{thm:t2}.  The proof is self-contained: all target
-families, auxiliary games, weights, activation rules, deletion errors, and
-asymptotic estimates are defined below.
+This appendix proves the conditional lower bound in \Cref{thm:t2}.  The proof
+is self-contained: all target families, auxiliary games, weights, activation
+rules, deletion errors, and asymptotic estimates are defined below.  The
+opening counterexample explains why the finite safe-edge hypothesis is stated
+explicitly rather than hidden inside a max-gain argument.
 
 Throughout this appendix $n$ is large, $0<\delta<1/4$ is fixed, and
 \[
@@ -25,86 +27,102 @@ For large $n$, every such $b$ is greater than $Y$: indeed
 $b>n/(2Y^2)=\frac12 n^{1-2\delta}>Y$.  Thus $a,c,b$ are distinct primes and
 each target $acb$ lies in $(n/2,n]$.
 
-\begin{proposition}[Finite scaled capture game]\label{prop:t2-finite-capture}
-Let $H$ be a finite weighted incidence system.  Its vertices form a finite set
-$V$, its edges form a finite set $\mathcal E$, each edge $e$ has a non-negative
-weight $w(e)$, and each incidence set $e\subseteq V$ has size at most $3$.
-Consider the following Maker-first scored game.
-
-At any time some vertices are captured, some vertices are deleted, and some
-edges are scored.  An edge is live if it is not scored and is disjoint from the
-deleted vertices.  Maker chooses a live edge $f$, scores $w(f)$, and captures
-all vertices of $f$.  Breaker then either deletes one uncaptured vertex or
-scores one live edge.  Let $S$ be the total scored weight, by either player,
-and for a live edge $e$ define
-\[
-  \Phi(e):=2^{|e\cap C|}w(e),
-\]
-where $C$ is the current captured-vertex set.  Scored and deleted edges
-contribute no live potential.  Set
-\[
-  Q:=8S+\sum_{e\text{ live}}\Phi(e).
-\]
-Maker has a strategy such that after each full Maker--Breaker round $Q$ is at
-least its value before Maker's move.  Consequently, if the game is continued
-until no live positive-weight edge remains, the final scored weight is at least
-\[
-  \frac18\sum_{e\in\mathcal E}w(e).
-\]
-The same conclusion holds for the rank-$2$ graph variant in which Breaker may
-delete an unscored live edge instead of scoring it, and Maker-scored edges are
-called claimed edges.
+\begin{proposition}[Max-gain domination is false in rank three]
+\label{prop:t2-max-gain-counterexample}
+The following finite scored rank-$3$ capture state has a unique max-gain Maker
+move, but Breaker can answer that move by deleting one uncaptured vertex and
+make the scaled potential decrease.
 \end{proposition}
 
 \begin{proof}
-We prove the rank-$3$ scored statement; the graph version is the same argument
-with edge deletion replacing Breaker's scored-edge move.  The graph edge
-deletion loses exactly the current live potential of that edge, while a
-scored-edge move changes $Q$ by $8w(e)-\Phi(e)\ge 0$.
-
-For a live Maker move $f$, let
+Let the already-captured vertices be
 \[
-  \Delta(f):=Q(\text{after Maker scores }f)-Q(\text{before Maker scores }f).
+  C=\{z_{ij}:1\le i,j\le 3\},
 \]
-Maker chooses a live edge maximizing $\Delta(f)$.  Such a choice exists because
-the game is finite.
-
-We record the two local domination facts used in the round estimate.  First,
-if $g$ is live and $|g\cap C|\le 2$, then scoring $g$ itself increases $Q$ by
-at least its current live potential $\Phi(g)$.  Indeed, the contribution of
-$g$ changes from $2^r w(g)$ to $8w(g)$ with $r=|g\cap C|\le 2$, and
-$8w(g)-2^r w(g)\ge 2^r w(g)$.  All other live-edge contributions can only
-increase when Maker captures new vertices.
-
-Second, let $v$ be a vertex that Breaker could delete after Maker's move, and
-let $\Lambda_v$ be the live potential incident with $v$ at that moment.  If
-$\Lambda_v>0$, choose a live edge $g$ containing $v$ after Maker's move.  The
-edge $g$ was also live before Maker's move.  Compare Maker's actual max-gain
-edge with the alternative move $g$.  When Maker scores $g$, every live edge
-through $v$ at the beginning of the round gains its whole current potential
-from the capture of $v$, and the selected edge $g$ supplies enough additional
-gain to cover the possible coefficient increases caused by the actual move
-before $v$ is deleted.  Edge by edge, this gives
+and let $u_1,u_2,u_3,v$ be uncaptured.  There are no deleted or scored edges.
+The live edges are
 \[
-  \Delta(g)\ge \Lambda_v.
+  f=\{u_1,u_2,u_3\},\qquad w(f)=9,
 \]
-Since Maker chose an edge of maximum $\Delta$, the actual Maker gain is at
-least $\Lambda_v$.
-
-Now consider Breaker's reply.  If Breaker scores a live edge, $Q$ does not
-decrease, as observed above.  If Breaker deletes an uncaptured vertex $v$, the
-only lost live terms are the live edges incident with $v$, whose total
-potential is $\Lambda_v$ after Maker's move.  The previous paragraph shows
-that Maker's already-secured gain is at least $\Lambda_v$, so the full
-Maker--Breaker round does not decrease $Q$.
-
-Initially $C=\varnothing$, $S=0$, and every edge is live, so
+and, for $1\le i,j\le 3$,
 \[
-  Q_0=\sum_{e\in\mathcal E}w(e).
+  e_{ij}=\{v,u_i,z_{ij}\},\qquad w(e_{ij})=4.
+\]
+For a live edge $e$, write $\Phi(e)=2^{|e\cap C|}w(e)$ and
+$Q=8S+\sum\Phi(e)$.
+
+Before Maker moves, $\Phi(f)=9$ and $\Phi(e_{ij})=8$ for all $i,j$.  If Maker
+plays $f$, then the score contribution of $f$ changes by
+$8w(f)-\Phi(f)=72-9=63$, and each of the nine edges $e_{ij}$ doubles from
+$8$ to $16$.  Hence
+\[
+  \Delta(f)=63+9\cdot 8=135.
+\]
+After this move, the vertex $v$ is still uncaptured, and deleting $v$ removes
+all nine edges $e_{ij}$, now of potential $16$ each.  The Breaker loss is
+\[
+  9\cdot 16=144>135.
+\]
+Thus the full round decreases $Q$.
+
+It remains only to check that $f$ is the unique max-gain move.  If Maker plays
+some $e_{ij}$, its own score gain is $8\cdot4-8=24$.  The edge $f$ doubles
+from $9$ to $18$, giving gain $9$.  The two other edges with the same $u_i$
+gain $24$ each, and the six edges with the other two $u$-vertices gain $8$
+each.  Therefore
+\[
+  \Delta(e_{ij})=24+9+2\cdot24+6\cdot8=129<135.
+\]
+So the unique max-gain move is $f$, and it does not dominate the subsequent
+vertex deletion at $v$.
+\end{proof}
+
+\begin{proposition}[Conditional finite scaled capture]\label{prop:t2-finite-capture}
+Consider a finite weighted incidence game of rank at most $3$ with the scaled
+potential
+\[
+  Q:=8S+\sum_{e\text{ live}}2^{|e\cap C|}w(e),
+\]
+where $C$ is the current captured-vertex set and $S$ is the total scored
+weight.  In the graph variant, Breaker may delete one unclaimed live edge; in
+the scored hypergraph variant, Breaker may score one live edge.
+
+Assume the following safe-edge hypothesis: at every reachable pre-Maker state
+with at least one positive-weight live edge, Maker has a legal live edge $f$
+such that, after Maker plays $f$, every legal Breaker reply leaves $Q$ at least
+as large as it was before Maker's move.
+
+Under this hypothesis, if the game is continued until no positive-weight live
+edge remains, the final claimed or scored weight is at least one eighth of the
+initial total edge-weight:
+\[
+  S_{\mathrm{fin}}
+  \ge
+  \frac18\sum_{e}w(e).
+\]
+\end{proposition}
+
+\begin{proof}
+Maker always chooses an edge supplied by the safe-edge hypothesis.  By
+definition of that hypothesis, $Q$ is nondecreasing after every full
+Maker--Breaker round.
+
+Initially $C=\varnothing$, $S=0$, and all initial edges are live, so
+\[
+  Q_0=\sum_e w(e).
 \]
 At terminal time there is no positive-weight live edge, hence
-$Q_{\mathrm{fin}}=8S_{\mathrm{fin}}$.  Monotonicity gives
-$8S_{\mathrm{fin}}\ge Q_0$, which is the desired one-eighth bound.
+$Q_{\mathrm{fin}}=8S_{\mathrm{fin}}$.  Therefore
+\[
+  8S_{\mathrm{fin}}=Q_{\mathrm{fin}}\ge Q_0=\sum_e w(e),
+\]
+which is the claimed one-eighth bound.
+
+For the graph variant, a Breaker edge-deletion reply is included in the
+safe-edge hypothesis.  For the scored hypergraph variant, a Breaker scored-edge
+reply is harmless whenever it occurs, since it changes $Q$ by
+$8w(e)-2^{|e\cap C|}w(e)\ge0$ for rank at most $3$; the only nontrivial part of
+the hypothesis is therefore the post-Maker vertex-deletion bound.
 \end{proof}
 
 \begin{proposition}[Initial target mass]\label{prop:t2-initial-mass}
@@ -214,12 +232,13 @@ During activation, let each unclaimed pair edge $e=(a,c)$ carry the current
 token set $B_e(t)$ of primes $b\in B_{a,c}$ for which the target $acb$ has not
 yet been killed.  Write $w_t(e):=|B_e(t)|$.
 
-Prolonger plays as follows.  In each activation round, among pair edges with
-positive current token weight, he chooses a max-gain edge in the graph version
-of \Cref{prop:t2-finite-capture}; if $e=(a,c)$ is chosen, he plays one live
-target $acb$ with $b\in B_e(t)$.  This scores one actual move, claims the pair
-edge $e$, captures the vertices $a$ and $c$, and leaves the remaining live
-tokens on that secured pair for the residual phase.
+Assume the safe-edge hypothesis of \Cref{prop:t2-finite-capture} for the
+activation graph states generated below.  Prolonger plays as follows.  In each
+activation round, among pair edges with positive current token weight, he
+chooses a safe edge supplied by that hypothesis; if $e=(a,c)$ is chosen, he
+plays one live target $acb$ with $b\in B_e(t)$.  This scores one actual move,
+claims the pair edge $e$, captures the vertices $a$ and $c$, and leaves the
+remaining live tokens on that secured pair for the residual phase.
 
 Let $S_t$ be the number of activation targets already played by Prolonger, and
 define
@@ -256,8 +275,9 @@ Equivalently,
 \end{proposition}
 
 \begin{proof}
-First ignore off-model token deletions.  The activation process is exactly the
-rank-$2$ graph game of \Cref{prop:t2-finite-capture}, with one harmless
+First ignore off-model token deletions.  Conditional on the safe-edge
+hypothesis, the activation process is exactly the rank-$2$ graph game of
+\Cref{prop:t2-finite-capture}, with one harmless
 bookkeeping change: when Prolonger claims an edge $e$, he consumes one token
 from $e$ and adds it immediately to the score $S_t$.  If the coefficient of
 $e$ before the move is $\gamma\in\{1/8,1/4,1/2\}$, the contribution of $e$
@@ -353,7 +373,10 @@ because $2\delta<1$.  The deletion budget $E$ is negligible by
 claim.
 \end{proof}
 
-\begin{proposition}[T2 lower bound]\label{prop:t2-final}
+\begin{proposition}[Conditional T2 lower bound]\label{prop:t2-final}
+Assume the safe-edge hypothesis of \Cref{prop:t2-finite-capture} for the
+activation graph states and for the residual slot-hypergraph states generated
+by the construction above.
 For every fixed $0<\delta<1/4$ there is $c_\delta>0$ such that
 \[
   \L(n)\ge c_\delta\frac{n(\log\log n)^2}{\log n}
@@ -369,13 +392,14 @@ move made $a$, $c$, and $ac$ unavailable.  Therefore
 \Cref{prop:t2-residual-embedding} compares the remaining divisibility game to a
 scored rank-$3$ slot hypergraph whose total edge weight is $M$.
 
-By \Cref{prop:t2-finite-capture}, Prolonger can force scored residual target
-weight at least $M/8$ in this hypergraph model.  The comparison proposition says
-that every such scored hypergraph move is a genuine actual game move, and that
-the actual game gives Prolonger no fewer legal options than the model.  Hence
-the number of residual moves after activation is at least $M/8$.  Since
+Under the residual safe-edge hypothesis, \Cref{prop:t2-finite-capture} gives a
+strategy that forces scored residual target weight at least $M/8$ in this
+hypergraph model.  The comparison proposition says that every such scored
+hypergraph move is a genuine actual game move, and that the actual game gives
+Prolonger no fewer legal options than the model.  Hence the number of residual
+moves after activation is at least $M/8$.  Since
 $M\gg_\delta n(\log\log n)^2/\log n$, the same lower bound holds for the total
-game length.
+game length, conditional on the stated safe-edge hypothesis.
 
 Choosing any fixed $\delta<1/4$, for instance $\delta=1/8$, gives an absolute
 constant $c>0$ and proves \Cref{thm:t2}.

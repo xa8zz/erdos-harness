@@ -10,8 +10,9 @@ Theorem~A (\Cref{thm:theorem-a}) and the $5/16$ upper bound
 (\Cref{thm:516}) have Lean artifacts with classical-number-theory sorries
 (PNT- and Chebyshev-$\vartheta$-adjacent, enumerated in
 \Cref{app:formalization}); these are Mathlib-dependency gaps rather than
-logical holes.  T2 has a Lean-verified finite core with the activation-stage
-wrapper pending.  The endgame reduction
+logical holes.  The conditional T2 construction has a Lean-verified finite
+core and residual comparison layer, but the safe-edge wrapper of
+\Cref{prop:t2-finite-capture} is not closed.  The endgame reduction
 for the Bonferroni--4 theorem --- namely, that if the four Round~15 moment
 terms are componentwise within $10^{-5}$ of their certified limits
 $J_1,\dots,J_4$ plus eventual $o(1)$ error, then $\L(n)<0.19n$ eventually --- is
@@ -63,7 +64,7 @@ One bundled Chebyshev / prefix-legality gap remains; the combinatorial core is z
 T2 finite core &
 \path{erdos_872_core/RequestProject/T2Finite/*.lean} &
 0 in current files &
-Graph/hypergraph potentials and residual comparison are formalized; the activation-stage wrapper is still being integrated \\
+Local graph/hypergraph potential inequalities and residual comparison are formalized; the safe-edge wrapper remains open \\
 \hline
 Round~15 endgame reduction &
 \path{erdos_872_core/RequestProject/Round15Bonferroni4/Target.lean} &
@@ -80,7 +81,9 @@ Two distinctions are important.  First, a zero-sorry reduction is not the same
 thing as a full end-to-end formalization of the surrounding theorem: the
 Round~15 Lean file closes the last step of the proof, while the analytic
 moment-convergence input remains in prose.  Second, the T2 project already
-contains zero-sorry formalizations of the finite potential game and residual
-comparison layers, but not yet a single final Lean theorem packaging the full
-activation-stage argument of \Cref{thm:t2}.
+contains zero-sorry formalizations of local finite potential inequalities and
+the residual comparison layer, but \Cref{prop:t2-max-gain-counterexample}
+shows that the naive max-gain wrapper is false in rank three.  Thus
+\Cref{thm:t2} is stated conditionally on the remaining safe-edge hypothesis
+rather than as a fully closed theorem.
 \end{remark}
