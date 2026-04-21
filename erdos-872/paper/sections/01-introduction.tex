@@ -213,23 +213,25 @@ hypothesis, the residual slot construction gives
   \L(n)\ge c\,\frac{n(\log\log n)^2}{\log n}
 \]
 for some absolute $c>0$.  The finite graph, hypergraph, and arithmetic
-embedding cores of this theorem are formally verified; the restricted
-safe-edge hypothesis and the asymptotic activation wrapper remain in prose and
-are stated explicitly rather than suppressed.
+embedding cores of this theorem have Lean artifacts listed in
+\Cref{app:formalization}; the restricted safe-edge hypothesis and the
+asymptotic activation wrapper remain in prose and are stated explicitly rather
+than suppressed.
 
-Several parts of the paper are accompanied by Lean formalizations.  The Shield
-Reduction theorem, the structural identities underlying the exact $5/24$ cover,
-and the $13/36$ upper-bound core have zero-sorry Lean verifications.  Theorem A
-and the $5/16$ upper bound have Lean artifacts whose remaining sorries are
-standard analytic-number-theory inputs or their assembly; the $5/16$ artifact's
-remaining sorry also covers the game-tree wrapper realizing the prescribed
-prefix.  The finite graph/hypergraph/embedding cores of the conditional T2
-theorem are Lean-verified, while the restricted safe-edge hypothesis and
-asymptotic wrapper remain prose.  For the $0.19n$ theorem, the endgame reduction
-from moment convergence to the strict inequality is zero-sorry Lean-verified;
-the moment-convergence hypotheses are the prose content of
+Several parts of the paper are accompanied by Lean formalizations; the exact
+artifact paths, theorem declaration names, repository snapshot commit, and Lean
+toolchain version are recorded in \Cref{app:formalization}.  In summary, the
+Shield Reduction theorem, the structural identities underlying the exact
+$5/24$ cover, and the $13/36$ upper-bound core have zero-sorry Lean artifacts.
+Theorem A and the $5/16$ upper bound have Lean artifacts whose remaining
+sorries are standard analytic-number-theory inputs or their assembly; the
+$5/16$ artifact's remaining sorry also covers the game-tree wrapper realizing
+the prescribed prefix.  The finite graph/hypergraph/embedding cores of the
+conditional T2 theorem have Lean artifacts, while the restricted safe-edge
+hypothesis and asymptotic wrapper remain prose.  For the $0.19n$ theorem, the
+endgame reduction from moment convergence to the strict inequality is
+formalized; the moment-convergence hypotheses are the prose content of
 \Cref{sec:main-upper}.
-A full status table appears in \Cref{app:formalization}.
 
 The paper is organized as follows.  \Cref{sec:notation} fixes notation.
 \Cref{sec:shield} proves the shield reduction.  \Cref{sec:lower-bounds} proves
