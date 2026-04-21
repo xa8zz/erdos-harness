@@ -20,18 +20,22 @@ $\{2,3,\ldots,n\}$.  Two players alternately choose integers subject to the
 condition that the chosen set remains primitive; Prolonger moves first and
 maximizes the final number of moves, while Shortener minimizes it.  We prove
 \[
+  \left(\frac18-o(1)\right)\frac{n\log\log n}{\log n}
+  \le
   \L(n)\le \left(\frac{\Wfour}{2}+o(1)\right)n
   =(0.1897112+o(1))n<0.19n,
 \]
-where $\Wfour$ is an explicit fourth-order Bonferroni constant coming from the
-local logarithmic density of Shortener's legal-prime prefix.  We also prove a
-polynomial lower bound for the weighted shield functional, an exact
-$5n/24+O(1)$ first-hit cover theorem for the lower half, and the intermediate
-upper bounds $13n/36+o(n)$ and $5n/16+o(n)$.  A conditional lower bound of
-order $n(\log\log n)^2/\log n$ is included under a restricted finite safe-edge
-hypothesis which is stated explicitly.  The paper also records three
-proof-class barriers for local relaxations, Johnson-shadow separators, and
-separator-only carrier strategies.
+as \Cref{thm:fan-lower-bound,thm:main-upper}.  The lower bound follows from a
+two-phase Prolonger strategy and a bipartite maximum-degree capture lemma,
+while the upper bound uses an explicit fourth-order Bonferroni constant
+$\Wfour$ coming from the local logarithmic density of Shortener's legal-prime
+prefix.  We also prove a polynomial lower bound for the weighted shield
+functional, an exact $5n/24+O(1)$ first-hit cover theorem for the lower half,
+and the intermediate upper bounds $13n/36+o(n)$ and $5n/16+o(n)$.  A
+conditional lower bound of order $n(\log\log n)^2/\log n$ is included under a
+restricted finite safe-edge hypothesis which is stated explicitly.  The paper
+also records three proof-class barriers for local relaxations, Johnson-shadow
+separators, and separator-only carrier strategies.
 \end{abstract}
 
 \maketitle

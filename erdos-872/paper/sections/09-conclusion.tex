@@ -1,15 +1,18 @@
 \section{Conclusion}\label{sec:conclusion}
 
-The results of this paper narrow the divisibility antichain saturation game in
-two complementary ways.  On the upper-bound side, the main theorem gives
+The main unconditional bounds of
+\Cref{thm:fan-lower-bound,thm:main-upper} bracket the divisibility antichain
+saturation game as
 \[
-  \L(n)<0.19n
+  \left(\frac18-o(1)\right)\frac{n\log\log n}{\log n}
+  \le
+  \L(n)
+  \le
+  \left(\frac{\Wfour}{2}+o(1)\right)n.
 \]
-for all sufficiently large $n$, improving the elementary linear upper-bound
-picture by using the local density of Shortener's legal-prime prefix and a
-fourth-order Bonferroni comparison.  On the structural side, the shield
-reduction and Theorem A show that short upper-half shield prefixes cannot prove
-a linear game lower bound through the weighted shadow functional $\beta_n(P)$.
+The lower bound comes from a two-phase fan-capture strategy, while the upper
+bound improves the elementary linear picture by using the local density of
+Shortener's legal-prime prefix and a fourth-order Bonferroni comparison.
 
 The conditional T2 theorem points toward a substantially larger lower-bound
 scale, but it is deliberately stated under a restricted safe-edge hypothesis:
@@ -18,14 +21,17 @@ games.  The finite graph, hypergraph, and embedding components are robust; the
 remaining issue is whether the safe-edge property holds for states reached
 under the Prolonger activation strategy.
 
+On the structural side, the shield reduction and Theorem A show that short
+upper-half shield prefixes cannot prove a linear game lower bound through the
+weighted shadow functional $\beta_n(P)$.
+
 Three obstructions in \Cref{sec:obstructions} explain why the next improvements
 are unlikely to come from purely local relaxations, fixed shadow-cover
 dichotomies, or separator-only strategies.  A sharper upper bound will need to
 use dynamic information about the actual divisibility game, not merely the
-static incidence geometry of low-rank shadows.  Conversely, an unconditional
-lower bound beyond the classical prime-multiple argument must overcome
-Shortener's ability to compress terminal antichains through odd-prime sieving.
+static incidence geometry of low-rank shadows.
 
-The central question remains whether $\L(n)=o(n)$.  The methods here give new
-constants, exact auxiliary structure, and a set of formal targets for future
-work, but they do not settle that asymptotic dichotomy.
+The central question remains the sharp order of growth of $\L(n)$, and in
+particular whether $\L(n)=o(n)$.  The methods here give new constants, exact
+auxiliary structure, and a set of formal targets for future work, but they do
+not settle that asymptotic dichotomy.

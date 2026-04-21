@@ -61,8 +61,25 @@ comparison sequence, round the comparison sequence to genuine primes without
 losing the first four factorial moments, and then apply a fourth-order
 Bonferroni inequality to the odd-part compression of the final antichain.
 
-The lower-bound side of the paper begins with a weighted obstruction theorem
-for the standard shield-reduction approach.  For $x\le n/2$, let
+\begin{theorem}[Unconditional fan lower bound]\label{thm:intro-lower-bound}
+Prolonger has a strategy forcing
+\[
+  \L(n)\ge
+  \left(\frac18-o(1)\right)\frac{n\log\log n}{\log n}.
+\]
+\end{theorem}
+
+The proof of \Cref{thm:intro-lower-bound} is given in
+\Cref{thm:fan-lower-bound}.  Prolonger first works through the small odd primes
+$a\le n^\delta$, making them unavailable by legal upper-half multiples unless
+Shortener chooses the singleton first.  A harmonic charging argument shows that
+the small primes made unavailable by proper multiples still have reciprocal
+mass at least half of the total small-prime mass.  The remaining upper-half
+targets $ab$ form a fan graph, and a maximum-degree right-capture lemma forces
+at least half of the surviving fan edges to become actual game moves.
+
+The lower-bound side also contains a weighted obstruction theorem for the
+standard shield-reduction approach.  For $x\le n/2$, let
 \[
   M_n(x):=\{u\in\U_n:\ x\mid u\},\qquad
   w_n(x):=|M_n(x)|-1.
@@ -110,10 +127,9 @@ to force $|A|\ge (1/2-c)n+o(n)$ must have
 \end{theorem}
 
 The proof of the reduction is elementary and is given in \Cref{sec:shield};
-\Cref{thm:intro-A} is proved in \Cref{sec:lower-bounds}.  These results do not
-give a game lower bound by themselves.  They show instead that a short
-upper-half shield prefix cannot certify a linear lower bound through the
-weighted shadow method.
+\Cref{thm:intro-A} is proved in \Cref{sec:lower-bounds}.  These structural
+results show that a short upper-half shield prefix cannot certify a linear
+lower bound through the weighted shadow method.
 
 We also determine exactly the size of the first-hit cover of the lower half by
 upper-half multiples.  Define
@@ -178,9 +194,9 @@ A full status table appears in \Cref{app:formalization}.
 
 The paper is organized as follows.  \Cref{sec:notation} fixes notation.
 \Cref{sec:shield} proves the shield reduction.  \Cref{sec:lower-bounds} proves
-Theorem A and states the conditional T2 theorem.  \Cref{sec:cover} proves the
-$5/24$ cover theorem.  \Cref{sec:intermediate} proves the $13/36$ and $5/16$
-upper bounds.  \Cref{sec:main-upper} proves the main $0.19n$ bound.
-\Cref{sec:obstructions} records three obstructions to extending the present
-methods.  Deferred proofs, numerical details, and formalization metadata appear
-in the appendices.
+Theorem A, the unconditional fan lower bound, and states the conditional T2
+theorem.  \Cref{sec:cover} proves the $5/24$ cover theorem.
+\Cref{sec:intermediate} proves the $13/36$ and $5/16$ upper bounds.
+\Cref{sec:main-upper} proves the main $0.19n$ bound.  \Cref{sec:obstructions}
+records three obstructions to extending the present methods.  Deferred proofs,
+numerical details, and formalization metadata appear in the appendices.

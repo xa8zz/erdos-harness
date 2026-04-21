@@ -1,6 +1,7 @@
 \section{Lower Bounds and Conditional Slot Construction}\label{sec:lower-bounds}
 
-This section proves the polynomial shield-weight obstruction and states the
+This section proves the polynomial shield-weight obstruction and an
+unconditional fan-capture lower bound for the game, and then states the
 conditional T2 lower bound.  The conditional result is deferred to
 \Cref{app:deferred-proofs}.
 
@@ -133,13 +134,262 @@ If $|P|\le n^\alpha$ and $\beta_n(P)\le cn$, then
 Thus $\alpha\ge e^{-2c}-o(1)$, which is the claimed exponent lower bound.
 \end{proof}
 
+\subsection{An unconditional fan-capture lower bound}
+
+The shield obstruction above does not itself give a game lower bound.  We now
+record a direct unconditional lower-bound strategy for Prolonger.  The
+mechanism is different: Prolonger first makes a large reciprocal-mass set of
+small primes unavailable, then uses the resulting fan graph of upper-half
+products.
+
+\begin{lemma}[Maximum-degree right capture]\label{lem:max-degree-capture}
+Let $G=(L\sqcup R,E)$ be a finite bipartite graph.  Consider the following
+finite capture game on the live graph.  Maker moves first.  On each Maker move,
+Maker chooses a right vertex of maximum positive live degree, captures all
+currently live edges incident to it, and removes that right vertex and its
+incident live edges.  On each Breaker move, Breaker may delete one right vertex
+and all live edges incident to it, delete one live edge, or do nothing.  The
+game stops when no live edge remains.
+
+Let $C$ be the number of edges captured by Maker, and let $X$ be the number of
+edges individually deleted by Breaker.  Then, regardless of Breaker's play,
+\[
+  C+X\ge \frac{|E|}{2}.
+\]
+\end{lemma}
+
+\begin{proof}
+Index Maker's nontrivial moves by $i$.  Let $d_i$ be the live degree of the
+right vertex captured by Maker on move $i$.  Thus this move contributes $d_i$
+to $C$.  Since Maker chose a maximum-degree right vertex, after Maker removes
+it every remaining right vertex has live degree at most $d_i$.  Therefore, if
+Breaker replies by deleting a right vertex in the same round, that deletion
+removes at most $d_i$ live edges.  If Breaker instead deletes one edge or does
+nothing, the number of right-deleted edges in that round is $0$.
+
+Let $D_{\mathrm{right}}$ be the total number of edges deleted through
+right-vertex deletions.  Summing the preceding round-by-round bound gives
+\[
+  D_{\mathrm{right}}\le \sum_i d_i=C.
+\]
+Every original edge is eventually in exactly one of three classes: captured by
+Maker, deleted as part of a right-vertex deletion, or individually deleted by
+Breaker.  Hence
+\[
+  |E|=C+D_{\mathrm{right}}+X\le 2C+X\le 2(C+X),
+\]
+which proves the claim.
+\end{proof}
+
+\begin{theorem}[Unconditional fan-capture lower bound]\label{thm:fan-lower-bound}
+For every fixed $0<\delta<1/2$ and every $\eps>0$, for all sufficiently large
+$n$, Prolonger has a strategy forcing
+\[
+  \L(n)\ge
+  \left(\frac18-\eps\right)\frac{n\log\log n}{\log n}.
+\]
+Equivalently,
+\[
+  \L(n)\ge
+  \left(\frac18-o(1)\right)\frac{n\log\log n}{\log n}.
+\]
+\end{theorem}
+
+\begin{proof}
+Fix $0<\delta<1/2$ and put $y:=n^\delta$.  Let
+\[
+  \mathcal A:=\{a\le y:\ a\in\PP,\ a\text{ odd}\}.
+\]
+For each $a\in\mathcal A$, define the right-prime interval
+\[
+  J_a:=\left(\frac{n}{2a},\frac na\right]\cap\PP.
+\]
+If $b\in J_a$, then $ab\in\U_n$.  Also $b>y$ for all sufficiently large $n$,
+because $b>n/(2y)=\frac12n^{1-\delta}$ and $\delta<1/2$.
+
+We shall use the fan graph with left vertices in $\mathcal A$, right vertices
+the primes appearing in the intervals $J_a$, and edges $(a,b)$ representing the
+upper-half target $ab$.
+
+\smallskip
+\noindent\emph{Phase 1: activating small primes.}
+As long as some prime in $\mathcal A$ is still a legal singleton at the start
+of a Prolonger turn, Prolonger takes the smallest such prime $a$ and plays a
+legal target $ab$ with $b\in J_a$.  Such a target exists.  Indeed, before any
+Phase~1 Prolonger move there have been $O(|\mathcal A|)$ previous Phase~1
+moves, while uniformly for $a\in\mathcal A$ the prime number theorem gives
+\[
+  |J_a|
+  =
+  (1+o_\delta(1))\frac{n}{2a\log(n/a)}
+  \gg_\delta
+  \frac{n^{1-\delta}}{\log n}.
+\]
+This is larger than $|\mathcal A|=O_\delta(n^\delta/\log n)$ because
+$\delta<1/2$.  If $a$ is still legal, a previously chosen number can make a
+candidate $ab$ illegal only by being $b$ itself or $ab$ itself; each previous
+move rules out at most one candidate $b$.  Therefore some legal $ab$ remains.
+
+Phase~1 ends when no prime in $\mathcal A$ is a legal singleton.  If this
+happens immediately after a Prolonger move, include Shortener's next move, if
+there is one, in the Phase~1 damage accounting below before Phase~2 starts.
+This convention only adds one Shortener move.
+
+Define
+\[
+  A_0:=\{a\in\mathcal A:\text{ during Phase~1, }a\text{ is made illegal by a
+  chosen proper multiple}\}
+\]
+and
+\[
+  \mathcal D:=\{a\in\mathcal A:\text{ Shortener chooses the singleton }a
+  \text{ during Phase~1}\}.
+\]
+Prolonger never plays a singleton from $\mathcal A$, and a prime singleton can
+become illegal only by being chosen itself or by having a proper multiple
+chosen.  Thus
+\[
+  \mathcal A=A_0\sqcup\mathcal D.
+\]
+
+Let $P\subseteq A_0$ be the set of primes activated by Prolonger's Phase~1
+moves.  Pair each $a'\in\mathcal D$ with the immediately preceding Prolonger
+activation $a\in P$.  The pairs are distinct because turns alternate.  Since
+Prolonger always activates the smallest currently live prime, and since
+legality only decreases as play proceeds, $a\le a'$.  Therefore
+\[
+  \sum_{a'\in\mathcal D}\frac1{a'}
+  \le
+  \sum_{a\in P}\frac1a
+  \le
+  \sum_{a\in A_0}\frac1a.
+\]
+Using $\mathcal A=A_0\sqcup\mathcal D$ and Mertens' theorem for primes,
+\[
+  \sum_{a\in A_0}\frac1a
+  \ge
+  \frac12\sum_{a\in\mathcal A}\frac1a
+  =
+  \left(\frac12-o(1)\right)\log\log n.
+  \tag{4.5}\label{eq:fan-A0-mass}
+\]
+
+\smallskip
+\noindent\emph{Phase 1 damage and the surviving fan.}
+Let $E^\star$ be the raw fan-edge set over $A_0$:
+\[
+  E^\star:=\{(a,b):a\in A_0,\ b\in J_a\}.
+\]
+The same uniform prime number theorem estimate gives
+\[
+\begin{aligned}
+  |E^\star|
+  &=
+  \sum_{a\in A_0}|J_a|\\
+  &\ge
+  \left(\frac12-o_\delta(1)\right)
+  \frac n{\log n}
+  \sum_{a\in A_0}\frac1a\\
+  &\ge
+  \left(\frac14-o_\delta(1)\right)
+  \frac{n\log\log n}{\log n},
+\end{aligned}
+  \tag{4.6}\label{eq:raw-fan-count}
+\]
+by \eqref{eq:fan-A0-mass}.
+
+We now remove from $E^\star$ the edges whose targets have already become
+unavailable before the first Phase~2 Prolonger move, and call the remaining
+edge set $E_0$.  If $a\in A_0$, the singleton $a$ was not chosen.  Since
+$ab>n/2$, the target $ab$ has no proper multiple in $\{2,\ldots,n\}$, and its
+only relevant proper divisors are $a$ and $b$.  Hence a Phase~1 move can
+destroy a raw fan edge $(a,b)$ only by choosing the right singleton $b$, which
+removes a whole right star, or by choosing the exact target $ab$, which removes
+one edge.
+
+There are $O(|\mathcal A|)$ Phase~1 moves, including the possible intervening
+Shortener move.  Right-singleton choices therefore destroy at most
+$O(|\mathcal A|^2)$ raw fan edges, and exact-target choices destroy at most
+$O(|\mathcal A|)$ raw fan edges.  Since
+\[
+  |\mathcal A|=O_\delta\!\left(\frac{n^\delta}{\log n}\right),
+\]
+the total damage is
+\[
+  O_\delta\!\left(\frac{n^{2\delta}}{\log^2 n}\right)
+  =
+  o_\delta\!\left(\frac n{\log n}\right)
+  =
+  o_\delta\!\left(\frac{n\log\log n}{\log n}\right).
+\]
+Consequently
+\[
+  |E_0|
+  \ge
+  \left(\frac14-o_\delta(1)\right)
+  \frac{n\log\log n}{\log n}.
+  \tag{4.7}\label{eq:surviving-fan-count}
+\]
+
+\smallskip
+\noindent\emph{Phase 2: capturing right stars.}
+On the surviving fan graph $G_0=(A_0\sqcup R_0,E_0)$, Prolonger follows the
+maximum-degree right-capture strategy from \Cref{lem:max-degree-capture}.  That
+is, on each Phase~2 turn he chooses a right prime $b$ of maximum positive
+current degree and plays one legal target $a_0b$ incident to it.
+
+This move is legal.  The left singleton $a_0$ is already illegal from Phase~1,
+but it was not chosen; the right singleton $b$ has not been chosen, because
+otherwise the whole right star would have been removed from $E_0$; and the
+target $a_0b$ itself is still available by the definition of $E_0$.  Since
+$a_0b>n/2$, no proper multiple of it is on the board, and the only relevant
+proper divisors are $a_0$ and $b$.
+
+Shortener's reply has one of the three effects allowed in
+\Cref{lem:max-degree-capture}: choosing a right singleton deletes a right
+vertex and its live star; choosing an exact fan target deletes one live edge;
+any other legal move deletes no live fan edge, except when it is itself an
+exact fan target, which is the preceding case.  Therefore the lemma applies.
+Let $C$ be the number of fan edges captured by Prolonger's right-star moves in
+Phase~2, and let $X$ be the number of live fan edges individually deleted by
+Shortener as exact targets in Phase~2.  Then
+\[
+  C+X\ge \frac{|E_0|}{2}.
+  \tag{4.8}\label{eq:fan-capture-half}
+\]
+
+It remains to translate captured graph edges back to actual game moves.  When
+Prolonger captures a right prime $b$ by playing some $a_0b$, the singleton $b$
+becomes illegal.  For every edge $(a,b)$ live at that capture time, the
+singleton $a$ is already illegal from Phase~1, but was not chosen, and the
+target $ab$ has not yet been chosen.  Moreover $ab$ has no proper multiple in
+$\{2,\ldots,n\}$ and its only relevant proper divisors are $a$ and $b$; any
+proper multiple of $a$ that was chosen in Phase~1 is not comparable with this
+surviving target.  Therefore $ab$ remains legal until $ab$ itself is chosen;
+terminal maximality forces it to be chosen eventually.  Distinct fan targets
+all lie in $\U_n$, so they are mutually incomparable unless they are equal, and
+the graph edges are distinct.  Thus the captured edges account for $C$ distinct
+eventual game moves, while the individually deleted edges counted by $X$ are
+themselves distinct game moves.  Hence
+\[
+  \L(n)\ge C+X
+  \ge
+  \frac{|E_0|}{2}
+  \ge
+  \left(\frac18-o_\delta(1)\right)
+  \frac{n\log\log n}{\log n},
+\]
+by \eqref{eq:surviving-fan-count} and \eqref{eq:fan-capture-half}.  Since
+$\delta$ was fixed, this proves the theorem.
+\end{proof}
+
 \subsection{The conditional T2 theorem}
 
-The preceding theorem is unconditional but concerns the shield-weight
-optimization problem rather than the game value itself.  A different lower-bound
-mechanism uses residual upper-half targets of the form $acb$, where
-$a,c$ are small primes and $b$ lies in a corresponding large-prime interval.
-The resulting residual game is modeled by a scored rank-three slot hypergraph.
+The preceding fan-capture theorem gives an unconditional game lower bound.
+A different, potentially larger lower-bound mechanism uses residual upper-half
+targets of the form $acb$, where $a,c$ are small primes and $b$ lies in a
+corresponding large-prime interval.  The resulting residual game is modeled by
+a scored rank-three slot hypergraph.
 
 The finite potential argument which one would like to use in this slot
 hypergraph is not true for arbitrary finite capture games.  The counterexample
