@@ -168,6 +168,12 @@ instead plays $e_{17,23}$.
 
 Therefore this reachable pre-Maker state has the claimed property: every legal
 Maker move admits a legal Breaker reply that strictly decreases $Q$.
+Note that Breaker's final reply here is an unscored edge deletion, adding
+$e_{17,23}$ to $D_E$, not a scored-edge play; under the scored-edge rule, the
+same move would change $Q$ by $0$, not by $-8$.  The refutation shows that the
+general safe-edge hypothesis fails even when Breaker has access to the
+unscored-edge-deletion move, which is the regime relevant to the rank-$3$
+residual hypergraph game.
 \end{proof}
 
 \begin{proposition}[Conditional finite scaled capture]\label{prop:t2-finite-capture}
