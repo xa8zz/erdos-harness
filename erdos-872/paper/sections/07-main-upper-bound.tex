@@ -260,6 +260,296 @@ The local density from \Cref{prop:local-density} is piecewise-defined, so one
 must build a monotone global comparison sequence before applying the
 Bonferroni comparison.
 
+\begin{lemma}[Right-continuous cumulative envelope]
+\label{lem:right-continuous-cumulative-envelope}
+Fix $H\ge 2$, and define $\tau_H,\alpha_h,\beta_h,I_h$ as in
+\Cref{prop:local-density}.  For every sufficiently large $n$ there is a
+monotone right-continuous step function
+$C_{H,n}:[2,n]\to\{0,1,\ldots,K\}$ such that
+\[
+  C_{H,n}(X)\le S_K(X)\qquad(2\le X\le n).
+\]
+More precisely, with $\xi_H(n)\to0$ chosen from \Cref{prop:local-density}, put
+\[
+  A_{n,h}(u)
+  :=
+  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u\log n}
+  \qquad (u\in I_h),
+\]
+and
+\[
+  L_h := \lfloor A_{n,h}(\alpha_h)\rfloor,
+  \qquad
+  R_h := \lfloor A_{n,h}(\beta_h)\rfloor .
+\]
+Then, after increasing $n$ depending on $H$,
+\[
+  0\le L_{H-1}\le R_{H-1}\le L_{H-2}\le R_{H-2}\le \cdots \le L_1\le R_1<K,
+\]
+and
+\[
+  C_{H,n}(X):=
+  \begin{cases}
+    0, & 2\le X<n^{\alpha_{H-1}},\\[1mm]
+    \lfloor A_{n,h}(\log_n X)\rfloor,
+      & n^{\alpha_h}\le X\le n^{\beta_h}\quad (1\le h\le H-1),\\[1mm]
+    R_h, & n^{\beta_h}<X<n^{\alpha_{h-1}}\quad (2\le h\le H-1),\\[1mm]
+    R_1, & n^{\beta_1}<X<n,\\[1mm]
+    K, & X=n.
+  \end{cases}
+\]
+At each jump endpoint the value is the value on the right-hand piece; in
+particular the first point at which a level $j$ is reached satisfies
+$C_{H,n}(b_j)\ge j$ for the generalized inverse $b_j$ of
+\Cref{lem:generalized-inverse-comparison}.  The endpoint algebra is the same
+one formalized in \texttt{Envelope.lean}, and the reciprocal profile at the
+flat endpoints is mirrored by the zero-sorry lemmas in \texttt{FlatMass.lean}.
+\end{lemma}
+
+\begin{proof}
+By \Cref{prop:local-density}, there is a function $\xi_H(n)\to 0$ such that
+for every large enough $n$, every $1\le h\le H-1$, and every $u\in I_h$,
+\[
+  S_K(n^u)
+  \ge
+  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u\log n}.
+\]
+For fixed $H$ and all sufficiently large $n$, the functions $A_{n,h}$ are
+strictly increasing on $I_h$, since
+\[
+  A_{n,h}'(u)
+  =
+  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u}
+  \left(1-\frac{1}{u\log n}\right),
+\]
+and $u\ge \alpha_{H-1}>1/H$.
+
+The definitions of $L_h,R_h$ give $L_h\le R_h$.  Moreover, for
+$2\le h\le H-1$,
+\[
+  \frac{A_{n,h-1}(\alpha_{h-1})}{A_{n,h}(\beta_h)}
+  =
+  n^{2\tau_H}\cdot
+  \frac{(h+1)(1/h-\tau_H)}{h(1/h+\tau_H)}
+  \to \infty,
+\]
+so $R_h\le L_{h-1}$ for all large $n$.  Also
+\[
+  R_1 \ll \frac{n^{1-\tau_H}}{\log n}=o(K),
+\]
+again for large $n$.  Thus the displayed order of endpoint levels holds.
+
+The function $C_{H,n}$ is nondecreasing on each genuine block, constant on
+each gap, and nondecreasing across adjacent pieces by $R_h\le L_{h-1}$.  Its
+endpoint convention makes it right-continuous.  Domination by $S_K$ is checked
+piece by piece: on a genuine block it is exactly the local-density lower bound,
+on a gap it follows from $C_{H,n}(X)=R_h\le S_K(n^{\beta_h})\le S_K(X)$, and at
+the endpoints below $n^{\alpha_{H-1}}$ and at $n$ it is immediate.
+
+Finally, because $C_{H,n}$ is a finite right-continuous step function whose
+endpoint values are included on the right-hand pieces, its first hitting point
+for any level $j$ is one of the displayed endpoints or a genuine-block point at
+which $\lfloor A_{n,h}(\log_n X)\rfloor\ge j$.  Hence the first hitting point
+$b_j$ satisfies $C_{H,n}(b_j)\ge j$.
+\end{proof}
+
+\begin{lemma}[Generalized inverse comparison sequence]
+\label{lem:generalized-inverse-comparison}
+Let $C_{H,n}$ be the envelope of
+\Cref{lem:right-continuous-cumulative-envelope}, and define
+\[
+  b_j := \inf\{X\in[2,n]: C_{H,n}(X)\ge j\}
+  \qquad (1\le j\le K).
+\]
+Then $b_1\le\cdots\le b_K$, and Shortener's prime prefix satisfies
+\[
+  q_j\le b_j\qquad(1\le j\le K).
+\]
+Equivalently, the inverse is given by the endpoint-and-block formula
+\[
+  b_j=
+  \begin{cases}
+  n^{\alpha_{H-1}},&1\le j\le L_{H-1},\\[1mm]
+  n^{u_{h,j}},&L_h<j\le R_h,\ \text{where }A_{n,h}(u_{h,j})=j,\\[1mm]
+  n^{\alpha_{h-1}},&R_h<j\le L_{h-1}\quad(2\le h\le H-1),\\[1mm]
+  n,&R_1<j\le K.
+  \end{cases}
+\]
+The abstract cutoff comparison is formalized without sorries as
+\texttt{cutoff\_le\_of\_lowerProfile} in
+\texttt{Round15Bonferroni4/Inversion.lean}.
+\end{lemma}
+
+\begin{proof}
+Monotonicity of $C_{H,n}$ gives $b_1\le\cdots\le b_K$, and the displayed
+formula is just the first-hitting description of the step function.  By
+\Cref{lem:right-continuous-cumulative-envelope},
+\[
+  S_K(b_j)\ge C_{H,n}(b_j)\ge j.
+\]
+Thus at least $j$ of the primes $q_1,\ldots,q_K$ are at most $b_j$, so the
+$j$th one satisfies $q_j\le b_j$.
+\end{proof}
+
+\begin{lemma}[Flat-block mass and repeated indices]
+\label{lem:flat-block-mass-repeated-indices}
+With $b_j,u_j,w_j$ defined by \Cref{lem:generalized-inverse-comparison}, set
+\[
+  u_j := \log_n b_j,\qquad
+  w_j := \frac{1}{b_j}=n^{-u_j},
+\]
+and
+\[
+  \mu_{H,n}:=\sum_{j=1}^K w_j\,\delta_{u_j}.
+\]
+If $\mu_{H,n}=\nu_{H,n}+\lambda_{H,n}$ is split into genuine-block and flat
+filler-block contributions, then
+\[
+  |\lambda_{H,n}|=O_H(1/\log n)=o_H(1).
+\]
+Moreover $\mu_{H,n}([0,1])=O_H(1)$ and, for each fixed $1\le r\le4$,
+\[
+  0
+  \le
+  \int_{\Sigma_r} d\mu_{H,n}^{\otimes r}-r!\,T_r^{(b)}(n)
+  \le
+  \binom{r}{2}\bigl(\max_j w_j\bigr)\mu_{H,n}([0,1])^{r-1}
+  =
+  o_H(1),
+\]
+where $\Sigma_r=\{(u_1,\ldots,u_r):u_1+\cdots+u_r\le1\}$.  The reciprocal
+mass estimates are the paper-level versions of
+\texttt{bottomFlatMass\_eq} and \texttt{gapFlatMass\_le} in
+\texttt{Round15Bonferroni4/FlatMass.lean}.
+\end{lemma}
+
+\begin{proof}
+For the bottom flat block,
+\[
+  |\lambda_{H,n}^{\mathrm{bot}}|
+  =
+  L_{H-1}n^{-\alpha_{H-1}}
+  \le
+  A_{n,H-1}(\alpha_{H-1})n^{-\alpha_{H-1}}
+  =
+  \frac{1-\xi_H(n)}{H\alpha_{H-1}\log n}
+  =
+  O_H\!\left(\frac1{\log n}\right).
+\]
+For a gap block between $I_h$ and $I_{h-1}$, where $2\le h\le H-1$,
+\[
+  |\lambda_{H,n}^{(h)}|
+  =
+  (L_{h-1}-R_h)n^{-\alpha_{h-1}}
+  \le
+  L_{h-1}n^{-\alpha_{h-1}}
+  \le
+  \frac{1-\xi_H(n)}{h\,\alpha_{h-1}\log n}
+  =
+  O_H\!\left(\frac1{\log n}\right).
+\]
+For the top block,
+\[
+  |\lambda_{H,n}^{\mathrm{top}}|
+  =
+  (K-R_1)n^{-1}
+  \le
+  \frac{K}{n}
+  =
+  O\!\left(\frac1{\log n}\right).
+\]
+There are only $O_H(1)$ filler blocks, so
+$|\lambda_{H,n}|=O_H(1/\log n)=o_H(1)$.
+
+The same Stieltjes calculation used below with $f\equiv1$ gives
+$\nu_{H,n}([0,1])=O_H(1)$, and the flat contribution is $o_H(1)$; hence
+$\mu_{H,n}([0,1])=O_H(1)$.  The diagonal
+or repeated-index part of the ordered $r$-fold product is bounded by
+\[
+  \binom{r}{2}\bigl(\max_j w_j\bigr)\mu_{H,n}([0,1])^{r-1}.
+\]
+Since $\max_j w_j\le n^{-\alpha_{H-1}}\to0$ for fixed $H$, this is $o_H(1)$.
+\end{proof}
+
+\begin{lemma}[Log-scale measure convergence]
+\label{lem:log-scale-measure-convergence}
+Let $G_H=\bigcup_{h=1}^{H-1} I_h$.  For every $f\in C^1([0,1])$,
+\[
+  \int f\,d\mu_{H,n}
+  =
+  \int_{G_H} f(u)\rhoU(u)\,du+o_H(1).
+\]
+Consequently, for every fixed $1\le r\le4$,
+\[
+  \int_{\Sigma_r} d\mu_{H,n}^{\otimes r}
+  \to
+  \int_{\substack{u_1+\cdots+u_r\le 1\\u_i\in G_H}}
+  \prod_{i=1}^r \rhoU(u_i)\,du_1\cdots du_r .
+\]
+The atoms from flat blocks have vanishing total mass by
+\Cref{lem:flat-block-mass-repeated-indices}; the remaining discontinuities are
+only the finitely many coordinate breakpoint hyperplanes and the hyperplane
+$u_1+\cdots+u_r=1$, which have zero limiting product measure.
+\end{lemma}
+
+\begin{proof}
+Fix $1\le h\le H-1$.  On the block $L_h<j\le R_h$, the value
+$u_j=:u_{h,j}\in I_h$ is defined by $A_{n,h}(u_{h,j})=j$.  Therefore, for
+every $f\in C^1([0,1])$,
+\[
+  \int f\,d\nu_{H,n}^{(h)}
+  =
+  \sum_{j=L_h+1}^{R_h} f(u_{h,j})n^{-u_{h,j}}
+  =
+  \int_{\alpha_h}^{\beta_h} f(u)n^{-u}\,d\lfloor A_{n,h}(u)\rfloor.
+\]
+Let $R_{n,h}(u):=\lfloor A_{n,h}(u)\rfloor-A_{n,h}(u)$, so
+ $|R_{n,h}(u)|\le1$.  Stieltjes integration by parts with
+$g(u):=f(u)n^{-u}$ gives
+\[
+  \int_{\alpha_h}^{\beta_h} g(u)\,d\lfloor A_{n,h}(u)\rfloor
+  =
+  \int_{\alpha_h}^{\beta_h} g(u)\,dA_{n,h}(u)+E_{n,h}(f),
+\]
+where
+\[
+  |E_{n,h}(f)|
+  \le
+  2\|g\|_\infty+\int_{\alpha_h}^{\beta_h}|g'(u)|\,du=o_H(1),
+\]
+because $g'(u)=\bigl(f'(u)-(\log n)f(u)\bigr)n^{-u}$ and
+$\alpha_h\ge\alpha_{H-1}>1/H$.  On the other hand,
+\[
+  n^{-u}A_{n,h}'(u)
+  =
+  \bigl(1-\xi_H(n)\bigr)\rhoU(u)
+  \left(1-\frac{1}{u\log n}\right)
+  \qquad (u\in I_h),
+\]
+because $\rhoU(u)=1/((h+1)u)$ on $I_h$.  Hence
+\[
+  \int_{\alpha_h}^{\beta_h} f(u)n^{-u}\,dA_{n,h}(u)
+  =
+  \int_{I_h} f(u)\rhoU(u)\,du+o_H(1),
+\]
+and therefore
+\[
+  \int f\,d\nu_{H,n}^{(h)}
+  =
+  \int_{I_h} f(u)\rhoU(u)\,du+o_H(1).
+\]
+Summing over $h$ and using \Cref{lem:flat-block-mass-repeated-indices} gives
+the displayed convergence for $C^1$ test functions, and hence for continuous
+test functions by uniform approximation.
+
+The tensor-product convergence follows for continuous functions on $[0,1]^r$.
+The indicator of $\Sigma_r$ restricted to $G_H^r$ is Riemann integrable:
+the only discontinuities are the finitely many coordinate breakpoints and
+$u_1+\cdots+u_r=1$, each of zero Lebesgue measure against
+\(\prod_i\rhoU(u_i)\,du_i\).  Approximating this indicator from above and
+below by continuous functions gives the stated limit.
+\end{proof}
+
 \begin{proposition}[Envelope and inversion]\label{prop:envelope-inversion}
 Fix $H\ge 2$, and define $\tau_H,\alpha_h,\beta_h,I_h$ as in
 \Cref{prop:local-density}.  Put
@@ -305,287 +595,13 @@ obtained from the above construction with $H=H_*(n)$ such that
 \]
 \end{proposition}
 
+
 \begin{proof}
-By \Cref{prop:local-density}, there is a function $\xi_H(n)\to 0$ such that
-for every large enough $n$, every $1\le h\le H-1$, and every $u\in I_h$,
-\[
-  S_K(n^u)
-  \ge
-  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u\log n}.
-\]
-Define
-\[
-  A_{n,h}(u)
-  :=
-  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u\log n}
-  \qquad (u\in I_h).
-\]
-For fixed $H$ and all sufficiently large $n$, the functions $A_{n,h}$ are
-strictly increasing on $I_h$, since
-\[
-  A_{n,h}'(u)
-  =
-  \bigl(1-\xi_H(n)\bigr)\frac{n^u}{(h+1)u}
-  \left(1-\frac{1}{u\log n}\right),
-\]
-and $u\ge \alpha_{H-1}>1/H$.
-
-Set
-\[
-  L_h := \lfloor A_{n,h}(\alpha_h)\rfloor,
-  \qquad
-  R_h := \lfloor A_{n,h}(\beta_h)\rfloor
-  \qquad (1\le h\le H-1).
-\]
-Then $L_h\le R_h$.  Moreover, for $2\le h\le H-1$,
-\[
-  \frac{A_{n,h-1}(\alpha_{h-1})}{A_{n,h}(\beta_h)}
-  =
-  n^{2\tau_H}\cdot
-  \frac{(h+1)(1/h-\tau_H)}{h(1/h+\tau_H)}
-  \to \infty,
-\]
-so $R_h\le L_{h-1}$ for all large $n$.  Also
-\[
-  R_1 \ll \frac{n^{1-\tau_H}}{\log n}=o(K),
-\]
-again for large $n$.  Thus, after increasing $n$ if necessary,
-\[
-  0\le L_{H-1}\le R_{H-1}\le L_{H-2}\le R_{H-2}\le \cdots \le L_1\le R_1<K.
-\]
-
-We now define the cumulative lower envelope by
-\[
-  C_{H,n}(X):=
-  \begin{cases}
-    0, & 2\le X<n^{\alpha_{H-1}},\\[1mm]
-    \lfloor A_{n,h}(\log_n X)\rfloor,
-      & n^{\alpha_h}\le X\le n^{\beta_h}\quad (1\le h\le H-1),\\[1mm]
-    R_h, & n^{\beta_h}<X<n^{\alpha_{h-1}}\quad (2\le h\le H-1),\\[1mm]
-    R_1, & n^{\beta_1}<X<n,\\[1mm]
-    K, & X=n.
-  \end{cases}
-\]
-This function is monotone nondecreasing: it is nondecreasing on each genuine
-block because $A_{n,h}$ is increasing, it is constant on each gap, and the
-relations $R_h\le L_{h-1}$ guarantee monotonicity across adjacent pieces.
-
-We next prove that $C_{H,n}(X)\le S_K(X)$ for all $2\le X\le n$.  If
-$X\in[n^{\alpha_h},n^{\beta_h}]$, then
-\[
-  C_{H,n}(X)
-  =
-  \lfloor A_{n,h}(\log_n X)\rfloor
-  \le
-  S_K(X)
-  \qquad
-  \text{by the definition of $A_{n,h}$}.
-\]
-If $X\in(n^{\beta_h},n^{\alpha_{h-1}})$ with $2\le h\le H-1$, then
-\[
-  C_{H,n}(X)=R_h\le S_K(n^{\beta_h})\le S_K(X),
-\]
-since $S_K$ is nondecreasing.  The same argument gives
-$C_{H,n}(X)=R_1\le S_K(X)$ on $(n^{\beta_1},n)$, while
-$C_{H,n}(X)=0\le S_K(X)$ below $n^{\alpha_{H-1}}$ and
-$C_{H,n}(n)=K=S_K(n)$.  This proves part~(1).
-
-Define
-\[
-  b_j := \inf\{X\in[2,n]: C_{H,n}(X)\ge j\}
-  \qquad (1\le j\le K).
-\]
-Because $C_{H,n}$ is nondecreasing, the sequence $(b_j)_{j=1}^K$ is
-nondecreasing.  Moreover,
-\[
-  S_K(b_j)\ge C_{H,n}(b_j)\ge j,
-\]
-so the $j$th prime in the prime prefix satisfies $q_j\le b_j$.  This proves
-part~(2).
-
-For the moment asymptotics, write
-\[
-  u_j := \log_n b_j,
-  \qquad
-  w_j := \frac{1}{b_j}=n^{-u_j},
-  \qquad
-  \mu_{H,n} := \sum_{j=1}^K w_j\,\delta_{u_j}.
-\]
-Split $\mu_{H,n}=\nu_{H,n}+\lambda_{H,n}$, where $\nu_{H,n}$ is the
-contribution from the genuine interval blocks
-$L_h<j\le R_h$, and $\lambda_{H,n}$ is the contribution from the flat filler
-blocks.
-
-The filler blocks have negligible reciprocal mass.  For the bottom block,
-\[
-  |\lambda_{H,n}^{\mathrm{bot}}|
-  =
-  L_{H-1}n^{-\alpha_{H-1}}
-  \le
-  A_{n,H-1}(\alpha_{H-1})n^{-\alpha_{H-1}}
-  =
-  \frac{1-\xi_H(n)}{H\alpha_{H-1}\log n}
-  =
-  O_H\!\left(\frac1{\log n}\right).
-\]
-For a gap block between $I_h$ and $I_{h-1}$, where $2\le h\le H-1$,
-\[
-  |\lambda_{H,n}^{(h)}|
-  =
-  (L_{h-1}-R_h)n^{-\alpha_{h-1}}
-  \le
-  L_{h-1}n^{-\alpha_{h-1}}
-  \le
-  \frac{1-\xi_H(n)}{h\,\alpha_{h-1}\log n}
-  =
-  O_H\!\left(\frac1{\log n}\right).
-\]
-For the top block,
-\[
-  |\lambda_{H,n}^{\mathrm{top}}|
-  =
-  (K-R_1)n^{-1}
-  \le
-  \frac{K}{n}
-  =
-  O\!\left(\frac1{\log n}\right).
-\]
-Since there are only $O_H(1)$ filler blocks,
-\[
-  |\lambda_{H,n}|
-  =
-  O_H\!\left(\frac1{\log n}\right)
-  =
-  o_H(1).
-\]
-
-We next analyze the genuine blocks.  Fix $1\le h\le H-1$.  On the block
-$L_h<j\le R_h$, the value $u_j=:u_{h,j}\in I_h$ is defined by
-$A_{n,h}(u_{h,j})=j$.  Therefore, for every $f\in C^1([0,1])$,
-\[
-  \int f\,d\nu_{H,n}^{(h)}
-  =
-  \sum_{j=L_h+1}^{R_h} f(u_{h,j})n^{-u_{h,j}}
-  =
-  \int_{\alpha_h}^{\beta_h} f(u)n^{-u}\,d\lfloor A_{n,h}(u)\rfloor.
-\]
-Let
-\[
-  R_{n,h}(u):=\lfloor A_{n,h}(u)\rfloor-A_{n,h}(u),
-  \qquad |R_{n,h}(u)|\le 1.
-\]
-Applying Stieltjes integration by parts with
-$g(u):=f(u)n^{-u}$ gives
-\[
-  \int_{\alpha_h}^{\beta_h} g(u)\,d\lfloor A_{n,h}(u)\rfloor
-  =
-  \int_{\alpha_h}^{\beta_h} g(u)\,dA_{n,h}(u)
-  +
-  E_{n,h}(f),
-\]
-where
-\[
-  |E_{n,h}(f)|
-  \le
-  2\|g\|_\infty+\int_{\alpha_h}^{\beta_h}|g'(u)|\,du.
-\]
-Since
-\[
-  g'(u)=\bigl(f'(u)-(\log n)f(u)\bigr)n^{-u},
-\]
-we obtain
-\[
-  |E_{n,h}(f)|
-  \le
-  2\|f\|_\infty n^{-\alpha_h}
-  +(\beta_h-\alpha_h)\|f'\|_\infty n^{-\alpha_h}
-  +(\beta_h-\alpha_h)(\log n)\|f\|_\infty n^{-\alpha_h}
-  =
-  o_H(1).
-\]
-On the other hand,
-\[
-  n^{-u}A_{n,h}'(u)
-  =
-  \bigl(1-\xi_H(n)\bigr)\rhoU(u)
-  \left(1-\frac{1}{u\log n}\right)
-  \qquad (u\in I_h),
-\]
-because $\rhoU(u)=1/((h+1)u)$ on $I_h$.  Hence
-\[
-  \int_{\alpha_h}^{\beta_h} f(u)n^{-u}\,dA_{n,h}(u)
-  =
-  \bigl(1-\xi_H(n)\bigr)\int_{\alpha_h}^{\beta_h}
-  f(u)\rhoU(u)\left(1-\frac{1}{u\log n}\right)\,du
-  =
-  \int_{I_h} f(u)\rhoU(u)\,du+o_H(1),
-\]
-uniformly for fixed $f$.  Combining the last two displays yields
-\[
-  \int f\,d\nu_{H,n}^{(h)}
-  =
-  \int_{I_h} f(u)\rhoU(u)\,du+o_H(1).
-\]
-Summing over $h$ and using $|\lambda_{H,n}|=o_H(1)$, we find that for every
-$f\in C^1([0,1])$,
-\[
-  \int f\,d\mu_{H,n}
-  =
-  \int_{G_H} f(u)\rhoU(u)\,du+o_H(1).
-\]
-Taking $f\equiv1$ gives $\mu_{H,n}([0,1])=O_H(1)$.
-
-Fix $r\in\{1,2,3,4\}$, and write
-\[
-  \Sigma_r:=\{(u_1,\dots,u_r)\in[0,1]^r:u_1+\cdots+u_r\le 1\}.
-\]
-Then
-\[
-  \int_{\Sigma_r} d\mu_{H,n}^{\otimes r}
-  =
-  \sum_{j_1,\dots,j_r}
-  \mathbf 1_{\{u_{j_1}+\cdots+u_{j_r}\le 1\}}
-  \prod_{t=1}^r w_{j_t}.
-\]
-The contribution of distinct ordered $r$-tuples is exactly
-$r!\,T_r^{(b)}(n)$, because
-$u_{j_1}+\cdots+u_{j_r}\le 1$ is equivalent to
-$b_{j_1}\cdots b_{j_r}\le n$.  The repeated-index contribution is negligible:
-\[
-  \max_j w_j \le n^{-\alpha_{H-1}} \to 0,
-\]
-while $\mu_{H,n}([0,1])=O_H(1)$ by the preceding $f\equiv1$ bound.
-Therefore
-\[
-  0
-  \le
-  \int_{\Sigma_r} d\mu_{H,n}^{\otimes r}-r!\,T_r^{(b)}(n)
-  \le
-  \binom{r}{2}\bigl(\max_j w_j\bigr)\mu_{H,n}([0,1])^{r-1}
-  =
-  o_H(1).
-\]
-The same Riemann-sum convergence tensorizes: for every continuous
-$F$ on $[0,1]^r$,
-\[
-  \int F\,d\mu_{H,n}^{\otimes r}
-  \to
-  \int_{G_H^r}F(u_1,\ldots,u_r)
-  \prod_{i=1}^r\rhoU(u_i)\,du_1\cdots du_r.
-\]
-The indicator of $\Sigma_r$ restricted to $G_H^r$ is Riemann integrable,
-because its discontinuities lie on the finitely many coordinate breakpoints
-and on the hyperplane $u_1+\cdots+u_r=1$.  Approximating this indicator from
-above and below by continuous functions therefore gives
-\[
-  \int_{\Sigma_r} d\mu_{H,n}^{\otimes r}
-  \to
-  \int_{\substack{u_1+\cdots+u_r\le 1\\u_i\in G_H}}
-  \prod_{i=1}^r \rhoU(u_i)\,du_1\cdots du_r
-  =
-  r!\,J_r^{(H)}.
-\]
-Combining the last two displays proves part~(3):
+\Cref{lem:right-continuous-cumulative-envelope} gives the dominated envelope,
+and \Cref{lem:generalized-inverse-comparison} gives $q_j\le b_j$.  By
+\Cref{lem:flat-block-mass-repeated-indices}, repeated ordered tuples contribute
+only $o_H(1)$ to the $r$-fold product integral.  Combining this with
+\Cref{lem:log-scale-measure-convergence} gives
 \[
   T_r^{(b)}(n)=J_r^{(H)}+o_H(1).
 \]
@@ -616,8 +632,7 @@ By the union bound in $[0,1]^r$,
   \le
   \frac{5r}{4H}.
 \]
-This proves part~(4), and the final statement follows immediately by first
-letting $n\to\infty$ for fixed $H$, and then letting $H\to\infty$.
+This proves the fixed-$H$ assertions.
 
 To obtain a single comparison sequence for each $n$, choose $N_H$ so large
 that for all $n\ge N_H$ the above construction is valid and, for every
@@ -625,7 +640,7 @@ $1\le r\le 4$,
 \[
   \bigl|T_r^{(b)}(n)-J_r^{(H)}\bigr|\le \frac1H.
 \]
-After enlarging if necessary, we may assume $N_H$ is increasing in $H$.  Define
+After enlarging if necessary, assume $N_H$ is increasing in $H$.  Define
 \[
   H_*(n):=\max\{H\ge 2:N_H\le n\},
 \]
@@ -641,8 +656,7 @@ $1\le r\le 4$,
   \le
   \frac{1}{H_*(n)}+\frac{5r}{4H_*(n)r!},
 \]
-which tends to $0$.  This proves the final statement.
-\qedhere
+which tends to $0$.
 \end{proof}
 
 \subsection{The prime-sequence Bonferroni comparison theorem}
