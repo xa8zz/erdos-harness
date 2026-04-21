@@ -599,6 +599,16 @@ plays the legal squarefree semiprime $pq$ when possible.  Such a move is
 incomparable with every carrier, since no carrier contains both $p$ and $q$,
 and neither $p$ nor $q$ alone is available as a legal prime at this stage.
 
+We use the following skipped-move invariant.  Under the disjoint-support
+hypothesis, no prior composite Prolonger move is a proper multiple of a planned
+Shortener move in the second or third phase.  For the phase-two move
+$p^{e(p)+1}$, the unique carrier containing $p$ has only $p$-adic exponent
+$e(p)$, while all other carriers omit $p$.  For the phase-three move $pq$, the
+two primes lie in different carriers, so no single carrier contains both.  Thus
+when a planned move is skipped because it is already illegal, the earlier
+comparable move may be treated as a divisor of the planned move, or the planned
+move itself, but not as a proper composite multiple coming from Prolonger.
+
 The number of moves in the three phases is
 \[
   O(\pi(n))+\pi(y)+\pi(y)^2
