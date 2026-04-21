@@ -667,6 +667,17 @@ $p\in B$ when legal.  Third she plays every legal squarefree semiprime $pq$
 with $p,q\in B$.  Fourth she plays every legal squarefree triple $pqr$ with
 $p,q,r\in B$.
 
+The skipped-move invariant is as follows.  Under the squarefree rank-$\le3$
+restriction, a prior Prolonger move which makes a planned square or planned
+triple illegal cannot be a proper multiple of that planned move: a square has no
+squarefree proper multiple, and a proper multiple of a squarefree triple has
+rank at least $4$.  For a planned semiprime $pq$, the only possible proper
+multiple is a rank-three carrier $pqr$; in the support-size-$2$ case below the
+remaining candidate is exactly $pq$, hence it is already illegal because
+$pq\mid pqr$.  Thus the later skipped-move arguments may charge a skipped
+triple to a prior divisor or to the triple itself, and skipped semiprimes are
+harmless in the only place where they are used.
+
 The first phase has $O(n/\log n)$ moves, the second has at most $\pi(y)$ moves,
 and the third has at most $\pi(y)^2=o(n/\log n)$ moves.  It remains to bound
 the number of triples
@@ -706,15 +717,16 @@ We prove that the priority list resolves all primes at most $y$.  After the
 prime and square phases, any remaining legal move supported on $B$ must be
 squarefree.  If it has support size $1$, it is comparable with a played or
 blocked prime.  If it has support size $2$, then the corresponding semiprime
-was either played in phase three or was already illegal because an earlier
-played divisor blocks it.  If it has support size $3$, the same statement holds
-for phase four.
+was either played in phase three or was already illegal by the skipped-move
+invariant.  If it has support size $3$, the same statement holds for phase four,
+where the invariant rules out proper multiples.
 
 If a remaining legal move $x$ had support size at least $4$ inside $B$, choose
 three primes $p,q,r$ from its support.  The triple $pqr$ was addressed in phase
 four.  If it was played, then $pqr\mid x$ and $x$ is illegal.  If it was not
 legal when considered, then some earlier played move comparable with $pqr$
-must divide $pqr$; since all earlier non-prime moves in the priority list have
+must divide $pqr$ or equal $pqr$ by the skipped-move invariant; since all
+earlier non-prime moves in the priority list have
 support size at most $3$ and are squarefree except the squares $p^2$, that
 played divisor also divides $x$.  Again $x$ is illegal.  Thus no remaining
 legal move contains a prime at most $y$.
