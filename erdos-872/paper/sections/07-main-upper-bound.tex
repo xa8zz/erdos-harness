@@ -1029,6 +1029,10 @@ failure bin would violate the corresponding suffix inequality.  Hence the
 flat atom and the first $s$ genuine bins can be assigned to prime bins
 $0,\ldots,s$ while respecting the release constraints, and every assigned
 prime is at least as large as its corresponding $b_j$.
+The greedy rule, together with the fact that we process prime bins in
+increasing order and assign the smallest available prime within each bin to
+the oldest unassigned demand, ensures the assigned prime sequence
+$p_1<p_2<\cdots<p_K$ is strictly increasing.
 
 For each later full source bin $I_k$, $k\ge s$, assign its $d_k$ elements to
 primes in the next prime bin $[Aa^{k+1},Aa^{k+2})$.  This is possible for all
