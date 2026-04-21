@@ -1,82 +1,95 @@
 \section{Formalization Artifact Map}\label{app:formalization}
 
 This appendix records the status of the Lean artifacts corresponding to the
-paper's principal results.  The table distinguishes between fully formalized
+paper's principal results.  The map distinguishes between fully formalized
 finite or structural cores and prose components which use standard analytic
 number theory or conditional game-theoretic hypotheses.
-For all rows, verification was last recorded at artifact repository commit
-\texttt{90f4f1bf2268bf8c1126b23ac42f3978c35678c9} and Lean toolchain
-\texttt{leanprover/lean4:v4.28.0}.
+For all entries, verification was last recorded at artifact repository commit
+\texttt{90f4f1bf2268bf8c}\allowbreak
+\texttt{1126b23ac42f3978}\allowbreak
+\texttt{c35678c9} and Lean toolchain \path|leanprover/lean4:v4.28.0|.
 
-\begin{table}[ht]
-\centering
+\begingroup
 \scriptsize
-\begin{tabular}{|p{0.18\textwidth}|p{0.30\textwidth}|p{0.20\textwidth}|p{0.22\textwidth}|}
-\hline
-Result & Lean file path & Declaration names & Lean status and remaining prose \\
-\hline
-Shield Reduction, \Cref{thm:shield-reduction}
-& \path|erdos-872/lean/shield_reduction/shield_reduction_aristotle/RequestProject/ShieldReduction.lean|
-& \texttt{shield\_reduction}
-& Zero-sorry Lean verification; no remaining assumptions beyond the finite
-definitions of the divisibility poset. \\
-\hline
-Exact $5/24$ cover, \Cref{thm:five-twenty-four}
-& \path|erdos-872/lean/tau_5_24/tau_5_24_aristotle/RequestProject/Tau.lean|
-& \texttt{coverSet\_is\_cover}; \texttt{cover\_card\_lower\_bound}
-& The structural cover and packing identities are zero-sorry Lean-verified; the
-asymptotic floor-sum count $5n/24+O(1)$ is an elementary prose calculation. \\
-\hline
-$13/36$ upper bound, \Cref{thm:thirteen-thirtysix}
-& \path|erdos-872/lean/shortener_13_36/shortener_13_36_v2_aristotle/RequestProject/Shortener/MainTheorem.lean|
-& \texttt{antichain\_dfree\_bound}; \texttt{main\_upper\_bound}
-& The odd-part compression and Bonferroni core are zero-sorry Lean-verified; the
-paper-level exposition uses standard prime-counting estimates for the
-prime-prefix setup. \\
-\hline
-Polynomial shield-weight lower bound, \Cref{thm:theorem-A}
-& \path|erdos-872/lean/theorem_A/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldMainTheorem.lean|
-& \texttt{shield\_lower\_bound}; \texttt{barrier\_exponent}
-& The combinatorial core, including the prime-antichain construction, log-budget
-argument, and exchange principle, has a Lean artifact.  Remaining sorries are
-Mertens' theorem, a Chebyshev-type prime-counting bound, a
-Chebyshev-$\vartheta$ asymptotic, and the final assembly using those analytic
-inputs. \\
-\hline
-$5/16$ upper bound, \Cref{thm:five-sixteen}
-& \path|erdos-872/lean/shortener_5_16/shortener_5_16_aristotle/RequestProject/Shortener516/Theorems.lean|
-& \texttt{antichain\_three\_five\_core\_bound}; \texttt{game\_value\_per\_parameter};
-\texttt{main\_theorem}
-& The compression, sieve, and algebraic optimization core has a Lean artifact.
-One remaining bundled placeholder covers the Chebyshev prime-prefix estimate
-and the game-tree wrapper realizing the prescribed prefix. \\
-\hline
-Conditional T2 lower bound, \Cref{thm:t2}
-& \path|erdos-872/lean/erdos_872_core/RequestProject/T2Finite/GraphGame.lean|;
-\path|erdos-872/lean/erdos_872_core/RequestProject/T2Finite/HyperGame.lean|;
-\path|erdos-872/lean/erdos_872_core/RequestProject/T2Finite/ResidualComparison.lean|
-& \texttt{Q8\_maker\_ge\_add\_selfPot};
-\texttt{HQ8\_maker\_ge\_add\_selfPot\_of\_count\_le\_two};
-\texttt{comparison\_package}
-& The finite graph-potential core, scored hypergraph core, and local arithmetic
-embedding core are Lean-verified.  The restricted safe-edge hypothesis is
-conditional, and the asymptotic activation wrapper remains in prose. \\
-\hline
-Main $0.19n$ upper bound, \Cref{thm:main-upper}
-& \path|erdos-872/lean/erdos_872_core/RequestProject/Round15Bonferroni4/Target.lean|
-& \texttt{eventually\_strict\_lt\_point19\_of\_componentwise\_close}
-& The endgame reduction from sufficiently close first-four moment values to the
-strict inequality $\L(n)<0.19n$ is zero-sorry Lean-verified.  The local density
-theorem, monotone envelope and inversion, and prime-rounding bridge are the
-prose moment-convergence inputs proved in \Cref{sec:main-upper}. \\
-\hline
-\end{tabular}
-\caption{Formalization status and metadata of the principal results.}
-\label{tab:formalization}
-\end{table}
+\medskip
+\noindent\textbf{Shield Reduction, \Cref{thm:shield-reduction}.}\par
+Path: \path|erdos-872/lean/shield_reduction/shield_reduction_aristotle/RequestProject/ShieldReduction.lean|.
+Declarations: \path|shield_reduction|.
+Status: zero-sorry Lean verification; no remaining assumptions beyond the
+finite definitions of the divisibility poset.
 
-The table should be read conservatively.  A zero-sorry finite core is not being
+\medskip
+\noindent\textbf{Exact $5/24$ cover, \Cref{thm:five-twenty-four}.}\par
+Path: \path|erdos-872/lean/tau_5_24/tau_5_24_aristotle/RequestProject/Tau.lean|.
+Declarations: \path|coverSet_is_cover| and \path|cover_card_lower_bound|.
+Status: the structural cover and packing identities are zero-sorry
+Lean-verified; the asymptotic floor-sum count $5n/24+O(1)$ is an elementary
+prose calculation.
+
+\medskip
+\noindent\textbf{$13/36$ upper bound, \Cref{thm:thirteen-thirtysix}.}\par
+Path: \path|erdos-872/lean/shortener_13_36/shortener_13_36_v2_aristotle/RequestProject/Shortener/MainTheorem.lean|.
+Declarations: \path|antichain_dfree_bound| and \path|main_upper_bound|.
+Status: the odd-part compression and Bonferroni core are zero-sorry
+Lean-verified; the paper-level exposition uses standard prime-counting estimates
+for the prime-prefix setup.
+
+\medskip
+\noindent\textbf{Polynomial shield-weight lower bound, \Cref{thm:theorem-A}.}\par
+Path: \path|erdos-872/lean/theorem_A/theorem_A_shield_lower_bound_aristotle/RequestProject/ShieldMainTheorem.lean|.
+Declarations: \path|shield_lower_bound| and \path|barrier_exponent|.
+Status: the combinatorial core, including the prime-antichain construction,
+log-budget argument, and exchange principle, has a Lean artifact.  Remaining
+sorries are Mertens' theorem, a Chebyshev-type prime-counting bound, a
+Chebyshev-$\vartheta$ asymptotic, and the final assembly using those analytic
+inputs.
+
+\medskip
+\noindent\textbf{$5/16$ upper bound, \Cref{thm:five-sixteen}.}\par
+Path: \path|erdos-872/lean/shortener_5_16/shortener_5_16_aristotle/RequestProject/Shortener516/Theorems.lean|.
+Declarations: \path|antichain_three_five_core_bound|,
+\path|game_value_per_parameter|, and \path|main_theorem|.
+Status: the compression, sieve, and algebraic optimization core has a Lean
+artifact.  One remaining bundled placeholder covers the Chebyshev prime-prefix
+estimate and the game-tree wrapper realizing the prescribed prefix.
+
+\medskip
+\noindent\textbf{Conditional T2 lower bound, \Cref{thm:t2}.}\par
+Paths:
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=false,columns=fullflexible]
+erdos-872/lean/erdos_872_core/RequestProject/T2Finite/GraphGame.lean
+erdos-872/lean/erdos_872_core/RequestProject/T2Finite/HyperGame.lean
+erdos-872/lean/erdos_872_core/RequestProject/T2Finite/ResidualComparison.lean
+\end{lstlisting}
+Declarations:
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=false,columns=fullflexible]
+Q8_maker_ge_add_selfPot
+HQ8_maker_ge_add_selfPot_of_count_le_two
+comparison_package
+\end{lstlisting}
+Status: the finite graph-potential core, scored hypergraph core, and local
+arithmetic embedding core are Lean-verified.  The restricted safe-edge
+hypothesis is conditional, and the asymptotic activation wrapper remains in
+prose.
+
+\medskip
+\noindent\textbf{Main $0.19n$ upper bound, \Cref{thm:main-upper}.}\par
+Path:
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=false,columns=fullflexible]
+erdos-872/lean/erdos_872_core/RequestProject/Round15Bonferroni4/Target.lean
+\end{lstlisting}
+Declaration:
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=false,columns=fullflexible]
+eventually_strict_lt_point19_of_componentwise_close
+\end{lstlisting}
+Status: the endgame reduction from sufficiently close first-four moment values
+to the strict inequality $\L(n)<0.19n$ is zero-sorry Lean-verified.  The local
+density theorem, monotone envelope and inversion, and prime-rounding bridge are
+the prose moment-convergence inputs proved in \Cref{sec:main-upper}.
+\endgroup
+
+This map should be read conservatively.  A zero-sorry finite core is not being
 advertised as an end-to-end verification of every analytic asymptotic in the
-same theorem unless the table says so explicitly.  Conversely, when the
+same theorem unless the entry says so explicitly.  Conversely, when the
 remaining obligations are standard analytic-number-theory inputs, the novelty
 of the combinatorial argument is already isolated in the formal artifact.
