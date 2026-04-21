@@ -411,13 +411,22 @@ Equivalently,
 \end{proposition}
 
 \begin{proof}
-First ignore off-model token deletions.  Conditional on the restricted safe-edge
-hypothesis, the activation process is exactly the rank-$2$ graph game of
-\Cref{prop:t2-finite-capture}, with one harmless
-bookkeeping change: when Prolonger claims an edge $e$, he consumes one token
-from $e$ and adds it immediately to the score $S_t$.  If the coefficient of
-$e$ before the move is $\gamma\in\{1/8,1/4,1/2\}$, the contribution of $e$
-changes from $\gamma w_t(e)$ to
+At each activation state, form the finite rank-$2$ graph game whose vertices are
+the small primes, whose live edges are the unclaimed pairs $e=(a,c)$ with
+current weight $w_t(e)>0$, and whose claimed, deleted, and captured objects are
+the secured pairs, exhausted pairs, and small primes already made unavailable.
+The restricted safe-edge hypothesis is applied to this dynamically updated
+weight function $w_t(e)$ at the current pre-Prolonger state.  A modeled
+Shortener reply of type $a$ or $c$ is exactly a graph vertex deletion, and a
+modeled reply of type $ac$ is exactly a graph edge deletion.
+
+First ignore off-model token deletions.  Under the identification above, the
+activation process is the rank-$2$ graph game of
+\Cref{prop:t2-finite-capture}, with one bookkeeping change: when Prolonger
+claims an edge $e$, he consumes one token from $e$ and adds it immediately to
+the score $S_t$.  If the coefficient of $e$ before the move is
+$\gamma\in\{1/8,1/4,1/2\}$, the contribution of $e$ changes from
+$\gamma w_t(e)$ to
 \[
   1+(w_t(e)-1)=w_t(e),
 \]
