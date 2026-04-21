@@ -51,15 +51,17 @@ second clause.  In either case $x\mid u$.
 
 The two clauses defining $H_n$ are disjoint.  Therefore
 \[
+  \begin{aligned}
   |H_n|
-  =
-  \#\{u\in(n/2,n]:u\equiv2\pmod4\}
-  +
-  \#\{u\in(2n/3,n]:u\equiv0\pmod4\}
-  =
+  &=
+  \#\{u\in(n/2,n]:u\equiv2\pmod4\} \\
+  &\qquad+
+  \#\{u\in(2n/3,n]:u\equiv0\pmod4\} \\
+  &=
   \frac n8+\frac n{12}+O(1)
   =
   \frac{5n}{24}+O(1).
+  \end{aligned}
 \]
 Thus $\tau(n)\le 5n/24+O(1)$.
 
