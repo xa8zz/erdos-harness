@@ -5,8 +5,8 @@
 This appendix proves the conditional lower bound in \Cref{thm:t2}.  The proof
 is self-contained: all target families, auxiliary games, weights, activation
 rules, deletion errors, and asymptotic estimates are defined below.  The
-opening counterexample explains why the finite safe-edge hypothesis is stated
-explicitly rather than hidden inside a max-gain argument.
+opening counterexamples explain why the restricted finite safe-edge hypothesis
+is stated explicitly rather than hidden inside a max-gain argument.
 
 Throughout this appendix $n$ is large, $0<\delta<1/4$ is fixed, and
 \[
@@ -79,6 +79,97 @@ So the unique max-gain move is $f$, and it does not dominate the subsequent
 vertex deletion at $v$.
 \end{proof}
 
+\begin{proposition}[\texorpdfstring{$K_4$}{K4}-fiber refutation in the residual arithmetic game]
+\label{prop:t2-safe-edge-refutation}
+For every fixed $0<\delta<1/4$ and all sufficiently large $n$, the residual
+slot hypergraph $G(n,\delta)$ contains a reachable pre-Maker state at which
+every legal Maker move admits a legal Breaker reply that strictly decreases
+the scaled potential $Q$.  Hence the general safe-edge hypothesis is false even
+inside the arithmetic games $G(n,\delta)$.
+\end{proposition}
+
+\begin{proof}
+Here $G(n,\delta)$ is the scored rank-three slot hypergraph with edges
+\[
+  e_{a,c,b}:=\{b,ab,cb\},
+  \qquad
+  a<c,\quad a,c\in\mathcal P_Y,\quad b\in B_{a,c},
+\]
+each of weight $1$.
+
+Choose the four fixed small primes $13,17,19,23$.  Their pairwise products are
+\[
+  13\cdot17=221,\quad 13\cdot19=247,\quad 13\cdot23=299,\quad
+  17\cdot19=323,\quad 17\cdot23=391,\quad 19\cdot23=437.
+\]
+All six products lie between $221$ and $437$, and $2\cdot221=442>437$.  For
+sufficiently large $n$, since $23\le n^\delta=Y$, all four primes lie in
+$\mathcal P_Y$.  By the prime number theorem, the interval
+\[
+  \left(\frac{n}{442},\frac{n}{437}\right]
+\]
+contains a prime $q$ for all sufficiently large $n$.  Also $q>Y$ for large
+$n$, since $\delta<1/4$.
+
+For every pair $a<c$ among $\{13,17,19,23\}$, we have
+\[
+  q>\frac n{442}\ge\frac n{2ac}
+  \qquad\text{and}\qquad
+  q\le\frac n{437}\le\frac n{ac},
+\]
+because $ac\ge221$ and $ac\le437$.  Hence $q\in B_{a,c}$ for all six pairs,
+and the six edges
+\[
+  e_{a,c}:=\{q,aq,cq\}
+\]
+all occur in $G(n,\delta)$.  They form a $K_4$-fiber over the common slot $q$.
+
+We next reach a state in which only these six edges are live and no vertex in
+them has yet been captured.  While any other edge is live, Maker uses the
+alternate-scoring move to score that exact target without adding slot vertices
+to $C$.  Any edge outside this six-edge family has at least one slot outside
+\[
+  U:=\{q,13q,17q,19q,23q\},
+\]
+so Breaker deletes such an outside slot.  This never harms the six desired
+edges.  Repeating this finite operation leaves exactly the six $K_4$-fiber
+edges live, with $C=\varnothing$.
+
+From that state, play two legal rounds.  First Maker captures
+\[
+  e_{13,17}=\{q,13q,17q\},
+\]
+so $q,13q,17q\in C$, and Breaker deletes the live edge $e_{13,19}$.  Next
+Maker captures
+\[
+  e_{19,23}=\{q,19q,23q\},
+\]
+so $q,13q,17q,19q,23q\in C$, and Breaker deletes the live edge $e_{13,23}$.
+
+At the next pre-Maker state, the only remaining live edges from this fiber are
+\[
+  e_{17,19}=\{q,17q,19q\},
+  \qquad
+  e_{17,23}=\{q,17q,23q\}.
+\]
+Both have all three vertices in $C$, so $\Phi(e)=2^3\cdot1=8$ for each.  There
+are no other live edges by construction.
+
+Maker has only two possible live edges to play.  If Maker plays $e_{17,19}$,
+by ordinary capture or by alternate scoring, then the change in $Q$ is
+\[
+  +8\cdot1-8=0,
+\]
+because $S$ increases by $1$, the edge of potential $8$ is removed, and no new
+vertex is added to $C$.  The remaining live edge $e_{17,23}$ still contributes
+$8$.  Breaker then deletes $e_{17,23}$, decreasing $Q$ by $8$.  Thus
+$Q_{\mathrm{after}}=Q_{\mathrm{before}}-8$.  The same argument holds if Maker
+instead plays $e_{17,23}$.
+
+Therefore this reachable pre-Maker state has the claimed property: every legal
+Maker move admits a legal Breaker reply that strictly decreases $Q$.
+\end{proof}
+
 \begin{proposition}[Conditional finite scaled capture]\label{prop:t2-finite-capture}
 Consider a finite weighted incidence game of rank at most $3$ with the scaled
 potential
@@ -89,14 +180,22 @@ where $C$ is the current captured-vertex set and $S$ is the total scored
 weight.  In the graph variant, Breaker may delete one unclaimed live edge; in
 the scored hypergraph variant, Breaker may score one live edge.
 
-Assume the following safe-edge hypothesis: at every reachable pre-Maker state
-with at least one positive-weight live edge, Maker has a legal live edge $f$
-such that, after Maker plays $f$, every legal Breaker reply leaves $Q$ at least
-as large as it was before Maker's move.
+The general safe-edge hypothesis stated below is provably false even for
+$G(n,\delta)$; see \Cref{prop:t2-safe-edge-refutation}.  In this paper the
+finite-capture proposition is used only under the restricted hypothesis that
+the same property holds for states actually generated by the activation and
+residual strategies in \Cref{prop:t2-activation-potential,prop:t2-final}.  This
+restricted hypothesis remains open.
 
-Under this hypothesis, if the game is continued until no positive-weight live
-edge remains, the final claimed or scored weight is at least one eighth of the
-initial total edge-weight:
+Assume the following restricted safe-edge hypothesis: at every pre-Maker state
+generated by the strategy under consideration with at least one positive-weight
+live edge, Maker has a legal live edge $f$ such that, after Maker plays $f$,
+every legal Breaker reply leaves $Q$ at least as large as it was before Maker's
+move.
+
+Under this restricted hypothesis, if the game is continued until no
+positive-weight live edge remains, the final claimed or scored weight is at
+least one eighth of the initial total edge-weight:
 \[
   S_{\mathrm{fin}}
   \ge
@@ -105,7 +204,8 @@ initial total edge-weight:
 \end{proposition}
 
 \begin{proof}
-Maker always chooses an edge supplied by the safe-edge hypothesis.  By
+Maker always chooses an edge supplied by the restricted safe-edge hypothesis.
+By
 definition of that hypothesis, $Q$ is nondecreasing after every full
 Maker--Breaker round.
 
@@ -121,8 +221,8 @@ $Q_{\mathrm{fin}}=8S_{\mathrm{fin}}$.  Therefore
 which is the claimed one-eighth bound.
 
 For the graph variant, a Breaker edge-deletion reply is included in the
-safe-edge hypothesis.  For the scored hypergraph variant, a Breaker scored-edge
-reply is harmless whenever it occurs, since it changes $Q$ by
+restricted safe-edge hypothesis.  For the scored hypergraph variant, a Breaker
+scored-edge reply is harmless whenever it occurs, since it changes $Q$ by
 $8w(e)-2^{|e\cap C|}w(e)\ge0$ for rank at most $3$; the only nontrivial part of
 the hypothesis is therefore the post-Maker vertex-deletion bound.
 \end{proof}
@@ -234,13 +334,14 @@ During activation, let each unclaimed pair edge $e=(a,c)$ carry the current
 token set $B_e(t)$ of primes $b\in B_{a,c}$ for which the target $acb$ has not
 yet been killed.  Write $w_t(e):=|B_e(t)|$.
 
-Assume the safe-edge hypothesis of \Cref{prop:t2-finite-capture} for the
-activation graph states generated below.  Prolonger plays as follows.  In each
-activation round, among pair edges with positive current token weight, he
-chooses a safe edge supplied by that hypothesis; if $e=(a,c)$ is chosen, he
-plays one live target $acb$ with $b\in B_e(t)$.  This scores one actual move,
-claims the pair edge $e$, captures the vertices $a$ and $c$, and leaves the
-remaining live tokens on that secured pair for the residual phase.
+Assume the restricted safe-edge hypothesis of
+\Cref{prop:t2-finite-capture} for the activation graph states generated below.
+Prolonger plays as follows.  In each activation round, among pair edges with
+positive current token weight, he chooses a safe edge supplied by that
+hypothesis; if $e=(a,c)$ is chosen, he plays one live target $acb$ with
+$b\in B_e(t)$.  This scores one actual move, claims the pair edge $e$, captures
+the vertices $a$ and $c$, and leaves the remaining live tokens on that secured
+pair for the residual phase.
 
 Let $S_t$ be the number of activation targets already played by Prolonger, and
 define
@@ -277,7 +378,7 @@ Equivalently,
 \end{proposition}
 
 \begin{proof}
-First ignore off-model token deletions.  Conditional on the safe-edge
+First ignore off-model token deletions.  Conditional on the restricted safe-edge
 hypothesis, the activation process is exactly the rank-$2$ graph game of
 \Cref{prop:t2-finite-capture}, with one harmless
 bookkeeping change: when Prolonger claims an edge $e$, he consumes one token
@@ -376,9 +477,9 @@ claim.
 \end{proof}
 
 \begin{proposition}[Conditional T2 lower bound]\label{prop:t2-final}
-Assume the safe-edge hypothesis of \Cref{prop:t2-finite-capture} for the
-activation graph states and for the residual slot-hypergraph states generated
-by the construction above.
+Assume the restricted safe-edge hypothesis of \Cref{prop:t2-finite-capture}
+for the activation graph states and for the residual slot-hypergraph states
+generated by the construction above.
 For every fixed $0<\delta<1/4$ there is $c_\delta>0$ such that
 \[
   \L(n)\ge c_\delta\frac{n(\log\log n)^2}{\log n}
@@ -394,14 +495,14 @@ move made $a$, $c$, and $ac$ unavailable.  Therefore
 \Cref{prop:t2-residual-embedding} compares the remaining divisibility game to a
 scored rank-$3$ slot hypergraph whose total edge weight is $M$.
 
-Under the residual safe-edge hypothesis, \Cref{prop:t2-finite-capture} gives a
-strategy that forces scored residual target weight at least $M/8$ in this
-hypergraph model.  The comparison proposition says that every such scored
-hypergraph move is a genuine actual game move, and that the actual game gives
-Prolonger no fewer legal options than the model.  Hence the number of residual
-moves after activation is at least $M/8$.  Since
-$M\gg_\delta n(\log\log n)^2/\log n$, the same lower bound holds for the total
-game length, conditional on the stated safe-edge hypothesis.
+Under the residual restricted safe-edge hypothesis,
+\Cref{prop:t2-finite-capture} gives a strategy that forces scored residual
+target weight at least $M/8$ in this hypergraph model.  The comparison
+proposition says that every such scored hypergraph move is a genuine actual
+game move, and that the actual game gives Prolonger no fewer legal options than
+the model.  Hence the number of residual moves after activation is at least
+$M/8$.  Since $M\gg_\delta n(\log\log n)^2/\log n$, the same lower bound holds
+for the total game length, conditional on the restricted safe-edge hypothesis.
 
 Choosing any fixed $\delta<1/4$, for instance $\delta=1/8$, gives an absolute
 constant $c>0$ and proves \Cref{thm:t2}.
