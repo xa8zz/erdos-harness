@@ -26,10 +26,11 @@ be the odd primes she plays during that prefix.  The argument has four layers:
   \item a fourth-order Bonferroni comparison theorem for arbitrary increasing
     odd-prime comparison sequences;
   \item a prime-rounding bridge that replaces the real sequence $b_j$ by actual
-    odd primes $p_j$, using the key half-density slack from R60.
+    odd primes $p_j$, using the key half-density slack supplied by the
+    prime-rounding bridge of \Cref{thm:prime-bridge}.
 \end{enumerate}
 
-\subsection{The Round 15 density}
+\subsection{The Round~15 density}
 
 Write
 \[
@@ -87,7 +88,7 @@ and
 \[
   \Wfour := 1-J_1+J_2-J_3+J_4.
 \]
-The R60 evaluation gives
+Numerical evaluation gives
 \[
   \Wfour = 0.3794224,
   \qquad
@@ -153,11 +154,10 @@ for $1\le r\le 4$.
 
 \subsection{The prime-sequence Bonferroni comparison theorem}
 
-The audit of R57 identified that the comparison theorem must be stated for
-\emph{prime sequences}, not for arbitrary reals.  The repaired statement is the
-following.
+The comparison theorem must be stated for \emph{prime sequences}, not for
+arbitrary reals; the correct statement is the following.
 
-\begin{theorem}[Prime-sequence Bonferroni-4 comparison]\label{thm:bonf-comp}
+\begin{theorem}[Prime-sequence Bonferroni--4 comparison]\label{thm:bonf-comp}
 Let $q_1<\cdots<q_K$ be the actual odd primes played by Shortener during the
 Round~15 prefix, and let $p_1<\cdots<p_K$ be any increasing sequence of odd
 primes with
@@ -240,7 +240,8 @@ The naive claim
   p_j/b_j = 1 + O(1/\log b_j)
 \]
 uniformly in $j$ is \emph{not} justified by the prime number theorem alone and
-must not be used.  The correct repair is the R60 half-density bridge.
+must not be used.  The correct bridge is the half-density construction of
+\Cref{thm:prime-bridge}.
 
 \begin{theorem}[Prime-rounding bridge]\label{thm:prime-bridge}
 Let $b_1\le \cdots \le b_K$ be the increasing sequence obtained from the
@@ -351,7 +352,7 @@ patterns contribute near the boundary.  Therefore
 for $1\le r\le 4$.
 \end{proof}
 
-\subsection{The finite Bonferroni-4 theorem}
+\subsection{The finite Bonferroni--4 theorem}
 
 \begin{theorem}\label{thm:main-upper}
 Under the Round~15 strategy $\sigfifteen$,
@@ -381,7 +382,7 @@ Applying \Cref{thm:bonf-comp} with $\Lambda_r=J_r$ gives
   =
   \left(\frac{\Wfour}{2}+o(1)\right)n.
 \]
-The R60 evaluation yields
+Numerical evaluation yields
 \[
   \frac{\Wfour}{2}=0.1897112<0.19,
 \]

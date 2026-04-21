@@ -3,9 +3,9 @@
 \subsection{Game Notation}
 
 \begin{description}
-  \item[$L(n)$] Length of the divisibility antichain game on $\{2,\dots,n\}$
+  \item[$\L(n)$] Length of the divisibility antichain game on $\{2,\dots,n\}$
   when both players play optimally and Prolonger moves first.
-  \item[$\U$] The upper half $(n/2,n]\cap \mathbb Z$ of the board.  Any subset
+  \item[$\U$] The upper half $(n/2,n]\cap \Z$ of the board.  Any subset
   of $\U$ is an antichain.
   \item[$A$] A terminal antichain, or more generally the current played set.
   \item[$P$] A set of upper-half Prolonger moves, usually a shield set in the
@@ -13,8 +13,9 @@
   \item[$M_n(x)$] The shadow of $x$ in the upper half:
   $M_n(x)=\{u\in \U: x\mid u\}$.
   \item[$w_n(x)$] The shadow weight $|M_n(x)|$.
-  \item[$\beta(P)$] The minimum total lower-half shadow weight needed to cover
-  $P$.
+  \item[$\beta(P)$] The maximum total weight $\sum_{x\in B}w_n(x)$ over antichains
+  $B\subseteq L(P)$ in the lower half; the largest weighted lower-half antichain
+  surviving after Prolonger plays $P$.
 \end{description}
 
 \subsection{Lower-Bound Notation}
@@ -33,7 +34,7 @@
 \begin{description}
   \item[$\sigma_{15}$] The Round~15 Shortener strategy: play the smallest legal
   odd prime during the first
-  $K=\lfloor (1-\varepsilon)n/(2\log n)\rfloor$ turns.
+  $K=\lfloor (1-\eps)n/(2\log n)\rfloor$ turns.
   \item[$q_1<\dots<q_K$] The odd primes actually claimed by Shortener during the
   $\sigma_{15}$ prefix.
   \item[$\rho(u)$] The piecewise density of the Round~15 prefix, namely
