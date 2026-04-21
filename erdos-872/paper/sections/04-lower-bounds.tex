@@ -422,31 +422,9 @@ constant $c_\delta>0$ such that
 for all sufficiently large $n$.
 \end{theorem}
 
-\begin{proof}[Proof roadmap]
-The full proof is in \Cref{app:deferred-proofs}.  The argument has four
-ingredients.
-
-First, the target family
-\[
-  \mathcal T=\{acb:\ a<c\le n^\delta,\ b\in(n/(2ac),n/(ac)]\cap\PP\}
-\]
-has total mass
-\[
-  \sum_{a<c}|(n/(2ac),n/(ac)]\cap\PP|
-  \gg_\delta
-  \frac{n(\log\log n)^2}{\log n}.
-\]
-Second, an activation graph game secures a positive fraction of this mass,
-up to a deletion error which is
-\[
-  O\!\left(\frac{n^{4\delta}}{(\log n)^4}\right)
-  =
-  o\!\left(\frac{n(\log\log n)^2}{\log n}\right)
-\]
-when $\delta<1/4$.  Third, once a pair $(a,c)$ is secured, each residual target
-$acb$ has only the three harmful slot divisors $b,ab,cb$; exact target plays
-score only their own target.  Fourth, the restricted safe-edge hypothesis gives a
-one-eighth finite potential bound in the residual scored slot hypergraph.  These
-ingredients produce a positive constant multiple of the initial target mass as
-actual game moves.
+\begin{proof}
+See \Cref{prop:t2-final} in \Cref{app:deferred-proofs}.  The full proof
+assembles \Cref{prop:t2-activation-potential,prop:t2-deletion-budget,%
+prop:t2-residual-mass,prop:t2-residual-embedding} under the restricted
+safe-edge hypothesis of \Cref{def:safe-edge}.
 \end{proof}
