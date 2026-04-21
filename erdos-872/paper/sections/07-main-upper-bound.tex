@@ -912,6 +912,213 @@ uniformly in $j$ is \emph{not} justified by the prime number theorem alone and
 must not be used.  The correct bridge is the half-density construction of
 \Cref{thm:prime-bridge}.
 
+\begin{lemma}[Bin demand estimate]\label{lem:bin-demand-estimate}
+Fix $H\ge2$ and a genuine block $[A_h,B_h]$, where
+$A_h=n^{\alpha_h}$ and $B_h=n^{\beta_h}$.  For a fixed $a>1$, partition the
+block into bins
+\[
+  I_k=[A_ha^k,A_ha^{k+1})
+\]
+with the last bin truncated at $B_h$, and let
+\[
+  d_k:=\#\{j:b_j\in I_k,\ j\text{ lies in the genuine }h\text{-block}\}.
+\]
+Then, for every fixed $c>1$, uniformly for
+$X\ge n^{1/H}$ with $[X,cX]\subseteq[A_h,B_h]$,
+\[
+  \#\{j:X\le b_j<cX,\ j\text{ genuine in block }h\}
+  \le
+  (1+o_{H,c}(1))\frac{(c-1)X}{(h+1)\log X}+O(1).
+  \tag{7.2}\label{eq:genuine-bin-demand}
+\]
+If $f_h$ denotes the multiplicity of the flat atom at the left endpoint
+$A_h$, then
+\[
+  f_h\le (1+o_H(1))\frac{A_h}{(h+1)\log A_h}.
+  \tag{7.3}\label{eq:flat-atom-count}
+\]
+\end{lemma}
+
+\begin{proof}
+On a genuine block, the inverse sequence has
+$B_{H,n}(Y)=\lfloor A_{n,h}(\log_nY)\rfloor$, and
+\[
+  \frac{d}{dY}A_{n,h}(\log_nY)
+  =
+  \frac{1-\xi_H(n)}{(h+1)\log Y}
+  \left(1-\frac1{\log Y}\right).
+\]
+Integrating over $[X,cX]$ gives \eqref{eq:genuine-bin-demand}; the $O(1)$
+endpoint error is negligible at these scales.  The flat atom satisfies
+$f_h\le L_h\le A_{n,h}(\alpha_h)$, which gives
+\eqref{eq:flat-atom-count}.
+\end{proof}
+
+\begin{lemma}[Bin prime supply estimate]\label{lem:bin-prime-supply-estimate}
+With $A=A_h$ fixed as above, let
+\[
+  P_k:=\#\{p\text{ odd prime}:Aa^k\le p<Aa^{k+1}\}.
+\]
+Then the Prime Number Theorem in fixed multiplicative intervals
+\cite[Theorem~6]{HardyWright08} gives, uniformly in $k$ in this fixed block,
+\[
+  P_k=(1+o_{H,a}(1))\frac{(a-1)Aa^k}{\log(Aa^k)}.
+  \tag{7.4}\label{eq:prime-bin-count}
+\]
+\end{lemma}
+
+\begin{proof}
+For fixed $H$ and $a$, all bins in a genuine block have endpoints tending to
+infinity and fixed ratio $a$.  Applying the fixed-ratio PNT to
+$[Aa^k,Aa^{k+1})$ gives the displayed estimate.  The possible prime $2$ is
+irrelevant because these intervals are eventually above $2$.
+\end{proof}
+
+\begin{lemma}[Interval-order Hall suffix inequality]
+\label{lem:interval-order-hall-suffix}
+Fix $a>1$.  Choose $\eta>0$ with
+$2a(1-\eta)/(1+\eta)>1$, and then choose $s=s(a)$ so that
+\[
+  (1-\eta)(a^{s+1}-1)>(1+\eta)\frac{a^s}{2}.
+  \tag{7.5}\label{eq:queue-clear}
+\]
+For all sufficiently large $n$, the flat atom and the first $s$ genuine bins
+in each genuine block satisfy the Hall suffix inequalities
+\[
+  \sum_{\ell=t}^{s}P_\ell \ge \sum_{k=t-1}^{s-1}d_k
+  \qquad (1\le t\le s),
+\]
+and
+\[
+  \sum_{\ell=0}^{s}P_\ell
+  \ge
+  f_h+\sum_{k=0}^{s-1}d_k .
+\]
+\end{lemma}
+
+\begin{proof}
+For $1\le t\le s$, \Cref{lem:bin-prime-supply-estimate} gives
+\[
+  \sum_{\ell=t}^{s}P_\ell
+  \ge
+  (1-\eta)\frac{A(a^{s+1}-a^t)}{\log A}
+  =
+  (1-\eta)\frac{aA(a^s-a^{t-1})}{\log A},
+\]
+for all large $n$, while \Cref{lem:bin-demand-estimate} gives
+\[
+  \sum_{k=t-1}^{s-1}d_k
+  \le
+  (1+\eta)\frac{A(a^s-a^{t-1})}{2\log A}.
+\]
+The suffix supply-to-demand ratio is therefore at least
+$2a(1-\eta)/(1+\eta)>1$.
+
+For $t=0$, the demand and flat-atom estimates give
+\[
+  f_h+\sum_{k=0}^{s-1}d_k
+  \le
+  (1+\eta)\frac{Aa^s}{2\log A},
+\]
+and the prime-bin estimate gives
+\[
+  \sum_{\ell=0}^{s}P_\ell
+  \ge
+  (1-\eta)\frac{A(a^{s+1}-1)}{\log A}.
+\]
+The choice \eqref{eq:queue-clear} proves the $t=0$ inequality.
+\end{proof}
+
+\begin{lemma}[Monotone assignment]\label{lem:monotone-prime-assignment}
+Under the hypotheses of \Cref{lem:interval-order-hall-suffix}, the flat atom
+and all genuine-bin demands in a fixed genuine block can be assigned to odd
+prime supply bins so that the assigned primes are strictly increasing and at
+least as large as their corresponding $b_j$.  The endpoint flat atom of the
+block is queued with release index $0$; a genuine demand from source bin $I_k$
+is released only at prime bin $k+1$.  The top flat block $b_j=n$ is assigned
+after all genuine blocks, in order, to odd primes in $[n,2n]$.
+\end{lemma}
+
+\begin{proof}
+The suffix inequalities of \Cref{lem:interval-order-hall-suffix} are exactly
+the Hall inequalities for this interval-order matching.  Equivalently, process
+prime bins in increasing order and assign each prime to the oldest unassigned
+released demand.  If this greedy algorithm first failed before or at bin $s$,
+the unassigned demands with release index at least the failure bin would
+violate the corresponding suffix inequality.
+
+For each later full source bin $I_k$, $k\ge s$, assign its $d_k$ elements to
+primes in the next prime bin $[Aa^{k+1},Aa^{k+2})$.  By
+\Cref{lem:bin-demand-estimate,lem:bin-prime-supply-estimate},
+\[
+  d_k
+  \le
+  (1+o_{H,a}(1))\frac{(a-1)Aa^k}{(h+1)\log(Aa^k)}
+  <
+  (1-o_{H,a}(1))\frac{(a-1)Aa^{k+1}}{\log(Aa^{k+1})}
+  \le P_{k+1},
+\]
+using $1/(h+1)\le1/2<a$.  The final truncated source bin is handled in the
+same way, using the next full prime bin above the block.
+
+The greedy rule, together with processing bins in increasing order and taking
+the smallest available prime in each bin, makes the assigned sequence strictly
+increasing within each block.  Assignments from different genuine blocks do
+not overlap, since the largest prime used for block $h$ is at most $a^2B_h$,
+whereas the next larger block begins at
+\[
+  A_{h-1}=n^{1/h+\tau_H}=n^{2\tau_H}B_h,
+\]
+so $a^2B_h<A_{h-1}$ for large $n$; also $a^2B_1=o(n)$.  Finally
+$[n,2n]$ contains $(1+o(1))n/\log n$ odd primes, more than enough for the
+top flat block of size at most $K\le n/(2\log n)$.
+\end{proof}
+
+\begin{lemma}[Exceptional mass and cutoff discrepancy]
+\label{lem:exceptional-mass-cutoff-discrepancy}
+Let $E$ be the union of the flat atoms, the first $s(a)$ genuine bins of every
+genuine block, and the top flat block $b_j=n$.  Then
+\[
+  \sum_{j\in E}\frac1{b_j}=O_{H,a}\left(\frac1{\log n}\right),
+  \tag{7.6}\label{eq:exceptional-b-mass}
+\]
+and the same bound holds with $p_j$ in place of $b_j$.  For every
+nonexceptional index,
+\[
+  b_j\le p_j\le a^2b_j\le\lambda b_j.
+  \tag{7.7}\label{eq:nonexceptional-factor}
+\]
+Consequently, for every fixed $1\le r\le4$,
+\[
+  T_r^{(p)}(n)=T_r^{(b)}(n)+O_{H,r}(\lambda-1)+o_{H,\lambda}(1).
+\]
+\end{lemma}
+
+\begin{proof}
+By \Cref{lem:cell-reciprocal-mass}, each fixed multiplicative bin has
+$b$-reciprocal mass $O_{H,a}(1/\log n)$, and there are only $O_{H,a}(1)$
+exceptional bins.  The top flat block contributes $K/n=O(1/\log n)$, proving
+\eqref{eq:exceptional-b-mass}.  Since every assigned prime is at least the
+corresponding $b_j$, the same bound holds with $p_j$ in place of $b_j$.
+
+For a nonexceptional index, the construction of
+\Cref{lem:monotone-prime-assignment} puts $p_j$ in the next prime bin above
+the bin containing $b_j$, so $b_j\le p_j\le a^2b_j\le\lambda b_j$.
+All $r$-tuples containing at least one exceptional index contribute
+$O_{H,r,a}(1/\log n)=o_{H,\lambda}(1)$ to either moment sum.  For a
+nonexceptional tuple $I$, write $b_I=\prod_{j\in I}b_j$ and
+$p_I=\prod_{j\in I}p_j$.  Then
+\[
+  b_I\le p_I\le\lambda^r b_I,\qquad
+  \lambda^{-r}\frac1{b_I}\le\frac1{p_I}\le\frac1{b_I}.
+\]
+On tuples counted by both cutoffs, this changes the total reciprocal weight by
+$O_{H,r}(\lambda-1)$, since the $r$-fold reciprocal mass is $O_H(1)$.  The only
+cutoff discrepancy comes from tuples with $n/\lambda^r<b_I\le n$, whose total
+$b$-reciprocal contribution is $O_{H,\lambda,a,r}(1/\log n)$ by
+\Cref{lem:product-strip-reciprocal} with $C=\lambda^r$ and $c=a$.
+\end{proof}
+
 \begin{proposition}[Fixed-parameter queued prime rounding]
 \label{prop:queued-prime-rounding}
 Fix $H\ge2$ and $\lambda>1$, and choose $a>1$ with $a^2\le\lambda$.
@@ -928,201 +1135,22 @@ and, for every fixed $1\le r\le4$,
 \]
 \end{proposition}
 
+
 \begin{proof}
-Write
-\[
-  A_h:=n^{\alpha_h},\qquad B_h:=n^{\beta_h}\qquad (1\le h\le H-1).
-\]
-Fix one genuine block $[A_h,B_h]$ and abbreviate $A=A_h$, $B=B_h$.  Partition
-it into fixed multiplicative bins
-\[
-  I_k=[Aa^k,Aa^{k+1})\qquad (k=0,1,\ldots,M),
-\]
-where the last bin is truncated at $B$.  Let
-\[
-  d_k:=\#\{j:b_j\in I_k,\ j\text{ lies in the genuine }h\text{-block}\}
-\]
-and let $f_h$ be the multiplicity of the flat atom at the left endpoint
-$A_h$.  Thus $f_{H-1}$ is the bottom flat atom, and for $h<H-1$ it is the flat
-atom in the gap just below $A_h$.
+Write $A_h=n^{\alpha_h}$ and $B_h=n^{\beta_h}$.  In each genuine block,
+\Cref{lem:bin-demand-estimate,lem:bin-prime-supply-estimate} provide the demand
+and supply estimates for the fixed multiplicative bins.  Choose $\eta$ and
+$s=s(a)$ as in \Cref{lem:interval-order-hall-suffix}.  The suffix inequalities
+there give the finite interval-order Hall matching for the endpoint flat atom
+and the first $s$ genuine bins, while \Cref{lem:monotone-prime-assignment}
+assigns all later genuine bins, keeps the assignments from different blocks
+ordered, and sends the top flat block to primes in $[n,2n]$.  Thus we obtain a
+strictly increasing odd-prime sequence with $b_j\le p_j$ for every $j$.
+Together with \Cref{prop:envelope-inversion}, this gives $q_j\le b_j\le p_j$.
 
-We first record the fixed-ratio estimates used by the queue.  For every fixed
-$c>1$, uniformly for $X\ge n^{1/H}$ with $[X,cX]\subseteq[A_h,B_h]$,
-\[
-  \#\{j:X\le b_j<cX,\ j\text{ genuine in block }h\}
-  \le
-  (1+o_{H,c}(1))\frac{(c-1)X}{(h+1)\log X}+O(1).
-  \tag{7.2}\label{eq:genuine-bin-demand}
-\]
-Indeed, on a genuine block $B_{H,n}(Y)=\lfloor A_{n,h}(\log_nY)\rfloor$, and
-\[
-  \frac{d}{dY}A_{n,h}(\log_nY)
-  =
-  \frac{1-\xi_H(n)}{(h+1)\log Y}
-  \left(1-\frac1{\log Y}\right).
-\]
-Integrating over $[X,cX]$ gives \eqref{eq:genuine-bin-demand}; the endpoint
-error is negligible at the scales used below.  Similarly,
-\[
-  f_h\le (1+o_H(1))\frac{A_h}{(h+1)\log A_h},
-  \tag{7.3}\label{eq:flat-atom-count}
-\]
-because $f_h\le L_h\le A_{n,h}(\alpha_h)$.  Finally, if
-\[
-  P_k:=\#\{p\text{ odd prime}:Aa^k\le p<Aa^{k+1}\},
-\]
-then the prime number theorem in fixed multiplicative intervals gives,
-uniformly in $k$ in this fixed block,
-\[
-  P_k=(1+o_{H,a}(1))\frac{(a-1)Aa^k}{\log(Aa^k)}.
-  \tag{7.4}\label{eq:prime-bin-count}
-\]
-
-Choose $\eta>0$ small enough that
-\[
-  \frac{2a(1-\eta)}{1+\eta}>1.
-\]
-Since the demand has the factor $1/(h+1)\le1/2$, we may then choose an integer
-$s=s(a)$ such that
-\[
-  (1-\eta)(a^{s+1}-1)>(1+\eta)\frac{a^s}{2}.
-  \tag{7.5}\label{eq:queue-clear}
-\]
-This is possible for every $a>1$.  We now verify the Hall conditions for the
-finite queue consisting of the flat atom and the first $s$ genuine bins.  The
-flat atom may use prime bins $\ell\ge0$, while demand from source bin $I_k$
-may use only prime bins $\ell\ge k+1$.
-
-For $1\le t\le s$, the fixed-ratio PNT estimate \eqref{eq:prime-bin-count}
-gives, uniformly in $t$,
-\[
-  \sum_{\ell=t}^{s}P_\ell
-  \ge
-  (1-\eta)\frac{A(a^{s+1}-a^t)}{\log A}
-  =
-  (1-\eta)\frac{aA(a^s-a^{t-1})}{\log A},
-\]
-for all large $n$.  On the other hand, \eqref{eq:genuine-bin-demand} gives
-\[
-  \sum_{k=t-1}^{s-1}d_k
-  \le
-  (1+\eta)\frac{A(a^s-a^{t-1})}{2\log A}.
-\]
-Thus the suffix supply-to-demand ratio is at least
-$2a(1-\eta)/(1+\eta)>1$, uniformly in $1\le t\le s$, and hence
-\[
-  \sum_{\ell=t}^{s}P_\ell \ge \sum_{k=t-1}^{s-1}d_k
-  \qquad (1\le t\le s).
-\]
-
-For $t=0$, \eqref{eq:genuine-bin-demand}, \eqref{eq:flat-atom-count}, and the
-fact that $s$ is fixed give
-\[
-  f_h+\sum_{k=0}^{s-1}d_k
-  \le
-  (1+\eta)\frac{Aa^s}{2\log A},
-\]
-while \eqref{eq:prime-bin-count} gives
-\[
-  \sum_{\ell=0}^{s}P_\ell
-  \ge
-  (1-\eta)\frac{A(a^{s+1}-1)}{\log A}.
-\]
-By \eqref{eq:queue-clear},
-\[
-  \sum_{\ell=0}^{s}P_\ell
-  \ge
-  f_h+\sum_{k=0}^{s-1}d_k.
-\]
-These are precisely the Hall suffix inequalities for the interval-order
-bipartite matching in which the flat atom has release index $0$ and the
-source bin $I_k$ has release index $k+1$.  Equivalently, a direct greedy
-algorithm which processes prime bins in increasing order and assigns each
-prime to the oldest unassigned released demand succeeds: if it first failed
-before or at bin $s$, the unassigned demands with release index at least the
-failure bin would violate the corresponding suffix inequality.  Hence the
-flat atom and the first $s$ genuine bins can be assigned to prime bins
-$0,\ldots,s$ while respecting the release constraints, and every assigned
-prime is at least as large as its corresponding $b_j$.
-The greedy rule, together with the fact that we process prime bins in
-increasing order and assign the smallest available prime within each bin to
-the oldest unassigned demand, ensures the assigned prime sequence
-$p_1<p_2<\cdots<p_K$ is strictly increasing.
-
-For each later full source bin $I_k$, $k\ge s$, assign its $d_k$ elements to
-primes in the next prime bin $[Aa^{k+1},Aa^{k+2})$.  This is possible for all
-large $n$, because \eqref{eq:genuine-bin-demand} and \eqref{eq:prime-bin-count} give
-\[
-  d_k
-  \le
-  (1+o_{H,a}(1))\frac{(a-1)Aa^k}{(h+1)\log(Aa^k)}
-  <
-  (1-o_{H,a}(1))\frac{(a-1)Aa^{k+1}}{\log(Aa^{k+1})}
-  \le P_{k+1},
-\]
-using $1/(h+1)\le1/2<a$.  The final truncated source bin is handled in the
-same way, using the next full prime bin above the block.
-
-Call exceptional the flat atoms, the first $s(a)$ genuine bins of every genuine
-block, and the top flat block $b_j=n$.  Let $E$ be the set of exceptional
-indices.  By \Cref{lem:cell-reciprocal-mass}, each fixed multiplicative bin
-has $b$-reciprocal mass $O_{H,a}(1/\log n)$, and there are only
-$O_{H,a}(1)$ exceptional bins.  The top flat block contributes $K/n=O(1/\log n)$.
-Thus
-\[
-  \sum_{j\in E}\frac1{b_j}=O_{H,a}\left(\frac1{\log n}\right).
-  \tag{7.6}\label{eq:exceptional-b-mass}
-\]
-Since every assigned prime is at least the corresponding $b_j$, the same bound
-holds with $p_j$ in place of $b_j$.
-
-The top flat block is assigned, in order, to odd primes in $[n,2n]$.  This
-interval contains $(1+o(1))n/\log n$ odd primes, more than enough for the at
-most $K\le n/(2\log n)$ top flat indices.  Assignments from different genuine
-blocks do not overlap.  The largest prime used for block $h$ is at most
-$a^2B_h$, while the next larger block begins at
-\[
-  A_{h-1}=n^{1/h+\tau_H}=n^{2\tau_H}B_h,
-\]
-so $a^2B_h<A_{h-1}$ for large $n$.  Also $a^2B_1=o(n)$, so the top flat
-assignment above $n$ comes last.  The construction therefore produces one
-increasing prime sequence.  For every nonexceptional index,
-\[
-  b_j\le p_j\le a^2b_j\le\lambda b_j.
-  \tag{7.7}\label{eq:nonexceptional-factor}
-\]
-Together with \Cref{prop:envelope-inversion}, this also gives $q_j\le b_j\le p_j$.
-
-It remains to compare moments.  The total reciprocal mass of the $b_j$ is
-$O_H(1)$ by \Cref{prop:envelope-inversion}, and the same is true for the $p_j$
-by \eqref{eq:exceptional-b-mass} and \eqref{eq:nonexceptional-factor}.  Hence all
-$r$-tuples containing at least one exceptional index contribute
-\[
-  O_{H,r,a}\left(\frac1{\log n}\right)=o_{H,\lambda}(1)
-\]
-to either $T_r^{(b)}(n)$ or $T_r^{(p)}(n)$.
-
-For a nonexceptional tuple $I=\{j_1<\cdots<j_r\}$, write
-\[
-  b_I:=\prod_{j\in I}b_j,\qquad p_I:=\prod_{j\in I}p_j.
-\]
-By \eqref{eq:nonexceptional-factor},
-\[
-  b_I\le p_I\le\lambda^r b_I,\qquad
-  \lambda^{-r}\frac1{b_I}\le\frac1{p_I}\le\frac1{b_I}.
-\]
-On tuples counted by both cutoffs, this changes the total reciprocal weight by
-$O_{H,r}(\lambda-1)$, since the $r$-fold reciprocal mass is $O_H(1)$.  The
-only cutoff discrepancy comes from tuples with
-\[
-  n/\lambda^r<b_I\le n.
-\]
-By \Cref{lem:product-strip-reciprocal} with $C=\lambda^r$ and $c=a$, these
-tuples have total $b$-reciprocal contribution
-\[
-  O_{H,\lambda,a,r}(1/\log n)=o_{H,\lambda}(1).
-\]
-This proves \eqref{eq:queued-bridge-moment}.
+The moment comparison is exactly
+\Cref{lem:exceptional-mass-cutoff-discrepancy}, which proves
+\eqref{eq:queued-bridge-moment} for each fixed $1\le r\le4$.
 \end{proof}
 
 \begin{proposition}[Diagonal parameter selection for the prime bridge]
