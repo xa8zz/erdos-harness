@@ -691,6 +691,59 @@ stated inequality.
 
 \subsection{The prime-rounding bridge}
 
+\begin{lemma}[Fixed-ratio cell reciprocal mass]\label{lem:cell-reciprocal-mass}
+Fix $H\ge2$, and let $b_1,\ldots,b_K$ be the comparison sequence obtained from
+\Cref{prop:envelope-inversion} with this fixed $H$.  For every fixed $c>1$,
+uniformly in $Y>0$,
+\[
+  \sum_{\substack{1\le j\le K\\Y\le b_j<cY}}\frac1{b_j}
+  =
+  O_{H,c}\!\left(\frac1{\log n}\right).
+\]
+\end{lemma}
+
+\begin{proof}
+If the cell $[Y,cY)$ lies inside a genuine block
+$[n^{\alpha_h},n^{\beta_h}]$, then $B_{H,n}(X):=\#\{j:b_j\le X\}$ agrees with
+$\lfloor A_{n,h}(\log_n X)\rfloor$ on the block.  As in the proof of
+\Cref{prop:envelope-inversion},
+\[
+  \frac{d}{dX}A_{n,h}(\log_n X)
+  =
+  \frac{1-\xi_H(n)}{(h+1)\log X}
+  \left(1-\frac1{\log X}\right)
+  \ll_H \frac1{\log n},
+\]
+because every genuine block has $X\ge n^{\alpha_{H-1}}>n^{1/H}$.  Hence
+\[
+  \#\{j:Y\le b_j<cY,\ j\text{ genuine}\}
+  \ll_{H,c}\frac{Y}{\log n}+1.
+\]
+Dividing by $Y$ gives a reciprocal contribution $O_{H,c}(1/\log n)$; the
+endpoint $+1$ is harmless since $Y\ge n^{1/H}$ in a genuine block.
+
+A fixed-ratio cell can meet at most one breakpoint for all large $n$, because
+successive breakpoints in the envelope are separated by a factor which is a
+positive power of $n$.  If the cell is adjacent to a breakpoint, split its
+genuine part into the at most two adjacent genuine pieces and apply the
+preceding estimate to each.  The only additional contribution is the flat atom
+at the breakpoint.  At $A_h:=n^{\alpha_h}$ the flat multiplicity is at most
+$L_h$, so
+\[
+  \frac{L_h}{A_h}
+  \le
+  \frac{A_{n,h}(\alpha_h)}{n^{\alpha_h}}
+  =
+  O_H\!\left(\frac1{\log n}\right).
+\]
+The top flat block at $b_j=n$ contributes at most
+\[
+  \frac{K}{n}=O\!\left(\frac1{\log n}\right).
+\]
+Cells lying wholly in gaps have no genuine contribution and only the same
+possible flat-atom contribution.  These cases cover all $Y$.
+\end{proof}
+
 It remains to convert the real comparison sequence $b_j$ from
 \Cref{prop:envelope-inversion} into an actual increasing odd-prime sequence.
 The naive claim
@@ -925,15 +978,26 @@ product boundary
 \[
   n/\lambda^r < b_I\le n.
 \]
-For fixed $H$ and $\lambda$, this boundary layer is $o_{H,\lambda}(1)$: in
-logarithmic coordinates it is a strip of width
-$r\log\lambda/\log n$ around the hyperplane
-$u_1+\cdots+u_r=1$, and the empirical measures from
-\Cref{prop:envelope-inversion} converge to an absolutely continuous limit.
-Equivalently, one may partition into unit logarithmic cells
-$[e^a,e^{a+1})$; each cell has reciprocal mass $O_H(1/\log n)$ by
-\((\mathrm{PB2})\), and only $O_{H,\lambda}((\log n)^{r-1})$ cell patterns meet the
-strip.  Thus
+We control this boundary layer by a cell count.  Fix a constant $c>1$, and
+partition the positive axis into cells $[c^\ell,c^{\ell+1})$.  By
+\Cref{lem:cell-reciprocal-mass}, every cell has $b$-reciprocal mass
+$O_{H,c}(1/\log n)$.  There are $O_{H,c}(\log n)$ cells meeting the range of
+the $b_j$.  For the product strip
+\[
+  n/\lambda^r < x_1\cdots x_r\le \lambda^r n,
+\]
+once the first $r-1$ cell indices are chosen, only
+$O_{\lambda,c,r}(1)$ choices of the last cell can meet the strip.  Thus there
+are $O_{H,\lambda,c,r}((\log n)^{r-1})$ relevant $r$-cell patterns.  Each
+pattern contributes at most $O_{H,c,r}((\log n)^{-r})$ reciprocal mass, so the
+total contribution of the strip is
+\[
+  O_{H,\lambda,c,r}\!\left(\frac1{\log n}\right)
+  =
+  o_{H,\lambda}(1).
+\]
+In particular the narrower boundary $n/\lambda^r<b_I\le n$ contributes
+$o_{H,\lambda}(1)$.  Thus
 \[
   T_r^{(p)}(n)
   =
