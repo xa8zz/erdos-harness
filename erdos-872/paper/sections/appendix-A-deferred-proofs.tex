@@ -669,6 +669,11 @@ Therefore the contribution is at most
 because the reciprocal prime sum over a fixed-power interval is $O_\alpha(1)$.
 Thus $T_\alpha(n)=O_\alpha(n/\log n)$.
 
+After the prime phase, every prime $p\le y$ with $p\notin B$ has either been
+played as the singleton $p$ or has had some proper multiple played; in either
+case, no future legal Prolonger move can contain $p$ as a factor.  Therefore
+any remaining composite Prolonger move is supported on $B$.
+
 We prove that the priority list resolves all primes at most $y$.  After the
 prime and square phases, any remaining legal move supported on $B$ must be
 squarefree.  If it has support size $1$, it is comparable with a played or
