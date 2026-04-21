@@ -293,9 +293,15 @@ Combining the last two displays proves the claim.
 \end{proof}
 
 \begin{proposition}[Residual divisibility embedding]\label{prop:t2-residual-embedding}
-Let $\mathcal T_*$ be any subfamily of targets $t=acb\in\mathcal T$ such that,
-for every $t=acb\in\mathcal T_*$, the numbers $a$, $c$, and $ac$ are already
-unavailable as legal moves.  Attach to $t$ the three slot labels
+Let $\mathcal T_*$ be a subfamily of targets $t=acb\in\mathcal T$ with the
+following secured-pair origin.  For every $t=acb\in\mathcal T_*$, there is a
+securing target
+\[
+  t_0(a,c)=acb_0\in\mathcal T,\qquad b_0\ne b,
+\]
+which has already been played, making $a$, $c$, and $ac$ unavailable as move
+options; and no other earlier move is comparable with any
+$t\in\mathcal T_*$.  Attach to $t$ the three slot labels
 \[
   b,\qquad ab,\qquad cb
 \]
@@ -321,7 +327,7 @@ itself or a proper divisor of $t$.  The positive divisors are
   1,\ a,\ c,\ ac,\ b,\ ab,\ cb,\ acb.
 \]
 The divisor $1$ is not a move, while $a$, $c$, and $ac$ are unavailable by
-hypothesis.  This proves the first assertion.
+the played securing target $t_0(a,c)$.  This proves the first assertion.
 
 For slot incidence, suppose another target is $t'=a'c'b'$.  Since
 $b,b'>Y\ge a,a',c,c'$, the divisibility $b\mid t'$ holds iff $b=b'$.  Thus a
@@ -337,9 +343,13 @@ incomparable, and playing an exact target scores only that target.
 
 Finally, if $e_t$ is live in the slot hypergraph, then none of $b$, $ab$, $cb$,
 or $t$ has been played.  The only other proper divisors of $t$ are
-$1,a,c,ac$, and these are either not moves or already unavailable.  There is no
-proper multiple of $t$ on the board.  Therefore no played number is comparable
-with $t$, so the actual move $t$ is legal.  This proves the comparison.
+$1,a,c,ac$, and these are either not moves or are unavailable because of the
+played securing target $t_0(a,c)$.  The securing target is a distinct target
+larger than $n/2$, hence is incomparable with $t$, and there is no proper
+multiple of $t$ on the board.  By hypothesis, no other earlier move is
+comparable with any target in $\mathcal T_*$.  Therefore no played number is
+comparable with $t$, so the actual move $t$ is legal.  This proves the
+comparison.
 \end{proof}
 
 \begin{proposition}[Activation-stage potential]\label{prop:t2-activation-potential}
@@ -504,7 +514,14 @@ for all sufficiently large $n$.
 After activation, restrict to the residual live targets lying over secured
 pairs.  Their total weight is $M$, as in
 \Cref{prop:t2-residual-mass}.  For each secured pair $(a,c)$, the activation
-move made $a$, $c$, and $ac$ unavailable.  Therefore
+move supplies a securing target $t_0(a,c)=acb_0$, and the residual subfamily
+keeps only targets $acb$ with $b\ne b_0$ which remain live.  Thus the securing
+target makes $a$, $c$, and $ac$ unavailable while being incomparable with every
+remaining residual target over the same pair.  No other earlier move is
+comparable with a residual target: Shortener's modeled activation replies are
+graph vertex or edge deletions and do not produce comparable integers, while
+any off-model move comparable with a target deletes that target and so removes
+it from the residual live subfamily.  Therefore the strengthened hypothesis of
 \Cref{prop:t2-residual-embedding} compares the remaining divisibility game to a
 scored rank-$3$ slot hypergraph whose total edge weight is $M$.
 
