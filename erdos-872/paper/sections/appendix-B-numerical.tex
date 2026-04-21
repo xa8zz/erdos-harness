@@ -7,20 +7,108 @@ the analytic proof in \Cref{sec:main-upper}.
 
 \subsection{The Bonferroni--4 constant}
 
-The main theorem uses
+The main theorem uses the following certified upper bound.
+
+\begin{proposition}[Interval-arithmetic certification of $\Wfour/2<0.19$]
+\label{prop:wfour-certification}
+For the moment constants in \Cref{sec:main-upper},
 \[
-  \frac{\Wfour}{2}=0.1897112<0.19.
+\begin{aligned}
+  J_1&\in[0.7885305658,\,0.7885305661],\\
+  J_2&\in[0.18681848,\,0.18682451],\\
+  J_3&\in[0.02009209,\,0.02009370],\\
+  J_4&\in[0.00122263,\,0.00122282].
+\end{aligned}
 \]
-A direct grid computation of the integrals
+Consequently
+\[
+  \frac{\Wfour}{2}\le 0.1897123371<0.19.
+\]
+In particular one may take a numerical margin
+$\eta=2.87\cdot10^{-4}$ in $\Wfour/2\le0.19-\eta$.
+\end{proposition}
+
+\begin{proof}
+Let $\mu(du)=\rhoU(u)\,du$.  Then
+\[
+  r!J_r
+  =
+  \mu^{\otimes r}\{(u_1,\ldots,u_r):u_1+\cdots+u_r\le1\}.
+\]
+Take $N=10^5$ and partition $(0,1]$ into
+\[
+  I_i=\left(\frac{i-1}{N},\frac{i}{N}\right]\qquad(1\le i\le N).
+\]
+Write $m_i=\mu(I_i)$.  These masses are computed from an exact antiderivative:
+if $x\in(1/(h+1),1/h]$, then
+\[
+  F(x):=\int_0^x\rhoU(u)\,du
+  =
+  T_{h+1}+\frac{1}{h+1}\log((h+1)x),
+\]
+where
+\[
+  T_k:=\sum_{\ell=k}^{\infty}\frac{\log(1+1/\ell)}{\ell+1}.
+\]
+Thus $m_i=F(i/N)-F((i-1)/N)$.  For certification the tails $T_k$ are truncated
+at $H^\star=10^6$.  Since
+\[
+  \frac{1}{(\ell+1)^2}
+  \le
+  \frac{\log(1+1/\ell)}{\ell+1}
+  \le
+  \frac{1}{\ell(\ell+1)},
+\]
+we have
+\[
+  \sum_{\ell>H^\star}\frac{\log(1+1/\ell)}{\ell+1}
+  \le
+  \sum_{\ell>H^\star}\frac{1}{\ell(\ell+1)}
+  =
+  \frac{1}{H^\star+1}.
+\]
+All logarithms, sums, and differences are evaluated with outward-rounded
+interval arithmetic.
+
+Let $c_s^{(r)}$ be the interval convolution coefficients
+\[
+  c_s^{(r)}
+  :=
+  \sum_{i_1+\cdots+i_r=s}m_{i_1}\cdots m_{i_r}.
+\]
+Every product cell with $i_1+\cdots+i_r\le N$ lies wholly inside the simplex,
+while every product cell which can meet the simplex satisfies
+$(i_1-1)+\cdots+(i_r-1)\le N$, equivalently
+$i_1+\cdots+i_r\le N+r$.  Therefore
+\[
+  \frac1{r!}\sum_{s\le N}c_s^{(r)}
+  \le
+  J_r
+  \le
+  \frac1{r!}\sum_{s\le N+r}c_s^{(r)}.
+\]
+Carrying out these outward-rounded interval convolutions gives the four
+intervals displayed above.  Finally, using the lower endpoints for $J_1,J_3$
+and the upper endpoints for $J_2,J_4$,
+\[
+  \frac{\Wfour}{2}
+  \le
+  \frac12(1-0.7885305658+0.18682451-0.02009209+0.00122282)
+  =
+  0.1897123371<0.19.
+\]
+\end{proof}
+
+A direct grid computation of the same integrals gives the convergence displayed
+in \Cref{tab:grid-bonferroni}.  The theorem only needs the certified strict
+margin below $0.19$, while the table records an independent convergence check.
 \[
   J_r=
   \frac1{r!}
   \int_{\substack{u_1+\cdots+u_r\le1\\0<u_i\le1}}
   \prod_{i=1}^r \rho(u_i)\,du_1\cdots du_r
 \]
-gives the convergence displayed in \Cref{tab:grid-bonferroni}.  The theorem
-only needs a strict margin below $0.19$, and the finest-grid value provides a
-comfortable margin.
+is the quantity being approximated.
 
 \begin{table}[ht]
 \centering

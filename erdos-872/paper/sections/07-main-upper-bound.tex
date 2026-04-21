@@ -206,11 +206,9 @@ and
 \[
   \Wfour := 1-J_1+J_2-J_3+J_4.
 \]
-Numerical evaluation gives
+The interval-arithmetic certification in \Cref{prop:wfour-certification} gives
 \[
-  \Wfour = 0.3794224,
-  \qquad
-  \frac{\Wfour}{2} = 0.1897112 < 0.19.
+  \frac{\Wfour}{2}\le 0.1897123371<0.19.
 \]
 
 For any increasing sequence $b_1\le \cdots \le b_K$ of positive reals, define
@@ -1070,7 +1068,7 @@ $q_j\le p_j^{(n)}$ for every $j$.
 Under the piecewise-density prime-prefix strategy,
 \[
   \L(n) \le \left(\frac{\Wfour}{2}+o(1)\right)n
-  = (0.1897112+o(1))n < 0.19n.
+  \le (0.1897123371+o(1))n < 0.19n.
 \]
 \end{theorem}
 
@@ -1095,9 +1093,9 @@ Applying \Cref{thm:bonf-comp} with $\Lambda_r=J_r$ gives
   =
   \left(\frac{\Wfour}{2}+o(1)\right)n.
 \]
-Numerical evaluation yields
+By \Cref{prop:wfour-certification},
 \[
-  \frac{\Wfour}{2}=0.1897112<0.19,
+  \frac{\Wfour}{2}\le0.1897123371<0.19,
 \]
 so the theorem follows.
 \end{proof}
