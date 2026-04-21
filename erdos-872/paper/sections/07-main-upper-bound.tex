@@ -738,7 +738,7 @@ odd integers $m\le n$ gives
   \le\;&
   \frac n2
   \left(1-T_1^{(p)}(n)+T_2^{(p)}(n)-T_3^{(p)}(n)+T_4^{(p)}(n)\right) \\
-  &\quad + O(D_1+D_2+D_3+D_4),
+  &\quad + O(1+D_1+D_2+D_3+D_4),
 \end{aligned}
 \]
 where
@@ -754,7 +754,8 @@ $P_J$ is
 \]
 because $P_J$ is odd.  If $P_J>n$ the intersection is empty, so the total
 floor error in the first four Bonferroni sums is
-$O(D_1+D_2+D_3+D_4)$.
+$O(D_1+D_2+D_3+D_4)$.  The additional $O(1)$ accounts for replacing the exact
+number of odd integers at most $n$ by $n/2$.
 
 We use the standard Landau bound for squarefree integers with exactly $r$
 prime factors (see, for example, \cite[Ch.~22]{HardyWright08}),
