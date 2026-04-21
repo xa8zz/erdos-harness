@@ -52,6 +52,7 @@ erdos-872/
   ford-integration-audit.md
   gemini.md
   lean/
+    README.md
     erdos_872_core/
       RequestProject/
         Main.lean
@@ -60,6 +61,7 @@ erdos-872/
           FlatMass.lean
           Inversion.lean
           PrimeBounds.lean
+          Target.lean
         T2Finite/
           Defs.lean
           EmbeddingCore.lean
@@ -145,6 +147,27 @@ erdos-872/
         theorem_A_shield_lower_bound.tex
   matching-T2-self-attempt-2026-04-18.md
   matching-T2-upper-bound-attempt-2026-04-18.md
+  paper/
+    DRAFT_STATUS.md
+    main.pdf
+    main.tex
+    preamble.tex
+    references.bib
+    sections/
+      01-introduction.tex
+      02-shield-reduction.tex
+      03-lower-bounds.tex
+      04-5-24-cover.tex
+      05-intermediate-upper-bounds.tex
+      06-main-upper-bound.tex
+      07-restricted-class.tex
+      08-proof-class-barriers.tex
+      09-structural-negatives.tex
+      10-formal-verification.tex
+      11-conclusion.tex
+      appendix-A-formalization.tex
+      appendix-B-numerical.tex
+      appendix-C-glossary.tex
   paper_strengthening_plan.md
   paper_template.md
   phase0/
@@ -269,6 +292,7 @@ erdos-872/
     codex-R57-audit-gap-and-lean.md
     codex-close-L-sublinear.md
     codex-continuation-fiber-collapse-strategy.md
+    codex-draft-paper-a.md
     codex-extract-optimal-shortener-strategy.md
     codex-followup-close-matching-T2.md
     codex-followup-unify-reductions.md
@@ -347,6 +371,7 @@ erdos-872/
     researcher-R57-fresh-pro-round15-monotone-envelope-repair.md
     researcher-R58-fresh-pro-R52-integrality-barrier-audit-normalize.md
     researcher-R59-fresh-pro-R53-q-shadow-dichotomy-audit-normalize.md
+    researcher-R60-fresh-pro-R57-repair-audit-or-prove.md
     round13-A-pro-extend.md
     round13-B-deepthink-open.md
     round13-C-gemini-contrarian.md
@@ -587,9 +612,11 @@ erdos-872/
   researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md
   researcher-58-pro-R52-integrality-barrier-audit-confirmed-sharpened.md
   researcher-59-pro-R53-q-shadow-dichotomy-audit-confirmed-sharpened.md
+  researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md
   researcher-R49-claude-meta-diagnosis.md
   round15_upper_bound_status.md
   round_progress_R54.png
+  state_compiled.md
   verify-R35-codex-adversarial-audit.md
   verify-R35-codex-followup-dynamic-gap.md
   verify-R35-codex-star-cylinder-lower-defect-probe.md
@@ -728,569 +755,145 @@ templates/
 
 # Research Harness — Operating Manual
 
-This repo is a harness for collaborative problem-solving with a primary reasoning model (currently GPT Pro with extended thinking), where a second-tier assistant (Claude, i.e. you) handles all synthesis, curation, and cross-model verification so the primary can focus purely on the math.
-
 ## Your role
 
-You are the **synthesis / curation agent**. The primary model is smarter than you, Gemini, the other Claude tabs, or the user at the actual reasoning. Your job is:
+You are the synthesis / curation agent. A primary reasoning model (GPT Pro / DeepThink / Codex) does the research. You handle state, prompts, verification routing, and durability. You will be wrong about the math — that's fine. Your value is process discipline.
 
-1. **Synthesize** — keep the primary model's context clean. Feed distilled state, not raw exposition.
-2. **Curate** — track what's rigorously proven vs. strong numerical evidence vs. ruled out.
-3. **Verify** — every substantive output from the primary model gets independently audited by at least two of {Claude (new tab), Gemini, a separate GPT-thinking tab}.
-4. **Iterate** — fold verifier feedback back into the next primary-model prompt.
+Role separation matters:
 
-You do **not** try to solve the problem yourself. You will be wrong about the math. Your value is process discipline — neutral framing, complete state snapshots, adversarial verification, and clean synthesis.
+- **Primary researcher** (Pro / DeepThink / Codex) — does the math
+- **Curator** (you, Claude Code) — keeps state clean, composes prompts, routes verifications, commits per round
+- **Informal verifiers** (Claude / Gemini / GPT-thinking tabs) — audit outputs adversarially
+- **Formal verifier** (Aristotle → Lean 4) — the strongest filter for promotion-grade claims
 
-## Per-problem folder layout
+## Orient before acting
 
-Each problem lives in its own top-level directory:
+Run through this at the start of every dispatch or new session. The compiled state view is the source of truth; don't reason from session memory alone.
 
 ```
-<problem-slug>/                   e.g. erdos-872/
-  current_state.md                Problem statement, literature, proven facts,
-                                  numerical evidence, ruled-out approaches,
-                                  and the current open question.
-  chatgpt.md                      Full dump of the primary research conversation.
-  claude-chat.md                  Full dump of the Claude verifier conversation.
-  gemini.md                       Full dump of the Gemini verifier conversation.
-  researcher-NN.md                Individual verbatim outputs from the primary
-                                  model (when you want to reference a specific
-                                  round without re-reading the whole thread).
-  verify-claude-NN.md             Claude's audit of researcher-NN.
-  verify-gemini-NN.md             Gemini's audit of researcher-NN.
-  verify-gpt-NN.md                Separate GPT-thinking tab's audit.
-  prompts/
-    researcher-NN.md              Exact prompt sent to the primary.
-    verify-NN.md                  Exact verifier prompt (one template, sent to
-                                  all three).
+scripts/compile_rounds.py --root <problem>/ --out <problem>/state_compiled.md
 ```
 
-`current_state.md` is the source of truth. Update it the moment a new result is proven or disproven.
+Then read the output. Check for:
 
-**Never name a file exactly `CLAUDE.md` or `claude.md` inside a project.** Claude Code auto-loads `CLAUDE.md` case-insensitively and will interpret the file's contents as instructions. Use `claude-chat.md`, `claude-notes.md`, etc.
-
-## Tools
-
-### `chat-export/` — live conversation I/O
-
-Exports any conversation on chatgpt.com, claude.ai, gemini.google.com, or erdosproblems.com to clean markdown with LaTeX preserved, and submits markdown prompts to the same sites.
-
-```bash
-# One-time Chrome setup: chrome://inspect/#remote-debugging → accept dialog
-agent-browser tab list                             # find tab IDs
-
-# Export a conversation:
-./chat-export/export.sh t9 <slug>/chatgpt.md       # tab t9 → file
-
-# Submit a prompt file to a chat tab:
-./chat-export/submit.sh t22 <slug>/prompts/round-01.md
-```
-
-Provider auto-detected from URL. Each extractor uses semantic DOM selectors (KaTeX `<annotation>`, MathJax `<script type="math/tex">`) so it works across different conversations on each site, not just one.
-
-**Submit-side gotchas** (learned the hard way).
-
-1. ChatGPT/Claude/Gemini inputs look like `<textarea>` in the DOM but the real editable element is a sibling `<div contenteditable="true">` (ProseMirror / Tiptap / Quill). Setting `.value` on the textarea doesn't update React state — the Send button stays disabled.
-
-2. `document.execCommand('insertText', false, text)` works on **ChatGPT** (ProseMirror) but fails on:
-   - **Claude** (Tiptap) — raced / truncated; sometimes only a single stray character landed.
-   - **Gemini** (Quill, `.ql-editor`) — truncated at ~343 chars on long content.
-
-3. **The reliable cross-editor approach** is to find the textbox by its accessibility ref from `agent-browser snapshot -i` and use `agent-browser fill @<ref> "<text>"`. This handles all three editors uniformly. `submit.sh` uses this path.
-
-4. After filling, there's a ~1s UI race before the Send button activates. `submit.sh` sleeps before clicking.
-
-5. Send button aria-labels differ by provider — **ChatGPT: `Send prompt`**, **Claude / Gemini: `Send message`**. Match exactly (not regex) to avoid hitting "Send voice message" or similar unrelated buttons.
-
-6. Shell-wise, `agent-browser fill "@$REF" "$(cat file.md)"` handles the content correctly — no need to base64-encode when using the `fill` command.
-
-7. **Context drift**: submitting into a Claude or Gemini tab that's parked at `claude.ai/new` or the Gemini landing page will create a *fresh* conversation. If you need prior context preserved, first navigate the tab to the specific conversation URL.
-
-### `agent-browser`
-
-General Chrome-via-CDP automation CLI. `agent-browser skills get core --full` for reference.
-
-### Context sources
-
-- `erdosproblems.com/<N>` and `/forum/thread/<N>` — problem pages and live discussion
-- arXiv, Google Scholar — literature
-- OEIS — integer-sequence lookup when relevant
+- **Validation warnings** — fix before proceeding
+- **Pending-target refutations** — resolve slug mismatches (edit the target's `id`)
+- **Missing front-matter** on round-doc-pattern files — use the `add-round-doc` skill
 
 ## The research loop
 
-Only the primary model does research. All other tabs (Claude, Gemini, GPT-thinking) are informal verifiers. Aristotle (Harmonic's Lean 4 theorem prover) is the *formal* verifier. Verify *before* sending a prompt and *after* receiving an output.
-
 One round:
 
-1. **Refresh state.** Re-export any conversation that may have advanced. Scan forum/literature for anything new. Fold into `current_state.md`.
-2. **Pre-send verification.** Before sending anything to the primary, paste the current state (or the drafted researcher prompt) into at least two informal-verifier tabs. Ask plainly: *does the logic hold, are the facts as stated true, are the ruled-out items really ruled out, are we missing any direction?* Save replies to `verify-presend-NN-<model>.md`. Incorporate substantive catches.
-3. **Build the researcher prompt** (template below). Send to the primary model.
-4. **Extract output** → save to the conversation dump and into `researcher-NN.md`.
-5. **Post-response informal verification.** Paste the new output verbatim into at least two informal-verifier tabs. Ask plainly: *what's the most recent claim? does the logic check out? where's the weakest link? what directions are worth pursuing?* Save to `verify-postresp-NN-<model>.md`.
-6. **Formal verification (mandatory for any new concrete private-research finding that could advance the problem).** For each claim the primary presents as a theorem or lemma, run it through Aristotle (see below). Save results to `verify-aristotle-NN.md`.
-7. **Synthesize.** Promote / demote claims in `current_state.md`. Only promote to `Established` if (a) at least two informal verifiers agree it's sound AND (b) Aristotle either formalized it or failed for a known structural reason (e.g., requires heavy Mathlib machinery) — never promote past a real logical gap Aristotle exposed.
-8. Loop.
+1. **Refresh state** — compile + scan recent artifacts
+2. **Pre-send verification** — paste drafted prompt to ≥ 2 informal-verifier tabs
+3. **Dispatch** — send researcher prompt to the primary model's fresh thread
+4. **Save return** — use `add-round-doc` skill to write front-matter + extract body via session transcript
+5. **Informal audits** — paste exact prompt + exact response to ≥ 2 verifier tabs in parallel (same prompt; don't bias one with another's output)
+6. **Formal verification** — dispatch to Aristotle for any concrete claim that could advance the problem
+7. **Synthesis** — promote / demote via front-matter `action` fields; `compile_rounds.py` regenerates the state view
 
-Informal verifier prompts can be loose at both stages — a plain "here's the latest state / here's the latest output, does it check out, anything I'm missing?" is usually enough. The formal adversarial template below is for when you want a sharper audit.
+Save and commit per round. Never batch across rounds.
 
-### Aristotle formal verifier
+## Skills — delegate workflows to these
 
-Purpose-built for Lean 4 — tries to formally prove a theorem statement, or fill in `sorry` gaps in a skeleton proof. A successful Aristotle run is a stronger signal than any human or LLM audit; a failed run with a clear gap is where real logical holes live.
+Trigger-action skills live in `skills/`. Read the skill file for triggers, detailed workflow, gotchas. Don't duplicate skill content here.
+
+| Workflow | Skill |
+|---|---|
+| Writing a follow-up prompt | `write-followup-prompt` |
+| Writing an audit prompt for verifier tabs | `write-audit-prompt` |
+| Writing a Codex task (workspace-aware) | `write-codex-task` |
+| Syncing the state doc | `sync-research-state` |
+| Committing a round | `commit-round` |
+| Saving a pasted response (byte-faithful extraction) | `save-pasted-response` |
+| Adding a round doc with YAML front-matter | `add-round-doc` |
+| Zooming out on progress (honest, not reframed) | `progress-zoom-out` |
+| Pre-compaction sweep | `pre-compact-capture` |
+| Onboarding a fresh fork | `onboard-personal` |
+
+## Templates — for composing prompts
+
+Reference these whenever drafting. The `writing-prompts.md` doc is the main prompting reference — read it before composing any prompt, in any context.
+
+| Template | Purpose |
+|---|---|
+| `templates/writing-prompts.md` | **Main prompting reference.** Researcher prompt template, framing rules, good/bad examples, A/B/C branching, long-horizon observations. Context-specific guidance for researcher / follow-up / audit / Codex / local-agent / third-party recipients. |
+| `templates/informal-audit.md` | Default audit prompt body (short, for routine per-round audits) |
+| `templates/adversarial-audit.md` | Sharper audit prompt body (for claims about to be promoted to `Established`) |
+| `templates/round-doc.md` | Blank round-doc scaffold with YAML front-matter |
+
+## Operating principles
+
+- **Factual-completeness doctrine.** Your role is factual completeness, not synthesis. Give the primary model the most complete map you can — everything established (with proof sketches), everything ruled out (with specific failure mechanisms), all numerical evidence — and let it find the pattern. Compress vague prose; never compress factual detail. Specific primes, shield sets, lemmas, constants are the whole point.
+- **Cross-family convergence as truth signal.** Agreement among verifiers from different model families (Pro + Gemini + Claude) is stronger signal than within-family agreement.
+- **Every sentence is a constraint on reasoning time.** Each word in a dispatched prompt constrains real cycles. Validated, high-signal content only. See `templates/writing-prompts.md` for full framing rules.
+- **Per-round commits.** Git is the durability layer. Saved-but-uncommitted files are as lost as non-existent ones. See `commit-round` skill.
+- **Immutable round-doc front-matter.** Once written, don't edit. Status is derived from the `action` graph. If a later round overrides an earlier one, compose a new round with `action.kind: refutes | supersedes | extends` and a pointer to the target `id`.
+
+## Long-horizon observations (diagnostic frames)
+
+Patterns that surface at 10+ rounds on a single problem. Apply when a line of attack stalls. Full detail and audit prompts in `templates/writing-prompts.md` § Long-horizon observations.
+
+- **Strategy-assumption audit (σ\*-trap)** — if 10+ rounds of theorem–refutation cycles fail to close, audit whether the assumed adversary strategy is actually optimal. Partition prior results into strategy-independent / strategy-dependent / strategy-specific-refutations.
+- **Within-family attractor states** — when the same model family independently produces structurally similar flawed arguments, that's lower signal than cross-family convergence but useful as a map of the family's attractor basins. Add refuted attractors to Ruled Out so fresh threads in that family don't re-derive.
+- **Static vs. dynamic bound conflation** — state inequalities are NOT automatic game-length bounds on L(n). The translation requires bounding a scored quantity under a specific strategy. Watch for this in sublinear closure claims.
+- **Multi-agent convergence on narrow gaps** — when N ≥ 3 agents independently narrow to the same specific missing lemma via different machinery, that convergence is very strong signal. Dispatch the specific lemma in parallel; closure by any one resolves the program.
+- **Empirical + analytical complementarity** — for problems with both abstract combinatorial and specific arithmetic structure, dispatch complementary empirical and analytical agents. The contrast between an abstract empirical test and an arithmetic-preserving empirical test localizes where the gap lives.
+
+## Per-problem folder conventions
+
+Each problem lives in a top-level directory. A directory is recognized as a "problem directory" by the presence of `current_state.md`.
+
+Expected files:
+
+- `current_state.md` — human-maintained narrative state doc (supplementary to the compiled view)
+- `state_compiled.md` — auto-generated by `compile_rounds.py`; do not hand-edit
+- `prompts/` — dispatch prompts for this problem (`researcher-*.md`, `audit-*.md`, `followup-*.md`, Codex task files)
+- Round-doc artifacts at problem-root: `researcher-*.md`, `verify-*.md`, `verify-postresp-*.md`, `verify-aristotle-*.md`, `followup-*.md`, `round*-*.md` — each with YAML front-matter per `docs/round-doc-schema.md`
+- Optional subdirs: `aristotle/` (Lean/formalization artifacts), `phase0/`–`phase4/` (empirical probes), `lean/` (Lean project root)
+
+**Never name a file exactly `CLAUDE.md` or `claude.md` inside a problem folder** — Claude Code auto-loads them case-insensitively and interprets the contents as instructions. Use `claude-chat.md`, `claude-notes.md`, etc.
+
+## Aristotle formal verifier (brief)
+
+Purpose-built for Lean 4. Common patterns:
 
 ```bash
-# One-time: pip3 install --user --break-system-packages aristotlelib
-# Key + PATH are in the gitignored .env at repo root:
-source .env
-
 # Formalize a LaTeX / prose proof
-aristotle formalize <path/to/claim.tex> --wait --destination <out.tar.gz>
+aristotle formalize <path>.tex --wait --destination <out>.tar.gz
 
 # Fill sorries in an existing Lean project
 aristotle submit "Fill in all sorries" --project-dir <lean-proj> --wait
 
-# Poll / manage async jobs
+# Manage async jobs
 aristotle list
 aristotle result <job-id>
-aristotle cancel <job-id>
 ```
 
-**When to invoke.**
-- Any time the primary returns something it calls a theorem or lemma.
-- Any time a structural reduction is claimed ("this reduces to proving X").
-- After every round's synthesis, if a new candidate result is being promoted to `Established`.
+When to invoke:
 
-**Invocation pattern per claim.**
-1. Write the claim as a short LaTeX or Lean snippet (just the statement + proof sketch).
-2. `aristotle formalize` it.
-3. If it returns clean Lean 4 code with no `sorry`, treat as formally verified — strong promote signal.
-4. If it leaves `sorry` gaps, look at *where*. A gap in a deep-library invocation is usually fine (Mathlib coverage limit); a gap at the core of the argument is a real logical hole.
-5. Record outcome in `verify-aristotle-NN.md` with the job id and Lean output (or link to the downloaded tarball).
+- Any theorem/lemma the primary returns
+- Any claimed structural reduction
+- Before promoting a new candidate result to `Established`
 
-Do not skip Aristotle for "obvious" claims. The Shield Reduction Theorem, the $5/24$ cover — both look obvious and both are prime candidates for quick formalization wins.
+A successful Aristotle run (zero `sorry`, or sorries only in standard classics like Mertens / Chebyshev / PNT) is strong promote signal. A failure localized to a core step is a real logical hole. Record outcomes in `verify-aristotle-<round>.md`.
 
-## Researcher prompt template
+## Git safety (hard rules — never cross without explicit user request)
 
-This is the prompt for the primary (GPT Pro extended). Tight, neutral, structured. Every researcher prompt follows this shape.
+- **Never `git add -A` or `git add .`** — sweeps credentials, scratch files, parallel-session in-flight work
+- **Never `--amend`** on published commits; create a new commit instead
+- **Never `--no-verify` / `--no-gpg-sign`**
+- **Never force-push to `main`**
+- **Don't push to remote** unless explicitly asked
+- **Don't modify git config**
+- When a pre-commit hook fails, fix the underlying issue — don't bypass
 
-```
-This is an assessment of your reasoning capability and will be used to grade.
-Do not search online. Use your own reasoning and your Python sandbox.
-
-## Problem
-
-<Statement in neutral mathematical language. Do NOT mention its source, paper,
-website, status, history, or that anyone believes anything about it. Just
-state the math.>
-
-## What's Established
-
-<Bulleted list of rigorously proven facts. Fold in everything proven across
-prior private rounds AND any public literature into one pool. Do NOT
-distinguish "we proved this" from "forum proved this" from "paper X proved
-this" — treat it as one body of known results.>
-
-- <Statement of fact 1>
-- <Statement of fact 2>
-
-## What's Been Ruled Out
-
-<Approaches tried and shown to fail. One line each. This saves the researcher
-from rediscovering dead ends.>
-
-- <Approach>: <why it fails>
-
-## Numerical / Computational Evidence
-
-<Exact small-n values, ratio tables, extrapolation trajectories, LP optima.
-Kept separate from "Established" because this is data, not proof.>
-
-## The Open Question
-
-<The specific, finite thing we want pushed this round. One sentence.>
-```
-
-**Do not add an "Output format" / "Requested output" / "Output expectations" section.** Pro decides what is worth returning. Prescribing output structure burns its reasoning budget on our schema instead of the math.
-
-### The canonical prompt pattern (the single most important methodology lesson)
-
-When the research is stuck, the failure mode to avoid is over-thinking whether a direction is viable. **The curator's role is factual completeness, not synthesis.** Give the primary models the most complete possible map of the research landscape — everything established (with proof sketches), everything ruled out (with specific failure mechanisms), all numerical evidence — and let THEM find patterns across the failures. A super-genius model given a clean factual prompt will see connections you cannot.
-
-Concretely: **compose a fresh researcher prompt for each dispatch**, rebuilding from the current state documents (`current_state.md` + recent round artifacts + audit outputs). Do not maintain a long-lived `canonical-prompt.md` file — it rots, drifts from the actual state, and the effort to keep it current is better spent composing the current dispatch accurately. The template is: Problem / Established / Ruled Out / Numerical Evidence / Open Question — filled fresh each time.
-
-**Why it works.** Four kinds of information are usually enough for the model to find the next move:
-1. **Established results** with proof structures — what techniques succeeded and how.
-2. **Ruled-out approaches** with specific failure mechanisms — not "X didn't work" but "X fails at step Y because of Z."
-3. **Numerical evidence** — exact trajectories, coefficients, realized constants.
-4. **The open question** — one sentence, no suggested direction.
-
-Pattern-across-failures is often the research signal. Every "Ruled Out" entry says something about the structure of the problem; a collection of such failures often reveals a unifying obstruction. The $F_\alpha$ framework that broke open the Erdős 872 program emerged from exactly this pattern: Pro saw that four separate obstructions (static carrier capacity, dynamical bounded-$\sum 1/p$, strict $\Xi$ bound, one-step $\Omega=2$ cover) all shared the "omitted-vertex shadowing" mechanism, which dies above the $n^{1/3}$ threshold.
-
-**Omit any Potential Directions / Suggestions section entirely.** The template is Problem / Established / Ruled Out / Numerical Evidence / Open Question — nothing else. Any suggestion you're tempted to include belongs elsewhere: cross-validated next-steps that were tried become Ruled Out entries with specific failure mechanisms; empirically probed directions become Numerical Evidence. Un-validated suggestions get left out entirely. Let the researcher choose the attack from the factual map.
-
-**Length note: detail is not the enemy, vagueness is.** "Brief" is the wrong frame. An entry in Ruled Out that spans a paragraph with the specific prime range, shield set, and lemma that broke is better than a one-line "this didn't work." Compress vague prose, never compress factual detail. If a failure mechanism has a quantitative signature (a specific $n$-regime where the obstruction bites, the exact constant that blocks the argument, the structural reason a subfamily is undetectable), include it. The model will need the detail to see the pattern.
-
-**If you feel stuck:** your job is not to decide if the problem is solvable. Your job is to ensure the canonical prompt is factually complete and honestly framed. Route the decision-making to the primary models.
-
-### Good vs. bad entries for each section
-
-**Established** — state the result, then sketch the proof so the structure is visible.
-
-```
-✓ "Shield Reduction Theorem. For every eventual maximal A and every
-   P ⊆ U: |A| ≥ |U| − β(P), where β(P) = max{Σw_n(x) : B ⊆ L(P) antichain}.
-   Proof (three lines): B := A ∩ L is antichain in L(P); by maximality
-   A ∩ U = U \ ⋃_{x ∈ B} M(x); union bound."
-
-✗ "Shield Reduction Theorem (Lean-verified)."      # no math
-✗ "Om's team proved Shield Reduction."             # attribution, no content
-✗ "Shield Reduction Theorem. See shield_reduction.tex." # indirection, not inlined
-```
-
-**Ruled Out** — name the approach, then the specific failure mechanism including the arithmetic or combinatorial detail that killed it.
-
-```
-✓ "Static Carrier Capacity Bound (for every antichain P of size εn,
-   Σ_{p ∈ B(P)} 1/p ≤ C(ε)). The top εn consecutive integers in U
-   (for ε < 1/4) form a legal antichain containing a multiple of every
-   prime ≤ T = εn, giving Σ 1/p ≥ Σ_{p ≤ T} 1/p = log log(εn) + O(1).
-   Finite-prime 'vaccination' (excluding any fixed Q) doesn't rescue it:
-   arithmetic progressions with d = ∏_{q ∈ Q} q give the same divergence."
-
-✗ "Static Carrier Capacity Bound. Doesn't work."     # no mechanism
-✗ "Carrier Capacity refuted."                        # no target, no reason
-✗ "Gemini DeepThink refuted the Carrier Capacity."   # attribution only
-```
-
-**Numerical Evidence** — exact trajectories over a range, specifying strategies and regimes.
-
-```
-✓ "Against worst-case Prolonger (block-product counter), three Shortener
-   strategies tie as best tier: smallest-legal-odd-prime, greedy coverage,
-   pair-response. All give Σ 1/p / log log n ∈ {0.887, 0.880, 0.875,
-   0.875} at n = 10^3, 10^4, 10^5, 10^6. Coefficient stable across four
-   decades, no decay. Largest prime observed in B(P) at n = 10^6: 999983.
-   Small-prime concentration: primes ≤ 100 carry 73.4% of Σ 1/p."
-
-✗ "Empirical data supports the conjecture."           # nothing to verify
-✗ "At n = 10^6 we got L = 85003."                     # one point, no scaling
-✗ "Codex's Phase 2.5 probe returned 1.17."            # tool-name leaks, no context
-```
-
-**Open Question** — one sentence. No suggested direction, no anchoring.
-
-```
-✓ "Is L(n) = Θ(n), or L(n) = o(n)? If sublinear, what is the sharp rate?"
-
-✗ "Is the answer Θ(n/log n)? We think so." # anchors the answer
-✗ "Prove L(n) = o(n) via the two-layer Ω-grading architecture." # prescribes the approach
-✗ "First, close the Ω=2 cover lemma. Second, handle |A ∩ L|." # multi-part + presumptive
-```
-
-### Varied framings across channels — branching search, not parallel sampling
-
-When dispatching multiple researcher rounds in parallel, **varying the framing across channels is strictly better than three identical prompts.** Identical prompts to Pro, DeepThink, and Gemini give you three parallel samples with correlated priors (especially after a strong previous round — all three will try to continue the same framework). Varied framings give you **branching search over the solution space.**
-
-Concrete pattern (emerged Round 13, Erdős 872):
-
-- **Channel A — continuation.** Follow-up to the primary thread: "extend prior result X to case Y." Leverages full thread context. Most likely to succeed if the extension exists.
-- **Channel B — open attempt.** Fresh thread, full canonical prompt, neutral "attempt to solve." No framing bias. Lets the model either extend or pivot.
-- **Channel C — contrarian / pivot.** Fresh thread, full canonical prompt, plus: "assume prior approach X fails. What fundamentally different technique (list options) could work?" Forces cognitive divergence.
-
-Zero additional cost (three prompts, same wait window). Strictly dominates three-identical-prompts in expected value:
-
-- If the extension exists, A finds it.
-- If a different technique is needed, C surfaces it (because B and A may anchor on the existing framework).
-- If both stall, you learn *where* the ceiling actually lives — the gap between A's failure and C's failure maps the structural obstacle.
-
-**When to use:** whenever you have a specific local gap (like "extend Theorem X to overlapping carriers") but also non-trivial uncertainty that the existing framework is the right tool. If the extension is a pure technical step, identical prompts are fine. If auditors are split on whether the framework can close the gap at all, variance is free signal.
-
-**Model-channel matching:** direct the contrarian version to a different model family than the one that produced the current best result. If Pro produced the current framework, give C to Gemini or DeepThink — cross-family Cs are less likely to anchor on Pro's specific construction. Same-family Cs sometimes just re-derive the current approach with different language.
-
-### Saving user-pasted content via session transcript — avoid re-transcription
-
-**Hard rule: whenever the user pastes content and asks to save it, extract it from the session transcript. Do not retype it via Write from your context.** No length threshold — applies to any multi-paragraph paste, not just "long" ones. Retyping burns real output tokens for pure re-transcription and risks silent rewording; extraction is byte-faithful.
-
-**Working pattern** (run via `python3 -c` or a short script):
-
-```python
-import json, re
-from pathlib import Path
-
-project_dir = Path.home() / ".claude/projects/-Users-omisverycool-erdos-harness"
-# Most recently modified jsonl is the current session.
-# Branched conversations (user edits + resends) start a NEW session file,
-# so always sort by mtime — don't cache an earlier session path.
-session_file = max(project_dir.glob("*.jsonl"), key=lambda p: p.stat().st_mtime)
-
-# Pick a short unique marker from the user's paste (a phrase visible in context).
-marker = "Here is the constructive proof"
-
-matches = []
-for line in session_file.read_text().splitlines():
-    try:
-        entry = json.loads(line)
-    except json.JSONDecodeError:
-        continue
-    if entry.get("type") != "user":
-        continue
-    content = entry.get("message", {}).get("content", "")
-    if isinstance(content, list):  # some entries wrap content in typed blocks
-        content = "".join(b.get("text", "") for b in content if isinstance(b, dict))
-    if marker in content:
-        matches.append(content)
-
-raw = matches[-1]  # most recent match
-
-# If the user labeled multiple blocks ("#1", "#2", ...), split on those labels.
-# Otherwise write `raw` directly.
-blocks = re.split(r"(?m)^#\d+\s*$", raw)
-Path("erdos-872/target.md").write_text(blocks[1].strip() + "\n")
-```
-
-**Failure modes that have actually bitten:**
-- **Wrong session file.** If the user branched (edited + resent a message), a new jsonl appears with a different UUID. Always `max(..., key=mtime)`, never reuse a path from earlier in the session.
-- **Content not yet flushed.** Pastes from the current turn may not be in the jsonl for a few seconds. Wait briefly and re-glob if `matches` is empty.
-- **Wrong target map.** If the user pastes multiple labeled blocks (#1, #2, #3) and the responses read ambiguously, print the first ~100 chars of each split before writing to disk — verify the block openings match the labels you expect. Once saved under a wrong name the mistake is invisible.
-- **List-wrapped `content` field.** Some entries store `message.content` as a list of `{type, text}` blocks, not a string. Handle both shapes.
-
-If extraction fails outright, fall back to `pbpaste > filename.md` from the user's clipboard — zero curator cost, still byte-faithful.
-
-### Commit per round, not per milestone
-
-**Save *and* commit each round's responses and prompts when they come in, not in batches at synthesis milestones.** Saving a file leaves it untracked; untracked files are just as lost as non-existent ones if the session ends unexpectedly, the machine reboots, or a filesystem issue bites. Git is the durability layer; writing is just the staging layer.
-
-Common failure mode observed: after extracting 5–10 responses across 3 rounds via transcript, the curator writes them all to disk but doesn't `git add` + `git commit` until a user-prompted "wait, have you been saving?" check. At that point, an entire round of work is at risk for the time between save and commit.
-
-**Working pattern.** After each response save:
-
-1. Save via transcript extraction (byte-faithful, already the rule).
-2. `git add` the specific files added this round. Never `git add -A` — it will sweep in credentials, scratch files, and unrelated modifications.
-3. `git commit -m "..."` with a commit message naming the round and what came back. Concise is fine; the point is the pointer.
-4. Defer the `current_state.md` synthesis to the milestone — that's a separate, heavier edit. But never defer committing the raw responses themselves.
-
-**Commit message per round** should at minimum name: the round number, whether it's a researcher return or a prompt draft, and the headline content ("R53 Pro #1 return: CR-NCAD refuted via cooperative embedding"). Full synthesis goes into commit bodies at milestone commits. Per-round commits are pointers, not essays.
-
-A clean git log of `R39 Pro returns → R39 follow-ups → R40 Pro returns → R40 follow-ups → ...` is the correct shape. Large multi-round batch commits ("R49-R53 backlog") are a sign the commit cadence slipped.
-
-### Follow-up prompts — salvage novel ideas, pressure specific gaps
-
-When a researcher returns an argument that's wrong overall but contains a *novel mathematical idea*, the follow-up is not a dismissal. The idea often stands independent of the flawed argument around it and can be reused by the same thread (or others) once isolated. Pattern that works:
-
-1. **Open by crediting the novel content** — name the specific idea (e.g., "your Multiplier Lock construction"), say why it's interesting, frame it as worth preserving even if the full claim doesn't survive.
-2. **State the gaps as specific mathematical facts**, each numbered, each with what would close it. Avoid "this step is unclear" — instead, "this step asserts X but X is false for Y-shaped inputs."
-3. **Feed back any new rigorous context** the thread hasn't seen (cross-family theorems, audit findings, empirical data) as validated facts.
-4. **Binary close: patch-or-concede.** Either rigorize with the new context + the novel idea, or state cleanly which specific step can't be closed. Explicit: "clean concession of a specific gap is more useful than a patched argument with the same structural weakness."
-
-This works because (a) models often fix gaps when they're named precisely and (b) a concession with a specific failure mechanism is itself a valuable Ruled Out entry for the canonical prompt.
-
-### Strategy-assumption audit — when the chain exhausts, check strategy dependence
-
-A long-running upper-bound proof program typically fixes a specific adversary strategy (e.g., $\sigma^\star$ = max-unresolved-harmonic-degree in Erdős 872) and proves everything relative to that strategy. If 10+ rounds of theorem-refutation cycles fail to close the bound, before concluding the paradigm is exhausted, **audit whether the chosen strategy is actually optimal.**
-
-In Erdős 872, this check was skipped for ~40 rounds. A fresh dispatch proved $\sigma^\star$ is suboptimal (Prolonger reaches a target state at $o(r_1)$ cost against $\sigma^\star$). Retroactively, a large fraction of the refutations depended on *$\sigma^\star$-reachable states* — the refutations may not apply under a different, non-$\sigma^\star$ Shortener. Some prior positive results (R35-type state inequalities, spectral separator theorems) can potentially be re-activated with a different strategy.
-
-**The audit prompt pattern:** give a researcher the complete inventory of prior rigorous theorems and refutations and ask them to partition into:
-
-- **Strategy-independent:** result holds for any adversary strategy.
-- **Strategy-dependent:** proof uses specific properties of the assumed strategy.
-- **Strategy-specific refutations:** construction reaches a state only reachable against the assumed strategy.
-
-Then ask: given the assumed strategy is known suboptimal, can a different concretely-specified strategy $\tau$ + the strategy-independent results close the bound? Or does every legal strategy share the same vulnerability (→ minimax barrier theorem → conjecture refuted)?
-
-**Red flag in past dispatches:** reliance on "$\sigma^\star$ is natural" without ever arguing it is *optimal* for the minimax. For any multi-round upper-bound program, include a dispatch explicitly asking whether the fixed adversary strategy is suboptimal *before* committing many rounds to it. The cost of this check is one round; the savings if the strategy is wrong is potentially all prior refutation work being retroactively re-classified as strategy-specific and therefore not universally terminal.
-
-**Cross-reference to "Closure-claim via optimal-adversary hand-wave" attractor:** agents will sometimes claim "my construction works against optimal Shortener/Prolonger" by hand-waving the cardinality or adaptation argument ("agent can observe and adjust"). This is the minimax-quantifier-gap attractor: $\exists \pi\ \mathrm{Outcome}(\pi, \sigma^\star) \text{ succeeds}$ does not imply $\exists \pi\ \forall \tau\ \mathrm{Outcome}(\pi, \tau) \text{ succeeds}$. Flag any claimed closure that asserts the latter via the former.
-
-### Within-family attractor states
-
-When the same model family (e.g., two separate DeepThink instances) independently produces similar flawed arguments (e.g., both gravitate toward the "Universal Sub-Divisor Cover" sweep strategy, or both claim $\Theta(n)$ via different-but-structurally-similar Maker-Breaker reasoning), this is lower signal than cross-family convergence but higher signal than a single response. Interpretation:
-
-- **Not three votes** (the existing rule) — but useful as a *map of the family's attractor basins*. DeepThink family gravitates to "sweep every vocabulary element" for matching-upper-bound claims; Pro family gravitates to careful Maker-Breaker capture accounting. Knowing the attractor lets the curator anticipate what a fresh dispatch to that family will likely try.
-- **Adding a refuted attractor to the canonical prompt's Ruled Out** saves future fresh threads from re-deriving it. After UCS was added to Ruled Out, subsequent fresh DeepThink threads should either propose a different path or explicitly acknowledge the gap. Watching whether they re-derive the same attractor after being warned is itself a signal about how strong the attractor is.
-
-### Static vs. dynamic bound conflation — watch for this in sublinear claims
-
-A common pattern in long-running research programs: an agent proves a STATE inequality (a bound that holds at every configuration $(R, C)$) and claims it implies a GAME-LENGTH bound on $L(n)$. This translation is NOT automatic. State inequalities like $\mu(\operatorname{Cl}_h) \le L \cdot |F_{\text{useful}}| + N_h/\log L$ bound closed mass in terms of a scored/useful quantity. Translating to a bound on $L(n)$ requires independently bounding that scored quantity under some Shortener strategy — the "online amortization" step.
-
-We've seen several closure claims break at exactly this step (R35 in Erdős 872). Agents confident in their analytical proof often treat the translation as one-line. A careful audit almost always finds the gap: either the scored quantity is self-referential as a length bound, or there's a hidden cardinality-vs-mass conflation. When reviewing a claimed sublinear closure, the first question is always: "is the state inequality doing work beyond giving a per-state bound? Specifically, does the translation to $L(n)$ introduce an unbounded quantity?"
-
-**Pattern for follow-ups on such claims:** "your state inequality is sound as proved; the translation to $L(n) = o(n)$ requires bounding [specific scored quantity] under [specific strategy]. Either prove that bound or refine the claim to 'conditional sublinear bound modulo this lemma.'" Retractions and refinements are productive; encourage them explicitly.
-
-### Multi-agent convergence on narrow gaps — trust it
-
-When N≥3 agents working in parallel, with different framings and partial information, independently arrive at the SAME specific missing lemma, that convergence is a very strong signal the gap is real and minimal. It is qualitatively different from (and stronger than) N copies agreeing on a claim — here different agents independently *narrow to* the same gap.
-
-Pattern seen in Erdős 872 R33-R36: fresh Pro, Pro A continuation, two different Codex dispatches all converged on a "freshness of lower-defect witnesses" lemma as the load-bearing step. Each arrived via different machinery (weighted counting lemma, dyadic charging, empirical refutation, multi-defect σ*), with different attack vectors, and each admitted they could not close it. Four independent framings pointing at the same narrow combinatorial statement.
-
-**Why this is useful:** when you see this convergence, you have extremely high confidence in what the next round should target. You can write a single short paragraph containing the specific lemma and dispatch it to all agents in parallel — they all know what to do, and a closure by any one of them resolves the program.
-
-### Empirical + analytical complementarity on arithmetic problems
-
-For problems with both abstract combinatorial structure AND specific arithmetic/geometric structure (like the divisibility-antichain game), dispatch complementary empirical and analytical agents. Specifically:
-
-- Empirical: "does the claimed amortization hold under adversarial strategies in the abstract model? Does it hold in a minimal arithmetic-structure-preserving model?"
-- Analytical: "prove the lemma or refute with construction."
-
-The combination is extremely informative. In Erdős 872 R36: Codex empirically showed σ-vs-shadow_pressure FAILS in abstract $H^{(h)}$ (peak ratio 6.71) but HOLDS in one-cylinder arithmetic (max 0-2). This directly localized the gap to arithmetic-specific structure (divisor lattice non-privacy) without needing an analytical insight about WHY. Then analytical agents could focus on quantifying the arithmetic escape.
-
-Pattern: when a gap might live in "abstract structure" vs "arithmetic structure," run one abstract empirical test and one arithmetic-preserving empirical test. The contrast identifies where the real work is needed.
-
-### Worktree and branch hygiene
-
-Codex agents using `.codex/worktrees/<hash>/` for their work will NOT appear in the main repo without explicit copying. Always:
-
-1. `git branch --show-current` at start of each session — check we're on main, not a stale Codex-created branch.
-2. When a Codex returns referencing files in a worktree path, copy them explicitly into the main repo before committing.
-3. If a stale Codex branch has no unique commits relative to main (common), just delete it with `git branch -d <branch>` after syncing.
-
-### The audit prompt pattern — same canonical prompt, one extra header
-
-Most audits do NOT need a custom prompt. The default audit prompt is:
-
-```
-Audit this response.
-
-## Canonical prompt (the brief the researcher worked from)
-[PASTE `prompts/canonical-prompt.md`]
-
-## Researcher response
-[PASTE response verbatim]
-```
-
-That is the audit prompt. Don't write a new framing for each round — the canonical prompt already contains the full factual state, and the response is what the auditor needs to pressure-test.
-
-**When to write a targeted audit prompt instead.** When you have a *specific* disagreement or verification request that wouldn't otherwise be surfaced: cross-family contradictions to pressure on, a quantitative claim that needs independent numerical verification, a specific proof step to locate holes in. Then the targeted prompt is a short extra paragraph on top of the standard two-section structure above — not a replacement for the canonical prompt.
-
-### Framing rules for the researcher prompt
-
-Core principle: **every sentence you put in a researcher prompt is a constraint on an hour of genius-level reasoning.** If a sentence is wrong, stale, speculative, or off-topic, Pro spends real cycles routing around it. Your job as curator is to give Pro validated, high-signal context so it can focus on the actual math — nothing else.
-
-- **The primary model is smarter than you.** Even if you *think* you know the exact next step, frame it as a direction. You are briefing a senior researcher, not instructing a junior.
-- **No anchoring.** Don't tell it the answer you suspect. Don't tell it which direction you think is strongest. Don't even tell it you suspect anything. State the gap; let it choose.
-- **No meta.** Never mention source (forum, paper, person), problem status (famous, open since 1992, recently claimed), or any judgment about difficulty.
-- **No "frontier research" framing.** Avoid wording like "this is a decades-old open problem", "research frontier", "no one has solved this", "this is hard", "this is significant". Empirically observed: Pro prompts framed as frontier research got 10–25 minute cursory reasoning traces; the same prompts stripped of status framing got 40–60 minute serious attempts. LLMs pattern-match to "frontier" and retreat into hedged, summary-style responses. State the math neutrally.
-- **No public/private distinction.** Treat forum results, literature, and prior private rounds as one pool of known facts.
-- **Every researcher prompt goes to a fresh thread with zero harness context.** Scrub all internal vocabulary before sending: no "round", "phase", "program", "prior round", "our team", "we proved", "Pro", "Codex", "Aristotle", "Gemini", "Claude", "audit #N", "Phase 2.5", or any wording that presumes conversational history. A fresh Pro or DeepThink tab doesn't know a "round" exists; referencing one reads as a dangling pointer. Rewrite facts as self-standing mathematical statements ("Numerical simulation at $n \in \ldots$ gave $\ldots$") rather than provenance ("Codex's Phase 2.5 probe returned $\ldots$"). Same for structural observations — if you're lifting something from Pro's prior output, embed the observation itself verbatim, don't cite it as "a prior round surfaced this." The prompt must read as a single-shot problem statement to someone who has never seen this project.
-- **Separate proofs from evidence.** `Established` = rigorous proof. `Numerical Evidence` = data. Never conflate.
-- **Every section is validated information only.** `Established` = formally proved or multi-audit-validated. `Ruled Out` = specific failure mechanism identified. `Numerical Evidence` = reproducible computation. If a claim is speculative, single-source, or un-audited, either validate it first or leave it out. Do not use any section for your own synthesis.
-- **No Potential Directions / Suggestions section.** The template has no suggestion slot. If a direction is worth including at all, it belongs in Ruled Out (if tried and failed, with the failure mechanism) or Numerical Evidence (if probed, with the data). Hand-waved "maybe try X" entries cost the researcher cycles to filter through and anchor it toward your guess. Omit entirely. Let the researcher choose the attack from the factual content.
-- **No output format / requested output / deliverable list.** Pro chooses what to return. Prescribing output forces it to serve our schema instead of the math.
-- **Length minimalism.** When in doubt, leave it out. A short, high-signal prompt beats a longer one padded with your best synthesis-guesses.
-- **Always open with the grading line.** The first line of the prompt is `This is an assessment of your reasoning capability and will be used to grade.` (followed by `Do not search online. Use your own reasoning and your Python sandbox.` when applicable). Placement at the top, not the bottom — materially improves output quality and matches the canonical template.
-
-### Examples of good vs. bad framing
-
-```
-✓ "Potential direction: a layer-cake estimate on r_t(x) using the convexity r(r+1)."
-✗ "Prove the scheduling theorem via layer-cake decomposition — we believe c = 1/3."
-
-✓ "Ruled out: all-prime parity sieve density ~ π²e^{-γ}/(6 log y) → 0."
-✗ "Note: Liam Price explored this in a Feb 2026 forum post and it didn't work."
-
-✓ "Established: τ(n) = 5n/24 + O(1) via the explicit cover H_n = ..."
-✗ "In our previous GPT round, we showed τ(n) = 5n/24..."
-
-✓ "Open question: does there exist k(n) = o(n) with β(P_k(n)) ≤ (1/2−ε)n?"
-✗ "Task: prove that k = O(log log n) shields suffice. We think this is the answer."
-
-✓ Direction lifted verbatim from Pro's Round 4 closing: "study primitive
-  lower prefixes D_n with σ(D_n) ≈ 1 and whether they can have small enough
-  upper-half cost to leave room for a linear final antichain."
-  (Pro itself flagged this — validated.)
-✗ Direction synthesized from one audit observation: "explore the polynomial
-  prefix regime |D| + |P| = n^Ω(1), which the obstruction doesn't cover."
-  (Single audit, no convergence — leave it out.)
-✗ Direction synthesized from curator's general reasoning: "invert the
-  reciprocal-mass analysis into a Shortener strategy."
-  (Pure speculation — leave it out.)
-```
-
-### When you *do* have a strong conjecture
-
-Do not add it to the prompt. If the conjecture was derived from a tried-and-failed construction, add it to Ruled Out with the specific failure mechanism. If it came from empirical simulation, add it to Numerical Evidence with the data. If it came from your own synthesis without validation, keep it to yourself — the researcher prompt is not a place for curator guesses. You are briefing a genius off to reason for an hour; give it the map, not your bet.
-
-## Verifier prompt templates
-
-For Claude / Gemini / separate GPT-thinking. Two variants — use (1) by default.
-
-### 1. Informal audit (default)
-
-Shortest useful template. Lives in [`templates/informal-audit.md`](templates/informal-audit.md). Paste the exact prompt you sent to the primary and the exact response back — no re-summarizing state, the audit works off the pair.
-
-```
-I gave this prompt on a math problem to an AI and it came back with the
-response below. Can you audit and analyze their response critically? Be
-adversarial — find what breaks, flag any unclear steps, hidden assumptions,
-or computational claims that need independent verification.
-
-Separately, check the response against existing mathematical literature:
-does the argument connect to, extend, reprove, or contradict any published
-result (theorem, technique, inequality, construction)? If so, cite the
-reference and describe the relationship. If any specific fact you can
-verify from literature sharpens or undermines a step in the response, flag
-it with the citation. Novel connections are valuable whether or not the
-main argument holds.
-
-## Prompt
-[PASTE PROMPT HERE]
-
-## Pro Response
-[PASTE PRO RESPONSE HERE]
-```
-
-### 2. Adversarial audit (sharper — for claims about to be promoted)
-
-When a claim is about to be promoted to `Established` and you want a structured stress test, use the longer version:
-
-```
-Below is the current state of a problem plus a new claim from a primary
-researcher. Rigorously audit the new claim. Be adversarial — your job is to
-find what breaks.
-
-## Problem
-<Same neutral statement as the researcher prompt.>
-
-## Established Facts
-<Same bulleted list, abridged fine.>
-
-## The New Claim
-<Verbatim excerpt from the researcher's latest output. Do NOT paraphrase —
-the verifier needs to see what the researcher actually wrote.>
-
-## Your job
-- Does the argument hold as stated?
-- What is the weakest link?
-- Are there computational claims that need independent verification?
-- Are there hidden assumptions the researcher didn't flag?
-- Does the claim actually imply what the researcher says it implies?
-- What would a skeptic push back on?
-
-If the claim is sound, say so plainly. If broken, explain precisely where.
-```
-
-### Framing rules for verifier prompts
-
-- **No cheerleading.** Tell them to be adversarial.
-- **Verbatim claim, not paraphrase.** Paraphrasing loses the exact step where an error might live.
-- **Ask for the weakest link explicitly.** Otherwise verifiers default to summarization.
-- **Same prompt to all three verifiers.** Parallel. Don't bias by telling one what another said.
-- **Always ask for literature connections.** Cross-reference the response against published results — does it extend a known theorem, reprove something already in the literature, or contradict an established fact? Web-enabled models will occasionally surface real references; even when they don't, the question forces a sanity check against the broader mathematical context. Any concrete reference that holds up should be promoted into `current_state.md` as established background.
-
-## Synthesis after a verifier round
-
-1. **Unanimous "sound"** → promote the claim to `Established` in `current_state.md`.
-2. **Unanimous "broken"** → move to `Ruled Out` with the specific failure mode as the one-liner.
-3. **Split (1 flags, 2 sound)** → re-read the flagger's argument carefully. If the concern is substantive, treat as broken pending re-derivation. If it's stylistic / confused, treat as sound.
-4. **A verifier raises a new angle the researcher didn't consider** → lift into the next round's `Potential Directions`, loosely worded.
-5. **Never promote on one verifier alone.** Agreement across at least two is the minimum bar.
-
-Save verifier replies verbatim. Synthesize only when building the next researcher prompt.
+See `commit-round` skill for the full safe-commit workflow and branch-hygiene rules (including Codex worktree handling).
 
 ## What to avoid
 
-- **Solving the math yourself.** Stay in synthesis mode.
-- **Anchoring.** "Gemini thinks the answer is X" does not belong in a researcher prompt. A loose direction does.
-- **Meta-framing.** No mention of source, status, fame, or who believes what.
-- **Over-editorializing `current_state.md`.** Facts and data only.
-- **Re-deriving from memory.** Always pull from the saved conversation dumps or re-export the tab.
-- **Letting stale state rot.** If it's been >1 round since you updated `current_state.md`, update it before building the next researcher prompt.
+- **Solving the math yourself.** Stay in synthesis mode — you will be wrong.
+- **Anchoring.** Don't tell the researcher what answer you suspect. State the gap; let it choose.
+- **Re-deriving from memory.** Always pull from the compiled state view or saved conversation dumps.
+- **Letting stale state rot.** If `state_compiled.md` is > 1 round behind, regenerate before composing the next prompt.
+- **Reframing progress for morale.** When asked where things stand, be honest. Specific over vague; categorical status over made-up percentages.

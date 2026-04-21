@@ -31,6 +31,18 @@ Keep the canonical state doc current without over-editorializing or losing histo
 
 A series of Edit tool calls updating the state doc section by section.
 
+## Synthesis rubric (after a verifier round)
+
+When multiple verifiers have returned on a claim, decide where it lands:
+
+1. **Unanimous "sound"** → promote to `Established`.
+2. **Unanimous "broken"** → move to `Ruled Out` with the specific failure mechanism as the one-liner.
+3. **Split (1 flags, 2 sound)** → re-read the flagger's argument carefully. If substantive, treat as broken pending re-derivation. If stylistic or confused, treat as sound.
+4. **A verifier raises a new angle** → the angle becomes a specific fact in the next round's prompt: `Established` if validated, `Ruled Out` (with mechanism) if tried and refuted, `Numerical Evidence` if probed. Never a hand-waved suggestion.
+5. **Never promote on one verifier alone.** Agreement across ≥ 2 is the minimum bar, and a formal-verifier pass (Aristotle, Lean) counts as one.
+
+Save all verifier replies verbatim. Only synthesize when composing the next researcher prompt.
+
 ## Gotchas
 
 - **Only promote to Established** with (a) ≥ 2 verifier agreement AND (b) formal proof OR honest best-effort formalization (e.g., Aristotle with sorries only in standard library imports).

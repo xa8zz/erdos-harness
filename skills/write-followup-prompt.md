@@ -59,3 +59,13 @@ A markdown prompt, ready for the user to paste into the target tab.
 - **Concession is valuable** — saying "this specific step breaks" is a useful Ruled Out entry. Don't pressure the model away from it.
 - **No "frontier research" framing.** Avoid wording like "this is a decades-old open problem", "research frontier", "no one has solved this", "this is hard/significant". Empirically observed: prompts framed as frontier research get 10–25 min cursory reasoning traces; the same prompts stripped of status framing get 40–60 min serious attempts. State the math neutrally.
 - **Factual detail over brevity for failure mechanisms.** When feeding back why something failed, include the specific arithmetic/combinatorial signature (the specific prime range, the specific shield set, the specific constant that blocks the argument). Compressing vague prose is fine; compressing factual detail loses the pattern-across-failures signal the model needs.
+
+## Pattern: static vs. dynamic bound conflation
+
+When a researcher's response claims a state inequality (holds at every configuration) and jumps to a game-length bound on L(n), that translation is NOT automatic — it requires independently bounding some scored quantity under a specific strategy (the "online amortization" step). This is a common failure mode in sublinear closure claims.
+
+Follow-up shape for such claims:
+
+> "Your state inequality is sound as proved; the translation to L(n) = o(n) requires independently bounding [specific scored quantity] under [specific strategy]. Either prove that bound explicitly, or refine the claim to 'conditional sublinear bound modulo this lemma.'"
+
+Retractions and refinements are productive outputs — encourage them explicitly. See `templates/writing-prompts.md` §"Long-horizon observations" for the full pattern.
