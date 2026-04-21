@@ -24,6 +24,37 @@ is the canonical maximum antichain, so the trivial scale is linear.  The
 central question is whether optimal play forces a positive fraction of this
 linear scale, or whether Shortener can force $o(n)$ moves.
 
+\subsection{Prior work}
+
+The game appears on the Erd\H{o}s problem list as problem \#872
+\cite{Er92c,Bloom872}.  It is a number-theoretic analogue of the triangle-free
+saturation game of Hajnal.  For the latter game, F{\"u}redi and Seress
+\cite{FuSe91} proved a lower bound of order $n\log n$, while Bir{\'o}, Horn,
+and Wildstrom \cite{BPW16} proved an upper bound below $0.215n^2$.
+
+The ambient combinatorial setting interacts with the literature on primitive
+sets and divisibility antichains.  We use the primitive-set viewpoint of
+Cameron and Erd\H{o}s \cite{CaEr90}, the weighted extremal perspective from
+Lichtman's proof of the Erd\H{o}s primitive set conjecture \cite{Lichtman23},
+and supporting multiplicative-structure estimates from
+\cite{Kucheriaviy24,MartinPomerance10}.
+
+The public upper-bound record for the present game developed rapidly in early
+2026.  Price and GPT-5.2 Pro gave the first linear upper bound,
+\[
+  \L(n) \le \left(\tfrac{23}{48}+o(1)\right)n,
+\]
+and introduced the terminology \emph{Prolonger} and \emph{Shortener}
+\cite{PriceGPTPro26}.  Subsequent forum refinements by Adenwalla, StijnC,
+natso26, Xiao\_Hu, Desmond Weisenberg, and others improved this to
+\[
+  \L(n) \le \left(\tfrac{419}{1008}+o(1)\right)n \le 0.416n
+\]
+\cite{Forum872}.  The results in this paper substantially strengthen that
+record and add the first unconditional nontrivial lower bound.
+
+\subsection{Main results}
+
 Our main result is a new linear upper bound with an explicit constant below
 $0.19$.  Let
 \[
