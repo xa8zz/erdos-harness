@@ -1138,40 +1138,68 @@ $\lambda_m>1$ close enough to $1$ that
   \qquad (1\le r\le4),
   \tag{7.9}\label{eq:diag-lambda}
 \]
-and then choose $a_m>1$ with $a_m^2\le\lambda_m$.  Let $s_m=s(a_m)$ be the
-queue length in \eqref{eq:queue-clear}.
+and then choose $a_m>1$ with $a_m^2\le\lambda_m$.  In the queue construction
+with this $a_m$, fix $\eta_m>0$ small enough that
+$2a_m(1-\eta_m)/(1+\eta_m)>1$, and let $s_m$ be a corresponding queue length
+for \eqref{eq:queue-clear}.  Let $b^{(H_m)}$ be the comparison sequence from
+\Cref{prop:envelope-inversion} with parameter $H_m$, and let $p^{(H_m)}$ be
+the prime sequence produced by \Cref{prop:queued-prime-rounding} with
+parameters $H_m,\lambda_m,a_m$.
 
-We now choose $N_m$ recursively increasing.  Since $H_m,\lambda_m,a_m$ and
-$s_m$ are fixed, all estimates used above are eventually valid, so we may
-enlarge $N_m$ until, for every $n\ge N_m$, all of the following hold:
-\[
-  \xi_{H_m}(n)\le \frac1m,
-  \tag{7.10a}\label{eq:diag-xi}
-\]
-\[
-  |T_r^{(b^{(H_m)})}(n)-J_r^{(H_m)}|\le \frac{1}{4m}
-  \qquad (1\le r\le4),
-  \tag{7.10b}\label{eq:diag-envelope}
-\]
-\[
-  |T_r^{(p^{(H_m)})}(n)-T_r^{(b^{(H_m)})}(n)|\le \frac{1}{2m}
-  \qquad (1\le r\le4),
-  \tag{7.10c}\label{eq:diag-bridge}
-\]
-\[
-  n^{\alpha_{H_m-1}}\ge m.
-  \tag{7.10d}\label{eq:diag-scale}
-\]
-Here $b^{(H_m)}$ is the comparison sequence from
-\Cref{prop:envelope-inversion} with parameter $H_m$, and $p^{(H_m)}$ is the
-prime sequence produced by \Cref{prop:queued-prime-rounding} with parameters
-$H_m,\lambda_m,a_m$.  In addition, enlarge $N_m$ so that every fixed-ratio
-prime number theorem estimate used in \eqref{eq:prime-bin-count} and every
-fixed-ratio estimate used in \Cref{lem:cell-reciprocal-mass} and the product
-strip bound holds with tolerance $1/m$ for the finitely many constants
-arising from $H_m,a_m,s_m$ and $\lambda_m^r$, $1\le r\le4$.  The scale
-condition \eqref{eq:diag-scale} is harmless because $H_m$ is fixed while
-$n\to\infty$.
+Choose $N_m$ recursively increasing so that for every $n\ge N_m$ the following
+ten conditions hold:
+\begin{enumerate}
+  \item the prefix-existence conclusion of \Cref{lem:prefix-existence} holds
+  up to index $K$;
+  \item the local-density error from \Cref{prop:local-density} satisfies
+  \[
+    \xi_{H_m}(n)\le \frac1m;
+    \tag{7.10a}\label{eq:diag-xi}
+  \]
+  \item the envelope moment estimate from \Cref{prop:envelope-inversion}
+  satisfies
+  \[
+    |T_r^{(b^{(H_m)})}(n)-J_r^{(H_m)}|\le \frac{1}{4m}
+    \qquad (1\le r\le4);
+    \tag{7.10b}\label{eq:diag-envelope}
+  \]
+  \item the bridge moment estimate from \Cref{prop:queued-prime-rounding}
+  satisfies
+  \[
+    |T_r^{(p^{(H_m)})}(n)-T_r^{(b^{(H_m)})}(n)|\le \frac{1}{2m}
+    \qquad (1\le r\le4);
+    \tag{7.10c}\label{eq:diag-bridge}
+  \]
+  \item the cell-reciprocal-mass estimate of
+  \Cref{lem:cell-reciprocal-mass} holds for the finitely many fixed-ratio
+  cells used with parameters $H_m,a_m,s_m$, with all limiting errors bounded
+  by $1/m$;
+  \item the product-strip estimate of \Cref{lem:product-strip-reciprocal}
+  holds for $C=\lambda_m^r$ and $1\le r\le4$, with the associated finite
+  cell-count estimates valid to tolerance $1/m$;
+  \item the queue-clearing Hall inequalities in
+  \Cref{prop:queued-prime-rounding}, with $a=a_m$, $\eta=\eta_m$, and
+  $s=s_m$, hold for every suffix $0\le t\le s_m$;
+  \item the exceptional-index reciprocal mass estimate in
+  \eqref{eq:exceptional-b-mass} holds in the form
+  \[
+    \sum_{j\in E}\frac1{b_j}\le \frac{C_m}{\log n},
+  \]
+  for the fixed constant $C_m$ attached to $H_m,a_m,s_m$;
+  \item all fixed-ratio prime number theorem estimates used in the queue
+  construction, in particular \eqref{eq:prime-bin-count}, hold with tolerance
+  $1/m$ for the finitely many ratios determined by $a_m$ and $s_m$;
+  \item the smallest genuine scale satisfies
+  \[
+    n^{\alpha_{H_m-1}}
+    =
+    n^{1/H_m+\tau_{H_m}}
+    \ge m.
+    \tag{7.10d}\label{eq:diag-scale}
+  \]
+\end{enumerate}
+Each condition is eventual because $H_m,\lambda_m,a_m,\eta_m,s_m$ and the
+finite list of ratios are fixed while $n\to\infty$.
 
 Define
 \[
