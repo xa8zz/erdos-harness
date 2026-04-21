@@ -830,6 +830,62 @@ Cells lying wholly in gaps have no genuine contribution and only the same
 possible flat-atom contribution.  These cases cover all $Y$.
 \end{proof}
 
+\begin{lemma}[Product-strip reciprocal-mass estimate]
+\label{lem:product-strip-reciprocal}
+Fix $H\ge2$, fixed real numbers $C>1$ and $c>1$, and an integer $r\ge1$.
+Let $b_1,\ldots,b_K$ be the comparison sequence obtained from
+\Cref{prop:envelope-inversion} with this fixed $H$.  Then, for all
+sufficiently large $n$,
+\[
+  \sum_{\substack{j_1<\cdots<j_r\\
+  n/C<b_{j_1}\cdots b_{j_r}\le Cn}}
+  \frac{1}{b_{j_1}\cdots b_{j_r}}
+  =
+  O_{H,C,c,r}\!\left(\frac1{\log n}\right).
+\]
+\end{lemma}
+
+\begin{proof}
+Partition $(1,n]$ into logarithmic cells
+\[
+  \mathcal C_m:=[c^m,c^{m+1})\qquad
+  (0\le m\le \lceil\log_c n\rceil).
+\]
+There are $O_c(\log n)$ possible cells in each coordinate.  In logarithmic
+coordinates, the condition
+\[
+  n/C<x_1\cdots x_r\le Cn
+\]
+is a strip of width $O_{C,c,r}(1)$ cell-widths around the hyperplane
+$y_1+\cdots+y_r=\log n$.  Equivalently, if
+$x_i\in\mathcal C_{m_i}$ and the product cell meets this strip, then
+\[
+  \log_c n-O_{C,c,r}(1)
+  \le
+  m_1+\cdots+m_r
+  \le
+  \log_c n+O_{C,c,r}(1).
+\]
+Thus, after any $r-1$ cell indices have been chosen, the last cell index is
+restricted to $O_{C,c,r}(1)$ possibilities.  The number of relevant cell
+patterns is therefore $O_{C,c,r}((\log n)^{r-1})$.
+
+For each cell pattern, the contribution of distinct tuples lying in those
+cells is bounded by the product of the corresponding cell reciprocal masses.
+By \Cref{lem:cell-reciprocal-mass}, each such cell has reciprocal mass
+$O_{H,c}(1/\log n)$, including cells containing flat atoms or the top atom
+$b_j=n$.  Hence every relevant $r$-cell pattern contributes
+$O_{H,c,r}((\log n)^{-r})$.  Multiplying by the number of relevant patterns
+gives
+\[
+  O_{H,C,c,r}((\log n)^{r-1})\,
+  O_{H,c,r}((\log n)^{-r})
+  =
+  O_{H,C,c,r}\!\left(\frac1{\log n}\right),
+\]
+as claimed.
+\end{proof}
+
 It remains to convert the real comparison sequence $b_j$ from
 \Cref{prop:envelope-inversion} into an actual increasing odd-prime sequence.
 The naive claim
@@ -1001,9 +1057,9 @@ only cutoff discrepancy comes from tuples with
 \[
   n/\lambda^r<b_I\le n.
 \]
-By the product-strip estimate proved from \Cref{lem:cell-reciprocal-mass} above,
-these tuples have total $b$-reciprocal contribution $o_{H,\lambda}(1)$.  This
-proves \eqref{eq:queued-bridge-moment}.
+By \Cref{lem:product-strip-reciprocal} with $C=\lambda^r$, these tuples have
+total $b$-reciprocal contribution $O_{H,\lambda,r}(1/\log n)$, which is
+$o_{H,\lambda}(1)$.  This proves \eqref{eq:queued-bridge-moment}.
 \end{proof}
 
 \begin{proposition}[Diagonal parameter selection for the prime bridge]
