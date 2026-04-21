@@ -617,6 +617,34 @@ which tends to $0$.  This proves the final statement.
 The comparison theorem must be stated for \emph{prime sequences}, not for
 arbitrary reals; the correct statement is the following.
 
+\begin{lemma}[Odd-sieve monotonicity under prime upgrades]
+\label{lem:odd-sieve-monotonicity}
+Let $q_1<\cdots<q_K$ and $p_1<\cdots<p_K$ be odd primes with
+$q_j\le p_j$ for every $j$.  If $N(r_1,\ldots,r_K)$ denotes the number of odd
+integers $m\le n$ not divisible by any of the primes $r_1,\ldots,r_K$, then
+\[
+  N(q_1,\ldots,q_K)\le N(p_1,\ldots,p_K).
+\]
+\end{lemma}
+
+\begin{proof}
+Replace the primes one at a time, in descending order of the index.  Suppose
+the primes other than the $k$th one form a set $R$, and let $q\le p$ be the
+two possible $k$th primes, neither lying in $R$.  Let $A_R(t)$ be the number
+of odd integers at most $t$ which are divisible by no prime in $R$.  Since $q$
+and $p$ are distinct from every prime in $R$,
+\[
+  N(R\cup\{q\})=A_R(n)-A_R(n/q),
+  \qquad
+  N(R\cup\{p\})=A_R(n)-A_R(n/p).
+\]
+The function $A_R(t)$ is nondecreasing, and $q\le p$, so
+$A_R(n/q)\ge A_R(n/p)$.  Hence replacing $q$ by $p$ can only increase the
+survivor count.  Descending replacement preserves distinctness and the sorted
+structure, because after the indices $>k$ have been upgraded we still have
+$q_{k-1}<q_k\le p_k<p_{k+1}$, with the obvious endpoint omissions.
+\end{proof}
+
 \begin{theorem}[Prime-sequence Bonferroni--4 comparison]\label{thm:bonf-comp}
 Let $q_1<\cdots<q_K$ be the actual odd primes played by Shortener during the
 prime prefix, and let $p_1<\cdots<p_K$ be any increasing sequence of odd
@@ -664,8 +692,8 @@ Therefore
 \]
 where $N(q_1,\dots,q_K)$ counts odd integers up to $n$ avoiding all $q_j$.
 
-Now replace the actual sequence $q_j$ by the larger prime sequence $p_j$.  The
-count of odd integers avoiding a finite prime set is monotone in each prime, so
+Now replace the actual sequence $q_j$ by the larger prime sequence $p_j$.
+\Cref{lem:odd-sieve-monotonicity} gives
 \[
   N(q_1,\dots,q_K) \le N(p_1,\dots,p_K).
 \]
