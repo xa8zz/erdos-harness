@@ -571,6 +571,76 @@ corollary follows by specializing $\delta=1/8$.
 \end{proof}
 
 
+\subsection{Diagonal selection conditions}\label{app:diagonal-selection-conditions}
+
+This subsection records the eventual side conditions used in
+\Cref{prop:prime-bridge-diagonalization}.  In the notation of that proposition,
+after $H_m,\lambda_m,a_m,\eta_m,s_m$ have been fixed, choose $N_m$ recursively
+increasing so that for every $n\ge N_m$ the following twelve conditions hold:
+\begin{enumerate}
+  \item the prefix-existence conclusion of \Cref{lem:prefix-existence} holds
+  up to index $K$;
+  \item the local-density error from \Cref{prop:local-density} satisfies
+  \[
+    \xi_{H_m}(n)\le \frac1m;
+    \tag{7.10a}\label{eq:diag-xi}
+  \]
+  \item the envelope moment estimate from \Cref{prop:envelope-inversion}
+  satisfies
+  \[
+    |T_r^{(b^{(H_m)})}(n)-J_r^{(H_m)}|\le \frac{1}{4m}
+    \qquad (1\le r\le4);
+    \tag{7.10b}\label{eq:diag-envelope}
+  \]
+  \item the bridge moment estimate from \Cref{prop:queued-prime-rounding}
+  satisfies
+  \[
+    |T_r^{(p^{(H_m)})}(n)-T_r^{(b^{(H_m)})}(n)|\le \frac{1}{2m}
+    \qquad (1\le r\le4);
+    \tag{7.10c}\label{eq:diag-bridge}
+  \]
+  \item the cell-reciprocal-mass estimate of
+  \Cref{lem:cell-reciprocal-mass} holds for the finitely many fixed-ratio
+  cells used with parameters $H_m,a_m,s_m$, with all limiting errors bounded
+  by $1/m$;
+  \item the product-strip estimate of \Cref{lem:product-strip-reciprocal}
+  holds for $C=\lambda_m^r$ and $1\le r\le4$, with associated finite
+  cell-count estimates valid to tolerance $1/m$;
+  \item the queue-clearing Hall inequalities in
+  \Cref{prop:queued-prime-rounding}, with $a=a_m$, $\eta=\eta_m$, and
+  $s=s_m$, hold for every suffix $0\le t\le s_m$;
+  \item the exceptional-index reciprocal mass estimate in
+  \eqref{eq:exceptional-b-mass} holds in the form
+  \[
+    \sum_{j\in E}\frac1{b_j}\le \frac1m;
+  \]
+  \item all fixed-ratio prime number theorem estimates used in the queue
+  construction, in particular \eqref{eq:prime-bin-count}, hold with tolerance
+  $1/m$ for the finitely many ratios determined by $a_m$ and $s_m$;
+  \item the smallest genuine scale satisfies
+  \[
+    n^{\alpha_{H_m-1}}
+    =
+    n^{1/H_m+\tau_{H_m}}
+    \ge m;
+    \tag{7.10d}\label{eq:diag-scale}
+  \]
+  \item the interblock nonoverlap inequalities
+  \[
+    a_m^2B_h<A_{h-1}\qquad(2\le h\le H_m-1),
+    \qquad
+    a_m^2B_1<n
+  \]
+  hold for the block endpoints associated to $H_m$;
+  \item the top-block prime supply satisfies
+  \[
+    \pi(2n)-\pi(n)\ge K.
+  \]
+\end{enumerate}
+Each condition is eventual because $H_m,\lambda_m,a_m,\eta_m,s_m$ and the
+finite list of ratios are fixed while $n\to\infty$.
+
+
 \subsection{Restricted carrier classes}\label{app:restricted-carriers}
 
 The next two propositions record unconditional upper bounds for two restricted
