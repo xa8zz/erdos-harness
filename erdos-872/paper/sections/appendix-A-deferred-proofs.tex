@@ -386,7 +386,10 @@ where
 \]
 Let $E$ be the total number of target tokens deleted during activation by
 Shortener moves not modeled as graph vertex deletions $a$ or graph edge
-deletions $ac$.  At the end of activation,
+deletions $ac$.  Here $E$ counts the total number of live target tokens deleted
+by off-model Shortener moves during activation, not the number of such moves:
+a single off-model move can delete multiple tokens, and $E$ tallies deletions,
+not move events.  At the end of activation,
 \[
   Q_{\mathrm{end}}\ge \frac{W_0}{8}-E.
 \]
