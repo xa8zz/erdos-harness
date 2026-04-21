@@ -549,7 +549,8 @@ families of Prolonger carrier moves.  They are not used in the main upper
 bound, but they clarify which carrier configurations are not responsible for
 the remaining difficulty.
 
-\begin{proposition}[Disjoint small-prime carriers]\label{prop:disjoint-carriers}
+\begin{proposition}[Small-prime composite Prolonger with disjoint supports]
+\label{prop:disjoint-carriers}
 Fix $1/3<\alpha<1/2$ and put $y=n^\alpha$.  Suppose that every composite
 Prolonger move has all prime factors at most $y$, and that the prime supports
 of distinct composite Prolonger moves are pairwise disjoint.  Against this
@@ -560,16 +561,12 @@ restricted class, Shortener has a strategy forcing
 \end{proposition}
 
 \begin{proof}
-Let $B$ be the set of primes which occur in composite Prolonger moves.  By the
-disjoint-support hypothesis, each $p\in B$ belongs to a unique composite
-carrier $C(p)$.
-
 Shortener uses the following priority list, always skipping moves which have
-already become illegal.
-
-First, she plays every legal prime.  This resolves every prime not belonging
-to a composite Prolonger carrier, and also every prime which Prolonger has not
-already made illegal by placing it inside a carrier.
+already become illegal.  First, she plays every legal prime.  After this prime
+phase, define $B$ to be the set of primes $p\le y$ whose singleton was not
+resolved by prime play because $p$ appears in an observed composite Prolonger
+carrier.  By the disjoint-support hypothesis, each $p\in B$ belongs to a
+unique composite carrier $C(p)$.
 
 Second, for every $p\in B$ whose carrier has at least two distinct prime
 factors, write $e(p)=v_p(C(p))$.  If $p^{e(p)+1}\le n$, Shortener plays
