@@ -9,58 +9,122 @@ asymptotic question.
 
 The first obstruction says that bounded-round local relaxations can have an
 integrality gap at precisely the scale where one would hope for a short
-transversal argument.  We state the barrier in its cleanest finite form.
+transversal argument.  We record it for sparse $\ell$-uniform families rather
+than for the complete hypergraph.
 
-Let $K_N^{(\ell)}$ be the complete $\ell$-uniform hypergraph on the vertex set
-$[N]$.  A transversal is a set of vertices meeting every $\ell$-edge.
+For an $\ell$-uniform family $\mathcal H\subseteq\binom P\ell$, let
+$\tau_{\Z}(\mathcal H)$ denote its integral transversal number and let
+$\tau_f(\mathcal H)$ denote the value of the fractional set-cover relaxation
+\[
+  \min \sum_{u\in P}x_u
+  \quad\text{subject to}\quad
+  \sum_{u\in C}x_u\ge 1\ (C\in\mathcal H),\qquad 0\le x_u\le 1.
+\]
 
 \begin{proposition}[Sherali--Adams transversal barrier]\label{prop:sa-barrier}
-Let $\ell=\lfloor N/\log N\rfloor$.  The integral transversal number of
-$K_N^{(\ell)}$ is
+Fix $0<\alpha<1$.  For all sufficiently large $N$, put
 \[
-  \tau(K_N^{(\ell)})=N-\ell+1=N-o(N).
+  \ell=\lfloor N/\log N\rfloor,\qquad q=\lfloor \alpha N\rfloor,\qquad
+  \delta=\frac{\binom{N-q}{\ell}}{\binom N\ell}.
 \]
-The fractional transversal number is
+For every $N$-point set $P$ there is a family
+$\mathcal C\subseteq\binom P\ell$ such that every
+$Q\subseteq P$ with $|Q|\le q$ is disjoint from some $C\in\mathcal C$ and
 \[
-  \tau_f(K_N^{(\ell)})=\frac{N}{\ell}=(1+o(1))\log N.
+  |\mathcal C|\le
+  \left\lceil\frac{\log\binom Nq+1}{\delta}\right\rceil .
 \]
-Moreover, after any fixed number $r<\ell$ of Sherali--Adams rounds, the
-symmetric lifted solution still has objective at most
+Consequently
+\[
+  \tau_{\Z}(\mathcal C)\ge q+1>\alpha N,
+  \qquad
+  \tau_f(\mathcal C)\le \frac N\ell=(1+o(1))\log N.
+\]
+Moreover, for every $\ell$-uniform family
+$\mathcal H\subseteq\binom P\ell$ and every integer $0\le r<\ell$, the
+level-$r$ Sherali--Adams relaxation of the above transversal LP has value at
+most
 \[
   \frac{N}{\ell-r}.
 \]
 \end{proposition}
 
 \begin{proof}
-A set $T\subseteq[N]$ meets every $\ell$-set if and only if its complement has
-size at most $\ell-1$.  Hence
+Choose
 \[
-  \tau(K_N^{(\ell)})=N-\ell+1.
+  s=\left\lceil\frac{\log\binom Nq+1}{\delta}\right\rceil
 \]
+independent uniformly random $\ell$-subsets of $P$.  For a fixed $q$-set
+$Q\subseteq P$, a random $\ell$-set avoids $Q$ with probability $\delta$.
+Thus the probability that no chosen set avoids this $Q$ is at most
+$\exp(-s\delta)\le e^{-1}/\binom Nq$.  A union bound over all $q$-sets gives a
+positive probability that every $q$-set is avoided by at least one chosen
+$\ell$-set.  Removing duplicate choices gives the desired family
+$\mathcal C$.  If $Q'\subseteq P$ has $|Q'|\le q$, extend it to a $q$-set
+$Q$; any $C\in\mathcal C$ disjoint from $Q$ is also disjoint from $Q'$.
 
-For the fractional relaxation, give every vertex weight $1/\ell$.  Each
-$\ell$-edge then has total weight $1$, so $\tau_f\le N/\ell$.  Conversely,
-summing the edge constraints over all $\ell$-subsets gives
+The avoidance property forces every transversal to have size at least
+$q+1$, proving $\tau_{\Z}(\mathcal C)> \alpha N$.  The uniform fractional
+assignment $x_u=1/\ell$ satisfies every covering constraint, so
+$\tau_f(\mathcal C)\le N/\ell$.
+
+It remains to prove the Sherali--Adams bound.  Let
+$\mathcal H\subseteq\binom P\ell$ be arbitrary and fix $0\le r<\ell$.  Set
 \[
-  \binom{N-1}{\ell-1}\sum_{i=1}^N x_i
-  \ge
-  \binom N\ell,
+  p=\frac1{\ell-r}.
 \]
-and therefore $\sum_i x_i\ge N/\ell$.  This proves
-$\tau_f=N/\ell$.
+For a covering row $C\in\mathcal H$ and disjoint sets
+$I,J\subseteq P$ with $|I\cup J|\le r$, write
+\[
+  L_{I,J}(x)=\prod_{i\in I}x_i\prod_{j\in J}(1-x_j).
+\]
+In the row-wise lifted formulation, introduce the literal-moment value
+\[
+  y_{C,I,J}:=\PP(I\subseteq Y,\ J\cap Y=\emptyset)
+  =p^{|I|}(1-p)^{|J|},
+\]
+where $Y$ is a product Bernoulli-$p$ random subset of $P$.  The value assigned
+to any lifted monomial $x_uL_{I,J}$ is the corresponding product-measure
+moment: it is $0$ if $u\in J$, $y_{C,I,J}$ if $u\in I$, and
+$p\,y_{C,I,J}$ if $u\notin I\cup J$.  Since these are moments of an actual
+probability distribution on $\{0,1\}^P$, the lifted box constraints are
+satisfied; in particular $0\le y_{C,I,J}\le 1$ for every lifted variable.
 
-For the lifted statement, the same symmetric solution remains feasible after
-conditioning on any pattern involving fewer than $\ell$ vertices.  If $r$
-vertices of an $\ell$-edge have already been fixed outside the transversal,
-the residual constraint asks for weight at least $1$ on an $(\ell-r)$-set; the
-uniform residual assignment $1/(\ell-r)$ satisfies it.  The corresponding
-objective is $N/(\ell-r)$.  This is the standard symmetric feasible solution
-for the $r$-round Sherali--Adams lift, and gives the claimed upper bound on the
-relaxation value.
+Now multiply a covering constraint
+\[
+  g_C(x):=\sum_{u\in C}x_u-1\ge 0
+\]
+by any literal $L_{I,J}$ with $|I\cup J|\le r$.  If $I\cap J\ne\emptyset$,
+then $L_{I,J}\equiv 0$.  Assume $I\cap J=\emptyset$.  If
+$I\cap C\ne\emptyset$, then whenever $L_{I,J}=1$ at least one variable in
+$C$ is already fixed to $1$, so $g_C(x)L_{I,J}(x)\ge 0$ pointwise.
+
+It remains to handle $I\cap C=\emptyset$.  Let $c=|J\cap C|$.  Conditional on
+the event $L_{I,J}=1$, the $c$ variables in $C\cap J$ are fixed to $0$, while
+the remaining $\ell-c$ variables of $C$ remain independent Bernoulli-$p$.
+Hence
+\[
+  \mathbb{E}\!\left[\sum_{u\in C}x_u\,\middle|\, L_{I,J}=1\right]
+  =(\ell-c)p.
+\]
+Since $c\le |J|\le |I\cup J|\le r$, we have
+\[
+  (\ell-c)p\ge (\ell-r)\frac1{\ell-r}=1.
+\]
+Therefore $\mathbb{E}[g_C(x)L_{I,J}(x)]\ge 0$ for every lifted covering row, so the
+product Bernoulli moment vector is feasible for the level-$r$
+Sherali--Adams relaxation.  Its objective value is
+\[
+  \mathbb{E}\sum_{u\in P}x_u=Np=\frac{N}{\ell-r}.
+\]
 \end{proof}
 
-The proposition shows that local linear relaxations can remain logarithmic in
-size while the actual separator has linear size.
+Thus no argument whose entire certificate is bounded by the above level-$r$
+Sherali--Adams relaxation can certify a transversal lower bound exceeding
+$N/(\ell-r)$ on these instances, even though the true integral optimum is
+$>\alpha N$.  The artifact script
+\texttt{scripts/sa\_barrier\_verification.py} exhaustively checks the lifted
+covering inequalities for $N\le 7$ using exact rational arithmetic.
 
 \subsection{A q-shadow dichotomy}
 
