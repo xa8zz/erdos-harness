@@ -502,11 +502,7 @@ $f\in C^1([0,1])$,
   =
   \int_{G_H} f(u)\rhoU(u)\,du+o_H(1).
 \]
-In particular, $\mu_{H,n}$ converges weakly to the absolutely continuous
-measure
-\[
-  \mu_H:=\rhoU(u)\mathbf 1_{G_H}(u)\,du.
-\]
+Taking $f\equiv1$ gives $\mu_{H,n}([0,1])=O_H(1)$.
 
 Fix $r\in\{1,2,3,4\}$, and write
 \[
@@ -527,7 +523,7 @@ $b_{j_1}\cdots b_{j_r}\le n$.  The repeated-index contribution is negligible:
 \[
   \max_j w_j \le n^{-\alpha_{H-1}} \to 0,
 \]
-while $\mu_{H,n}([0,1])=O_H(1)$ by the weak convergence with $f\equiv 1$.
+while $\mu_{H,n}([0,1])=O_H(1)$ by the preceding $f\equiv1$ bound.
 Therefore
 \[
   0
@@ -538,13 +534,21 @@ Therefore
   =
   o_H(1).
 \]
-Since $\mu_H$ is absolutely continuous, its product measure gives zero mass to
-the boundary $\partial\Sigma_r$.  Weak convergence therefore implies
+The same Riemann-sum convergence tensorizes: for every continuous
+$F$ on $[0,1]^r$,
+\[
+  \int F\,d\mu_{H,n}^{\otimes r}
+  \to
+  \int_{G_H^r}F(u_1,\ldots,u_r)
+  \prod_{i=1}^r\rhoU(u_i)\,du_1\cdots du_r.
+\]
+The indicator of $\Sigma_r$ restricted to $G_H^r$ is Riemann integrable,
+because its discontinuities lie on the finitely many coordinate breakpoints
+and on the hyperplane $u_1+\cdots+u_r=1$.  Approximating this indicator from
+above and below by continuous functions therefore gives
 \[
   \int_{\Sigma_r} d\mu_{H,n}^{\otimes r}
   \to
-  \int_{\Sigma_r} d\mu_H^{\otimes r}
-  =
   \int_{\substack{u_1+\cdots+u_r\le 1\\u_i\in G_H}}
   \prod_{i=1}^r \rhoU(u_i)\,du_1\cdots du_r
   =
@@ -754,6 +758,172 @@ uniformly in $j$ is \emph{not} justified by the prime number theorem alone and
 must not be used.  The correct bridge is the half-density construction of
 \Cref{thm:prime-bridge}.
 
+\begin{proposition}[Fixed-parameter queued prime rounding]
+\label{prop:queued-prime-rounding}
+Fix $H\ge2$ and $\lambda>1$, and choose $a>1$ with $a^2\le\lambda$.
+Let $b_1,\ldots,b_K$ be the comparison sequence obtained from
+\Cref{prop:envelope-inversion} with this fixed $H$.  Then there is an
+increasing sequence of odd primes $p_1<\cdots<p_K$ such that
+\[
+  q_j\le b_j\le p_j\qquad (1\le j\le K),
+\]
+and, for every fixed $1\le r\le4$,
+\[
+  T_r^{(p)}(n)=T_r^{(b)}(n)+O_{H,r}(\lambda-1)+o_{H,\lambda}(1).
+  \tag{7.1}\label{eq:queued-bridge-moment}
+\]
+\end{proposition}
+
+\begin{proof}
+Write
+\[
+  A_h:=n^{\alpha_h},\qquad B_h:=n^{\beta_h}\qquad (1\le h\le H-1).
+\]
+Fix one genuine block $[A_h,B_h]$ and abbreviate $A=A_h$, $B=B_h$.  Partition
+it into fixed multiplicative bins
+\[
+  I_k=[Aa^k,Aa^{k+1})\qquad (k=0,1,\ldots,M),
+\]
+where the last bin is truncated at $B$.  Let
+\[
+  d_k:=\#\{j:b_j\in I_k,\ j\text{ lies in the genuine }h\text{-block}\}
+\]
+and let $f_h$ be the multiplicity of the flat atom at the left endpoint
+$A_h$.  Thus $f_{H-1}$ is the bottom flat atom, and for $h<H-1$ it is the flat
+atom in the gap just below $A_h$.
+
+We first record the fixed-ratio estimates used by the queue.  For every fixed
+$c>1$, uniformly for $X\ge n^{1/H}$ with $[X,cX]\subseteq[A_h,B_h]$,
+\[
+  \#\{j:X\le b_j<cX,\ j\text{ genuine in block }h\}
+  \le
+  (1+o_{H,c}(1))\frac{(c-1)X}{(h+1)\log X}+O(1).
+  \tag{7.2}\label{eq:genuine-bin-demand}
+\]
+Indeed, on a genuine block $B_{H,n}(Y)=\lfloor A_{n,h}(\log_nY)\rfloor$, and
+\[
+  \frac{d}{dY}A_{n,h}(\log_nY)
+  =
+  \frac{1-\xi_H(n)}{(h+1)\log Y}
+  \left(1-\frac1{\log Y}\right).
+\]
+Integrating over $[X,cX]$ gives \eqref{eq:genuine-bin-demand}; the endpoint
+error is negligible at the scales used below.  Similarly,
+\[
+  f_h\le (1+o_H(1))\frac{A_h}{(h+1)\log A_h},
+  \tag{7.3}\label{eq:flat-atom-count}
+\]
+because $f_h\le L_h\le A_{n,h}(\alpha_h)$.  Finally, if
+\[
+  P_k:=\#\{p\text{ odd prime}:Aa^k\le p<Aa^{k+1}\},
+\]
+then the prime number theorem in fixed multiplicative intervals gives,
+uniformly in $k$ in this fixed block,
+\[
+  P_k=(1+o_{H,a}(1))\frac{(a-1)Aa^k}{\log(Aa^k)}.
+  \tag{7.4}\label{eq:prime-bin-count}
+\]
+
+Choose a small fixed $\eta>0$.  Since the demand has the factor
+$1/(h+1)\le1/2$, we may choose an integer $s=s(a)$ such that
+\[
+  (1-\eta)(a^{s+1}-1)>(1+\eta)\frac{a^s}{2}.
+  \tag{7.5}\label{eq:queue-clear}
+\]
+This is possible for every $a>1$.  For all large $n$, \eqref{eq:genuine-bin-demand},
+\eqref{eq:flat-atom-count}, and the fact that $s$ is fixed give
+\[
+  f_h+\sum_{k=0}^{s-1}d_k
+  \le
+  (1+\eta)\frac{Aa^s}{2\log A},
+\]
+while \eqref{eq:prime-bin-count} gives
+\[
+  \sum_{\ell=0}^{s}P_\ell
+  \ge
+  (1-\eta)\frac{A(a^{s+1}-1)}{\log A}.
+\]
+By \eqref{eq:queue-clear}, the queue containing the flat atom and the first
+$s$ genuine bins clears by the end of prime bin $s$.  More explicitly, the flat
+atom is eligible for primes in bin $0$, and genuine demand from $I_k$ is
+released only at prime bin $k+1$; processing prime bins in increasing order and
+assigning available primes to the oldest unassigned demand therefore assigns
+all these early demands to primes at least as large as their corresponding
+$b_j$.
+
+For each later full source bin $I_k$, $k\ge s$, assign its $d_k$ elements to
+primes in the next prime bin $[Aa^{k+1},Aa^{k+2})$.  This is possible for all
+large $n$, because \eqref{eq:genuine-bin-demand} and \eqref{eq:prime-bin-count} give
+\[
+  d_k
+  \le
+  (1+o_{H,a}(1))\frac{(a-1)Aa^k}{(h+1)\log(Aa^k)}
+  <
+  (1-o_{H,a}(1))\frac{(a-1)Aa^{k+1}}{\log(Aa^{k+1})}
+  \le P_{k+1},
+\]
+using $1/(h+1)\le1/2<a$.  The final truncated source bin is handled in the
+same way, using the next full prime bin above the block.
+
+Call exceptional the flat atoms, the first $s(a)$ genuine bins of every genuine
+block, and the top flat block $b_j=n$.  Let $E$ be the set of exceptional
+indices.  By \Cref{lem:cell-reciprocal-mass}, each fixed multiplicative bin
+has $b$-reciprocal mass $O_{H,a}(1/\log n)$, and there are only
+$O_{H,a}(1)$ exceptional bins.  The top flat block contributes $K/n=O(1/\log n)$.
+Thus
+\[
+  \sum_{j\in E}\frac1{b_j}=O_{H,a}\left(\frac1{\log n}\right).
+  \tag{7.6}\label{eq:exceptional-b-mass}
+\]
+Since every assigned prime is at least the corresponding $b_j$, the same bound
+holds with $p_j$ in place of $b_j$.
+
+The top flat block is assigned, in order, to odd primes in $[n,2n]$.  This
+interval contains $(1+o(1))n/\log n$ odd primes, more than enough for the at
+most $K\le n/(2\log n)$ top flat indices.  Assignments from different genuine
+blocks do not overlap.  The largest prime used for block $h$ is at most
+$a^2B_h$, while the next larger block begins at
+\[
+  A_{h-1}=n^{1/h+\tau_H}=n^{2\tau_H}B_h,
+\]
+so $a^2B_h<A_{h-1}$ for large $n$.  Also $a^2B_1=o(n)$, so the top flat
+assignment above $n$ comes last.  The construction therefore produces one
+increasing prime sequence.  For every nonexceptional index,
+\[
+  b_j\le p_j\le a^2b_j\le\lambda b_j.
+  \tag{7.7}\label{eq:nonexceptional-factor}
+\]
+Together with \Cref{prop:envelope-inversion}, this also gives $q_j\le b_j\le p_j$.
+
+It remains to compare moments.  The total reciprocal mass of the $b_j$ is
+$O_H(1)$ by \Cref{prop:envelope-inversion}, and the same is true for the $p_j$
+by \eqref{eq:exceptional-b-mass} and \eqref{eq:nonexceptional-factor}.  Hence all
+$r$-tuples containing at least one exceptional index contribute
+\[
+  O_{H,r,a}\left(\frac1{\log n}\right)=o_{H,\lambda}(1)
+\]
+to either $T_r^{(b)}(n)$ or $T_r^{(p)}(n)$.
+
+For a nonexceptional tuple $I=\{j_1<\cdots<j_r\}$, write
+\[
+  b_I:=\prod_{j\in I}b_j,\qquad p_I:=\prod_{j\in I}p_j.
+\]
+By \eqref{eq:nonexceptional-factor},
+\[
+  b_I\le p_I\le\lambda^r b_I,\qquad
+  \lambda^{-r}\frac1{b_I}\le\frac1{p_I}\le\frac1{b_I}.
+\]
+On tuples counted by both cutoffs, this changes the total reciprocal weight by
+$O_{H,r}(\lambda-1)$, since the $r$-fold reciprocal mass is $O_H(1)$.  The
+only cutoff discrepancy comes from tuples with
+\[
+  n/\lambda^r<b_I\le n.
+\]
+By the product-strip estimate proved from \Cref{lem:cell-reciprocal-mass} above,
+these tuples have total $b$-reciprocal contribution $o_{H,\lambda}(1)$.  This
+proves \eqref{eq:queued-bridge-moment}.
+\end{proof}
+
 \begin{theorem}[Prime-rounding bridge]\label{thm:prime-bridge}
 Fix $0<\eps<1$, and let
 \[
@@ -784,251 +954,32 @@ Moreover the primes may be chosen so that, for each fixed $1\le r\le 4$,
 \end{theorem}
 
 \begin{proof}
-We first prove a fixed-parameter statement.  Fix $H\ge2$ and
-$\lambda>1$.  Let $\tau_H,\alpha_h,\beta_h,I_h,G_H$ be as in
-\Cref{prop:envelope-inversion}, and let $b_1,\dots,b_K$ be the sequence
-obtained by inverting the envelope $C_{H,n}$ for this fixed $H$.  We shall
-construct increasing odd primes $p_1,\dots,p_K$ such that
-\[
-  q_j\le p_j \qquad (1\le j\le K)
-\]
-and, for $1\le r\le4$,
-\[
-  T_r^{(p)}(n)=J_r^{(H)}+O_{H,r}(\lambda-1)+o_{H,\lambda}(1).
-  \tag{PB1}
-\]
-Here $n\to\infty$ with $H,\lambda,\eps$ fixed.
-
-Write
-\[
-  B_{H,n}(X):=\#\{j:b_j\le X\}.
-\]
-Since $b_j=\inf\{X:C_{H,n}(X)\ge j\}$ and $C_{H,n}$ is nondecreasing and
-integer-valued,
-\[
-  B_{H,n}(X)=C_{H,n}(X)
-  \qquad (2\le X\le n).
-\]
-We need the following interval count, which is the point at which the
-half-density slack enters.  Fix $\Delta>0$.  For all sufficiently large $n$,
-uniformly in $1\le h\le H-1$ and in all $X$ for which
-$[X,(1+\Delta)X]\subseteq[n^{\alpha_h},n^{\beta_h}]$,
-\[
-  B_{H,n}((1+\Delta)X)-B_{H,n}(X)
-  \le
-  \left(\frac12+o_{H,\Delta}(1)\right)\frac{\Delta X}{\log X}.
-  \tag{PB2}
-\]
-Indeed, put $u=\log_n X$ and
-$\theta=\log(1+\Delta)/\log n$.  On a genuine block,
-$B_{H,n}(Y)=\lfloor A_{n,h}(\log_n Y)\rfloor$, up to an error of at most one
-at each endpoint.  Therefore
-\[
-  B_{H,n}((1+\Delta)X)-B_{H,n}(X)
-  \le
-  A_{n,h}(u+\theta)-A_{n,h}(u)+2.
-\]
-For $v\in[u,u+\theta]$ and $Y=n^v$,
-\[
-  \frac{d}{dY}A_{n,h}(\log_n Y)
-  =
-  \frac{1-\xi_H(n)}{(h+1)\log Y}
-  \left(1-\frac{1}{\log Y}\right)
-  \le
-  \frac{1+o_H(1)}{(h+1)\log X}.
-\]
-Since $h+1\ge2$ and $X\ge n^{\alpha_{H-1}}\ge n^{1/H}$, the endpoint error
-$2$ is $o_{H,\Delta}(\Delta X/\log X)$.  This proves \((\mathrm{PB2})\).
-
-Choose $\delta=\delta(\lambda)>0$ with
-\[
-  (1+\delta)^2\le\lambda.
-\]
-All uses of the prime number theorem below are uniform for
-$X\ge n^{1/H}$ and for fixed multiplicative intervals, because $H$ and
-$\delta$ are fixed.  Thus, uniformly in such $X$,
-\[
-  \#\{p\text{ odd prime}:(1+\delta)X\le p<(1+\delta)^2X\}
-  =
-  (1+o_{H,\delta}(1))\frac{\delta(1+\delta)X}{\log X}.
-  \tag{PB3}
-\]
-Combining \((\mathrm{PB2})\) and \((\mathrm{PB3})\), for all sufficiently large $n$ every
-multiplicative bin $[X,(1+\delta)X)$ contained in a genuine block contains
-strictly fewer $b_j$ than there are odd primes in the next bin
-$[(1+\delta)X,(1+\delta)^2X)$.
-
-It remains to keep the bins away from the finitely many artificial boundary
-layers.  Choose a constant $\Gamma_H>4$, depending only on $H$, large enough
-for the reservoir count below.  For each genuine block
-$[n^{\alpha_h},n^{\beta_h}]$, declare exceptional all indices $j$ for which
-\[
-  b_j\in
-  [n^{\alpha_h},\Gamma_H n^{\alpha_h}]
-  \cup
-  [\Gamma_H^{-1}n^{\beta_h},n^{\beta_h}],
-\]
-and also all indices lying in the flat filler blocks of the envelope.  Denote
-the exceptional set by $\mathcal E$ and its complement by $\mathcal G$.
-For fixed $H$ and large $n$, these boundary reservoirs are disjoint and occur
-in the same order as the corresponding indices, because the gaps between
-successive genuine blocks have multiplicative size $n^{2\tau_H}$.
-
-The exceptional set has negligible reciprocal mass.  The flat filler blocks
-already satisfy the estimate proved in \Cref{prop:envelope-inversion},
-\[
-  \sum_{j\text{ flat}}\frac1{b_j}
-  =
-  O_H\!\left(\frac1{\log n}\right).
-\]
-For a genuine boundary layer, \((\mathrm{PB2})\) with fixed multiplicative length
-implies
-\[
-\sum_{\substack{j:b_j\in[X,\Gamma_H X]\\j\text{ genuine}}}\frac1{b_j}
-  \ll_{H,\Gamma_H}\frac1{\log n},
-\]
-uniformly for $X\ge n^{1/H}$.  There are $O_H(1)$ such layers, hence
-\[
-  \sum_{j\in\mathcal E}\frac1{b_j}
-  =
-  O_{H,\lambda}\!\left(\frac1{\log n}\right).
-  \tag{PB4}
-\]
-
-We next assign primes to the exceptional indices.  On each boundary reservoir
-of the form $[X,\Gamma_H X]$, the number of genuine exceptional indices is at
-most
-\[
-  \left(\frac12+o_H(1)\right)\frac{(\Gamma_H-1)X}{\log X},
-\]
-  by \((\mathrm{PB2})\) applied with $\Delta=\Gamma_H-1$, while the number of odd primes in
-the same reservoir is
-\[
-  (1+o_H(1))\frac{(\Gamma_H-1)X}{\log X}.
-\]
-At a left endpoint one must also place the adjacent flat atom.  Its size is at
-most the value of the envelope at that endpoint, namely
-\[
-  O_H\!\left(\frac{X}{\log X}\right),
-\]
-with an implied constant depending only on $H$; the choice of $\Gamma_H$
-ensures that the reservoir contains enough odd primes for both the flat atom
-and the genuine boundary layer.  More explicitly, the sorted lower bounds
-$b_j$ in the reservoir satisfy the one-dimensional Hall condition: the full
-reservoir has enough primes by the preceding choice of $\Gamma_H$, and every
-proper suffix $[Y,\Gamma_H X]$ contains at most half as many genuine
-exceptional $b_j$ as there are odd primes there, by the interval estimate
-\((\mathrm{PB2})\), uniformly for multiplicative lengths at most $\Gamma_H$,
-and the prime number theorem.  Thus greedy assignment to the smallest unused odd prime
-which is at least the current $b_j$ succeeds inside the reservoir.  The top
-flat block is placed in $[n,\Gamma_H n]$, which has enough odd primes because
-$K\le n/(2\log n)$ and $\Gamma_H>2$.  Consequently all exceptional indices can
-be assigned, in increasing order, to distinct odd primes satisfying
-$b_j\le p_j$ and hence $q_j\le p_j$.  Their total reciprocal mass is
-\[
-  \sum_{j\in\mathcal E}\frac1{p_j}
-  =
-  O_{H,\lambda}\!\left(\frac1{\log n}\right).
-  \tag{PB5}
-\]
-
-Now consider the nonexceptional indices.  In each genuine block, partition the
-remaining interval into consecutive multiplicative bins
-\[
-  [X,(1+\delta)X),
-\]
-discarding at most the first and last partial bin into $\mathcal E$.  For each
-full bin, assign the $b_j$ in that bin, in increasing order, to the odd primes
-in the next bin.  The count comparison \((\mathrm{PB2})\)-\((\mathrm{PB3})\) shows that this is
-  possible for all large $n$.  The prime bins are disjoint and increasing, so
-together with the reservoir assignments this produces one increasing sequence
-of odd primes.  For every $j\in\mathcal G$,
-\[
-  b_j\le p_j\le (1+\delta)^2 b_j\le\lambda b_j.
-  \tag{PB6}
-\]
-
-We compare moments.  The total reciprocal mass of the $b_j$ is $O_H(1)$ by
-\Cref{prop:envelope-inversion}; the same is true for the $p_j$, by
-\((\mathrm{PB5})\) and \((\mathrm{PB6})\).  Hence every $r$-tuple containing at least one
-exceptional index contributes
-\[
-  O_{H,r,\lambda}\!\left(\frac1{\log n}\right)
-  =
-  o_{H,\lambda}(1)
-\]
-to either $T_r^{(b)}(n)$ or $T_r^{(p)}(n)$.  It remains to compare tuples
-lying wholly in $\mathcal G$.
-
-For such a tuple $I=\{j_1<\cdots<j_r\}$, set
-\[
-  b_I:=\prod_{j\in I}b_j,
-  \qquad
-  p_I:=\prod_{j\in I}p_j.
-\]
-By \((\mathrm{PB6})\),
-\[
-  b_I\le p_I\le\lambda^r b_I,
-  \qquad
-  \lambda^{-r}\frac1{b_I}\le\frac1{p_I}\le\frac1{b_I}.
-\]
-The weight change contributes $O_{H,r}(\lambda-1)$, because the total
-$b$-reciprocal mass is $O_H(1)$.  The only remaining discrepancy is the
-product boundary
-\[
-  n/\lambda^r < b_I\le n.
-\]
-We control this boundary layer by a cell count.  Fix a constant $c>1$, and
-partition the positive axis into cells $[c^\ell,c^{\ell+1})$.  By
-\Cref{lem:cell-reciprocal-mass}, every cell has $b$-reciprocal mass
-$O_{H,c}(1/\log n)$.  There are $O_{H,c}(\log n)$ cells meeting the range of
-the $b_j$.  For the product strip
-\[
-  n/\lambda^r < x_1\cdots x_r\le \lambda^r n,
-\]
-once the first $r-1$ cell indices are chosen, only
-$O_{\lambda,c,r}(1)$ choices of the last cell can meet the strip.  Thus there
-are $O_{H,\lambda,c,r}((\log n)^{r-1})$ relevant $r$-cell patterns.  Each
-pattern contributes at most $O_{H,c,r}((\log n)^{-r})$ reciprocal mass, so the
-total contribution of the strip is
-\[
-  O_{H,\lambda,c,r}\!\left(\frac1{\log n}\right)
-  =
-  o_{H,\lambda}(1).
-\]
-In particular the narrower boundary $n/\lambda^r<b_I\le n$ contributes
-$o_{H,\lambda}(1)$.  Thus
-\[
-  T_r^{(p)}(n)
-  =
-  T_r^{(b)}(n)+O_{H,r}(\lambda-1)+o_{H,\lambda}(1).
-\]
-Using \Cref{prop:envelope-inversion},
-$T_r^{(b)}(n)=J_r^{(H)}+o_H(1)$, and this proves \((\mathrm{PB1})\).
-
-It remains to diagonalize.  Choose a sequence $H_m\to\infty$ such that
+Choose a sequence $H_m\to\infty$ such that
 \[
   |J_r^{(H_m)}-J_r|\le\frac1m
   \qquad (1\le r\le4).
 \]
-For each $m$, choose $\lambda_m>1$ so close to $1$ that the constants implicit in
-$O_{H_m,r}(\lambda_m-1)$ in \((\mathrm{PB1})\) are at most $1/m$ for
-all $1\le r\le4$.  For each $m$, the fixed-parameter construction above is
-valid for all $n\ge N_m$ after enlarging $N_m$ so that also
+For each $m$, choose $\lambda_m>1$ so close to $1$ that the
+$O_{H_m,r}(\lambda_m-1)$ term in \Cref{prop:queued-prime-rounding} is at most
+$1/m$ for $1\le r\le4$, and choose $a_m>1$ with $a_m^2\le\lambda_m$.  For
+fixed $m$, enlarge $N_m$ so that, for all $n\ge N_m$, the construction of
+\Cref{prop:envelope-inversion} with $H=H_m$ is valid,
 \[
-  |T_r^{(b)}(n)-J_r^{(H_m)}|\le \frac1m,
-\]
-for every $1\le r\le4$.  We may take $N_m$ increasing.  For
-$N_m\le n<N_{m+1}$ use the construction with $H=H_m$ and
-$\lambda=\lambda_m$.  This gives $H(n)\to\infty$ slowly enough that the
-smallest genuine scale $n^{\alpha_{H(n)-1}}$ still tends to infinity, so the
-uniform prime-number estimates used above remain valid.  The resulting
-comparison and prime sequences satisfy, for every fixed $1\le r\le4$,
-\[
-  T_r^{(b^{(n)})}(n)=J_r+o(1),
+  |T_r^{(b)}(n)-J_r^{(H_m)}|\le\frac1m,
   \qquad
-  T_r^{(p)}(n)=T_r^{(b^{(n)})}(n)+o(1)=J_r+o(1).
+  |T_r^{(p)}(n)-T_r^{(b)}(n)|\le\frac2m
 \]
+for $1\le r\le4$, where the second inequality uses
+\Cref{prop:queued-prime-rounding}.  We may take the $N_m$ increasing.  For
+$N_m\le n<N_{m+1}$ use the parameters $H=H_m$, $\lambda=\lambda_m$, and
+$a=a_m$.  Then $H_m\to\infty$ and $\lambda_m\downarrow1$, so the displayed
+bounds give
+\[
+  T_r^{(b^{(n)})}(n)=J_r+o(1),\qquad
+  T_r^{(p)}(n)=T_r^{(b^{(n)})}(n)+o(1)=J_r+o(1)
+\]
+for every fixed $1\le r\le4$.  The inequality $q_j\le p_j$ follows from
+\Cref{prop:queued-prime-rounding}.
 \end{proof}
 
 \subsection{The finite Bonferroni--4 theorem}
