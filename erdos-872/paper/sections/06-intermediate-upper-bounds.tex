@@ -65,7 +65,13 @@ a contradiction for large $n$.  Hence
 \[
   q_j\le(3/2+\varepsilon)j\log n
 \]
-uniformly for $j\le k$, and therefore
+uniformly for $j\le k$.  For this fixed $\varepsilon$,
+\[
+  \sum_{j=1}^k\frac1{q_j}\ge\frac{1}{3+2\varepsilon}-o_\varepsilon(1).
+\]
+Since the strategy and the preceding estimate hold for every
+$\varepsilon>0$, we may let $\varepsilon\downarrow0$ after taking
+$n\to\infty$, and therefore
 \[
   \sum_{j=1}^k\frac1{q_j}\ge\frac13-o(1).
   \tag{6.1}\label{eq:one-third-mass}
@@ -150,7 +156,8 @@ second-order Bonferroni estimate gives
   \left(1-\frac1{A_\star}+\frac{1}{2A_\star^2}\right)
   +o(n).
 \]
-Letting $A_\star\downarrow2$ yields
+For every fixed $A_\star>2$ the strategy above is valid.  Letting
+$A_\star\downarrow2$ after taking $n\to\infty$ yields
 \[
   \L(n)\le \frac n2\left(1-\frac12+\frac18\right)+o(n)
   =
