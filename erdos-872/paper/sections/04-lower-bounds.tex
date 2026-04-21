@@ -21,6 +21,8 @@ Fix $\delta$ with $\alpha<\delta<1$.  Let
   Q_\delta(P):=
   \{p\le n^\delta:\ p\ \text{prime and }p\nmid u\text{ for every }u\in P\}.
 \]
+Here and below, we use the Prime Number Theorem
+\cite[Theorem~6]{HardyWright08} and its fixed-ratio interval form.
 For all sufficiently large $n$, every $p\le n^\delta$ lies in $L_n$.  The set
 $Q_\delta(P)$ is an antichain and is contained in $\mathcal L_n(P)$, so
 \[
@@ -81,7 +83,8 @@ By \eqref{eq:log-budget} and the exchange argument,
   \sum_{p\le z_n}\frac1p.
   \tag{4.4}\label{eq:covered-mertens-bound}
 \]
-The prime number theorem gives
+Chebyshev's theorem $\vartheta(x)\sim x$
+\cite[Theorem~7]{HardyWright08} gives
 \[
   z_n=(1+o(1))n^\alpha\log n,
 \]
@@ -89,7 +92,7 @@ and hence
 \[
   \log\log z_n=\log\log n+\log\alpha+o(1).
 \]
-Mertens' theorem for primes yields
+Mertens' theorem for primes \cite{HardyWright08} yields
 \[
 \begin{aligned}
   \sum_{p\in Q_\delta(P)}\frac1p
