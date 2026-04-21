@@ -527,11 +527,13 @@ pairs.  Their total weight is $M$, as in
 move supplies a securing target $t_0(a,c)=acb_0$, and the residual subfamily
 keeps only targets $acb$ with $b\ne b_0$ which remain live.  Thus the securing
 target makes $a$, $c$, and $ac$ unavailable while being incomparable with every
-remaining residual target over the same pair.  No other earlier move is
-comparable with a residual target: Shortener's modeled activation replies are
-graph vertex or edge deletions and do not produce comparable integers, while
-any off-model move comparable with a target deletes that target and so removes
-it from the residual live subfamily.  Therefore the strengthened hypothesis of
+remaining residual target over the same pair.  Modeled activation replies
+produce integers that may be comparable with some residual targets in
+$\mathcal T_*$; any such comparable target has already been removed from
+$\mathcal T_*$ by the residual construction.  Hence no live hyperedge in the
+rank-$3$ hypergraph corresponds to a target killed by a modeled reply.  Any
+off-model move comparable with a target deletes that target and so removes it
+from the residual live subfamily.  Therefore the strengthened hypothesis of
 \Cref{prop:t2-residual-embedding} compares the remaining divisibility game to a
 scored rank-$3$ slot hypergraph whose total edge weight is $M$.
 
