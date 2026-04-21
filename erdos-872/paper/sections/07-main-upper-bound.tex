@@ -962,14 +962,45 @@ uniformly in $k$ in this fixed block,
   \tag{7.4}\label{eq:prime-bin-count}
 \]
 
-Choose a small fixed $\eta>0$.  Since the demand has the factor
-$1/(h+1)\le1/2$, we may choose an integer $s=s(a)$ such that
+Choose $\eta>0$ small enough that
+\[
+  \frac{2a(1-\eta)}{1+\eta}>1.
+\]
+Since the demand has the factor $1/(h+1)\le1/2$, we may then choose an integer
+$s=s(a)$ such that
 \[
   (1-\eta)(a^{s+1}-1)>(1+\eta)\frac{a^s}{2}.
   \tag{7.5}\label{eq:queue-clear}
 \]
-This is possible for every $a>1$.  For all large $n$, \eqref{eq:genuine-bin-demand},
-\eqref{eq:flat-atom-count}, and the fact that $s$ is fixed give
+This is possible for every $a>1$.  We now verify the Hall conditions for the
+finite queue consisting of the flat atom and the first $s$ genuine bins.  The
+flat atom may use prime bins $\ell\ge0$, while demand from source bin $I_k$
+may use only prime bins $\ell\ge k+1$.
+
+For $1\le t\le s$, the fixed-ratio PNT estimate \eqref{eq:prime-bin-count}
+gives, uniformly in $t$,
+\[
+  \sum_{\ell=t}^{s}P_\ell
+  \ge
+  (1-\eta)\frac{A(a^{s+1}-a^t)}{\log A}
+  =
+  (1-\eta)\frac{aA(a^s-a^{t-1})}{\log A},
+\]
+for all large $n$.  On the other hand, \eqref{eq:genuine-bin-demand} gives
+\[
+  \sum_{k=t-1}^{s-1}d_k
+  \le
+  (1+\eta)\frac{A(a^s-a^{t-1})}{2\log A}.
+\]
+Thus the suffix supply-to-demand ratio is at least
+$2a(1-\eta)/(1+\eta)>1$, uniformly in $1\le t\le s$, and hence
+\[
+  \sum_{\ell=t}^{s}P_\ell \ge \sum_{k=t-1}^{s-1}d_k
+  \qquad (1\le t\le s).
+\]
+
+For $t=0$, \eqref{eq:genuine-bin-demand}, \eqref{eq:flat-atom-count}, and the
+fact that $s$ is fixed give
 \[
   f_h+\sum_{k=0}^{s-1}d_k
   \le
@@ -981,13 +1012,22 @@ while \eqref{eq:prime-bin-count} gives
   \ge
   (1-\eta)\frac{A(a^{s+1}-1)}{\log A}.
 \]
-By \eqref{eq:queue-clear}, the queue containing the flat atom and the first
-$s$ genuine bins clears by the end of prime bin $s$.  More explicitly, the flat
-atom is eligible for primes in bin $0$, and genuine demand from $I_k$ is
-released only at prime bin $k+1$; processing prime bins in increasing order and
-assigning available primes to the oldest unassigned demand therefore assigns
-all these early demands to primes at least as large as their corresponding
-$b_j$.
+By \eqref{eq:queue-clear},
+\[
+  \sum_{\ell=0}^{s}P_\ell
+  \ge
+  f_h+\sum_{k=0}^{s-1}d_k.
+\]
+These are precisely the Hall suffix inequalities for the interval-order
+bipartite matching in which the flat atom has release index $0$ and the
+source bin $I_k$ has release index $k+1$.  Equivalently, a direct greedy
+algorithm which processes prime bins in increasing order and assigns each
+prime to the oldest unassigned released demand succeeds: if it first failed
+before or at bin $s$, the unassigned demands with release index at least the
+failure bin would violate the corresponding suffix inequality.  Hence the
+flat atom and the first $s$ genuine bins can be assigned to prime bins
+$0,\ldots,s$ while respecting the release constraints, and every assigned
+prime is at least as large as its corresponding $b_j$.
 
 For each later full source bin $I_k$, $k\ge s$, assign its $d_k$ elements to
 primes in the next prime bin $[Aa^{k+1},Aa^{k+2})$.  This is possible for all
