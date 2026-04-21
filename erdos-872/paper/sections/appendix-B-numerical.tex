@@ -102,6 +102,35 @@ and the upper endpoints for $J_2,J_4$,
 \]
 \end{proof}
 
+\subsection{Directed-rounding implementation details}
+
+The certification in \Cref{prop:wfour-certification} uses only standard
+outward-rounded interval operations.  The implementation may use IEEE-754
+directed rounding modes, or a library with documented correctly rounded
+elementary functions.  For each positive input $x$, compute lower and upper
+logarithms
+\[
+  \log_{\rm dn}(x)\le \log x\le \log_{\rm up}(x).
+\]
+All lower partial sums are accumulated with round-down arithmetic, and all
+upper partial sums with round-up arithmetic.  If an interval antiderivative
+value is written $F(x)\in[F_{\rm dn}(x),F_{\rm up}(x)]$, then the cell mass
+$m_i=F(i/N)-F((i-1)/N)$ is enclosed by
+\[
+\begin{aligned}
+  m_i^-&=\operatorname{round}_{\rm dn}
+  \bigl(F_{\rm dn}(i/N)-F_{\rm up}((i-1)/N)\bigr),\\
+  m_i^+&=\operatorname{round}_{\rm up}
+  \bigl(F_{\rm up}(i/N)-F_{\rm dn}((i-1)/N)\bigr).
+\end{aligned}
+\]
+The convolution coefficients $c_s^{(r)}$ are then formed by interval
+product-summation, rounding each product and each accumulated partial sum
+outward.  If an FFT or another accelerated convolution routine is used, its
+floating-point round-off must itself be bounded outward and added to the final
+intervals; the displayed certification does not rely on an unbounded
+floating-point FFT error model.
+
 A direct grid computation of the same integrals gives the convergence displayed
 in \Cref{tab:grid-bonferroni}.  The theorem only needs the certified strict
 margin below $0.19$, while the table records an independent convergence check.
