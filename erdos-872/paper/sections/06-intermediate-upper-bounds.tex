@@ -117,40 +117,40 @@ Shortener has a strategy forcing
 \end{theorem}
 
 \begin{proof}
-Fix $A_0>2$ and set
+Fix $A_\star>2$ and set
 \[
-  k:=\left\lfloor\frac{n}{2A_0\log n}\right\rfloor.
+  k:=\left\lfloor\frac{n}{2A_\star\log n}\right\rfloor.
 \]
 Shortener plays the smallest legal odd prime for her first $k$ turns.  The
-same Chebyshev log-mass induction, now with $j\le n/(2A_0\log n)$, gives
+same Chebyshev log-mass induction, now with $j\le n/(2A_\star\log n)$, gives
 \[
-  q_j\le A_0j\log n
+  q_j\le A_\star j\log n
   \qquad (1\le j\le k).
 \]
-Indeed, if all odd primes below $A_0j\log n$ were blocked, Prolonger's first
+Indeed, if all odd primes below $A_\star j\log n$ were blocked, Prolonger's first
 $j$ moves would contribute at most $j\log n$, and the previous Shortener primes
 would contribute at most $(1+o(1))j\log n$; this is less than
-$A_0j\log n$ because $A_0>2$.
+$A_\star j\log n$ because $A_\star>2$.
 
 It follows that
 \[
-  \sum_{j=1}^k\frac1{q_j}\ge \frac1{A_0}-o(1).
+  \sum_{j=1}^k\frac1{q_j}\ge \frac1{A_\star}-o(1).
 \]
 As in the proof of \Cref{thm:thirteen-thirtysix}, use the odd-part injection and
 truncate the prime set at the first partial sum
 \[
-  s_t\ge \frac1{A_0}-o(1).
+  s_t\ge \frac1{A_\star}-o(1).
 \]
-Since $1/q_j\le1/3$ and $A_0>2$, the partial sum remains in $[0,1]$.  The
+Since $1/q_j\le1/3$ and $A_\star>2$, the partial sum remains in $[0,1]$.  The
 second-order Bonferroni estimate gives
 \[
   \L(n)
   \le
   \frac n2
-  \left(1-\frac1{A_0}+\frac{1}{2A_0^2}\right)
+  \left(1-\frac1{A_\star}+\frac{1}{2A_\star^2}\right)
   +o(n).
 \]
-Letting $A_0\downarrow2$ yields
+Letting $A_\star\downarrow2$ yields
 \[
   \L(n)\le \frac n2\left(1-\frac12+\frac18\right)+o(n)
   =
