@@ -677,15 +677,39 @@ odd integers $m\le n$ gives
   \le\;&
   \frac n2
   \left(1-T_1^{(p)}(n)+T_2^{(p)}(n)-T_3^{(p)}(n)+T_4^{(p)}(n)\right) \\
-  &\quad + O(M_2+M_3+M_4),
+  &\quad + O(D_1+D_2+D_3+D_4),
 \end{aligned}
 \]
-where $M_r$ is the number of odd integers $\le n$ with at least $r$ distinct
-prime divisors from the set $\{p_j\}$.  The standard squarefree divisor-count
-bound gives
+where
 \[
-  M_r = O_r\!\left(\frac{n(\log\log n)^{r-1}}{\log n}\right)=o(n)
-  \qquad (2\le r\le 4),
+  D_r:=
+  \#\{j_1<\cdots<j_r:p_{j_1}\cdots p_{j_r}\le n\}.
+\]
+Indeed, for a fixed $r$-tuple $J=\{j_1<\cdots<j_r\}$ with
+$P_J:=\prod_{j\in J}p_j\le n$, the number of odd $m\le n$ divisible by
+$P_J$ is
+\[
+  \frac{n}{2P_J}+O(1),
+\]
+because $P_J$ is odd.  If $P_J>n$ the intersection is empty, so the total
+floor error in the first four Bonferroni sums is
+$O(D_1+D_2+D_3+D_4)$.
+
+We use the standard Landau bound for squarefree integers with exactly $r$
+prime factors (see, for example, \cite[Ch.~22]{HardyWright08}),
+\[
+  \#\{m\le n:m\text{ squarefree and }\omega(m)=r\}
+  =
+  O_r\!\left(\frac{n(\log\log n)^{r-1}}{\log n}\right).
+\]
+Every product counted by $D_r$ is such a squarefree integer, and therefore
+\[
+  D_r
+  =
+  O_r\!\left(\frac{n(\log\log n)^{r-1}}{\log n}\right)
+  =
+  o(n)
+  \qquad (1\le r\le4),
 \]
 so the error is $o(n)$.  Substituting $T_r^{(p)}(n)=\Lambda_r+o(1)$ yields the
 stated inequality.
