@@ -152,12 +152,15 @@ Let $A$ be any terminal antichain and let $P\subseteq A\cap \U_n$.  Then
 \[
   |A|\ge |\U_n|-\beta_n(P).
 \]
-Consequently, any proof which uses a prefix $P\subseteq\U_n$ and this reduction
-to force $|A|\ge (1/2-c)n+o(n)$ must have
+\end{theorem}
+
+\begin{corollary}[Shield-prefix obstruction]\label{cor:intro-shield-obstruction}
+Any proof which uses a prefix $P\subseteq\U_n$ and the shield reduction
+framework to force $|A|\ge (1/2-c)n+o(n)$ must have
 \[
   |P|\ge n^{e^{-2c}-o(1)}.
 \]
-\end{theorem}
+\end{corollary}
 
 The proof of the reduction is elementary and is given in \Cref{sec:shield};
 \Cref{thm:intro-A} is proved in \Cref{sec:lower-bounds}.  These structural
