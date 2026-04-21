@@ -1154,7 +1154,7 @@ the prime sequence produced by \Cref{prop:queued-prime-rounding} with
 parameters $H_m,\lambda_m,a_m$.
 
 Choose $N_m$ recursively increasing so that for every $n\ge N_m$ the following
-ten conditions hold:
+twelve conditions hold:
 \begin{enumerate}
   \item the prefix-existence conclusion of \Cref{lem:prefix-existence} holds
   up to index $K$;
@@ -1190,9 +1190,8 @@ ten conditions hold:
   \item the exceptional-index reciprocal mass estimate in
   \eqref{eq:exceptional-b-mass} holds in the form
   \[
-    \sum_{j\in E}\frac1{b_j}\le \frac{C_m}{\log n},
+    \sum_{j\in E}\frac1{b_j}\le \frac1m;
   \]
-  for the fixed constant $C_m$ attached to $H_m,a_m,s_m$;
   \item all fixed-ratio prime number theorem estimates used in the queue
   construction, in particular \eqref{eq:prime-bin-count}, hold with tolerance
   $1/m$ for the finitely many ratios determined by $a_m$ and $s_m$;
@@ -1203,6 +1202,17 @@ ten conditions hold:
     n^{1/H_m+\tau_{H_m}}
     \ge m.
     \tag{7.10d}\label{eq:diag-scale}
+  \]
+  \item the interblock nonoverlap inequalities
+  \[
+    a_m^2B_h<A_{h-1}\qquad(2\le h\le H_m-1),
+    \qquad
+    a_m^2B_1<n
+  \]
+  hold for the block endpoints associated to $H_m$;
+  \item the top-block prime supply satisfies
+  \[
+    \pi(2n)-\pi(n)\ge K.
   \]
 \end{enumerate}
 Each condition is eventual because $H_m,\lambda_m,a_m,\eta_m,s_m$ and the
