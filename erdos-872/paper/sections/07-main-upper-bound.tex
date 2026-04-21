@@ -177,8 +177,10 @@ $\bigl(\frac{1}{h+1},\frac1h\bigr)$.  Thus $Y^{h+1}>n$, and
 where $S(X)$ denotes the number of odd primes played by Shortener up to the
 first time her move exceeds $X$.
 
-We claim that $S(X)=S_K(X)$ for all $u\in\bigcup_{h=1}^{H-1}I_h$ once $n$ is
-large enough.  Indeed, $u\le \beta_1=1-\tau_H$, so by the prime number theorem,
+Assuming the prime prefix exists for all $K$ Shortener moves, as guaranteed
+for large $n$ by \Cref{lem:prefix-existence}, we claim that $S(X)=S_K(X)$ for
+all $u\in\bigcup_{h=1}^{H-1}I_h$ once $n$ is large enough.  Indeed,
+$u\le \beta_1=1-\tau_H$, so by the prime number theorem,
 \[
   \pi(n^u)
   \ll \frac{n^{1-\tau_H}}{\log n}
