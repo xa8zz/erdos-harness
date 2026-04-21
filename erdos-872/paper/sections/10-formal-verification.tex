@@ -1,8 +1,10 @@
 \section{Formal Verification}\label{sec:formal-verification}
 
-Shield Reduction (\Cref{thm:shield-reduction}) and the exact
-$5n/24+O(1)$ cover theorem (\Cref{thm:524-cover}) are formally verified in Lean
-4 via Aristotle with no remaining sorries.  The $13/36$ upper bound
+Shield Reduction (\Cref{thm:shield-reduction}) is formally verified in Lean
+4 via Aristotle with no remaining sorries.  For the exact
+$5n/24+O(1)$ cover theorem (\Cref{thm:524-cover}), the explicit cover/packing
+identities are likewise formalized with no remaining sorries, while the final
+floor-sum cardinality count remains elementary prose.  The $13/36$ upper bound
 (\Cref{thm:1336}) is likewise formally verified with no remaining sorries.
 Theorem~A (\Cref{thm:theorem-a}) and the $5/16$ upper bound
 (\Cref{thm:516}) have Lean artifacts with classical-number-theory sorries
@@ -18,9 +20,11 @@ supplying moment-convergence hypotheses of \Cref{thm:bonf-comp,thm:prime-bridge}
 are proved rigorously in prose in \Cref{sec:main-upper}, with multi-verifier
 audit and sandbox computation.
 
-All paths in \Cref{tab:lean-summary} are relative to \texttt{erdos-872/lean/}.
-Appendix~A lists the current explicit \texttt{sorry} sites in the checked-in
-files rather than the older aggregate counts recorded in the repository index.
+All paths in \Cref{tab:lean-summary} are relative to the public artifact
+repository \cite{ErdosHarness26}, with the Lean-specific paths rooted at
+\texttt{erdos-872/lean/}.  Appendix~A lists the current explicit
+\texttt{sorry} sites in the checked-in files rather than the older aggregate
+counts recorded in the repository index.
 
 \begin{table}[ht]
 \centering

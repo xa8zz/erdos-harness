@@ -3,7 +3,8 @@
 This appendix records the current explicit Lean gaps in the checked-in files.
 The point is not to reproduce the proofs from \Cref{sec:formal-verification},
 but to make the remaining obligations auditable.  All paths below are relative
-to \texttt{erdos-872/lean/}.
+to the public artifact repository \cite{ErdosHarness26}, with the Lean
+subtree rooted at \texttt{erdos-872/lean/}.
 
 \subsection{Closed Projects}
 
@@ -75,7 +76,9 @@ types only:
   asymptotic theorem stated in the paper.
 \end{enumerate}
 
-This is why the paper treats \Cref{thm:shield-reduction,thm:524-cover,thm:1336}
-and the Round~15 endgame reduction as fully formalized, while
-\Cref{thm:theorem-a,thm:516,thm:t2,thm:main-upper-bound} are presented with
-more precise caveats.
+This is why the paper treats \Cref{thm:shield-reduction,thm:1336}
+and the Round~15 endgame reduction as fully formalized, treats the structural
+core of \Cref{thm:524-cover} as fully formalized with an elementary
+cardinality post-processing step, and presents
+\Cref{thm:theorem-a,thm:516,thm:t2,thm:main-upper}
+with more precise caveats.

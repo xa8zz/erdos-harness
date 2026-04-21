@@ -1,9 +1,16 @@
 \documentclass[11pt]{amsart}
 \input{preamble}
 
-\title[Paper A Draft for Erd\H{o}s Problem 872]{The Divisibility Antichain Saturation Game}
-\author{Draft for internal circulation}
+\title[Bounds and Barriers for Erd\H{o}s Problem 872]{Improved Bounds and Proof-Class Barriers for the Divisibility Antichain Saturation Game (Erd\H{o}s Problem 872)}
+
+\author{Om Buddhdev}
+\address{Independent Researcher}
+\email{\href{mailto:sensho@sensho.xyz}{sensho@sensho.xyz}}
+
 \date{April 20, 2026}
+
+\subjclass[2020]{Primary 91A46; Secondary 05D05, 11N25}
+\keywords{Saturation game, antichain, divisibility, Erd\H{o}s problem 872, Sherali--Adams barrier, formal verification, Lean~4}
 
 \begin{document}
 
@@ -43,6 +50,40 @@ structurally difficult.
 \input{sections/appendix-A-formalization}
 \input{sections/appendix-B-numerical}
 \input{sections/appendix-C-glossary}
+
+\section*{Artifact Availability}
+
+The public artifact repository for this paper is \cite{ErdosHarness26}.  It
+contains the Lean formalizations, Aristotle submission files and outputs,
+numerical scripts, and supporting research notes used in the preparation of the
+present manuscript.  Repository-relative paths quoted in
+\Cref{sec:formal-verification,app:formalization,app:numerical} are relative to
+that artifact root.
+
+\section*{Acknowledgments}
+
+The author thanks Liam Price, Abhimanyu Adenwalla, StijnC, natso26, Xiao\_Hu,
+and Desmond Weisenberg for the forum refinement chain leading from the first
+linear bound to the previous public record, and Thomas Bloom for maintaining
+\texttt{erdosproblems.com}.  The author also wishes to record substantial
+gratitude for the research assistance provided by OpenAI's GPT-5.4 Pro,
+Anthropic's Claude Opus 4.7, and Google's Gemini 3.1 DeepThink, coordinated
+through a custom multi-round research harness built by the author.  GPT-5.4 Pro
+produced the majority of the exploratory mathematical output used in this
+project, with Claude and Gemini providing extensive auditing, synthesis, and
+drafting support.  A separate methodological paper and public-facing writeup
+will describe that workflow in detail.
+
+\section*{Declaration of Generative AI and AI-assisted Technologies in the Research and Writing Process}
+
+During the preparation of this work, the author used generative AI systems
+including OpenAI GPT-5.4 Pro, Anthropic Claude Opus 4.7, and Google Gemini 3.1
+DeepThink for exploratory discussion, adversarial proof auditing, code and Lean
+scaffolding, numerical cross-checking, artifact organization, and drafting
+assistance.  After using these tools, the author reviewed, corrected, and
+rewrote the material as needed, verified references and formal artifacts
+against the repository, and takes full responsibility for the claims, proofs,
+citations, and presentation in the final manuscript.\label{lastpage}
 
 \bibliographystyle{amsalpha}
 \bibliography{references}
