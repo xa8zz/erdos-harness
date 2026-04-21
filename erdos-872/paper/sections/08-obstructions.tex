@@ -252,35 +252,109 @@ The last obstruction is a finite model for strategies which only play odd
 carrier separators and ignore dyadic shielding.
 
 \begin{proposition}[Separator-only limitation]\label{prop:separator-only}
-Fix a finite set $P$ of odd primes and a family $\mathcal S\subseteq 2^P$ of
-odd squarefree carrier supports.  Suppose Shortener's planned moves are only
-odd squarefree separators with supports in $\mathcal S$.  Then there are
-dyadic upper-half targets of the form
+Let
 \[
-  2^a\prod_{p\in T}p
+  U_n=(n/2,n]\cap\Z,\qquad
+  r_1(n)=\frac{n(\log\log n)^2}{\log n}.
 \]
-which remain untouched by all separators unless $\mathcal S$ covers the
-corresponding support $T$ itself.  In particular, any separator-only proof that
-does not control all dyadic lifts of the carrier family leaves a positive
-residual packet.
+For each sufficiently large $n$, let $S_n\subseteq[2,n/2]$ be a finite set of
+odd integers such that
+\[
+  |S_n|=o(r_1(n))
+  \quad\text{and}\quad
+  H(S_n):=\sum_{p\in P(S_n)}\frac1p=o(1),
+\]
+where $P(S_n)$ is the set of odd primes dividing at least one element of
+$S_n$.  Consider any separator-only closure in which the only lower-half
+elements allowed to kill members of $U_n$ are Shortener-claimed elements of
+$S_n$; upper-half elements may only be removed individually after they have
+actually been played.  Then Prolonger has a legal play prefix of length
+$o(r_1(n))$ after which every separator in $S_n$ is dead, while at least
+\[
+  \frac n2-o(n)
+\]
+elements of $U_n$ remain legal.  Therefore this finite odd-carrier
+separator-only proof class cannot prove $L(n)=O(r_1(n))$, or indeed any
+$o(n)$ upper bound.
 \end{proposition}
 
 \begin{proof}
-An odd separator can only be comparable with an upper-half target
-$2^a m$ through its odd part $m$.  The dyadic exponent is invisible to the odd
-separator.  Therefore, if a support $T$ is not covered by the chosen odd
-separator family, every dyadic lift $2^a\prod_{p\in T}p$ with value in
-$(n/2,n]$ remains incomparable with all separator moves.
+Fix $n$ and write $S=S_n$ and $P=P(S_n)$.  Suppose the current chosen set is an
+antichain $A$, every lower-half Shortener claim lies in $S$, and some
+$s\in S$ is still legal.  Since $s\le n/2$, choose $a\ge 0$ maximal with
+$2^as\le n$, and put
+\[
+  x=2^as.
+\]
+Then $x\in U_n$, because maximality gives $2^{a+1}s>n$ and hence
+$2^as>n/2$.
 
-For any fixed odd part $m\le n/2$, there is at least one dyadic lift
-$2^a m\in(n/2,n]$ unless $m=1$; choose $a$ maximal with $2^a m\le n$.  If
-$2^a m\le n/2$, then $2^{a+1}m\le n$, contradicting maximality.  Thus each
-uncovered odd support produces an upper-half target not hit by the
-separator-only family.  Summing over an uncovered packet gives the claimed
-residual.
+We claim that $x$ is legal.  First, any previously chosen upper-half element
+$y\in A\cap U_n$ is incomparable with $x$ unless $x=y$, since two distinct
+integers larger than $n/2$ cannot divide one another.  The equality $x=y$ is
+also impossible: if $x$ had already been chosen, then $s\mid y$, contradicting
+the assumption that $s$ is still legal.  Second, let $t\in A\setminus U_n$.
+By the definition of the proof class, $t\in S$ and is odd.  Since
+$x>n/2\ge t$, we cannot have $x\mid t$.  If $t\mid x=2^as$, then oddness of
+$t$ implies $t\mid s$, so $t$ is comparable with the still-legal separator
+$s$, again impossible.  Thus $x$ is a legal Prolonger move.
+
+After Prolonger plays $x$, the separator $s$ is dead forever because
+$s\mid x$.  Repeating this whenever a legal element of $S$ remains, Prolonger
+kills at least one still-legal separator on each preemption move, while
+Shortener's separator-only moves can only kill additional members of $S$.
+After at most $|S|$ Prolonger preemptions and at most $|S|$ intervening
+Shortener moves, no element of $S$ remains legal.  The prefix length is
+therefore at most $2|S|=o(r_1(n))$.
+
+It remains to count legal upper-half integers after this prefix.  Let
+$A_U=A\cap U_n$.  The prefix has length $O(|S|)$, so $|A_U|=o(n)$.  An
+unplayed upper-half integer $u\in U_n\setminus A_U$ can be illegal because of
+a lower-half separator only if some selected $t\in S$ divides $u$.  In that
+case $u$ is divisible by at least one prime $p\in P$.  Hence the number of
+upper-half integers killed by lower-half separators is at most
+\[
+  \left|\bigcup_{p\in P}\{u\in U_n:p\mid u\}\right|
+  \le
+  \sum_{p\in P}\left(\frac np+1\right)
+  \le
+  2n\sum_{p\in P}\frac1p
+  =2nH(S)=o(n),
+\]
+where we used $p\le n$, so $1\le n/p$.  Therefore at least
+\[
+  |U_n|-|A_U|-o(n)=\frac n2-o(n)
+\]
+upper-half integers remain legal.  Since $r_1(n)=o(n)$, the separator-only
+closure cannot certify an $O(r_1(n))$, or more generally an $o(n)$, upper
+bound.
 \end{proof}
 
-The proposition is deliberately modest: it does not rule out separator methods
-which also track dyadic lifts or exact upper targets.  It rules out only the
-separator-only abstraction in which odd carrier supports are treated as if they
-were the whole divisibility geometry.
+The packet separator families motivating this proposition are a special case.
+Let $h=\lfloor\log\log n\rfloor$, $Y_0=n^{1/(2h)}$, let
+$P_n\subseteq[Y_0,2Y_0]$ be a prime packet, and fix $q_0\le h/4$.  The carrier
+family
+\[
+  S_n=
+  \left\{\prod_{p\in Q}p:\ Q\subseteq P_n,\ 1\le |Q|\le q_0\right\}
+\]
+has the support-covering relation
+\[
+  \prod_{p\in Q}p \mid 2^a\prod_{p\in T}p
+  \quad\Longleftrightarrow\quad
+  Q\subseteq T.
+\]
+For large $n$, every carrier in $S_n$ is odd and at most
+$(2Y_0)^{q_0}=n^{1/8+o(1)}<n/2$; moreover
+$|S_n|\le(q_0+1)(2Y_0)^{q_0}=n^{1/8+o(1)}=o(r_1(n))$, and the prime number
+theorem gives
+\[
+  H(S_n)\le \sum_{p\in P_n}\frac1p
+  \le \frac{|P_n|}{Y_0}
+  =O\!\left(\frac1{\log Y_0}\right)
+  =O\!\left(\frac{\log\log n}{\log n}\right)=o(1).
+\]
+Thus the theorem applies to the finite packet closure.  Its scope is
+deliberately class-level: it does not rule out separator methods which also
+track dyadic lifts, exact upper targets, or composite fallback moves outside
+the finite odd-carrier layer.
