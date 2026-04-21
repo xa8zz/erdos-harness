@@ -9,7 +9,37 @@ The proof uses the following explicit strategy.  Shortener plays the smallest le
 \[
   K = \left\lfloor \frac{(1-\eps)n}{2\log n}\right\rfloor
 \]
-turns.  Let
+turns.  This prefix is available for all sufficiently large $n$.
+
+\begin{lemma}[Existence of the odd-prime prefix]\label{lem:prefix-existence}
+Fix $0<\eps<1$ and
+\[
+  K=\left\lfloor \frac{(1-\eps)n}{2\log n}\right\rfloor.
+\]
+For all sufficiently large $n$, before each of Shortener's first $K$ turns
+there is a legal odd prime.  Hence the smallest-legal-odd-prime strategy can
+be followed for a prefix of $K$ Shortener moves.
+\end{lemma}
+
+\begin{proof}
+Consider the moment before Shortener's $j$th move in this prefix, with
+$1\le j\le K$.  At most $2j-1$ previous moves have occurred.  A previous move
+$x\le n$ can make at most one odd prime $p>\sqrt n$ illegal: if two such
+primes divided $x$, then $x>n$, while the only other way for $x$ to be
+comparable with such a prime is $x=p$ itself.  Thus at most $2j-1$ odd primes
+in $(\sqrt n,n]$ have been made illegal.
+
+By the prime number theorem,
+\[
+  \pi(n)-\pi(\sqrt n)\sim \frac{n}{\log n}>2K
+\]
+for all sufficiently large $n$.  Since $2j-1<2K$, at least one odd prime
+$p\in(\sqrt n,n]$ remains legal before Shortener's $j$th prefix move.  In
+particular the game has not ended, and Shortener's rule has a legal odd prime
+to play.
+\end{proof}
+
+Let
 \[
   q_1 < q_2 < \cdots < q_K
 \]
