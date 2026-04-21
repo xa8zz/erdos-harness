@@ -59,19 +59,56 @@ On the current local evidence, the most honest coarse-grained picture is:
   - probably Theorem A
   - probably `13/36`
   - probably `5/16`
+  - the finite Bonferroni-4 `< 0.19n` theorem, after one remaining
+    local-density lemma is inlined rather than cited by name
 - **Repo-strong, but the paper still underwrites them too weakly**
-  - T2 residual comparison machinery
+  - T2 residual comparison machinery, now appendix-backed but still conditional
+    on the safe-edge hypothesis
   - Theorem 5
   - Theorem 6
   - R52 / R53 / R56
   - universal block-product carrier-mass counter
 - **Strong project-level claims that the current PDF still does not earn as unconditional headline theorems**
   - T1
-  - T2 as a full lower-bound theorem
-  - the finite Bonferroni-4 `< 0.19n` theorem unless Section 6 is rewritten at true theorem-proof level
+  - T2 as an unconditional lower-bound theorem, because the paper now states it
+    only conditionally on the safe-edge hypothesis
 
 So the project does not look empty. It looks **ahead of its current manuscript**.
 The main task is evidentiary consolidation, not starting the mathematics over.
+
+## Downloaded Pro Rewrite Assessment
+
+The downloaded draft at
+`/Users/omisverycool/Downloads/erdos_final_paper_sources/` is best understood
+as a **paper-architecture rewrite**, not as a substantially new proof of the
+remaining Section 6 local-density input.
+
+What it improves:
+
+- it removes the problematic T1 game-lower-bound theorem from the headline
+  story and reframes Theorem A correctly as a shield-weight obstruction;
+- it adds a conventional notation/setup section;
+- it leads with the `<0.19n` theorem, which is the right paper spine if the
+  Section 6 proof is accepted;
+- it makes T2 explicitly conditional and moves the proof to deferred material;
+- it strips much of the internal round/source vocabulary from the main prose.
+
+What it does **not** yet close:
+
+- Section 7 of the downloaded draft still invokes the "local
+  prime-count-per-range lemma" by name rather than proving its short
+  adversarial counting argument inline;
+- it compresses or removes some barrier/restricted-class material, so it is a
+  cleaner paper shape but not a complete preservation of all repo work;
+- it should not be imported wholesale without checking notation compatibility
+  (`\U_n`, `w_n(x)=|M_n(x)|-1`, section labels, bibliography entries).
+
+Recommended use:
+
+- import its **structure and lower-bound reframing**;
+- keep our richer Section 6 proof text, but inline the local prime-count lemma;
+- keep selected obstruction results deliberately rather than allowing the
+  rewrite to erase high-value R52/R53/R56 material.
 
 ## Paper Claim Inventory
 
@@ -88,17 +125,17 @@ the body result overclaims.
 | Shield Reduction | [02-shield-reduction.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/02-shield-reduction.tex:48) | `current_state.md`; `lean/shield_reduction/.../ShieldReduction.lean` | Banked | Supported | Cleanest theorem in the paper. Lean support matches the paper posture reasonably well. | Keep as-is, maybe polish exposition only. |
 | Theorem A (`beta(P)` lower bound for `|P| <= n^alpha`) | [03-lower-bounds.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/03-lower-bounds.tex:15) | `current_state.md`; `lean/theorem_A/.../ShieldMainTheorem.lean` | Strong | Mostly supported | The static theorem itself is written in theorem-proof form, but Section 10 still overreads its formal status. | Keep theorem. Make formal-verification language more exact. |
 | T1 lower bound | [03-lower-bounds.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/03-lower-bounds.tex:90) | `current_state.md`; Theorem A note chain | Partial-to-Strong in repo, depending on how much weight you place on the current note chain | Not yet supported | The paper says Shield Reduction turns lower bounds on `L(n)` into upper bounds on `beta(P)`, then proves a lower bound on `beta(P)` and jumps via "the current-state note." As written this is not a complete paper proof. | Either inline the calibrated shield construction fully, or demote/remove T1 from theorem status. |
-| T2 residual comparison theorem | [03-lower-bounds.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/03-lower-bounds.tex:153) | `phase4/t2_core_paper_note.md`; `RequestProject/T2Finite/{EmbeddingCore,EmbeddingFamily}.lean` | Strong | Mostly supported | The arithmetic picture is better-backed than the final T2 theorem, but the paper still labels the proof a sketch and compresses key invariants. | Keep if T2 stays; consider moving full proof into appendix. |
-| T2 activation-stage inequality | [03-lower-bounds.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/03-lower-bounds.tex:201) | `phase4/t2_core_paper_note.md`; `researcher-22-codex-T2-activation-audit.md` | Strong | Not yet supported | This is still a proof-sketch theorem in the paper, even if the repo note chain may be solid. | Expand heavily or move to appendix if T2 remains. |
-| T2 lower bound | [03-lower-bounds.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/03-lower-bounds.tex:251) | `phase4/t2_core_paper_note.md`; `phase4/t2_maker_first_lemmas.md`; `researcher-21-*`; `researcher-22-*`; T2 Lean finite core | Strong | Not yet supported | The repo has a serious note package, but the paper still presents only a compressed final assembly and relies on imported note structure. | Either expand T2 into a full appendix-level proof or downgrade it to a program / announced theorem to appear separately. |
+| T2 residual comparison theorem | [appendix-A-t2-lower-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/appendix-A-t2-lower-bound.tex:129) | `phase4/t2_core_paper_note.md`; `RequestProject/T2Finite/{EmbeddingCore,EmbeddingFamily,ResidualComparison}.lean` | Strong | Mostly supported | The arithmetic/residual slot model is now written in the appendix and aligned with the Lean-backed finite core. | Keep appendix proof; audit wording around "unavailable" vs. "played" carefully. |
+| T2 activation-stage inequality | [appendix-A-t2-lower-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/appendix-A-t2-lower-bound.tex:218) | `phase4/t2_core_paper_note.md`; `researcher-22-codex-T2-activation-audit.md`; T2 finite-core Lean | Strong | Mostly supported conditionally | The activation bookkeeping is now explicit, but it still depends on the finite safe-edge hypothesis rather than proving that hypothesis for all generated states. | Keep as a conditional theorem; do not advertise unconditional T2. |
+| Conditional T2 lower bound | [03-lower-bounds.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/03-lower-bounds.tex:130), [appendix-A-t2-lower-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/appendix-A-t2-lower-bound.tex:377) | `phase4/t2_core_paper_note.md`; `phase4/t2_maker_first_lemmas.md`; `researcher-21-*`; `researcher-22-*`; T2 Lean finite core | Strong as a conditional result | Mostly supported as conditional | This is much improved: the paper now states T2 conditionally on the safe-edge hypothesis and gives an appendix proof. It is not an unconditional lower bound. | Keep exactly this conditional posture unless the safe-edge hypothesis is closed. |
 | Exact `5/24` cover theorem | [04-5-24-cover.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/04-5-24-cover.tex:18) | `current_state.md`; `lean/tau_5_24/.../{Cover,Packing,Tau}.lean` | Banked | Supported | This is the cleanest auxiliary theorem in the draft. The paper version is close to normal math-paper style already. | Keep and consider making it even more self-contained. |
 | `13/36` upper bound | [05-intermediate-upper-bounds.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/05-intermediate-upper-bounds.tex:19) | `current_state.md`; `lean/shortener_13_36/.../MainTheorem.lean` | Banked | Mostly supported | The section reads as a compressed proof sketch, but the logic is much more standard and self-contained than T1/T2/0.19. | Keep; modest expansion would likely suffice. |
 | `5/16` upper bound | [05-intermediate-upper-bounds.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/05-intermediate-upper-bounds.tex:82) | `researcher-08-5-16-improvement.md`; `lean/shortener_5_16/.../Theorems.lean` | Strong | Mostly supported | Similar to `13/36`: mathematically plausible in the draft, but still compressed enough that a skeptical reader may want one more layer of detail. | Keep; expand slightly or move routine details to appendix. |
-| Round 15 local density proposition | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:50) | `researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md`; R57/R60 repair chain | Strong | Not yet supported | It is still a proof sketch in the paper, but it is one of the load-bearing theorem inputs. | Write at theorem-proof level or explicitly make later theorem conditional on it. |
-| Envelope and inversion proposition | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:114) | `researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md`; `r57_bonferroni4_audit_and_repair.md` | Strong | Not yet supported | Same issue as local density: crucial theorem input, still presented as sketch. | Expand or conditionalize. |
-| Prime-sequence Bonferroni comparison theorem | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:160) | `researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md`; `r57_bonferroni4_audit_and_repair.md` | Strong | Mostly supported | This is one of the cleaner parts of Section 6 and reads more theorem-like than the density/envelope pieces. | Keep, but tighten if Section 6 is rewritten. |
-| Prime-rounding bridge theorem | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:246) | `researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md`; `r57_bonferroni4_audit_and_repair.md` | Strong | Mostly supported | Stronger than the density/envelope exposition, but still part of a section that is overall more compressed than a referee will want. | Keep; likely survives in a rewritten Section 6. |
-| Finite Bonferroni-4 `< 0.19n` upper bound | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:357) | R57 + R60 notes; `Round15Bonferroni4/Target.lean` | Strong | Not yet supported | The repo may well have the full argument, but the paper still carries the local density law and envelope/inversion as proof-sketch-level ingredients. | Either write Section 6 at true theorem-proof level, or temporarily mark the theorem conditional on the named Section 6 inputs. |
+| Round 15 local density proposition | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:50) | `round15_upper_bound_status.md`; `researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md`; R57/R60 repair chain | Strong | Mostly supported | The proposition is now written with quantifiers and a real proof, but it still invokes the "Round 15 local prime-count-per-range lemma" by name rather than proving its short adversarial-counting argument inline. | Inline the lemma from `round15_upper_bound_status.md`: primes in `(Y,X]` are either played or divide earlier Prolonger moves, each such move has at most `h` prime factors above `Y`, hence `S(X) >= (pi(X)-pi(Y))/(h+1)-O(1)`. |
+| Envelope and inversion proposition | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:193) | `researcher-57-pro-round15-bonferroni4-PROVED-L-le-0.19n.md`; `r57_bonferroni4_audit_and_repair.md`; `Round15Bonferroni4/{Envelope,FlatMass,Inversion}.lean` | Strong | Supported to Mostly supported | This is now a detailed theorem-proof writeup with monotone envelope, flat-block mass, weak convergence, repeated-index control, and diagonalization. | Keep. A final line-by-line audit is still wise, but this is no longer a proof-sketch bottleneck. |
+| Prime-sequence Bonferroni comparison theorem | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:572) | `researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md`; `r57_bonferroni4_audit_and_repair.md` | Strong | Supported to Mostly supported | Reads like a normal theorem-proof argument. The remaining improvement is citation/reference polish for the squarefree divisor-count estimate. | Keep. |
+| Prime-rounding bridge theorem | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:649) | `researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md`; `r57_bonferroni4_audit_and_repair.md`; `Round15Bonferroni4/PrimeBounds.lean` | Strong | Supported to Mostly supported | The half-density bin-to-next-bin proof is now substantially written out. It still deserves a final quantifier/uniformity audit, but the earlier major gap is fixed. | Keep. |
+| Finite Bonferroni-4 `< 0.19n` upper bound | [06-main-upper-bound.tex](/Users/omisverycool/erdos-harness/erdos-872/paper/sections/06-main-upper-bound.tex:932) | R57 + R60 notes; `Round15Bonferroni4/{Envelope,FlatMass,Inversion,PrimeBounds,Target}.lean` | Strong | Mostly supported; near headline-ready | The current paper now carries most of the theorem chain. The remaining paper-facing gap is that the local prime-count-per-range lemma should be proved inline rather than imported by name. | After inlining that short local lemma and doing one final Section 6 audit, this can reasonably be the headline theorem. |
 
 ## Restricted-Class Results
 

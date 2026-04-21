@@ -1,0 +1,173 @@
+\section{Obstructions to Further Improvement}\label{sec:obstructions}
+
+This section records three barriers encountered by natural attempts to improve
+the upper bound.  They are not used in the proof of \Cref{thm:main-upper}; their
+purpose is to delineate which proof classes cannot by themselves resolve the
+asymptotic question.
+
+\subsection{A local-relaxation barrier}
+
+The first obstruction says that bounded-round local relaxations can have an
+integrality gap at precisely the scale where one would hope for a short
+transversal argument.  We state the barrier in its cleanest finite form.
+
+Let $K_N^{(\ell)}$ be the complete $\ell$-uniform hypergraph on the vertex set
+$[N]$.  A transversal is a set of vertices meeting every $\ell$-edge.
+
+\begin{proposition}[Sherali--Adams transversal barrier]\label{prop:sa-barrier}
+Let $\ell=\lfloor N/\log N\rfloor$.  The integral transversal number of
+$K_N^{(\ell)}$ is
+\[
+  \tau(K_N^{(\ell)})=N-\ell+1=N-o(N).
+\]
+The fractional transversal number is
+\[
+  \tau_f(K_N^{(\ell)})=\frac{N}{\ell}=(1+o(1))\log N.
+\]
+Moreover, after any fixed number $r<\ell$ of Sherali--Adams rounds, the
+symmetric lifted solution still has objective at most
+\[
+  \frac{N}{\ell-r}.
+\]
+\end{proposition}
+
+\begin{proof}
+A set $T\subseteq[N]$ meets every $\ell$-set if and only if its complement has
+size at most $\ell-1$.  Hence
+\[
+  \tau(K_N^{(\ell)})=N-\ell+1.
+\]
+
+For the fractional relaxation, give every vertex weight $1/\ell$.  Each
+$\ell$-edge then has total weight $1$, so $\tau_f\le N/\ell$.  Conversely,
+summing the edge constraints over all $\ell$-subsets gives
+\[
+  \binom{N-1}{\ell-1}\sum_{i=1}^N x_i
+  \ge
+  \binom N\ell,
+\]
+and therefore $\sum_i x_i\ge N/\ell$.  This proves
+$\tau_f=N/\ell$.
+
+For the lifted statement, the same symmetric solution remains feasible after
+conditioning on any pattern involving fewer than $\ell$ vertices.  If $r$
+vertices of an $\ell$-edge have already been fixed outside the transversal,
+the residual constraint asks for weight at least $1$ on an $(\ell-r)$-set; the
+uniform residual assignment $1/(\ell-r)$ satisfies it.  The corresponding
+objective is $N/(\ell-r)$.  This is the standard symmetric feasible solution
+for the $r$-round Sherali--Adams lift, and gives the claimed upper bound on the
+relaxation value.
+\end{proof}
+
+The proposition shows that local linear relaxations can remain logarithmic in
+size while the actual separator has linear size.
+
+\subsection{A q-shadow dichotomy}
+
+The next obstruction is an extremal statement for Johnson shadows.  It explains
+why a sparse separator family cannot be forced by expansion alone unless a
+large pre-existing shadow is already present.
+
+Let $X=\binom{[K]}q$ and $Y=\binom{[K]}h$, with $q<h$.  A $q$-set $Q$ covers an
+$h$-set $H$ if $Q\subseteq H$.  Let $R\subseteq Y$ be a live packet of density
+\[
+  \eta:=\frac{|R|}{|Y|}.
+\]
+Let $D\subseteq X$ be a previously forbidden $q$-shadow and let
+$C\subseteq X$ be a set of already claimed $q$-separators.  Define
+\[
+  \delta_q:=\frac{\binom{K-q}{h-q}}{\binom{K}{h}},
+\]
+the density of $h$-sets containing a fixed $q$-set, and write
+$\sigma_q(D)$ for the fraction of $Y$ covered by $D$.  The normalized second
+singular value of the $q$-versus-$h$ inclusion graph satisfies
+\[
+  \lambda_q^2=\frac{q(K-h)}{h(K-q)}.
+\]
+
+\begin{proposition}[q-shadow covering dichotomy]\label{prop:q-shadow}
+Assume no legal $q$-separator captures at least
+\[
+  \frac12\,\delta_q |R|
+\]
+members of $R$.  Then
+\[
+  \sigma_q(D)+|C|\delta_q
+  >
+  1-\frac{4\lambda_q^2}{\eta}.
+\]
+\end{proposition}
+
+\begin{proof}
+Let $A\subseteq X$ be the legal $q$-separators, meaning those not already
+excluded by $D$ or $C$.  By the union bound,
+\[
+  \frac{|A|}{|X|}
+  \ge 1-\sigma_q(D)-|C|\delta_q.
+\]
+The expander-mixing inequality for the inclusion graph between $X$ and $Y$
+gives
+\[
+  \left|
+  e(A,R)-\frac{|A|}{|X|}\frac{|R|}{|Y|}e(X,Y)
+  \right|
+  \le
+  \lambda_q\,e(X,Y)\sqrt{\frac{|A|}{|X|}\frac{|R|}{|Y|}}.
+\]
+If
+\[
+  \frac{|A|}{|X|}\ge \frac{4\lambda_q^2}{\eta},
+\]
+then the average number of elements of $R$ captured by a member of $A$ is at
+least half the random expectation, namely at least
+$\frac12\delta_q |R|$.  This contradicts the hypothesis that no legal separator
+captures that many live packet members.  Hence
+\[
+  \frac{|A|}{|X|}<\frac{4\lambda_q^2}{\eta},
+\]
+and the displayed conclusion follows from the union bound.
+\end{proof}
+
+In the central regime relevant to top-facet packet arguments, the inequality
+says that separator starvation is possible only after the previous shadow or
+the already claimed separator set has become large.  Pure expansion cannot
+supply an unlimited sequence of fresh separators.
+
+\subsection{A separator-only limitation}
+
+The last obstruction is a finite model for strategies which only play odd
+carrier separators and ignore dyadic shielding.
+
+\begin{proposition}[Separator-only limitation]\label{prop:separator-only}
+Fix a finite set $P$ of odd primes and a family $\mathcal S\subseteq 2^P$ of
+odd squarefree carrier supports.  Suppose Shortener's planned moves are only
+odd squarefree separators with supports in $\mathcal S$.  Then there are
+dyadic upper-half targets of the form
+\[
+  2^a\prod_{p\in T}p
+\]
+which remain untouched by all separators unless $\mathcal S$ covers the
+corresponding support $T$ itself.  In particular, any separator-only proof that
+does not control all dyadic lifts of the carrier family leaves a positive
+residual packet.
+\end{proposition}
+
+\begin{proof}
+An odd separator can only be comparable with an upper-half target
+$2^a m$ through its odd part $m$.  The dyadic exponent is invisible to the odd
+separator.  Therefore, if a support $T$ is not covered by the chosen odd
+separator family, every dyadic lift $2^a\prod_{p\in T}p$ with value in
+$(n/2,n]$ remains incomparable with all separator moves.
+
+For any fixed odd part $m\le n/2$, there is at least one dyadic lift
+$2^a m\in(n/2,n]$ unless $m=1$; choose $a$ maximal with $2^a m\le n$.  If
+$2^a m\le n/2$, then $2^{a+1}m\le n$, contradicting maximality.  Thus each
+uncovered odd support produces an upper-half target not hit by the
+separator-only family.  Summing over an uncovered packet gives the claimed
+residual.
+\end{proof}
+
+The proposition is deliberately modest: it does not rule out separator methods
+which also track dyadic lifts or exact upper targets.  It rules out only the
+separator-only abstraction in which odd carrier supports are treated as if they
+were the whole divisibility geometry.

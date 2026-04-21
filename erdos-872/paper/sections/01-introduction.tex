@@ -1,182 +1,184 @@
-% source: erdos-872/paper_template.md
-% source: erdos-872/publication_source_of_truth.md
+\section{Introduction}\label{sec:introduction}
 
-\section{Introduction}
-
-\subsection{The game}
-
-Fix $n \ge 2$.  The \emph{divisibility antichain saturation game} is played on
-the set $\{2,3,\dots,n\}$.  Starting from the empty set, the players
-alternately choose integers subject to the rule that the chosen set remains
-primitive: if $a \neq b$ have been chosen, then neither divides the other.  The
-game ends when no legal move remains.  We write $\L(n)$ for the value of the
-game under optimal play, where Prolonger seeks to maximize the number of moves
-and Shortener seeks to minimize it.
-
-Erd\H{o}s's original problem statement does not specify which player moves
-first.  Throughout this paper we assume that \emph{Prolonger moves first}.  This
-matches the public discussion on the Erd\H{o}s problems forum and every
-upper-bound argument used below; see \cite{Er92c,Bloom872}.
-
-It is convenient to split the board into its lower and upper halves:
+Let $n\ge 2$.  The divisibility antichain saturation game is played on
 \[
-L := [2,n/2]\cap\Z,
-\qquad
-\U := (n/2,n]\cap\Z.
+  \{2,3,\ldots,n\}.
 \]
-Every subset of $\U$ is an antichain, so the upper half behaves like a pool of
-individually legal terminal moves, while the lower half carries the divisibility
-constraints that drive the game.
+Two players alternately choose previously unchosen integers, and the chosen set
+must remain an antichain under divisibility.  Thus no chosen integer may divide
+another chosen integer.  The game stops when the current antichain is maximal.
+Prolonger moves first and tries to maximize the final number of chosen
+integers; Shortener tries to minimize it.  We denote the value of the game by
+$\L(n)$.
 
-\subsection{Prior work}
-
-The game appears on the Erd\H{o}s problem list as problem \#872
-\cite{Er92c,Bloom872}.  It is a number-theoretic analogue of the triangle-free
-saturation game of Hajnal.  For the latter game, F{\"u}redi and Seress
-\cite{FuSe91} proved a lower bound of order $n\log n$, while Bir{\'o}, Horn, and
-Wildstrom \cite{BPW16} proved an upper bound below $0.215n^2$.
-
-The ambient combinatorial setting also interacts with the literature on
-primitive sets and divisibility antichains.  We use the primitive-set viewpoint
-of Cameron and Erd\H{o}s \cite{CaEr90}, the weighted extremal perspective from
-Lichtman's proof of the Erd\H{o}s primitive set conjecture \cite{Lichtman23},
-and supporting multiplicative-structure estimates from
-\cite{Kucheriaviy24,MartinPomerance10}.
-
-The public upper-bound record for the present game developed rapidly in early
-2026.  Price and GPT-5.2 Pro gave the first linear upper bound,
+This game is one of the finite saturation games arising from Erd\H{o}s's
+questions on primitive sets \cite{Er92c}; saturation games of this kind are
+part of a broader extremal-game tradition \cite{FuSe91,BPW16}.  A primitive set
+is precisely an antichain in the divisibility poset, and primitive sets have a
+long parallel history in multiplicative number theory
+\cite{CaEr90,Lichtman23,MartinPomerance10,Kucheriaviy24}.  The upper half
 \[
-  \L(n) \le \left(\frac{23}{48}+o(1)\right)n,
+  \U_n:=\{m:\ n/2<m\le n\}
 \]
-and introduced the terminology \emph{Prolonger} and \emph{Shortener}
-\cite{PriceGPTPro26}.  Subsequent forum refinements by Adenwalla, StijnC,
-natso26, Xiao\_Hu, Desmond Weisenberg, and others improved this to
+is the canonical maximum antichain, so the trivial scale is linear.  The
+central question is whether optimal play forces a positive fraction of this
+linear scale, or whether Shortener can force $o(n)$ moves.
+
+Our main result is a new linear upper bound with an explicit constant below
+$0.19$.  Let
 \[
-  \L(n) \le \left(\frac{419}{1008}+o(1)\right)n \le 0.416n
+  \rho(u):=\frac{1}{(\lfloor 1/u\rfloor+1)u}\qquad(0<u\le 1),
 \]
-\cite{Forum872}.  The results in this paper substantially strengthen that
-record.
-
-\subsection{Main results}
-
-Our first theorem is a structural reduction from terminal game positions to a
-weighted lower-half optimization problem.
-
-% source: erdos-872/current_state.md (Shield Reduction Theorem)
-\begin{theorem}[Shield Reduction]\label{thm:intro-shield}
-Let $P \subseteq \U$ be the set of upper-half moves played by Prolonger, and
-let $\beta(P)$ be the weighted lower-half antichain parameter defined in
-\Cref{sec:shield-reduction}.  Then every terminal game position $A$ satisfies
+and define
 \[
-  |A| \ge |\U| - \beta(P).
+  J_r:=
+  \frac1{r!}
+  \int_{\substack{u_1+\cdots+u_r\le1\\0<u_i\le1}}
+  \prod_{i=1}^r \rho(u_i)\,du_1\cdots du_r
+  \qquad (r\ge1).
+\]
+Set
+\[
+  \Wfour:=1-J_1+J_2-J_3+J_4.
+\]
+The numerical value is
+\[
+  \frac{\Wfour}{2}=0.1897112\ldots<0.19.
+\]
+
+\begin{theorem}[Main upper bound]\label{thm:intro-main}
+Shortener has a strategy forcing
+\[
+  \L(n)\le \left(\frac{\Wfour}{2}+o(1)\right)n<0.19n.
 \]
 \end{theorem}
 
-The reduction leads to a sharp obstruction theorem for short shield prefixes and
-to our first lower bound.
+The proof of \Cref{thm:intro-main} is given in \Cref{sec:main-upper}.  Shortener
+plays a long prefix of the smallest legal odd primes.  The local law governing
+which primes can be kept legal has density $\rho(u)$ on the logarithmic scale
+$p=n^u$.  We build a monotone envelope for this density, invert it to obtain a
+comparison sequence, round the comparison sequence to genuine primes without
+losing the first four factorial moments, and then apply a fourth-order
+Bonferroni inequality to the odd-part compression of the final antichain.
 
-% source: erdos-872/current_state.md (Polynomial shield lower bound --- Theorem A)
-\begin{theorem}[Polynomial shield barrier / Theorem A]\label{thm:intro-theorem-a}
-For every fixed $0 < \alpha < 1$ and every $P \subseteq \U$ with $|P|\le
-n^\alpha$,
+The lower-bound side of the paper begins with a weighted obstruction theorem
+for the standard shield-reduction approach.  For $x\le n/2$, let
 \[
-  \beta(P) \ge \left(\frac12 \log\frac1\alpha + o(1)\right)n.
+  M_n(x):=\{u\in\U_n:\ x\mid u\},\qquad
+  w_n(x):=|M_n(x)|-1.
 \]
-Consequently
+For $P\subseteq\U_n$, put
 \[
-  \L(n) \ge \left(\frac18-o(1)\right)\frac{n\log\log n}{\log n}.
+  \mathcal L(P):=\{x\le n/2:\ x\nmid u\ \text{for every }u\in P\},
 \]
-\end{theorem}
-
-Our second lower bound comes from a Maker-first hypergraph capture argument,
-conditional on the finite safe-edge hypothesis stated in
-\Cref{prop:t2-finite-capture}.
-
-\begin{theorem}[Conditional T2 lower bound]\label{thm:intro-t2}
-Assume the safe-edge hypothesis of \Cref{prop:t2-finite-capture} for the
-activation graph states and residual slot-hypergraph states used in
-\Cref{app:t2-proof}.  Then for every fixed $0<\delta<1/4$ there exists
-$c_\delta>0$ such that
+and let
 \[
-  \L(n) \ge c_\delta \frac{n(\log\log n)^2}{\log n}
+  \beta_n(P):=\max\left\{\sum_{x\in B}w_n(x):
+    B\subseteq\mathcal L(P)\ \text{is a divisibility antichain}\right\}.
 \]
-for all sufficiently large $n$.
-\end{theorem}
 
-On the upper-bound side we obtain three successive constants.  The first two
-come from the odd-prime-prefix Shortener strategy and increasingly sharp
-Bonferroni truncations; the third uses the piecewise density of the Round~15
-prime sequence together with a fourth-order comparison theorem.
-
-% source: erdos-872/current_state.md (13/36 theorem)
-% source: erdos-872/researcher-08-5-16-improvement.md
-% source: erdos-872/researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md
-\begin{theorem}[Upper bounds]\label{thm:intro-upper-bounds}
-We have
+\begin{theorem}[Polynomial shield-weight lower bound]\label{thm:intro-A}
+Fix $0<\alpha<1$.  Uniformly for every $P\subseteq\U_n$ with
+$|P|\le n^\alpha$,
 \[
-  \L(n) \le \left(\frac{13}{36}+o(1)\right)n,
-  \qquad
-  \L(n) \le \left(\frac{5}{16}+o(1)\right)n,
+  \beta_n(P)\ge
+  \left(\frac12\log\frac1\alpha-o(1)\right)n.
 \]
-and, under the explicit Round~15 strategy $\sigfifteen$,
+Equivalently, if
 \[
-  \L(n) \le \left(\frac{\Wfour}{2}+o(1)\right)n
-  = (0.1897112+o(1))n < 0.19n.
+  k_c^\star(n):=\min\{|P|:\ P\subseteq\U_n,\ \beta_n(P)\le cn\},
+\]
+then for every fixed $c>0$,
+\[
+  k_c^\star(n)\ge n^{e^{-2c}-o(1)}.
 \]
 \end{theorem}
 
-We also determine exactly the first-hit cover constant for the auxiliary
-covering problem on the lower half.
+The next theorem explains why this weighted quantity is the right one for
+shield-prefix arguments.
 
-% source: erdos-872/current_state.md (5/24 first-hit cover)
-\begin{theorem}[Exact $5/24$ cover theorem]\label{thm:intro-524}
-Let $\taucov(n)$ denote the minimum size of an upper-half set $H\subseteq \U$
-such that every $x\in L$ divides some $u\in H$.  Then
+\begin{theorem}[Shield reduction framework]\label{thm:intro-shield}
+Let $A$ be any terminal antichain and let $P\subseteq A\cap \U_n$.  Then
 \[
-  \taucov(n) = \frac{5}{24}n + O(1).
+  |A|\ge |\U_n|-\beta_n(P).
+\]
+Consequently, any proof which uses a prefix $P\subseteq\U_n$ and this reduction
+to force $|A|\ge (1/2-c)n+o(n)$ must have
+\[
+  |P|\ge n^{e^{-2c}-o(1)}.
 \]
 \end{theorem}
 
-Finally, we isolate two nontrivial Prolonger classes for which Shortener does
-force nearly minimal game length, and we prove several obstruction theorems
-showing why broader proof programs fail.
+The proof of the reduction is elementary and is given in \Cref{sec:shield};
+\Cref{thm:intro-A} is proved in \Cref{sec:lower-bounds}.  These results do not
+give a game lower bound by themselves.  They show instead that a short
+upper-half shield prefix cannot certify a linear lower bound through the
+weighted shadow method.
 
-% source: erdos-872/phase4/theorem5_disjoint_carriers_note.md
-% source: erdos-872/phase4/theorem6_rank3_squarefree_note.md
-% source: erdos-872/phase4/block_product_carrier_mass_note.md
-% source: erdos-872/researcher-52-pro-fresh-zoom-transversal-integrality-barrier.md
-% source: erdos-872/researcher-53-codex-q-shadow-covering-dichotomy.md
-% source: erdos-872/phase4/r56_separator_only_barrier_note.md
-\begin{theorem}[Restricted classes and barriers]\label{thm:intro-restricted}
-There are explicit classes of Prolonger play---including the disjoint small
-prime carrier class and the squarefree rank-$\le 3$ carrier class---for which
-Shortener forces $\L(n)=O_\alpha(n/\log n)$.  On the other hand, several natural
-proof strategies fail: bounded reciprocal carrier mass cannot hold uniformly,
-separator-only packet closures cannot yield any $o(n)$ upper bound, and the
-late packet program exhibits a genuine transversal\allowbreak-integrality obstruction,
-along with a q-shadow/covering dichotomy.
+We also determine exactly the size of the first-hit cover of the lower half by
+upper-half multiples.  Define
+\[
+  \tau(n):=\min\{|C|:\ C\subseteq\U_n,\ \forall x\le n/2\ \exists u\in C
+  \text{ with }x\mid u\}.
+\]
+
+\begin{theorem}[Exact first-hit cover]\label{thm:intro-cover}
+\[
+  \tau(n)=\frac{5}{24}n+O(1).
+\]
+More precisely, the cover
+\[
+  H_n=\{u\in\U_n:\ u\equiv2\pmod4\}
+  \cup
+  \{u\in\U_n:\ u>2n/3,\ u\equiv0\pmod4\}
+\]
+has size $5n/24+O(1)$, and there is a matching packing of lower-half
+witnesses of the same size up to $O(1)$.
 \end{theorem}
 
-Taken together, these results leave open the central asymptotic question:
-\begin{center}
-does $\L(n)$ remain linear in $n$, or does it satisfy $\L(n)=o(n)$?
-\end{center}
-The unconditional lower and upper bounds in this paper show that the answer,
-whichever it is, lies between $n\log\log n/\log n$ and $0.19n$; under the
-finite safe-edge hypothesis of \Cref{prop:t2-finite-capture}, the lower side
-improves to $n(\log\log n)^2/\log n$.
+Before the fourth-order argument, the same prime-prefix method gives two
+simpler upper bounds.
 
-\subsection{Organization}
+\begin{theorem}[Intermediate upper bounds]\label{thm:intro-intermediate}
+Shortener has explicit strategies forcing
+\[
+  \L(n)\le \left(\frac{13}{36}+o(1)\right)n
+\]
+and
+\[
+  \L(n)\le \left(\frac{5}{16}+o(1)\right)n.
+\]
+\end{theorem}
 
-In \Cref{sec:shield-reduction} we prove the shield reduction theorem.
-\Cref{sec:lower-bounds} contains T1 and T2.  In
-\Cref{sec:524-cover,sec:intermediate-upper} we record the exact $5/24$ cover
-theorem and the intermediate upper bounds $13/36$ and $5/16$.
-\Cref{sec:main-upper} proves the main upper bound below $0.19n$, incorporating
-the prime-rounding bridge of \Cref{thm:prime-bridge}.
-\Cref{sec:restricted-class} treats the two restricted carrier classes.
-\Cref{sec:proof-class-barriers,sec:structural-negatives} collect the positive
-packet dichotomy and the structural obstruction results.
-\Cref{sec:formal-verification} summarizes the Lean and Aristotle artifacts, and
-the appendices record the conditional T2 proof, numerical checks,
-formalization metadata, and glossary information.
+Finally, we include a conditional lower-bound theorem, not as a headline
+result but as a useful finite-combinatorial target.  Under the safe-edge
+hypothesis stated in \Cref{sec:lower-bounds}, the residual slot construction
+gives
+\[
+  \L(n)\ge c\,\frac{n(\log\log n)^2}{\log n}
+\]
+for some absolute $c>0$.  The finite graph, hypergraph, and arithmetic
+embedding cores of this theorem are formally verified; the safe-edge hypothesis
+and the asymptotic activation wrapper remain in prose and are stated explicitly
+rather than suppressed.
+
+Several parts of the paper are accompanied by Lean formalizations.  The Shield
+Reduction theorem, the structural identities underlying the exact $5/24$ cover,
+and the $13/36$ upper-bound core have zero-sorry Lean verifications.  Theorem A
+and the $5/16$ upper bound have Lean artifacts whose remaining sorries are
+standard analytic-number-theory inputs or their assembly.  The finite
+graph/hypergraph/embedding cores of the conditional T2 theorem are
+Lean-verified, while the safe-edge hypothesis and asymptotic wrapper remain
+prose.  For the $0.19n$ theorem, the endgame reduction from moment convergence
+to the strict inequality is zero-sorry Lean-verified; the moment-convergence
+hypotheses are the prose content of \Cref{sec:main-upper}.  A full status table
+appears in \Cref{app:formalization}.
+
+The paper is organized as follows.  \Cref{sec:notation} fixes notation.
+\Cref{sec:shield} proves the shield reduction.  \Cref{sec:lower-bounds} proves
+Theorem A and states the conditional T2 theorem.  \Cref{sec:cover} proves the
+$5/24$ cover theorem.  \Cref{sec:intermediate} proves the $13/36$ and $5/16$
+upper bounds.  \Cref{sec:main-upper} proves the main $0.19n$ bound.
+\Cref{sec:obstructions} records three obstructions to extending the present
+methods.  Deferred proofs, numerical details, and formalization metadata appear
+in the appendices.

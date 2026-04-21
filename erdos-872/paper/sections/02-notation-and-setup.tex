@@ -1,0 +1,56 @@
+\section{Notation and Setup}\label{sec:notation}
+
+All divisibility statements in this paper are inside the finite board
+\[
+  V_n:=\{2,3,\ldots,n\}.
+\]
+A set $A\subseteq V_n$ is \emph{primitive} if no two distinct elements of $A$
+are comparable under divisibility.  Equivalently, $A$ is an antichain in the
+divisibility poset.  A primitive set is \emph{maximal} if no element of
+$V_n\setminus A$ can be added while preserving primitiveness.
+
+The game value $\L(n)$ is the final size of the primitive set under optimal
+play when Prolonger moves first and maximizes the final size, while Shortener
+minimizes it.
+
+We use the lower--upper split
+\[
+  L_n:=\{m\in\mathbb Z:\ 2\le m\le \lfloor n/2\rfloor\},
+  \qquad
+  \U_n:=\{m\in\mathbb Z:\ n/2<m\le n\}.
+\]
+The upper half $\U_n$ is an antichain, since two distinct elements of $\U_n$
+cannot divide each other.
+
+For $x\in L_n$, the upper shadow and shadow weight are
+\[
+  M_n(x):=\{u\in\U_n:\ x\mid u\},
+  \qquad
+  w_n(x):=|M_n(x)|-1.
+\]
+The subtraction by $1$ is convenient because a lower-half move $x$ adds one
+move but may remove $|M_n(x)|$ possible upper-half moves from a terminal
+position.
+
+For $P\subseteq\U_n$, define
+\[
+  \mathcal L_n(P):=\{x\in L_n:\ x\nmid u\ \text{for every }u\in P\},
+\]
+and
+\[
+  \beta_n(P):=
+  \max\left\{\sum_{x\in B}w_n(x):
+    B\subseteq\mathcal L_n(P)\ \text{is a divisibility antichain}\right\}.
+\]
+The maximum is over a finite set, and is understood to be $0$ when
+$\mathcal L_n(P)$ is empty.
+
+We use standard arithmetic notation.  The functions $\pi(x)$ and
+$\vartheta(x)$ denote the prime-counting function and Chebyshev's function,
+respectively.  For an integer $m$, $P^-(m)$ and $P^+(m)$ denote the least and
+greatest prime factors when $m>1$, $\Omega(m)$ denotes the number of prime
+factors counted with multiplicity, and $\omega(m)$ denotes the number of
+distinct prime factors.  The symbol $\PP$ denotes the set of primes.  As usual,
+$O(\cdot)$, $o(\cdot)$, $\ll$, and $\gg$ are interpreted as $n\to\infty$ unless
+a different parameter is explicitly specified; subscripts indicate dependence
+of the implied constants.

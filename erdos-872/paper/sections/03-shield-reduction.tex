@@ -1,0 +1,78 @@
+\section{The Shield Reduction}\label{sec:shield}
+
+The shield reduction turns terminal game positions into a weighted
+lower-half antichain problem.
+
+\begin{theorem}[Shield reduction]\label{thm:shield-reduction}
+Let $A\subseteq V_n$ be a maximal primitive set and let
+$P\subseteq A\cap \U_n$.  Then
+\[
+  |A|\ge |\U_n|-\beta_n(P).
+\]
+\end{theorem}
+
+\begin{proof}
+Put
+\[
+  B:=A\cap L_n.
+\]
+Then $B$ is a divisibility antichain.  Since $P\subseteq A$ and $A$ is
+primitive, no $x\in B$ divides any element of $P$.  Hence
+\[
+  B\subseteq \mathcal L_n(P).
+\]
+
+We next determine $A\cap\U_n$.  We claim that
+\[
+  A\cap\U_n
+  =
+  \U_n\setminus \bigcup_{x\in B}M_n(x).
+  \tag{3.1}\label{eq:terminal-upper}
+\]
+The inclusion ``$\subseteq$'' follows from primitiveness: if
+$u\in A\cap\U_n$ and $x\in B$, then $x\nmid u$.
+
+For the reverse inclusion, let
+$u\in\U_n\setminus \bigcup_{x\in B}M_n(x)$.  Suppose $u\notin A$.  Since $A$
+is maximal, some $a\in A$ is comparable with $u$.  If $u\mid a$, then
+$a\in\U_n$ and $a<2u$, so $a=u$, contradicting $u\notin A$.  If $a\mid u$ and
+$a\in\U_n$, again $a=u$.  Thus $a\in L_n$, so $a\in B$, and $u\in M_n(a)$,
+contrary to the choice of $u$.  This proves \eqref{eq:terminal-upper}.
+
+Using \eqref{eq:terminal-upper} and the union bound,
+\[
+\begin{aligned}
+  |A|
+  &= |B|+|A\cap\U_n|  \\
+  &\ge |B|+|\U_n|-\sum_{x\in B}|M_n(x)|\\
+  &= |\U_n|-\sum_{x\in B}(|M_n(x)|-1)\\
+  &= |\U_n|-\sum_{x\in B}w_n(x).
+\end{aligned}
+\]
+Since $B\subseteq\mathcal L_n(P)$ is an antichain, the final sum is at most
+$\beta_n(P)$.  Therefore
+\[
+  |A|\ge |\U_n|-\beta_n(P).
+\]
+\end{proof}
+
+\begin{corollary}[Shield-prefix obstruction]\label{cor:shield-obstruction}
+Fix $c>0$.  If a shield-prefix argument using \Cref{thm:shield-reduction}
+forces
+\[
+  |A|\ge |\U_n|-cn+o(n)
+\]
+through a set $P\subseteq\U_n$, then necessarily
+\[
+  |P|\ge n^{e^{-2c}-o(1)}.
+\]
+\end{corollary}
+
+\begin{proof}
+Such an argument requires $\beta_n(P)\le cn+o(n)$.  Applying
+\Cref{thm:theorem-A} with $|P|\le n^\alpha$ gives
+\[
+  \frac12\log\frac1\alpha\le c+o(1),
+\]
+and hence $\alpha\ge e^{-2c}-o(1)$.
+\end{proof}

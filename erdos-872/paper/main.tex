@@ -7,51 +7,49 @@
 \address{Independent Researcher}
 \email{\href{mailto:sensho@sensho.xyz}{sensho@sensho.xyz}}
 
-\date{April 20, 2026}
+\date{April 21, 2026}
 
 \subjclass[2020]{Primary 91A46; Secondary 05D05, 11N25}
-\keywords{Saturation game, antichain, divisibility, Erd\H{o}s problem 872, Sherali--Adams barrier, formal verification, Lean~4}
+\keywords{Saturation game, primitive set, divisibility poset, antichain, sieve methods, formal verification, Erd\H{o}s problem 872}
 
 \begin{document}
 
 \begin{abstract}
-We study the saturation game on the divisibility poset of $\{2,3,\dots,n\}$.
-Two players alternately choose integers subject to the condition that the
-chosen set remains primitive.  We assume that Prolonger moves first and seeks to
-maximize the number of turns, while Shortener seeks to minimize it.  We prove a
-structural reduction from terminal game positions to a weighted lower-half
-optimization problem, establish a lower bound of order
-$n\log\log n/\log n$ and a conditional lower bound of order
-$n(\log\log n)^2/\log n$, determine the exact first-hit cover constant $5/24$,
-and prove the upper bound
+We study the saturation game on the divisibility poset of
+$\{2,3,\ldots,n\}$.  Two players alternately choose integers subject to the
+condition that the chosen set remains primitive; Prolonger moves first and
+maximizes the final number of moves, while Shortener minimizes it.  We prove
 \[
-  \L(n) \le \left(\frac{\Wfour}{2}+o(1)\right)n
-  = (0.1897112+o(1))n < 0.19n.
+  \L(n)\le \left(\frac{\Wfour}{2}+o(1)\right)n
+  =(0.1897112+o(1))n<0.19n,
 \]
-We also prove positive results for two restricted carrier classes and develop a
-taxonomy of proof-class barriers explaining why sharper upper bounds are
-structurally difficult.
+where $\Wfour$ is an explicit fourth-order Bonferroni constant coming from the
+local logarithmic density of Shortener's legal-prime prefix.  We also prove a
+polynomial lower bound for the weighted shield functional, an exact
+$5n/24+O(1)$ first-hit cover theorem for the lower half, and the intermediate
+upper bounds $13n/36+o(n)$ and $5n/16+o(n)$.  A conditional lower bound of
+order $n(\log\log n)^2/\log n$ is included under a finite safe-edge hypothesis
+which is stated explicitly.  The paper also records three proof-class barriers
+for local relaxations, Johnson-shadow separators, and separator-only carrier
+strategies.
 \end{abstract}
 
 \maketitle
 
 \input{sections/01-introduction}
-\input{sections/02-shield-reduction}
-\input{sections/03-lower-bounds}
-\input{sections/04-5-24-cover}
-\input{sections/05-intermediate-upper-bounds}
-\input{sections/06-main-upper-bound}
-\input{sections/07-restricted-class}
-\input{sections/08-proof-class-barriers}
-\input{sections/09-structural-negatives}
-\input{sections/10-formal-verification}
-\input{sections/11-conclusion}
+\input{sections/02-notation-and-setup}
+\input{sections/03-shield-reduction}
+\input{sections/04-lower-bounds}
+\input{sections/05-524-cover}
+\input{sections/06-intermediate-upper-bounds}
+\input{sections/07-main-upper-bound}
+\input{sections/08-obstructions}
+\input{sections/09-conclusion}
 
 \appendix
-\input{sections/appendix-A-t2-lower-bound}
+\input{sections/appendix-A-deferred-proofs}
 \input{sections/appendix-B-numerical}
 \input{sections/appendix-C-formalization}
-\input{sections/appendix-D-glossary}
 
 \section*{Artifact Availability}
 
@@ -59,8 +57,7 @@ The public artifact repository for this paper is \cite{ErdosHarness26}.  It
 contains the Lean formalizations, Aristotle submission files and outputs,
 numerical scripts, and supporting research notes used in the preparation of the
 present manuscript.  Repository-relative paths quoted in
-\Cref{sec:formal-verification,app:numerical,app:formalization} are relative to
-that artifact root.
+\Cref{app:numerical,app:formalization} are relative to that artifact root.
 
 \section*{Acknowledgments}
 

@@ -1,0 +1,196 @@
+\section{Lower Bounds and Conditional Slot Construction}\label{sec:lower-bounds}
+
+This section proves the polynomial shield-weight obstruction and states the
+conditional T2 lower bound.  The conditional result is deferred to
+\Cref{app:deferred-proofs}.
+
+\subsection{The polynomial shield-weight lower bound}
+
+\begin{theorem}[Polynomial shield-weight lower bound]\label{thm:theorem-A}
+Fix $0<\alpha<1$.  Uniformly over all $P\subseteq\U_n$ with $|P|\le n^\alpha$,
+\[
+  \beta_n(P)\ge
+  \left(\frac12\log\frac1\alpha-o(1)\right)n.
+\]
+\end{theorem}
+
+\begin{proof}
+Fix $\delta$ with $\alpha<\delta<1$.  Let
+\[
+  Q_\delta(P):=
+  \{p\le n^\delta:\ p\ \text{prime and }p\nmid u\text{ for every }u\in P\}.
+\]
+For all sufficiently large $n$, every $p\le n^\delta$ lies in $L_n$.  The set
+$Q_\delta(P)$ is an antichain and is contained in $\mathcal L_n(P)$, so
+\[
+  \beta_n(P)\ge \sum_{p\in Q_\delta(P)}w_n(p).
+  \tag{4.1}\label{eq:A-start}
+\]
+For $p\le n^\delta$,
+\[
+  w_n(p)
+  =
+  \left\lfloor\frac np\right\rfloor
+  -
+  \left\lfloor\frac{n}{2p}\right\rfloor
+  -1
+  =
+  \frac{n}{2p}+O(1).
+\]
+Since $\pi(n^\delta)=o(n)$, \eqref{eq:A-start} gives
+\[
+  \beta_n(P)
+  \ge
+  \frac n2\sum_{p\in Q_\delta(P)}\frac1p-o(n).
+  \tag{4.2}\label{eq:A-weight}
+\]
+
+Let
+\[
+  C_\delta(P):=\{p\le n^\delta:\ p\ \text{prime and }p\mid u
+  \text{ for some }u\in P\}.
+\]
+Then $Q_\delta(P)$ and $C_\delta(P)$ partition the primes up to $n^\delta$.
+
+We first bound the reciprocal mass of $C_\delta(P)$.  For each
+$p\in C_\delta(P)$ choose one $u(p)\in P$ divisible by $p$.  For any fixed
+$u\in P$, the primes assigned to $u$ are distinct divisors of $u$, so
+\[
+  \sum_{p:\,u(p)=u}\log p\le \log u\le \log n.
+\]
+Summing over $u\in P$ gives
+\[
+  \sum_{p\in C_\delta(P)}\log p\le |P|\log n\le n^\alpha\log n.
+  \tag{4.3}\label{eq:log-budget}
+\]
+Among all finite prime sets satisfying a log-budget
+$\sum_{p\in S}\log p\le B$, the reciprocal sum $\sum_{p\in S}1/p$ is maximized
+by taking the smallest primes first.  Indeed, if $S$ contains a prime $q$ and
+omits a smaller prime $p<q$, then replacing $q$ by $p$ decreases the log-cost
+and increases the reciprocal sum.  Iterating this exchange proves the claim.
+
+Let $z_n$ be the largest value for which
+\[
+  \vartheta(z_n)=\sum_{p\le z_n}\log p\le n^\alpha\log n.
+\]
+By \eqref{eq:log-budget} and the exchange argument,
+\[
+  \sum_{p\in C_\delta(P)}\frac1p
+  \le
+  \sum_{p\le z_n}\frac1p.
+  \tag{4.4}\label{eq:covered-mertens-bound}
+\]
+The prime number theorem gives
+\[
+  z_n=(1+o(1))n^\alpha\log n,
+\]
+and hence
+\[
+  \log\log z_n=\log\log n+\log\alpha+o(1).
+\]
+Mertens' theorem for primes yields
+\[
+\begin{aligned}
+  \sum_{p\in Q_\delta(P)}\frac1p
+  &=
+  \sum_{p\le n^\delta}\frac1p
+  -
+  \sum_{p\in C_\delta(P)}\frac1p\\
+  &\ge
+  \sum_{p\le n^\delta}\frac1p
+  -
+  \sum_{p\le z_n}\frac1p\\
+  &=
+  \log\log(n^\delta)-\log\log z_n+o(1)\\
+  &=
+  \log\frac{\delta}{\alpha}+o(1).
+\end{aligned}
+\]
+Substituting this into \eqref{eq:A-weight} gives
+\[
+  \beta_n(P)\ge
+  \left(\frac12\log\frac{\delta}{\alpha}-o(1)\right)n.
+\]
+Letting $\delta\uparrow1$ proves the theorem.
+\end{proof}
+
+\begin{corollary}[Barrier exponent]\label{cor:barrier-exponent}
+For every fixed $c>0$,
+\[
+  k_c^\star(n)
+  :=
+  \min\{|P|:\ P\subseteq\U_n,\ \beta_n(P)\le cn\}
+  \ge n^{e^{-2c}-o(1)}.
+\]
+\end{corollary}
+
+\begin{proof}
+If $|P|\le n^\alpha$ and $\beta_n(P)\le cn$, then
+\Cref{thm:theorem-A} gives
+\[
+  \frac12\log\frac1\alpha\le c+o(1).
+\]
+Thus $\alpha\ge e^{-2c}-o(1)$, which is the claimed exponent lower bound.
+\end{proof}
+
+\subsection{The conditional T2 theorem}
+
+The preceding theorem is unconditional but concerns the shield-weight
+optimization problem rather than the game value itself.  A different lower-bound
+mechanism uses residual upper-half targets of the form $acb$, where
+$a,c$ are small primes and $b$ lies in a corresponding large-prime interval.
+The resulting residual game is modeled by a scored rank-three slot hypergraph.
+
+The finite potential argument which one would like to use in this slot
+hypergraph is not true for arbitrary finite capture games.  The counterexample
+in \Cref{prop:t2-max-gain-counterexample} shows that a unique max-gain Maker
+move need not dominate every subsequent Breaker deletion.  We therefore state
+the lower bound conditionally.
+
+\begin{definition}[Safe-edge hypothesis]\label{def:safe-edge}
+In each finite graph or scored rank-three hypergraph state arising from the T2
+residual slot construction, assume that whenever a positive-weight live edge
+exists, Maker has a legal live edge $f$ such that, after Maker plays $f$, every
+legal Breaker reply leaves the scaled potential $Q$ at least as large as it was
+before Maker's move.
+\end{definition}
+
+\begin{theorem}[Conditional T2 lower bound]\label{thm:t2}
+Assume the safe-edge hypothesis for the finite graph and residual
+slot-hypergraph states generated by the construction in
+\Cref{app:deferred-proofs}.  Then for every fixed $0<\delta<1/4$ there is a
+constant $c_\delta>0$ such that
+\[
+  \L(n)\ge c_\delta\,\frac{n(\log\log n)^2}{\log n}
+\]
+for all sufficiently large $n$.
+\end{theorem}
+
+\begin{proof}[Proof roadmap]
+The full proof is in \Cref{app:deferred-proofs}.  The argument has four
+ingredients.
+
+First, the target family
+\[
+  \mathcal T=\{acb:\ a<c\le n^\delta,\ b\in(n/(2ac),n/(ac)]\cap\PP\}
+\]
+has total mass
+\[
+  \sum_{a<c}|(n/(2ac),n/(ac)]\cap\PP|
+  \gg_\delta
+  \frac{n(\log\log n)^2}{\log n}.
+\]
+Second, an activation graph game secures a positive fraction of this mass,
+up to a deletion error which is
+\[
+  O\!\left(\frac{n^{4\delta}}{(\log n)^4}\right)
+  =
+  o\!\left(\frac{n(\log\log n)^2}{\log n}\right)
+\]
+when $\delta<1/4$.  Third, once a pair $(a,c)$ is secured, each residual target
+$acb$ has only the three harmful slot divisors $b,ab,cb$; exact target plays
+score only their own target.  Fourth, the safe-edge hypothesis gives a
+one-eighth finite potential bound in the residual scored slot hypergraph.  These
+ingredients produce a positive constant multiple of the initial target mass as
+actual game moves.
+\end{proof}
