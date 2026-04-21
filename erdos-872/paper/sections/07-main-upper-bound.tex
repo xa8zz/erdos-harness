@@ -42,6 +42,53 @@ the local prime-counting law identifies the limiting captured-prime density as
   \rhoU(u) = \frac{1}{(\lfloor 1/u \rfloor+1)u} = \frac{1}{(h+1)u}.
 \]
 
+\begin{lemma}[Local prime-count per range]\label{lem:prime-count-per-range}
+Let Shortener follow the smallest-legal-odd-prime strategy.  Fix an integer
+$h\ge1$ and real numbers $2\le Y<X\le n$ with
+\[
+  Y^{h+1}>n.
+\]
+Let $S(X)$ be the number of odd primes at most $X$ which Shortener has played
+by the first time her next odd-prime move would exceed $X$ (or by terminal time,
+if no such move occurs).  Then
+\[
+  S(X)\ge\frac{\pi(X)-\pi(Y)}{h+1}-O_h(1).
+\]
+In particular, if $n^{1/(h+1)}<Y<X\le n^{1/h}$, then every prime
+$p\in(Y,X]$ lies in the packet regime $p^h\le n<p^{h+1}$ and the same lower
+bound holds.
+\end{lemma}
+
+\begin{proof}
+Shortener's odd-prime moves are increasing: once a prime has become illegal it
+cannot become legal later, and the strategy always chooses the smallest legal
+odd prime.  At the stopping time in the definition of $S(X)$, no odd prime
+$p\le X$ is still legal.  Therefore every odd prime $p\in(Y,X]$ has one of two
+forms: either Shortener herself has played $p$, or some earlier Prolonger move
+was divisible by $p$.
+
+Let
+\[
+  M:=\#\{p\in\PP:\ Y<p\le X,\ p\text{ odd}\}.
+\]
+The number of primes counted by $M$ that Shortener has played is at most
+$S(X)$.  There are at most $S(X)+1$ Prolonger moves before the stopping time.
+Each such move is an integer at most $n$, so it is divisible by at most $h$
+distinct primes from $(Y,X]$: otherwise it would be at least
+$Y^{h+1}>n$.  Hence
+\[
+  M\le S(X)+h(S(X)+1)=(h+1)S(X)+h.
+\]
+Thus
+\[
+  S(X)\ge \frac{M-h}{h+1}.
+\]
+Finally $M=\pi(X)-\pi(Y)+O(1)$, the $O(1)$ accounting only for the prime $2$
+and endpoint conventions.  This gives the claimed bound.  If
+$n^{1/(h+1)}<Y<X\le n^{1/h}$ and $p\in(Y,X]$, then $p^h\le X^h\le n$ while
+$p^{h+1}>Y^{h+1}>n$, so this is exactly the stated packet regime.
+\end{proof}
+
 \begin{proposition}[Local density away from breakpoints]\label{prop:local-density}
 Fix $H\ge 2$, and set
 \[
@@ -90,9 +137,8 @@ Since $u\in I_h$,
   u \le \frac1h-\tau_H < \frac1h.
 \]
 Hence the entire interval $[u-\eta,u]$ stays inside
-$\bigl(\frac{1}{h+1},\frac1h\bigr)$, so the local
-prime-count-per-range lemma applies with the constant packet ratio
-$1/(h+1)$.  It yields
+$\bigl(\frac{1}{h+1},\frac1h\bigr)$.  Thus $Y^{h+1}>n$, and
+\Cref{lem:prime-count-per-range} yields
 \[
   S(X)
   \ge
