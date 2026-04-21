@@ -15,27 +15,33 @@
 \begin{document}
 
 \begin{abstract}
-We study the saturation game on the divisibility poset of
-$\{2,3,\ldots,n\}$.  Two players alternately choose integers subject to the
-condition that the chosen set remains primitive; Prolonger moves first and
-maximizes the final number of moves, while Shortener minimizes it.  We prove
+Erd\H{o}s posed the divisibility antichain saturation game on
+$\{2,3,\ldots,n\}$ in 1992 \cite{Er92c}, catalogued as Problem~\#872 in
+Bloom's list \cite{Bloom872}.  Two players alternately choose integers,
+maintaining the property that the chosen set is primitive (an antichain
+under divisibility); Prolonger moves first to maximize the final count,
+Shortener moves to minimize it.  The central question is whether the game
+value $\L(n)$ is linear in $n$ or sublinear.  We prove
 \[
   \left(\frac18-o(1)\right)\frac{n\log\log n}{\log n}
-  \le
-  \L(n)\le \left(\frac{\Wfour}{2}+o(1)\right)n
-  \le(0.1897123371+o(1))n<0.19n,
+  \;\le\;
+  \L(n)
+  \;\le\;
+  \left(\frac{\Wfour}{2}+o(1)\right)n
+  \;<\;0.19\,n,
 \]
-as \Cref{thm:fan-lower-bound,thm:main-upper}.  The lower bound follows from a
-two-phase Prolonger strategy and a bipartite maximum-degree capture lemma,
-while the upper bound uses an explicit fourth-order Bonferroni constant
-$\Wfour$ coming from the local logarithmic density of Shortener's legal-prime
-prefix.  We also prove a polynomial lower bound for the weighted shield
-functional, an exact $5n/24+O(1)$ first-hit cover theorem for the lower half,
-and the intermediate upper bounds $13n/36+o(n)$ and $5n/16+o(n)$.  A
-conditional lower bound of order $n(\log\log n)^2/\log n$ is included under a
-restricted finite safe-edge hypothesis which is stated explicitly.  The paper
-also records three proof-class barriers for local relaxations, Johnson-shadow
-separators, and separator-only carrier strategies.
+where $\Wfour$ is an explicit fourth-order Bonferroni constant arising from
+the local logarithmic density of Shortener's legal-prime prefix.  The lower
+bound follows from a two-phase Prolonger strategy and a bipartite
+maximum-degree capture lemma; the upper bound uses a monotone envelope for
+the legal-prime density, a queued prime-rounding bridge, and a fourth-order
+Bonferroni inequality on the odd-part compression of the terminal antichain.
+We also prove a polynomial lower bound for the weighted shield functional,
+an exact $5n/24+O(1)$ first-hit cover theorem for the lower half, and
+intermediate upper bounds $(13/36+o(1))n$ and $(5/16+o(1))n$.  A conditional
+lower bound of order $n(\log\log n)^2/\log n$ is included under an explicit
+finite safe-edge hypothesis.  The paper also records three structural
+barriers limiting related proof methods.
 \end{abstract}
 
 \maketitle
@@ -57,11 +63,15 @@ separators, and separator-only carrier strategies.
 
 \section*{Artifact Availability}
 
-The public artifact repository for this paper is \cite{ErdosHarness26}.  It
-contains the Lean formalizations, Aristotle submission files and outputs,
-numerical scripts, and supporting research notes used in the preparation of the
-present manuscript.  Repository-relative paths quoted in
+\begin{sloppypar}
+The public artifact repository for this paper is available at
+\url{https://github.com/xa8zz/erdos-harness} (snapshot at commit
+\texttt{90f4f1b} archived in \cite{ErdosHarness26}, where the full SHA is
+recorded).  It contains the Lean formalizations, Aristotle submission files
+and outputs, numerical scripts, and supporting research notes used in the
+preparation of the present manuscript.  Repository-relative paths quoted in
 \Cref{app:numerical,app:formalization} are relative to that artifact root.
+\end{sloppypar}
 
 \section*{Acknowledgments}
 
