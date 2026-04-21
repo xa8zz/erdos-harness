@@ -132,43 +132,58 @@ The next obstruction is an extremal statement for Johnson shadows.  It explains
 why a sparse separator family cannot be forced by expansion alone unless a
 large pre-existing shadow is already present.
 
-Let $X=\binom{[K]}q$ and $Y=\binom{[K]}h$, with $q<h$.  A $q$-set $Q$ covers an
+Let $P$ be a $K$-point set, write $K=h+L$ with $L\ge 1$, and fix
+$1\le q\le h$.  Put $X=\binom Pq$ and $Y=\binom Ph$.  A $q$-set $Q$ captures an
 $h$-set $H$ if $Q\subseteq H$.  Let $R\subseteq Y$ be a live packet of density
-\[
-  \eta:=\frac{|R|}{|Y|}.
-\]
-Let $D\subseteq X$ be a previously forbidden $q$-shadow and let
-$C\subseteq X$ be a set of already claimed $q$-separators.  Define
+$r:=|R|/|Y|>0$.  Let $D\subseteq X$ be a previously forbidden $q$-shadow, and
+let $\mathcal B\subseteq Y$ be a family of already played $h$-sets.  Define
 \[
   \delta_q:=\frac{\binom{K-q}{h-q}}{\binom{K}{h}},
 \]
-the density of $h$-sets containing a fixed $q$-set, and write
-$\sigma_q(D)$ for the fraction of $Y$ covered by $D$.  The normalized second
-singular value of the $q$-versus-$h$ inclusion graph satisfies
+the density of $h$-sets containing a fixed $q$-set.  Write
+\[
+  \partial_h D:=\{H\in Y:\text{some }Q\in D\text{ satisfies }Q\subseteq H\},
+  \qquad
+  \sigma_q(D):=\frac{|\partial_h D|}{|Y|}.
+\]
+Thus $\sigma_q(D)$ is an $h$-level shadow measure, not a $q$-level count.  The
+normalized second singular value of the $q$-versus-$h$ inclusion graph
+satisfies
 \[
   \lambda_q^2=\frac{q(K-h)}{h(K-q)}.
 \]
 
-\begin{proposition}[q-shadow covering dichotomy]\label{prop:q-shadow}
-Assume no legal $q$-separator captures at least
+\begin{proposition}[q-shadow covering dichotomy]\label{prop:q-shadow}\label{prop:q-shadow-dichotomy}
+Let
+\[
+  U_q(D,\mathcal B):=
+  D\cup\bigcup_{B\in\mathcal B}\binom Bq,
+  \qquad
+  A:=X\setminus U_q(D,\mathcal B)
+\]
+be the excluded and legal $q$-families.  Assume no legal $q$-separator
+$Q\in A$ captures at least
 \[
   \frac12\,\delta_q |R|
 \]
 members of $R$.  Then
 \[
-  \sigma_q(D)+|C|\delta_q
+  \frac{|U_q(D,\mathcal B)|}{|X|}
   >
-  1-\frac{4\lambda_q^2}{\eta}.
+  1-\frac{4\lambda_q^2}{r}.
 \]
+Consequently
+\[
+  \sigma_q(D)+|\mathcal B|\delta_q
+  >
+  1-\frac{4\lambda_q^2}{r}.
+\]
+In particular, if $r\ge\eta>0$, the right-hand side may be weakened to
+$1-4\lambda_q^2/\eta$.
 \end{proposition}
 
 \begin{proof}
-Let $A\subseteq X$ be the legal $q$-separators, meaning those not already
-excluded by $D$ or $C$.  By the union bound,
-\[
-  \frac{|A|}{|X|}
-  \ge 1-\sigma_q(D)-|C|\delta_q.
-\]
+Put $a=|A|/|X|$.  The case $A=\emptyset$ is immediate, so assume $a>0$.
 The expander-mixing inequality for the inclusion graph between $X$ and $Y$
 gives
 \[
@@ -180,22 +195,56 @@ gives
 \]
 If
 \[
-  \frac{|A|}{|X|}\ge \frac{4\lambda_q^2}{\eta},
+  a\ge \frac{4\lambda_q^2}{r},
 \]
 then the average number of elements of $R$ captured by a member of $A$ is at
 least half the random expectation, namely at least
 $\frac12\delta_q |R|$.  This contradicts the hypothesis that no legal separator
 captures that many live packet members.  Hence
 \[
-  \frac{|A|}{|X|}<\frac{4\lambda_q^2}{\eta},
+  a<\frac{4\lambda_q^2}{r},
 \]
-and the displayed conclusion follows from the union bound.
+which is exactly
+\[
+  \frac{|U_q(D,\mathcal B)|}{|X|}
+  =1-a
+  >
+  1-\frac{4\lambda_q^2}{r}.
+\]
+
+It remains only to convert this exact $q$-level covering statement into the
+displayed shadow bound.  By the LYM normalized matching property on the Boolean
+lattice \cite[Section~2.2]{Anderson87}, every
+$\mathcal F\subseteq\binom Pq$ satisfies
+\[
+  \frac{|\partial_h\mathcal F|}{\binom Kh}
+  \ge
+  \frac{|\mathcal F|}{\binom Kq}
+  \qquad(q\le h).
+\]
+Applying this to $\mathcal F=D$ gives $|D|/|X|\le\sigma_q(D)$.  Also each
+$B\in\mathcal B$ contains exactly $\binom hq$ members of $X$, so
+$\binom hq/\binom Kq=\delta_q$.  The union bound gives
+\[
+  \frac{|U_q(D,\mathcal B)|}{|X|}
+  \le
+  \frac{|D|}{|X|}+|\mathcal B|\delta_q
+  \le
+  \sigma_q(D)+|\mathcal B|\delta_q,
+\]
+and the conclusion follows.
 \end{proof}
 
-In the central regime relevant to top-facet packet arguments, the inequality
-says that separator starvation is possible only after the previous shadow or
-the already claimed separator set has become large.  Pure expansion cannot
-supply an unlimited sequence of fresh separators.
+In the central regime relevant to top-facet packet arguments, take
+$L\sim h/\log h$ and $q\sim 2(\log h)^2$.  Then
+\[
+  \delta_q=(e+o(1))h^{-2},
+  \qquad
+  \lambda_q^2=(2+o(1))\frac{\log h}{h}.
+\]
+Thus, when $r$ is bounded below and $\sigma_q(D)=o(1)$, separator starvation
+forces $|\mathcal B|>(e^{-1}-o(1))h^2$.  Pure expansion cannot supply an
+unlimited sequence of fresh separators.
 
 \subsection{A separator-only limitation}
 
