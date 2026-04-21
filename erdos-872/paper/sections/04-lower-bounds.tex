@@ -347,9 +347,10 @@ proper divisors are $a_0$ and $b$.
 
 Shortener's reply has one of the three effects allowed in
 \Cref{lem:max-degree-capture}: choosing a right singleton deletes a right
-vertex and its live star; choosing an exact fan target deletes one live edge;
-any other legal move deletes no live fan edge, except when it is itself an
-exact fan target, which is the preceding case.  Therefore the lemma applies.
+vertex and its live star; choosing an exact fan target $ab$ deletes that one
+live edge if it is still live, and is a do-nothing move relative to the live
+graph if $ab$ was already captured in an earlier right-star capture by
+Prolonger; any other legal move deletes no live fan edge.  Therefore the lemma applies.
 Let $C$ be the number of fan edges captured by Prolonger's right-star moves in
 Phase~2, and let $X$ be the number of live fan edges individually deleted by
 Shortener as exact targets in Phase~2.  Then
@@ -359,9 +360,10 @@ Shortener as exact targets in Phase~2.  Then
 \]
 
 It remains to translate captured graph edges back to actual game moves.  When
-Prolonger captures a right prime $b$ by playing some $a_0b$, the singleton $b$
-becomes illegal.  For every edge $(a,b)$ live at that capture time, the
-singleton $a$ is already illegal from Phase~1, but was not chosen, and the
+Prolonger captures a right prime $b$ by playing some $a_0b$, the capture-move
+edge $(a_0,b)$ is realized as Prolonger's current game move.  For every
+\emph{other} edge $(a,b)$ live at that capture time, with $a\ne a_0$, the
+singleton $a$ is already illegal from Phase~1 but was not chosen, and the
 target $ab$ has not yet been chosen.  Moreover $ab$ has no proper multiple in
 $\{2,\ldots,n\}$ and its only relevant proper divisors are $a$ and $b$; any
 proper multiple of $a$ that was chosen in Phase~1 is not comparable with this
@@ -369,8 +371,9 @@ surviving target.  Therefore $ab$ remains legal until $ab$ itself is chosen;
 terminal maximality forces it to be chosen eventually.  Distinct fan targets
 all lie in $\U_n$, so they are mutually incomparable unless they are equal, and
 the graph edges are distinct.  Thus the captured edges account for $C$ distinct
-eventual game moves, while the individually deleted edges counted by $X$ are
-themselves distinct game moves.  Hence
+eventual game moves (one of which, $a_0b$, is Prolonger's own capture play),
+while the individually deleted edges counted by $X$ are themselves distinct
+game moves realized by Shortener's exact-target choices.  Hence
 \[
   \L(n)\ge C+X
   \ge
