@@ -136,6 +136,15 @@ Thus $\alpha\ge e^{-2c}-o(1)$, which is the claimed exponent lower bound.
 
 \subsection{An unconditional fan-capture lower bound}
 
+The trivial unconditional lower bound for the game is
+$\L(n)\ge(1+o(1))n/\log n$: in any maximal primitive subset
+$A\subseteq\{2,\ldots,n\}$, maximality forces $A$ to contain, for each prime
+$p\in(\sqrt n,n]$, some multiple of $p$; and two distinct primes in
+$(\sqrt n,n]$ have no common multiple in $\{2,\ldots,n\}$, giving
+$|A|\ge\pi(n)-\pi(\sqrt n)\sim n/\log n$ \cite{Forum872}.  The theorem below
+improves this baseline by a factor of order $\log\log n$, giving the first
+unconditional lower bound of strictly larger order.
+
 The shield obstruction above does not itself give a game lower bound.  We now
 record a direct unconditional lower-bound strategy for Prolonger.  The
 mechanism is different: Prolonger first makes a large reciprocal-mass set of
