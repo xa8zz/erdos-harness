@@ -924,6 +924,111 @@ these tuples have total $b$-reciprocal contribution $o_{H,\lambda}(1)$.  This
 proves \eqref{eq:queued-bridge-moment}.
 \end{proof}
 
+\begin{proposition}[Diagonal parameter selection for the prime bridge]
+\label{prop:prime-bridge-diagonalization}
+Fix $0<\eps<1$.  There is an integer-valued function $H(n)\to\infty$ and,
+for each $n$, comparison sequences
+\[
+  b_1^{(n)}\le\cdots\le b_K^{(n)},\qquad p_1^{(n)}<\cdots<p_K^{(n)}
+\]
+with the $p_j^{(n)}$ odd primes, such that
+\[
+  q_j\le b_j^{(n)}\le p_j^{(n)}\qquad (1\le j\le K),
+\]
+and, for every $1\le r\le4$,
+\[
+  T_r^{(b^{(n)})}(n)=J_r+o(1),
+  \qquad
+  T_r^{(p^{(n)})}(n)=J_r+o(1).
+\]
+\end{proposition}
+
+\begin{proof}
+Choose $H_m\to\infty$ increasing so that the excision estimate in
+\Cref{prop:envelope-inversion} gives
+\[
+  |J_r^{(H_m)}-J_r|\le \frac{1}{4m}
+  \qquad (1\le r\le4).
+  \tag{7.8}\label{eq:diag-excision}
+\]
+For each fixed $H_m$ and $r$, choose a constant $C_{H_m,r}$ for the
+$O_{H_m,r}(\lambda-1)$ term in \eqref{eq:queued-bridge-moment}.  Choose
+$\lambda_m>1$ close enough to $1$ that
+\[
+  C_{H_m,r}(\lambda_m-1)\le \frac{1}{4m}
+  \qquad (1\le r\le4),
+  \tag{7.9}\label{eq:diag-lambda}
+\]
+and then choose $a_m>1$ with $a_m^2\le\lambda_m$.  Let $s_m=s(a_m)$ be the
+queue length in \eqref{eq:queue-clear}.
+
+We now choose $N_m$ recursively increasing.  Since $H_m,\lambda_m,a_m$ and
+$s_m$ are fixed, all estimates used above are eventually valid, so we may
+enlarge $N_m$ until, for every $n\ge N_m$, all of the following hold:
+\[
+  \xi_{H_m}(n)\le \frac1m,
+  \tag{7.10a}\label{eq:diag-xi}
+\]
+\[
+  |T_r^{(b^{(H_m)})}(n)-J_r^{(H_m)}|\le \frac{1}{4m}
+  \qquad (1\le r\le4),
+  \tag{7.10b}\label{eq:diag-envelope}
+\]
+\[
+  |T_r^{(p^{(H_m)})}(n)-T_r^{(b^{(H_m)})}(n)|\le \frac{1}{2m}
+  \qquad (1\le r\le4),
+  \tag{7.10c}\label{eq:diag-bridge}
+\]
+\[
+  n^{\alpha_{H_m-1}}\ge m.
+  \tag{7.10d}\label{eq:diag-scale}
+\]
+Here $b^{(H_m)}$ is the comparison sequence from
+\Cref{prop:envelope-inversion} with parameter $H_m$, and $p^{(H_m)}$ is the
+prime sequence produced by \Cref{prop:queued-prime-rounding} with parameters
+$H_m,\lambda_m,a_m$.  In addition, enlarge $N_m$ so that every fixed-ratio
+prime number theorem estimate used in \eqref{eq:prime-bin-count} and every
+fixed-ratio estimate used in \Cref{lem:cell-reciprocal-mass} and the product
+strip bound holds with tolerance $1/m$ for the finitely many constants
+arising from $H_m,a_m,s_m$ and $\lambda_m^r$, $1\le r\le4$.  The scale
+condition \eqref{eq:diag-scale} is harmless because $H_m$ is fixed while
+$n\to\infty$.
+
+Define
+\[
+  H(n):=H_m\qquad\text{for }N_m\le n<N_{m+1},
+\]
+and use the corresponding sequences $b^{(H_m)}$ and $p^{(H_m)}$.  Then
+$H(n)\to\infty$.  For $N_m\le n<N_{m+1}$, the telescope bounds are
+\[
+\begin{aligned}
+  |T_r^{(b^{(H(n))})}(n)-J_r|
+  &\le
+  |T_r^{(b^{(H_m)})}(n)-J_r^{(H_m)}|
+  +|J_r^{(H_m)}-J_r|  \\
+  &\le \frac{1}{4m}+\frac{1}{4m}
+  =\frac{1}{2m},
+\end{aligned}
+\]
+and
+\[
+\begin{aligned}
+  |T_r^{(p^{(H(n))})}(n)-J_r|
+  &\le
+  |T_r^{(p^{(H_m)})}(n)-T_r^{(b^{(H_m)})}(n)| \\
+  &\quad
+  +|T_r^{(b^{(H_m)})}(n)-J_r^{(H_m)}|
+  +|J_r^{(H_m)}-J_r|  \\
+  &\le \frac{1}{2m}+\frac{1}{4m}+\frac{1}{4m}
+  =\frac1m .
+\end{aligned}
+\]
+Thus $T_r^{(b^{(n)})}(n)=J_r+o(1)$ and
+$T_r^{(p^{(n)})}(n)=J_r+o(1)$ for $1\le r\le4$.  The inequalities
+$q_j\le b_j^{(n)}\le p_j^{(n)}$ come from
+\Cref{prop:queued-prime-rounding}.
+\end{proof}
+
 \begin{theorem}[Prime-rounding bridge]\label{thm:prime-bridge}
 Fix $0<\eps<1$, and let
 \[
@@ -954,32 +1059,9 @@ Moreover the primes may be chosen so that, for each fixed $1\le r\le 4$,
 \end{theorem}
 
 \begin{proof}
-Choose a sequence $H_m\to\infty$ such that
-\[
-  |J_r^{(H_m)}-J_r|\le\frac1m
-  \qquad (1\le r\le4).
-\]
-For each $m$, choose $\lambda_m>1$ so close to $1$ that the
-$O_{H_m,r}(\lambda_m-1)$ term in \Cref{prop:queued-prime-rounding} is at most
-$1/m$ for $1\le r\le4$, and choose $a_m>1$ with $a_m^2\le\lambda_m$.  For
-fixed $m$, enlarge $N_m$ so that, for all $n\ge N_m$, the construction of
-\Cref{prop:envelope-inversion} with $H=H_m$ is valid,
-\[
-  |T_r^{(b)}(n)-J_r^{(H_m)}|\le\frac1m,
-  \qquad
-  |T_r^{(p)}(n)-T_r^{(b)}(n)|\le\frac2m
-\]
-for $1\le r\le4$, where the second inequality uses
-\Cref{prop:queued-prime-rounding}.  We may take the $N_m$ increasing.  For
-$N_m\le n<N_{m+1}$ use the parameters $H=H_m$, $\lambda=\lambda_m$, and
-$a=a_m$.  Then $H_m\to\infty$ and $\lambda_m\downarrow1$, so the displayed
-bounds give
-\[
-  T_r^{(b^{(n)})}(n)=J_r+o(1),\qquad
-  T_r^{(p)}(n)=T_r^{(b^{(n)})}(n)+o(1)=J_r+o(1)
-\]
-for every fixed $1\le r\le4$.  The inequality $q_j\le p_j$ follows from
-\Cref{prop:queued-prime-rounding}.
+\Cref{prop:prime-bridge-diagonalization} gives the required sequences and
+moment limits.  Since $q_j\le b_j^{(n)}\le p_j^{(n)}$, in particular
+$q_j\le p_j^{(n)}$ for every $j$.
 \end{proof}
 
 \subsection{The finite Bonferroni--4 theorem}
