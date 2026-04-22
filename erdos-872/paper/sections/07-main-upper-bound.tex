@@ -1058,8 +1058,15 @@ primes in the next prime bin $[Aa^{k+1},Aa^{k+2})$.  By
   (1-o_{H,a}(1))\frac{(a-1)Aa^{k+1}}{\log(Aa^{k+1})}
   \le P_{k+1},
 \]
-using $1/(h+1)\le1/2<a$.  The final truncated source bin is handled in the
-same way, using the next full prime bin above the block.
+using $1/(h+1)\le1/2<a$.  The final truncated source bin
+$[X,B_h]\subseteq[Aa^{k^\star},Aa^{k^\star+1})$ (with $X=Aa^{k^\star}$ and
+$B_h<Aa^{k^\star+1}$) has demand at most the full-bin estimate $d_{k^\star}$
+of \Cref{lem:bin-demand-estimate}, since its contributing indices are a subset
+of those for the full bin.  The next prime bin above $B_h$ is contained in
+$[Aa^{k^\star+1},Aa^{k^\star+2})$ with supply
+$P_{k^\star+1}$ from \Cref{lem:bin-prime-supply-estimate}, so the inequality
+$d_{k^\star}<P_{k^\star+1}$ applies unchanged and the truncated-bin assignment
+proceeds by the same greedy rule.
 
 The greedy rule, together with processing bins in increasing order and taking
 the smallest available prime in each bin, makes the assigned sequence strictly
@@ -1090,8 +1097,14 @@ nonexceptional index,
 \]
 Consequently, for every fixed $1\le r\le4$,
 \[
-  T_r^{(p)}(n)=T_r^{(b)}(n)+O_{H,r}(\lambda-1)+o_{H,\lambda}(1).
+  T_r^{(p)}(n)=T_r^{(b)}(n)+O_{H,r}(\lambda-1)+o_{H,a,s,\lambda}(1),
 \]
+where the $o(1)$ error depends on the block count $H$, the fixed bin ratio
+$a$, the coarse-bin prefix count $s(a)$ of
+\Cref{lem:exceptional-mass-cutoff-discrepancy} above, and the queue parameter
+$\lambda$ (all held fixed before the diagonalization of
+\Cref{prop:prime-bridge-diagonalization} lets $\lambda\downarrow1$ and
+$H\to\infty$).
 \end{lemma}
 
 \begin{proof}
