@@ -127,7 +127,10 @@ Fix $A_\star>2$ and set
 \[
   k:=\left\lfloor\frac{n}{2A_\star\log n}\right\rfloor.
 \]
-Shortener plays the smallest legal odd prime for her first $k$ turns.  The
+Shortener plays the smallest legal odd prime for her first $k$ turns.
+(Legality of such a prefix for all sufficiently large $n$ is proved in
+\Cref{lem:prefix-existence}; the argument there depends only on board size, not
+on the odd-part compression used in this section.)  The
 same Chebyshev log-mass induction, now with $j\le n/(2A_\star\log n)$, gives
 \[
   q_j\le A_\star j\log n
