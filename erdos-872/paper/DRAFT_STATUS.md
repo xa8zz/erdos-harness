@@ -40,14 +40,6 @@ No `\todo{}` markers are currently present in the draft sources under
 
 ## Open items
 
-- **Appendix B certificate script.** The current
-  `scripts/wfour_certification.py` is a transcript checker: it takes the four
-  `J_r` intervals as inputs and recomputes the sign-sensitive final
-  inequality `W_4/2 < 0.19` under outward-rounded interval arithmetic.  The
-  paper currently describes it as reproducing the certified intervals.
-  Open task (`CODEX_TASK_F1_INTERVAL_CERTIFICATE.md`): extend the script to
-  recompute the `J_r` intervals from first principles via outward-rounded
-  interval convolution on the simplex, then reword Appendix B to match.
 - **Section 8 barrier theorems.** `prop:sa-barrier`, `prop:q-shadow-dichotomy`,
   and `prop:separator-only` are restored to rigorous form from audit sources
   R58, R59, R56 respectively.  A final pass from a skeptical referee may
@@ -55,8 +47,22 @@ No `\todo{}` markers are currently present in the draft sources under
   submission and queue any follow-up rewrites separately.
 - **Section 7 prime-rounding bridge.** Decomposed into nine named lemmas
   (four for envelope inversion, five for the rounding bridge) during the
-  R57 repair cycle.  A referee audit of the named-lemma sequence is in
-  progress.
+  R57 repair cycle and supplemented with an explicit truncated-bin case.
+  No further repairs outstanding.
+
+## Recently closed
+
+- **F1 interval certificate (closed 2026-04-21).**
+  `scripts/wfour_certification.py` now reproduces the four $J_r$ intervals
+  from first principles via exact breakpoint-split cell masses and
+  FFT-accelerated interval convolution with an explicit outward
+  $\ell^1$-error bound (formula in Appendix B).  Runs in ~20s and produces
+  intervals strictly tighter than those displayed in
+  `prop:wfour-certification`.
+- **F2 truncated-bin case (closed 2026-04-21).** Section 7
+  monotone-assignment proof now explicitly handles the final truncated source
+  bin and makes the error-term dependence on $(H, a, s, \lambda)$ explicit.
+- **F3 draft-status refresh (closed 2026-04-21).** This file.
 
 ## Authorship / artifact attribution
 

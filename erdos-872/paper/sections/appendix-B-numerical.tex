@@ -135,8 +135,21 @@ polynomial multiplication.  A direct implementation may round each product and
 each accumulated partial sum outward.  The reference script uses an FFT
 accelerator, but encloses its floating-point round-off by an explicit
 $\ell^1$-error bound for each convolution and propagates that bound through the
-later products.  Thus the displayed certification does not rely on an unbounded
-floating-point FFT error model.
+later products.  Concretely, for a Cooley--Tukey FFT of transform length $L$
+and nonnegative inputs $a,b$ with $\ell^1$-norms $\|a\|_1,\|b\|_1$, the script
+bounds the total $\ell^1$ round-off error in the computed $a*b$ by
+\begin{equation}\label{eq:fft-l1-bound}
+  256\cdot\varepsilon_{\rm mach}\cdot
+  (\lceil\log_2 L\rceil+1)^2\cdot\|a\|_1\|b\|_1,
+\end{equation}
+where $\varepsilon_{\rm mach}$ is the IEEE-754 double-precision machine
+epsilon.  This form dominates the standard $\gamma_k$ error model of
+Higham~\cite[Chapter~24]{Higham02} applied to the two forward transforms, the
+pointwise multiplication, and the inverse transform; the constant $256$ is an
+intentionally conservative safety factor.  The bound
+\eqref{eq:fft-l1-bound} is added outward to the computed convolution, and the
+widened interval is used in all downstream products.  Thus the displayed
+certification does not rely on an unbounded floating-point FFT error model.
 
 A direct grid computation of the same integrals gives the convergence displayed
 in \Cref{tab:grid-bonferroni}.  The theorem only needs the certified strict
