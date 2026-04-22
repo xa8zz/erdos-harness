@@ -46,7 +46,7 @@ Let
 \]
 be the odd primes she plays during that prefix.  The argument has four layers:
 \begin{enumerate}
-  \item a local density law for the counting function of the $q_j$;
+  \item a one-sided lower-profile estimate for the counting function of the $q_j$;
   \item a monotone envelope and inversion producing a comparison sequence
     $b_j \ge q_j$ with explicit moment limits;
   \item a fourth-order Bonferroni comparison theorem for arbitrary increasing
@@ -56,7 +56,7 @@ be the odd primes she plays during that prefix.  The argument has four layers:
     prime-rounding bridge of \Cref{thm:prime-bridge}.
 \end{enumerate}
 
-\subsection{The local density}
+\subsection{A lower-profile envelope for Shortener's primes}
 
 Write
 \[
@@ -64,11 +64,12 @@ Write
   \qquad
   u := \frac{\log X}{\log n}.
 \]
-On the interval
+We establish a one-sided lower envelope for the counting function of
+Shortener's captured primes.  On the interval
 \[
   u \in \left(\frac{1}{h+1},\frac1h\right],
 \]
-the local prime-counting law identifies the limiting captured-prime density as
+the lower-profile function is
 \[
   \rhoU(u) = \frac{1}{(\lfloor 1/u \rfloor+1)u} = \frac{1}{(h+1)u}.
 \]
@@ -256,7 +257,7 @@ the truncated factorial-moment sums
 
 \subsection{Monotone envelope and inversion}
 
-The local density from \Cref{prop:local-density} is piecewise-defined, so one
+The lower-profile estimate from \Cref{prop:local-density} is piecewise-defined, so one
 must build a monotone global comparison sequence before applying the
 Bonferroni comparison.
 
