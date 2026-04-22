@@ -225,3 +225,19 @@ as expected in representative regimes; and the sharper limiting value near
 $0.18969$ is numerically stable.  The theorem in this paper is the finite
 Bonferroni--4 bound below $0.19$, not a claim that the full alternating series
 has been analytically justified.
+
+\subsection{Reproducibility}
+
+From the repository root, the certificate is reproduced by running
+\[
+  \texttt{python3 scripts/wfour\_certification.py}.
+\]
+The default parameters are $N=10^5$, $H^\star=10^6$, and $80$ decimal digits;
+no flags are needed to reproduce intervals contained in the displayed
+certified intervals.  The script imports only the Python standard library,
+\texttt{mpmath}, and \texttt{numpy}; the run used for this manuscript was tested
+with Python~3.14.3, \texttt{mpmath}~1.3.0, and \texttt{numpy}~2.4.2 on macOS
+Darwin~25.2.0 (arm64).  No separate stdout transcript is archived in the
+repository; running the command prints a self-describing block containing the
+four $J_r$ intervals, the final $\Wfour/2$ interval, the margin to $0.19$, and
+the elapsed wall-clock time.
