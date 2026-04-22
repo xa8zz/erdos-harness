@@ -8,6 +8,80 @@ For all entries, verification was last recorded at artifact repository tag
 \texttt{arxiv-v1} (see \cite{ErdosHarness26}) and Lean toolchain
 \path|leanprover/lean4:v4.28.0|.
 
+\subsection{Verification status by result}
+
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.18}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}}
+\hline
+\textbf{Result} & \textbf{Status} & \textbf{Lean file(s)} & \textbf{Notes} \\
+\hline
+\Cref{thm:shield-reduction} & Formally verified &
+\path|shield_reduction/.../ShieldReduction.lean| &
+Zero-sorry finite divisibility-poset proof. \\
+
+\Cref{thm:theorem-A} & Partially formalized &
+\path|theorem_A/.../ShieldDefs.lean|;
+\path|ShieldBasicLemmas.lean|;
+\path|ShieldMainTheorem.lean| &
+Structural identities Lean; analytic inputs (Mertens, PNT) and assembly are prose. \\
+
+\Cref{thm:fan-lower-bound} & Prose only &
+None &
+Unconditional game lower bound proved in the text; no Lean or numerical artifact is claimed. \\
+
+\Cref{thm:t2} & Conditional; finite cores Lean-verified &
+\path|T2Finite/GraphGame.lean|;
+\path|T2Finite/HyperGame.lean|;
+\path|T2Finite/ResidualComparison.lean| &
+Conditional on the restricted safe-edge hypothesis.  The safe-edge hypothesis and asymptotic activation wrapper remain prose. \\
+
+\Cref{thm:five-twenty-four} & Formally verified &
+\path|tau_5_24/.../Cover.lean|;
+\path|Packing.lean|;
+\path|Tau.lean| &
+Cover and packing identities are zero-sorry Lean; the final floor-sum asymptotic is elementary prose. \\
+
+\Cref{thm:thirteen-thirtysix} & Formally verified &
+\path|shortener_13_36/.../Compression.lean|;
+\path|Sieve.lean|;
+\path|MainTheorem.lean| &
+Zero-sorry odd-part compression and Bonferroni core; standard prime-prefix estimates are used in the prose setup. \\
+
+\Cref{thm:five-sixteen} & Partially formalized &
+\path|shortener_5_16/.../Defs.lean|;
+\path|Theorems.lean| &
+Compression, sieve, and algebraic optimization are Lean-checked; one placeholder bundles Chebyshev prime-prefix input and the game-tree prefix wrapper. \\
+
+\Cref{thm:main-upper} & Partially formalized &
+\path|Round15Bonferroni4/Target.lean| &
+Lean covers the endgame reduction in \path|Round15Bonferroni4/Target.lean|; envelope, inversion, measure convergence, and prime-rounding bridge are prose. \\
+
+\Cref{thm:prime-bridge} & Prose only &
+None &
+The queued prime-rounding bridge is proved in \Cref{sec:main-upper}; no separate Lean artifact is claimed. \\
+
+\Cref{prop:wfour-certification} & Prose with numerical stress testing &
+\path|scripts/wfour_certification.py| &
+Outward-rounded interval certificate computes the four displayed $J_r$ intervals and the final margin. \\
+
+\Cref{prop:sa-barrier} & Prose with numerical stress testing &
+\path|scripts/sa_barrier_verification.py| &
+Proof is prose; the script exhaustively checks the lifted covering inequalities for small $N$ with exact rational arithmetic. \\
+
+\Cref{prop:q-shadow-dichotomy} & Prose only &
+None &
+Extremal shadow argument is presented in the text; no artifact is claimed. \\
+
+\Cref{prop:separator-only} & Prose only &
+None &
+Arithmetic closure limitation is presented in the text; no artifact is claimed. \\
+\hline
+\end{longtable}
+\endgroup
+
 \begingroup
 \scriptsize
 \medskip
