@@ -67,13 +67,14 @@ we have
   =
   \frac{1}{H^\star+1}.
 \]
-All logarithms, sums, and differences are evaluated with outward-rounded
-interval arithmetic.
-A reference Python implementation using \texttt{mpmath} with explicit
-directed-rounding modes is available at
+All logarithms, sums, differences, and products are evaluated with
+outward-rounded interval arithmetic.  A reference Python implementation using
+\texttt{mpmath.iv} for the interval cell masses is available at
 \texttt{scripts/wfour\_certification.py} in the artifact repository
-\cite{ErdosHarness26}; running it with the default parameters reproduces the
-certified intervals displayed above.
+\cite{ErdosHarness26}.  Running it with the default parameters computes the cell
+masses by splitting grid cells at the exact breakpoints $1/h$, performs the
+four interval convolutions with an explicit FFT round-off enclosure, and
+reproduces intervals contained in the certified intervals displayed above.
 
 Let $c_s^{(r)}$ be the interval convolution coefficients
 \[
@@ -129,11 +130,12 @@ $m_i=F(i/N)-F((i-1)/N)$ is enclosed by
   \bigl(F_{\rm up}(i/N)-F_{\rm dn}((i-1)/N)\bigr).
 \end{aligned}
 \]
-The convolution coefficients $c_s^{(r)}$ are then formed by interval
-product-summation, rounding each product and each accumulated partial sum
-outward.  If an FFT or another accelerated convolution routine is used, its
-floating-point round-off must itself be bounded outward and added to the final
-intervals; the displayed certification does not rely on an unbounded
+The convolution coefficients $c_s^{(r)}$ are then enclosed by interval
+polynomial multiplication.  A direct implementation may round each product and
+each accumulated partial sum outward.  The reference script uses an FFT
+accelerator, but encloses its floating-point round-off by an explicit
+$\ell^1$-error bound for each convolution and propagates that bound through the
+later products.  Thus the displayed certification does not rely on an unbounded
 floating-point FFT error model.
 
 A direct grid computation of the same integrals gives the convergence displayed
