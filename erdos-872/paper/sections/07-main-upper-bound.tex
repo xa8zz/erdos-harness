@@ -84,6 +84,53 @@ the lower-profile function is
 \[
   \rhoU(u) = \frac{1}{(\lfloor 1/u \rfloor+1)u} = \frac{1}{(h+1)u}.
 \]
+\Cref{fig:lower-profile} plots this piecewise-hyperbolic profile on $(0, 1]$.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.85\textwidth,
+    height=5.5cm,
+    xmin=0.12, xmax=1.02,
+    ymin=0, ymax=1.1,
+    xlabel={$u = \log X / \log n$},
+    ylabel={$\rho(u)$},
+    xtick={0.1667, 0.2, 0.25, 0.3333, 0.5, 1},
+    xticklabels={$\tfrac{1}{6}$, $\tfrac{1}{5}$, $\tfrac{1}{4}$, $\tfrac{1}{3}$, $\tfrac{1}{2}$, $1$},
+    ytick={0.5, 0.6667, 0.75, 0.8, 0.8333, 1},
+    yticklabels={$\tfrac{1}{2}$, $\tfrac{2}{3}$, $\tfrac{3}{4}$, $\tfrac{4}{5}$, $\tfrac{5}{6}$, $1$},
+    axis lines=left,
+    tick label style={font=\scriptsize},
+    label style={font=\small},
+    every axis plot/.append style={very thick, blue}
+]
+  % Piece h=1 on (1/2, 1]: rho(u) = 1/(2u)
+  \addplot[domain=0.5:1, samples=80] {1/(2*x)};
+  % Piece h=2 on (1/3, 1/2]: rho(u) = 1/(3u)
+  \addplot[domain=0.3334:0.5, samples=80] {1/(3*x)};
+  % Piece h=3 on (1/4, 1/3]: rho(u) = 1/(4u)
+  \addplot[domain=0.2501:0.3333, samples=80] {1/(4*x)};
+  % Piece h=4 on (1/5, 1/4]: rho(u) = 1/(5u)
+  \addplot[domain=0.2001:0.25, samples=80] {1/(5*x)};
+  % Piece h=5 on (1/6, 1/5]: rho(u) = 1/(6u)
+  \addplot[domain=0.1667:0.2, samples=80] {1/(6*x)};
+
+  % Vertical discontinuity markers (dotted) at each breakpoint
+  \foreach \b in {0.5, 0.3333, 0.25, 0.2} {
+    \addplot[dotted, gray, forget plot] coordinates {(\b, 0) (\b, 1)};
+  }
+\end{axis}
+\end{tikzpicture}
+\caption{The lower-profile function $\rho(u) = 1/((\lfloor 1/u\rfloor+1)u)$ on
+$(0, 1]$. On each interval $(1/(h+1), 1/h]$ with $h \ge 1$, $\rho$ is the
+strictly decreasing hyperbola $u \mapsto 1/((h+1)u)$, jumping up to $1$ at
+each left endpoint $u = 1/(h+1)^+$ and descending to $h/(h+1)$ at $u = 1/h$.
+The monotone right-continuous cumulative envelope built in
+\Cref{lem:right-continuous-cumulative-envelope} and inverted in
+\Cref{lem:generalized-inverse-comparison} is derived from this profile.}
+\label{fig:lower-profile}
+\end{figure}
 
 \begin{lemma}[Local prime-count per range]\label{lem:prime-count-per-range}
 Let Shortener follow the smallest-legal-odd-prime strategy.  Fix an integer
