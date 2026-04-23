@@ -34,23 +34,20 @@ $P\subseteq A\cap \U_n$.  Then
   % Prefix P inside U_n
   \node[subset] (P) at (5.5, 0.4) {$P$};
 
-  % Residual L_n(P) inside L_n
-  \node[residual] (LP) at (0, -0.3) {$\mathcal{L}_n(P)$};
+  % Residual L_n(P) inside L_n -- label moved above so dots don't collide
+  \node[residual, label=above:{\footnotesize $\mathcal{L}_n(P)$}] (LP) at (0, -0.3) {};
 
-  % Antichain B inside L_n(P), drawn as three small dots
-  \node[antichain] (b1) at (-0.55, -0.35) {};
-  \node[antichain] (b2) at (0,     -0.25) {};
-  \node[antichain] (b3) at (0.55,  -0.35) {};
-  \node[right=1pt of b3, font=\scriptsize] {$B$};
+  % Antichain B inside L_n(P), three red dots
+  \node[antichain] (b1) at (-0.55, -0.25) {};
+  \node[antichain] (b2) at (0,     -0.35) {};
+  \node[antichain] (b3) at (0.55,  -0.25) {};
 
   % Divisibility arrows from B to U_n \ P
   \draw[arr] (b1) to[bend left=5]  (4.1, 0.25);
   \draw[arr] (b2) to[bend left=0]  (4.3, -0.15);
   \draw[arr] (b3) to[bend right=5] (4.2, -0.5);
+  \node[above right=0pt and 2pt of b3, font=\scriptsize, fill=white, inner sep=0.5pt] {$B$};
 
-  % Caption-style label
-  \node[below=16pt of L, font=\scriptsize] {$w_n(x) = |\mathcal{M}_n(x)| - 1$};
-  \node[below=16pt of U, font=\scriptsize] {$\mathcal{U}_n \setminus P$};
 \end{tikzpicture}
 \caption{The shield reduction framework. A prefix $P \subseteq \mathcal{U}_n$
 of Shortener-captured upper-half elements defines the residual
