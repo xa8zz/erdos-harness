@@ -11,6 +11,57 @@ $P\subseteq A\cap \U_n$.  Then
 \]
 \end{theorem}
 
+\Cref{fig:shield-reduction} illustrates the setup.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[
+    scale=1.0,
+    box/.style={draw, rectangle, minimum width=3.2cm, minimum height=2.2cm, thick, rounded corners=1pt},
+    subset/.style={draw, rectangle, minimum width=1.4cm, minimum height=0.7cm, thick, fill=blue!15, rounded corners=1pt},
+    residual/.style={draw, rectangle, minimum width=1.8cm, minimum height=0.9cm, thick, fill=green!15, rounded corners=1pt},
+    antichain/.style={draw, circle, inner sep=0pt, minimum size=4pt, fill=red!70!black},
+    arr/.style={-{Latex[length=2mm]}, dashed, gray!60!black, thin}
+]
+  % Lower-half ambient box
+  \node[box] (L) at (0, 0) {};
+  \node[above=2pt of L] {$L_n = \{2, \ldots, \lfloor n/2 \rfloor\}$};
+
+  % Upper-half ambient box
+  \node[box] (U) at (5.5, 0) {};
+  \node[above=2pt of U] {$\mathcal{U}_n = (n/2, n]$};
+
+  % Prefix P inside U_n
+  \node[subset] (P) at (5.5, 0.4) {$P$};
+
+  % Residual L_n(P) inside L_n
+  \node[residual] (LP) at (0, -0.3) {$\mathcal{L}_n(P)$};
+
+  % Antichain B inside L_n(P), drawn as three small dots
+  \node[antichain] (b1) at (-0.55, -0.35) {};
+  \node[antichain] (b2) at (0,     -0.25) {};
+  \node[antichain] (b3) at (0.55,  -0.35) {};
+  \node[right=1pt of b3, font=\scriptsize] {$B$};
+
+  % Divisibility arrows from B to U_n \ P
+  \draw[arr] (b1) to[bend left=5]  (4.1, 0.25);
+  \draw[arr] (b2) to[bend left=0]  (4.3, -0.15);
+  \draw[arr] (b3) to[bend right=5] (4.2, -0.5);
+
+  % Caption-style label
+  \node[below=16pt of L, font=\scriptsize] {$w_n(x) = |\mathcal{M}_n(x)| - 1$};
+  \node[below=16pt of U, font=\scriptsize] {$\mathcal{U}_n \setminus P$};
+\end{tikzpicture}
+\caption{The shield reduction framework. A prefix $P \subseteq \mathcal{U}_n$
+of Shortener-captured upper-half elements defines the residual
+$\mathcal{L}_n(P) = \{x \in L_n : x \nmid u \text{ for every } u \in P\}$.
+The weighted antichain $B \subseteq \mathcal{L}_n(P)$ maximizing
+$\sum_{x \in B} w_n(x)$ realizes the quantity $\beta_n(P)$.
+\Cref{thm:shield-reduction} gives $|A| \ge |\mathcal{U}_n| - \beta_n(P)$
+for any terminal antichain $A$.}
+\label{fig:shield-reduction}
+\end{figure}
+
 \begin{proof}
 Put
 \[
