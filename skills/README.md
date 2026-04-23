@@ -10,7 +10,6 @@ Reusable Claude Code skills extracted from a 56-round multi-agent research progr
 | `write-audit-prompt` | "write me an audit prompt", "give me the audit" | Produce an informal-audit prompt for verifier tabs |
 | `sync-research-state` | "update our docs", "sync current state" | Targeted diff update to the state doc |
 | `commit-round` | "commit", "push", "commit first" | Commit a round's artifacts with proper scoping |
-| `save-pasted-response` | User pastes content + asks to save | Extract from session jsonl byte-faithfully |
 | `progress-zoom-out` | "help me zoom out", "where are we" | Honest synthesis of program status |
 | `write-codex-task` | "write me a codex task", "draft a codex prompt" | Produce a Codex workspace task |
 | `pre-compact-capture` | "im going to compact", "self-update" | Sweep for unpersisted state before compaction |

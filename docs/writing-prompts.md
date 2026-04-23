@@ -185,7 +185,7 @@ Use skill: **`write-codex-task`**. Context differences from a fresh-thread resea
 
 Shortest prompts. The agent has workspace access and prior session context. Rely on skills:
 
-- "Use `save-pasted-response` for this paste"
+- "Save this paste via `add-round-doc`"
 - "Commit via `commit-round`"
 - "Run `progress-zoom-out` to remind me where we are"
 

@@ -20,7 +20,7 @@ Run through each category, confirm or fix:
 1. **Unsaved pasted content**
    - Check recent user messages for multi-paragraph pastes.
    - For each, verify the target file contains it (use `grep` on a distinctive phrase).
-   - If missing, extract via `save-pasted-response` skill.
+   - If missing, save via `add-round-doc` skill.
 
 2. **Uncommitted changes**
    - Run `git status`.

@@ -28,6 +28,7 @@ docs/
   round-doc-schema.md
   short_user_messages.md
   transcript-patterns.md
+  writing-prompts.md
 erdos-872/
   _forum_transcript.md
   aristotle/
@@ -761,7 +762,6 @@ skills/
   README.md
   add-round-doc.md
   commit-round.md
-  onboard-personal.md
   paper-review/
     SKILL.md
     automated-review-guide/
@@ -782,7 +782,6 @@ skills/
       SKILL.md
   pre-compact-capture.md
   progress-zoom-out.md
-  save-pasted-response.md
   sync-research-state.md
   write-audit-prompt.md
   write-codex-task.md
@@ -791,7 +790,6 @@ templates/
   adversarial-audit.md
   informal-audit.md
   round-doc.md
-  writing-prompts.md
 ```
 <!-- REPO_TREE_END -->
 
@@ -916,7 +914,7 @@ YAML
 
 Fall back manually: write frontmatter + body to the target file (via a short Python extraction of the jsonl → file), recompile, commit. But always reach for `scripts/add_round_doc.py` first — it's been hardened against edge cases.
 
-Full schema: `docs/round-doc-schema.md`. Supporting skills: `skills/add-round-doc.md`, `skills/save-pasted-response.md`.
+Full schema: `docs/round-doc-schema.md`. Workflow detail: `skills/add-round-doc.md`.
 
 ## Skills — delegate workflows to these
 
@@ -929,8 +927,7 @@ Trigger-action skills live in `skills/`. The critical protocols (paste handling 
 | Writing a Codex task (workspace-aware) | `write-codex-task` |
 | Syncing the state doc | `sync-research-state` |
 | Committing a round | `commit-round` |
-| Saving a pasted response (byte-faithful extraction) | `save-pasted-response` |
-| Adding a round doc with YAML front-matter | `add-round-doc` |
+| Adding a round doc with YAML front-matter (byte-faithful extraction + frontmatter) | `add-round-doc` |
 | Zooming out on progress (honest, not reframed) | `progress-zoom-out` |
 | Pre-compaction sweep | `pre-compact-capture` |
 
@@ -940,7 +937,7 @@ Reference these whenever drafting. The `writing-prompts.md` doc is the main prom
 
 | Template | Purpose |
 |---|---|
-| `templates/writing-prompts.md` | **Main prompting reference.** Researcher prompt template, framing rules, good/bad examples, A/B/C branching, long-horizon observations. Context-specific guidance for researcher / follow-up / audit / Codex / local-agent / third-party recipients. |
+| `docs/writing-prompts.md` | **Main prompting reference.** Researcher prompt template, framing rules, good/bad examples, A/B/C branching, long-horizon observations. Context-specific guidance for researcher / follow-up / audit / Codex / local-agent / third-party recipients. |
 | `templates/informal-audit.md` | Default audit prompt body (short, for routine per-round audits) |
 | `templates/adversarial-audit.md` | Sharper audit prompt body (for claims about to be promoted to `Established`) |
 | `templates/round-doc.md` | Blank round-doc scaffold with YAML front-matter |
@@ -949,13 +946,13 @@ Reference these whenever drafting. The `writing-prompts.md` doc is the main prom
 
 - **Factual-completeness doctrine.** Your role is factual completeness, not synthesis. Give the primary model the most complete map you can — everything established (with proof sketches), everything ruled out (with specific failure mechanisms), all numerical evidence — and let it find the pattern. Compress vague prose; never compress factual detail. Specific primes, shield sets, lemmas, constants are the whole point.
 - **Cross-family convergence as truth signal.** Agreement among verifiers from different model families (Pro + Gemini + Claude) is stronger signal than within-family agreement.
-- **Every sentence is a constraint on reasoning time.** Each word in a dispatched prompt constrains real cycles. Validated, high-signal content only. See `templates/writing-prompts.md` for full framing rules.
+- **Every sentence is a constraint on reasoning time.** Each word in a dispatched prompt constrains real cycles. Validated, high-signal content only. See `docs/writing-prompts.md` for full framing rules.
 - **Per-round commits.** Git is the durability layer. Saved-but-uncommitted files are as lost as non-existent ones. See `commit-round` skill.
 - **Immutable round-doc front-matter.** Once written, don't edit. Status is derived from the `action` graph. If a later round overrides an earlier one, compose a new round with `action.kind: refutes | supersedes | extends` and a pointer to the target `id`.
 
 ## Long-horizon observations (diagnostic frames)
 
-Patterns that surface at 10+ rounds on a single problem. Apply when a line of attack stalls. Full detail and audit prompts in `templates/writing-prompts.md` § Long-horizon observations.
+Patterns that surface at 10+ rounds on a single problem. Apply when a line of attack stalls. Full detail and audit prompts in `docs/writing-prompts.md` § Long-horizon observations.
 
 - **Strategy-assumption audit (σ\*-trap)** — if 10+ rounds of theorem–refutation cycles fail to close, audit whether the assumed adversary strategy is actually optimal. Partition prior results into strategy-independent / strategy-dependent / strategy-specific-refutations.
 - **Within-family attractor states** — when the same model family independently produces structurally similar flawed arguments, that's lower signal than cross-family convergence but useful as a map of the family's attractor basins. Add refuted attractors to Ruled Out so fresh threads in that family don't re-derive.
@@ -990,7 +987,7 @@ Concretely, when you catch yourself dispatching variant N+1 of the same framing:
 
 Rule of thumb: **if the same prompt's third attempt produces the same failure mode, the problem is not the agent.** It is the prompt, the state view, or both. Fix those before dispatching again.
 
-See `templates/writing-prompts.md` for the full framing rules (universal rules, per-recipient shapes, A/B/C branching, diagnostic frames). See `skills/progress-zoom-out.md` for honest program-level synthesis when you need to zoom out before deciding what to prompt on at all.
+See `docs/writing-prompts.md` for the full framing rules (universal rules, per-recipient shapes, A/B/C branching, diagnostic frames). See `skills/progress-zoom-out.md` for honest program-level synthesis when you need to zoom out before deciding what to prompt on at all.
 
 ## Per-problem folder conventions
 

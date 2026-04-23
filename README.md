@@ -10,7 +10,7 @@ For the generic, clonable version of this harness (no Erdős content — just th
 |---|---|
 | `erdos-872/` | Ongoing research on Erdős Problem #872 — round docs, prompts, formal verifications, phase probes, paper |
 | `scripts/` | Infrastructure: alphaxiv MCP client, round-doc extractor, state compiler, transcript miner |
-| `skills/` | Reusable Claude Code skills for the curator agent (`write-followup-prompt`, `write-audit-prompt`, `progress-zoom-out`, `commit-round`, `save-pasted-response`, `sync-research-state`, `write-codex-task`, `pre-compact-capture`, `add-round-doc`, plus the `paper-review/` bundle) |
+| `skills/` | Reusable Claude Code skills for the curator agent (`write-followup-prompt`, `write-audit-prompt`, `progress-zoom-out`, `commit-round`, `sync-research-state`, `write-codex-task`, `pre-compact-capture`, `add-round-doc`, plus the `paper-review/` bundle) |
 | `templates/` | Prompting + round-doc templates (writing-prompts reference, informal + adversarial audit, round-doc scaffold) |
 | `chat-export/` | Scripts for exporting/submitting to chatgpt.com, claude.ai, gemini.google.com, erdosproblems.com via agent-browser |
 | `safari-llm/` | Browser-automation CLI for Safari-based workflow |

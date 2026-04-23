@@ -68,4 +68,4 @@ Follow-up shape for such claims:
 
 > "Your state inequality is sound as proved; the translation to L(n) = o(n) requires independently bounding [specific scored quantity] under [specific strategy]. Either prove that bound explicitly, or refine the claim to 'conditional sublinear bound modulo this lemma.'"
 
-Retractions and refinements are productive outputs — encourage them explicitly. See `templates/writing-prompts.md` §"Long-horizon observations" for the full pattern.
+Retractions and refinements are productive outputs — encourage them explicitly. See `docs/writing-prompts.md` §"Long-horizon observations" for the full pattern.
