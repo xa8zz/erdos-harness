@@ -23,6 +23,45 @@ has size $5n/24+O(1)$, and there is a matching packing of lower-half
 witnesses of the same size up to $O(1)$.
 \end{theorem}
 
+See \Cref{fig:cover-5-24} for the explicit construction.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[scale=1.0, xscale=0.55]
+  % x-axis: u from n/2 to n, rescaled to [0, 12]
+  \draw[thick] (0, -0.5) -- (12, -0.5);
+  \foreach \x/\l in {0/{$n/2$}, 4/{$2n/3$}, 12/{$n$}} {
+    \draw (\x, -0.45) -- (\x, -0.55);
+    \node[below, font=\scriptsize] at (\x, -0.55) {\l};
+  }
+
+  % Four residue-class bands, top to bottom: r = 0, 1, 2, 3 (mod 4)
+  \foreach \y/\r in {3/{$\equiv 0 \pmod 4$}, 2/{$\equiv 1 \pmod 4$}, 1/{$\equiv 2 \pmod 4$}, 0/{$\equiv 3 \pmod 4$}} {
+    \draw[thick] (0, \y) rectangle (12, \y + 0.8);
+    \node[left, font=\scriptsize] at (0, \y + 0.4) {\r};
+  }
+
+  % Cover piece 1: all u \equiv 2 (mod 4)
+  \fill[blue!25] (0, 1.05) rectangle (12, 1.75);
+  \node[font=\scriptsize] at (6, 1.4) {cover piece 1: $u \equiv 2 \pmod 4$};
+
+  % Cover piece 2: u > 2n/3 and u \equiv 0 (mod 4)
+  \fill[blue!25] (4, 3.05) rectangle (12, 3.75);
+  \node[font=\scriptsize] at (8, 3.4) {cover piece 2: $u > 2n/3$, $u \equiv 0 \pmod 4$};
+
+  % Annotation of total
+  \node[below, font=\small] at (6, -1.4) {$|H_n| = \tfrac{5n}{24} + O(1)$};
+\end{tikzpicture}
+\caption{The exact first-hit cover $H_n$ from \Cref{thm:intro-cover}.
+Upper-half elements are stratified by residue mod $4$. The cover consists
+of all $u \equiv 2 \pmod 4$ (entire band) together with $u \equiv 0 \pmod 4$
+restricted to $u > 2n/3$ (right portion of the $\equiv 0$ band). Residue
+classes $\equiv 1$ and $\equiv 3$ are odd and require no cover element
+beyond their own presence. The matching lower-half packing (not shown)
+gives $\tau(n) = 5n/24 + O(1)$.}
+\label{fig:cover-5-24}
+\end{figure}
+
 \begin{proof}
 We prove matching upper and lower bounds.
 
