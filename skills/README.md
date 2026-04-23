@@ -14,6 +14,7 @@ Reusable Claude Code skills extracted from a 56-round multi-agent research progr
 | `progress-zoom-out` | "help me zoom out", "where are we" | Honest synthesis of program status |
 | `write-codex-task` | "write me a codex task", "draft a codex prompt" | Produce a Codex workspace task |
 | `pre-compact-capture` | "im going to compact", "self-update" | Sweep for unpersisted state before compaction |
+| `paper-review/` | "review this paper", "write a rebuttal", "critique this manuscript" | 8-skill bundle (directory-based) — peer review, rebuttals, critique framework, literature reviews. Imported from LobeHub/wentorai. |
 
 ## Install
 
