@@ -1,33 +1,23 @@
-# erdos-harness — a vibe-research harness
+# erdos-harness
 
-A long-horizon multi-agent harness for AI-assisted research on open math problems. Currently being used for work on **Erdős Problem #872** (the antichain divisibility game). Also a forkable template for your own research on any problem.
+A long-horizon multi-agent research harness applied to **Erdős Problem #872** (the antichain divisibility game). This repo is the working record of that research — round docs, prompts, formal verifications, phase probes, and the paper.
+
+For the generic, clonable version of this harness (no Erdős content — just the operating manual, skills, templates, and scripts), see the companion `erdos-co-researcher` starter repo.
 
 ## What's here
 
 | Path | Purpose |
 |---|---|
-| `erdos-872/` | Ongoing research on Erdős Problem #872 — ~280 round docs, prompts, formal verifications, phase probes |
+| `erdos-872/` | Ongoing research on Erdős Problem #872 — round docs, prompts, formal verifications, phase probes, paper |
 | `scripts/` | Infrastructure: alphaxiv MCP client, round-doc extractor, state compiler, transcript miner |
-| `skills/` | Ten reusable Claude Code skills (`write-followup-prompt`, `write-audit-prompt`, `progress-zoom-out`, `commit-round`, `save-pasted-response`, `sync-research-state`, `write-codex-task`, `pre-compact-capture`, `add-round-doc`, `onboard-personal`) |
-| `templates/` | Generic templates (round-doc front-matter, informal-audit prompt) |
+| `skills/` | Reusable Claude Code skills for the curator agent (`write-followup-prompt`, `write-audit-prompt`, `progress-zoom-out`, `commit-round`, `save-pasted-response`, `sync-research-state`, `write-codex-task`, `pre-compact-capture`, `add-round-doc`, plus the `paper-review/` bundle) |
+| `templates/` | Prompting + round-doc templates (writing-prompts reference, informal + adversarial audit, round-doc scaffold) |
 | `chat-export/` | Scripts for exporting/submitting to chatgpt.com, claude.ai, gemini.google.com, erdosproblems.com via agent-browser |
 | `safari-llm/` | Browser-automation CLI for Safari-based workflow |
 | `mcp-servers/` | Custom MCP servers (deep-think) |
 | `docs/` | Schema specs, planning, transcript analyses |
-| `CLAUDE.md` | Operating manual — multi-role harness, prompt templates, framing rules, commit discipline |
-| `AGENTS.md` | Mirror for OpenAI Codex-family agents |
-
-## If you want to fork this for your own research
-
-1. Click **"Use this template"** on GitHub (or clone manually).
-2. Open the fork in Claude Code (or another agentic CLI).
-3. Run **`/onboard-personal`** — a skill-driven interview that:
-   - Inventories what's in the repo
-   - Asks what to keep / archive / remove (including the Erdős 872 content)
-   - Scaffolds a new problem directory for your work
-   - Resets curator memory
-   - Personalizes authorship
-4. Start dispatching research prompts. See `CLAUDE.md` for the operating manual.
+| `CLAUDE.md` | Operating manual — the curator agent's full instructions |
+| `AGENTS.md` | Mirror of CLAUDE.md for OpenAI Codex-family agents |
 
 ## If you want to read the Erdős 872 work
 
@@ -56,7 +46,7 @@ Named failure modes surfaced during the Erdős 872 program (load-bearing for the
 
 ## Authorship
 
-Built and run by [you — fill in via `/onboard-personal`]. Primary research by GPT Pro + DeepThink + Codex across ~56 dispatch rounds. Formal verification via Harmonic's Aristotle. Curation + synthesis via Claude Code.
+Primary research by GPT Pro + DeepThink + Codex across ~60 dispatch rounds. Formal verification via Harmonic's Aristotle. Curation + synthesis via Claude Code.
 
 ## License
 

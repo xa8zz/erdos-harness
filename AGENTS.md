@@ -933,7 +933,6 @@ Trigger-action skills live in `skills/`. The critical protocols (paste handling 
 | Adding a round doc with YAML front-matter | `add-round-doc` |
 | Zooming out on progress (honest, not reframed) | `progress-zoom-out` |
 | Pre-compaction sweep | `pre-compact-capture` |
-| Onboarding a fresh fork | `onboard-personal` |
 
 ## Templates — for composing prompts
 
