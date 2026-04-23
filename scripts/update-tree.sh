@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
-# Regenerates the repo file tree and splices it into CLAUDE.md between
-# <!-- REPO_TREE_BEGIN --> and <!-- REPO_TREE_END --> markers.
+# Regenerates the repo file tree, splices it into CLAUDE.md between
+# <!-- REPO_TREE_BEGIN --> and <!-- REPO_TREE_END --> markers, then copies
+# CLAUDE.md wholesale to AGENTS.md to guarantee content parity.
+#
+# CLAUDE.md is the source of truth. AGENTS.md is a mirror for Codex.
+# Edit CLAUDE.md; run this script; both files stay byte-identical.
 #
 # Invoked by the SessionStart hook in .claude/settings.json, and can be
 # run manually as `./scripts/update-tree.sh` whenever you want a refresh
@@ -10,7 +14,8 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-CLAUDE_MD="CLAUDE.md"
+SOURCE="CLAUDE.md"
+MIRROR="AGENTS.md"
 BEGIN="<!-- REPO_TREE_BEGIN -->"
 END="<!-- REPO_TREE_END -->"
 TMP_BLOCK=$(mktemp)
@@ -44,9 +49,9 @@ trap 'rm -f "$TMP_BLOCK"' EXIT
   echo "$END"
 } > "$TMP_BLOCK"
 
-if grep -qF "$BEGIN" "$CLAUDE_MD" && grep -qF "$END" "$CLAUDE_MD"; then
+if grep -qF "$BEGIN" "$SOURCE" && grep -qF "$END" "$SOURCE"; then
   # Splice in-place. Python handles multi-line replacement robustly.
-  python3 - "$CLAUDE_MD" "$BEGIN" "$END" "$TMP_BLOCK" <<'PY'
+  python3 - "$SOURCE" "$BEGIN" "$END" "$TMP_BLOCK" <<'PY'
 import sys, re, pathlib
 target = pathlib.Path(sys.argv[1])
 begin, end, block_path = sys.argv[2], sys.argv[3], sys.argv[4]
@@ -62,6 +67,9 @@ else
   tmp_out=$(mktemp)
   cat "$TMP_BLOCK" > "$tmp_out"
   echo "" >> "$tmp_out"
-  cat "$CLAUDE_MD" >> "$tmp_out"
-  mv "$tmp_out" "$CLAUDE_MD"
+  cat "$SOURCE" >> "$tmp_out"
+  mv "$tmp_out" "$SOURCE"
 fi
+
+# Mirror CLAUDE.md → AGENTS.md verbatim for content parity.
+cp "$SOURCE" "$MIRROR"
