@@ -12,4 +12,8 @@ Problem relevant content at:
 I primarily use this with Claude Code as the main co-researcher with Codex as a secondary co-researcher for more technical work like proving in lean. Claude is better at prompting and has 1M context available on Claude Code Max to be able to help synthesize over large amounts of compiled frontmatter from rounds and use prompt skills to synthesize/strategize with you.
 
 
+How co-researcher works:
+
+![](docs/harness-loop.svg)
+
 License: MIT for code, CC-BY 4.0 for research artifacts.
