@@ -1,68 +1,67 @@
-# Headline: experiment blocked before separator sweep because no genuine plateau flag-SDP pseudo-moment export was available locally.
+# Headline: all three Phase 1 unlock paths blocked before the q=5..7 de Finetti sweep.
 
 ## Summary
 
-This run implemented the finite-extendibility pipeline but did not test the
-Razborov-style plateau pseudo-extremizer itself. The local environment had
-`numpy`, `scipy`, `pandas`, and `sympy`, but no `flagmatic`, `CSDP`, `SDPA`, or
-`cvxpy`; no existing plateau pseudo-moment vector was present in the repository.
-The `flag_sdp_r{r}.json` artifacts for `r = 5, 6, 7` therefore fail closed with
-`status: blocked` and record the missing backend/export. Because Phase 1 did not
-produce genuine pseudo-moments, Phases 2-4 were not run on research data, and no
-mathematical conclusion about `P_q(c) cap E_{q,Q}` should be inferred from this
-run.
+This run partially unlocked the tooling but not the required Phase 1 artifact.
+Flagmatic 1.5.1 and CSDP 6.2.0 were built successfully, and the standard
+K4-free order-6 Flagmatic run reproduced the published plateau-ish bound
+`0.56166560`. Its CSDP solution contains a genuine primal probability vector
+over the 964 admissible 6-vertex K4-free types, summing to 1 and giving edge
+density `0.5616656023358584`. However, this is still insufficient for the
+requested experiment: q-profile extraction for `q in {5,6,7}` needs type moments
+on `q+3 in {8,9,10}` vertices, and the required Phase 1 contract asks for
+7-10 vertex type moments.
 
-## Implemented Artifacts
+No `flag_sdp_r{r}.json` artifact was changed to `status: "ok"`, and Phases 2-5
+were not run on research data.
 
-| File | Status | Notes |
-|---|---:|---|
-| `scripts/k43_flag_sdp.py` | implemented | Normalizes an external genuine pseudo-moment export, or emits a blocked artifact when no SDP backend is available. |
-| `scripts/extract_q_column_profile.py` | implemented | Computes rooted-edge q-column occupancy profiles exactly from rational type moments on at least `q+3` vertices. |
-| `scripts/test_extendibility.py` | implemented | Builds exact hypergeometric vertices of `E_{q,Q}` and uses SciPy/HiGHS for LP membership; attempts a normalized float separator if infeasible. |
-| `scripts/rationalize_separator.py` | implemented | Rounds a float separator to rationals and independently verifies exact separation over all hypergeometric vertices. |
-| `erdos-500/phase0/flag_sdp_r5.json` | blocked | No local SDP backend/export. |
-| `erdos-500/phase0/flag_sdp_r6.json` | blocked | No local SDP backend/export. |
-| `erdos-500/phase0/flag_sdp_r7.json` | blocked | No local SDP backend/export. |
+## Unlock Path Outcomes
+
+| Path | Outcome | Blocker |
+|---:|---|---|
+| 1 | partial tooling success | Flagmatic+CSDP reproduces order-6 K4 bound, but only yields 6-vertex type moments; n=7 bounded attempt made no progress and still would not cover q=5-7. |
+| 2 | blocked | Public sources found transcripts and rational dual/regularity data, including arXiv:1201.3587 `K4.txt`, but no primal 7-10 vertex pseudo-moment export. |
+| 3 | blocked | `cvxpy`, `SCS`, and `CLARABEL` installed, but no validated from-scratch high-order moment-extension implementation was completed. |
+
+Full command-level details are in `erdos-500/phase0/unlock_log.md`.
 
 ## Sweep Table
 
 | r | q | Q range | Outcome | Certificate |
 |---:|---:|---|---|---|
-| 5 | 4-7 | q..q+4 | not run | blocked before pseudo-profile extraction |
-| 6 | 4-7 | q..q+4 | not run | blocked before pseudo-profile extraction |
-| 7 | 4-7 | q..q+4 | not run | blocked before pseudo-profile extraction |
+| 5 | 5-7 | q..q+3 | not run | blocked before valid pseudo-profile extraction |
+| 6 | 5-7 | q..q+3 | not run | blocked before valid pseudo-profile extraction |
+| 7 | 5-7 | q..q+3 | not run | blocked before valid pseudo-profile extraction |
 
-## Anomalies
+## Useful Artifacts
 
-- The requested `r = 5, 6, 7` plateau pseudo-extremizer is not recoverable from
-  the current repository files alone. The existing R02 writeup reports a weaker
-  independent certificate, but it does not include a machine-readable primal
-  pseudo-moment vector and is not the target plateau object.
-- The requested q-profile extraction needs type moments on at least `q+3`
-  vertices. For `q in {4,5,6,7}`, that means 7-10 vertex type moments. Any
-  external export supplied to `extract_q_column_profile.py` must include those
-  coordinates or the script will reject it.
+| Artifact | Status | Notes |
+|---|---|---|
+| `~/.codex/bin/flagmatic-1.5.1` | installed locally | Built from `https://lidicky.name/flagmatic/flagmatic-1.5.1.zip`. |
+| `~/.codex/bin/csdp` | installed locally | Built from `https://github.com/coin-or/Csdp.git` with macOS-compatible flags. |
+| `/tmp/flagmatic-k4-output/flags.out` | ephemeral evidence | First row is the 964-coordinate order-6 primal vector from the reproduced K4 run. |
+| `/tmp/arxiv1201.3587/K4.txt` | ephemeral evidence | Rational dual/regularity data for the `0.5615` bound, not a usable primal export. |
 
-## Recommended Next Step
+## Recommendation
 
-Provide or generate a genuine flagmatic/Razborov plateau pseudo-moment export in
-the JSON contract documented by `scripts/k43_flag_sdp.py`, then rerun:
+The next real unlock is not another package install. It requires one of:
 
-```bash
-scripts/k43_flag_sdp.py --r 6 --external-json path/to/plateau_export.json --out erdos-500/phase0/flag_sdp_r6.json
-scripts/extract_q_column_profile.py --input erdos-500/phase0/flag_sdp_r6.json --q 5 --out erdos-500/phase0/q_profile_r6_q5.csv
-scripts/test_extendibility.py --r 6 --profile erdos-500/phase0/q_profile_r6_q5.csv --Q 7 --out erdos-500/phase0/extendibility_r6_q5_Q7.json
-```
+- a published or private primal plateau export with type moments on 7-10 vertex
+  K4-free isomorphism classes;
+- a long Flagmatic/Sage/CSDP run plus a mathematically justified way to extend
+  the order-6 pseudo-solution to 8-10 vertex coordinates;
+- a new, validated implementation of the high-order flag-algebra moment
+  extension recursion.
 
-If that LP is infeasible with a positive float margin, immediately run
-`scripts/rationalize_separator.py` on the resulting JSON and hand the exact
-certificate to a researcher round for publication-grade verification.
+Until then, running `scripts/extract_q_column_profile.py` for `q=5,6,7` would
+require fabricated or surrogate data, so the de Finetti separator diagnostic
+remains blocked rather than saturated.
 
 ## One-Paragraph Run Summary
 
-Outcome: no separator was tested at the requested scales, so neither a new upper
-bound nor a paradigm-exhaustion diagnostic is established. The useful deliverable
-from this run is a reproducible exact polytope/certificate pipeline that is ready
-to consume a real plateau pseudo-moment export; the only blocker is Phase 1
-access to `flagmatic`/SDP output or an equivalent machine-readable Razborov
-pseudo-extremizer.
+Outcome: all three requested Phase 1 unlock paths are blocked for the target
+q-range. The tooling situation improved materially: local Codex now has working
+`flagmatic-1.5.1` and `csdp`, and the standard K4 order-6 computation was
+reproduced. But no genuine 7-10 vertex plateau pseudo-moment export was found or
+generated, so no separator, rational certificate, or paradigm-exhaustion result
+was produced.
