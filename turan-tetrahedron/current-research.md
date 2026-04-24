@@ -1,18 +1,24 @@
-# Current Research — Turán's Tetrahedron Conjecture (π(K₄⁽³⁾))
+# Current Research — Turán's Tetrahedron Conjecture (π(K₄⁽³⁾)) — Erdős Problem #500
 
 Last updated: 2026-04-23. Working literature survey — not a round doc. Update when new results appear.
+
+**erdosproblems.com:** [Problem #500](https://www.erdosproblems.com/forum/thread/500) — OPEN, $500 prize.
+**Original references:** [Er61], [Er71, p.104], [Er74c, p.81], [Er81].
+**General case:** [Problem #712](https://www.erdosproblems.com/forum/thread/712) — π(K_k^r) for all k > r > 2; $500 per (k, r), $1000 for the whole family.
+**Forum activity:** 0 comments on #500 as of 2026-04-23.
+**Lean formalisation status:** none on erdosproblems.com as of 2026-04-23.
 
 ## 1. The problem in one paragraph
 
 Let K₄⁽³⁾ denote the complete 3-uniform hypergraph on 4 vertices (4 vertices, all 4 triples — the "tetrahedron"). For a 3-uniform hypergraph H on n vertices containing no K₄⁽³⁾ sub-hypergraph, set
 
-$$\mathrm{ex}(n, K_4^{(3)}) = \max |E(H)|.$$
+$$\mathrm{ex}_3(n, K_4^{(3)}) = \max |E(H)|.$$
 
 The **Turán density** is
 
-$$\pi(K_4^{(3)}) = \lim_{n \to \infty} \frac{\mathrm{ex}(n, K_4^{(3)})}{\binom{n}{3}}.$$
+$$\pi(K_4^{(3)}) = \lim_{n \to \infty} \frac{\mathrm{ex}_3(n, K_4^{(3)})}{\binom{n}{3}}.$$
 
-Turán (1941) conjectured π(K₄⁽³⁾) = 5/9. It is arguably the oldest unresolved problem in extremal hypergraph theory.
+Turán (1941) conjectured π(K₄⁽³⁾) = 5/9. It is arguably the oldest unresolved problem in extremal hypergraph theory. The exact problem as posed on erdosproblems.com asks for $\mathrm{ex}_3(n, K_4^3)$, not just the density — a stronger question than the limit constant.
 
 ## 2. Current best bounds
 
@@ -95,9 +101,9 @@ Best-guess — verify before dispatch.
 
 ## 10. Pending capture
 
-- erdosproblems.com forum transcript — to be pasted by user, saved byte-faithfully per CLAUDE.md protocol.
-- Erdős-problem-number on erdosproblems.com — to be located.
-- Phase 0 empirical probe: exact ex(n, K₄⁽³⁾) for small n (8 ≤ n ≤ ~15 likely computationally feasible).
+- erdosproblems.com forum transcript — captured from #500 page (0 comments) in `_forum_transcript.md`.
+- Erdős-problem-number on erdosproblems.com — **#500** (located 2026-04-23). General case: **#712**.
+- Phase 0 empirical probe: exact ex₃(n, K₄³) for small n (8 ≤ n ≤ ~15 likely computationally feasible).
 - Razborov's exact SDP certificate — pull the explicit dual object for potential Lean formalization of the upper bound.
 
 ## Sources
