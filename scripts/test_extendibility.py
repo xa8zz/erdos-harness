@@ -6,9 +6,9 @@ from __future__ import annotations
 import argparse
 from fractions import Fraction
 
-import numpy as np
 from scipy.optimize import linprog
-from scipy.sparse import coo_matrix, hstack, vstack
+from scipy.sparse import coo_matrix
+import numpy as np
 
 from de_finetti_utils import (
     frac_to_str,
@@ -41,9 +41,9 @@ def vertex_matrix(q: int, Q: int, occupations: list[tuple[int, ...]]):
 
 
 def solve_membership(matrix, profile: list[Fraction], tol: float):
-    n_cols = matrix.shape[1]
-    norm = coo_matrix(np.ones((1, n_cols))).tocsc()
-    a_eq = vstack([matrix, norm], format="csc")
+    dense = matrix.toarray()
+    n_cols = dense.shape[1]
+    a_eq = np.vstack([dense, np.ones((1, n_cols))])
     b_eq = np.array([float(x) for x in profile] + [1.0])
     result = linprog(
         c=np.zeros(n_cols),
@@ -57,13 +57,13 @@ def solve_membership(matrix, profile: list[Fraction], tol: float):
 
 
 def solve_l1_slack(matrix, profile: list[Fraction], tol: float):
-    rows, cols = matrix.shape
-    ident = coo_matrix(np.eye(rows)).tocsc()
-    norm = hstack([coo_matrix(np.ones((1, cols))).tocsc(), coo_matrix((1, rows)).tocsc()])
-    a_ub = vstack([hstack([matrix, -ident]), hstack([-matrix, -ident])], format="csc")
+    dense = matrix.toarray()
+    rows, cols = dense.shape
+    ident = np.eye(rows)
+    a_ub = np.vstack([np.hstack([dense, -ident]), np.hstack([-dense, -ident])])
     p = np.array([float(x) for x in profile])
     b_ub = np.concatenate([p, -p])
-    a_eq = norm
+    a_eq = np.hstack([np.ones((1, cols)), np.zeros((1, rows))])
     b_eq = np.array([1.0])
     c = np.array([0.0] * cols + [1.0] * rows)
     bounds = [(0, None)] * (cols + rows)
@@ -83,32 +83,16 @@ def solve_separator(vertices, exact_columns, profile: list[Fraction]):
     """Find a float separator with ||a||_1 <= 1, if one is visible."""
     m = len(profile)
     p = np.array([float(x) for x in profile])
-    rows = []
-    cols = []
-    data = []
+    a_rows = []
     b_ub = []
-    for j, col in enumerate(exact_columns):
+    for col in exact_columns:
         v = np.array([float(x) for x in col])
         diff = p - v
-        for i, value in enumerate(diff):
-            if value:
-                rows.append(j)
-                cols.append(i)
-                data.append(-value)
-                rows.append(j)
-                cols.append(m + i)
-                data.append(value)
-        rows.append(j)
-        cols.append(2 * m)
-        data.append(1.0)
+        a_rows.append(np.concatenate([-diff, diff, [1.0]]))
         b_ub.append(0.0)
-    norm_row = len(b_ub)
-    for i in range(2 * m):
-        rows.append(norm_row)
-        cols.append(i)
-        data.append(1.0)
+    a_rows.append(np.array([1.0] * (2 * m) + [0.0]))
     b_ub.append(1.0)
-    a_ub = coo_matrix((data, (rows, cols)), shape=(len(b_ub), 2 * m + 1)).tocsc()
+    a_ub = np.vstack(a_rows)
     c = np.array([0.0] * (2 * m) + [-1.0])
     bounds = [(0, None)] * (2 * m) + [(0, None)]
     result = linprog(c=c, A_ub=a_ub, b_ub=np.array(b_ub), bounds=bounds, method="highs")
@@ -126,7 +110,7 @@ def main() -> None:
     parser.add_argument("--Q", type=int, required=True)
     parser.add_argument("--r", type=int, required=True)
     parser.add_argument("--out", required=True)
-    parser.add_argument("--tol", type=float, default=1e-9)
+    parser.add_argument("--tol", type=float, default=1e-7)
     parser.add_argument("--max-witness-entries", type=int, default=200)
     args = parser.parse_args()
 
