@@ -260,3 +260,5 @@ See `commit-round` skill for the full safe-commit workflow and branch-hygiene ru
 - The standard Flagmatic K4 run ./flagmatic --r 3 --n 6 --forbid-k4 reproduces bound 0.56166560 and its flags.out first row is a 964-coordinate 6-vertex primal pseudo-moment vector, but it is not sufficient for de Finetti q=5..7 because those profiles need 8-10 vertex type moments.
 
 - For erdos-500 finite-extendibility LPs, SciPy/HiGHS can falsely report infeasible on sparse equality matrices with tight 1e-9 tolerances (observed on E_{3,3}, which is the simplex); use dense matrices for small q,Q and default-scale tolerance around 1e-7 before trusting infeasibility.
+
+- For erdos-500 de Finetti / Flagmatic lifts, unlabeled Flagmatic type densities must be projected to rooted labeled column profiles by averaging over all vertex labelings; using one canonical representative can create unsound separators and even fake bounds below the known 5/9 construction.
