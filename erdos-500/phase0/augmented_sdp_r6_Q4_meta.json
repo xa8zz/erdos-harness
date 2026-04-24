@@ -1,0 +1,23 @@
+{
+  "augmented_num_blocks": 9,
+  "edge_density_from_types": "2808328011679292007196980015471/5000000000000000000000000000000",
+  "edge_density_from_types_float": 0.5616656023358584,
+  "flag_json": "erdos-500/phase0/flag_sdp_r6.json",
+  "input_sdpa": "erdos-500/phase0/flagmatic_aug_base/flags.dat-s",
+  "label_average": true,
+  "max_type_coefficient": "27287600384502874713966056968471/1198219951649831256404044806600960",
+  "min_type_coefficient": "-949927716842085006255617810429/39940665054994375213468160220032",
+  "negative_edge_density_check": "-112333120467171681063235230313/200000000000000000000000000000",
+  "num_augmented_entries": 963,
+  "num_nonzero_type_coefficients": 963,
+  "num_type_coefficients": 964,
+  "original_num_blocks": 8,
+  "output_sdpa": "erdos-500/phase0/augmented_sdp_r6_Q4.dat-s",
+  "plateau_separator_unnormalized_score": "-18996464441844055635489165329629/1920000000000000000000000000000000",
+  "plateau_separator_unnormalized_score_float": -0.00989399189679378,
+  "q": 3,
+  "sdpa_dual_convention": "CSDP enforces A'(y)-C=Z>=0; appended entries are -b_i so -b.y>=0.",
+  "separator_json": "erdos-500/phase0/rational_certificate_r6_q3_Q4.json",
+  "separator_margin_rational": "381128343820415242305009028079/119821995164983125640404480660096",
+  "separator_profile_score_rational": "381128343820415242305009028079/119821995164983125640404480660096"
+}

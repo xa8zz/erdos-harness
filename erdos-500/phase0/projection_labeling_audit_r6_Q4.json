@@ -1,0 +1,14 @@
+{
+  "conclusion": "The 0.54905272 representative-label augmented SDP run is a diagnostic for the projection bug, not a Turan upper bound. The sound label-averaged augmentation leaves the order-6 bound at 0.56166560.",
+  "finding": "The R11 q=3 separator is not invariantly composable with unlabeled Flagmatic six-vertex type densities using one canonical representative labeling.",
+  "known_turan_construction_density": "5/9",
+  "known_turan_construction_normalized_separator_score": "-25687257684803416241309215531201/1797329927474746884606067209901440",
+  "known_turan_construction_normalized_separator_score_float": -0.014291898939720032,
+  "label_averaged_projection_plateau_score": "-18996464441844055635489165329629/1920000000000000000000000000000000",
+  "label_averaged_projection_plateau_score_float": -0.00989399189679378,
+  "representative_label_projection_plateau_score": "1143385031461245726915027084237/640000000000000000000000000000000",
+  "representative_label_projection_plateau_score_float": 0.0017865391116581965,
+  "unsymmetrized_augmented_bound_float": 0.5490527167865387,
+  "unsymmetrized_augmented_bound_is_below_5_9": true,
+  "unsymmetrized_augmented_bound_rational": "1372631791966346793685664043631/2500000000000000000000000000000"
+}
