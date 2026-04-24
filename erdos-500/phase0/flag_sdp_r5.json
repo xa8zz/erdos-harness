@@ -1,0 +1,27 @@
+{
+  "available_solvers": {
+    "csdp": false,
+    "flagmatic": false,
+    "sdpa": false
+  },
+  "dual_upper_bound": null,
+  "edge_density": null,
+  "error": "No local flag-algebra SDP backend or external plateau pseudo-moment export was available. Re-run with --external-json pointing at a genuine flagmatic/Razborov pseudo-extremizer export.",
+  "labeled_k4_free_type_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 2,
+    "4": 15,
+    "5": 768
+  },
+  "output_contract": {
+    "pseudo_moments": "parallel list is accepted for legacy consumers",
+    "types": "preferred: list of {'n': int, 'edges': [[i,j,k],...], 'moment': rational_or_decimal} records"
+  },
+  "pseudo_moments": [],
+  "r": 5,
+  "solver": "none",
+  "status": "blocked",
+  "target_plateau_density": 0.565,
+  "types": []
+}
