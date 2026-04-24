@@ -1,6 +1,6 @@
 # Current Research — Turán's Tetrahedron Conjecture (π(K₄⁽³⁾)) — Erdős Problem #500
 
-Last updated: 2026-04-23. Working literature survey — not a round doc. Update when new results appear.
+Last updated: 2026-04-23 (second pass: Liu–Mubayi no-stability result and Balogh–Clemen–Lidický ℓ₂-norm solution added after R03 literature audit).
 
 **erdosproblems.com:** [Problem #500](https://www.erdosproblems.com/forum/thread/500) — OPEN, $500 prize.
 **Original references:** [Er61], [Er71, p.104], [Er74c, p.81], [Er81].
@@ -50,6 +50,8 @@ Listed because each is either a direct relative, a competing paradigm, or a test
 - **Hypergraphs with quarter uniform Turán density** (Springer JORSC 2025, DOI 10.1007/s40305-025-00619-7).
 - **Entropy meets Turán** (Chao, J. London Math. Soc. 2026, DOI 10.1112/jlms.70473). Alternative proofs of known Turán-type results; does not break the π(K₄⁽³⁾) ceiling.
 - **Beyond the broken tetrahedron** (arXiv 2211.12747, CPC 2023). Extends the K₄⁽³⁾⁻ line; flag-algebra territory.
+- **A hypergraph Turán problem with no stability** (Liu–Mubayi, Combinatorica 2022, arXiv:1911.07969). **Structurally decisive for K₄⁽³⁾.** Constructs a finite triple-system family with multiple non-isomorphic near-extremal structures, proving the first hypergraph Turán family that provably *fails* to have a stability theorem. The paper's abstract notes that the classical Kostochka 1982 construction family implies the tetrahedron problem itself exhibits this phenomenon assuming Turán's conjecture. This means there is no unique "cyclic 3-partite template" for near-extremal K₄⁽³⁾-free graphs — the Brown / Kostochka / Fon-der-Flaass / Frohmader constructions produce exponentially many non-isomorphic families approaching 5/9 that differ substantially in edit-distance.
+- **Solving Turán's Tetrahedron Problem for the ℓ₂-norm** (Balogh–Clemen–Lidický, JLMS 2022, arXiv:2108.10406). Asymptotically solves the codegree-squared variant: max $\sum_{xy} d(x,y)^2$ over K₄⁽³⁾-free 3-graphs. Uses flag algebras plus a stability result *for the ℓ₂-norm problem specifically*. The classical ℓ₁ (density) problem remains open; the authors explicitly attribute the difficulty to the "exponentially many conjectured extremal examples."
 
 ## 5. Paradigms attempted on the main problem
 
@@ -57,7 +59,7 @@ Listed because each is either a direct relative, a competing paradigm, or a test
 |---|---|---|
 | Flag algebras (Razborov and successors) | ~0.5615 | Stalled at this ceiling for ~15 years |
 | Lagrangian method (Motzkin–Straus-style) | ≥ 0.593 | Subsumed by flag algebras |
-| Stability / iterated reduction | no sharper bound | Techniques help near-extremal analysis but no ceiling break |
+| Stability / iterated reduction | no sharper bound | Conditionally ruled out by Liu–Mubayi 2022: multiple non-isomorphic near-extremal families (Kostochka 1982) prevent the standard "near-extremal ⇒ close to template" formulation |
 | Hypergraph regularity (Rödl–Skokan, Gowers) | no sharper bound directly | Machinery for many extremal results but not π(K₄⁽³⁾) |
 | Blow-ups of finite configurations | 5/9 (matches) | No > 5/9 configuration found |
 | Polynomial method | n/a | Broke cap set (2016); no analog for K₄⁽³⁾ |
@@ -65,7 +67,8 @@ Listed because each is either a direct relative, a competing paradigm, or a test
 
 ## 6. Why the problem resists
 
-- **The 5/9 lower-bound construction appears unique.** 80+ years without a rival construction is strong circumstantial evidence the bound is tight. No natural algebraic structure has suggested an alternative.
+- **Exponentially many conjectured extremal families, not one.** Brown, Kostochka, Fon-der-Flaass, and Frohmader each constructed distinct K₄⁽³⁾-free 3-graph families conjectured to be extremal. Liu–Mubayi 2022 proved this multiplicity is genuine — near-extremal K₄⁽³⁾-free graphs (conditional on π = 5/9) cannot be consolidated into a single template by any standard stability argument. This is the load-bearing structural obstruction: the classical "prove stability + cleanup" route that worked for K₄⁽³⁾⁻ and many graph Turán problems is structurally unavailable here.
+- **The 5/9 density is matched by the cyclic 3-partite construction but is not uniquely attained.** The cyclic construction is the simplest known extremal family, not the only one. Any proof that π ≤ 5/9 must either (a) work with the full family of near-extremal constructions simultaneously, (b) pass to a different norm or problem variant where stability holds (c.f. Balogh–Clemen–Lidický 2022 for ℓ₂), or (c) bypass structural arguments entirely.
 - **The 0.5615 flag-algebra ceiling appears to be a structural limit.** Increasing the flag basis adds dimensions but no new arguments; SDP optimizations asymptote. A theorem that flag algebras *cannot* beat 0.5615 (analogue of Sherali–Adams integrality gap) would be genuine meta-progress — paradigm exhaustion in the R49/R52-zoom style even without closure.
 - **No obvious algebraic acceleration.** Unlike cap set (F₃ⁿ-linear structure admits polynomial method), K₄⁽³⁾ lives on [n] with no natural group action to exploit.
 - **Resists one-shot AI attacks.** Not on the current GPT-5.2/Aristotle solved or partial-solved Erdős-problems lists as of 2026-04-23.
@@ -91,7 +94,7 @@ Best-guess — verify before dispatch.
 
 ## 9. Candidate harness attack plan (sketch — to be refined by R01)
 
-**Dispatch A (continuation / structural).** Given Razborov's 0.5615 SDP certificate, what structural theorem — stability of near-extremal configurations plus iterated reduction — would plug into the SDP to shave ε off the bound? Analogue of the R01 Shield Reduction for 872.
+**Dispatch A (continuation / structural).** ~~Given Razborov's 0.5615 SDP certificate, what structural theorem — stability of near-extremal configurations plus iterated reduction — would plug into the SDP to shave ε off the bound?~~ **Superseded 2026-04-23**: classical stability is ruled out by Liu–Mubayi. Revised question: given the multi-family near-extremal phenomenon, is there a *weak* stability theorem saying every near-extremal K₄⁽³⁾-free graph is close to *some* member of the Kostochka–Brown–Fon-der-Flaass–Frohmader family, with a union-cleanup argument closing 5/9? Or an averaged/barycentric form of stability over the extremal family?
 
 **Dispatch B (explicit construction).** Search for K₄⁽³⁾-free 3-uniform hypergraphs with density > 5/9. Empirical: evolutionary search on small n (FunSearch-style, as succeeded for cap-set lower bound). Analogue of the R13 fan-hunt.
 
@@ -120,3 +123,8 @@ Best-guess — verify before dispatch.
 - [Beyond the broken tetrahedron (arXiv 2211.12747)](https://arxiv.org/abs/2211.12747)
 - [When entropy meets Turán (Chao, JLMS 2026)](https://londmathsoc.onlinelibrary.wiley.com/doi/10.1112/jlms.70473)
 - [Hypergraph Turán problem workshop report (AIM)](https://www.aimath.org/pastworkshops/hypergraphturanrep.pdf)
+- [A Hypergraph Turán Problem with No Stability — Liu, Mubayi (Combinatorica 2022)](https://link.springer.com/article/10.1007/s00493-021-4561-2)
+- [A hypergraph Turán problem with no stability (arXiv 1911.07969)](https://arxiv.org/abs/1911.07969)
+- [Solving Turán's Tetrahedron Problem for the ℓ₂-Norm — Balogh, Clemen, Lidický (JLMS 2022)](https://experts.illinois.edu/en/publications/solving-tur%C3%A1ns-tetrahedron-problem-for-the-%E2%84%93sub2sub-norm/)
+- [Hypergraph Turán Problems in ℓ₂-Norm (arXiv 2108.10406)](https://arxiv.org/pdf/2108.10406)
+- [Tetrahedron Conjecture in the ℓ₂-norm (arXiv 2511.12506)](https://arxiv.org/pdf/2511.12506)
