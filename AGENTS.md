@@ -250,3 +250,7 @@ See `commit-round` skill for the full safe-commit workflow and branch-hygiene ru
 - **Re-deriving from memory.** Always pull from the compiled state view or saved conversation dumps.
 - **Letting stale state rot.** If `state_compiled.md` is > 1 round behind, regenerate before composing the next prompt.
 - **Reframing progress for morale.** When asked where things stand, be honest. Specific over vague; categorical status over made-up percentages.
+
+## Tooling Learnings
+
+- For erdos-500 de Finetti finite-extendibility experiments, do not substitute finite-graph surrogates for the Razborov plateau pseudo-extremizer: Phase 1 needs a genuine flagmatic/Razborov pseudo-moment export with type moments on at least q+3 vertices; otherwise report the run as blocked.
