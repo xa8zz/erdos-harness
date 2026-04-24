@@ -1,67 +1,80 @@
-# Headline: all three Phase 1 unlock paths blocked before the q=5..7 de Finetti sweep.
+# Headline: q=3 finite-extendibility separator found for the order-6 Flagmatic primal at Q=4; dual-lift still needed before claiming a Turan upper bound.
 
 ## Summary
 
-This run partially unlocked the tooling but not the required Phase 1 artifact.
-Flagmatic 1.5.1 and CSDP 6.2.0 were built successfully, and the standard
-K4-free order-6 Flagmatic run reproduced the published plateau-ish bound
-`0.56166560`. Its CSDP solution contains a genuine primal probability vector
-over the 964 admissible 6-vertex K4-free types, summing to 1 and giving edge
-density `0.5616656023358584`. However, this is still insufficient for the
-requested experiment: q-profile extraction for `q in {5,6,7}` needs type moments
-on `q+3 in {8,9,10}` vertices, and the required Phase 1 contract asks for
-7-10 vertex type moments.
+The order-6 K4-free Flagmatic/CSDP run was reproduced and converted into the
+pipeline JSON contract. The resulting `flag_sdp_r6.json` has `status: "ok"`,
+964 six-vertex K4-free type records, primal mass `0.9999999999998522`, and
+weighted edge density `0.5616656023358584`, matching the recorded Flagmatic
+plateau run.
 
-No `flag_sdp_r{r}.json` artifact was changed to `status: "ok"`, and Phases 2-5
-were not run on research data.
+Phase 2 extracted the rooted-edge q-column profile at `q=3` with exactly 84
+occupancy coordinates. Phase 3 found that the profile is feasible in
+`E_{3,3}`, as it must be, but infeasible in `E_{3,Q}` for every
+`Q in {4,5,6,7,8}`. Phase 4 rationalized and exactly verified separators for
+all infeasible Q values.
 
-## Unlock Path Outcomes
+Important theorem-status caveat: these certificates separate the selected
+order-6 Flagmatic primal projection from `E_{3,Q}`. They do not by themselves
+prove `pi(K_4^(3)) < c`; a rigorous upper bound still needs a flag-SDP dual
+lift or augmented-SDP reoptimization proving the separator inequality across
+the whole high-density pseudo-feasible face `P_3(c)`, not just this primal
+solution.
 
-| Path | Outcome | Blocker |
-|---:|---|---|
-| 1 | partial tooling success | Flagmatic+CSDP reproduces order-6 K4 bound, but only yields 6-vertex type moments; n=7 bounded attempt made no progress and still would not cover q=5-7. |
-| 2 | blocked | Public sources found transcripts and rational dual/regularity data, including arXiv:1201.3587 `K4.txt`, but no primal 7-10 vertex pseudo-moment export. |
-| 3 | blocked | `cvxpy`, `SCS`, and `CLARABEL` installed, but no validated from-scratch high-order moment-extension implementation was completed. |
+## Artifacts
 
-Full command-level details are in `erdos-500/phase0/unlock_log.md`.
+| File | Status |
+|---|---|
+| `erdos-500/phase0/flag_sdp_r6.json` | real order-6 Flagmatic primal export |
+| `erdos-500/phase0/q_profile_r6_q3.csv` | 84-row rooted-edge q=3 profile |
+| `erdos-500/phase0/q_profile_r6_q3_meta.json` | extraction metadata |
+| `erdos-500/phase0/extendibility_r6_q3_Q{3..8}.json` | LP outcomes |
+| `erdos-500/phase0/rational_certificate_r6_q3_Q{4..8}.{json,tex}` | exact separators |
+| `scripts/convert_flagmatic_primal.py` | reproducible Flagmatic output converter |
 
 ## Sweep Table
 
-| r | q | Q range | Outcome | Certificate |
-|---:|---:|---|---|---|
-| 5 | 5-7 | q..q+3 | not run | blocked before valid pseudo-profile extraction |
-| 6 | 5-7 | q..q+3 | not run | blocked before valid pseudo-profile extraction |
-| 7 | 5-7 | q..q+3 | not run | blocked before valid pseudo-profile extraction |
+| Q | Feasible in E_{3,Q}? | LP margin float | Exact rational certification |
+|---:|---|---:|---|
+| 3 | yes | n/a | witness recorded in JSON |
+| 4 | no | 0.0063615756572178404 | success; exact margin in `rational_certificate_r6_q3_Q4.json` |
+| 5 | no | 0.008566980547965323 | success; exact margin in `rational_certificate_r6_q3_Q5.json` |
+| 6 | no | 0.010556732804567669 | success; exact margin in `rational_certificate_r6_q3_Q6.json` |
+| 7 | no | 0.012010439271529153 | success; exact margin in `rational_certificate_r6_q3_Q7.json` |
+| 8 | no | 0.013102336879431471 | success; exact margin in `rational_certificate_r6_q3_Q8.json` |
 
-## Useful Artifacts
+The smallest exact separator is already at `Q=4`. Its normalized certificate
+has exact profile score
 
-| Artifact | Status | Notes |
-|---|---|---|
-| `~/.codex/bin/flagmatic-1.5.1` | installed locally | Built from `https://lidicky.name/flagmatic/flagmatic-1.5.1.zip`. |
-| `~/.codex/bin/csdp` | installed locally | Built from `https://github.com/coin-or/Csdp.git` with macOS-compatible flags. |
-| `/tmp/flagmatic-k4-output/flags.out` | ephemeral evidence | First row is the 964-coordinate order-6 primal vector from the reproduced K4 run. |
-| `/tmp/arxiv1201.3587/K4.txt` | ephemeral evidence | Rational dual/regularity data for the `0.5615` bound, not a usable primal export. |
+`381128343820415242305009028079/119821995164983125640404480660096`
+
+and every hypergeometric vertex of `E_{3,4}` has score at most the negative of
+that number.
+
+## Numerical Notes
+
+- The first LP attempt at tolerance `1e-9` produced a false infeasibility at
+  `Q=3`. Dense HiGHS matrices with default-scale tolerance fix this; the script
+  default is now `1e-7`.
+- The profile has no negative coordinates and sums exactly to 1 in the rational
+  decimal parse.
+- The rational certificates are exact for the decimal-parsed Flagmatic primal
+  row. They should be treated as machine-checkable certificates for that
+  exported pseudo-profile.
 
 ## Recommendation
 
-The next real unlock is not another package install. It requires one of:
+The de Finetti route is not saturated at `q=3`; the selected order-6 SDP primal
+already violates finite extendibility at `Q=4`. The next step is to lift the
+`Q=4` separator into the order-6 flag algebra SDP:
 
-- a published or private primal plateau export with type moments on 7-10 vertex
-  K4-free isomorphism classes;
-- a long Flagmatic/Sage/CSDP run plus a mathematically justified way to extend
-  the order-6 pseudo-solution to 8-10 vertex coordinates;
-- a new, validated implementation of the high-order flag-algebra moment
-  extension recursion.
+1. Express the q=3 rooted-edge separator as a linear functional of six-vertex
+   K4-free type densities.
+2. Add it as a valid actual-hypergraph constraint or prove it by a dual
+   certificate over `P_3(c)`.
+3. Reoptimize the augmented SDP to see whether the global upper bound drops
+   below `0.56166560`.
 
-Until then, running `scripts/extract_q_column_profile.py` for `q=5,6,7` would
-require fabricated or surrogate data, so the de Finetti separator diagnostic
-remains blocked rather than saturated.
-
-## One-Paragraph Run Summary
-
-Outcome: all three requested Phase 1 unlock paths are blocked for the target
-q-range. The tooling situation improved materially: local Codex now has working
-`flagmatic-1.5.1` and `csdp`, and the standard K4 order-6 computation was
-reproduced. But no genuine 7-10 vertex plateau pseudo-moment export was found or
-generated, so no separator, rational certificate, or paradigm-exhaustion result
-was produced.
+If that dual lift succeeds, then this becomes a publication-grade upper-bound
+improvement candidate. Until then, it is a strong real-data separator diagnostic,
+not yet a theorem about `pi(K_4^(3))`.

@@ -102,25 +102,32 @@ def write_tex(path: str | Path, payload: dict) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--extendibility-json", required=True)
-    parser.add_argument("--profile", required=True)
+    parser.add_argument("--extendibility-json")
+    parser.add_argument("--input", dest="input_json", help="alias for --extendibility-json")
+    parser.add_argument("--profile", help="profile CSV; defaults to the profile recorded in the extendibility JSON")
     parser.add_argument("--out", required=True)
     parser.add_argument("--tex-out", required=True)
     parser.add_argument("--max-denominator", type=int, default=1000000)
     args = parser.parse_args()
 
-    ext = load_json(args.extendibility_json)
+    ext_path = args.extendibility_json or args.input_json
+    if not ext_path:
+        raise ValueError("provide --extendibility-json or --input")
+    ext = load_json(ext_path)
+    profile = args.profile or ext.get("profile")
+    if not profile:
+        raise ValueError("provide --profile or use an extendibility JSON containing a profile field")
     a_float = ext.get("separator_a_float")
     if not a_float:
         raise ValueError("extendibility JSON does not contain separator_a_float")
     a = rationalize([float(x) for x in a_float], args.max_denominator)
-    verified = verify(args.profile, int(ext["Q"]), a)
+    verified = verify(profile, int(ext["Q"]), a)
     shifted = verified["shifted_coefficients"]
     margin = verified["margin"]
     success = margin > 0
     payload = {
-        "source_extendibility_json": args.extendibility_json,
-        "profile": args.profile,
+        "source_extendibility_json": ext_path,
+        "profile": profile,
         "q": verified["q"],
         "Q": verified["Q"],
         "success": success,
