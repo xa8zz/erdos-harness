@@ -1,4 +1,4 @@
-# Headline: q=3 finite-extendibility separator found for the order-6 Flagmatic primal at Q=4; dual-lift still needed before claiming a Turan upper bound.
+# Headline: sound label-averaged Q=4 augmented SDP gives no improvement over 0.56166560; the representative-label lift is an unsound projection diagnostic.
 
 ## Summary
 
@@ -64,9 +64,12 @@ that number.
 
 ## Recommendation
 
-The de Finetti route is not saturated at `q=3`; the selected order-6 SDP primal
-already violates finite extendibility at `Q=4`. The next step is to lift the
-`Q=4` separator into the order-6 flag algebra SDP:
+The original representative-label q=3 diagnostic appeared not saturated: the
+selected order-6 SDP primal violated finite extendibility at `Q=4` under the
+implemented projection. The augmented-SDP audit below supersedes that
+interpretation: the projection must be label-averaged before it is a sound
+linear map from unlabeled Flagmatic type densities. The next step is therefore
+to repair and rerun the q-profile extraction before attempting another lift:
 
 1. Express the q=3 rooted-edge separator as a linear functional of six-vertex
    K4-free type densities.
@@ -75,6 +78,104 @@ already violates finite extendibility at `Q=4`. The next step is to lift the
 3. Reoptimize the augmented SDP to see whether the global upper bound drops
    below `0.56166560`.
 
-If that dual lift succeeds, then this becomes a publication-grade upper-bound
-improvement candidate. Until then, it is a strong real-data separator diagnostic,
-not yet a theorem about `pi(K_4^(3))`.
+If a corrected separator survives that rerun and a dual lift succeeds, then it
+becomes a publication-grade upper-bound improvement candidate. Until then, the
+representative-label separator is a projection diagnostic, not a theorem about
+`pi(K_4^(3))`.
+
+## Augmented SDP Q=4 Lift Attempt
+
+Approach A was implemented in `scripts/augment_flag_sdp.py` by appending one
+scalar PSD block to the Flagmatic SDPA sparse input. CSDP uses the convention
+`A'(y)-C=Z>=0`; therefore a type-density inequality `b.y <= 0` is represented
+by appending entries `-b_i` in the new scalar block, so the new slack is
+`-b.y >= 0`.
+
+The first representative-label composition of the R11 separator reproduced a
+formal-looking bound `0.5490527167865387`, but this is below the known `5/9`
+Turan construction and is not theorem-sound. The audit localized the issue:
+the q-profile extraction used a single canonical labeled representative of
+each unlabeled six-vertex Flagmatic type. The rooted column profile has labeled
+root coordinates `(ab, ac, bc)`, so the projection from unlabeled type
+densities must average over vertex labelings. With the sound label-averaged
+projection:
+
+| Quantity | Value |
+|---|---:|
+| plateau separator score, representative labels | `0.0017865391116581965` |
+| plateau separator score, label-averaged | `-0.00989399189679378` |
+| known `5/9` Turan construction separator score | `-0.014291898939720032` |
+| sound augmented CSDP bound | `0.56166560` printed (`0.56166560294253` from solution vector) |
+| strict improvement over `0.56166560` | no |
+
+Artifacts:
+
+| File | Status |
+|---|---|
+| `scripts/augment_flag_sdp.py` | SDPA augmentation script with label-averaged default |
+| `erdos-500/phase0/augmented_sdp_r6_Q4.dat-s` | sound label-averaged augmented SDPA input |
+| `erdos-500/phase0/augmented_sdp_r6_Q4.log` | CSDP log for the sound augmented run |
+| `erdos-500/phase0/augmented_sdp_r6_Q4_result.json` | parsed no-improvement result |
+| `erdos-500/phase0/projection_labeling_audit_r6_Q4.json` | projection-labeling soundness audit |
+| `erdos-500/phase0/augmented_sdp_r6_Q4_unsym_representative.log` | diagnostic-only unsound run |
+
+Full CSDP output for the sound label-averaged augmented run:
+
+```text
+CSDP 6.2.0
+Iter:  0 Ap: 0.00e+00 Pobj: -1.0000000e+01 Ad: 0.00e+00 Dobj:  0.0000000e+00
+Iter:  1 Ap: 8.55e-01 Pobj: -9.6744782e+01 Ad: 3.32e-01 Dobj:  8.8138119e+00
+Iter:  2 Ap: 1.00e+00 Pobj: -1.1055596e+02 Ad: 8.68e-01 Dobj: -1.0991445e-01
+Iter:  3 Ap: 1.00e+00 Pobj: -9.3697582e+01 Ad: 9.37e-01 Dobj: -2.5255029e-01
+Iter:  4 Ap: 9.53e-01 Pobj: -6.6425383e+01 Ad: 9.53e-01 Dobj: -3.4142449e-01
+Iter:  5 Ap: 9.74e-01 Pobj: -6.1667377e+01 Ad: 6.53e-01 Dobj: -3.8890592e-01
+Iter:  6 Ap: 1.00e+00 Pobj: -6.4944105e+01 Ad: 5.88e-01 Dobj: -3.9791868e-01
+Iter:  7 Ap: 9.87e-01 Pobj: -4.2054232e+01 Ad: 7.94e-01 Dobj: -3.9998353e-01
+Iter:  8 Ap: 1.00e+00 Pobj: -2.2381087e+01 Ad: 7.74e-01 Dobj: -4.0036316e-01
+Iter:  9 Ap: 7.45e-01 Pobj: -1.5698690e+01 Ad: 8.71e-01 Dobj: -4.0008105e-01
+Iter: 10 Ap: 7.90e-01 Pobj: -9.6963924e+00 Ad: 1.00e+00 Dobj: -4.0026284e-01
+Iter: 11 Ap: 1.00e+00 Pobj: -1.3856899e+00 Ad: 1.00e+00 Dobj: -4.0219382e-01
+Iter: 12 Ap: 1.00e+00 Pobj: -8.2402608e-01 Ad: 1.00e+00 Dobj: -4.2062591e-01
+Iter: 13 Ap: 7.91e-01 Pobj: -7.3169641e-01 Ad: 1.00e+00 Dobj: -4.4895518e-01
+Iter: 14 Ap: 2.38e-01 Pobj: -7.2092090e-01 Ad: 7.93e-01 Dobj: -4.4534956e-01
+Iter: 15 Ap: 9.10e-01 Pobj: -6.5604706e-01 Ad: 1.00e+00 Dobj: -4.7947892e-01
+Iter: 16 Ap: 1.00e+00 Pobj: -6.0430646e-01 Ad: 1.00e+00 Dobj: -5.0447689e-01
+Iter: 17 Ap: 1.00e+00 Pobj: -5.7913418e-01 Ad: 1.00e+00 Dobj: -5.3378712e-01
+Iter: 18 Ap: 6.14e-01 Pobj: -5.7276866e-01 Ad: 1.00e+00 Dobj: -5.4231263e-01
+Iter: 19 Ap: 1.00e+00 Pobj: -5.6482868e-01 Ad: 1.00e+00 Dobj: -5.5133332e-01
+Iter: 20 Ap: 1.00e+00 Pobj: -5.6272358e-01 Ad: 1.00e+00 Dobj: -5.5733537e-01
+Iter: 21 Ap: 1.00e+00 Pobj: -5.6217825e-01 Ad: 1.00e+00 Dobj: -5.5949152e-01
+Iter: 22 Ap: 1.00e+00 Pobj: -5.6188977e-01 Ad: 1.00e+00 Dobj: -5.6082698e-01
+Iter: 23 Ap: 1.00e+00 Pobj: -5.6178593e-01 Ad: 1.00e+00 Dobj: -5.6123270e-01
+Iter: 24 Ap: 1.00e+00 Pobj: -5.6171461e-01 Ad: 1.00e+00 Dobj: -5.6151604e-01
+Iter: 25 Ap: 8.99e-01 Pobj: -5.6169663e-01 Ad: 1.00e+00 Dobj: -5.6157950e-01
+Iter: 26 Ap: 1.00e+00 Pobj: -5.6167883e-01 Ad: 1.00e+00 Dobj: -5.6164055e-01
+Iter: 27 Ap: 1.00e+00 Pobj: -5.6167156e-01 Ad: 1.00e+00 Dobj: -5.6166582e-01
+Iter: 28 Ap: 1.00e+00 Pobj: -5.6166861e-01 Ad: 1.00e+00 Dobj: -5.6167601e-01
+Iter: 29 Ap: 9.93e-01 Pobj: -5.6166684e-01 Ad: 8.85e-01 Dobj: -5.6167137e-01
+Iter: 30 Ap: 4.98e-01 Pobj: -5.6166667e-01 Ad: 6.67e-01 Dobj: -5.6166712e-01
+Iter: 31 Ap: 3.01e-01 Pobj: -5.6166652e-01 Ad: 8.70e-01 Dobj: -5.6166560e-01
+Iter: 32 Ap: 6.93e-01 Pobj: -5.6166610e-01 Ad: 8.55e-01 Dobj: -5.6166564e-01
+Iter: 33 Ap: 7.82e-01 Pobj: -5.6166584e-01 Ad: 9.62e-01 Dobj: -5.6166542e-01
+Iter: 34 Ap: 1.00e+00 Pobj: -5.6166565e-01 Ad: 1.00e+00 Dobj: -5.6166559e-01
+Iter: 35 Ap: 1.00e+00 Pobj: -5.6166561e-01 Ad: 1.00e+00 Dobj: -5.6166560e-01
+Iter: 36 Ap: 9.05e-01 Pobj: -5.6166560e-01 Ad: 9.08e-01 Dobj: -5.6166560e-01
+Success: SDP solved
+Primal objective value: -5.6166560e-01
+Dual objective value: -5.6166560e-01
+Relative primal infeasibility: 3.58e-12
+Relative dual infeasibility: 8.99e-11
+Real Relative Gap: -2.40e-10
+XZ Relative Gap: 1.61e-09
+DIMACS error measures: 3.02e-11 0.00e+00 1.74e-10 0.00e+00 -2.40e-10 1.61e-09
+Elements time: 2.672017
+Factor time: 0.050737
+Other time: 0.214366
+Total time: 2.937120
+```
+
+Next-step recommendation: before combining multiple Q separators or escalating
+to order 7, repair Phase 2 so rooted-edge projections from unlabeled
+Flagmatic type densities are label-averaged. Then rerun the finite
+extendibility sweep on the corrected profiles; the existing Q=4 certificate
+does not cut the corrected order-6 plateau profile.
