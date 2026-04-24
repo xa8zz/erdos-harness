@@ -254,3 +254,7 @@ See `commit-round` skill for the full safe-commit workflow and branch-hygiene ru
 ## Tooling Learnings
 
 - For erdos-500 de Finetti finite-extendibility experiments, do not substitute finite-graph surrogates for the Razborov plateau pseudo-extremizer: Phase 1 needs a genuine flagmatic/Razborov pseudo-moment export with type moments on at least q+3 vertices; otherwise report the run as blocked.
+
+- For erdos-500 K4 flag-algebra work, Flagmatic 1.5.1 is persisted at ~/.codex/bin/flagmatic-1.5.1 and CSDP 6.2.0 at ~/.codex/bin/csdp; invoke Flagmatic with CSDP=~/.codex/bin/csdp because Flagmatic checks the CSDP env var or ./csdp rather than searching PATH.
+
+- The standard Flagmatic K4 run ./flagmatic --r 3 --n 6 --forbid-k4 reproduces bound 0.56166560 and its flags.out first row is a 964-coordinate 6-vertex primal pseudo-moment vector, but it is not sufficient for de Finetti q=5..7 because those profiles need 8-10 vertex type moments.
