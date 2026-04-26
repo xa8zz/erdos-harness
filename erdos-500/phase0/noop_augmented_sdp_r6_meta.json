@@ -1,0 +1,10 @@
+{
+  "augmented_num_blocks": 10,
+  "input_sdpa": "erdos-500/phase0/augmented_sdp_r6_Q4.dat-s",
+  "noop_block_size": 1,
+  "num_added_entries": 0,
+  "original_num_blocks": 9,
+  "output_sdpa": "erdos-500/phase0/noop_augmented_sdp_r6.dat-s",
+  "output_sdpa_tracked": false,
+  "purpose": "No-op scalar PSD block sanity check; feasible set and objective unchanged. The generated SDPA and solver solution files were not tracked because they duplicate the existing order-6 SDPA data; the solver log and parsed result are the durable artifacts."
+}
