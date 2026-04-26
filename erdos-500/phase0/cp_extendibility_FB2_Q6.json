@@ -1,0 +1,9 @@
+{
+  "Q": 6,
+  "alphabet_size": 50,
+  "error": "exact nnz 761,052,175 exceeds max_nnz=60,000,000",
+  "feasible": null,
+  "num_vertices": 28989675,
+  "root_type": "B2",
+  "status": "blocked_scale"
+}

@@ -1,0 +1,16 @@
+{
+  "dual_objective": -0.5616656,
+  "log": "erdos-500/phase0/noop_augmented_sdp_r6.log",
+  "out": "erdos-500/phase0/noop_augmented_sdp_r6.out",
+  "out_tracked": false,
+  "primal_objective": -0.5616656,
+  "real_relative_gap": -1.96e-10,
+  "relative_dual_infeasibility": 1.29e-10,
+  "relative_primal_infeasibility": 6.85e-12,
+  "reproduces_0_56166560_to_1e_7": true,
+  "sdpa": "erdos-500/phase0/noop_augmented_sdp_r6.dat-s",
+  "sdpa_tracked": false,
+  "status": "solved",
+  "upper_bound_from_dual_sign_flipped": 0.5616656,
+  "xz_relative_gap": 2.48e-09
+}

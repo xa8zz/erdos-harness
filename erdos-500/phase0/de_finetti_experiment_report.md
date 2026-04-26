@@ -179,3 +179,72 @@ to order 7, repair Phase 2 so rooted-edge projections from unlabeled
 Flagmatic type densities are label-averaged. Then rerun the finite
 extendibility sweep on the corrected profiles; the existing Q=4 certificate
 does not cut the corrected order-6 plateau profile.
+
+## 4-root q=2 complete-positivity cuts on the order-6 primal
+
+Headline: 4-root q=2 CP cuts at order 6 are feasible for the direct
+finite-extendibility tests completed here; no strict SDP-tightening
+separator was found.
+
+Projection method: for each unlabeled six-vertex type, the kernel was averaged
+over every ordered assignment of the six vertices to
+`(root0, root1, root2, root3, x, y)`. This is the label-invariant projection
+needed to avoid the representative-labeling bug diagnosed above.
+
+Root masses and matrix sanity checks:
+
+| Root | Alphabet size | Root mass | Normalized sum | Max asymmetry | Min normalized entry |
+|---|---:|---:|---:|---:|---:|
+| `B2` | 50 | `0.04369048530760842` | `1` | `0` | `0.001479265140850153` |
+| `B3` | 45 | `0.14025916905509938` | `1` | `0` | `0.000484641921891563` |
+
+Finite-extendibility outcomes:
+
+| Root | Q | Variables | Sparse nnz | Outcome |
+|---|---:|---:|---:|---|
+| `B2` | 4 | 292,825 | 3,480,325 | feasible |
+| `B2` | 5 | 3,162,510 | 58,412,510 | feasible |
+| `B2` | 6 | 28,989,675 | 761,052,175 exact nnz estimate | blocked by direct LP scale |
+| `B3` | 4 | 194,580 | 2,290,455 | feasible |
+| `B3` | 5 | 1,906,884 | 34,742,259 | feasible |
+| `B3` | 6 | 15,890,700 | 409,915,200 exact nnz estimate | blocked by direct LP scale |
+
+Because all completed tests were feasible, there is no rational CP separator
+to certify and no nontrivial augmented-SDP lift to run. A no-op CSDP sanity
+check was still run by appending an empty scalar PSD block to the existing
+sound order-6 SDPA input; it reproduced the plateau bound:
+
+| Quantity | Value |
+|---|---:|
+| no-op CSDP status | solved |
+| primal objective | `-0.56166560` |
+| dual objective | `-0.56166560` |
+| sign-flipped upper bound | `0.56166560` |
+| relative primal infeasibility | `6.85e-12` |
+| relative dual infeasibility | `1.29e-10` |
+
+Artifacts:
+
+| File | Status |
+|---|---|
+| `scripts/build_4root_alphabet.py` | builds `B2`/`B3` alphabets and verifies sizes 50/45 |
+| `scripts/extract_4root_pair_column.py` | label-averaged 4-root pair-column projection |
+| `scripts/test_cp_extendibility.py` | sparse finite CP extendibility LP with synthetic feasible/infeasible test |
+| `scripts/rationalize_cp_separator.py` | exact rational CP-separator verifier, unused on real data because no separator was found |
+| `erdos-500/phase0/alphabet_F_B2.json` | 50-column alphabet |
+| `erdos-500/phase0/alphabet_F_B3.json` | 45-column alphabet |
+| `erdos-500/phase0/M_F_B2_B3_r6.json` | unnormalized and normalized pair matrices plus type kernels |
+| `erdos-500/phase0/cp_extendibility_FB2_Q4.json` | feasible |
+| `erdos-500/phase0/cp_extendibility_FB2_Q5.json` | feasible |
+| `erdos-500/phase0/cp_extendibility_FB2_Q6.json` | blocked by direct LP scale |
+| `erdos-500/phase0/cp_extendibility_FB3_Q4.json` | feasible |
+| `erdos-500/phase0/cp_extendibility_FB3_Q5.json` | feasible |
+| `erdos-500/phase0/cp_extendibility_FB3_Q6.json` | blocked by direct LP scale |
+| `erdos-500/phase0/noop_augmented_sdp_r6_result.json` | no-op CSDP plateau reproduction |
+| `erdos-500/phase0/noop_augmented_sdp_r6.log` | no-op CSDP solver log |
+
+Interpretation: the order-6 plateau pseudo-moment survives the tested
+4-root q=2 CP cuts through Q=5 for both `B2` and `B3`. If this route is
+continued, the next honest step is not to claim a separator from the direct
+LP data, but to implement a column-generation or restricted-support Q=6
+search, or to combine several feasible root constraints at higher order.
