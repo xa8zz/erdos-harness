@@ -262,3 +262,5 @@ See `commit-round` skill for the full safe-commit workflow and branch-hygiene ru
 - For erdos-500 finite-extendibility LPs, SciPy/HiGHS can falsely report infeasible on sparse equality matrices with tight 1e-9 tolerances (observed on E_{3,3}, which is the simplex); use dense matrices for small q,Q and default-scale tolerance around 1e-7 before trusting infeasibility.
 
 - For erdos-500 de Finetti / Flagmatic lifts, unlabeled Flagmatic type densities must be projected to rooted labeled column profiles by averaging over all vertex labelings; using one canonical representative can create unsound separators and even fake bounds below the known 5/9 construction.
+
+- For erdos-500 4-root q=2 CP extendibility LPs, use exact sparse nonzero counts rather than a worst-case Q^2-per-column guard: B2 Q=5 has 3,162,510 variables and 58,412,510 nnz and is tractable locally; Q=6 remains direct-LP blocked at 761,052,175 nnz for B2 and 409,915,200 nnz for B3.
