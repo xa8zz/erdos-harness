@@ -259,6 +259,10 @@
   — verified by natso26-29apr-standard-check; confidence medium
 - **[R62-external-bloom-bipartite-potential-method](erdos-872/researcher-62-external-bloom-bipartite-potential-method.md)** (2026-04-29): Independent re-derivation of L(n) >> n loglog n / log n via the bipartite-graph reformulation: vertices = primes, edges = semiprimes pq in (n/2, n]; m = #edges >> n loglog n / log n by classical estimates. Prolonger colours edges red, Shortener colours vertices blue, with the constraint that a red edge cannot contain a blue vertex. Using the potential function Phi = sum_{e available} 2^{w(e)}, where w(e) = #{protected endpoints of e} and "protected" means "incident to a red edge", Prolonger plays edges adjacent to the F-maximal vertex (F(x) = sum_{x in e available} 2^{w(e)}). Each full turn changes Phi by O(1), so the game lasts >> m turns. This re-derives the >> n loglog n / log n lower bound with no constants but a much shorter proof. Conjectured (NOT proven) k-uniform extension yields >>_k n (loglog n)^k / log n.
   — confidence high
+- **[R65-pro-1-dynamic-2k-packing-shield-claims-linear](erdos-872/researcher-65-pro-1-dynamic-2k-packing-shield-claims-linear.md)** (2026-04-29): Prolonger plays moves x_j = 2^{k_j} * M_j strictly in U = (n/2, n], where M_j is the product of the smallest odd primes not in B = (set of prime factors of all prior Shortener moves) such that M_j <= n/2, and 2^{k_j} is chosen so x_j in U. Legality argument: every prior Shortener move y is odd (since 2 | x_1), so y has an odd prime factor q in B; Prolonger's M_j has all prime factors outside B, so y does not divide x_j; and x_j > n/2 has no proper multiples <= n. Differential economy: at scale X, Prolonger packs m(X) ~ log n / log X primes per move, capturing fraction rho(X) ~ log X / log n; hence sum_{s in S} 1/s ~ sum_p log p / (p log n) ~ 1 by Mertens. Survival fraction of U via prod_s (1 - 1/s) ~ e^{-1}; hence |U_surviving| ~ (n/2) e^{-1} = n/(2e) ~ 0.1839 n. After o(n) sieve-phase moves, the surviving U-elements form a primitive antichain exhausted by alternating picks, giving L(n) >= n/(2e) - o(n). With the established upper bound L(n) <= (0.18969 + o(1)) n, this would sandwich L(n) into [0.1839, 0.18969] n, forcing L(n) = Theta(n).
+  — confidence low; prompt: [erdos-872/prompts/researcher-R65-solution-attempt-lean.md](erdos-872/prompts/researcher-R65-solution-attempt-lean.md)
+- **[R65-pro-2-no-proof-plus-table-correction](erdos-872/researcher-65-pro-2-no-proof-plus-table-correction.md)** (2026-04-29): Diagnostic, not a proof or refutation of L(n) bounds. Three concrete defects in the prompt's supporting material: (a) f(11) = 6, not 5. Proof: partition {2,...,11} into doubling chains {2,4,8}, {3,6}, {5,10}, {7}, {9}, {11} (six chains, so by Dilworth max primitive subset size = 6). With Prolonger opening 6, every maximal extension must contain {6, 7, 9, 11} plus one of {4, 8} plus one of {5, 10}, giving |A| >= 6, hence L(11) = 6. (b) Odd-part injection of antichains into antichains of odd integers is literally false: {12, 30} primitive but odd-parts {3, 15} have 3 | 15. (c) At n = 10^6, loglog n ~ 2.62, so a lower bound L >= (1/2) n loglog n / log n predicts L log n / n >= 1.31, inside the observed [1.15, 1.50] band. A single-point check at n = 10^6 cannot distinguish n / log n from n loglog n / log n. Bottom line: the supplied bounds give only n / (log n)^{1-o(1)} <= L(n) <= (0.18969 + o(1)) n; both L(n) = o(n) and L(n) = Theta(n) remain compatible.
+  — confidence high; prompt: [erdos-872/prompts/researcher-R65-solution-attempt-lean.md](erdos-872/prompts/researcher-R65-solution-attempt-lean.md)
 
 ## Ruled Out
 
@@ -349,14 +353,14 @@
 ## Indices
 
 ### By type
-- diagnostic: 4
+- diagnostic: 5
 - refutation: 47
-- research: 132
+- research: 133
 - synthesis: 9
 - verification: 81
 
 ### By strategy dependence
-- independent: 3
+- independent: 5
 - strategy-specific: 2
 - —: 268
 
