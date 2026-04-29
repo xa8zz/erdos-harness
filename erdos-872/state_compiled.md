@@ -259,6 +259,8 @@
   — verified by natso26-29apr-standard-check; confidence medium
 - **[R62-external-bloom-bipartite-potential-method](erdos-872/researcher-62-external-bloom-bipartite-potential-method.md)** (2026-04-29): Independent re-derivation of L(n) >> n loglog n / log n via the bipartite-graph reformulation: vertices = primes, edges = semiprimes pq in (n/2, n]; m = #edges >> n loglog n / log n by classical estimates. Prolonger colours edges red, Shortener colours vertices blue, with the constraint that a red edge cannot contain a blue vertex. Using the potential function Phi = sum_{e available} 2^{w(e)}, where w(e) = #{protected endpoints of e} and "protected" means "incident to a red edge", Prolonger plays edges adjacent to the F-maximal vertex (F(x) = sum_{x in e available} 2^{w(e)}). Each full turn changes Phi by O(1), so the game lasts >> m turns. This re-derives the >> n loglog n / log n lower bound with no constants but a much shorter proof. Conjectured (NOT proven) k-uniform extension yields >>_k n (loglog n)^k / log n.
   — confidence high
+- **[R63-pro-largest-prime-renormalization-conditional](erdos-872/researcher-63-pro-largest-prime-renormalization-conditional.md)** (2026-04-29): Conditional on the renormalized shadow lemma — that during the largest-prime recursive Shortener strategy, every Prolonger move exports lower-fiber shields charged with multiplicity (log n)^{o(1)} per move — the recurrence L(n, n) <= (log n)^{o(1)} (Psi(n, y) + pi(n) + sum_{y < p <= n} L(n/p, p)) holds with y = n^{1/u}, u ~ loglog log n / loglog n; and the recurrence solves to L(n) <= n / (log n)^{1 - o(1)} via Dickman-rho exceptional term plus Mertens summation on the prime-fiber sum. Combined with the established hierarchy lower bound L(n) >= n / (log n)^{1 - o(1)} (from R13-fresh-dichotomy-unresolved-slowgrowth), this would give the candidate sharp rate L(n) = n / (log n)^{1 - o(1)}, ruling out L(n) = Theta(n). The conditional theorem (bounded-shadow hypothesis B(n) = (log n)^{o(1)} per Prolonger move ⇒ candidate rate) is proved cleanly in the response. The renormalized shadow lemma itself is NOT proved: the obstacle is the smooth-divisor explosion when Prolonger plays x = p * s with p large prime and s highly y-smooth — tau(s) is too large to count crudely, so the proof must show only a compressed subfamily of divisors of s is strategically relevant, with the rest absorbed into the Psi(n, y) = n / (log n)^{1 - o(1)} smooth exceptional term.
+  — confidence medium; prompt: [erdos-872/prompts/researcher-R63-solution-attempt.md](erdos-872/prompts/researcher-R63-solution-attempt.md)
 
 ## Ruled Out
 
@@ -347,12 +349,12 @@
 ### By type
 - diagnostic: 4
 - refutation: 46
-- research: 131
+- research: 132
 - synthesis: 9
 - verification: 81
 
 ### By strategy dependence
-- independent: 2
+- independent: 3
 - strategy-specific: 2
 - —: 267
 
