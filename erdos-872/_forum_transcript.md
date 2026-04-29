@@ -31,9 +31,80 @@ moves.
 
 View the LaTeX source
 
-This page was last edited 16 April 2026. View history
+This page was last edited 16 April 2026. View history (most-recent comments captured up to 29 April 2026)
 
-## Comments (16)
+## Comments (20)
+
+### Thomas Bloom — 15:41 on 29 Apr 2026
+
+Thanks! I had a look at your note, and the earlier note of Om_Buddhdev_sensho, to try and understand this lower bound; here is a shorter explanation of the strategy (in particular stripping out a fair amount of additional pre-strategies in both notes, which perhaps are required for getting good constants, but unnecessary for the cruder order of magnitude bound).
+
+Consider the bipartite graph, with both parts the set of primes, with an edge $p \sim q$ whenever $pq \in (n/2, n]$. The number of edges in this graph is $\gg \frac{n \log\log n}{\log n}$ by classical estimates on the number of semiprimes in an interval.
+
+Prolonger's strategy is to choose $pq$ corresponding to edges in this graph. These never have any multiple in $A$ (the set chosen thus far) since they are in $(n/2, n]$. The only thing that can stop Prolonger choosing this integer/corresponding edge is if one of the vertices $p$ or $q$ was claimed already by Shortener. (Shortener might be claiming other integers of course, but since these don't restrict Prolonger's moves in this strategy, Prolonger doesn't care what else Shortener is doing. Shortener can also choose an 'edge' instead, but this is clearly less efficient than eliminating a vertex (which can be justified e.g. by a strategy stealing argument).)
+
+So this is now basically a question about a game on played on a bipartite graph on $m$: Prolonger is colouring edges red, and Shortener is colouring vertices blue, with the restrictions that a red edge can't contain a blue vertex. I claim that, in this graph game, Prolonger can guarantee at least $\gg m$ turns, which gives an $\gg \frac{n \log\log n}{\log n}$ bound for the primitive set game.
+
+The trick is to use the method of potentials (a common technique in this sort of combinatorial game analysis; see for example the Erdős–Selfridge bound on maker–breaker games). Call a vertex 'protected' if it is on a red edge. The weight of an edge $e$ is the number of protected vertices on it. The weight of a vertex $x$ is
+
+$$F(x) = \sum_{x \in e \text{ available}} 2^{w(e)}.$$
+
+Prolonger's strategy is to choose an edge adjacent to a vertex which maximises $F(x)$. (Intuitively, Prolonger's goal is to try and protect the best vertices, so that there will be lots of edges available later; here the 'best' vertices are those with a lot of edges, where we value edges whose other endpoint is already protected more highly, since these are safe from Shortener forever).
+
+More precisely, consider the potential function
+
+$$\Phi = \sum_{e \text{ available}} 2^{w(e)},$$
+
+which starts at $m$. When Prolonger claims an edge adjacent to an unprotected vertex $x$, they double the weight of all edges incident to $x$, since now $x$ is protected, and removes one edge from being available, so the potential has gone up by at least $F(x) - O(1)$. If Shortener then colours the vertex $y$, then this decreases the potential by at most $F(y) + O(1)$. Since $F(x) \geq F(y)$, overall the potential changes by $O(1)$ each turn, so must last for $\gg m$ many turns.
+
+This is similar enough to arguments in the literature I've seen that I expect this kind of result is already folklore / known to experts / in the literature somewhere, although just in the 'bipartite graph' game language, rather than in terms of this primitive set game.
+
+It seems likely that by playing on a $k$-uniform hypergraph instead, with Prolonger choosing the products of $k$ primes in $(n/2, n]$, a generalisation of this potential-type argument should allow one to prove that $\gg_k \frac{n (\log\log n)^k}{\log n}$ is always possible for any $k \geq 2$. The limit of this kind of strategy still seems to be $n / (\log n)^{1 - o(1)}$ however; the next significant step would be an alternative argument that shows $L(n) \gg n / (\log n)^c$ for some constant $c < 1$.
+
+EDIT: Since this sort of game can be surprisingly subtle to analyse, it would be good if someone could try to formalise these sort of lower bounds — this kind of argument, which is locally very elementary and classical but requires a bit of tricky logic, is an ideal place to use formalisation to check we're not missing anything.
+
+### natso26 — 13:13 on 29 Apr 2026
+
+Thanks! Standard check found no issues. Here $L(n)$ is how long the game is guaranteed to last when Prolonger goes first.
+
+### jonaslsa — 10:06 on 29 Apr 2026
+
+I have a short note giving a dyadic refinement of the fan-capture lower bound. The idea is that the existing semiprime fan strategy only counts the top layer $pq \in (n/2, n]$. If Prolonger first runs an activation phase that $H$-secures the small odd primes, rendering every $2^b p$ with $0 \leq b \leq H$ illegal, the same right-star capture argument applies to the whole dyadic chain $C_{pq} = \{pq, 2pq, 4pq, \ldots\}$ whenever $n/2^{H+1} < pq \leq n$.
+
+This gives, for every fixed $H \geq 0$,
+
+$$L(n) \geq \left( \tfrac{1}{2}(1 - 2^{-H-1}) - o_H(1) \right) \frac{n \log\log n}{\log n},$$
+
+and hence
+
+$$L(n) \geq \left( \tfrac{1}{2} - o(1) \right) \frac{n \log\log n}{\log n}.$$
+
+It does not settle the linear question, but appears to improve the visible lower-bound constant in the current fan-capture method from $1/8$ to $1/2$.
+
+note pdf: https://github.com/jonaslsaa/maths/blob/main/872.pdf
+
+### Om_Buddhdev_sensho — 11:00 on 23 Apr 2026
+
+Using a research agent harness (GPT-5.4 Pro primary, Claude Opus 4.7 + Gemini 3.1 DeepThink secondary) for the past week I was able to prove:
+
+- Upper bound: $L(n) < 0.19 n$. Via a fourth-order Bonferroni on Shortener's odd-prime-prefix strategy. Constant is $W_4/2 \leq 0.1897123371$, interval-arithmetic certified.
+- Lower bound: $L(n) \geq (1/8 - o(1)) \frac{n \log\log n}{\log n}$. First order-improvement over the trivial $n/\log n$ baseline. Two-phase Prolonger: activate small primes (Mertens gives the reciprocal-mass), then max-degree right-capture on the resulting fan graph.
+
+Also:
+
+- Shield reduction: three-line structural reduction — $|A| \geq |U_n| - \beta_n(P)$ for any Prolonger shield prefix $P$. Turns terminal game positions into a weighted lower-half antichain problem.
+- Polynomial shield-weight barrier (Theorem A, Lean combinatorial core): any shield-prefix proof of a linear lower bound via the reduction above needs $|P| \geq n e^{-2c - o(1)}$ shields. Hard constraint on a natural proof class.
+- Exact $5n/24 + O(1)$ first-hit cover (zero-sorry Lean): the minimum upper-half cover of the lower half by divisibility is exactly $5n/24 + O(1)$, with a matching packing.
+- Intermediate upper bounds $13/36$ and $5/16$ (both Lean-verified): improvements from the current $419/1008 \approx 0.416$.
+- Three proof-class obstructions (Section 8): Sherali–Adams transversal-LP integrality; Johnson $q$-shadow covering dichotomy; separator-only closure limitation. Delimit what the current method family can produce.
+- $K_4$-fiber refutation of the general safe-edge hypothesis using $\{13, 17, 19, 23\}$ — explicit small counterexample that motivates the restricted form used in the conditional $n (\log\log n)^2 / \log n$ lower bound.
+
+Intermediate bounds $L(n) \leq 13/36$ and $L(n) \leq 5/16$ are zero-sorry Lean. The $< 0.19$ has a Lean endgame reduction; the envelope-inversion / prime-rounding bridge (Lemmas 7.4–7.17) is still prose. It has passed all GPT Pro audits so far.
+
+I tried hard to get to a full solution but fell short. I hope someone smarter than me is able to make use of this for advancing this problem further.
+
+Paper: sensho.xyz/papers/erdos-872.pdf
+Repo: github.com/xa8zz/erdos-harness
 
 ### Om_Buddhdev_sensho — 03:50 on 16 Apr 2026
 

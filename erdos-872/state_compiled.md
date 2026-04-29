@@ -1,4 +1,4 @@
-# Current state (compiled 2026-04-20)
+# Current state (compiled 2026-04-29)
 
 ## Established
 
@@ -251,6 +251,14 @@
 - **[R15-verify-prime-count-audit3-codex](erdos-872/verify-postresp-15-pro-prime-count-refinement-audit3-codex.md)** (2026-04-19): Constant ~0.18969 verified independently. New combinatorial input is real. Proof not yet at rigorous theorem status: boundary/model-sequence repair needed at u = 1/h breakpoints. Verdict between Audit 1 and Audit 2.
   — prompt: [erdos-872/prompts/audit-15-pro-prime-count-refinement.md](erdos-872/prompts/audit-15-pro-prime-count-refinement.md)
 - **[R18-verify-T1-T2-claude](erdos-872/verify-postresp-18-claude-T1-T2-audit.md)** (2026-04-19): T1 proof is tight; proof structure and factor-of-8 constant are correct. T2 (rank-3 fan) proof logic is sound but the constant c_delta ~ 1/4096 is so small that the empirical bound dominates by ~1000x. No logical bugs found in either proof.
+- **[R57-codex-bonferroni4-audit-repair](erdos-872/r57_bonferroni4_audit_and_repair.md)** (2026-04-20): R57 Steps 3-5 are rigorous as written (envelope, inversion, flat-block bookkeeping, excision control). The quoted "already-established comparison theorem" could not be located in the repo in the exact form used; replaced with the correct prime-sequence Bonferroni-4 comparison theorem (Theorem 2.1) + prime-rounding bridge (Theorem 4.1) from the Round 14 machinery. Numerical discrepancy reconciled: 0.189710592 is coarse 2^17 grid; ~0.189709753 is Richardson-refined. Both < 0.19.
+  — verified by sandbox; confidence high
+- **[R60-pro-R57-repair-theorems-2-1-4-1](erdos-872/researcher-60-pro-R57-repair-PROVED-theorems-2-1-and-4-1.md)** (2026-04-20): Both theorems proved rigorously. Theorem 2.1: odd-part injection + monotone replacement N(q) <= N(p) + 4th-order Bonferroni with M_r(n) = O_r(n (log log n)^{r-1} / log n) = o(n) error. Theorem 4.1: the Round 57 local-density envelope bound (half odd-prime density) supplies the slack for the bin-to-next-bin prime-rounding construction; greedy assignment + diagonal delta(n) -> 0 gives sup p_j/b_j = 1 + o(1) uniformly; factorial moment transfer T_r^(p)(n) = T_r^(b)(n) + o(1) = J_r + o(1). Chaining: L(n) <= (W_4/2 + o(1))n = (0.1897112 + o(1))n < 0.19n.
+  — verified by sandbox; confidence high; prompt: [erdos-872/prompts/researcher-R60-fresh-pro-R57-repair-audit-or-prove.md](erdos-872/prompts/researcher-R60-fresh-pro-R57-repair-audit-or-prove.md)
+- **[R61-external-jonaslsa-dyadic-fan-half-constant](erdos-872/researcher-61-external-jonaslsa-dyadic-fan-half-constant.md)** (2026-04-29): For every fixed H >= 0, L(n) >= ((1/2)(1 - 2^{-H-1}) - o_H(1)) n * loglog n / log n; taking H -> infinity slowly gives L(n) >= (1/2 - o(1)) n * loglog n / log n. The fan-capture constant in the current method improves from 1/8 to 1/2.
+  — verified by natso26-29apr-standard-check; confidence medium
+- **[R62-external-bloom-bipartite-potential-method](erdos-872/researcher-62-external-bloom-bipartite-potential-method.md)** (2026-04-29): Independent re-derivation of L(n) >> n loglog n / log n via the bipartite-graph reformulation: vertices = primes, edges = semiprimes pq in (n/2, n]; m = #edges >> n loglog n / log n by classical estimates. Prolonger colours edges red, Shortener colours vertices blue, with the constraint that a red edge cannot contain a blue vertex. Using the potential function Phi = sum_{e available} 2^{w(e)}, where w(e) = #{protected endpoints of e} and "protected" means "incident to a red edge", Prolonger plays edges adjacent to the F-maximal vertex (F(x) = sum_{x in e available} 2^{w(e)}). Each full turn changes Phi by O(1), so the game lasts >> m turns. This re-derives the >> n loglog n / log n lower bound with no constants but a much shorter proof. Conjectured (NOT proven) k-uniform extension yields >>_k n (loglog n)^k / log n.
+  — confidence high
 
 ## Ruled Out
 
@@ -339,10 +347,12 @@
 ### By type
 - diagnostic: 4
 - refutation: 46
-- research: 129
+- research: 131
 - synthesis: 9
-- verification: 79
+- verification: 81
 
 ### By strategy dependence
+- independent: 2
+- strategy-specific: 2
 - —: 267
 
