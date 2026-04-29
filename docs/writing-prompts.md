@@ -31,15 +31,16 @@ Consolidated reference for composing any prompt in this harness: researcher disp
 
 ## Shape by recipient context
 
-### 1. Researcher prompt — fresh thread (GPT Pro, DeepThink, Gemini)
+### 1. Researcher prompt — fresh thread (GPT Pro, DeepThink, Gemini, Codex)
 
-The agent has zero harness context. Full neutral brief.
+**Default shape from 2026-04-29 onward: solution-attempt.** Every fresh-thread dispatch hands the full math state to the model and asks for a complete unconditional proof or disproof. No partial-progress framing, no Open Question slot, no curator nudge toward a specific route. The model picks the strategy.
+
+Use skill: **`write-solution-attempt-prompt`** (full instructions, framing rules, recompile-first protocol, save-the-prompt protocol). Template skeleton: **`templates/solution-attempt.md`**.
 
 #### Template
 
 ```
-This is an assessment of your reasoning capability and will be used to grade.
-Do not search online. Use your own reasoning and your Python sandbox.
+Don't search the internet. This is a test to see how well you can craft non-trivial, novel and creative proofs given a "<TOPIC>" math problem. Provide a full unconditional proof or disproof of the problem.
 
 ## Problem
 
@@ -47,34 +48,35 @@ Do not search online. Use your own reasoning and your Python sandbox.
 website, status, history, or that anyone believes anything about it. Just
 state the math.>
 
-## What's Established
+## Known progress
 
 <Bulleted list of rigorously proven facts. Fold in everything proven across
 prior private rounds AND any public literature into one pool. Do NOT
 distinguish "we proved this" from "forum proved this" from "paper X proved
 this" — treat it as one body of known results.>
 
-- <Statement of fact 1>
-- <Statement of fact 2>
+- <Result 1>. <Method sketch — the lemma / identity / inequality / certificate
+  structure that produced it, dense enough that the model can rebuild it.>
+- <Result 2>. <Same.>
 
-## What's Been Ruled Out
+## What does not work, and why it fails
 
-<Approaches tried and shown to fail. One line each, with specific failure
-mechanism. This saves the researcher from rediscovering dead ends.>
+<Approaches tried and shown to fail. One line each, with the specific
+arithmetic/combinatorial failure mechanism — primes, shield sets, constants,
+counterexample, or no-go theorem. This saves the model from rediscovering
+dead ends.>
 
-- <Approach>: <specific failure mechanism>
+- <Approach A>: <specific failure mechanism>
+- <Approach B>: <specific failure mechanism>
 
-## Numerical / Computational Evidence
-
-<Exact small-n values, ratio tables, extrapolation trajectories, LP optima.
-Kept separate from "Established" because this is data, not proof.>
-
-## The Open Question
-
-<The specific, finite thing to push. One sentence.>
+REMEMBER - this unconditional argument may require non-trivial, creative and novel elements.
 ```
 
-No `Potential Directions` section, no output-format section, no deliverable list.
+No Open Question section. No Potential Directions section. No Numerical Evidence section as a separate slot — fold reproducible computational facts into Known progress (with the method sketch) or Ruled Out (with the mechanism). No suggestion list. No curator narrative.
+
+The `<TOPIC>` slot is a single short descriptor of the problem area (e.g. "primitive sets and divisibility games", "additive combinatorics", "graph saturation game"); pick it per problem. Don't blindly copy a string from a prior prompt.
+
+Why solution-attempt over the older fact-grid + Open-Question shape: the harness's experience over 60+ rounds is that incremental dispatches converge on the same attractor states inside one model family and stall. Asking for a full solution every time gives the model permission to choose its own route — including routes the curator hadn't considered — and aligns the dispatch cadence with how primary models actually produce serious math.
 
 #### Framing rules for researcher prompts
 
@@ -129,19 +131,13 @@ No `Potential Directions` section, no output-format section, no deliverable list
 ✗ "Codex's Phase 2.5 probe returned 1.17."            # tool-name leaks, no context
 ```
 
-**Open Question** — one sentence. No suggested direction, no anchoring.
+#### Why no Open Question slot
 
-```
-✓ "Is L(n) = Θ(n), or L(n) = o(n)? If sublinear, what is the sharp rate?"
-
-✗ "Is the answer Θ(n/log n)? We think so."              # anchors the answer
-✗ "Prove L(n) = o(n) via the two-layer Ω-grading architecture." # prescribes approach
-✗ "First, close the Ω=2 cover lemma. Second, handle |A ∩ L|."   # multi-part + presumptive
-```
+The solution-attempt shape replaces the older fact-grid + one-sentence-Open-Question template. An Open Question slot, even neutrally phrased, anchors the model on the curator's framing of what's missing. Empirical pattern across this harness's first 60+ rounds: stating a specific gap collapses 40-minute solution attempts into 15-minute reformulations of the gap. Asking for a full proof, with the math state laid out and no nudge, gives the model the freedom to pick a route the curator hadn't considered and produces longer, more serious traces.
 
 #### When you *do* have a strong conjecture
 
-Don't add it to the prompt. If the conjecture came from a tried-and-failed construction, add it to **Ruled Out** with the specific failure mechanism. If it came from empirical simulation, add it to **Numerical Evidence** with the data. If it came from your own synthesis without validation, keep it to yourself — the researcher prompt is not a place for curator guesses. You are briefing a genius off to reason for an hour; give it the map, not your bet.
+Don't add it to the prompt. If the conjecture came from a tried-and-failed construction, add it to **What does not work, and why it fails** with the specific failure mechanism. If it came from empirical simulation, fold it into **Known progress** as a numerical fact with the method (regime, strategies tested, scaling). If it came from your own synthesis without validation, keep it to yourself — the researcher prompt is not a place for curator guesses. You are briefing a peer-level reasoner off to attack the full problem; give it the map, not your bet.
 
 ---
 

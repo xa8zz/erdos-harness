@@ -148,6 +148,7 @@ Trigger-action skills live in `skills/`. The critical protocols (paste handling 
 
 | Workflow | Skill |
 |---|---|
+| Writing a fresh-thread researcher prompt (full solution attempt) | `write-solution-attempt-prompt` |
 | Writing a follow-up prompt | `write-followup-prompt` |
 | Writing an audit prompt for verifier tabs | `write-audit-prompt` |
 | Writing a Codex task (workspace-aware) | `write-codex-task` |
@@ -164,8 +165,17 @@ Reference these whenever drafting. The `writing-prompts.md` doc is the main prom
 | Template | Purpose |
 |---|---|
 | `docs/writing-prompts.md` | **Main prompting reference.** Researcher prompt template, framing rules, good/bad examples, A/B/C branching, long-horizon observations. Context-specific guidance for researcher / follow-up / audit / Codex / local-agent / third-party recipients. |
+| `templates/solution-attempt.md` | **Default fresh-thread researcher prompt skeleton.** Strict no-internet header → problem → known progress (with method sketches) → what does not work (with failure mechanisms) → REMEMBER closer. |
 | `templates/informal-audit.md` | Default audit prompt body (short, for routine per-round audits) |
 | `templates/adversarial-audit.md` | Sharper audit prompt body (for claims about to be promoted to `Established`) |
+
+## Operating mode: solutions only
+
+**From 2026-04-29 onward, fresh-thread dispatches attempt full solutions.** Every researcher dispatch hands the model the complete current math state and asks for an unconditional proof or disproof — no partial-progress framing, no Open Question slot, no curator nudge toward a specific route. The model picks the strategy.
+
+This replaces the older fact-grid + Open-Question cadence. Empirical pattern across the harness's first 60+ rounds: incremental "close this specific gap" prompts converged on attractor states inside one model family and stalled. Asking for a full solution every dispatch gives the model permission to choose its own route — including routes the curator hadn't considered — and aligns the dispatch cadence with how primary models actually produce serious math.
+
+Follow-ups (skill: `write-followup-prompt`) remain valid when a prior response left a specific novel construction worth pressuring further. They are the exception, not the default.
 
 ## Operating principles
 
