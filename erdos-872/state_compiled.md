@@ -55,8 +55,6 @@
   — confidence high; prompt: [erdos-872/prompts/followup-12-pro-closeout.md](erdos-872/prompts/followup-12-pro-closeout.md)
 - **[R11-deepthink-response](erdos-872/researcher-11-deepthink-response.md)** (2026-04-18): L(n) = Theta(n log log n / log n). Layer 1 unconditional (Xi(B) automatic). Layer 2 asserted via pigeonhole — incorrect per R11-pro counterexample. Cover-shattering lower bound: Prolonger forces Omega(n log log n / log n) moves by shattering prime covers q via the p_1*q isolation trick.
   — prompt: [erdos-872/prompts/researcher-11-omega-strategy-prove.md](erdos-872/prompts/researcher-11-omega-strategy-prove.md)
-- **[R12-claude-response](erdos-872/researcher-12-claude-response.md)** (2026-04-18): Reasoned case for L(n) = Theta(n/log n): L log n / n bounded in [1.15, 1.50] across 6 decades with slow decline, ruling out the Theta(n log log n / log n) candidate (which would require L log n / n ~ c log log n, growing). Three independent Shortener heuristics converge to the same ratio. Not a proof; suggests amortized two-phase Shortener as next target.
-  — prompt: [erdos-872/prompts/researcher-12-synthesis-open.md](erdos-872/prompts/researcher-12-synthesis-open.md)
 - **[R12-pro-response](erdos-872/researcher-12-pro-response.md)** (2026-04-18): F_alpha = {p <= y} union {d <= n/2 : Omega(d)=2, P^-(d) > y} is an antichain for y = n^alpha (1/3 < alpha < 1/2). Every d in {2,...,n/2} has a multiple in F_alpha's shadow. The key missing lemma is "small-prime resolution above n^{1/3}": Shortener can resolve all primes <= y in o(n) moves if composites have disjoint supports (Theorem 5); overlapping carriers are the remaining open case.
   — prompt: [erdos-872/prompts/researcher-12-synthesis-open.md](erdos-872/prompts/researcher-12-synthesis-open.md)
 - **[R13-deepthink-critique-response](erdos-872/researcher-13-deepthink-critique-response.md)** (2026-04-18): Reachability for the sparse triangle-S construction unequivocally survives the five critiques (LCM obstruction, multi-block paradox, turn economy, interleaved play, survival fraction). L(n) = Theta(n log log n / log n) reaffirmed; Maker-Breaker sketch provided but not fully rigorous.
@@ -290,6 +288,10 @@
   Refuted by **[R11-pro-response](erdos-872/researcher-11-pro-response.md)** (2026-04-18).
   Failure mechanism: R_y elements are (log n)-rough so Omega=2 divisors have both factors > log n, giving d > (log n)^2. Max multiples of d in U is n/d < n/(log n)^2, but the lemma requires score c*|R_y|/log n ~ n(log log n)^2/(log n)^2. The ratio is (log log n)^2 — lemma false by this factor.
   original prompt: [erdos-872/prompts/researcher-10-dynamical-carrier.md](erdos-872/prompts/researcher-10-dynamical-carrier.md); refutation prompt: [erdos-872/prompts/researcher-11-omega-strategy-prove.md](erdos-872/prompts/researcher-11-omega-strategy-prove.md)
+- **[R12-claude-response](erdos-872/researcher-12-claude-response.md)** claimed: Reasoned case for L(n) = Theta(n/log n): L log n / n bounded in [1.15, 1.50] across 6 decades with slow decline, ruling out the Theta(n log log n / log n) candidate (which would require L log n / n ~ c log log n, growing). Three independent Shortener heuristics converge to the same ratio. Not a proof; suggests amortized two-phase Shortener as next target.
+  Refuted by **[R68-pro-prompt-defect-flagged-plus-loglog-lower-bound](erdos-872/researcher-68-pro-prompt-defect-flagged-plus-loglog-lower-bound.md)** (2026-04-30).
+  Failure mechanism: R12-claude-response's "L = Theta(n / log n)" reading was based on six decades of heuristic minimax data showing L log n / n in [1.15, 1.50] with slow decline, plus three independent Shortener heuristics converging. The reading assumed: "if L log n / n is bounded across observable n, the asymptotic ratio is bounded." This implication is false because loglog n only grows by factor ~3.16 from n = 10 to n = 10^6, comparable to or smaller than the natural saw-tooth fluctuation in L log n / n at small n. R65-pro-2 already flagged this trajectory issue at the single- point level (loglog(10^6) ~ 2.62 puts (1/2) loglog n inside the observed band). R68 Pro now closes the trajectory question by rederiving the lower bound L >> n loglog n / log n unconditionally, which immediately gives L log n / n >> loglog n -> infinity along the lower bound. The numerical band cannot equal the asymptotic.
+  original prompt: [erdos-872/prompts/researcher-12-synthesis-open.md](erdos-872/prompts/researcher-12-synthesis-open.md); refutation prompt: [erdos-872/prompts/researcher-R68-fresh-direction-agnostic.md](erdos-872/prompts/researcher-R68-fresh-direction-agnostic.md)
 - **[R12-deepthink-response](erdos-872/researcher-12-deepthink-response.md)** claimed: L(n) = Theta(n/log n) via Shortener's cross-block semiprime batch: all large primes > n^{1/6} plus all cross-block semiprimes s=p_a*p_b with p_a in S_a, p_b in S_b (a != b). Claim: these are legal against Prolonger's block-product strategy and collapse the board to O(n/log n). Note: antichain violation found in batch (11 and 77 both included at n=10^6); proof broken.
   Refuted by **[R12-verify-deepthink-B](erdos-872/verify-postresp-12-pro-on-deepthink-B.md)** (2026-04-18).
   Failure mechanism: A prime p <= y and a semiprime s = p*q (p in S_a, q prime > p from a different block) are not "cross-block" if p is itself a block's representative prime; when p in S_a, p*q has p as its smaller factor, making p | p*q — violating antichain. Found concretely: 11 and 77 both appear at n=10^6.
@@ -358,13 +360,13 @@
 
 ### By type
 - diagnostic: 5
-- refutation: 47
+- refutation: 48
 - research: 134
 - synthesis: 10
 - verification: 81
 
 ### By strategy dependence
-- independent: 7
+- independent: 8
 - strategy-specific: 2
 - —: 268
 
