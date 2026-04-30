@@ -177,6 +177,23 @@ This replaces the older fact-grid + Open-Question cadence. Empirical pattern acr
 
 Follow-ups (skill: `write-followup-prompt`) remain valid when a prior response left a specific novel construction worth pressuring further. They are the exception, not the default.
 
+### Verify every load-bearing fact before dispatch
+
+**One false claim in a researcher prompt derails the whole dispatch.** Pro will catch the defect, report it, and stop engaging with the rest of the brief — even if everything else in the brief is correct.
+
+Three observed defects (all in the erdos-872 program): a false "odd-part injection of antichains" prose line refuted by {12, 30}; a small-n table value f(11) = 5 copied from a forum post when sandbox minimax gives f(11) = 6; a shield-reduction identity stated absolute when it requires a Prolonger-move-count condition, refuted at n = 10. In each case the underlying primary source (Lean proof, recurrence value, formal theorem) was correct; only the *prose summary in the prompt* was wrong. The compression collapsed essential hypotheses or inverted a quantifier.
+
+Mandatory pre-flight before dispatch (codified in `skills/write-solution-attempt-prompt.md`):
+
+1. For each load-bearing fact in the prompt body, identify a primary source: Lean theorem statement, the verbatim claim/proof body of a saved round doc, a sandbox-computed value, or a classical theorem cited by name.
+2. Pull the primary source. Verify hypotheses, conclusion, and quantifier direction match the prose summary. Direction errors (containment reversed, lower-vs-upper bound flipped, "for some" vs "for all") are the most common defect.
+3. For Lean theorems, transcribe the statement with hypotheses; do not paraphrase.
+4. For exact-value tables, recompute in sandbox or check against a saved round-doc value with confirmed provenance — never trust a value copied from a prior prompt.
+5. If a fact cannot be verified inside the budget, drop it OR include it with explicit "stated heuristically; not yet verified" marker.
+6. **A 30-line prompt where every fact survives audit beats a 100-line prompt that gets stopped at line 12.** When in doubt, trim.
+
+This audit is non-negotiable, including when the user is in a hurry. The cost of one false fact is the cost of the whole dispatch.
+
 ## Operating principles
 
 - **Factual-completeness doctrine.** Your role is factual completeness, not synthesis. Give the primary model the most complete map you can — everything established (with proof sketches), everything ruled out (with specific failure mechanisms), all numerical evidence — and let it find the pattern. Compress vague prose; never compress factual detail. Specific primes, shield sets, lemmas, constants are the whole point.
