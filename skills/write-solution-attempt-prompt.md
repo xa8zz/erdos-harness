@@ -56,7 +56,24 @@ No suggestion section, no anchor on a target answer, no curator guesses, no sess
    REMEMBER - this unconditional argument may require non-trivial, creative and novel elements.
    ```
 
-9. **Save the prompt** alongside the response it will produce, per the prompt-saving protocol (CLAUDE.md):
+9. **Pre-flight fact check (mandatory, no exceptions).** Before saving the prompt, audit every load-bearing fact against a primary source. Pro will fixate on any defect and stop engaging with the rest of the brief. Observed failure modes from prior dispatches:
+
+   - Loose paraphrase of a Lean theorem that drops or inverts a hypothesis (e.g. shield-reduction stated as `|A| >= |(n/2, n]| - beta_n(P)` without the Prolonger-move-count condition; refuted at n = 10 with A = {2,3,5,7}, P = {7}).
+   - Compressed prose that asserts a false-as-written claim where the underlying proof uses a more careful statement (e.g. "odd-part injection of antichains into antichains of odd integers"; refuted by {12, 30}).
+   - Stale numerical values copied from an earlier round / forum post without recomputation (e.g. f(11) = 5 carried from Bloom's 15 Oct 2025 post; sandbox minimax gives f(11) = 6).
+
+   For each numbered fact in the Known progress and What does not work sections, do the following before the prompt ships:
+
+   1. Identify the primary source. Acceptable: a Lean theorem statement (e.g. `erdos-872/aristotle/...`), the verbatim claim/proof body of a saved round doc with confirmed provenance, a sandbox-computed value, a classical theorem cited by name with the standard hypothesis quantifiers preserved.
+   2. Pull up the primary source and verify hypotheses, conclusion, and quantifier direction match the prose summary. Direction errors (containment reversed, lower-vs-upper bound flipped, "for some" vs "for all", "every" vs "there exists") are the most common defect — check each explicitly.
+   3. For Lean-verified theorems, transcribe the theorem statement with hypotheses, or a faithful symbolic restatement that preserves all preconditions. Do not paraphrase. Loose paraphrase is exactly what gets caught and derails the dispatch.
+   4. For exact-value tables (small-n minimax, computed constants, numerical bands), recompute in sandbox or check against a saved round-doc value with confirmed provenance. Do not trust a value that was copied from a prior prompt — defects propagate across prompts undetected until a careful Pro audit.
+   5. If a fact cannot be verified inside the dispatch budget, EITHER drop it from the prompt entirely OR include it with an explicit "stated heuristically; not yet verified" marker so Pro doesn't fixate as if it were ground truth. Marked-heuristic facts are fine; silently-loose facts are catastrophic.
+   6. Prefer a short prompt where every fact is verified over a long prompt where one fact will derail the dispatch. A 30-line prompt that survives audit beats a 100-line prompt that gets stopped at line 12.
+
+   This step is non-negotiable. If the user is in a hurry, say so and trim — do not skip the audit.
+
+10. **Save the prompt** alongside the response it will produce, per the prompt-saving protocol (CLAUDE.md):
 
    ```
    <problem>/prompts/researcher-R<NN>-<slug>.md
@@ -64,7 +81,7 @@ No suggestion section, no anchor on a target answer, no curator guesses, no sess
 
    `NN` = next round number. Slug is short and descriptive of the dispatch focus, e.g. `solution-attempt-fresh-state`, `solution-attempt-after-bloom-potential`. Plain markdown body, no YAML front-matter on the prompt file.
 
-10. **Output to user**: the rendered prompt, ready to paste into the target tab. After the user dispatches, save the response via `add-round-doc` with the `prompt:` field in the round doc front-matter pointing to the saved prompt file.
+11. **Output to user**: the rendered prompt, ready to paste into the target tab. After the user dispatches, save the response via `add-round-doc` with the `prompt:` field in the round doc front-matter pointing to the saved prompt file.
 
 ## Strict-rule discipline
 
@@ -79,6 +96,8 @@ No suggestion section, no anchor on a target answer, no curator guesses, no sess
 
 ## Gotchas
 
+- **One false fact derails the whole dispatch.** Pro will fixate on the first defect they catch and stop engaging with the rest of the brief. Three observed instances in the erdos-872 program: (1) the false "odd-part injection of antichains into antichains of odd integers" line — refuted by {12, 30}, caught at R65; (2) the small-n table value f(11) = 5 carried from a forum post — sandbox minimax gives f(11) = 6, caught at R66; (3) the shield-reduction identity stated as `|A| >= |(n/2, n]| - beta_n(P)` without the Prolonger-move-count condition — refuted at n = 10 with A = {2,3,5,7}, P = {7}, caught at R68. In each case, Pro reported the defect and refused to continue. The underlying primary sources (Lean proofs, recurrence values, formal theorems) were correct; only the prose summaries in the prompt were wrong. **The pre-flight fact-check (instruction step 9) is the only thing that catches these. Do not skip it.**
+- **A short verified prompt beats a long loose one.** If the audit budget is tight, drop facts rather than ship them unverified. Pro can do more with 30 lines of correct math than with 100 lines containing one trap.
 - **Recompile-first is non-negotiable.** A prompt composed from session memory or a stale `state_compiled.md` re-anchors the model on out-of-date facts and burns the dispatch. If `state_compiled.md` is more than one round behind, regenerate before composing.
 - **Topic-string sanity check.** The header's `<TOPIC>` is a single short descriptor that gives the model a frame, not a copy of the full problem statement. Adjust per problem; don't reuse "number theory and primitive sets" for a graph-saturation problem.
 - **The model decides the route.** From this point forward, dispatches are full-solution attempts, not incremental pushes. The Open Question / next-step section that older prompts had is omitted by design — including it would re-anchor the model on a partial framing.
