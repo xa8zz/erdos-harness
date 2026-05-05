@@ -968,8 +968,16 @@ The naive claim
   p_j/b_j = 1 + O(1/\log b_j)
 \]
 uniformly in $j$ is \emph{not} justified by the prime number theorem alone and
-must not be used.  The correct bridge is the half-density construction of
-\Cref{thm:prime-bridge}.
+must not be used.  The obstruction is concrete: the top flat block contributes
+up to $K \le n/(2\log n)$ indices with $b_j = n$, yet every window
+$[n,(1+o(1))n]$ contains only $o(n/\log n)$ odd primes, so no uniform
+$p_j/b_j = 1 + o(1)$ can supply the top block.  The correct bridge is the
+half-density construction of \Cref{thm:prime-bridge}, which assigns the top
+flat block separately to $[n,2n]$---whose $(1+o(1))n/\log n$ odd primes
+exceed the demand $K$ by a factor of two---and uses queued coarse-bin
+matching on the genuine blocks, where the envelope bound
+$\tfrac{1}{(h+1)\log X}\le\tfrac{1}{2\log X}$ on the local $b$-density
+supplies slack against the odd-prime density $1/\log X$.
 
 \begin{lemma}[Bin demand estimate]\label{lem:bin-demand-estimate}
 Fix $H\ge2$ and a genuine block $[A_h,B_h]$, where
@@ -1056,6 +1064,15 @@ and
 \end{lemma}
 
 \begin{proof}
+Throughout this proof $A=A_h=n^{\alpha_h}\to\infty$ while $s=s(a)$ is fixed,
+so
+\[
+  \log(Aa^j)=\log A+j\log a=(1+o_{H,a}(1))\log A
+\]
+uniformly for $0\le j\le s+1$.  The resulting $o(1)$ multiplicative errors in
+the denominators below are absorbed into the $(1\pm\eta)$ margins, all valid
+for all large $n$.
+
 For $1\le t\le s$, \Cref{lem:bin-prime-supply-estimate} gives
 \[
   \sum_{\ell=t}^{s}P_\ell
@@ -1117,14 +1134,21 @@ primes in the next prime bin $[Aa^{k+1},Aa^{k+2})$.  By
   (1-o_{H,a}(1))\frac{(a-1)Aa^{k+1}}{\log(Aa^{k+1})}
   \le P_{k+1},
 \]
-using $1/(h+1)\le1/2<a$.  The final truncated source bin
+using $1/(h+1)\le1/2<a$.  For the final truncated source bin
 $[X,B_h]\subseteq[Aa^{k^\star},Aa^{k^\star+1})$ (with $X=Aa^{k^\star}$ and
-$B_h<Aa^{k^\star+1}$) has demand at most the full-bin estimate $d_{k^\star}$
-of \Cref{lem:bin-demand-estimate}, since its contributing indices are a subset
-of those for the full bin.  The next prime bin above $B_h$ is contained in
-$[Aa^{k^\star+1},Aa^{k^\star+2})$ with supply
-$P_{k^\star+1}$ from \Cref{lem:bin-prime-supply-estimate}, so the inequality
-$d_{k^\star}<P_{k^\star+1}$ applies unchanged and the truncated-bin assignment
+$B_h<Aa^{k^\star+1}$), the same derivative bound used in
+\Cref{lem:bin-demand-estimate} over $[X,B_h]$ gives
+\[
+  d_{k^\star}
+  \le
+  (1+o_{H,a}(1))\frac{B_h-X}{(h+1)\log X}+O(1)
+  \le
+  (1+o_{H,a}(1))\frac{(a-1)X}{(h+1)\log X}+O(1)
+  <
+  P_{k^\star+1},
+\]
+since $B_h/X\le a$ and the next prime bin above $B_h$ is contained in
+$[Aa^{k^\star+1},Aa^{k^\star+2})$.  Thus the truncated-bin assignment
 proceeds by the same greedy rule.
 
 The greedy rule, together with processing bins in increasing order and taking
