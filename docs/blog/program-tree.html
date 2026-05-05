@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Erdős 872 · the program tree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #000000; }
+  body {
+    font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .frame { width: 100%; max-width: 1700px; margin: 0 auto; }
+  svg { display: block; width: 100%; height: auto; }
+</style>
+</head><body>
+<div class="frame">
+  <svg viewBox="0 0 1700 1000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"
+       font-family="Geist, ui-sans-serif, system-ui, sans-serif">
+    <rect width="1700" height="1000" fill="#000000"/>
+
+    <!-- TITLE BLOCK -->
+    <text x="40" y="58" fill="#FFFFFF" font-size="22" font-weight="600" letter-spacing="-0.01em">
+      Erdős 872 · the program tree
+    </text>
+    <text x="40" y="82" fill="#A1A1A1" font-size="13">
+      57 rounds across 5 days. The upper bound on L(n) moved from 0.416n down to 0.190n.
+      The full solution is still open.
+    </text>
+
+    <!-- LEGEND (bottom) -->
+    <g font-size="12" fill="#A1A1A1">
+      <circle cx="50" cy="945" r="5" fill="#4ADE80"/>
+      <text x="62" y="949">breakthrough · upper bound moved</text>
+      <circle cx="320" cy="945" r="4" fill="#67E8F9"/>
+      <text x="332" y="949">structural result · survived audit</text>
+      <line x1="558" y1="941" x2="568" y2="951" stroke="#F87171" stroke-width="1.6"/>
+      <line x1="568" y1="941" x2="558" y2="951" stroke="#F87171" stroke-width="1.6"/>
+      <text x="578" y="949">attempt blocked</text>
+      <text x="730" y="952" fill="#FBBF24" font-size="18" font-family="Newsreader, serif" font-style="italic">?</text>
+      <text x="748" y="949">open · still unresolved</text>
+    </g>
+    <text x="40" y="978" fill="#525252" font-size="11" letter-spacing="0.04em">
+      trunk · the chain that connected the four upper-bound moves  ·  branches · everything in between
+    </text>
+
+    <!-- ============= TRUNK ============= -->
+    <!-- Solid trunk from R0 (180, 880) to R57 (1340, 200) -->
+    <line x1="180" y1="880" x2="1340" y2="200" stroke="#FFFFFF" stroke-width="2.2"/>
+
+    <!-- Dashed continuation past R57 toward "?" -->
+    <line x1="1340" y1="200" x2="1500" y2="106" stroke="#FFFFFF" stroke-width="1.4" stroke-dasharray="4 6" opacity="0.45"/>
+
+    <!-- "?" for the unreached full solution -->
+    <text x="1530" y="98" fill="#FBBF24" font-size="38" font-weight="500" font-family="Newsreader, serif" font-style="italic">?</text>
+    <text x="1568" y="86" fill="#FBBF24" font-size="12" font-weight="500">full solution</text>
+    <text x="1568" y="100" fill="#6B6B6B" font-size="11">L(n) characterized</text>
+    <text x="1568" y="113" fill="#6B6B6B" font-size="11">unreached</text>
+
+    <!-- ============= UNLABELED REFUTE BRANCHES (small X marks) =============
+         Trunk direction unit: (0.863, -0.506). Perp up-left: (-0.506, -0.863).
+         For L=46:  end = (x_R - 23, y_R - 40)  -->
+
+    <!-- R1 (200, 868) -->
+    <line x1="200" y1="868" x2="177" y2="828" stroke="#525252" stroke-width="0.9"/>
+    <line x1="173" y1="824" x2="181" y2="832" stroke="#F87171" stroke-width="1.4"/>
+    <line x1="181" y1="824" x2="173" y2="832" stroke="#F87171" stroke-width="1.4"/>
+
+    <!-- R10 (383, 759) -->
+    <line x1="383" y1="759" x2="360" y2="719" stroke="#525252" stroke-width="0.9"/>
+    <line x1="356" y1="715" x2="364" y2="723" stroke="#F87171" stroke-width="1.4"/>
+    <line x1="364" y1="715" x2="356" y2="723" stroke="#F87171" stroke-width="1.4"/>
+
+    <!-- R15 (485, 700) -->
+    <line x1="485" y1="700" x2="462" y2="660" stroke="#525252" stroke-width="0.9"/>
+    <line x1="458" y1="656" x2="466" y2="664" stroke="#F87171" stroke-width="1.4"/>
+    <line x1="466" y1="656" x2="458" y2="664" stroke="#F87171" stroke-width="1.4"/>
+
+    <!-- R20 (587, 640) -->
+    <line x1="587" y1="640" x2="564" y2="600" stroke="#525252" stroke-width="0.9"/>
+    <line x1="560" y1="596" x2="568" y2="604" stroke="#F87171" stroke-width="1.4"/>
+    <line x1="568" y1="596" x2="560" y2="604" stroke="#F87171" stroke-width="1.4"/>
+
+    <!-- R26 (709, 569) -->
+    <line x1="709" y1="569" x2="686" y2="529" stroke="#525252" stroke-width="0.9"/>
+    <line x1="682" y1="525" x2="690" y2="533" stroke="#F87171" stroke-width="1.4"/>
+    <line x1="690" y1="525" x2="682" y2="533" stroke="#F87171" stroke-width="1.4"/>
+
+    <!-- R34 (852, 484) -->
+    <line x1="852" y1="484" x2="829" y2="444" stroke="#525252" stroke-width="0.9"/>
+    <line x1="825" y1="440" x2="833" y2="448" stroke="#F87171" stroke-width="1.4"/>
+    <line x1="833" y1="440" x2="825" y2="448" stroke="#F87171" stroke-width="1.4"/>
+
+    <!-- R45 (1097, 339) -->
+    <line x1="1097" y1="339" x2="1074" y2="299" stroke="#525252" stroke-width="0.9"/>
+    <line x1="1070" y1="295" x2="1078" y2="303" stroke="#F87171" stroke-width="1.4"/>
+    <line x1="1078" y1="295" x2="1070" y2="303" stroke="#F87171" stroke-width="1.4"/>
+
+    <!-- R50 (1198, 280) -->
+    <line x1="1198" y1="280" x2="1175" y2="240" stroke="#525252" stroke-width="0.9"/>
+    <line x1="1171" y1="236" x2="1179" y2="244" stroke="#F87171" stroke-width="1.4"/>
+    <line x1="1179" y1="236" x2="1171" y2="244" stroke="#F87171" stroke-width="1.4"/>
+
+    <!-- ============= LABELED BRANCHES =============
+         L=130: end = (x_R - 66, y_R - 112). Label starts at (end_x + 10, end_y) -->
+
+    <!-- R3 (241, 844) — Shield Reduction (cyan) -->
+    <line x1="241" y1="844" x2="175" y2="732" stroke="#525252" stroke-width="0.9"/>
+    <circle cx="175" cy="732" r="4" fill="#67E8F9"/>
+    <text x="185" y="729" fill="#E5E5E5" font-size="12.5" font-weight="500">Shield Reduction framework</text>
+    <text x="185" y="744" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R3 · structural tool every UB rests on</text>
+
+    <!-- R5 (282, 820) — τ(n) = 5n/24 cover (cyan) -->
+    <line x1="282" y1="820" x2="216" y2="708" stroke="#525252" stroke-width="0.9"/>
+    <circle cx="216" cy="708" r="4" fill="#67E8F9"/>
+    <text x="226" y="705" fill="#E5E5E5" font-size="12.5" font-weight="500">τ(n) = 5n/24 + O(1) cover</text>
+    <text x="226" y="720" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R5 · exact first-hit cover of the lower half</text>
+
+    <!-- R6 (302, 808) — Theorem A (cyan) -->
+    <line x1="302" y1="808" x2="236" y2="696" stroke="#525252" stroke-width="0.9"/>
+    <circle cx="236" cy="696" r="4" fill="#67E8F9"/>
+    <text x="246" y="685" fill="#E5E5E5" font-size="12.5" font-weight="500">Theorem A · shield obstruction</text>
+    <text x="246" y="700" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R6 · short shields can't certify a linear LB</text>
+
+    <!-- R18 (546, 565) — matching UB (red, labeled) -->
+    <line x1="546" y1="565" x2="480" y2="453" stroke="#525252" stroke-width="0.9"/>
+    <line x1="476" y1="449" x2="484" y2="457" stroke="#F87171" stroke-width="1.7"/>
+    <line x1="484" y1="449" x2="476" y2="457" stroke="#F87171" stroke-width="1.7"/>
+    <text x="494" y="450" fill="#FCA5A5" font-size="12.5" font-weight="500">matching UB · O(n log log n / log n)</text>
+    <text x="494" y="465" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R18 · refuted by large transversal sparse cover</text>
+
+    <!-- R22 (628, 517) — fan LB (cyan, labeled) -->
+    <line x1="628" y1="517" x2="562" y2="405" stroke="#525252" stroke-width="0.9"/>
+    <circle cx="562" cy="405" r="4" fill="#67E8F9"/>
+    <text x="572" y="402" fill="#E5E5E5" font-size="12.5" font-weight="500">fan-capture LB · (1/8) n log log n / log n</text>
+    <text x="572" y="417" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R22 · first unconditional LB beyond trivial n / log n</text>
+
+    <!-- R29 (770, 434) — multi-rank coupling (red, labeled) -->
+    <line x1="770" y1="434" x2="704" y2="322" stroke="#525252" stroke-width="0.9"/>
+    <line x1="700" y1="318" x2="708" y2="326" stroke="#F87171" stroke-width="1.7"/>
+    <line x1="708" y1="318" x2="700" y2="326" stroke="#F87171" stroke-width="1.7"/>
+    <text x="718" y="319" fill="#FCA5A5" font-size="12.5" font-weight="500">multi-rank same-b coupling</text>
+    <text x="718" y="334" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R29 · Sperner / LCM refutation</text>
+
+    <!-- R36 (893, 363) — Conditional T2 (cyan, dashed branch since conditional) -->
+    <line x1="893" y1="363" x2="827" y2="251" stroke="#525252" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.7"/>
+    <circle cx="827" cy="251" r="4" fill="#67E8F9"/>
+    <circle cx="827" cy="251" r="6.5" fill="none" stroke="#67E8F9" stroke-width="0.9" opacity="0.45"/>
+    <text x="837" y="248" fill="#E5E5E5" font-size="12.5" font-weight="500">conditional T2 · n (log log n)² / log n</text>
+    <text x="837" y="263" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R36 · conditional on restricted safe-edge hypothesis</text>
+
+    <!-- R41 (1015, 290) — collision-forcing (red, labeled) -->
+    <line x1="1015" y1="290" x2="949" y2="178" stroke="#525252" stroke-width="0.9"/>
+    <line x1="945" y1="174" x2="953" y2="182" stroke="#F87171" stroke-width="1.7"/>
+    <line x1="953" y1="174" x2="945" y2="182" stroke="#F87171" stroke-width="1.7"/>
+    <text x="963" y="175" fill="#FCA5A5" font-size="12.5" font-weight="500">collision-forcing reduction</text>
+    <text x="963" y="190" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R41 · refuted by 3 independent agents</text>
+
+    <!-- R53 (1259, 148) — CR-NCAD (red, labeled) -->
+    <line x1="1259" y1="148" x2="1193" y2="36" stroke="#525252" stroke-width="0.9"/>
+    <line x1="1189" y1="32" x2="1197" y2="40" stroke="#F87171" stroke-width="1.7"/>
+    <line x1="1197" y1="32" x2="1189" y2="40" stroke="#F87171" stroke-width="1.7"/>
+    <text x="1207" y="33" fill="#FCA5A5" font-size="12.5" font-weight="500">CR-NCAD σ* reachability</text>
+    <text x="1207" y="48" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R53 · refuted by cooperative embedding</text>
+
+    <!-- R55 (1300, 124) — lag/budget gap (amber ?, labeled). Use shorter L=80 to stay in viewport. -->
+    <line x1="1300" y1="124" x2="1259" y2="55" stroke="#525252" stroke-width="0.9"/>
+    <text x="1259" y="62" text-anchor="middle" fill="#FBBF24" font-size="20" font-weight="500" font-family="Newsreader, serif" font-style="italic">?</text>
+    <text x="1273" y="46" fill="#FCD34D" font-size="12.5" font-weight="500">lag / attention-budget gap</text>
+    <text x="1273" y="60" fill="#6B6B6B" font-size="10.5" font-family="Geist Mono, monospace">R55 · the missing structural object · still open</text>
+
+    <!-- ============= BREAKTHROUGH NODES on trunk (drawn last) ============= -->
+
+    <!-- R0 (180, 880) — public baseline -->
+    <circle cx="180" cy="880" r="7" fill="#4ADE80" stroke="#000000" stroke-width="2"/>
+    <text x="170" y="908" text-anchor="end" fill="#FFFFFF" font-size="13" font-weight="600">public baseline</text>
+    <text x="170" y="924" text-anchor="end" fill="#A1A1A1" font-size="11" font-family="Geist Mono, monospace">R0 · ≤ 0.416n</text>
+
+    <!-- R7 (322, 798) — 13/36. Label below-right of dot. -->
+    <circle cx="322" cy="798" r="6" fill="#4ADE80" stroke="#000000" stroke-width="2"/>
+    <text x="338" y="824" fill="#FFFFFF" font-size="13" font-weight="600">13/36 closeout</text>
+    <text x="338" y="840" fill="#A1A1A1" font-size="11" font-family="Geist Mono, monospace">R7 · ≤ 0.361n</text>
+
+    <!-- R8 (343, 786) — 5/16. Label below-right offset further -->
+    <circle cx="343" cy="786" r="6" fill="#4ADE80" stroke="#000000" stroke-width="2"/>
+    <text x="380" y="868" fill="#FFFFFF" font-size="13" font-weight="600">5/16 improvement</text>
+    <text x="380" y="884" fill="#A1A1A1" font-size="11" font-family="Geist Mono, monospace">R8 · ≤ 0.3125n</text>
+    <line x1="349" y1="790" x2="376" y2="858" stroke="#525252" stroke-width="0.7"/>
+
+    <!-- R57 (1340, 200) — Bonferroni-4 PROVED -->
+    <circle cx="1340" cy="200" r="10" fill="#4ADE80" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="1356" y="232" fill="#FFFFFF" font-size="14" font-weight="600">Bonferroni-4 proved</text>
+    <text x="1356" y="248" fill="#A1A1A1" font-size="11" font-family="Geist Mono, monospace">R57 · ≤ 0.190n  ·  where we stopped</text>
+  </svg>
+</div>
+</body></html>
