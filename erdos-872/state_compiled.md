@@ -1,4 +1,4 @@
-# Current state (compiled 2026-04-29)
+# Current state (compiled 2026-05-05)
 
 ## Established
 
@@ -265,6 +265,8 @@
   — confidence high; prompt: [erdos-872/prompts/researcher-R65-solution-attempt-lean.md](erdos-872/prompts/researcher-R65-solution-attempt-lean.md)
 - **[R66-pro-2-corrected-brief](erdos-872/researcher-66-pro-2-corrected-brief.md)** (2026-04-29): Three concrete corrections delivered: (1) the upper-bound proof's odd-part step is reformulated as a "labelled odd-part comparison": the map x -> (omega(x), nu_2(x)) is injective on any primitive set A, and if x, y in A with omega(x) | omega(y) then necessarily nu_2(x) > nu_2(y); equivalently A maps to an antichain in the labelled odd-part poset under (u, a) <= (v, b) iff u | v and a <= b. This survives the {12, 30} counterexample (since nu_2(12) = 2 > 1 = nu_2(30)). The corrected statement is then used in the Bonferroni / monotone-replacement / factorial-moment chain that proves L(n) <= W_4/2 + o(1). (2) Re-derived f(n) for n = 2 to 40 via the residual legal-mask minimax recurrence. Corrected sequence has f(11) = 6 and the offset table f(n) - pi(n) reads: 0 for n <= 8, 1 for 9 <= n <= 20, 2 for 21 <= n <= 27, 3 for 28 <= n <= 34, 4 for 35 <= n <= 40. (3) Trajectory analysis of R(n) = f(n) log n / n on the exact range: 1.1513 <= R(n) <= 1.5615 for 10 <= n <= 40, narrowing to 1.4520 <= R(n) <= 1.5615 for 30 <= n <= 40, with explicit saw-tooth structure. The exact range is too short to distinguish n / log n from n loglog n / log n because loglog n only grows from 0.834 to 1.305 across this range, comparable to the saw-tooth fluctuations.
   — confidence high; prompt: [erdos-872/prompts/researcher-R66-followup-corrected-prompt.md](erdos-872/prompts/researcher-R66-followup-corrected-prompt.md)
+- **[R70-forum-discourse-update-may-2026](erdos-872/researcher-70-forum-discourse-update-may-2026.md)** (2026-05-05): External evidence package. (a) Brenner's solver has computed exact L(n) for n up to 86, separating Prolonger-starts, Shortener-starts, and the two cooperative variants (low(n) = π(n), upp(n) = ⌈n/2⌉). (b) For Prolonger-starts and 28 ≤ n ≤ 84, L(n) = ⌈(π(n)+⌈n/2⌉)/2⌉ except at n = 27; at n = 85, 86 Prolonger-starts gives L = 32, while the single- player columns give 23 and 43, so the conjectured arithmetic-mean formula fails — L(n) = n/4 + o(n) is no longer realistic. (c) jonaslsa posts a dyadic refinement of the fan-capture lower bound: by first H-securing the small odd primes (rendering 2^b p illegal for 0 ≤ b ≤ H) and then running right-star capture on chains C_{pq} for n/2^{H+1} < pq ≤ n, one gets L(n) ≥ ((1/2)(1 - 2^{-H-1}) - o_H(1)) n loglog n / log n, hence L(n) ≥ (1/2 - o(1)) n loglog n / log n. natso26 reports a standard-check pass. (d) Bloom gives a clean potential-function proof of L(n) ≫ n loglog n / log n via a bipartite-graph game on prime vertices, with weights F(x) = Σ_{x ∈ e available} 2^{w(e)} where w(e) counts protected endpoints; conjectures k-uniform hypergraph generalisation to L(n) ≫_k n (loglog n)^{k-1} / log n for any k ≥ 2, with conjectured ceiling n / (log n)^{1 - o(1)}. Bloom flags formalisation as highly desired.
+  — verified by forum-natso26-standard-check; confidence high
 
 ## Ruled Out
 
@@ -361,12 +363,12 @@
 ### By type
 - diagnostic: 5
 - refutation: 48
-- research: 134
+- research: 135
 - synthesis: 10
 - verification: 81
 
 ### By strategy dependence
-- independent: 8
+- independent: 9
 - strategy-specific: 2
 - —: 268
 
