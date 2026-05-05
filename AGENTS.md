@@ -49,6 +49,27 @@ One round:
 
 Save and commit per round. Never batch across rounds.
 
+## Save prompts alongside responses — the prompt-saving protocol
+
+Every researcher dispatch produces two artifacts: the prompt sent and the response received. Save both. A round doc without its paired prompt is archaeologically incomplete — future agents auditing a claim cannot reconstruct why the researcher chose the framing it did without seeing what was actually asked.
+
+### The pairing
+
+- **Prompt**: `<problem>/prompts/researcher-R<NN>-<slug>.md` — the verbatim prompt as dispatched. Composed via the researcher-prompt shape in `docs/writing-prompts.md`. Plain markdown body, no YAML front-matter. Same `<slug>` as the response round doc so the pair is discoverable by name.
+- **Response**: `<problem>/researcher-R<NN>-<slug>.md` — the researcher's reply with YAML front-matter, saved via `add-round-doc` with byte-faithful extraction. Include `prompt: <problem>/prompts/researcher-R<NN>-<slug>.md` in the front-matter so the action graph records the pairing.
+
+### When to save
+
+- **Save the prompt at compose-time**, before dispatching to the researcher. If the prompt is edited during verifier pre-send audits (Step 2 of the research loop), save the final post-audit version — that's what actually went out.
+- **Save the response when it returns**, via the byte-faithful extraction protocol documented below.
+- **Commit each piece as it lands** — do not batch. A committed prompt with no response is fine; a committed response with no prompt is a gap.
+
+### Discipline rules
+
+- No session jargon in the prompt body — same rules as the researcher-prompt shape. The saved file must read as self-contained math for an agent that has never seen this repo.
+- One prompt file per dispatch. If the same round has multiple channels (A/B/C branching per `docs/writing-prompts.md`), each channel gets its own prompt file with a channel-disambiguating slug.
+- Audit prompts (for verifier tabs) and Codex tasks also get saved, in the same `prompts/` directory. Use filename prefixes `audit-` and `codex-` respectively to distinguish.
+
 ## When the user pastes content — the save protocol
 
 Any time the user pastes multi-paragraph content from anywhere — research output, transcript excerpt, Pro return, Gemini audit, Codex report, forum snippet, paper passage, raw thoughts — AND the content is about a problem in the repo, you MUST save it as a round doc. Not "should," not "if it seems important," not "if they ask." **Always.** The default action on receiving a paste is: save it. If in doubt, save it. You can always refute or supersede it later; you cannot un-lose a paste that was never persisted.
@@ -127,6 +148,7 @@ Trigger-action skills live in `skills/`. The critical protocols (paste handling 
 
 | Workflow | Skill |
 |---|---|
+| Writing a fresh-thread researcher prompt (full solution attempt) | `write-solution-attempt-prompt` |
 | Writing a follow-up prompt | `write-followup-prompt` |
 | Writing an audit prompt for verifier tabs | `write-audit-prompt` |
 | Writing a Codex task (workspace-aware) | `write-codex-task` |
@@ -143,8 +165,34 @@ Reference these whenever drafting. The `writing-prompts.md` doc is the main prom
 | Template | Purpose |
 |---|---|
 | `docs/writing-prompts.md` | **Main prompting reference.** Researcher prompt template, framing rules, good/bad examples, A/B/C branching, long-horizon observations. Context-specific guidance for researcher / follow-up / audit / Codex / local-agent / third-party recipients. |
+| `templates/solution-attempt.md` | **Default fresh-thread researcher prompt skeleton.** Strict no-internet header → problem → known progress (with method sketches) → what does not work (with failure mechanisms) → REMEMBER closer. |
 | `templates/informal-audit.md` | Default audit prompt body (short, for routine per-round audits) |
 | `templates/adversarial-audit.md` | Sharper audit prompt body (for claims about to be promoted to `Established`) |
+
+## Operating mode: solutions only
+
+**From 2026-04-29 onward, fresh-thread dispatches attempt full solutions.** Every researcher dispatch hands the model the complete current math state and asks for an unconditional proof or disproof — no partial-progress framing, no Open Question slot, no curator nudge toward a specific route. The model picks the strategy.
+
+This replaces the older fact-grid + Open-Question cadence. Empirical pattern across the harness's first 60+ rounds: incremental "close this specific gap" prompts converged on attractor states inside one model family and stalled. Asking for a full solution every dispatch gives the model permission to choose its own route — including routes the curator hadn't considered — and aligns the dispatch cadence with how primary models actually produce serious math.
+
+Follow-ups (skill: `write-followup-prompt`) remain valid when a prior response left a specific novel construction worth pressuring further. They are the exception, not the default.
+
+### Verify every load-bearing fact before dispatch
+
+**One false claim in a researcher prompt derails the whole dispatch.** Pro will catch the defect, report it, and stop engaging with the rest of the brief — even if everything else in the brief is correct.
+
+Three observed defects (all in the erdos-872 program): a false "odd-part injection of antichains" prose line refuted by {12, 30}; a small-n table value f(11) = 5 copied from a forum post when sandbox minimax gives f(11) = 6; a shield-reduction identity stated absolute when it requires a Prolonger-move-count condition, refuted at n = 10. In each case the underlying primary source (Lean proof, recurrence value, formal theorem) was correct; only the *prose summary in the prompt* was wrong. The compression collapsed essential hypotheses or inverted a quantifier.
+
+Mandatory pre-flight before dispatch (codified in `skills/write-solution-attempt-prompt.md`):
+
+1. For each load-bearing fact in the prompt body, identify a primary source: Lean theorem statement, the verbatim claim/proof body of a saved round doc, a sandbox-computed value, or a classical theorem cited by name.
+2. Pull the primary source. Verify hypotheses, conclusion, and quantifier direction match the prose summary. Direction errors (containment reversed, lower-vs-upper bound flipped, "for some" vs "for all") are the most common defect.
+3. For Lean theorems, transcribe the statement with hypotheses; do not paraphrase.
+4. For exact-value tables, recompute in sandbox or check against a saved round-doc value with confirmed provenance — never trust a value copied from a prior prompt.
+5. If a fact cannot be verified inside the budget, drop it OR include it with explicit "stated heuristically; not yet verified" marker.
+6. **A 30-line prompt where every fact survives audit beats a 100-line prompt that gets stopped at line 12.** When in doubt, trim.
+
+This audit is non-negotiable, including when the user is in a hurry. The cost of one false fact is the cost of the whole dispatch.
 
 ## Operating principles
 
@@ -243,6 +291,32 @@ A successful Aristotle run (zero `sorry`, or sorries only in standard classics l
 
 See `commit-round` skill for the full safe-commit workflow and branch-hygiene rules (including Codex worktree handling).
 
+## When you see a gap — fix it
+
+If you notice something a future agent will trip on — a typo in `CLAUDE.md`, a skill file missing a step that matters, a script producing misleading output, a memory entry that has gone stale, an instruction that contradicts observed practice — **add the correction**. No permission needed. Update the relevant file, add or edit the memory entry, fix the skill, commit with a clear message.
+
+The instruction set is infrastructure. If it drifts out of sync with observed reality, every future agent in this harness pays for the gap. Treat it as load-bearing.
+
+### Applies to
+
+- Typos, formatting errors, or contradictions in `CLAUDE.md` / `AGENTS.md` / `docs/writing-prompts.md`.
+- Skills that reference deprecated workflows or that miss a commonly-used step.
+- Scripts with confusing error messages, ambiguous arguments, or edge cases that bite silently.
+- Memory entries that are outdated or wrong per what you now observe.
+- Recurring curator mistakes worth codifying as a skill or a rule.
+
+### Does not override
+
+- The git safety rules (no force-push to main, no `-A` staging, no `--no-verify`, etc.).
+- The per-round commit discipline — self-improvement commits are scoped separately from round commits.
+- The "don't push to remote unless asked" default for round artifacts. For harness-infrastructure fixes, push when the user has generally authorized infrastructure maintenance; otherwise stage and let the user decide.
+
+### How to apply
+
+- **Small fix** (typo, clarification): edit in place, commit with a message like `CLAUDE.md: clarify X` or `skills/add-round-doc: fix missing Y step`.
+- **New rule or convention**: add to the most relevant section, add a brief example if non-obvious, and save a memory entry if a fresh agent would miss it without the reminder.
+- **Structural change** (restructuring a section, renaming a skill): flag in a commit message and keep the diff scoped.
+
 ## What to avoid
 
 - **Solving the math yourself.** Stay in synthesis mode — you will be wrong.
@@ -250,17 +324,3 @@ See `commit-round` skill for the full safe-commit workflow and branch-hygiene ru
 - **Re-deriving from memory.** Always pull from the compiled state view or saved conversation dumps.
 - **Letting stale state rot.** If `state_compiled.md` is > 1 round behind, regenerate before composing the next prompt.
 - **Reframing progress for morale.** When asked where things stand, be honest. Specific over vague; categorical status over made-up percentages.
-
-## Tooling Learnings
-
-- For erdos-500 de Finetti finite-extendibility experiments, do not substitute finite-graph surrogates for the Razborov plateau pseudo-extremizer: Phase 1 needs a genuine flagmatic/Razborov pseudo-moment export with type moments on at least q+3 vertices; otherwise report the run as blocked.
-
-- For erdos-500 K4 flag-algebra work, Flagmatic 1.5.1 is persisted at ~/.codex/bin/flagmatic-1.5.1 and CSDP 6.2.0 at ~/.codex/bin/csdp; invoke Flagmatic with CSDP=~/.codex/bin/csdp because Flagmatic checks the CSDP env var or ./csdp rather than searching PATH.
-
-- The standard Flagmatic K4 run ./flagmatic --r 3 --n 6 --forbid-k4 reproduces bound 0.56166560 and its flags.out first row is a 964-coordinate 6-vertex primal pseudo-moment vector, but it is not sufficient for de Finetti q=5..7 because those profiles need 8-10 vertex type moments.
-
-- For erdos-500 finite-extendibility LPs, SciPy/HiGHS can falsely report infeasible on sparse equality matrices with tight 1e-9 tolerances (observed on E_{3,3}, which is the simplex); use dense matrices for small q,Q and default-scale tolerance around 1e-7 before trusting infeasibility.
-
-- For erdos-500 de Finetti / Flagmatic lifts, unlabeled Flagmatic type densities must be projected to rooted labeled column profiles by averaging over all vertex labelings; using one canonical representative can create unsound separators and even fake bounds below the known 5/9 construction.
-
-- For erdos-500 4-root q=2 CP extendibility LPs, use exact sparse nonzero counts rather than a worst-case Q^2-per-column guard: B2 Q=5 has 3,162,510 variables and 58,412,510 nnz and is tractable locally; Q=6 remains direct-LP blocked at 761,052,175 nnz for B2 and 409,915,200 nnz for B3.
