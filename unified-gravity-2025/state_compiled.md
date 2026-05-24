@@ -2,7 +2,10 @@
 
 ## Established
 
-_none yet_
+- **[R03-pro1-subtraction-confirmed](unified-gravity-2025/round03-pro1-subtraction-confirmed.md)** (2026-05-24): Direct paper-citation verification (arXiv:2310.01460v11, Rep. Prog. Phys. 88, 057802, 2025) confirms the structural reading: the one-loop graviton self-energy 1PI two-point tensor at eqs. 187-188 has an overall (kappa p^4) prefactor with UV-divergent terms (electron loop: i kappa c p^4 / (480 pi^2 hbar) times [1/epsilon_UV + log(4 pi mu^2 e^{-gamma} / m_e^2 c^2)] P-hat_B; photon loop: i kappa c p^4 / (240 pi^2 hbar) times [1/epsilon_UV + log(...)] P-hat_{3,2,1}), not a p^2 scaling; the bare-action counterterm structure (eqs. 157, 161, 162, 189) is restricted to i (Z_H - 1) p^2 P-hat_{1,2,1} with constant Z_H; and the paper resolves the mismatch by introducing momentum-dependent delta Z_H^(1) via eqs. 203-205 satisfying Xi_{1L}|_{p^2 = 0} = 0 and (Xi_{1L} / p^4)|_{p^2 -> infty} = 0. Beyond confirming the original reading, this round identifies an additional structural mismatch: the divergence contains tensor projectors P-hat_{3,2,1} and P_{1,0,1} which are absent from the bare-action counterterm (which only has P-hat_{1,2,1}), so the counterterm basis is not merely derivative-degree-deficient but tensor-structure-incomplete. On standard BPHZ and algebraic-renormalization reading, the natural interpretation is either enlargement of the local counterterm basis (EFT-style, exiting power-counting renormalizability) or nonlocal propagator-level subtraction outside BPHZ. The paper does neither: it uses momentum-dependent propagator-level subtraction instead of local 1PI counterterm subtraction, which is not the same as Yang-Mills-style BPHZ renormalizability of the original parameter set.
+  — verified by gpt-pro-R03-verify-1; confidence high; prompt: [unified-gravity-2025/prompts/researcher-R03-verify-subtraction-claim.md](unified-gravity-2025/prompts/researcher-R03-verify-subtraction-claim.md)
+- **[R03-pro2-action-dynamical](unified-gravity-2025/round03-pro2-action-dynamical.md)** (2026-05-24): Direct paper-citation verification (arXiv:2310.01460v11) establishes that the gravitational kinetic term L_{g,kin} = (1/8 kappa) H_{a mu nu} H-tilde^a_{sigma lambda} epsilon^{mu nu sigma lambda} sqrt(-g) = (1/4 kappa) H_{a mu nu} S^{a mu nu} sqrt(-g) at eq. 61 is a standard teleparallel superpotential contraction (the "torsion scalar" combination of TEGR), NOT an abelian Pontryagin density. The decisive distinction is the definition of the dual object H-tilde at eqs. 59-60: H-tilde^a_{sigma lambda} = (1/2) epsilon_{sigma lambda mu nu} S^{a mu nu} where S^{a mu nu} = e^a_rho [(1/2)(H^{nu mu rho} + H^{mu rho nu} - H^{rho nu mu}) + g^{rho mu} H^{sigma nu}_sigma - g^{rho nu} H^{sigma mu}_sigma] is the soldered superpotential, NOT the Hodge dual of H. The paper explicitly warns that in soldered gauge theories the superpotential is not the field strength. The gauge structure is genuinely abelian U(1)^4 (eqs. 39, 55-57): the field strength contains no commutator terms and the paper states "our gauge theory of unified gravity is Abelian." The graviton propagator at eq. 138, i P^{(D)} / (p^2 + i epsilon), is the standard harmonic-gauge linearized-GR propagator, consistent with a dynamical TEGR-style kinetic term plus ordinary Faddeev-Popov gauge fixing. The "gravitational action is a total divergence / Pontryagin density" objection (Pitkänen TGD-diary blog, May 2025) is refuted: the action is dynamical, not topological, and the topological-density misreading arises only by silently substituting S^{a mu nu} for H^{a mu nu}, which the paper explicitly forbids.
+  — verified by gpt-pro-R03-verify-2; confidence high; prompt: [unified-gravity-2025/prompts/researcher-R03-verify-action-density-claim.md](unified-gravity-2025/prompts/researcher-R03-verify-action-density-claim.md)
 
 ## Ruled Out
 
@@ -16,7 +19,8 @@ _none yet_
 ### By type
 - refutation: 3
 - synthesis: 1
+- verification: 2
 
 ### By strategy dependence
-- —: 4
+- —: 6
 
