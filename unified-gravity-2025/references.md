@@ -38,6 +38,32 @@ New entries surfaced by the three Pro responses. Pre-seeded entries above (Becch
 - **[Partanen & Tulkki 2025b]** Extending unified gravity to account for graviton-graviton interaction. *arXiv:2507.07790.* Cited in R02-pro-2 for: the original-paper authors' own subsequent acknowledgment that graviton-graviton interaction is a necessary extension of the Minkowski-space formulation, confirming the original action was not closed under renormalization.
 - **[Piguet & Sorella 1995]** *Algebraic Renormalization: Perturbative Renormalization, Symmetries and Anomalies.* Springer Lecture Notes in Physics m28; DOI 10.1007/978-3-540-49192-7. Cited in R02-pro-3 for: algebraic-renormalization framework (BRST cohomology classification of counterterms and anomalies) underlying the Yang-Mills-style renormalizability proof structure invoked by the candidate theory.
 
+## Cited in R03 (paper fact-checks — two parallel GPT Pro dispatches)
+
+New entries surfaced by R03 verification responses. Pre-seeded entries (Partanen-Tulkki 2025, Becchi-Rouet-Stora 1976, etc.) and R02 entries (Casadio-Kuntz-Paci 2022, Barnich-Brandt-Henneaux 2000, etc.) were also re-invoked.
+
+- **[Maluf 2013]** The teleparallel equivalent of general relativity. *Ann. Phys. (Berlin) 525, 339-357; arXiv:1303.3897; DOI 10.1002/andp.201200272.* Cited in R03-pro2 for: the standard teleparallel torsion-quadratic Lagrangian combination (1/4) T^{ρμν} T_{ρμν} + (1/2) T^{ρμν} T_{νμρ} − T^{ρ}_{μρ} T^{νμ}_{ν} (eqs. 23-27 of Maluf), shown to equal Einstein-Hilbert up to a separate divergence and to coincide in mathematical form with the candidate paper's gravity kinetic term at eqs. 61, 108-109.
+- **[Krššák et al. 2019]** Teleparallel theories of gravity: illuminating a fully invariant approach. *Class. Quantum Grav. 36, 183001; arXiv:1810.12932; DOI 10.1088/1361-6382/ab2e1f.* Cited in R03-pro2 for: invariant-formulation review of teleparallel theories; specifically eqs. 77-78 giving the torsion-squared Lagrangian invariants.
+- **[Jackiw 2004]** S. S. Chern and Chern-Simons Terms. *arXiv:math-ph/0408051.* Cited in R03-pro2 for: clean derivation of the abelian Pontryagin-density identity (1/4) ε^{μναβ} F_{μν} F_{αβ} = ∂_μ K^μ with Chern-Simons current K^μ = ε^{μαβγ} A_α ∂_β A_γ (eqs. 1a, 5a). This is the result that would make the kinetic term non-dynamical IF the kinetic term were of this form — which it isn't, per R03-pro2's verdict.
+
+Paper-internal citations (Partanen-Tulkki 2310.01460v11, equation references invoked by R03 responses):
+
+- **Eqs. 39, 55-57**: gauge group U(1)^4 abelian structure; covariant derivative D_ν = ∂_ν − i g'_g H_{aν} t^a; gauge transformation H_{aν} → H_{aν} + (1/g'_g) ∂_ν φ_a; field strength H_{aμν} = ∂_μ H_{aν} − ∂_ν H_{aμ} with no commutator terms.
+- **Eqs. 59-60**: definitions of the dual H-tilde and superpotential S^{aμν} in the soldered gauge theory.
+- **Eq. 61**: gravity kinetic term L_{g,kin} = (1/8κ) H_{aμν} H-tilde^a_{σλ} ε^{μνσλ} √(-g) = (1/4κ) H_{aμν} S^{aμν} √(-g).
+- **Eqs. 108-109**: reduced/geometric UGM Lagrangian, gravity kinetic term re-expressed in component form L_{g,kin} = (1/4κ) H_{ρμν} S^{ρμν}.
+- **Eq. 138**: harmonic-gauge graviton propagator D̃^{(g, ξ_g = 1)}_{αβ, ρσ}(p) = i P^{(D)}_{αβ, ρσ} / (p^2 + iε), identified by the paper as the standard linearized-GR graviton propagator.
+- **Eq. 157**: bare-field relation H^{μν}_{bare} = √(Z_H) H^{μν}.
+- **Eq. 161**: loop expansion Z_i = 1 + λ δZ_i^{(1)} + λ^2 δZ_i^{(2)} + ...
+- **Eq. 162**: renormalized gravity quadratic Lagrangian L_{g,kin} = (1/4κ) H_{ρμν} S^{ρμν} + (Z_H − 1) (1/4κ) H_{ρμν} S^{ρμν}.
+- **Eqs. 187-188**: one-loop graviton self-energy 1PI tensor — electron loop (i κ c p^4) / (480 π^2 ℏ) × [1/ε_UV + log(4π μ^2 e^{−γ} / m_e^2 c^2)] P-hat_B + ...; photon loop (i κ c p^4) / (240 π^2 ℏ) × [1/ε_UV + log(...)] P-hat_{3,2,1}.
+- **Eq. 189**: 1PI counterterm vertex i (Z_H − 1) p^2 P-hat^{αβ, ηλ}_{1,2,1}.
+- **Eqs. 190-195**: projector definitions.
+- **Eq. 196**: scalar propagator correction factor obtained by sandwiching 1PI tensor between two tree propagators.
+- **Eq. 203**: subtraction conditions Ξ_{1L}|_{p^2 = 0} = 0; (Ξ_{1L} / p^4)|_{p^2 → ∞} = 0.
+- **Eqs. 204-205**: explicit form of momentum-dependent δZ_H^{(1)}_{electron} and δZ_H^{(1)}_{photon}.
+- **Eq. 207**: renormalized photon contribution containing log(−p^2).
+
 ## Public-record context (curator-surfaced, not yet cited in a research round)
 
 External community context surfaced during R02 → R03 planning. Listed separately from researcher-round citations because these are not yet load-bearing for any specific round's argument; they exist as context for future dispatches.
@@ -59,3 +85,18 @@ All three agree:
 - The TEGR geometric reduction is not closed under one-loop renormalization.
 
 **Caveat (within-family attractor):** all three are GPT Pro. Cross-family verification (Gemini / DeepThink / Claude) is the next natural step before promoting the verdict to Established. The convergent verdict is real signal — three independent Pro attempts reach the same conclusion via different specific mechanisms — but a different model family attempting the same problem is the strongest available check before treating the disproof as settled.
+
+## R03 verification outcomes
+
+Two parallel GPT Pro fact-checks against the primary source:
+
+1. **R03-pro1 confirms R02-pro-2** with paper-citation backing (Partanen-Tulkki eqs. 157, 161, 162, 187-189, 196, 203-205). Additional finding: the bare-action counterterm-basis mismatch is **stronger** than originally framed — there is also a tensor-structure mismatch (P̂_{3,2,1} and P_{1,0,1} in the divergence vs only P̂_{1,2,1} in the counterterm), not merely a derivative-degree mismatch (p^4 vs p^2). Two notational corrections: (i) the symbol Ξ_{1L} is reused in the paper for two different objects (the 1PI tensor at eqs. 187-188 vs the scalar propagator correction factor at eqs. 196-199) — Pro #2's original phrasing conflated them; (ii) the displayed δZ_H^{(1)} formulas at eqs. 204-205 do not literally contain log(p^2); that log appears in the renormalized remainder (eq. 207). Neither correction affects the substantive conclusion.
+
+2. **R03-pro2 refutes the Pitkänen "action is total divergence" objection.** The kinetic term at eq. 61 is a teleparallel superpotential contraction (1/4κ) H_{aμν} S^{aμν}, not an abelian Pontryagin density. The decisive distinction is that the "dual" object H-tilde in the paper is defined via the soldered superpotential S^{aμν} (eqs. 59-60), not the Hodge dual of H. The gauge structure is genuinely abelian U(1)^4 (eqs. 39, 55-57) with no commutator terms in the field strength. The graviton propagator (eq. 138) is the standard harmonic-gauge linearized-GR propagator. The action is dynamical, not topological. Pitkänen apparently substituted S → H silently, which the paper explicitly warns against.
+
+After R03, the one-loop-renormalizability disproof rests on:
+- R02-pro-1 (Weyl² + Deser-vN spinor sector) — standalone, independent argument grounded in classical 1974/1994 literature.
+- R02-pro-2 (paper-internal subtraction defect) — now paper-citation-verified by R03-pro1, with additional tensor-mismatch finding.
+- R02-pro-3 (Casadio-Kuntz-Paci teleparallel matter-loop) — standalone, independent argument grounded in 2022 literature.
+
+All four GPT Pro independent attempts agree the renormalizability claim is false. The Pitkänen alternative objection is closed out as a misreading.
