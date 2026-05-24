@@ -64,6 +64,36 @@ Paper-internal citations (Partanen-Tulkki 2310.01460v11, equation references inv
 - **Eqs. 204-205**: explicit form of momentum-dependent δZ_H^{(1)}_{electron} and δZ_H^{(1)}_{photon}.
 - **Eq. 207**: renormalized photon contribution containing log(−p^2).
 
+## Cited in R04 (alternative-search — two parallel GPT Pro dispatches)
+
+Both R04 responses converged on the same structural verdict: no strict-family fix exists; two coherent descendants (teleparallel/New-GR EFT, quadratic gravity preferably with fakeons). New citations:
+
+- **[Fradkin & Tseytlin 1982]** Renormalizable asymptotically free quantum theory of gravity. *Nucl. Phys. B 201, 469-491; DOI 10.1016/0550-3213(82)90444-8.* Cited in R04-pro-1 and R04-pro-2 for: asymptotic freedom of the essential couplings (f_0, f_2) in curvature-squared quadratic gravity.
+- **[Salvio 2018]** Quadratic Gravity (review). *Frontiers in Physics 6:77; arXiv:1804.09944; DOI 10.3389/fphy.2018.00077.* Cited in R04-pro-1 and R04-pro-2 for: comprehensive review of quadratic-gravity renormalizability with general renormalizable matter sectors; explicit pole structure (massless graviton + massive spin-2 + massive scalar) and beta-function structure.
+- **[Anselmi & Piva 2018]** The ultraviolet behavior of quantum gravity. *JHEP; arXiv:1803.07777.* Cited in R04-pro-2 for: fakeon-prescription quantization of curvature-squared gravity recovering perturbative unitarity; explicit graviton propagator with massive fakeon and massive scalar poles; one-loop counterterms and beta functions (e.g. Delta alpha = -133/10); BV-formulation satisfying the master equation (Gamma, Gamma) = 0; fakeon prescription does not affect renormalization; absorptive unitarity holds under fakeon prescription at vanishing cosmological constant. Note: R04-pro-1 references Anselmi-Piva fakeons in prose but cites Donoghue (gr-qc/9405057) — citation error; the correct primary source is Anselmi & Piva 2018 (1803.07777) or related Anselmi papers.
+- **[Beltrán Jiménez, Heisenberg, Koivisto 2020]** General teleparallel quadratic gravity. *Phys. Lett. B 805, 135422; DOI 10.1016/j.physletb.2020.135422.* Cited in R04-pro-1 and R04-pro-2 for: caveats about teleparallel quadratic theories — generically contain extra symmetric rank-2 fields plus a 2-form; linear symmetries needed for viability can fail nonlinearly, producing strong-coupling/pathology issues; New GR is a good leading EFT basis but not an established UV completion.
+- **[Donoghue 1994]** General relativity as an effective field theory: The leading quantum corrections. *Phys. Rev. D 50, 3874; arXiv:gr-qc/9405057.* Cited in R04-pro-1 (via reference link, though prose context is misattributed to fakeons) for: the EFT-of-gravity framework treating GR as a Wilson EFT below the Planck scale.
+- **[Burgess 2004]** Quantum gravity in everyday life: General relativity as an effective field theory. *Living Reviews in Relativity 7:5; arXiv:gr-qc/0311082.* (Implicit citation as the standard EFT-of-gravity review; both Pros invoke "Donoghue-Burgess EFT completion" as a known framework.) Cited in R04 for: the modern EFT-of-gravity philosophy that avoids spurious ghost claims below the cutoff by treating higher-derivative terms perturbatively rather than resumming.
+
+## R04 verification outcomes
+
+Two parallel GPT Pro dispatches converged on the same structural answer:
+
+**Impossibility (both Pros agree):** No local BPHZ-renormalizable descendant of the construction can keep exact U(1)^4 + TEGR closure + finite coupling set + Yang-Mills-style renormalizability + all three stated goals (i)-(iii) simultaneously. The exact (U(1)^4) + TEGR one-parameter sector is not radiatively closed; once loops generate BRST-nontrivial ghost-number-0 invariants outside that sector, no change of subtraction scheme or multiplicative Z-factor keeps the theory inside it. Sharp corollary: TEGR-only fails immediately by C plus A, B; New-GR-only addresses the one-loop torsion-quadratic mismatch of C but lacks the C^2 / R^2 four-derivative basis needed for A and the higher-dimensional matter counterterms needed for the Einstein-Dirac axial-current quartic divergence.
+
+**Two coherent descendants (both Pros independently propose):**
+
+| Descendant | Bare action class | Preserves | Weakens | Abandons |
+|---|---|---|---|---|
+| **Teleparallel/New-GR EFT** | TEGR + New-GR (c_1, c_2, c_3) + C^2 + R^2 + Gauss-Bonnet + torsion-quartic + (J_5^μ J_{5μ})^2 + full local higher-dim tower | (ii) classical GR/TEGR limit | (iii) EP as universal low-energy coupling only | (i) strict perturbative renormalizability |
+| **Quadratic gravity (with fakeons)** | -Λ_C + ζ R/(2κ²) + α (R_{μν}² − (1/3) R²) − (ξ/6) R² + matter; Anselmi-Piva fakeon prescription | (i) perturbative renormalizability | (ii) GR as IR limit only; (iii) EP as universal low-energy coupling | exact TEGR closure; standard microcausality above fakeon scale |
+
+The trade-off is structural: preserving goal (i) "same footing as SM" requires abandoning exact TEGR closure (ii); preserving (ii) requires abandoning strict renormalizability (i). There is no modification within the structural family of the construction that preserves all three goals.
+
+**Authors' own iteration:** arXiv:2507.07790 (Partanen-Tulkki extension to graviton-graviton interaction) is consistent with the "enlarge the bare action" direction predicted by both R04 Pros, though the specific extension's compatibility with one or the other descendant (EFT vs quadratic-gravity-with-fakeons) is not yet evaluated.
+
+**Convergence quality:** within-family attractor caveat applies (both Pros are GPT Pro), but the responses converged on the same impossibility statement, the same two named exit routes (EFT and quadratic gravity), and largely the same literature (Casadio-Kuntz-Paci, Salvio, Anselmi-Piva, Fradkin-Tseytlin, Beltrán Jiménez et al., Stelle, Duff, Deser-vN, Barnich-Brandt-Henneaux). The structural verdict is robust within Pro family. Cross-family check (Gemini, Claude) would promote to "Established across families" if desired.
+
 ## Public-record context (curator-surfaced, not yet cited in a research round)
 
 External community context surfaced during R02 → R03 planning. Listed separately from researcher-round citations because these are not yet load-bearing for any specific round's argument; they exist as context for future dispatches.
