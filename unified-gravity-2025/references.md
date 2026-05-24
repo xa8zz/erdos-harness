@@ -34,7 +34,7 @@ New entries surfaced by the three Pro responses. Pre-seeded entries above (Becch
 - **[Barnich, Brandt, Henneaux 2000]** Local BRST cohomology in gauge theories. *Phys. Rep. 338, 439-569; arXiv:hep-th/0002245.* Cited in R02-pro-1 and R02-pro-3 for: classification of admissible counterterms and anomalies via local BRST cohomology; ghost-number-0 controls counterterms (BRST-invariant local polynomials in curvatures + derivatives), ghost-number-1 controls Wess-Zumino-consistent anomalies; abelian gauge theory FP ghosts decouple in Lorenz gauge and Slavnov-Taylor identities collapse to Ward identities (not enough to lock independent gauge-invariant scalars).
 - **[Barnich, Brandt, Henneaux 1995a]** Local BRST cohomology in the antifield formalism: I. General theorems. *Commun. Math. Phys. 174, 57; DOI 10.1007/BF02099464.* Cited in R02-pro-2 for: ghost-number-0 cohomology controls deformations and counterterms; ghost-number-1 controls anomalies — the algebraic-renormalization framework.
 - **[Barnich, Brandt, Henneaux 1995b]** Local BRST cohomology in Einstein-Yang-Mills theory. *Nucl. Phys. B 455, 357-408; DOI 10.1016/0550-3213(95)00471-4.* Cited in R02-pro-2 for: same framework specialized to gravity-coupled Yang-Mills; characterizes the counterterm basis under combined gauge + diffeomorphism BRST.
-- **[Casadio, Kuntz, Paci 2022]** Quantum fields in teleparallel gravity: renormalization at one-loop. *Eur. Phys. J. C 82, 262; arXiv:2110.04325; DOI 10.1140/epjc/s10052-022-10157-8.* Cited in R02-pro-2 and R02-pro-3 for: one-loop matter divergences on a teleparallel background are not absorbable into the TEGR action alone — under full equivalence-principle (translation + local Lorentz) coupling, divergences are torsion-quartic (teleparallel image of curvature-squared); under gauge-only translation coupling, divergences are torsion-quadratic in the Yang-Mills contraction T^{ρμν} T_{ρμν} but not in the TEGR linear combination, requiring enlargement to "New GR" with three independent torsion-quadratic couplings.
+- **[Casadio, Kuntz, Paci 2022]** Quantum fields in teleparallel gravity: renormalization at one-loop. *Eur. Phys. J. C 82, 186; arXiv:2110.04325; DOI 10.1140/epjc/s10052-022-10157-8.* Cited in R02-pro-2 and R02-pro-3 for: one-loop matter divergences on a teleparallel background are not absorbable into the TEGR action alone — under full equivalence-principle (translation + local Lorentz) coupling, divergences are torsion-quartic (teleparallel image of curvature-squared); under gauge-only translation coupling, divergences are torsion-quadratic in the Yang-Mills contraction T^{ρμν} T_{ρμν} but not in the TEGR linear combination, requiring enlargement to "New GR" with three independent torsion-quadratic couplings.
 - **[Partanen & Tulkki 2025b]** Extending unified gravity to account for graviton-graviton interaction. *arXiv:2507.07790.* Cited in R02-pro-2 for: the original-paper authors' own subsequent acknowledgment that graviton-graviton interaction is a necessary extension of the Minkowski-space formulation, confirming the original action was not closed under renormalization.
 - **[Piguet & Sorella 1995]** *Algebraic Renormalization: Perturbative Renormalization, Symmetries and Anomalies.* Springer Lecture Notes in Physics m28; DOI 10.1007/978-3-540-49192-7. Cited in R02-pro-3 for: algebraic-renormalization framework (BRST cohomology classification of counterterms and anomalies) underlying the Yang-Mills-style renormalizability proof structure invoked by the candidate theory.
 
@@ -127,6 +127,52 @@ The canvass surfaced one credentialed critique the program had not incorporated 
 **Public record ahead in:**
 - Barker's spectral analysis (ghost mode at weak-field zero-coupling limit) — should be incorporated as a fourth potential obstruction.
 - Authors' own iteration trajectory (tree-level extensions in 2505.14446 and 2507.07790) — consistent with R04 prediction but not yet evaluated for whether the extensions actually close R02–R04's obstructions.
+
+## Cited in R06 (open-assessment — three parallel GPT Pro dispatches)
+
+Three R06 responses converged on the same overall verdict and surfaced substantial new external context. Citation-record additions:
+
+**Casadio-Kuntz-Paci article-number correction:** R06-pro-3 identified that the correct citation is *Eur. Phys. J. C 82, 186 (2022)*, not 82, 262. Earlier references in this file (R02, R03 entries) have been corrected globally. The arXiv ID 2110.04325 and DOI 10.1140/epjc/s10052-022-10157-8 are unchanged.
+
+**Terminology refinement:** R06-pro-3 noted that the Deser-van Nieuwenhuizen 1974 counterterm is more precisely an *axial-current quartic* (ψ̄ γ^a γ_5 ψ)^4 — a dimension-12 *eight-spinor* operator. Loose "four-fermion" framing is imprecise but doesn't affect the substantive obstruction; the operator is far outside the bare finite Lagrangian regardless.
+
+**New external critiques surfaced:**
+
+- **[Chishtie 2026]** Emergent gravity in contrast to unified gauge gravity: Nine interconnected structural limitations of the UGM model and their resolution in USMEG-EFT. *Chinese Journal of Physics; DOI 10.1016/j.cjph.2026.05.001.* Surfaced independently by R06-pro-2 and R06-pro-3. Bibliographic metadata verified (May 2026 publication, accessible via ScienceDirect); full text not yet fetched. Second credentialed third-party critique beyond Barker 2023. Title suggests the critique enumerates nine structural limitations of the UGM model and proposes resolution via a "USMEG-EFT" framework. Critical to fetch its full content before treating as load-bearing.
+- **[Bensouilah 2026]** Gravitational photon-photon scattering in a recent unified gravity model. *Canadian Journal of Physics; DOI 10.1139/cjp-2025-0362.* Surfaced by R06-pro-3. Computes single-graviton-exchange photon-photon scattering in UGM and reports the small-angle differential cross section reproduces the classical Tolman-Ehrenfest-Podolsky description of the gravitational field produced by light. **Supportive tree-level consistency check**, not a critique. Does not touch the one-loop counterterm mismatch (Obstruction B), teleparallel non-closure (Obstruction C), or the Barker spectrum issue.
+
+**New author follow-ups surfaced (beyond 2505.14446 and 2507.07790):**
+
+- **[Partanen et al. 2025c — perihelion]** arXiv:2506.14447, "Perihelion precession of planetary orbits solved from quantum field theory" — R06-pro-1 mention; classical / tree-level extension of the unified-gravity classical-phenomenology program.
+
+**Supporting prior literature surfaced:**
+
+- **[Ebert, Plefka, Rodigast 2007]** Absence of gravitational contributions to the running Yang-Mills coupling. *Phys. Lett. B; arXiv:0710.1002.* Cited by R06-pro-2 as precedent for a removable dimension-6 counterterm in Einstein-Yang-Mills via field redefinition — i.e. apparent higher-derivative divergences can sometimes be eliminated as field-redefinition artifacts. This escape route exists in principle for unified gravity but looks narrow given the paper-internal graviton self-energy mismatch (Obstruction B) and the teleparallel three-coupling result (Obstruction C).
+- **[Drummond & Hathrell 1980]** *Phys. Rev. D 22, 343.* Cited by R06-pro-3 for context: in conventional metric electrodynamics coupled to GR, classical geometric-optics light propagation is **not** polarization-split; known polarization-dependent gravitational propagation arises from QED loop vacuum-polarization in a curved background, not from classical 2PN gravitational deflection. Implication: unified-gravity's claimed polarization-dependent 2PN deflection (arXiv:2505.14446) is genuinely a non-GR classical signature, scientifically meaningful as a distinguishing experimental prediction of the Minkowski-UG branch.
+
+## R06 verification outcomes
+
+Three GPT Pro open-assessment dispatches converged on the same overall verdict and structural framing while contributing distinct emphases:
+
+**Convergent verdict (all 3 Pros):** The strict flagship claim of one-loop perturbative renormalizability in the original 4×U(1) + TEGR-closed + finite-bare-coupling family has not survived. The broader program is alive as a source of concrete classical / post-Newtonian predictions. Modified descendants exist within known physics (teleparallel/tetrad EFT or Stelle/Fradkin-Tseytlin curvature-squared with Anselmi-Piva fakeons) but each abandons at least one original goal. The 2025 author follow-ups make the unresolved program-level fork **more explicit, not less.**
+
+**Distinct emphases:**
+
+- **R06-pro-1 (branch fork as central new finding):** arXiv:2507.07790 explicitly states (i) there is "no equivalence transformation" from UG to TEGR; (ii) the substitutions that produce TEGR break the gauge symmetry of UG; (iii) the new gauge-invariant graviton-graviton self-interaction term does NOT contribute to the TEGR-reduced Lagrangian. Forces two structurally distinct branches: a gauge-invariant Minkowski-UG branch (carrying the 2PN deviations and the triple-graviton vertex) and a TEGR/GR-reduced branch (recovered only after symmetry-breaking substitutions, classical-GR-agreeing). The 23.3% / 26.7% 2PN deviations belong specifically to the non-TEGR Minkowski branch, not to "unified gravity" generally. The original slogan "UG reproduces GR and predicts new nonlinear effects" is incoherent as a unified statement; branch-selection is required.
+
+- **R06-pro-2 (corrigenda + new external context):** The corrigenda did NOT remove the basic renormalization problem in arxiv v11. Chishtie 2026 (Chinese J. Phys.) surfaces as a second credentialed external critique. The 2PN deviation value evolved across preprint versions of 2505.14446, suggesting phenomenology not yet stabilized. Ebert-Plefka-Rodigast 2007 provides precedent for removable dimension-6 counterterms via field redefinition; this escape route exists but looks narrow.
+
+- **R06-pro-3 (three-languages reframing + supportive external + 2PN context):** Obstructions A, B, C are not three independent annoyances but the same counterterm-basis-closure failure expressed in three languages — all reduce to "the bare action's parameter set is too small." Bensouilah 2026 (Canadian J. Phys.) provides a tree-level supportive consistency check (photon-photon scattering reproduces Tolman-Ehrenfest-Podolsky). Drummond-Hathrell 1980 context: classical 2PN polarization-dependent light deflection is genuinely non-GR (in conventional GR, that effect comes from QED loops in curved space). CKP article-number correction (186, not 262).
+
+**Five program-recovery conditions (R06-pro-1):** (1) actual fundamental action including the 2025 necessary graviton self-interaction, with explicit local counterterm closure for that extended theory; (2) real answer to the teleparallel counterterm problem (either enlarged basis or new symmetry/cancellation theorem); (3) healthy spectrum around the true vacuum addressing Barker; (4) equivalence principle promoted from renormalization prescription to something protected or derived; (5) clear statement of which branch is physical.
+
+**Convergence quality:** within-family attractor caveat applies (all 3 are GPT Pro), but the three responses (i) confirm the strict-claim failure with paper-internal citations, (ii) independently identify the branch fork as a new central tension, (iii) surface complementary external context (Chishtie + Bensouilah independent of each other), (iv) propose the same two-descendant taxonomy as R04. The structural verdict is now robust within the Pro family across three rounds. Cross-family verification (Gemini, Claude, DeepThink) would promote to "Established across families."
+
+**Action items surfaced:**
+
+- Fetch the full text of Chishtie 2026 (Chinese J. Phys., DOI 10.1016/j.cjph.2026.05.001) to evaluate its "Nine interconnected structural limitations" against our A/B/C and the branch-fork finding.
+- Consider whether Barker's ghost finding should now be formally incorporated as Obstruction D, separate from A/B/C.
+- Evaluate whether the branch fork itself should be promoted to a formal Established round of the program.
 
 ## Public-record context (curator-surfaced, not yet cited in a research round)
 
