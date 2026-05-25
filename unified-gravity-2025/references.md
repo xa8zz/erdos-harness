@@ -182,6 +182,43 @@ Three GPT Pro open-assessment dispatches converged on the same overall verdict a
 - Consider whether Barker's ghost finding should now be formally incorporated as Obstruction D, separate from A/B/C.
 - Evaluate whether the branch fork itself should be promoted to a formal Established round of the program.
 
+## Cited in R07 (three-Pro convergent open-assessment with discourse integration)
+
+Three R07 GPT Pro open-assessment dispatches converged on the same overall verdict — strict claim not defensible, program alive only as speculative classical alternative + EFT/higher-derivative descendants — and contributed distinct technical content beyond R06.
+
+**Barker body-content surfaced (R07-pro-3):** R07-pro-3 successfully read the body of arXiv:2311.11790 and sharpened Barker's "ghostly teleparallel vacuum" abstract claim into specific spin-mode structure. In the symmetric interpretation of the unified-gravity weak-field zero-coupling limit, **the two graviton polarizations require one sign of κ while five additional massless polarizations require the opposite sign of κ — making ghosts unavoidable**. In the asymmetric teleparallel interpretation, Barker reports **six ghost polarizations**. In a bimetric reading, the spectrum is still not unitary. This is not a rigorous no-go theorem for every possible finite-coupling completion, but it sharply specifies the free-field-limit spectral pathology — the construction does not contain only a healthy helicity-2 graviton plus gauge redundancy at this limit. Constitutes a credentialed-physicist Obstruction D candidate alongside our R02 obstructions A, B, C.
+
+**Narrowness of original renormalization claim (R07-pro-1):** Section 9 of arXiv:2310.01460 explicitly restricts the one-loop analysis to the electron-positron field, electromagnetic field, and gravitational field — it proves one-loop renormalizability only in that specific sector and leaves all-loop renormalizability + the rest of the Standard Model matter sector for future work. Even setting aside R02's A/B/C, the demonstrated result was never a full Standard-Model-plus-gravity renormalization proof; it was a one-loop analysis in a restricted matter sector.
+
+**Yang-Mills analogy weakness (R07-pro-2):** The original program's analogy with the Standard Model's renormalizable gauge sector relies on two assumptions that the 2025 follow-ups undermine: (1) in non-abelian Yang-Mills theory, gauge self-interactions are fixed by the gauge principle through the field strength F = dA + A∧A, but in UG the underlying U(1)^4 is abelian (commuting generators) and the original formulation lacked graviton self-interaction — the needed nonlinearity had to be added by hand in arXiv:2507.07790 via an extra stress-energy coupling, so the symmetry principle does NOT automatically constrain self-interactions the way Yang-Mills does; (2) Casadio-Kuntz-Paci explicitly contrast teleparallel "soldered" contractions (which mix internal and spacetime indices) with ordinary Yang-Mills (where gauge and spacetime indices are unrelated) — UG was trying to get both a Yang-Mills-like fixed-background gauge theory AND a teleparallel/GR recovery story from the same construction, and the July 2025 follow-up is effectively an admission that one cannot get both.
+
+**Four-descendant taxonomy (R07-pro-3, refining R04's two-descendant):** Pro #3 refined the descendant landscape into four distinct coherent paths:
+
+1. **Teleparallel/tetrad effective field theory** (Donoghue-Burgess spirit) — full local operator basis including higher-derivative + torsion + fermion-current operators; preserves GR limit, abandons strict renormalizability.
+2. **New-GR teleparallel renormalization** — three independent torsion-squared coefficients (c_1, c_2, c_3) per Casadio-Kuntz-Paci; abandons exact TEGR but keeps teleparallel structure; needs separate spectrum/stability check (which Beltrán Jiménez et al. 2020 caution against).
+3. **Higher-derivative curvature gravity** — Stelle + Fradkin-Tseytlin asymptotic freedom + Anselmi-Piva fakeon prescription to handle the massive spin-2 mode; preserves renormalizability, modifies microcausality above the fakeon scale.
+4. **Genuinely new Minkowski gauge theory of gravity pursued as a distinct theory** — the gauge-invariant Minkowski-UG branch evaluated on its own merits, with the right benchmark being "does it have a healthy particle spectrum / local counterterm basis for the triple-graviton theory / viable Ward-Slavnov identities / consistent EFT expansion / experimentally viable 2PN polarization predictions" rather than "does it reproduce GR." This is an open research program, not a completed solution.
+
+**Nuance on the 2PN light-deflection claim (R07-pro-1, R07-pro-2):** Both Pros refined the framing. It is too strong to say GR is entirely polarization-blind — beyond standard ray optics, GR has small polarization-dependent spin-optics / helicity corrections, and curved-spacetime QED gives the Drummond-Hathrell vacuum-polarization effect (Drummond & Hathrell 1980, Phys. Rev. D 22, 343). However, UG's prediction is a *classical 2PN ray-optics polarization splitting* of 23.3%/26.7%, which is large and not a beyond-ray-optics or QED-in-curved-space correction. So the 2PN signature is genuinely non-GR; the nuance does not save UG, but our framing should reflect that GR has *some* polarization sensitivity at sub-leading levels.
+
+## R07 verification outcomes
+
+Three GPT Pro open-assessment dispatches converged on the same overall verdict while contributing distinct sharpenings.
+
+**Convergent verdict (all 3 Pros, repeating R04 + R06 with new evidence):** The strict flagship claim is not presently defensible. The program is alive as a speculative Minkowski-UG classical-alternative theory with concrete tree-level predictions but unresolved loop renormalization, spectrum, and branch identity. Coherent descendants exist within known physics (EFT, New-GR, quadratic gravity / fakeons, or pursued as a distinct Minkowski theory) but each requires abandoning at least one of the original program's selling points.
+
+**Distinct sharpenings:**
+
+- **R07-pro-1:** the original renormalization claim was narrower than the headline suggests (electron+photon+gravity sector only, not full Standard Model + gravity). The 2PN polarization claim is genuinely non-GR despite some GR polarization sensitivity at sub-leading levels.
+
+- **R07-pro-2:** the Yang-Mills analogy underpinning the original "same footing as Standard Model" framing is undermined by the abelian U(1)^4 structure (gauge principle does not fix self-interactions) and by Casadio-Kuntz-Paci's contrast between teleparallel soldered indices and ordinary Yang-Mills indices. The "dimensionless coupling" rhetoric collapses to α_g = G p^2 / (ℏ c^3), explicitly energy-dependent.
+
+- **R07-pro-3:** **Barker's body sharpens the ghost claim into specific spin-mode content** — 2 + 5 polarizations with opposite-sign κ requirements in symmetric interpretation, 6 ghost polarizations in teleparallel interpretation, non-unitary in bimetric. Refines R04's two-descendant taxonomy into four distinct coherent paths. Final framing: if UG is pursued in the gauge-invariant Minkowski branch, the right benchmark is not "does it reproduce GR" but the standard local-QFT health checks on the branch as a distinct theory.
+
+**Within-Pro-family convergence is now 13 dispatches** (R02 × 3, R03 × 2, R04 × 2, R06 × 3, R07 × 3) all reaching the same overall verdict via different framings and emphases. The structural verdict is exceptionally robust within the Pro family. Cross-family verification remains the bar for "Established across families."
+
+**Remaining unfetched item:** Chishtie 2026 Chinese J. Phys. specific "nine structural limitations" content. R07 Pros also could not access full text via ScienceDirect 403 / ResearchGate paywall. The bibliographic existence and abstract-level thrust are verified; the nine specific items remain unread.
+
 ## Public-record context (curator-surfaced, not yet cited in a research round)
 
 External community context surfaced during R02 → R03 planning. Listed separately from researcher-round citations because these are not yet load-bearing for any specific round's argument; they exist as context for future dispatches.
