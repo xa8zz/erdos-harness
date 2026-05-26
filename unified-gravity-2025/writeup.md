@@ -1,6 +1,6 @@
 # Four obstructions, two corrigenda, and a branch fork: a structural reading of Partanen–Tulkki unified gravity
 
-**Author:** Om Patel (om@latitude.io)
+**Author:** Om Buddhdev (sensho@sensho.xyz)
 **Date:** 2026-05-25
 **DOI:** *to be assigned by Zenodo*
 **License:** CC-BY 4.0
