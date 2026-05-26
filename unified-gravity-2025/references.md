@@ -138,7 +138,7 @@ Three R06 responses converged on the same overall verdict and surfaced substanti
 
 **New external critiques surfaced:**
 
-- **[Chishtie 2026 — Chinese J. Phys.]** Emergent gravity in contrast to unified gauge gravity: Nine interconnected structural limitations of the UGM model and their resolution in USMEG-EFT. *Chinese Journal of Physics; DOI 10.1016/j.cjph.2026.05.001.* Surfaced independently by R06-pro-2 and R06-pro-3. **Bibliographic metadata verified; full text remains paywall-blocked** (ScienceDirect / Elsevier 403/redirect-blocked, no separate arxiv preprint located). The nine specific structural limitations are not yet available to the program. Title and abstract-level signal: this is a comparative paper arguing UGM has nine interconnected structural problems resolved by Chishtie's separate USMEG-EFT framework (see below). Second credentialed third-party critique beyond Barker. Full content remains a fetch action item; alternatively, a Pro dispatch can read it with internet access.
+- **[Chishtie 2026 — Chinese J. Phys.]** Emergent gravity in contrast to unified gauge gravity: Nine interconnected structural limitations of the UGM model and their resolution in USMEG-EFT. *Chinese Journal of Physics; DOI 10.1016/j.cjph.2026.05.001.* Surfaced independently by R06-pro-2, R06-pro-3, and partially audited by R08-pro-1. **Bibliographic metadata verified; full text remains paywall-blocked** (ScienceDirect 403, ResearchGate "No full-text available", no arxiv preprint located). However, ScienceDirect snippets accessed by R08-pro-1 reveal substantive visible structure of the nine-limitations critique: **Step 1** "Incompatible transformation requirements"; **Step 2** "Component-wise phase rotation is Lorentz non-covariant"; an "inescapable dilemma" between Steps 1 and 2; a claim that the UGM covariant derivative carries a **Lorentz-non-covariant residual**; **Step 6** a spin-content objection that UGM describes **spin-1** gravitational particles rather than spin-2; **Step 7** a Ward-identities and non-renormalizability argument. This places Chishtie's critique structurally **upstream** of the writeup's four obstructions: it attacks the Lorentz covariance of the U(1)^4 construction itself before reaching counterterm-basis closure. If correct, the "BRST symmetry implies renormalizability" claim is undermined before the one-loop subtraction formulas, because the relevant Ward/BRST identities would not be identities of a Lorentz-covariant gravitational gauge theory. This is a candidate "Obstruction 0" preceding A/B/C/D. The remaining unread limitations (counts 3-5, 8-9) are still inaccessible without paid access; R08-pro-1's reading covers ~5 of 9.
 
 **Chishtie's USMEG-EFT framework (broader body of work surfaced 2026-05-24):**
 
@@ -218,6 +218,29 @@ Three GPT Pro open-assessment dispatches converged on the same overall verdict w
 **Within-Pro-family convergence is now 13 dispatches** (R02 × 3, R03 × 2, R04 × 2, R06 × 3, R07 × 3) all reaching the same overall verdict via different framings and emphases. The structural verdict is exceptionally robust within the Pro family. Cross-family verification remains the bar for "Established across families."
 
 **Remaining unfetched item:** Chishtie 2026 Chinese J. Phys. specific "nine structural limitations" content. R07 Pros also could not access full text via ScienceDirect 403 / ResearchGate paywall. The bibliographic existence and abstract-level thrust are verified; the nine specific items remain unread.
+
+## Cited in R08 (pre-publication audits of the writeup)
+
+Three GPT Pro pre-publication adversarial reviews of `unified-gravity-2025/writeup.md`. Convergent feedback:
+
+**Confirmed strengths:**
+- Obstruction B (paper-internal κ p^4 / constant-Z_H counterterm-basis mismatch via eqs. 157-205) is the highest-value contribution.
+- Branch-fork framing grounded in the verbatim 2507.07790 quotes is the second-strongest contribution.
+- The writeup correctly says its building blocks are not novel and the combination + paper-internal critique are.
+
+**Confirmed weaknesses requiring revision:**
+- **Factual error**: "six author follow-ups" should be "five follow-ups plus two corrigenda" (R08-pro-1 and R08-pro-2). The references list five: eight-spinor QED companion (2310.02285), light deflection (2505.14446), perihelion precession (2506.14447), atomic Dirac redshift (2506.22057), graviton-graviton extension (2507.07790).
+- **Polemical tone** — drop or soften: "quietly conceded", "strict claim fails", "popular-press celebration", "not a good equilibrium". Replace with: "makes explicit" / "substantially reframes" / "exposes" / "my current conclusion" / "strongly supported."
+- **AI methodology note placement** — move from main body to postscript / appendix / repository note. For physics audiences, "thirteen GPT Pro dispatches converged" is not evidence and may reduce perceived credibility (R08-pro-1, R08-pro-2 explicit; R08-pro-3 implicit).
+- **Chishtie novelty framing** — Pro #1's audit found substantive visible content from ScienceDirect snippets that the writeup currently characterizes as "bibliographic existence only." Writeup must update to acknowledge Chishtie's Lorentz-covariance + spin-content + Ward-identity critique exists and is structurally upstream of the writeup's four obstructions. Add a comparison table distinguishing what Chishtie attacks vs what the writeup contributes. Downgrade absolute novelty claims to "provisional, pending full access to Chishtie's text."
+- **Don't conflate Barker and Chishtie** — Barker is about ghost vs healthy spectrum modes; Chishtie's Step 6 is about whether the construction gives the correct spin representation at all. Keep them separate.
+- **Don't use Chishtie's USMEG-EFT as validation** — it's a competing EFT-framed program with its own strong claims ("first successful unification"); not corroboration of the writeup's specific equation-level obstructions.
+- **Add referee-proofing for Obstruction B** — explicitly rule out whether the p^4 structure could be removed by equations of motion, gauge artifacts, projector degeneracies, or local field redefinition. Cite Ebert-Plefka-Rodigast 2007 precedent for removable dimension-6 counterterms via field redefinition; explain why this escape route doesn't apply here.
+- **Tighten "demonstrated" vs "inferred"** boundary throughout. The structural-impossibility argument is a structural inference, not a formal theorem — acknowledge this more consistently.
+
+**Independent scoring (R08-pro-1):** argument structure 8.5/10, technical readability 8/10, tone for hostile referees 5.5/10, novelty framing after Chishtie 6/10 until revised, blog publishability 8/10, journal-comment publishability 6/10 (mainly because needs tighter sourcing + toned-down rhetoric + Chishtie comparison section).
+
+**Recommendation across all three:** publish as a technical comment after one focused revision. The defensible headline (per R08-pro-2): *"The strict claim that Partanen-Tulkki unified gravity is a finite-parameter, Standard-Model-style, one-loop-renormalizable quantum gravity theory is not supported by the paper's own renormalization structure and is further undermined by the authors' later branch separation between Minkowski-UG and TEGR."*
 
 ## Public-record context (curator-surfaced, not yet cited in a research round)
 
