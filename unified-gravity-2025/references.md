@@ -242,6 +242,41 @@ Three GPT Pro pre-publication adversarial reviews of `unified-gravity-2025/write
 
 **Recommendation across all three:** publish as a technical comment after one focused revision. The defensible headline (per R08-pro-2): *"The strict claim that Partanen-Tulkki unified gravity is a finite-parameter, Standard-Model-style, one-loop-renormalizable quantum gravity theory is not supported by the paper's own renormalization structure and is further undermined by the authors' later branch separation between Minkowski-UG and TEGR."*
 
+## Cited in R10 (V3 pre-publication audits + critical-claim verification)
+
+Three GPT Pro pre-publication adversarial reviews of writeup-v3.md, plus curator-side verification of two critical claims R10 reviewers flagged.
+
+**VERIFIED — Deser-van Nieuwenhuizen counterterm dimension (R10-pro-3 was wrong):**
+
+R10-pro-3 challenged that the Deser-vN counterterm should be (J_5)^2 dim-6 (four-fermion), not (J_5)^4 dim-12 (eight-fermion). Curator search verification confirms the writeup is correct: per multiple search results citing the original Deser & van Nieuwenhuizen 1974 Phys. Rev. D 10, 411, *"the coupled Dirac-Einstein system is one-loop nonrenormalizable, with diagrams containing **eight external fermions** yielding a divergence proportional to the fourth power of the fermion axial-vector current."* "Fourth power of the axial-vector current" literally means (J_5)^4 = 8 fermions = dim-12 operator. R10-pro-3 confused this with the more common modern QFT shorthand "four-fermion" usage. The writeup's claim of "axial-current quartic, (ψ̄γ^a γ_5 ψ)^4 — a dimension-12 eight-spinor operator" is correctly sourced. V4 should add one clarifying sentence noting that this is the original-paper formulation, not the common shorthand "four-fermion."
+
+**UNVERIFIED — equation references in v11 (R10-pro-1 may be right):**
+
+R10-pro-1 claims that direct reading of arxiv:2310.01460v11 HTML shows the writeup's equation references are systematically wrong relative to v11 numbering:
+- Writeup cites eq. 157 for the bare-field relation; R10-pro-1 says it's eq. 161.
+- Writeup cites eq. 162 for the renormalized gravity quadratic Lagrangian; R10-pro-1 says eq. 162 is the scaled renormalization-factor definitions, and the Lagrangian is at eq. 166.
+- Writeup cites eqs. 187-188 for the graviton self-energy; R10-pro-1 says 187-188 are PHOTON self-energy and graviton starts at 191-193.
+- Writeup cites eqs. 203-205 for the δZ_H^(1) formulas; R10-pro-1 says scalar correction / counterterm formulas run through 201-211.
+
+This conflicts with R03-pro-1's earlier reading (where eqs. 187-188 were cited for graviton self-energy with specific verifiable numerical factors κ p^4 / (480 π^2 ℏ) electron-loop, κ p^4 / (240 π^2 ℏ) photon-loop, etc.). Possible explanations: (i) R03-pro-1 read an earlier arxiv version (v8 or v9) and equation numbers shifted in v11; (ii) the v11 corrigenda renumbered equations; (iii) one of the two Pros misread the HTML. Curator WebFetch and ar5iv fetches have been unable to retrieve the actual equation content (PDF/HTML compressed). **Direct PDF verification or a dedicated Pro dispatch is required before V4 ships.** If the equation numbers shifted, the writeup must be updated globally — this is a load-bearing citation precision issue that a referee would catch immediately.
+
+**Other convergent R10 revision items (across all 3 audits):**
+
+1. **Subsection numbering bug in §8** — labeled 5.1-5.4 instead of 8.1-8.4 (R10-pro-1, R10-pro-2, R10-pro-3 all caught this). Trivial fix.
+2. **TL;DR section references wrong** — writeup says fork is in §6 and descendants in §7, but body has fork at §7 and descendants at §8 (R10-pro-1). Trivial fix.
+3. **Add explicit "Criterion for local one-loop counterterm closure" subsection** before Obstruction B (R10-pro-1, R10-pro-3). State that BPHZ requires local polynomials in momenta; preempt the "they're just using a momentum subtraction scheme" rebuttal by noting MOM still yields constants at a renormalization point, not Z(p^2).
+4. **Soften BRST-invariant projector language** (R10-pro-1, R10-pro-3). Barnes-Rivers projectors are a kinematic tensor basis, not automatically BRST cohomology representatives. The argument only needs linear independence off-shell.
+5. **Rename obstruction headers** to subordinate A/C/D to B explicitly (R10-pro-1): "Direct obstruction: counterterm-basis mismatch / Supporting expectation from matter-coupled gravity / Supporting analogy from teleparallel one-loop / Independent spectral warning."
+6. **Move branch-fork section earlier** — immediately after Obstruction B (R10-pro-1).
+7. **Reduce descendants by 50%** or move to appendix (R10-pro-1, R10-pro-2). Fakeon / higher-derivative discussion is background; most relevant descendants are EFT and Minkowski-UG-as-distinct-theory.
+8. **Reduce Chishtie further** (R10-pro-2) — currently spends too much rhetorical energy on visible snippets from a paywalled paper; should be brief bibliographic note or footnote.
+9. **Tone softenings** (all 3): "obvious escape routes are closed" → "do not seem to resolve the mismatch under stated assumptions"; "force a separation" → "strongly suggest a separation"; "I would welcome any of these" → "Any of these developments would materially change the conclusion."
+10. **Cut 25-35% total length** by deduplication (R10-pro-2).
+11. **Add a short appendix reproducing the exact target-paper formulas** central to the critique, so the reader doesn't have to cross-open another paper (R10-pro-2).
+12. **Acknowledgments specificity** (R10-pro-1) — current line is acceptable but vague; expand to "Computational tools were used to organize references and cross-check citations; the technical claims and wording are the author's responsibility."
+
+**Convergent recommendation:** V4 with equation verification first. The writeup is publishable in V3 form for Substack, but for Zenodo/email outreach/journal submission, the equation numbers must be verified and the subsection numbering / TL;DR refs / BRST language fixed.
+
 ## Public-record context (curator-surfaced, not yet cited in a research round)
 
 External community context surfaced during R02 → R03 planning. Listed separately from researcher-round citations because these are not yet load-bearing for any specific round's argument; they exist as context for future dispatches.
