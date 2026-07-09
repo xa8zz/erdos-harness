@@ -324,3 +324,7 @@ The instruction set is infrastructure. If it drifts out of sync with observed re
 - **Re-deriving from memory.** Always pull from the compiled state view or saved conversation dumps.
 - **Letting stale state rot.** If `state_compiled.md` is > 1 round behind, regenerate before composing the next prompt.
 - **Reframing progress for morale.** When asked where things stand, be honest. Specific over vague; categorical status over made-up percentages.
+
+## Session Learnings
+
+- The round-doc extractor reads Claude Code JSONL only; when research arrives as a Codex attachment, use the attachment file itself as the byte-faithful body, prepend immutable frontmatter, then run compile_rounds.py.
