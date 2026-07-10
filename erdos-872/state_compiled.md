@@ -1,4 +1,4 @@
-# Current state (compiled 2026-07-09)
+# Current state (compiled 2026-07-10)
 
 ## Established
 
@@ -269,6 +269,10 @@
   — verified by forum-natso26-standard-check; confidence high
 - **[R71-edwin-k5-safe-edge-email](erdos-872/external-71-edwin-k5-safe-edge-email.md)** (2026-07-09): The correspondence reports an exhaustive local K5 q-fiber obstruction to per-round Q monotonicity, a certified initial-state activation obstruction for a concrete arithmetic witness, and no proof that the obstructing fiber is reachable under a selector satisfying the restricted T2 hypothesis.
   — confidence medium
+- **[R73-unconditional-T2-exact-move-potential](erdos-872/researcher-73-unconditional-T2-exact-move-potential.md)** (2026-07-10): The restricted safe-edge hypothesis is unnecessary in both the weighted activation graph and the actual residual arithmetic game. Explicit max-threat selectors make the appropriate game-length potentials nondecreasing, giving unconditionally L(n) >= c_delta n(log log n)^2/log n for every fixed delta<1/4.
+  — verified by independent activation algebra audit, agrees, independent residual arithmetic audit, agrees, independent full proof audit, agrees, finite exact-rational harness, 350992 activation states and 100000 residual multifiber states, no counterexample; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
+- **[R74-online-interdiction-frontier](erdos-872/researcher-74-online-interdiction-frontier.md)** (2026-07-10): The original dichotomy remains unresolved. A fixed-rank Shortener sweep reduces L(n)=o(n) to a reachable q-shadow closure lemma, but an upper-half consecutive-block construction refutes the corresponding static lemma even within the sweep's move budget. The surviving core is an online weighted divisor-interdiction game; local per-fiber rank iteration cannot yield a linear lower bound because simplex fibers lose a factor of order 1/h.
+  — verified by fixed-rank implication exhaustively checked through n=11, no counterexample, packet-union asymptotic checked numerically at three scales, independent static-counterexample audit, agrees; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
 
 ## Ruled Out
 
@@ -365,13 +369,13 @@
 ### By type
 - diagnostic: 6
 - refutation: 48
-- research: 135
-- synthesis: 10
+- research: 136
+- synthesis: 11
 - verification: 81
 
 ### By strategy dependence
 - T2-selector-dependent: 1
-- independent: 9
+- independent: 11
 - strategy-specific: 2
 - —: 268
 
