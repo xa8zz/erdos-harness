@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "topic": "erdos-872-safe-edge-potential",
+  "sources": [
+    {
+      "kind": "local-primary-source",
+      "path": "erdos-872/paper/sections/appendix-A-deferred-proofs.tex",
+      "use": "Defines the conditional T2 games, potential, activation wrapper, residual embedding, and deletion budget."
+    },
+    {
+      "kind": "vendored-external-source",
+      "path": "erdos-872/external/edwin-872/docs/v4_k5_walkthrough.md",
+      "commit": "1cf34f2a0c2756ff6d7334e61db73f19df53b394",
+      "use": "Regression shape for the isolated K5 potential drop caused by an exact edge deletion."
+    }
+  ]
+}

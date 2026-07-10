@@ -1,0 +1,16 @@
+{
+  "activation_states_checked": 270992,
+  "activation_weight_range": [
+    0,
+    4
+  ],
+  "category": "finite-adversarial-check",
+  "caveat": "Finite evidence only; theorem still requires a symbolic proof and arithmetic-wrapper audit.",
+  "exhaustive_activation_n": 4,
+  "exhaustive_residual_n": 5,
+  "fixture": "t2-safe-edge-potentials",
+  "max_random_n": 9,
+  "residual_states_checked": 54898,
+  "seed": 872,
+  "status": "passed"
+}
