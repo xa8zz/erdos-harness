@@ -1,0 +1,29 @@
+name: erdos 872 safe edge potential
+slug: erdos-872-safe-edge-potential
+profile: evidence
+created_at: 2026-07-10T23:37:30.698441+00:00
+target: "The proposed activation and residual move selectors always have nonnegative full-round potential change against every modeled reply."
+source_of_truth:
+  code:
+    - verify_safe_edge_potentials.py
+  docs:
+    - erdos-872/paper/sections/appendix-A-deferred-proofs.tex
+    - erdos-872/external/edwin-872/docs/v4_k5_walkthrough.md
+  tests:
+    - exhaustive weighted activation states through four vertices
+    - seeded random weighted activation and multi-fiber residual states
+  production_or_browser_evidence: []
+  external_sources: []
+metric: "Number of generated states for which selector gain is smaller than the worst legal reply loss."
+runner: ./run.sh
+artifacts:
+  screenshots: artifacts/screenshots
+  data: artifacts/data
+  logs: artifacts/logs
+  repros: artifacts/repros
+gate: "Zero negative full-round transitions; any failure must emit a replayable JSON state."
+verdict: measured
+deferred:
+  - symbolic proof review
+  - arithmetic activation and residual embedding audit
+notes: notes.md
