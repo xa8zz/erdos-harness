@@ -1,6 +1,6 @@
 # Paper Draft Status
 
-Last refreshed: 2026-04-21.
+Last refreshed: 2026-07-10.
 
 ## Per-section status
 
@@ -27,15 +27,16 @@ No `\todo{}` markers are currently present in the draft sources under
 
 ## Estimated page count
 
-- Current compiled draft: **48 pages** including appendices.
+- Current compiled draft: **52 pages** including appendices.
 - Source of count: `pdfinfo main.pdf` on the most recent build.
 
 ## Build status
 
-- Command: `tectonic -X compile main.tex` from `erdos-872/paper/`.
-- Result: successful `main.pdf` (~360 KiB).
-- Remaining warnings: two `Underfull \hbox` warnings in `main.bbl` line 45
-  (URL-heavy bibliography entries for the forum thread and Bloom's list).
+- Command: `tectonic -X compile --keep-logs --print main.tex` from
+  `erdos-872/paper/`.
+- Result: successful `main.pdf` (~388 KiB).
+- Remaining warnings: two `Underfull \hbox` warnings in `main.bbl` lines
+  39--44 (the URL-heavy forum-thread bibliography entry).
   No `Overfull \hbox`, no unresolved references, no missing citations.
 
 ## Open items
@@ -49,9 +50,23 @@ No `\todo{}` markers are currently present in the draft sources under
   (four for envelope inversion, five for the rounding bridge) during the
   R57 repair cycle and supplemented with an explicit truncated-bin case.
   No further repairs outstanding.
+- **Rank-three selector formalization.** The unconditional exact-move proof is
+  complete in Appendix A and has passed independent symbolic audits and the
+  exact-rational finite-state harness.  The new max-threat selectors are not
+  yet Lean-formalized; external mathematical peer review remains desirable
+  before public submission.
 
 ## Recently closed
 
+- **F4 unconditional rank-three lower bound (closed 2026-07-10).**
+  Appendix A now credits exact targets played by either player in the real
+  game-length potential.  A weighted activation selector and a disjoint-fiber
+  residual selector remove the former restricted safe-edge hypothesis, giving
+  unconditionally
+  \(L(n)\ge c_\delta n(\log\log n)^2/\log n\) for fixed
+  \(0<\delta<1/4\).  The old \(K_4/K_5\) obstruction is retained as a
+  counterexample to the stronger auxiliary game with artificial unscored
+  exact-edge deletion.
 - **F1 interval certificate (closed 2026-04-21).**
   `scripts/wfour_certification.py` now reproduces the four $J_r$ intervals
   from first principles via exact breakpoint-split cell masses and
@@ -77,9 +92,8 @@ No `\todo{}` markers are currently present in the draft sources under
 
 - Section 7 reflects the R57 envelope / prime-rounding decomposition and the
   R60 promotion of the finite Bonferroni-4 theorem to theorem-grade status.
-- Appendix A aligns with the current Lean files
-  (`erdos-872/lean/erdos_872_core/RequestProject/`) which carry T2-core
-  finite-game formalization with the safe-edge hypothesis stated explicitly
-  in prose.
-- Appendix C's formalization status table is accurate as of this refresh;
-  re-verify before submission.
+- Appendix A uses the existing Lean-checked local T2 identities but no longer
+  assumes a safe-edge hypothesis.  The replacement selectors are prose proofs
+  stress-tested by
+  `codex-scripts/test-harness/erdos-872-safe-edge-potential/`.
+- Appendix C's formalization status table is accurate as of this refresh.

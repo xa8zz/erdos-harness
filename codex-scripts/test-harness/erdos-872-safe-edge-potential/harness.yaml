@@ -24,6 +24,6 @@ artifacts:
 gate: "Zero negative full-round transitions; any failure must emit a replayable JSON state."
 verdict: measured
 deferred:
-  - symbolic proof review
-  - arithmetic activation and residual embedding audit
+  - Lean formalization of the new max-threat selectors
+  - external mathematical peer review
 notes: notes.md

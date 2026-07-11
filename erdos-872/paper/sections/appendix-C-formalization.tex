@@ -3,7 +3,7 @@
 This appendix records the status of the Lean artifacts corresponding to the
 paper's principal results.  The map distinguishes between fully formalized
 finite or structural cores and prose components which use standard analytic
-number theory or conditional game-theoretic hypotheses.
+number theory or game-theoretic selectors.
 For all entries, verification was last recorded at artifact repository tag
 \texttt{arxiv-v1} (see \cite{ErdosHarness26}) and Lean toolchain
 \path|leanprover/lean4:v4.28.0|.
@@ -32,11 +32,11 @@ Structural identities Lean; analytic inputs (Mertens, PNT) and assembly are pros
 None &
 Unconditional game lower bound proved in the text; no Lean or numerical artifact is claimed. \\
 
-\Cref{thm:t2} & Conditional; finite cores Lean-verified &
+\Cref{thm:t2} & Unconditional; legacy finite cores Lean-verified &
 \path|T2Finite/GraphGame.lean|;
 \path|T2Finite/HyperGame.lean|;
 \path|T2Finite/ResidualComparison.lean| &
-Conditional on the restricted safe-edge hypothesis.  The safe-edge hypothesis and asymptotic activation wrapper remain prose. \\
+Exact-move selectors and the asymptotic wrapper are prose; an exact-rational finite-state harness stress-tests both selectors. \\
 
 \Cref{thm:five-twenty-four} & Formally verified &
 \path|tau_5_24/.../Cover.lean|;
@@ -127,7 +127,7 @@ artifact.  One remaining bundled placeholder covers the Chebyshev prime-prefix
 estimate and the game-tree wrapper realizing the prescribed prefix.
 
 \medskip
-\noindent\textbf{Conditional T2 lower bound, \Cref{thm:t2}.}\par
+\noindent\textbf{Unconditional rank-three lower bound, \Cref{thm:t2}.}\par
 Paths:
 \begin{lstlisting}[basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=false,columns=fullflexible]
 erdos-872/lean/erdos_872_core/RequestProject/T2Finite/GraphGame.lean
@@ -140,10 +140,13 @@ Q8_maker_ge_add_selfPot
 HQ8_maker_ge_add_selfPot_of_count_le_two
 comparison_package
 \end{lstlisting}
-Status: the finite graph-potential core, scored hypergraph core, and local
-arithmetic embedding core are Lean-verified.  The restricted safe-edge
-hypothesis is conditional, and the asymptotic activation wrapper remains in
-prose.
+Status: the legacy finite graph-potential core, scored hypergraph core, and
+local arithmetic embedding core are Lean-verified.  The new exact-move
+max-threat selectors and the asymptotic activation wrapper remain in prose.
+The exact-rational harness at
+\path|codex-scripts/test-harness/erdos-872-safe-edge-potential/| checks the
+selector inequalities over exhaustive small activation families and seeded
+multi-fiber residual families; this is stress testing, not a formal proof.
 
 \medskip
 \noindent\textbf{Main $0.19n$ upper bound, \Cref{thm:main-upper}.}\par

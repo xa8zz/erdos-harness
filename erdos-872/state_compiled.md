@@ -273,6 +273,10 @@
   — verified by independent activation algebra audit, agrees, independent residual arithmetic audit, agrees, independent full proof audit, agrees, finite exact-rational harness, 350992 activation states and 100000 residual multifiber states, no counterexample; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
 - **[R74-online-interdiction-frontier](erdos-872/researcher-74-online-interdiction-frontier.md)** (2026-07-10): The original dichotomy remains unresolved. A fixed-rank Shortener sweep reduces L(n)=o(n) to a reachable q-shadow closure lemma, but an upper-half consecutive-block construction refutes the corresponding static lemma even within the sweep's move budget. The surviving core is an online weighted divisor-interdiction game; local per-fiber rank iteration cannot yield a linear lower bound because simplex fibers lose a factor of order 1/h.
   — verified by fixed-rank implication exhaustively checked through n=11, no counterexample, packet-union asymptotic checked numerically at three scales, independent static-counterexample audit, agrees; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
+- **[R75-unconditional-rank-three-paper-integration](erdos-872/researcher-75-unconditional-rank-three-paper-integration.md)** (2026-07-10): The rank-three construction gives unconditionally L(n) >= c_delta n(log log n)^2/log n for every fixed 0<delta<1/4. The manuscript now contains explicit weighted-activation and residual-fiber selectors and no longer assumes a restricted safe-edge hypothesis.
+  — verified by three independent symbolic audits of the activation, residual, and arithmetic assembly, exact-rational harness passed 350992 activation states and 134898 residual states, integrated-manuscript audit found no remaining blocking mathematical issue, Tectonic build completed with no unresolved references or missing citations; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
+- **[R77-prime-cover-quotient-boundary](erdos-872/researcher-77-prime-cover-quotient-boundary.md)** (2026-07-10): Prolonger preserves a positive fraction of harmonic quotient mass when Shortener covers only by primes, but cross-batch semiprime covers reduce the same batching strategy's surviving mass to O((log log t)^2)=o(log t). The unresolved frontier is the online mixed-carrier versus composite-cover preemption race.
+  — verified by symbolic harmonic-mass audit, agrees, exact minimax exploration through t=18 found no small counterexample to the stronger quotient game; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
 
 ## Ruled Out
 
@@ -368,14 +372,16 @@
 
 ### By type
 - diagnostic: 6
-- refutation: 48
+- refutation: 49
 - research: 136
-- synthesis: 11
-- verification: 81
+- synthesis: 12
+- verification: 82
 
 ### By strategy dependence
 - T2-selector-dependent: 1
-- independent: 11
+- fixed-rank-sweep: 1
+- independent: 12
+- prime-batching: 1
 - strategy-specific: 2
 - —: 268
 

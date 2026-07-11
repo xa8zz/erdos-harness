@@ -2,8 +2,8 @@
 
 ## Target
 
-Falsify the proposed replacement for the restricted safe-edge hypothesis in
-the conditional T2 lower bound.
+Falsify the exact-move selectors used in the unconditional rank-three lower
+bound.
 
 ## Source Of Truth
 
@@ -66,8 +66,7 @@ the largest modeled reply loss.
 
 ## Deferred
 
-Symbolic proof review and the full arithmetic activation/residual embedding
-audit.
+Lean formalization of the new selectors and external mathematical peer review.
 
 ## Results
 
