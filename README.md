@@ -17,3 +17,10 @@ How co-researcher works:
 ![](docs/harness-loop.svg)
 
 License: MIT for code, CC-BY 4.0 for research artifacts.
+
+## Current Erdős #872 result
+
+The latest research update is the
+[unconditional rank-three lower-bound note](erdos-872/RESULT_UNCONDITIONAL_RANK_THREE.md),
+including a proof outline, manuscript, verification artifacts, and the exact
+boundary between internal checking and full independent/formal verification.
