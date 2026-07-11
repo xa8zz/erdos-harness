@@ -351,7 +351,7 @@ def main() -> int:
         "exhaustive_residual_n": args.exhaustive_residual_n,
         "activation_weight_range": [0, args.max_weight],
         "max_random_n": args.max_random_n,
-        "caveat": "Finite evidence only; theorem still requires a symbolic proof and arithmetic-wrapper audit.",
+        "caveat": "Finite evidence only; this supplements, but does not replace, the symbolic proof and arithmetic-wrapper audit.",
     }
     args.artifact.parent.mkdir(parents=True, exist_ok=True)
     args.artifact.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
