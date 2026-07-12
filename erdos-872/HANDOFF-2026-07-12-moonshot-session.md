@@ -55,7 +55,7 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 | R137: full-solution free-roam (corrected dossier) | chatgpt.com/c/6a540274-82ec-83e8-ac37-27c6e721e050 | RUNNING (dispatched ~17:18 07-12) |
-| R138: targeted (AE†) DIRECT attack (war-terminus attachments: R129 reduction + R136 unitization/laundering) | chatgpt.com/c/6a5407ac-6f40-83e8-9926-25e960caca83 | RUNNING (dispatched ~18:25 07-12) |
+| R142: FULL-COMPILATION free-roam (R140 base + first-failure localization + 4-property disproof checklist, provisional) | chatgpt.com/c/6a541022-57c4-83e8-ba65-75200671b8da | RUNNING (dispatched ~19:58 07-12) |
 | R139: full-solution free-roam sample 2 ((SM) promotion + 17th collapse folded in) | chatgpt.com/c/6a5407ed-b7ac-83e8-bb83-6061e4612a85 | RUNNING (dispatched ~18:28 07-12) |
 | R140: FULL-COMPILATION free-roam (R139 dossier + net-surviving lower-route machinery: fan hierarchy with c_k collapse, cover-shattering, universal block-product, interval antichain, S* baseline) | chatgpt.com/c/6a5408e0-bf5c-83e8-83f0-53a71bbeb981 | RUNNING (dispatched ~18:50 07-12) |
 
@@ -79,13 +79,15 @@ needs non-reservoir mechanisms or Omega(n) directly.
 
 Pending saves: R137 -> researcher-137-<slug>.md (kind standalone,
 prompts/researcher-R137-solution-attempt.md);
-R138 -> researcher-138-<slug>.md (predecessors
-R129-global-no-reuse-reduction + R136-owner-time-laundering, kind
-extends R136, prompts/researcher-R138-ae-dagger-direct.md);
+R138 LANDED AND SAVED (researcher-138-first-failure-localization.md —
+3rd nondegeneracy confirmation; first-failure localization theorem;
+4-property disproof checklist).
 R139 -> researcher-139-<slug>.md (kind standalone,
 prompts/researcher-R139-solution-attempt.md).
 R140 -> researcher-140-<slug>.md (kind standalone,
 prompts/researcher-R140-solution-attempt-full-compilation.md).
+R142 -> researcher-142-<slug>.md (kind standalone,
+prompts/researcher-R142-solution-attempt-full-compilation.md).
 Om's standing preference (2026-07-12 ~18:45): full-compilation
 free-roams are historically the breakthrough generator — keep the
 majority of slots on them; R140's prompt is the new free-roam base.
