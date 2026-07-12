@@ -53,11 +53,27 @@ R92: 2^r atomic-ledger repair; residual = ancestor-harvest inequality (AH)).
 Four formulations of ONE remaining lemma: (TL) = OLCM = bounded-recourse =
 (AH). R97 dispatched fresh on OLCM with the trace normal form.
 
+UPDATE 3 — CLAIMED RESOLUTION. R95 landed+saved
+(researcher-95-canonical-first-witness-tl-claim.md, confidence LOW):
+raw (TL) false, but canonical first-witness formulation claimed TRUE via
+odd-valuation cube partition + first-death lemma + chronological capacity
+theorem; conclusion L(n) = o(n), i.e. the dichotomy. Per decision rules:
+saved, pushed, TWO fresh adversarial audits dispatched
+(prompts/audit-R95-canonical-tl-adversarial.md; key checks include trace-1
+prime spoilers, ancestor reverse-divisibility, P_X accounting, the
+Prolonger-side fresh-batch theorem used inside a Shortener strategy).
+Cross-check pending: R97's narration reports a candidate FORCEABLE trace-1
+obstruction to OLCM — adjudicate against the audits when both land. Save
+audits as verify-postresp-R95-audit-a/b.md (confirms/refutes
+R95-canonical-first-witness-tl-claim).
+
 | What | Thread URL | Status |
 |---|---|---|
-| R95 ((TL) attack, in R91's thread) | chatgpt.com/c/6a52db0e-b448-83e8-bef8-8bcb9137968b | running |
+| Audit A of R95 | chatgpt.com/c/6a5357a6-9d20-83e8-9b2b-6114eabbe224 | running |
+| Audit B of R95 | chatgpt.com/c/6a5357dc-9198-83e8-8883-cf7f7f0a9805 | running |
 | R96 (fresh-thread zoom-out solution attempt) | chatgpt.com/c/6a534c6b-d280-83e8-afb5-3649140ac04d | running |
 | R97 (OLCM single-lemma, fresh thread) | chatgpt.com/c/6a535093-b21c-83e8-9f8c-718ff4d22ea8 | running |
+| R95/R91's thread (idle) | chatgpt.com/c/6a52db0e-b448-83e8-bef8-8bcb9137968b | landed+saved |
 | R93's thread (idle) | chatgpt.com/c/6a52f794-6da0-83e8-a9bd-f059f252236e | landed+saved |
 | R94/R92's thread (idle) | chatgpt.com/c/6a53160a-0630-83e8-b1a8-70de5c4e1d53 | landed+saved |
 | Audit A thread (idle) | chatgpt.com/c/6a5341b3-e890-83e8-9912-f7cedf07ae62 | landed+saved |
