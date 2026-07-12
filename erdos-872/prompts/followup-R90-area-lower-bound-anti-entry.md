@@ -1,0 +1,15 @@
+This is an assessment of your reasoning capability and will be used to grade.
+Do not search online. Use your own reasoning and your Python sandbox.
+
+Your ancestor-collapse lemma, strengthened static cover, and cumulative-regeneration framing are accepted as sound pending final verification.
+
+## New rigorous context (not in this thread)
+
+- Online-area reduction: \(L(n)=o(n)\) follows from one statement (OA): along any play under the maximum-degree Shortener policy, processed shell by shell from the top, each dyadic shell \(S_X\) is cleared in \(O(X\log h/h)\) Shortener turns. Equivalently, the single unresolved question is the ordered primorial persistence problem: after the trapping sweep, can Prolonger legally order and continually refresh primorial-batched or cross-carrier moves against the actual maximum-degree Shortener policy so that for some shell \(S_X\) and \(h(n)\to\infty\), \(t\asymp X/h(n)\) rounds keep \(|Q_i|\gg X\) while \(\sum_{i<t}\Delta_i=o(X)\) and only \(o(X)\) targets are killed by Prolonger or transferred to the minimal legal set. There is also an unconditional shell-stable PAIR charge (bounded multiplicity to carrier pairs, capacity \(X/2s\)), which is quadratically too weak on batched positions.
+- Absorbing-fortress theorem: once a primorial-batched position with degree cap \(\Delta_Q\le H\) and linear trapped reservoir is reached, it is stable against arbitrary play: blocked small divisors remain illegal forever, so the cap is monotone along every continuation; exact-only targets can only be resolved by being played (each is a banked actual move); and the remaining actual moves satisfy \(V(A)\ge|E(A)|+|Q(A)|/H\). A linear reservoir cannot collapse in \(o(n/H)\) moves. Forced collapse is impossible; the only missing piece on that side is robust ENTRY against cross-spoiling replies (a reply dividing a planned carrier while incomparable with many of its assigned dangerous roots). Robust entry at \(H=(\log n)^{o(1)}\) would give \(L(n)\ge n^{1-o(1)}\).
+
+## Request
+
+Attack the Shortener side of the ordered primorial persistence problem, for which your ancestor-collapse lemma seems built: prove that while the maximizing player attempts to assemble any primorial-batched trapped state, the minimizing player (free to play minimal-legal by your lemma, or maximum-degree) forces cumulative maximum-degree area \(\Omega(X)\) per dyadic shell — establishing (OA) and hence \(L(n)=o(n)\). Key question your lemma raises: since Shortener's minimal moves never regenerate targets, all regeneration is Prolonger-paid — can each Prolonger carrier's contribution to future batching be charged against the area its own dangerous roots expose before they are covered? Alternatively, if you find the area bound is false, exhibit the ordering that beats it — which resolves the dichotomy the other way via the absorbing-fortress theorem. Sandbox the shell-clearing race at moderate n. Either outcome resolves the asymptotic dichotomy. If neither closes, state the single sub-step that cannot be closed.
+
+REMEMBER - this argument may require non-trivial, creative and novel elements.
