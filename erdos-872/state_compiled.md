@@ -289,6 +289,8 @@
   — confidence medium; prompt: [erdos-872/prompts/researcher-R85-solution-attempt-post-charging-frontier.md](erdos-872/prompts/researcher-R85-solution-attempt-post-charging-frontier.md)
 - **[R86-online-area-reduction](erdos-872/researcher-86-online-area-reduction.md)** (2026-07-12): The primorial-batching construction disproves the trapped-residual charge (33) and, more generally, every current-state charge to individual earlier moves with capacity O(Delta) per move. Two positive results survive. (1) An unconditional shell-stable PAIR charge: within a dyadic shell S_X, all but an exceptional set of size N_{<2s}(X) + D_2(n) (k choose 2)/(s choose 2) live shell targets are covered with the maximum facet degree Delta_X(A) at capacity X/(2s) per carrier pair; genuine bounded multiplicity, but to carrier pairs, which is quadratically too weak on batched positions. (2) An exact reduction: L(n) = o(n) follows from one online-area statement (OA) — along any play under the maximum-degree Shortener policy, processed shell by shell, the cumulative maximum-degree area suffices to clear each shell in O(X log h / h) Shortener turns. The pair charge, the one-facet-per-target property, the divisor-multiplicity theorem, and the exact-only bank provably do NOT establish (OA). The single unresolved sub-step, stated without reference to any charging scheme: the ordered primorial persistence problem — after the trapping sweep, can Prolonger legally order and continually refresh primorial-batched or cross-carrier moves against the actual maximum-degree Shortener policy so that for some shell S_X and h(n) -> infinity, t ~ X/h(n) rounds keep |Q_i| >> X while the accumulated maximum degrees satisfy sum Delta_i = o(X) and only o(X) targets are killed by Prolonger or transferred to the minimal legal set. A yes gives a genuinely new lower-bound mechanism; a quantitative no proves (OA) and hence L(n) = o(n). The needed theorem is a lower bound on the cumulative maximum-degree area during the creation and refresh of a primorial-batched trapped state.
   — confidence medium; prompt: [erdos-872/prompts/followup-R86-trapped-residual-charge-with-exact-bank.md](erdos-872/prompts/followup-R86-trapped-residual-charge-with-exact-bank.md)
+- **[R87-primorial-positions-absorbing](erdos-872/researcher-87-primorial-positions-absorbing.md)** (2026-07-12): Post-entry dynamics are one-sided: once a primorial-batching position is reached, it is automatically stable, against arbitrary play. Blocked small divisors remain illegal forever (positions only grow), so the degree cap Delta_Q(B) <= Delta_Q(A) <= H is monotone along every continuation; exact-only targets can only be resolved by being played (each is an actual move, banked), and the exact-bank-plus-degree-cap bound V(A) >= |E(A)| + |Q(A)|/H holds for the number of remaining actual moves. Hence a linear trapped reservoir cannot collapse in o(n/H) moves, and forced-collapse (option b) is impossible. The only missing piece for a new unconditional lower bound is robust strategic ENTRY: forcing a primorial-batched position while the opponent inserts cross-spoiling lower moves (a move dividing a planned carrier without being comparable with many of the dangerous roots assigned to it). Static reachability is proved; robust entry is not. Robust entry at threshold H = (log n)^{o(1)} would give L(n) >= n/(log n)^{o(1)} = n^{1-o(1)}, dominating the current n(log log n)^2/log n bound. No further post-entry maintenance theorem is missing.
+  — confidence medium; prompt: [erdos-872/prompts/followup-R87-dynamic-primorial-maintenance.md](erdos-872/prompts/followup-R87-dynamic-primorial-maintenance.md)
 
 ## Ruled Out
 
@@ -389,14 +391,14 @@
 ### By type
 - diagnostic: 6
 - refutation: 51
-- research: 142
+- research: 143
 - synthesis: 12
 - verification: 83
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 21
+- independent: 22
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
