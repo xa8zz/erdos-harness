@@ -287,6 +287,8 @@
   — verified by web-enabled adversarial audit thread; confidence high; prompt: [erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md](erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md)
 - **[R85-ancestor-collapse-minimal-legal](erdos-872/researcher-85-ancestor-collapse-minimal-legal.md)** (2026-07-12): No unconditional resolution. Three new unconditional results. (1) Ancestor-collapse lemma: under the minimal-legal Shortener policy (always play a legal element having no legal proper divisor, which always exists by divisor descent), Shortener's own minimal lower moves never regenerate surviving upper targets, and at termination Shortener's move set equals the minimal legal completion M(P); all recursive regeneration collapses onto Prolonger's moves alone. (2) A linear construction based on the 5n/24 cover shows this exact reduction alone still permits linearly many completions, so minimal-legal play does not by itself prove sublinearity. (3) A stronger static large-divisor cover: for 3 <= w < z < n/2, all but O(kz^2 + n log w/log z + 2^{pi(z)}) live upper targets have a minimal legal divisor x <= n/w, so the live upper half is covered by at most n/w currently legal minimal lower moves; the guaranteed current degree is still only H^{o(1)} against a needed H, reproducing the quantitative failure of pointwise interdiction. A proof of o(n) must bound cumulative cross-carrier regeneration, not each static generation; a proof of Theta(n) must convert the same regeneration into a strategy while preventing shared mixed divisors from resolving a linear family at sublinear cost.
   — confidence medium; prompt: [erdos-872/prompts/researcher-R85-solution-attempt-post-charging-frontier.md](erdos-872/prompts/researcher-R85-solution-attempt-post-charging-frontier.md)
+- **[R86-online-area-reduction](erdos-872/researcher-86-online-area-reduction.md)** (2026-07-12): The primorial-batching construction disproves the trapped-residual charge (33) and, more generally, every current-state charge to individual earlier moves with capacity O(Delta) per move. Two positive results survive. (1) An unconditional shell-stable PAIR charge: within a dyadic shell S_X, all but an exceptional set of size N_{<2s}(X) + D_2(n) (k choose 2)/(s choose 2) live shell targets are covered with the maximum facet degree Delta_X(A) at capacity X/(2s) per carrier pair; genuine bounded multiplicity, but to carrier pairs, which is quadratically too weak on batched positions. (2) An exact reduction: L(n) = o(n) follows from one online-area statement (OA) — along any play under the maximum-degree Shortener policy, processed shell by shell, the cumulative maximum-degree area suffices to clear each shell in O(X log h / h) Shortener turns. The pair charge, the one-facet-per-target property, the divisor-multiplicity theorem, and the exact-only bank provably do NOT establish (OA). The single unresolved sub-step, stated without reference to any charging scheme: the ordered primorial persistence problem — after the trapping sweep, can Prolonger legally order and continually refresh primorial-batched or cross-carrier moves against the actual maximum-degree Shortener policy so that for some shell S_X and h(n) -> infinity, t ~ X/h(n) rounds keep |Q_i| >> X while the accumulated maximum degrees satisfy sum Delta_i = o(X) and only o(X) targets are killed by Prolonger or transferred to the minimal legal set. A yes gives a genuinely new lower-bound mechanism; a quantitative no proves (OA) and hence L(n) = o(n). The needed theorem is a lower bound on the cumulative maximum-degree area during the creation and refresh of a primorial-batched trapped state.
+  — confidence medium; prompt: [erdos-872/prompts/followup-R86-trapped-residual-charge-with-exact-bank.md](erdos-872/prompts/followup-R86-trapped-residual-charge-with-exact-bank.md)
 
 ## Ruled Out
 
@@ -387,14 +389,14 @@
 ### By type
 - diagnostic: 6
 - refutation: 51
-- research: 141
+- research: 142
 - synthesis: 12
 - verification: 83
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 20
+- independent: 21
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
