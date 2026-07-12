@@ -281,6 +281,8 @@
   — confidence medium; prompt: [erdos-872/prompts/researcher-R78-solution-attempt-rank-three-base.md](erdos-872/prompts/researcher-R78-solution-attempt-rank-three-base.md)
 - **[R79-forum-updates-through-may-2026](erdos-872/researcher-79-forum-updates-through-may-2026.md)** (2026-07-11): External evidence beyond the early-May capture. (a) A Lean 4 formalization of the 23/48 upper bound exists restricted to C-respecting play, where the minimizing player strictly targets the odd centers C: any maximal C-respecting play terminates within ceil(n/2) - |C|/2 moves. The core argument is formalized; the full unrestricted result is not. (b) Exact game values are now computed for all n <= 120 by alpha-beta search; optimal lengths grow weakly monotonically. For 105 <= n <= 164 the minimizing player's optimal first move is 2 or 3, equi-optimally, and every other first move is strictly worse; below 105 move 3 is at most one worse than move 2. Further progress is memory-bound (32 GB hash tables). (c) An elementary argument shows every complete game has length at least pi(n): the maximal prime powers q_i <= n over distinct primes are pairwise distinct, and any played integer covers at most one q_i. Items already recorded elsewhere and repeated in this capture: exact values to n=86 with the arithmetic-mean formula refuted at n=85,86; the dyadic refinement raising the fan-capture constant from 1/8 to 1/2; the bipartite potential-function method with its k-uniform hypergraph generalization to n(loglog n)^{k-1}/log n and an explicit call for formalization of such potential arguments.
   — confidence high
+- **[R81-static-completion-smooth-rough-sweep](erdos-872/researcher-81-static-completion-smooth-rough-sweep.md)** (2026-07-11): No unconditional resolution of the dichotomy. Three new unconditional pieces. (1) Static sublinear-completion theorem: for any primitive position P with |P| = k, the set M(P) of minimal legal elements (legal, with every proper divisor illegal) satisfies |M(P)| << eta n + n/log z + k z^2/eta + e^{O(z)}; for k = o(n) this is o(n), and P union M(P) is a maximal primitive set, so every sublinear primitive prefix has a sublinear maximal completion. Strengthens the exact-only-target bound from upper-half targets to the whole board and adds maximality. (2) Smooth/rough trapping sweep: with y = (1/4) log n, the minimizing player can in o(n) actual moves (Rankin bound Psi(n,y) = o(n) for the smooth sweep, Mertens/primorial count for the rough sweep) reach a position where every live m has its y-smooth part dividing one played carrier and its y-rough part dividing another. (3) Exact obstruction to finishing: cross-carrier products survive — t incomparable semiprime carriers p_i q_i regenerate at least t(t-1) new minimal legal cross-products p_i q_j, so one carrier move can refresh many future minimal moves and the static completion cannot be iterated move-by-move. Resolution requires either an online amortized theorem controlling NEW cross-products (for o(n)) or converting cross-product regeneration into a Prolonger strategy controlling all mixed proper divisors (for Theta(n)).
+  — confidence medium; prompt: [erdos-872/prompts/researcher-R81-solution-attempt-fractional-invariant-base.md](erdos-872/prompts/researcher-R81-solution-attempt-fractional-invariant-base.md)
 - **[R78-unconditional-rank-three-adversarial-audit](erdos-872/verify-postresp-R78-unconditional-rank-three-audit.md)** (2026-07-11): The unconditional bound L(n) >= c_delta n(log log n)^2/log n for every fixed 0<delta<1/4 holds as proved: no lemma, selector case, legality assertion, or asymptotic estimate in the deferred-proofs appendix fails under adversarial audit. The finite-fiber obstruction refutes only the stronger auxiliary game with unscored exact-target deletion; in the actual game every exact-target deletion is a scored move with net bank change 1-lambda >= 0.
   — verified by web-enabled adversarial audit thread; confidence high; prompt: [erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md](erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md)
 
@@ -379,14 +381,14 @@
 ### By type
 - diagnostic: 6
 - refutation: 49
-- research: 138
+- research: 139
 - synthesis: 12
 - verification: 83
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 15
+- independent: 16
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
