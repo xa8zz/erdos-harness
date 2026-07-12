@@ -1,170 +1,95 @@
 # Handoff — moonshot session of 2026-07-11/12 (Fable-5 curator + GPT-5.6 Pro)
 
-Operational handoff for the next curator agent. All math state is in round
-docs R78–R92 (committed) and `state_compiled.md`; this file carries only the
-session-operational state that would otherwise die with the session.
+Operational handoff, REWRITTEN clean at the end of the audit-cascade phase.
+All math state is in round docs R78–R97 + verify-postresp docs (committed)
+and `state_compiled.md`; this file carries only session-operational state.
 
-## Program status at handoff
+## Program status (end of night 2)
 
-The dichotomy (L(n) = Θ(n) vs o(n)) went through a reduction cascade tonight:
+The full history R78–R97 is in the compiled state view. Net position:
 
-1. R78: fractional invariant ν(A); exact-only lemma; rank-r no-go.
-2. R80: ν(A) = o(n) uniformly (LP route to Θ(n) closed); sparse covers;
-   pointwise unbounded interdiction; boxed charging inequality (10).
-3. R81: static sublinear completion; smooth/rough trapping sweep; t(t−1)
-   cross-carrier regeneration.
-4. R82+R84: (10) disproved twice independently.
-5. R86: L(n)=o(n) exactly reduced to the online-area statement (OA) /
-   ordered primorial persistence problem. Shell-stable PAIR charge proved.
-6. R87: absorbing-fortress theorem (entry ⇒ permanence, V ≥ |E| + |Q|/H).
-7. R83: Block Harvest Theorem (Ω(m²) actual moves per cross-product block).
-8. R88: entry reduced to lift-exhaustion multiplicity (LE); TWO KEY
-   QUALIFICATIONS: entry at growing H gives n^{1−o(1)} but NOT Θ(n)
-   (needs H=O(1) or amplification); beating max-degree/minimal-legal play
-   is not a bound against arbitrary play.
-9. R89: entry race = evolving weighted blocker game; frozen cases all
-   solved (product-escalating repair; covering-array coded repairs).
-10. R90: refinement-forest necessary condition (any low-area persistence
-    history needs ω(t) active minimal-root classes, ancestral sums o(X));
-    naive carrier-to-area charge false (Ω(H) loss).
-11. **R92 (UNAUDITED CLAIM, confidence low): arbitrary-reply persistence
-    theorem at maximal-divisor scale** — temporal face capacity of one
-    ordered spoiler ≤ C(r,⌊r/2⌋)·𝔗(n); scheduler robust vs every policy;
-    L(n) ≫ n/𝔗(n)^{1+δ}. NOTE: numerically WEAKER than the existing
-    rank-three bound (𝔗(n)^{1+δ} beats every power of log n); the value is
-    killing the ordered-area o(n) route at divisor-width cap scales.
+- Unconditional bracket unchanged and PUBLIC (forum-posted):
+  c_delta n(log log n)^2/log n <= L(n) <= (0.1897123371+o(1))n.
+- FOUR claimed resolutions were made and refuted tonight, each with
+  cross-convergent audits and small concrete counterexamples: R92
+  (arbitrary-reply persistence; instantaneous->temporal promotion), raw
+  (TL) (redundant re-witnessing), literal (OLCM) (anchor + trace-1,
+  R97), R95 (L(n)=o(n) via first-witness; move-index trace collapse +
+  player-quantifier reversal; verify-postresp-R95-audit-a/b.md).
+- Audit-surviving toolbox: atomic ledger 2^r lifetime bound (residual
+  channel only — ancestors escape), trace normal form + low-lcm energy
+  lemma, canonical cube partition + first-death lemma, fresh-batch
+  persistence (Prolonger-side ONLY), absorbing fortress, layer-peeling
+  reduction, anchor construction + batch-blocker neutralization.
+- THE SEPARATOR (all five threads converged): one chronology theorem.
+  Sufficient for o(n): growing-depth uniformity of minimal layers
+  (sum over j < log2 H of |M(A_j)| = o(n) along the sweep), or (OA), or
+  a contemporaneous-area repair potential. Required for Theta(n):
+  arbitrary-reply entry at FIXED cap H=O(1), or fortress amplification.
+  The Shortener policy definition is load-bearing (literal max-degree is
+  anchor-exploitable; batch blockers neutralize the exploit).
 
-## In-flight at handoff (ChatGPT threads, user "[redacted-name]" Pro account)
+## In-flight (ChatGPT Pro, account "[redacted-name]"; cap raised to 5 by user)
 
-Tab IDs die with the session — the THREAD URLS are durable. Re-open in the
-in-Chrome browser (claude-in-chrome MCP), same account.
-
-UPDATE 2026-07-12 (post-compaction session): audits A+B landed — BOTH REFUTE
-R92 (same mechanism: instantaneous face bound (7) promoted to temporal (10),
-double count (12); descendants inherit old spoilers, 2^r vs B_r; concrete
-realizations on n=2310 and n=4000). Saved as verify-postresp-R92-audit-a/b.md.
-R91 landed and saved (researcher-91-advance-depletion-low-lcm-reduction.md):
-dichotomy reduced to one chronological low-lcm capacity inequality (TL).
-
-UPDATE 2: R93 landed+saved (researcher-93-trace-rectangle-olcm-reduction.md —
-low-lcm energy lemma; rectangle refutes raw multiplicity; OLCM). R94
-landed+saved (researcher-94-atomic-ledger-ancestor-harvest.md — supersedes
-R92: 2^r atomic-ledger repair; residual = ancestor-harvest inequality (AH)).
-Four formulations of ONE remaining lemma: (TL) = OLCM = bounded-recourse =
-(AH). R97 dispatched fresh on OLCM with the trace normal form.
-
-UPDATE 3 — CLAIMED RESOLUTION. R95 landed+saved
-(researcher-95-canonical-first-witness-tl-claim.md, confidence LOW):
-raw (TL) false, but canonical first-witness formulation claimed TRUE via
-odd-valuation cube partition + first-death lemma + chronological capacity
-theorem; conclusion L(n) = o(n), i.e. the dichotomy. Per decision rules:
-saved, pushed, TWO fresh adversarial audits dispatched
-(prompts/audit-R95-canonical-tl-adversarial.md; key checks include trace-1
-prime spoilers, ancestor reverse-divisibility, P_X accounting, the
-Prolonger-side fresh-batch theorem used inside a Shortener strategy).
-Cross-check pending: R97's narration reports a candidate FORCEABLE trace-1
-obstruction to OLCM — adjudicate against the audits when both land. Save
-audits as verify-postresp-R95-audit-a/b.md (confirms/refutes
-R95-canonical-first-witness-tl-claim).
-
-UPDATE 4: R96 landed+saved (researcher-96-layer-peeling-chronological-separator.md)
-— layer-peeling near-proof of o(n); separator = one chronology theorem
-(3 sufficient forms; disproof needs fixed-cap entry or amplification).
-Slots refilled with both sides of the separator:
+Tab IDs are EPHEMERAL (the tab group was destroyed and recreated once
+tonight — recreate with tabs_context_mcp createIfEmpty and reopen thread
+URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R98 (design policy + prove chronology theorem, o(n) side) | chatgpt.com/c/6a535e78-9ea4-83e8-99f1-c142b3e508a8 | running |
-| R99 (fixed-cap entry / amplification, Theta side; note: first reply misfired into image generation, corrected with a text-only follow-up in-thread) | chatgpt.com/c/6a535f06-63e8-83e8-99cc-d00a36117fe7 | running |
+| R98: design Shortener policy + prove chronology theorem (o(n) side) | chatgpt.com/c/6a535e78-9ea4-83e8-99f1-c142b3e508a8 | running |
+| R99: fixed-cap entry / amplification (Theta side) | chatgpt.com/c/6a535f06-63e8-83e8-99cc-d00a36117fe7 | running (first reply misfired into image generation; corrected with in-thread text-only follow-up) |
+| R100: zoom-out v2, full post-separator obstruction map | chatgpt.com/c/6a536053-7fd0-83e8-a42a-fb21cb8d2ae3 | running |
+| R101: growing-depth uniformity single-lemma (R96 body attached verbatim) | chatgpt.com/c/6a53609c-6210-83e8-824f-a0c4e7b0de17 | running |
+
+One Pro slot spare (cap 5) — reserve for audits of whatever lands.
 
 Pending saves: R98 -> researcher-98-<slug>.md (prompt
 prompts/researcher-R98-policy-chronology-theorem.md); R99 ->
-researcher-99-<slug>.md (prompt
-prompts/researcher-R99-fixed-cap-entry-amplification.md).
-
-RESOLVED: R95 REFUTED by both audits (verify-postresp-R95-audit-a/b.md).
-Same first break found independently: N°(I) indexes witness tuples by move
-indices but a move's trace varies per face (a=143 on n=3000; a=35 on
-n<=500). Independent fatal defects: lift-richness not uniform (m_H may be
-0), pairwise cleanup silently globalized, Theorem 3 lacks a no-reuse
-lifetime bound, fresh-batch persistence used with PLAYERS REVERSED
-(invalidates the final Shortener strategy). Surviving tools: canonical cube
-partition, first-death lemma, conditional shell bookkeeping. The frontier
-after R94+R97+audits: specify the Shortener policy (literal max-degree is
-exploitable by the anchor B_H; batch blockers neutralize it) and prove or
-refute the minimax residual-weighted chronological inequality (RCM) /
-ancestor-harvest (AH) for that policy.
-
-| What | Thread URL | Status |
-|---|---|---|
-| Audit A of R95 | chatgpt.com/c/6a5357a6-9d20-83e8-9b2b-6114eabbe224 | landed+saved (refutes) |
-| Audit B of R95 | chatgpt.com/c/6a5357dc-9198-83e8-8883-cf7f7f0a9805 | landed+saved (refutes) |
-| R96 (fresh-thread zoom-out solution attempt) | chatgpt.com/c/6a534c6b-d280-83e8-afb5-3649140ac04d | running |
-| R97 (OLCM single-lemma, fresh thread) | chatgpt.com/c/6a535093-b21c-83e8-9f8c-718ff4d22ea8 | landed+saved (researcher-97: literal OLCM FALSE via anchor B_H + trace-1; open lemma now minimax (RCM); direct tension with R95 — audits must adjudicate) |
-| R95/R91's thread (idle) | chatgpt.com/c/6a52db0e-b448-83e8-bef8-8bcb9137968b | landed+saved |
-| R93's thread (idle) | chatgpt.com/c/6a52f794-6da0-83e8-a9bd-f059f252236e | landed+saved |
-| R94/R92's thread (idle) | chatgpt.com/c/6a53160a-0630-83e8-b1a8-70de5c4e1d53 | landed+saved |
-| Audit A thread (idle) | chatgpt.com/c/6a5341b3-e890-83e8-9912-f7cedf07ae62 | landed+saved |
-| Audit B thread (idle) | chatgpt.com/c/6a5341ee-c48c-83e8-8e8b-17f87177681c | landed+saved |
-| R90's thread (idle) | chatgpt.com/c/6a531643-f134-83e8-baa5-741d4d5316fa | landed |
-
-Pending saves: R93 -> researcher-93-<slug>.md (prompt
-prompts/followup-R93-ordered-multiplicity-final.md, predecessor R83);
-R94 -> researcher-94-<slug>.md (prompt
-prompts/followup-R94-historical-incidence-lemma.md, predecessor
-R92-arbitrary-reply-persistence-claim, likely kind: extends or supersedes);
-R95 -> researcher-95-<slug>.md (prompt
-prompts/followup-R95-chronological-low-lcm-inequality.md, predecessor
-R91-advance-depletion-low-lcm-reduction);
-R96 -> researcher-96-<slug>.md (prompt
-prompts/researcher-R96-solution-attempt-post-advance-depletion.md,
-fresh-thread full-solution zoom-out, kind standalone unless it lands on a
-prior round's exact statement). All four Pro slots now in use.
-
-Pending saves when they finish: audits → `verify-postresp-R92-audit-a/b.md`
-(type verification, action confirms/refutes R92-arbitrary-reply-persistence-claim,
-prompt `prompts/audit-R92-persistence-adversarial.md`); R91 →
-`researcher-91-<slug>.md` (prompt `prompts/followup-R91-ordered-multiplicity-final.md`,
-predecessor R88); R93 → `researcher-93-<slug>.md` (prompt
-`prompts/followup-R93-ordered-multiplicity-final.md`, predecessor R83).
+researcher-99-<slug>.md (prompts/researcher-R99-fixed-cap-entry-amplification.md);
+R100 -> researcher-100-<slug>.md (prompts/researcher-R100-solution-attempt-post-separator.md,
+kind standalone); R101 -> researcher-101-<slug>.md
+(prompts/researcher-R101-growing-depth-uniformity.md, predecessor
+R96-layer-peeling-chronological-separator).
 
 ## Decision rules in force (user-approved)
 
-- User delegated e2e autonomous drive; goal = full solution; up to 4
-  concurrent GPT-5 Pro threads; ALWAYS PushNotification per landed round.
-- Trust-until-final-verification: save rounds unaudited (confidence low/medium);
-  audit ONLY promotion-grade claims (see memory `feedback_audit_only_promotion_grade`).
-- If both R92 audits agree sound → promote R92; sublinear side must then
-  work below the divisor-width threshold; refill slots accordingly.
-- If either audit breaks it → new refutation round doc with
-  failure_mechanism from the audit; press the break.
-- Any claimed full resolution (o(n) proof via (OA), or Θ(n) via H=O(1)
-  persistence + amplification) → save, push immediately, 2 fresh
-  adversarial audit tabs before believing; cross-check sibling threads.
-- NEVER feed Bloom's forum small-n table (f(11)=5 defect); Brenner facts
-  only, marked "[reported]".
+- Fully autonomous e2e drive; goal = resolve the dichotomy; up to FIVE
+  concurrent Pro threads; ALWAYS PushNotification per landed round.
+- Trust-until-final-verification; audit ONLY promotion-grade claims.
+- ANY claimed full resolution: save (confidence low), push immediately,
+  dispatch TWO fresh adversarial audits before believing; cross-check
+  sibling threads; audits get the claim verbatim + neutral key checks
+  drawn from the current obstruction map.
+- On refutation: round doc with failure_mechanism (specific
+  counterexample boards), then press the surviving repair path.
+- NEVER feed Bloom's forum small-n table (f(11)=5 defect).
 
-## Operational protocol (hard-won; also in memory)
+## Operational protocol (hard-won; details in memory
+`project-chatgpt-automation-protocol`)
 
-- Dispatch: compose prompt per templates, save to `erdos-872/prompts/`,
-  commit BEFORE sending. Paste via `LANG=en_US.UTF-8 pbcopy < file`, click
-  composer, cmd+v (first paste after page load often fails — click composer
-  again and re-paste; verify a chip or text appears), send button.
-- New Pro thread: `https://chatgpt.com/?model=gpt-5-pro`, verify "Pro" chip.
-- Harvest: scroll thread to END (copy buttons are virtualized), click the
-  LAST "Copy response" button TWICE with 1–2s waits, then
-  `pbpaste > scratchpad/file` and VERIFY head/tail (stale clipboard is the
-  #1 failure). Then round doc per CLAUDE.md, recompile, commit per round.
-- File upload into ChatGPT is NOT possible from this harness (extension
-  only allows session-attached files). Append context as in-message text.
-- The watcher cron is SESSION-ONLY and died with the previous session.
-  Re-arm on session start: recurring ~30min, screenshot each active tab,
-  finished = no stop button, then the harvest/save/refill/push loop.
+- Dispatch: save prompt to prompts/ and COMMIT BEFORE sending. New Pro
+  thread: chatgpt.com/?model=gpt-5-pro, verify "Pro" chip. Paste: click
+  composer; if paste is swallowed, type "x", cmd+a, cmd+v (forces real
+  focus); >~10KB pastes become document chips (fine — delivered intact);
+  check for DUPLICATE chips before sending (delete extras via X). If the
+  model starts generating an IMAGE, stop it and send a text-only
+  correction in-thread.
+- Harvest (multi-response threads): NAVIGATE fresh to the thread URL
+  (resets virtualization; page loads at last message, only its action
+  row mounted), pbcopy sentinel, one neutral click + small scroll, click
+  the copy button (coordinates from a screenshot of the visible action
+  row), pbpaste and VERIFY head/tail against on-screen text; if sentinel
+  unchanged click again. Stale find/read_page refs silently copy the
+  WRONG message — never trust a ref across scrolls.
+- Save: frontmatter per CLAUDE.md (no status field, failure_mechanism
+  on refutes/supersedes), body = verbatim clipboard bytes. Recompile
+  compile_rounds.py, commit per round, push notification.
+- Watcher cron is SESSION-ONLY (currently e61d52e6, :11/:41). Re-arm on
+  session start.
 
 ## Publication state
 
-- The unconditional rank-three note is PUBLIC (posted to the erdosproblems
-  forum by the user) with commit-pinned links at 018a346. Audit-recommended
-  editorial fixes are already applied and pushed.
-- If forum replies request the finite-check script, it lives under
-  `codex-scripts/test-harness/erdos-872-safe-edge-potential/`.
+- Unconditional rank-three note PUBLIC on the erdosproblems forum,
+  commit-pinned at 018a346. Finite-check script:
+  codex-scripts/test-harness/erdos-872-safe-edge-potential/.
