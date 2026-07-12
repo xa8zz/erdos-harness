@@ -54,9 +54,8 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R142: FULL-COMPILATION free-roam (R140 base + first-failure localization + 4-property disproof checklist, provisional) | chatgpt.com/c/6a541022-57c4-83e8-ba65-75200671b8da | RUNNING (dispatched ~19:58 07-12) |
+| R145: targeted FSC(J,eta) attack (weakest sufficient target; R142 attachment) | chatgpt.com/c/6a542392-7134-83e8-8770-9ab2bb631f1c | RUNNING (dispatched ~22:40 07-12) |
 | R144: FULL-COMPILATION free-roam (R142 base + rank sweep + frozen-cone accounting, provisional) | chatgpt.com/c/6a541dea-357c-83e8-b93f-d5ba572bad70 | RUNNING (dispatched ~21:58 07-12) |
-| R143: AUDIT of R137 thinness lemma + d^{-1/2} capture strategy (promotion-grade) | chatgpt.com/c/6a541c2a-a5a8-83e8-acde-98090630971d | RUNNING (dispatched ~20:40 07-12) |
 
 Two slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R137's thinness lemma + capture strategy, R138's localization theorem).
 
@@ -91,9 +90,15 @@ R144 -> researcher-144-<slug>.md (kind standalone,
 prompts/researcher-R144-solution-attempt-full-compilation.md).
 R140 LANDED AND SAVED (researcher-140-frozen-cone-harmful-mass.md —
 frozen-cone accounting; randomization provably insufficient).
-R143 -> verify-postresp-R143-<slug>.md (type verification, target
-R137-legal-divisor-depth-capture, kind confirms or refutes per verdict,
-prompts/audit-R143-thinness-capture.md).
+R142 LANDED AND SAVED (researcher-142-finite-shell-clearing.md — NEW
+weakest sufficient target FSC(J,eta): fixed-shell fixed-density greedy
+clearing; deep shells die by size). R143 LANDED AND SAVED
+(verify-postresp-R143-thinness-capture-confirmed.md — CONFIRMS R137:
+thinness VALID, capture VALID under aggregate reading; R137 machinery
+now established with the two stated repairs).
+R145 -> researcher-145-<slug>.md (predecessor
+R142-finite-shell-clearing, kind extends,
+prompts/researcher-R145-finite-shell-clearing.md).
 R142 -> researcher-142-<slug>.md (kind standalone,
 prompts/researcher-R142-solution-attempt-full-compilation.md).
 Om's standing preference (2026-07-12 ~18:45): full-compilation
