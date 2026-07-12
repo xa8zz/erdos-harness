@@ -57,6 +57,7 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 | R137: full-solution free-roam (corrected dossier) | chatgpt.com/c/6a540274-82ec-83e8-ac37-27c6e721e050 | RUNNING (dispatched ~17:18 07-12) |
 | R138: targeted (AE†) DIRECT attack (war-terminus attachments: R129 reduction + R136 unitization/laundering) | chatgpt.com/c/6a5407ac-6f40-83e8-9926-25e960caca83 | RUNNING (dispatched ~18:25 07-12) |
 | R139: full-solution free-roam sample 2 ((SM) promotion + 17th collapse folded in) | chatgpt.com/c/6a5407ed-b7ac-83e8-bb83-6061e4612a85 | RUNNING (dispatched ~18:28 07-12) |
+| R140: FULL-COMPILATION free-roam (R139 dossier + net-surviving lower-route machinery: fan hierarchy with c_k collapse, cover-shattering, universal block-product, interval antichain, S* baseline) | chatgpt.com/c/6a5408e0-bf5c-83e8-83f0-53a71bbeb981 | RUNNING (dispatched ~18:50 07-12) |
 
 One slot+ spare (Om is actively using the account himself — leave headroom).
 
@@ -83,6 +84,11 @@ R129-global-no-reuse-reduction + R136-owner-time-laundering, kind
 extends R136, prompts/researcher-R138-ae-dagger-direct.md);
 R139 -> researcher-139-<slug>.md (kind standalone,
 prompts/researcher-R139-solution-attempt.md).
+R140 -> researcher-140-<slug>.md (kind standalone,
+prompts/researcher-R140-solution-attempt-full-compilation.md).
+Om's standing preference (2026-07-12 ~18:45): full-compilation
+free-roams are historically the breakthrough generator — keep the
+majority of slots on them; R140's prompt is the new free-roam base.
 
 QUEUED (proposed to Om, awaiting his reply but authorized as research):
 (1) empirical probe — measure the direct-ancestor lifetime-ownership
