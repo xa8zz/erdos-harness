@@ -37,36 +37,33 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R116: (CL) round 2 — compression persistence | chatgpt.com/c/6a53ab6e-ec38-83e8-9c57-4784cd8af342 | RUNNING (modulus fixed point at depth log H; policy-independent divisibility invariant) |
-| R118: formulation loop iter 3 — repair (BF-AH) per R117 (8 collapse families + ninth-witness search) OR prove a formulation no-go theorem; R115+R117 attached | chatgpt.com/c/6a53b2a8-04d0-83e8-8d69-75ab9c841ee2 | RUNNING (dispatched ~09:55) |
+| R116: (CL) round 2 — compression persistence | chatgpt.com/c/6a53ab6e-ec38-83e8-9c57-4784cd8af342 | RUNNING (~1h40m; narration: divisor-chain/Rankin bound kills layers beyond C*loglog H; testing ultra-slow H + static completion for the rest — POTENTIALLY DECISIVE if it closes) |
+| R119a: adversarial AUDIT of R118's no-go (primary: reconcile Part IV's obtainable fortress with R104's prevention theorem — quantifier order) | chatgpt.com/c/6a53bba9-8e10-83e8-bee1-fc9d5b95d815 | RUNNING (dispatched ~10:25) |
+| R119b: same audit, independent thread | chatgpt.com/c/6a53bbe0-30d0-83e8-8448-3ac73bf53804 | RUNNING |
 
-Landed+saved since last table: R117 (verify-postresp-R117: REFUTES
-R115's (BF-AH) — EIGHTH witness: micro-baseline compression sweep
-inside the unconstrained trapping algorithm reduces every ledger to
-mass O(H) (formulation never required frozen mass >> H) so CHt with
-t=1 pays everything; implication also refuted (one-epoch statement
-silently iterated; global Ht term unbudgeted); repairs prescribed in
-its A.4/C.5).
+Landed+saved since last table: R118 (researcher-118-ancestor-harvest-
+no-go: repaired canonical statement with TEN nondegeneracy exclusions
+(2 new: cap escape, epoch-boundary laundering) then DISPROVED via
+fortress bounded-erosion; claims NO baseline-independent ancestor-
+harvest-only separator exists — the capped-state part of (OA) is
+irreducible. Confidence LOW; the R104-tension (obtainable fortress vs
+prevention) is flagged in frontmatter and is R119's primary check).
 
-THE FORMULATION LOOP (o(n) side): R98 isolated (AH) -> R112 claimed
-degenerate (refuted by R113) -> R114 found pre-freeze hole in my (AH*)
--> R115 built (BF-AH) with 7-part nondegeneracy proof -> R117 broke it
-with an 8th witness + implication defects -> R118 now repairs or
-proves a no-go theorem. Each iteration is producing durable machinery
-(collapse-witness families, repair prescriptions). The no-go
-alternative in R118 is live: if NO nondegenerate statement of this
-family implies o(n) through the accepted reductions, that redirects
-the whole upper route.
+If the no-go SURVIVES both audits: the o(n) route's sole remaining
+targets are capped-reservoir handling — i.e. exactly (CL)/compression
+persistence (R116) and the capped-state part of (OA). If it FAILS on
+the quantifier check: the repaired statement (R118 Parts I-III) may
+still be sound and becomes the canonical target.
 
-Two running, THREE spare. Keep spares until R116/R118 land (Om likely
-waking soon — 10:00 local).
+Three running, TWO spare.
 
 Pending saves: R116 -> researcher-116-<slug>.md
 (prompts/researcher-R116-compression-persistence.md, predecessors
 R110-surviving-shadow-compression + R113-audit-shadow-and-ah-claims);
-R118 -> researcher-118-<slug>.md
-(prompts/researcher-R118-repaired-ancestor-harvest.md, predecessors
-R115-baseline-frozen-ancestor-harvest + R117-bfah-eighth-witness).
+R119a/b -> verify-postresp-R119a/b-<slug>.md
+(prompts/audit-R119-no-go-vs-fortress-prevention.md, target
+R118-ancestor-harvest-no-go, confirms or refutes with
+failure_mechanism).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
