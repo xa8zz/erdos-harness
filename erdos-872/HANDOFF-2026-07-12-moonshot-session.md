@@ -37,41 +37,34 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R124a: adversarial AUDIT of R123's activation-area impossibility theorem (primary: family-coverage attack — construct a nondegenerate intermediate OUTSIDE features (1)-(4)) | chatgpt.com/c/6a53dd16-33bc-83e8-98eb-793f6957b158 | RUNNING (dispatched ~13:00) |
-| R124b: same audit, independent thread | chatgpt.com/c/6a53dd57-86f4-83e8-9b09-36f5ad3e7dba | RUNNING |
-| R125: full-solution attempt (independent sample 1) | chatgpt.com/c/6a53e22e-def4-83e8-9a4b-20b449fa5270 | RUNNING (dispatched ~13:35, per Om: free slots toward full solution) |
-| R126: full-solution attempt (independent sample 2) | chatgpt.com/c/6a53e267-d7dc-83e8-8b83-6d1a6aa26eff | RUNNING |
-| R127: full-solution attempt (independent sample 3) | chatgpt.com/c/6a53e2a5-ee24-83e8-a948-f79f1f4b55bd | RUNNING |
+| R125: full-solution attempt (sample 1) | chatgpt.com/c/6a53e22e-def4-83e8-9a4b-20b449fa5270 | RUNNING (closing the early peeling-layer gap via post-peel process) |
+| R126: full-solution attempt (sample 2) | chatgpt.com/c/6a53e267-d7dc-83e8-8b83-6d1a6aa26eff | RUNNING (strategy-level invariant; checking both directions vs counterexamples) |
+| R127: full-solution attempt (sample 3) | chatgpt.com/c/6a53e2a5-ee24-83e8-a948-f79f1f4b55bd | RUNNING (chronology-sensitive invariant + first-O(loglog H)-layer ancestor ledger) |
+| R128: targeted (AE) aggregate-excess halving — the audit-constructed global-ticket statement | chatgpt.com/c/6a53e3f6-1f98-83e8-bf32-ec635b8e7e40 | RUNNING (dispatched ~14:15) |
 
-Landed+saved since last table: R123 (researcher-123-activation-area-
-impossibility: THE FORMULATION LOOP TERMINUS — 14th collapse
-(additive-floor chattering, repaired at 4X/h^2) then the
-activation-area impossibility theorem: any nondegenerate pipeline-
-sufficient serial-ticket statement is either starvation-degenerate or
-IS trajectory-restricted online area; no weaker intermediate exists;
-confidence LOW pending R124a/b), R121 (researcher-121: minimality does
-not supply the n/H factor; 5th separator concurrence; its missing
-global-multiplicity statement matches the online-area object — two
-independent threads converged on (OA) as the true target the same
-hour).
+Landed+saved since last table: R124a+R124b (verify-postresp: R123's
+architectural no-go REFUTED again in scope — BOTH auditors
+independently constructed the same escape: a mandatory GLOBAL ticket
+contracting the aggregate excess potential R(t) = sum_X (q_X -
+4X/h^2)_+, nondegenerate + pipeline-sufficient without per-shell
+online-area blocks; the per-shell dichotomy itself stands with an
+A-repair (unhandled nonlive-ticket case); only the FORWARD implication
+to online area is justified).
 
-IF R123 SURVIVES both audits: the program's upper route has ONE
-canonical target — trajectory-restricted online area (OA) — plus
-bounded-depth compression (R116) as its (CL)-side complement; the
-14-family collapse catalogue becomes permanent tooling. Next dispatch
-then: direct (OA) attack with the full machinery.
+NEW CANONICAL TARGET: the aggregate-excess halving statement (AE) —
+halve R(t) within C*M*log(h)/h + O(log n) turns, mandatory succession.
+Simplest well-posed intermediate yet; constructed and nondegeneracy-
+checked by an adversarial auditor (the entity that kills these
+statements built this one). R128 attacks it directly with the 14-family
+checklist and the R123 ledger machinery attached.
 
-ALL FIVE SLOTS FULL. Om directed (13:30): keep running, free slots
-toward full solution — R125/R126/R127 are three independent samples of
-the post-formulation-war full-solution prompt (same dossier,
-independent runs; prompts researcher-R125/126/127-solution-attempt.md,
-all identical copies of the R121 prompt).
+ALL FIVE SLOTS FULL (per Om: free slots toward full solution).
 
-Pending saves: R124a/b -> verify-postresp-R124a/b-<slug>.md
-(prompts/audit-R124-impossibility-theorem.md, target
-R123-activation-area-impossibility, confirms or refutes with
-failure_mechanism); R125/126/127 -> researcher-125/126/127-<slug>.md
-(kind standalone, prompts researcher-R125/126/127-solution-attempt.md).
+Pending saves: R125/126/127 -> researcher-125/126/127-<slug>.md (kind
+standalone, prompts researcher-R125/126/127-solution-attempt.md);
+R128 -> researcher-128-<slug>.md
+(prompts/researcher-R128-aggregate-excess-halving.md, predecessors
+R124a-aggregate-excess-counterexample + R123-activation-area-impossibility).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
