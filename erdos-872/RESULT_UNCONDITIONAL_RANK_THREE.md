@@ -9,22 +9,24 @@ replaces the conditional rank-three statement in the earlier manuscript.
 
 ## Result
 
-For every fixed \(0<\delta<1/4\), there is a constant \(c_\delta>0\) such
-that, for all sufficiently large \(n\),
+For every fixed $0<\delta<1/4$, there is a constant $c_\delta>0$ such
+that, for all sufficiently large $n$,
 
-\[
+$$
 L(n)\ge c_\delta\frac{n(\log\log n)^2}{\log n}.
-\]
+$$
 
-Taking \(\delta=1/8\) gives an absolute constant \(c>0\). This improves the
-previous unconditional lower bound by one factor of \(\log\log n\).
+Taking $\delta=1/8$ gives an absolute constant $c>0$. This improves the
+previous unconditional lower bound by one factor of $\log\log n$.
 
 This does **not** solve the original problem: it does not determine whether
-\(L(n)\) is linear or sublinear.
+$L(n)$ is linear or sublinear.
 
 ## What changed
 
-Edwin Rosero's finite \(K_5\)-fiber computations showed that the previous
+Edwin Rosero's finite $K_5$-fiber computations (in the manuscript's
+convention these fibers are $K_4$ side graphs over one common slot; the
+$K_5$ counts the common slot as a fifth vertex) showed that the previous
 "safe-edge" auxiliary game could lose potential no matter which first edge
 was selected. That obstruction is valid for an auxiliary rule that permits an
 exact target to be deleted without being scored.
@@ -36,73 +38,73 @@ of the stronger auxiliary game, but it does not refute the actual-game bank.
 
 ## Proof outline
 
-Use targets \(acb\), where \(a,c\le n^\delta\) are small primes and \(b\) is
+Use targets $acb$, where $a,c\le n^\delta$ are small primes and $b$ is
 a suitable large prime. Their initial mass satisfies
 
-\[
+$$
 W_0\gg_\delta \frac{n(\log\log n)^2}{\log n}.
-\]
+$$
 
 ### 1. Weighted activation selector
 
-Give each live small-prime pair \(e=(a,c)\), with remaining target weight
-\(w_e\), coefficient
+Give each live small-prime pair $e=(a,c)$, with remaining target weight
+$w_e$, coefficient
 
-\[
+$$
 \phi(e)=2^{|e\cap C|-3}w_e,
-\]
+$$
 
-where \(C\) is the set of endpoints already captured by Prolonger. Let \(H\)
-be the largest weighted star at an uncaptured vertex and \(K\) the largest
+where $C$ is the set of endpoints already captured by Prolonger. Let $H$
+be the largest weighted star at an uncaptured vertex and $K$ the largest
 individual live-edge coefficient.
 
-- If \(H\ge K\), choose a maximum-coefficient edge incident to a vertex whose
-  star has weight \(H\).
-- If \(H<K\), choose an edge attaining \(K\).
+- If $H\ge K$, choose a maximum-coefficient edge incident to a vertex whose
+  star has weight $H$.
+- If $H<K$, choose an edge attaining $K$.
 
 A three-case calculation shows that the bank gain from this move dominates
 both possible modeled replies: deleting an uncaptured vertex or deleting a
 live pair edge.
 
 The activation bank counts actual moves by both players, secured target mass,
-and the remaining fractional coefficients. If \(M\) is the mass surviving on
-secured pairs and \(E\) counts target tokens lost to off-model replies, then
+and the remaining fractional coefficients. If $M$ is the mass surviving on
+secured pairs and $E$ counts target tokens lost to off-model replies, then
 
-\[
+$$
 T_{\rm act}+M\ge W_0/8-E.
-\]
+$$
 
-The arithmetic estimates give \(T_{\rm act}=o(W_0)\) and \(E=o(W_0)\), hence
+The arithmetic estimates give $T_{\rm act}=o(W_0)$ and $E=o(W_0)$, hence
 
-\[
+$$
 M\gg_\delta \frac{n(\log\log n)^2}{\log n}.
-\]
+$$
 
 ### 2. Exact-move residual selector
 
-Group surviving targets by their large prime \(q\). Each \(q\)-fiber becomes
+Group surviving targets by their large prime $q$. Each $q$-fiber becomes
 a simple side graph. At the phase boundary, reset every surviving fiber to an
 unactivated shadow state and define
 
-\[
+$$
 \Psi_{\rm res}
 =T_{\rm res}
 +\frac18\sum_{q\text{ unactivated}}|E_q|
 +\sum_{\substack{q\text{ activated}\\e\in E_q}}2^{c_q(e)-2}.
-\]
+$$
 
-Here \(T_{\rm res}\) counts exact targets played by **either** player. On each
+Here $T_{\rm res}$ counts exact targets played by **either** player. On each
 turn, Prolonger selects a target meeting the largest common-slot or side-star
 threat. The resulting gain covers every direct slot reply.
 
 If Shortener instead plays an exact target, its coefficient is at most one,
-while \(T_{\rm res}\) increases by one. Such a reply therefore cannot decrease
+while $T_{\rm res}$ increases by one. Such a reply therefore cannot decrease
 the bank. When no residual target remains live, all fractional terms vanish,
 so
 
-\[
+$$
 T_{\rm res}\ge M/8.
-\]
+$$
 
 Combining the two phases proves the stated lower bound.
 
@@ -113,6 +115,10 @@ Completed checks:
 - the full proof is integrated into the revised 52-page manuscript;
 - three independent symbolic audits and an integrated-manuscript audit found
   no blocking issue;
+- a further independent adversarial audit, with its own finite
+  re-enumeration (1,889,536 activation states; 33,759 residual states, no
+  potential decrease found) and a literature search, reported no failing
+  lemma, selector case, legality assertion, or asymptotic estimate;
 - an exact-rational harness checked 350,992 activation states and 134,898
   residual states;
 - the manuscript compiles without unresolved references or missing citations;
@@ -143,16 +149,16 @@ the required vocabulary.
 
 ## Suggested short forum summary
 
-> Prompted by Edwin Rosero's \(K_5\) computation, I believe I can now remove
+> Prompted by Edwin Rosero's $K_5$ computation, I believe I can now remove
 > the conditional safe-edge hypothesis from my rank-three construction. The
-> revised argument gives, for every fixed \(0<\delta<1/4\),
-> \(L(n)\ge c_\delta n(\log\log n)^2/\log n\). The correction is to credit an
+> revised argument gives, for every fixed $0<\delta<1/4$,
+> $L(n)\ge c_\delta n(\log\log n)^2/\log n$. The correction is to credit an
 > exact target played by Shortener as an actual game move; the earlier
 > obstruction applies to a stronger auxiliary game in which that target could
 > be deleted without being scored. The full proof outline, manuscript,
 > verification harness, and precise verification boundary are collected here:
 > **[link to this note]**. This improves the unconditional lower bound but does
-> not resolve whether \(L(n)\) is linear or sublinear.
+> not resolve whether $L(n)$ is linear or sublinear.
 
 ## Disclosure and acknowledgment
 

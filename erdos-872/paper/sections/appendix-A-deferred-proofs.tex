@@ -383,6 +383,9 @@ comparison.
 \end{proof}
 
 \begin{proposition}[Activation-stage potential]\label{prop:t2-activation-potential}
+Throughout, a target is \emph{live} if no previously played integer is
+comparable with it under divisibility; a token is deleted (its target is
+\emph{killed}) precisely when its target ceases to be live.
 During activation, let each unclaimed pair edge $e=(a,c)$ carry the current
 token set $B_e(t)$ of primes $b\in B_{a,c}$ for which the target $acb$ has not
 yet been killed.  Write $w_t(e):=|B_e(t)|$; after $e$ is secured, use the same
@@ -416,7 +419,11 @@ deletions $ac$.  Here $E$ counts the total number of live target tokens deleted
 by off-model Shortener moves during activation, not the number of such moves:
 a single off-model move can delete multiple tokens, and $E$ tallies deletions,
 not move events.  The response to the final Prolonger activation move is
-included before the residual mass is frozen.  At the end of activation,
+included before the residual mass is frozen: the residual family is frozen
+only after Shortener's reply to the final activation move, so the frozen
+residual state is at a Prolonger turn.  If Shortener has no legal reply, the
+whole game has ended, and then no residual target is live, since a live
+residual target would itself be a legal reply.  At the end of activation,
 \[
   T_{\mathrm{act}}
   +
@@ -672,7 +679,11 @@ target makes $a$, $c$, and $ac$ unavailable while being incomparable with every
 remaining residual target over the same pair.  Any activation move comparable
 with a target removes that target before $\mathcal T_*$ is frozen.  Thus
 $\mathcal T_*$ satisfies the hypotheses of
-\Cref{prop:t2-residual-embedding}, and its cardinality is $M$.
+\Cref{prop:t2-residual-embedding}, and its cardinality is exactly $M$: since
+$b>Y\ge a,c$, unique factorization shows each target $acb$ determines the
+triple $(a,c,b)$, so distinct live tokens over secured pairs represent
+distinct targets and $|\mathcal T_*|=\sum_{e\text{ secured}}
+w_{\mathrm{end}}(e)=M$.
 
 By \Cref{prop:t2-residual-capture}, at least $M/8$ exact targets from this
 subfamily are then played by Prolonger or Shortener.  Each is a genuine actual
