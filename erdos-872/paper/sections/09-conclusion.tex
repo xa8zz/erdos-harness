@@ -1,25 +1,29 @@
 \section{Conclusion}\label{sec:conclusion}
 
 The main unconditional bounds of
-\Cref{thm:fan-lower-bound,thm:main-upper} bracket the divisibility antichain
+\Cref{thm:t2,thm:main-upper} bracket the divisibility antichain
 saturation game as
 \[
-  \left(\frac18-o(1)\right)\frac{n\log\log n}{\log n}
+  c\,\frac{n(\log\log n)^2}{\log n}
   \le
   \L(n)
   \le
   \left(\frac{\Wfour}{2}+o(1)\right)n.
 \]
-The lower bound comes from a two-phase fan-capture strategy, while the upper
-bound improves the elementary linear picture by using a lower-profile envelope
-for Shortener's legal-prime prefix and a fourth-order Bonferroni comparison.
+for an absolute constant $c>0$.  The lower bound comes from a weighted
+activation strategy and an exact-move potential on residual rank-three fibers,
+while the upper bound improves the elementary linear picture by using a
+lower-profile envelope for Shortener's legal-prime prefix and a fourth-order
+Bonferroni comparison.  The independent fan strategy gives the more explicit
+but smaller lower bound
+$(1/8-o(1))n\log\log n/\log n$.
 
-The conditional T2 theorem points toward a substantially larger lower-bound
-scale, but it is deliberately stated under a restricted safe-edge hypothesis:
-the general safe-edge property is false even inside the residual arithmetic
-games.  The finite graph, hypergraph, and embedding components are robust; the
-remaining issue is whether the safe-edge property holds for states reached
-under the Prolonger activation strategy.
+The old safe-edge potential still fails in a fiber-supported auxiliary state,
+but the failing reply is an artificially unscored exact-edge deletion.  In the
+actual game that reply contributes one move, exactly balancing the lost
+live-edge coefficient.  This distinction upgrades the rank-three construction
+from conditional to unconditional; it does not resolve the linear-versus-
+sublinear dichotomy.
 
 On the structural side, the shield reduction and Theorem A show that short
 upper-half shield prefixes cannot prove a linear game lower bound through the

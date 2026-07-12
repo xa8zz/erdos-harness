@@ -1,4 +1,4 @@
-# Current state (compiled 2026-05-05)
+# Current state (compiled 2026-07-10)
 
 ## Established
 
@@ -267,6 +267,16 @@
   — confidence high; prompt: [erdos-872/prompts/researcher-R66-followup-corrected-prompt.md](erdos-872/prompts/researcher-R66-followup-corrected-prompt.md)
 - **[R70-forum-discourse-update-may-2026](erdos-872/researcher-70-forum-discourse-update-may-2026.md)** (2026-05-05): External evidence package. (a) Brenner's solver has computed exact L(n) for n up to 86, separating Prolonger-starts, Shortener-starts, and the two cooperative variants (low(n) = π(n), upp(n) = ⌈n/2⌉). (b) For Prolonger-starts and 28 ≤ n ≤ 84, L(n) = ⌈(π(n)+⌈n/2⌉)/2⌉ except at n = 27; at n = 85, 86 Prolonger-starts gives L = 32, while the single- player columns give 23 and 43, so the conjectured arithmetic-mean formula fails — L(n) = n/4 + o(n) is no longer realistic. (c) jonaslsa posts a dyadic refinement of the fan-capture lower bound: by first H-securing the small odd primes (rendering 2^b p illegal for 0 ≤ b ≤ H) and then running right-star capture on chains C_{pq} for n/2^{H+1} < pq ≤ n, one gets L(n) ≥ ((1/2)(1 - 2^{-H-1}) - o_H(1)) n loglog n / log n, hence L(n) ≥ (1/2 - o(1)) n loglog n / log n. natso26 reports a standard-check pass. (d) Bloom gives a clean potential-function proof of L(n) ≫ n loglog n / log n via a bipartite-graph game on prime vertices, with weights F(x) = Σ_{x ∈ e available} 2^{w(e)} where w(e) counts protected endpoints; conjectures k-uniform hypergraph generalisation to L(n) ≫_k n (loglog n)^{k-1} / log n for any k ≥ 2, with conjectured ceiling n / (log n)^{1 - o(1)}. Bloom flags formalisation as highly desired.
   — verified by forum-natso26-standard-check; confidence high
+- **[R71-edwin-k5-safe-edge-email](erdos-872/external-71-edwin-k5-safe-edge-email.md)** (2026-07-09): The correspondence reports an exhaustive local K5 q-fiber obstruction to per-round Q monotonicity, a certified initial-state activation obstruction for a concrete arithmetic witness, and no proof that the obstructing fiber is reachable under a selector satisfying the restricted T2 hypothesis.
+  — confidence medium
+- **[R73-unconditional-T2-exact-move-potential](erdos-872/researcher-73-unconditional-T2-exact-move-potential.md)** (2026-07-10): The restricted safe-edge hypothesis is unnecessary in both the weighted activation graph and the actual residual arithmetic game. Explicit max-threat selectors make the appropriate game-length potentials nondecreasing, giving unconditionally L(n) >= c_delta n(log log n)^2/log n for every fixed delta<1/4.
+  — verified by independent activation algebra audit, agrees, independent residual arithmetic audit, agrees, independent full proof audit, agrees, finite exact-rational harness, 350992 activation states and 100000 residual multifiber states, no counterexample; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
+- **[R74-online-interdiction-frontier](erdos-872/researcher-74-online-interdiction-frontier.md)** (2026-07-10): The original dichotomy remains unresolved. A fixed-rank Shortener sweep reduces L(n)=o(n) to a reachable q-shadow closure lemma, but an upper-half consecutive-block construction refutes the corresponding static lemma even within the sweep's move budget. The surviving core is an online weighted divisor-interdiction game; local per-fiber rank iteration cannot yield a linear lower bound because simplex fibers lose a factor of order 1/h.
+  — verified by fixed-rank implication exhaustively checked through n=11, no counterexample, packet-union asymptotic checked numerically at three scales, independent static-counterexample audit, agrees; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
+- **[R75-unconditional-rank-three-paper-integration](erdos-872/researcher-75-unconditional-rank-three-paper-integration.md)** (2026-07-10): The rank-three construction gives unconditionally L(n) >= c_delta n(log log n)^2/log n for every fixed 0<delta<1/4. The manuscript now contains explicit weighted-activation and residual-fiber selectors and no longer assumes a restricted safe-edge hypothesis.
+  — verified by three independent symbolic audits of the activation, residual, and arithmetic assembly, exact-rational harness passed 350992 activation states and 134898 residual states, integrated-manuscript audit found no remaining blocking mathematical issue, Tectonic build completed with no unresolved references or missing citations; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
+- **[R77-prime-cover-quotient-boundary](erdos-872/researcher-77-prime-cover-quotient-boundary.md)** (2026-07-10): Prolonger preserves a positive fraction of harmonic quotient mass when Shortener covers only by primes, but cross-batch semiprime covers reduce the same batching strategy's surviving mass to O((log log t)^2)=o(log t). The unresolved frontier is the online mixed-carrier versus composite-cover preemption race.
+  — verified by symbolic harmonic-mass audit, agrees, exact minimax exploration through t=18 found no small counterexample to the stronger quotient game; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
 
 ## Ruled Out
 
@@ -361,14 +371,17 @@
 ## Indices
 
 ### By type
-- diagnostic: 5
-- refutation: 48
-- research: 135
-- synthesis: 10
-- verification: 81
+- diagnostic: 6
+- refutation: 49
+- research: 136
+- synthesis: 12
+- verification: 82
 
 ### By strategy dependence
-- independent: 9
+- T2-selector-dependent: 1
+- fixed-rank-sweep: 1
+- independent: 12
+- prime-batching: 1
 - strategy-specific: 2
 - —: 268
 

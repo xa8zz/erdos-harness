@@ -7,7 +7,7 @@
 \address{Independent Researcher}
 \email{\href{mailto:sensho@sensho.xyz}{sensho@sensho.xyz}}
 
-\date{April 21, 2026}
+\date{July 10, 2026}
 
 \subjclass[2020]{Primary 91A46; Secondary 05D05, 11N25}
 \keywords{Saturation game, primitive set, divisibility poset, antichain, sieve methods, formal verification, Erd\H{o}s problem 872}
@@ -23,26 +23,28 @@ under divisibility); Prolonger moves first to maximize the final count,
 Shortener moves to minimize it.  The central question is whether the game
 value $\L(n)$ is linear in $n$ or sublinear.  We prove
 \[
-  \left(\frac18-o(1)\right)\frac{n\log\log n}{\log n}
+  c\,\frac{n(\log\log n)^2}{\log n}
   \;\le\;
   \L(n)
   \;\le\;
   \left(\frac{\Wfour}{2}+o(1)\right)n
   \;<\;0.19\,n,
 \]
-where $\Wfour$ is an explicit fourth-order Bonferroni constant arising from
-the lower logarithmic profile of Shortener's legal-prime prefix.  The lower
-bound follows from a two-phase Prolonger strategy and a bipartite
-maximum-degree capture lemma; the upper bound uses a monotone envelope for
-the legal-prime lower profile, a queued prime-rounding bridge, and a fourth-order
+for an absolute constant $c>0$, where $\Wfour$ is an explicit fourth-order
+Bonferroni constant arising from the lower logarithmic profile of Shortener's
+legal-prime prefix.  The lower bound follows from a two-stage Prolonger
+strategy, a weighted activation selector, and an exact-move potential on
+rank-three residual fibers; the upper bound uses a monotone envelope for the
+legal-prime lower profile, a queued prime-rounding bridge, and a fourth-order
 Bonferroni inequality on the odd-part compression of the terminal antichain.
 We also prove a polynomial lower bound for the weighted shield functional,
+the explicit lower bound
+$(1/8-o(1))n\log\log n/\log n$ by an independent fan strategy,
 an exact $5n/24+O(1)$ first-hit cover theorem for the lower half, and
 intermediate asymptotic upper-bound constants $13/36$ and $5/16$.
-Conditional on a restricted finite safe-edge hypothesis---whose general form
-we refute in the paper---we also obtain a stronger lower bound of order
-$n(\log\log n)^2/\log n$.  The paper also records three proof-class
-obstructions for related proof methods.  Shield reduction, the exact
+The paper also records three proof-class obstructions for related proof
+methods, as well as a counterexample to a stronger auxiliary potential that
+does not score exact target moves.  Shield reduction, the exact
 $5n/24$ cover identities, the $13/36$ upper-bound core, and the
 $\Wfour/2<0.19$ endgame reduction have zero-sorry Lean~4 artifacts; the
 formalization status of remaining results is documented in
