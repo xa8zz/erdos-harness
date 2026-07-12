@@ -37,33 +37,33 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R116: (CL) round 2 — compression persistence | chatgpt.com/c/6a53ab6e-ec38-83e8-9c57-4784cd8af342 | RUNNING (~1h40m; narration: divisor-chain/Rankin bound kills layers beyond C*loglog H; testing ultra-slow H + static completion for the rest — POTENTIALLY DECISIVE if it closes) |
-| R119a: adversarial AUDIT of R118's no-go (primary: reconcile Part IV's obtainable fortress with R104's prevention theorem — quantifier order) | chatgpt.com/c/6a53bba9-8e10-83e8-bee1-fc9d5b95d815 | RUNNING (dispatched ~10:25) |
-| R119b: same audit, independent thread | chatgpt.com/c/6a53bbe0-30d0-83e8-8448-3ac73bf53804 | RUNNING |
+| R120: trajectory-restricted capped-state/harvest formulation (11 collapse families + 12th search) + resolution; R118+R119a attached | chatgpt.com/c/6a53c125-5854-83e8-9d7a-d87c300c65df | RUNNING (dispatched ~11:00) |
 
-Landed+saved since last table: R118 (researcher-118-ancestor-harvest-
-no-go: repaired canonical statement with TEN nondegeneracy exclusions
-(2 new: cap escape, epoch-boundary laundering) then DISPROVED via
-fortress bounded-erosion; claims NO baseline-independent ancestor-
-harvest-only separator exists — the capped-state part of (OA) is
-irreducible. Confidence LOW; the R104-tension (obtainable fortress vs
-prevention) is flagged in frontmatter and is R119's primary check).
+Landed+saved since last table: R116 (researcher-116-deep-layer-theorem:
+(CL) reduced from log_2 H to C*loglog H layers via divisor-chain/Rankin
+— doubly exponential battleground reduction; residual gap =
+bounded-depth chronology-sensitive compression), R119a+R119b
+(verify-postresp: R118's family no-go REFUTED — its statement was
+defeated OFF-PATH (quantified over unreachable baseline states; the
+fortress is NOT reachable against a clearing policy, R104 intact);
+narrow self-disproof VALID; ELEVENTH collapse found (uncharged
+scheduling delay); trajectory-restricted formulation is the surviving
+canonical target — now dispatched as R120).
 
-If the no-go SURVIVES both audits: the o(n) route's sole remaining
-targets are capped-reservoir handling — i.e. exactly (CL)/compression
-persistence (R116) and the capped-state part of (OA). If it FAILS on
-the quantifier check: the repaired statement (R118 Parts I-III) may
-still be sound and becomes the canonical target.
+CURRENT PROGRAM PICTURE (post-formulation-war): upper route has TWO
+convergent live targets — (i) bounded-depth compression (first
+C*loglog H layers, from R116), (ii) trajectory-restricted
+capped-state/harvest statement (R120 running). Lower route requires
+caps ~ r(n) or non-reservoir mechanisms (R104 promoted). Everything
+else tonight was either promoted or refuted with mechanisms.
 
-Three running, TWO spare.
+One running, FOUR spare (Om waking; keep lean — refill after R120 or
+per his direction).
 
-Pending saves: R116 -> researcher-116-<slug>.md
-(prompts/researcher-R116-compression-persistence.md, predecessors
-R110-surviving-shadow-compression + R113-audit-shadow-and-ah-claims);
-R119a/b -> verify-postresp-R119a/b-<slug>.md
-(prompts/audit-R119-no-go-vs-fortress-prevention.md, target
-R118-ancestor-harvest-no-go, confirms or refutes with
-failure_mechanism).
+Pending saves: R120 -> researcher-120-<slug>.md
+(prompts/researcher-R120-trajectory-restricted-harvest.md,
+predecessors R118-ancestor-harvest-no-go +
+R119a-no-go-scope-limited).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
