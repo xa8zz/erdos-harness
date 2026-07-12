@@ -38,7 +38,7 @@ URLs as needed). THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 | R98: design Shortener policy + prove chronology theorem (o(n) side) | chatgpt.com/c/6a535e78-9ea4-83e8-99f1-c142b3e508a8 | running |
-| R99: fixed-cap entry / amplification (Theta side) | chatgpt.com/c/6a535f06-63e8-83e8-99cc-d00a36117fe7 | running (first reply misfired into image generation; corrected with in-thread text-only follow-up) |
+| R99: fixed-cap entry / amplification (Theta side) | chatgpt.com/c/6a535f06-63e8-83e8-99cc-d00a36117fe7 | landed+saved (researcher-99: CONDITIONAL diagonal amplification — universal growing-cap entry => fixed cap => Theta; hypothesis open; fixed-level advance-depletion bound isolated) |
 | R100: zoom-out v2, full post-separator obstruction map | chatgpt.com/c/6a536053-7fd0-83e8-a42a-fb21cb8d2ae3 | running |
 | R101: growing-depth uniformity single-lemma (R96 body attached verbatim) | chatgpt.com/c/6a53609c-6210-83e8-824f-a0c4e7b0de17 | running |
 

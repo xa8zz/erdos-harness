@@ -102,6 +102,7 @@ No suggestion section, no anchor on a target answer, no curator guesses, no sess
 - **Topic-string sanity check.** The header's `<TOPIC>` is a single short descriptor that gives the model a frame, not a copy of the full problem statement. Adjust per problem; don't reuse "number theory and primitive sets" for a graph-saturation problem.
 - **The model decides the route.** From this point forward, dispatches are full-solution attempts, not incremental pushes. The Open Question / next-step section that older prompts had is omitted by design — including it would re-anchor the model on a partial framing.
 - **Failure mechanisms cite specifics.** Specific primes, shield sets, constants, counterexample tuples are the difference between a useful Ruled Out entry and a dead one. Pull them straight from the compiled state's Refuted-by lines.
+- **Never offer hypothetical grants with ambiguous quantifiers.** A dispatch that says "X (granted at any parameter if you need it)" invites the model to resolve the LITERAL universal statement — observed 2026-07-12: "entry granted at any H(n)->infinity" was diagonalized into a conditional fixed-cap theorem whose hypothesis the program had never proven. If a conditional grant is intended, state its exact quantifier ("IF entry were proven for some single H(n)->infinity, then...") or omit the grant entirely.
 - **Save the prompt at compose-time**, before dispatching. If verifier pre-send audits change the prompt, save the post-audit version. The committed prompt is what was actually sent.
 
 ## Output format
