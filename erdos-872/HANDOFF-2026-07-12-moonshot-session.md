@@ -37,7 +37,7 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R108: free-roam solution attempt (post-audit dossier) | chatgpt.com/c/6a537ba0-1284-83e8-a2eb-0204b7d21dcd | RUNNING (~90 min in; narration: medium-prime examples give linear first shadow, testing successive blocker consumption) |
+| R112: targeted (AH) ancestor-harvest inequality, R98 reduction attached | chatgpt.com/c/6a53969d-5680-83e8-abba-5b0727df59a5 | RUNNING (dispatched ~06:20) |
 | R110: targeted (CL) — cumulative minimal-layer / surviving-shadow question, R105 construction attached | chatgpt.com/c/6a53889a-2860-83e8-ab2e-5bac773e059e | RUNNING (dispatched ~05:20) |
 | R111: free-roam with BOTH promoted refutations in dossier | chatgpt.com/c/6a5388d8-1c6c-83e8-9964-cb9b1a3f58d5 | RUNNING (dispatched ~05:23) |
 
@@ -52,14 +52,17 @@ TWO PROMOTIONS tonight, each with two independent VALID audits:
 Three running, TWO slots spare — hold for audits of whatever R108/R110/
 R111 claim, or for the post-(CL)-verdict dispatch.
 
-Pending saves: R108 -> researcher-108-<slug>.md
-(prompts/researcher-R108-solution-attempt-post-audit.md, kind standalone);
-R110 -> researcher-110-<slug>.md
+R108 landed+saved (researcher-108-post-audit-honest-bracket: honest
+bracket; gap concentrated in direct-ancestor/ordered-shadow chronology).
+
+Pending saves: R110 -> researcher-110-<slug>.md
 (prompts/researcher-R110-cumulative-layer-surviving-shadow.md,
 predecessors R105-ordered-shadow-refuted +
 R101-one-sweep-shadow-containment); R111 -> researcher-111-<slug>.md
 (prompts/researcher-R111-solution-attempt-post-promotions.md, kind
-standalone).
+standalone); R112 -> researcher-112-<slug>.md
+(prompts/researcher-R112-ancestor-harvest.md, predecessor
+R98-policy-reduction-ancestor-harvest).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
