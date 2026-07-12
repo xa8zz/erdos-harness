@@ -299,6 +299,8 @@
   — confidence medium; prompt: [erdos-872/prompts/followup-R89-entry-forcing-construction.md](erdos-872/prompts/followup-R89-entry-forcing-construction.md)
 - **[R90-refinement-forest-carrier-charge-false](erdos-872/researcher-90-refinement-forest-carrier-charge-false.md)** (2026-07-12): (OA) not proved, and no low-area fortress-reaching ordering constructed. Two sharp conclusions. (1) The ancestor-collapse mechanism extends to the maximum-degree policy: any low-area persistence history is a highly constrained arithmetic refinement forest — if a linear target set survives t ~ X/h rounds with accumulated maximum-degree area o(X), the survivors must require tau_t(W) = omega(t) simultaneously active minimal-root classes, all created by Prolonger-paid successive refinements from O(t) ancestral classes, with the sum of largest ancestral class sizes o(X). (2) The direct charge of a carrier to the area exposed by its own dangerous roots is FALSE: one legal carrier can simultaneously block H incomparable roots of degree at most H whose combined shell shadows have size Omega(H^2), so any one-carrier one-round charge loses a factor Omega(H). Sandbox: exact low-area lines at X <= 24 and carrier-greedy searches at X = 500..2000 keep cumulative area near 0.45 X with half the shell live afterward — empirically favoring low-area persistence. The remaining question is narrower than ordered persistence: can an actual legal Prolonger sequence refine a cover of a persistent linear target set from O(t) ancestral classes to omega(t) proper minimal-root classes in t rounds while the sum of largest ancestral class sizes stays o(X).
   — confidence medium; prompt: [erdos-872/prompts/followup-R90-area-lower-bound-anti-entry.md](erdos-872/prompts/followup-R90-area-lower-bound-anti-entry.md)
+- **[R92-arbitrary-reply-persistence-claim](erdos-872/researcher-92-arbitrary-reply-persistence-claim.md)** (2026-07-12): CLAIMED (unaudited): the ordered-multiplicity statement is true at the maximal-divisor scale. One ordered cross-spoiler has temporal face capacity at most binom(r, r/2) T(n), where T(n) = max_{m<=n} tau(m) = n^{o(1)} is the maximal divisor count; combined with the Omega(H/log H) lift-exhaustion cost this proves the time-area inequality whenever binom(r, r/2) T(n) log H = o(H). Taking H = T(n)^{1+delta}, a deterministic canonical lift scheduler (fixed core / colex split-face / increasing-lift ordering with canonical common-core splits and exhaustion charging) is claimed robust against EVERY opposing policy: Prolonger forces either Omega(n/H) moves before entry finishes or a linear-reservoir position with degree cap O(H), and the absorbing-fortress theorem supplies the same tail, giving L(n) >>_delta n/T(n)^{1+delta} = n^{1-o(1)} against arbitrary play. Explicitly does NOT establish Theta(n) (H grows), and the numerical bound is asymptotically SMALLER than the existing n(log log n)^2/log n bound since T(n)^{1+delta} = exp((1+o(1))(1+delta) log 2 log n/log log n) exceeds every power of log n. The substantive advance, if it survives audit, is the arbitrary-reply persistence theorem and closure of the temporal Hall-capacity gap at the divisor-width threshold, ruling out the ordered-area no-direction at these cap scales; a stronger game bound requires beating the threshold via cross-core coded repairs.
+  — confidence low; prompt: [erdos-872/prompts/followup-R92-ordered-multiplicity-final.md](erdos-872/prompts/followup-R92-ordered-multiplicity-final.md)
 
 ## Ruled Out
 
@@ -399,14 +401,14 @@
 ### By type
 - diagnostic: 6
 - refutation: 51
-- research: 147
+- research: 148
 - synthesis: 12
 - verification: 83
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 26
+- independent: 27
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
