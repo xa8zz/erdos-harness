@@ -37,26 +37,33 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R121: free-roam, post-formulation-war dossier | chatgpt.com/c/6a53c779-17a8-83e8-af2c-19065dca9931 | RUNNING (narration: Boolean-cube chronology; amortization charging regeneration to arithmetic factor growth) |
-| R122a: adversarial AUDIT of R120's trajectory-restricted statement (13th-witness hunt + does trajectory-restriction preserve the implication to o(n)) | chatgpt.com/c/6a53ceae-7ee4-83e8-9329-c50d9b2102f1 | RUNNING (dispatched ~11:55) |
-| R122b: same audit, independent thread | chatgpt.com/c/6a53cee4-d3ec-83e8-a52e-6b5c1d6dc890 | RUNNING |
+| R121: free-roam, post-formulation-war dossier | chatgpt.com/c/6a53c779-17a8-83e8-af2c-19065dca9931 | RUNNING (narration: seeking o(n/H) completion post-peel; testing whether MINIMALITY supplies the extra factor the continuation lemma needs) |
+| R123: formulation iter 5 — mandatory-activation/no-idle invariant, 13 families, or prove the family UNCLOSABLE; R120+R122a+R122b attached | chatgpt.com/c/6a53d600-251c-83e8-9e5d-3eb0db14bee1 | RUNNING (dispatched ~12:25) |
 
-Landed+saved since last table: R120 (researcher-120-trajectory-
-restricted-statement: full construction — predictable master cohorts,
-causal + service clocks, degree/capped tickets; TWELFTH collapse found
-and closed (post-hoc cohort selection); fortress disproof genuinely
-inapplicable; statement itself unresolved — the formulation war's
-apparent fixed point).
+Landed+saved since last table: R122a+R122b (verify-postresp: R120
+REFUTED — THIRTEENTH collapse found INDEPENDENTLY by both auditors:
+epoch suppression / registration starvation (policy never activates a
+high-degree epoch, clocks idle, obligations vacuous); repair =
+mandatory-activation no-idle invariant tied to actual shell
+populations; also canonical witness maps needed; the o(n) implication
+explicitly needs the no-idle invariant).
 
-Om is AWAKE as of ~11:30 (still under standing delegation unless he
-redirects). Three running, TWO spare.
+FORMULATION LOOP STATUS after 5 iterations: 13 collapse families
+catalogued, each audit finds genuinely new failure modes, and each
+iteration hardens the statement. R123 is explicitly authorized to
+prove the family UNCLOSABLE instead (every repair admits a
+starvation-type witness or re-inserts online-area) — that outcome is
+now live and would redirect the route decisively.
+
+Two running, THREE spare. Om is awake — standing delegation continues
+unless redirected.
 
 Pending saves: R121 -> researcher-121-<slug>.md
 (prompts/researcher-R121-freeroam-post-formulation-war.md, kind
-standalone); R122a/b -> verify-postresp-R122a/b-<slug>.md
-(prompts/audit-R122-trajectory-statement.md, target
-R120-trajectory-restricted-statement, confirms or refutes with
-failure_mechanism).
+standalone); R123 -> researcher-123-<slug>.md
+(prompts/researcher-R123-mandatory-activation.md, predecessors
+R120-trajectory-restricted-statement + R122a-epoch-suppression-witness
++ R122b-registration-starvation-witness).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
