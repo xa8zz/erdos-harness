@@ -37,30 +37,36 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R116: (CL) round 2 — compression persistence (R110 w/ repair + R113 attached) | chatgpt.com/c/6a53ab6e-ec38-83e8-9c57-4784cd8af342 | RUNNING (narration: modulus fixed point at depth log H; policy-independent divisibility invariant) |
-| R117: adversarial AUDIT of R115's (BF-AH) — well-formedness, EIGHTH-witness hunt, implication chain | chatgpt.com/c/6a53ad96-dee4-83e8-b9fa-0775b5cb5bec | RUNNING (dispatched ~09:20) |
+| R116: (CL) round 2 — compression persistence | chatgpt.com/c/6a53ab6e-ec38-83e8-9c57-4784cd8af342 | RUNNING (modulus fixed point at depth log H; policy-independent divisibility invariant) |
+| R118: formulation loop iter 3 — repair (BF-AH) per R117 (8 collapse families + ninth-witness search) OR prove a formulation no-go theorem; R115+R117 attached | chatgpt.com/c/6a53b2a8-04d0-83e8-8d69-75ab9c841ee2 | RUNNING (dispatched ~09:55) |
 
-Landed+saved since last table: R111 (researcher-111: rough-core
-decomposition valid but insufficient; 4th independent separator
-concurrence; small-n minimax simulation matched analysis), R115
-(researcher-115-baseline-frozen-ancestor-harvest: CANONICAL (BF-AH) —
-baseline-frozen globally-clocked ancestor harvest, 7-part nondegeneracy
-proof, implies o(n), itself unresolved — the o(n) side's single
-well-posed target, pending R117 formulation audit).
+Landed+saved since last table: R117 (verify-postresp-R117: REFUTES
+R115's (BF-AH) — EIGHTH witness: micro-baseline compression sweep
+inside the unconstrained trapping algorithm reduces every ledger to
+mass O(H) (formulation never required frozen mass >> H) so CHt with
+t=1 pays everything; implication also refuted (one-epoch statement
+silently iterated; global Ht term unbudgeted); repairs prescribed in
+its A.4/C.5).
 
-Two running, THREE spare. Next moves after R117: if (BF-AH) formulation
-survives, dispatch prove/disprove attacks on (BF-AH) (2 parallel: one
-Shortener-side potential design, one Prolonger-side cascade
-construction); if an eighth witness is found, iterate the formulation
-loop with it attached.
+THE FORMULATION LOOP (o(n) side): R98 isolated (AH) -> R112 claimed
+degenerate (refuted by R113) -> R114 found pre-freeze hole in my (AH*)
+-> R115 built (BF-AH) with 7-part nondegeneracy proof -> R117 broke it
+with an 8th witness + implication defects -> R118 now repairs or
+proves a no-go theorem. Each iteration is producing durable machinery
+(collapse-witness families, repair prescriptions). The no-go
+alternative in R118 is live: if NO nondegenerate statement of this
+family implies o(n) through the accepted reductions, that redirects
+the whole upper route.
+
+Two running, THREE spare. Keep spares until R116/R118 land (Om likely
+waking soon — 10:00 local).
 
 Pending saves: R116 -> researcher-116-<slug>.md
 (prompts/researcher-R116-compression-persistence.md, predecessors
 R110-surviving-shadow-compression + R113-audit-shadow-and-ah-claims);
-R117 -> verify-postresp-R117-<slug>.md
-(prompts/audit-R117-bfah-formulation.md, target
-R115-baseline-frozen-ancestor-harvest, confirms or refutes with
-failure_mechanism).
+R118 -> researcher-118-<slug>.md
+(prompts/researcher-R118-repaired-ancestor-harvest.md, predecessors
+R115-baseline-frozen-ancestor-harvest + R117-bfah-eighth-witness).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
