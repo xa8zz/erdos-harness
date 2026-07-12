@@ -40,7 +40,7 @@ URLs as needed). THREAD URLS are durable:
 | R125: full-solution attempt (sample 1) | chatgpt.com/c/6a53e22e-def4-83e8-9a4b-20b449fa5270 | RUNNING (closing the early peeling-layer gap via post-peel process) |
 | R126: full-solution attempt (sample 2) | chatgpt.com/c/6a53e267-d7dc-83e8-8b83-6d1a6aa26eff | RUNNING (strategy-level invariant; checking both directions vs counterexamples) |
 | R127: full-solution attempt (sample 3) | chatgpt.com/c/6a53e2a5-ee24-83e8-a948-f79f1f4b55bd | RUNNING (chronology-sensitive invariant + first-O(loglog H)-layer ancestor ledger) |
-| R128: targeted (AE) aggregate-excess halving — the audit-constructed global-ticket statement | chatgpt.com/c/6a53e3f6-1f98-83e8-bf32-ec635b8e7e40 | RUNNING (dispatched ~14:15) |
+| R129: targeted (AE†) — repaired aggregate-excess halving (H^6=o(n), closed quantifiers); R128 analysis attached | chatgpt.com/c/6a53eb0d-0390-83e8-9f93-e75b880eabca | RUNNING (dispatched ~14:50) |
 
 Landed+saved since last table: R124a+R124b (verify-postresp: R123's
 architectural no-go REFUTED again in scope — BOTH auditors
@@ -51,20 +51,21 @@ online-area blocks; the per-shell dichotomy itself stands with an
 A-repair (unhandled nonlive-ticket case); only the FORWARD implication
 to online area is justified).
 
-NEW CANONICAL TARGET: the aggregate-excess halving statement (AE) —
-halve R(t) within C*M*log(h)/h + O(log n) turns, mandatory succession.
-Simplest well-posed intermediate yet; constructed and nondegeneracy-
-checked by an adversarial auditor (the entity that kills these
-statements built this one). R128 attacks it directly with the 14-family
-checklist and the R123 ledger machinery attached.
+R128 landed+saved fast: literal (AE) vacuous (15th collapse,
+parameter-level: H=n empties the shell range — parameter ranges are
+part of the statement). But R128 defined (AE†) (H^6=o(n), closed
+quantifiers), proved it implies o(n), and — a first — proved it is NOT
+a rewriting of the full problem (sqrt(n) decrement process: o(n)
+length but fails aggregate halving; (AE†) is a strictly stronger local
+rate assertion). (AE†) is the canonical intermediate; R129 attacks it.
 
 ALL FIVE SLOTS FULL (per Om: free slots toward full solution).
 
 Pending saves: R125/126/127 -> researcher-125/126/127-<slug>.md (kind
 standalone, prompts researcher-R125/126/127-solution-attempt.md);
-R128 -> researcher-128-<slug>.md
-(prompts/researcher-R128-aggregate-excess-halving.md, predecessors
-R124a-aggregate-excess-counterexample + R123-activation-area-impossibility).
+R129 -> researcher-129-<slug>.md
+(prompts/researcher-R129-ae-dagger.md, predecessor
+R128-aggregate-excess-parameter-witness).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
