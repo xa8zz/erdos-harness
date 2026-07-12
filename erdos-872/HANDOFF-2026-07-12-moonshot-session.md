@@ -46,12 +46,20 @@ realizations on n=2310 and n=4000). Saved as verify-postresp-R92-audit-a/b.md.
 R91 landed and saved (researcher-91-advance-depletion-low-lcm-reduction.md):
 dichotomy reduced to one chronological low-lcm capacity inequality (TL).
 
+UPDATE 2: R93 landed+saved (researcher-93-trace-rectangle-olcm-reduction.md —
+low-lcm energy lemma; rectangle refutes raw multiplicity; OLCM). R94
+landed+saved (researcher-94-atomic-ledger-ancestor-harvest.md — supersedes
+R92: 2^r atomic-ledger repair; residual = ancestor-harvest inequality (AH)).
+Four formulations of ONE remaining lemma: (TL) = OLCM = bounded-recourse =
+(AH). R97 dispatched fresh on OLCM with the trace normal form.
+
 | What | Thread URL | Status |
 |---|---|---|
-| R93 (temporal-Hall attack) | chatgpt.com/c/6a52f794-6da0-83e8-a9bd-f059f252236e | running |
-| R94 (HIST repair lemma, in R92's thread) | chatgpt.com/c/6a53160a-0630-83e8-b1a8-70de5c4e1d53 | running |
 | R95 ((TL) attack, in R91's thread) | chatgpt.com/c/6a52db0e-b448-83e8-bef8-8bcb9137968b | running |
 | R96 (fresh-thread zoom-out solution attempt) | chatgpt.com/c/6a534c6b-d280-83e8-afb5-3649140ac04d | running |
+| R97 (OLCM single-lemma, fresh thread) | chatgpt.com/c/6a535093-b21c-83e8-9f8c-718ff4d22ea8 | running |
+| R93's thread (idle) | chatgpt.com/c/6a52f794-6da0-83e8-a9bd-f059f252236e | landed+saved |
+| R94/R92's thread (idle) | chatgpt.com/c/6a53160a-0630-83e8-b1a8-70de5c4e1d53 | landed+saved |
 | Audit A thread (idle) | chatgpt.com/c/6a5341b3-e890-83e8-9912-f7cedf07ae62 | landed+saved |
 | Audit B thread (idle) | chatgpt.com/c/6a5341ee-c48c-83e8-8e8b-17f87177681c | landed+saved |
 | R90's thread (idle) | chatgpt.com/c/6a531643-f134-83e8-baa5-741d4d5316fa | landed |
