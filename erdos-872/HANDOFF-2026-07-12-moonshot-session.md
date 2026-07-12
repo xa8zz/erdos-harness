@@ -37,29 +37,33 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R105: targeted (OS) first-sweep ordered shadow | chatgpt.com/c/6a53741c-1e94-83e8-807a-18e574b22afb | RUNNING (R101 body attached; narration ~04:11 was constructing a dense-first-layer counterexample, reachability unresolved) |
-| R107a: adversarial AUDIT of R104's (F)-refutation | chatgpt.com/c/6a537b24-04f0-83e8-b167-adaf1979c80b | RUNNING (verdict VALID/REPAIRABLE/REFUTED + 6 checks) |
-| R107b: same audit prompt, independent thread | chatgpt.com/c/6a537b5c-fb04-83e8-8fd8-8f1f0eef2868 | RUNNING |
-| R108: free-roam solution attempt (post-audit dossier: containment theorem, prime-product guard, root-indexed blocker, terminal-witness lesson) | chatgpt.com/c/6a537ba0-1284-83e8-a2eb-0204b7d21dcd | RUNNING (the standing free-roam slot) |
+| R108: free-roam solution attempt (post-audit dossier) | chatgpt.com/c/6a537ba0-1284-83e8-a2eb-0204b7d21dcd | RUNNING (the standing free-roam slot; narration: testing whether primitivity makes post-peel shadow density vanish) |
+| R109a: adversarial AUDIT of R105's (OS)-refutation | chatgpt.com/c/6a5381e6-4640-83e8-9641-a13ea89246aa | RUNNING (primary check: Phase-0 obtainability of the bad position) |
+| R109b: same audit prompt, independent thread | chatgpt.com/c/6a538222-87dc-83e8-820a-d428a58b95b6 | RUNNING |
 
-Landed+saved this session: R98, R99, R100, R101, R102, R103, R104 (all
-researcher-* docs committed), R106 audit (verify-postresp-R106 —
-containment theorem VALID, equivalence VALID, prime-product lemma
-REPAIRABLE/nonempty-S). R104's (F)-refutation is confidence LOW until
-R107a+R107b adjudicate — if BOTH say VALID, promote (add to Ruled Out:
-fixed-cap fortress entry impossible at cap o(r(n))) and rework the
-Theta-side menu; if either REFUTES, write the failure_mechanism doc.
+PROMOTED this session: R104's refutation of fixed-cap fortress entry —
+BOTH R107a and R107b returned VALID (verify-postresp-R107a/b committed).
+The Theta-side menu is rebuilt: fixed-cap entry and every cap
+H(n) = o(r(n)) are ruled out; a positive-density lower bound needs caps
+comparable to r(n) or a non-reservoir mechanism.
 
-Four running, ONE slot spare (cap 5) — reserve for follow-up audit or a
-new targeted dispatch after R107 verdicts.
+PENDING VERDICT: R105 claims (OS)/(WOS) unconditionally FALSE
+(researcher-105, confidence low until R109a+R109b adjudicate). If VALID:
+the upper route must control SURVIVING descendant mass (cumulative
+minimal layers), not raw shadow — R105's own section 7 shows the raw
+shadow over-counts and growing-depth uniformity remains open. If
+REFUTED: write failure_mechanism doc and (OS) reopens.
 
-Pending saves: R105 -> researcher-105-<slug>.md
-(prompts/researcher-R105-first-sweep-ordered-shadow.md, predecessor
-R101-one-sweep-shadow-containment); R107a/b ->
-verify-postresp-R107a/b-<slug>.md (prompts/audit-R107-fixed-cap-refutation.md,
-target R104-fixed-cap-entry-refuted, kind confirms or refutes with
-failure_mechanism); R108 -> researcher-108-<slug>.md
-(prompts/researcher-R108-solution-attempt-post-audit.md, kind standalone).
+Three running, TWO slots spare (cap 5) — after R109 verdicts, refill
+with (a) a targeted dispatch on surviving-descendant control informed by
+the verdicts and (b) keep free-roam cycling.
+
+Pending saves: R108 -> researcher-108-<slug>.md
+(prompts/researcher-R108-solution-attempt-post-audit.md, kind standalone);
+R109a/b -> verify-postresp-R109a/b-<slug>.md
+(prompts/audit-R109-ordered-shadow-refutation.md, target
+R105-ordered-shadow-refuted, kind confirms or refutes with
+failure_mechanism).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
