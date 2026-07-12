@@ -293,6 +293,8 @@
   — confidence medium; prompt: [erdos-872/prompts/followup-R86-trapped-residual-charge-with-exact-bank.md](erdos-872/prompts/followup-R86-trapped-residual-charge-with-exact-bank.md)
 - **[R87-primorial-positions-absorbing](erdos-872/researcher-87-primorial-positions-absorbing.md)** (2026-07-12): Post-entry dynamics are one-sided: once a primorial-batching position is reached, it is automatically stable, against arbitrary play. Blocked small divisors remain illegal forever (positions only grow), so the degree cap Delta_Q(B) <= Delta_Q(A) <= H is monotone along every continuation; exact-only targets can only be resolved by being played (each is an actual move, banked), and the exact-bank-plus-degree-cap bound V(A) >= |E(A)| + |Q(A)|/H holds for the number of remaining actual moves. Hence a linear trapped reservoir cannot collapse in o(n/H) moves, and forced-collapse (option b) is impossible. The only missing piece for a new unconditional lower bound is robust strategic ENTRY: forcing a primorial-batched position while the opponent inserts cross-spoiling lower moves (a move dividing a planned carrier without being comparable with many of the dangerous roots assigned to it). Static reachability is proved; robust entry is not. Robust entry at threshold H = (log n)^{o(1)} would give L(n) >= n/(log n)^{o(1)} = n^{1-o(1)}, dominating the current n(log log n)^2/log n bound. No further post-entry maintenance theorem is missing.
   — confidence medium; prompt: [erdos-872/prompts/followup-R87-dynamic-primorial-maintenance.md](erdos-872/prompts/followup-R87-dynamic-primorial-maintenance.md)
+- **[R88-lift-exhaustion-reduction](erdos-872/researcher-88-lift-exhaustion-reduction.md)** (2026-07-12): Not resolved, but reduced further: robust entry follows from one arithmetic statement, the lift-exhaustion multiplicity lemma (LE) — during adaptive batch processing, before o(n/H) rounds the number of active rank-r primorial batches whose maximal live faces are all exhausted is o(n/(H 2^r)) plus banked contributions (exact-bank transfers, actual entry moves, cumulative shell area). Two unconditional supporting lemmas: within each full rank-r primorial divisor cube, dynamic common-core splitting costs at most binom(r, r/2) = O(2^r/sqrt r) carrier moves; and exhausting every prime lift of one currently legal face requires Omega(H/log H) distinct earlier moves. The remaining failure is entirely global: one earlier move can exhaust one lift in very many primorial batches simultaneously — bound how many active primorial faces can receive one lost prime lift from the same ordered cross-spoiler. Two logical qualifications: robust entry with H(n) -> infinity gives only L(n) >> n/H = n^{1-o(1)}, still compatible with L(n) = o(n) (a positive entry theorem settles the dichotomy only with H = O(1) or an amplification converting n/H(n) to cn); and a history beating maximum-degree or minimal-legal play does not lower-bound the game value against arbitrary replies, since neither policy is proved dominant. A proof of the online-area statement still gives L(n) = o(n) outright; a fortress entry at growing H refutes only the area route.
+  — confidence medium; prompt: [erdos-872/prompts/followup-R88-ordered-persistence-attempt.md](erdos-872/prompts/followup-R88-ordered-persistence-attempt.md)
 
 ## Ruled Out
 
@@ -393,14 +395,14 @@
 ### By type
 - diagnostic: 6
 - refutation: 51
-- research: 144
+- research: 145
 - synthesis: 12
 - verification: 83
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 23
+- independent: 24
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
