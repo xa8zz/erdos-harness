@@ -67,6 +67,21 @@ obstruction to OLCM — adjudicate against the audits when both land. Save
 audits as verify-postresp-R95-audit-a/b.md (confirms/refutes
 R95-canonical-first-witness-tl-claim).
 
+UPDATE 4: R96 landed+saved (researcher-96-layer-peeling-chronological-separator.md)
+— layer-peeling near-proof of o(n); separator = one chronology theorem
+(3 sufficient forms; disproof needs fixed-cap entry or amplification).
+Slots refilled with both sides of the separator:
+
+| What | Thread URL | Status |
+|---|---|---|
+| R98 (design policy + prove chronology theorem, o(n) side) | chatgpt.com/c/6a535e78-9ea4-83e8-99f1-c142b3e508a8 | running |
+| R99 (fixed-cap entry / amplification, Theta side; note: first reply misfired into image generation, corrected with a text-only follow-up in-thread) | chatgpt.com/c/6a535f06-63e8-83e8-99cc-d00a36117fe7 | running |
+
+Pending saves: R98 -> researcher-98-<slug>.md (prompt
+prompts/researcher-R98-policy-chronology-theorem.md); R99 ->
+researcher-99-<slug>.md (prompt
+prompts/researcher-R99-fixed-cap-entry-amplification.md).
+
 RESOLVED: R95 REFUTED by both audits (verify-postresp-R95-audit-a/b.md).
 Same first break found independently: N°(I) indexes witness tuples by move
 indices but a move's trace varies per face (a=143 on n=3000; a=35 on
