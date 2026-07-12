@@ -37,35 +37,26 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R120: trajectory-restricted capped-state/harvest formulation (11 collapse families + 12th search) + resolution; R118+R119a attached | chatgpt.com/c/6a53c125-5854-83e8-9d7a-d87c300c65df | RUNNING (dispatched ~11:00) |
-| R121: free-roam with post-formulation-war dossier (deep-layer theorem, audited surviving-shadow, 11 collapse families) | chatgpt.com/c/6a53c779-17a8-83e8-af2c-19065dca9931 | RUNNING (dispatched ~11:25; the standing free-roam slot) |
+| R121: free-roam, post-formulation-war dossier | chatgpt.com/c/6a53c779-17a8-83e8-af2c-19065dca9931 | RUNNING (narration: Boolean-cube chronology; amortization charging regeneration to arithmetic factor growth) |
+| R122a: adversarial AUDIT of R120's trajectory-restricted statement (13th-witness hunt + does trajectory-restriction preserve the implication to o(n)) | chatgpt.com/c/6a53ceae-7ee4-83e8-9329-c50d9b2102f1 | RUNNING (dispatched ~11:55) |
+| R122b: same audit, independent thread | chatgpt.com/c/6a53cee4-d3ec-83e8-a52e-6b5c1d6dc890 | RUNNING |
 
-Landed+saved since last table: R116 (researcher-116-deep-layer-theorem:
-(CL) reduced from log_2 H to C*loglog H layers via divisor-chain/Rankin
-— doubly exponential battleground reduction; residual gap =
-bounded-depth chronology-sensitive compression), R119a+R119b
-(verify-postresp: R118's family no-go REFUTED — its statement was
-defeated OFF-PATH (quantified over unreachable baseline states; the
-fortress is NOT reachable against a clearing policy, R104 intact);
-narrow self-disproof VALID; ELEVENTH collapse found (uncharged
-scheduling delay); trajectory-restricted formulation is the surviving
-canonical target — now dispatched as R120).
+Landed+saved since last table: R120 (researcher-120-trajectory-
+restricted-statement: full construction — predictable master cohorts,
+causal + service clocks, degree/capped tickets; TWELFTH collapse found
+and closed (post-hoc cohort selection); fortress disproof genuinely
+inapplicable; statement itself unresolved — the formulation war's
+apparent fixed point).
 
-CURRENT PROGRAM PICTURE (post-formulation-war): upper route has TWO
-convergent live targets — (i) bounded-depth compression (first
-C*loglog H layers, from R116), (ii) trajectory-restricted
-capped-state/harvest statement (R120 running). Lower route requires
-caps ~ r(n) or non-reservoir mechanisms (R104 promoted). Everything
-else tonight was either promoted or refuted with mechanisms.
+Om is AWAKE as of ~11:30 (still under standing delegation unless he
+redirects). Three running, TWO spare.
 
-Two running, THREE spare (free-roam requirement restored via R121).
-
-Pending saves: R120 -> researcher-120-<slug>.md
-(prompts/researcher-R120-trajectory-restricted-harvest.md,
-predecessors R118-ancestor-harvest-no-go +
-R119a-no-go-scope-limited); R121 -> researcher-121-<slug>.md
+Pending saves: R121 -> researcher-121-<slug>.md
 (prompts/researcher-R121-freeroam-post-formulation-war.md, kind
-standalone).
+standalone); R122a/b -> verify-postresp-R122a/b-<slug>.md
+(prompts/audit-R122-trajectory-statement.md, target
+R120-trajectory-restricted-statement, confirms or refutes with
+failure_mechanism).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
