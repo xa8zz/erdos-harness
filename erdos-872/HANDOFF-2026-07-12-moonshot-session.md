@@ -37,31 +37,29 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R111: free-roam with both promoted refutations | chatgpt.com/c/6a5388d8-1c6c-83e8-9964-cb9b1a3f58d5 | RUNNING (~90 min; narration: sublinear-width lemma via residual-poset width) |
-| R113: adversarial AUDIT (5 items): R110 surviving-shadow Thm + compression, R112 terminal-delay + (AH_term) equivalence + frozen-ledger nondegeneracy | chatgpt.com/c/6a539def-764c-83e8-bbef-8f8643ce3b9b | RUNNING (dispatched ~07:25) |
-| R114: targeted frozen-ledger (AH*), R112+R98 attached | chatgpt.com/c/6a539e31-c820-83e8-8ac2-94e9646bfd55 | RUNNING (dispatched ~07:30) |
+| R111: free-roam with both promoted refutations | chatgpt.com/c/6a5388d8-1c6c-83e8-9964-cb9b1a3f58d5 | RUNNING (~2h15m — LONG; if narration still unchanged next tick, open the tab visually and check for an error state) |
+| R115: canonical nondegenerate (AH) — formulation delegated to researcher + resolution; R98/R113/R114 attached | chatgpt.com/c/6a53a4e1-ef84-83e8-93fe-aead2b90a30d | RUNNING (dispatched ~08:25) |
 
-Landed+saved since last table: R110 (researcher-110-surviving-shadow-
-compression: linear legal shadow SURVIVES every ordering, but cone
-compression makes the next minimal layer o(n) — (CL) = does compression
-persist), R112 (researcher-112-ancestor-harvest-degenerate: literal (AH)
-degenerate-true via terminal delay; (AH_term) equivalent to o(n);
-frozen-ledger (AH*) is the real statement). Both confidence low/medium
-pending R113. Terminal-delay lesson codified in
-skills/write-solution-attempt-prompt.md.
+Landed+saved since last table: R113 (verify-postresp-R113: REFUTES
+R112's terminal-delay claim — literal (AH) back OPEN, quantifier-domain
+failure_mechanism; R110 Thm1 REPAIRABLE with exact legality fix,
+compression VALID; frozen-ledger repair list), R114 (researcher-114:
+my (AH*) also degenerate — pre-freeze cap-forcing; repair = freeze at
+common post-trapping baseline). The ancestor-harvest FORMULATION is
+itself adversarial; R115 delegates it to the researcher with all failed
+variants + repair list attached, requiring a nondegeneracy proof before
+resolution.
 
-Three running, TWO spare. After R113: if verdicts VALID, promote R110
-Thm 1 + R112 and let R114's (AH*) verdict drive the next targeted
-dispatch; if any REFUTED, failure_mechanism doc and reopen.
+Two running, THREE spare. Refill options after R111/R115 land: audits
+of whatever they claim; a (CL)-side compression-persistence dispatch
+(R110's battleground) once R110's repaired Thm 1 is re-audited if it
+becomes load-bearing.
 
 Pending saves: R111 -> researcher-111-<slug>.md
 (prompts/researcher-R111-solution-attempt-post-promotions.md, kind
-standalone); R113 -> verify-postresp-R113-<slug>.md
-(prompts/audit-R113-surviving-shadow-and-ah-degeneracy.md, targets
-R110/R112, confirms or refutes per item); R114 ->
-researcher-114-<slug>.md
-(prompts/researcher-R114-frozen-ledger-ancestor-harvest.md, predecessor
-R112-ancestor-harvest-degenerate).
+standalone); R115 -> researcher-115-<slug>.md
+(prompts/researcher-R115-canonical-ancestor-harvest.md, predecessors
+R113-audit-shadow-and-ah-claims + R114-frozen-ledger-preforce-degenerate).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
