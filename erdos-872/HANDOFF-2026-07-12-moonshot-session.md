@@ -72,7 +72,7 @@ R95-canonical-first-witness-tl-claim).
 | Audit A of R95 | chatgpt.com/c/6a5357a6-9d20-83e8-9b2b-6114eabbe224 | running |
 | Audit B of R95 | chatgpt.com/c/6a5357dc-9198-83e8-8883-cf7f7f0a9805 | running |
 | R96 (fresh-thread zoom-out solution attempt) | chatgpt.com/c/6a534c6b-d280-83e8-afb5-3649140ac04d | running |
-| R97 (OLCM single-lemma, fresh thread) | chatgpt.com/c/6a535093-b21c-83e8-9f8c-718ff4d22ea8 | running |
+| R97 (OLCM single-lemma, fresh thread) | chatgpt.com/c/6a535093-b21c-83e8-9f8c-718ff4d22ea8 | landed+saved (researcher-97: literal OLCM FALSE via anchor B_H + trace-1; open lemma now minimax (RCM); direct tension with R95 — audits must adjudicate) |
 | R95/R91's thread (idle) | chatgpt.com/c/6a52db0e-b448-83e8-bef8-8bcb9137968b | landed+saved |
 | R93's thread (idle) | chatgpt.com/c/6a52f794-6da0-83e8-a9bd-f059f252236e | landed+saved |
 | R94/R92's thread (idle) | chatgpt.com/c/6a53160a-0630-83e8-b1a8-70de5c4e1d53 | landed+saved |
