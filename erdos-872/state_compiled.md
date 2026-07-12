@@ -285,6 +285,8 @@
   — confidence medium; prompt: [erdos-872/prompts/researcher-R81-solution-attempt-fractional-invariant-base.md](erdos-872/prompts/researcher-R81-solution-attempt-fractional-invariant-base.md)
 - **[R78-unconditional-rank-three-adversarial-audit](erdos-872/verify-postresp-R78-unconditional-rank-three-audit.md)** (2026-07-11): The unconditional bound L(n) >= c_delta n(log log n)^2/log n for every fixed 0<delta<1/4 holds as proved: no lemma, selector case, legality assertion, or asymptotic estimate in the deferred-proofs appendix fails under adversarial audit. The finite-fiber obstruction refutes only the stronger auxiliary game with unscored exact-target deletion; in the actual game every exact-target deletion is a scored move with net bank change 1-lambda >= 0.
   — verified by web-enabled adversarial audit thread; confidence high; prompt: [erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md](erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md)
+- **[R85-ancestor-collapse-minimal-legal](erdos-872/researcher-85-ancestor-collapse-minimal-legal.md)** (2026-07-12): No unconditional resolution. Three new unconditional results. (1) Ancestor-collapse lemma: under the minimal-legal Shortener policy (always play a legal element having no legal proper divisor, which always exists by divisor descent), Shortener's own minimal lower moves never regenerate surviving upper targets, and at termination Shortener's move set equals the minimal legal completion M(P); all recursive regeneration collapses onto Prolonger's moves alone. (2) A linear construction based on the 5n/24 cover shows this exact reduction alone still permits linearly many completions, so minimal-legal play does not by itself prove sublinearity. (3) A stronger static large-divisor cover: for 3 <= w < z < n/2, all but O(kz^2 + n log w/log z + 2^{pi(z)}) live upper targets have a minimal legal divisor x <= n/w, so the live upper half is covered by at most n/w currently legal minimal lower moves; the guaranteed current degree is still only H^{o(1)} against a needed H, reproducing the quantitative failure of pointwise interdiction. A proof of o(n) must bound cumulative cross-carrier regeneration, not each static generation; a proof of Theta(n) must convert the same regeneration into a strategy while preventing shared mixed divisors from resolving a linear family at sublinear cost.
+  — confidence medium; prompt: [erdos-872/prompts/researcher-R85-solution-attempt-post-charging-frontier.md](erdos-872/prompts/researcher-R85-solution-attempt-post-charging-frontier.md)
 
 ## Ruled Out
 
@@ -385,14 +387,14 @@
 ### By type
 - diagnostic: 6
 - refutation: 51
-- research: 140
+- research: 141
 - synthesis: 12
 - verification: 83
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 19
+- independent: 20
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
