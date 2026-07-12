@@ -279,6 +279,8 @@
   — verified by symbolic harmonic-mass audit, agrees, exact minimax exploration through t=18 found no small counterexample to the stronger quotient game; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
 - **[R78-fractional-invariant-interdiction-frontier](erdos-872/researcher-78-fractional-invariant-interdiction-frontier.md)** (2026-07-11): No unconditional resolution of the linear-versus-sublinear dichotomy. Three new unconditional pieces: (1) a fractional residual invariant: with nu(A) the LP value of fractionally packing live upper-half targets so every legal lower move sees mass at most one, T + nu(A) is nondecreasing under every legal move, so any reachable state with nu(A) >= cn forces L(n) >= cn; (2) after k = o(n) moves, only o(n) live upper-half targets can have every proper divisor illegal (quantitatively O(n/log z + k z^2 + e^{O(z)})), via a witness-pair count and Mertens; (3) a generic scored rank-r residual system with r+1 edges (the r-subsets of an (r+1)-set) lets the maximizer force only one scored edge, so no rank-independent constant-fraction residual capture theorem exists without arithmetic structure, and at central rank r ~ log log n the generic bound leaves only an O(1/log log n) fraction. The dichotomy reduces to: force nu(A) >= cn against arbitrary mixed composite separators (linear side), or prove an online interdiction theorem in which some legal divisor kills unbounded new target mass except for a sublinear injectively-chargeable family (sublinear side).
   — confidence medium; prompt: [erdos-872/prompts/researcher-R78-solution-attempt-rank-three-base.md](erdos-872/prompts/researcher-R78-solution-attempt-rank-three-base.md)
+- **[R79-forum-updates-through-may-2026](erdos-872/researcher-79-forum-updates-through-may-2026.md)** (2026-07-11): External evidence beyond the early-May capture. (a) A Lean 4 formalization of the 23/48 upper bound exists restricted to C-respecting play, where the minimizing player strictly targets the odd centers C: any maximal C-respecting play terminates within ceil(n/2) - |C|/2 moves. The core argument is formalized; the full unrestricted result is not. (b) Exact game values are now computed for all n <= 120 by alpha-beta search; optimal lengths grow weakly monotonically. For 105 <= n <= 164 the minimizing player's optimal first move is 2 or 3, equi-optimally, and every other first move is strictly worse; below 105 move 3 is at most one worse than move 2. Further progress is memory-bound (32 GB hash tables). (c) An elementary argument shows every complete game has length at least pi(n): the maximal prime powers q_i <= n over distinct primes are pairwise distinct, and any played integer covers at most one q_i. Items already recorded elsewhere and repeated in this capture: exact values to n=86 with the arithmetic-mean formula refuted at n=85,86; the dyadic refinement raising the fan-capture constant from 1/8 to 1/2; the bipartite potential-function method with its k-uniform hypergraph generalization to n(loglog n)^{k-1}/log n and an explicit call for formalization of such potential arguments.
+  — confidence high
 - **[R78-unconditional-rank-three-adversarial-audit](erdos-872/verify-postresp-R78-unconditional-rank-three-audit.md)** (2026-07-11): The unconditional bound L(n) >= c_delta n(log log n)^2/log n for every fixed 0<delta<1/4 holds as proved: no lemma, selector case, legality assertion, or asymptotic estimate in the deferred-proofs appendix fails under adversarial audit. The finite-fiber obstruction refutes only the stronger auxiliary game with unscored exact-target deletion; in the actual game every exact-target deletion is a scored move with net bank change 1-lambda >= 0.
   — verified by web-enabled adversarial audit thread; confidence high; prompt: [erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md](erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md)
 
@@ -377,14 +379,14 @@
 ### By type
 - diagnostic: 6
 - refutation: 49
-- research: 137
+- research: 138
 - synthesis: 12
 - verification: 83
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 14
+- independent: 15
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
