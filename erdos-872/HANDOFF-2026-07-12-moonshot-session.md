@@ -54,33 +54,42 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R135a: AUDIT of the (SM) interval-blocker refutation | chatgpt.com/c/6a54018c-9e00-83e8-9053-b5633d6e6e2e | RUNNING (dispatched ~17:10 07-12) |
-| R135b: AUDIT of the (SM) refutation (same prompt, independent) | chatgpt.com/c/6a5401c6-140c-83e8-9230-73e0e3c3a00f | RUNNING (dispatched ~17:12 07-12) |
-| R136: targeted (GNR') conservation-ledger halving (R132 repair spec attached) | chatgpt.com/c/6a54022c-c16c-83e8-860f-575003c85ca7 | RUNNING (dispatched ~17:15 07-12) |
-| R137: full-solution free-roam (dossier corrected: entry-OA coupling; + cone proposition, interval blocker, 16th collapse) | chatgpt.com/c/6a540274-82ec-83e8-ac37-27c6e721e050 | RUNNING (dispatched ~17:18 07-12) |
+| R137: full-solution free-roam (corrected dossier) | chatgpt.com/c/6a540274-82ec-83e8-ac37-27c6e721e050 | RUNNING (dispatched ~17:18 07-12) |
+| R138: targeted (AE†) DIRECT attack (war-terminus attachments: R129 reduction + R136 unitization/laundering) | chatgpt.com/c/6a5407ac-6f40-83e8-9926-25e960caca83 | RUNNING (dispatched ~18:25 07-12) |
+| R139: full-solution free-roam sample 2 ((SM) promotion + 17th collapse folded in) | chatgpt.com/c/6a5407ed-b7ac-83e8-bb83-6061e4612a85 | RUNNING (dispatched ~18:28 07-12) |
 
-One slot spare (reserved for audits of whatever lands).
+One slot+ spare (Om is actively using the account himself — leave headroom).
 
-R125-R134 ALL LANDED AND SAVED (researcher-125/126/127/129/130/131/132/
-133 + verify-postresp-R134). Headlines: (SM) REFUTED by the interval
-blocker (sandbox-verified; R135a/b auditing); the cone proposition is
-audit-CONFIRMED load-bearing; 16th collapse (clock-debt) produced the
-repaired (GNR') whose only open clause is direct-ancestor lifetime
-ownership; the entry-refutes-OA folklore is corrected (needs coupling
-H log h = o(h)); free-roam prompts must use the corrected dossier in
-prompts/researcher-R137-solution-attempt.md as the new base.
+PROMOTED this session: R133 (SM)-refutation — R135a/b both VALID
+(verify-postresp-R135a/b saved). The static-modulus route is CLOSED and
+established. R136 saved (researcher-136-owner-time-laundering.md): 17th
+collapse; certificate route TERMINATES — with interval-local ownership
+(GNR') IS aggregate-excess halving; monotone unitization lemma
+established as a byproduct. Canonical upper target: (AE†) directly
+(R138's prompt is the reference statement of it).
 
-Pending saves: R135a/b -> verify-postresp-R135a/b-<slug>.md (type
-verification, target R133-static-modulus-refuted, kind confirms or
-refutes per verdict, prompts/audit-R135-interval-blocker-refutation.md);
-R136 -> researcher-136-<slug>.md (predecessor
-R132-clock-debt-degeneracy, kind extends,
-prompts/researcher-R136-gnr-prime-conservation-ledger.md);
-R137 -> researcher-137-<slug>.md (kind standalone,
-prompts/researcher-R137-solution-attempt.md).
-If R135a AND R135b both return VALID, promote R133: the static-modulus
-route is closed and future dossiers state it as established (drop the
-"audits in progress" hedge in the R137 prompt's wording).
+Derived observation (from R104 + R131's coupling analysis, curator-level
+arithmetic, not yet round-doc'd): the relative entry statement "for
+every OA witness h, entry at cap H_h with H_h log h = o(h)" is FALSE for
+slowly growing witnesses h << r(n), since it would force H_h << r(n),
+refuted by the fixed-cap theorem. So fortress entry can never refute
+(OA) held with a sufficiently slow witness — the lower route genuinely
+needs non-reservoir mechanisms or Omega(n) directly.
+
+Pending saves: R137 -> researcher-137-<slug>.md (kind standalone,
+prompts/researcher-R137-solution-attempt.md);
+R138 -> researcher-138-<slug>.md (predecessors
+R129-global-no-reuse-reduction + R136-owner-time-laundering, kind
+extends R136, prompts/researcher-R138-ae-dagger-direct.md);
+R139 -> researcher-139-<slug>.md (kind standalone,
+prompts/researcher-R139-solution-attempt.md).
+
+QUEUED (proposed to Om, awaiting his reply but authorized as research):
+(1) empirical probe — measure the direct-ancestor lifetime-ownership
+distribution in simulated games at finite n (does the O(1) bound look
+true? the n=4000 example: multiplicity 128 vs instantaneous cap 48);
+(2) cross-family check of the (AE†) crux via Gemini/Claude tabs
+(within-family attractor risk: all concurrences are GPT-5.6).
 
 ## Decision rules in force (user-approved, standing)
 
