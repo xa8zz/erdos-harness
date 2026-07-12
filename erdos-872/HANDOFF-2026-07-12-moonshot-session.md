@@ -51,6 +51,7 @@ dichotomy reduced to one chronological low-lcm capacity inequality (TL).
 | R93 (temporal-Hall attack) | chatgpt.com/c/6a52f794-6da0-83e8-a9bd-f059f252236e | running |
 | R94 (HIST repair lemma, in R92's thread) | chatgpt.com/c/6a53160a-0630-83e8-b1a8-70de5c4e1d53 | running |
 | R95 ((TL) attack, in R91's thread) | chatgpt.com/c/6a52db0e-b448-83e8-bef8-8bcb9137968b | running |
+| R96 (fresh-thread zoom-out solution attempt) | chatgpt.com/c/6a534c6b-d280-83e8-afb5-3649140ac04d | running |
 | Audit A thread (idle) | chatgpt.com/c/6a5341b3-e890-83e8-9912-f7cedf07ae62 | landed+saved |
 | Audit B thread (idle) | chatgpt.com/c/6a5341ee-c48c-83e8-8e8b-17f87177681c | landed+saved |
 | R90's thread (idle) | chatgpt.com/c/6a531643-f134-83e8-baa5-741d4d5316fa | landed |
@@ -62,7 +63,11 @@ prompts/followup-R94-historical-incidence-lemma.md, predecessor
 R92-arbitrary-reply-persistence-claim, likely kind: extends or supersedes);
 R95 -> researcher-95-<slug>.md (prompt
 prompts/followup-R95-chronological-low-lcm-inequality.md, predecessor
-R91-advance-depletion-low-lcm-reduction).
+R91-advance-depletion-low-lcm-reduction);
+R96 -> researcher-96-<slug>.md (prompt
+prompts/researcher-R96-solution-attempt-post-advance-depletion.md,
+fresh-thread full-solution zoom-out, kind standalone unless it lands on a
+prior round's exact statement). All four Pro slots now in use.
 
 Pending saves when they finish: audits → `verify-postresp-R92-audit-a/b.md`
 (type verification, action confirms/refutes R92-arbitrary-reply-persistence-claim,
