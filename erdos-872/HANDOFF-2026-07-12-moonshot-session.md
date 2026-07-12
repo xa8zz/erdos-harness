@@ -37,28 +37,30 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R98: design Shortener policy + prove chronology theorem (o(n) side) | chatgpt.com/c/6a535e78-9ea4-83e8-99f1-c142b3e508a8 | running |
-| R99: fixed-cap entry / amplification (Theta side) | chatgpt.com/c/6a535f06-63e8-83e8-99cc-d00a36117fe7 | landed+saved (researcher-99: CONDITIONAL diagonal amplification) |
-| R100: zoom-out v2, full post-separator obstruction map | chatgpt.com/c/6a536053-7fd0-83e8-a42a-fb21cb8d2ae3 | landed+saved (researcher-100: continuation lemma \|L(A)\|<=(2H+1)\|C\|; confirms separator; upper route needs \|C\|=o(n/H)) |
-| R101: growing-depth uniformity single-lemma (R96 body attached verbatim) | chatgpt.com/c/6a53609c-6210-83e8-824f-a0c4e7b0de17 | running |
-| R102: free-roam solution attempt, dossier updated post-R100 | chatgpt.com/c/6a536ab1-b508-83e8-9934-d2a97fd55cdd | running (dispatched ~10:35) |
-| R103: targeted (S) — post-peel completion size \|C\|=o(n/H), prove or refute | chatgpt.com/c/6a536bc2-670c-83e8-9db0-a52bc9b8a998 | running (dispatched ~10:42) |
-| R104: targeted (F) — fixed-cap fortress entry, prove or refute | chatgpt.com/c/6a536c07-59d0-83e8-9a21-d4693e161fc6 | running (dispatched ~10:45) |
+| R98: Shortener policy + chronology theorem | chatgpt.com/c/6a535e78-9ea4-83e8-99f1-c142b3e508a8 | landed+saved (researcher-98: residual channel CLOSED at H=T(n)^{1+d}; prime-product guard defeats trace-1 anchor; reduces to (AH)) |
+| R99: fixed-cap entry / amplification | chatgpt.com/c/6a535f06-63e8-83e8-99cc-d00a36117fe7 | landed+saved (researcher-99: CONDITIONAL diagonal amplification) |
+| R100: zoom-out v2 | chatgpt.com/c/6a536053-7fd0-83e8-a42a-fb21cb8d2ae3 | landed+saved (researcher-100: continuation lemma; confirms separator) |
+| R101: growing-depth uniformity | chatgpt.com/c/6a53609c-6210-83e8-824f-a0c4e7b0de17 | landed+saved (researcher-101: one-sweep containment theorem; reduces to (OS)) |
+| R102: free-roam solution attempt post-R100 | chatgpt.com/c/6a536ab1-b508-83e8-9934-d2a97fd55cdd | RUNNING (the standing free-roam slot) |
+| R103: targeted (S) post-peel completion | chatgpt.com/c/6a536bc2-670c-83e8-9db0-a52bc9b8a998 | landed+saved (researcher-103: (S) PROVED EQUIVALENT to o(n) via terminal witness — formulation lesson) |
+| R104: targeted (F) fixed-cap fortress entry | chatgpt.com/c/6a536c07-59d0-83e8-9a21-d4693e161fc6 | RUNNING |
+| R105: targeted (OS) first-sweep ordered shadow | chatgpt.com/c/6a53741c-1e94-83e8-807a-18e574b22afb | RUNNING (R101 body attached verbatim) |
+| R106: adversarial AUDIT of R98 Lemma 1 + residual closure, R101 containment theorem, R103 equivalence | chatgpt.com/c/6a537456-5688-83e8-b619-b1dca7018dbb | RUNNING (promotion-grade audit — these lemmas are entering prompts) |
 
-All five slots FULL. When one lands: harvest+save first, then refill —
-keep >=1 free-roam running; hold a slot briefly only when a resolution
-claim is pending audits.
+Four running, ONE slot spare (cap 5) — hold the spare for a second audit
+if any thread claims a resolution.
 
-Pending saves: R98 -> researcher-98-<slug>.md (prompt
-prompts/researcher-R98-policy-chronology-theorem.md); R101 ->
-researcher-101-<slug>.md (prompts/researcher-R101-growing-depth-uniformity.md,
-predecessor R96-layer-peeling-chronological-separator); R102 ->
-researcher-102-<slug>.md (prompts/researcher-R102-solution-attempt-post-r100.md,
-kind standalone); R103 -> researcher-103-<slug>.md
-(prompts/researcher-R103-postpeel-completion-size.md, predecessor
-R100-continuation-lemma-gap-confirmation); R104 -> researcher-104-<slug>.md
+Pending saves: R102 -> researcher-102-<slug>.md
+(prompts/researcher-R102-solution-attempt-post-r100.md, kind standalone);
+R104 -> researcher-104-<slug>.md
 (prompts/researcher-R104-fixed-cap-fortress-entry.md, predecessors
-R97-anchor-trace1-olcm-false + R99-diagonal-amplification-conditional).
+R97-anchor-trace1-olcm-false + R99-diagonal-amplification-conditional);
+R105 -> researcher-105-<slug>.md
+(prompts/researcher-R105-first-sweep-ordered-shadow.md, predecessor
+R101-one-sweep-shadow-containment); R106 -> verify-postresp-R106-*.md
+(prompts/audit-R106-three-structural-lemmas.md; verification doc(s)
+targeting whichever of R98/R101/R103 it confirms or refutes —
+failure_mechanism REQUIRED if it refutes).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
