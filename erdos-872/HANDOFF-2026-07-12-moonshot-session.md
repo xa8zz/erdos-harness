@@ -67,10 +67,23 @@ obstruction to OLCM — adjudicate against the audits when both land. Save
 audits as verify-postresp-R95-audit-a/b.md (confirms/refutes
 R95-canonical-first-witness-tl-claim).
 
+RESOLVED: R95 REFUTED by both audits (verify-postresp-R95-audit-a/b.md).
+Same first break found independently: N°(I) indexes witness tuples by move
+indices but a move's trace varies per face (a=143 on n=3000; a=35 on
+n<=500). Independent fatal defects: lift-richness not uniform (m_H may be
+0), pairwise cleanup silently globalized, Theorem 3 lacks a no-reuse
+lifetime bound, fresh-batch persistence used with PLAYERS REVERSED
+(invalidates the final Shortener strategy). Surviving tools: canonical cube
+partition, first-death lemma, conditional shell bookkeeping. The frontier
+after R94+R97+audits: specify the Shortener policy (literal max-degree is
+exploitable by the anchor B_H; batch blockers neutralize it) and prove or
+refute the minimax residual-weighted chronological inequality (RCM) /
+ancestor-harvest (AH) for that policy.
+
 | What | Thread URL | Status |
 |---|---|---|
-| Audit A of R95 | chatgpt.com/c/6a5357a6-9d20-83e8-9b2b-6114eabbe224 | running |
-| Audit B of R95 | chatgpt.com/c/6a5357dc-9198-83e8-8883-cf7f7f0a9805 | running |
+| Audit A of R95 | chatgpt.com/c/6a5357a6-9d20-83e8-9b2b-6114eabbe224 | landed+saved (refutes) |
+| Audit B of R95 | chatgpt.com/c/6a5357dc-9198-83e8-8883-cf7f7f0a9805 | landed+saved (refutes) |
 | R96 (fresh-thread zoom-out solution attempt) | chatgpt.com/c/6a534c6b-d280-83e8-afb5-3649140ac04d | running |
 | R97 (OLCM single-lemma, fresh thread) | chatgpt.com/c/6a535093-b21c-83e8-9f8c-718ff4d22ea8 | landed+saved (researcher-97: literal OLCM FALSE via anchor B_H + trace-1; open lemma now minimax (RCM); direct tension with R95 — audits must adjudicate) |
 | R95/R91's thread (idle) | chatgpt.com/c/6a52db0e-b448-83e8-bef8-8bcb9137968b | landed+saved |
