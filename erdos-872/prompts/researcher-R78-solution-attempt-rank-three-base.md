@@ -9,7 +9,7 @@ Determine (L(n)) asymptotically. In particular, decide whether (L(n)=\Theta(n)) 
 
 ## Known progress
 
-The attached manuscript contains complete proofs of the lower-bound results below; draw on any part of it freely.
+Manuscript excerpts appended after the prompt (notation, lower-bound section, and the deferred-proofs appendix, in LaTeX) contain complete proofs of the lower-bound results below; draw on any part of them freely.
 
 - Shortener can force
   \[
@@ -61,3 +61,5 @@ The attached manuscript contains complete proofs of the lower-bound results belo
 - Bounding the raw reachable closure of a fixed-rank sweep is not a sufficient policy-free route to sublinearity. At the central rank there is a fully legal sweep history with linear raw closure: a consecutive block of \(T\) upper-half Prolonger moves covers every divisor \(d\le T\) and is compatible with \(T\) harmless upper-half rank-\(q\) opponent moves. At rank one, Prolonger defeats every prime-sweep policy by batching many unclassified small primes into one carrier; the sweep primes then have reciprocal sum at most \(\log(3\sqrt3/2)+o(1)<1\), so a positive fraction of the upper half avoids them and remains a linear live antichain. No prime-only sweep, even with adaptive choice, can prove sublinearity; a fixed-rank strategy must specify an actively interdicting ordering and control the live closure intersected with the incomparability set of the actual prefix, not the raw closure.
 
 REMEMBER - this unconditional argument may require non-trivial, creative and novel elements.
+
+<!-- Dispatched 2026-07-11 with the following files appended verbatim under "# Appended manuscript source (LaTeX)": erdos-872/paper/sections/02-notation-and-setup.tex, 04-lower-bounds.tex, appendix-A-deferred-proofs.tex, all at commit 55da8af. -->

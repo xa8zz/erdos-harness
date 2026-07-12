@@ -116,7 +116,7 @@ Combining the two phases proves the stated lower bound.
 
 ## Your job
 
-- Does the argument hold as stated? Work through Appendix A of the attached manuscript, not just the summary above.
+- Does the argument hold as stated? Work through the appended deferred-proofs appendix, not just the summary above.
 - What is the weakest link?
 - Specific pressure points to test:
   1. Does crediting an exact target played by Shortener as a scored move (the \(T_{\rm res}\) term) genuinely evade the \(K_5\) potential-loss obstruction, or does the obstruction reappear in some line of play — e.g. at the phase boundary, or when Shortener alternates exact-target and slot-deletion replies?
@@ -133,3 +133,5 @@ Combining the two phases proves the stated lower bound.
 Separately, check the claim against existing mathematical literature: does the argument connect to, extend, reprove, or contradict any published result? If so, cite the reference.
 
 This result is about to be posted publicly. If the claim is sound, say so plainly. If broken, explain precisely where — name the exact lemma, case, or estimate that fails.
+
+<!-- Dispatched 2026-07-11 with the following files appended verbatim under "# Appended manuscript source (LaTeX)": erdos-872/paper/sections/02-notation-and-setup.tex, 04-lower-bounds.tex, appendix-A-deferred-proofs.tex, all at commit 55da8af. -->
