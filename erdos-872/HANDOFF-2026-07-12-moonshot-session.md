@@ -37,33 +37,35 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R121: free-roam, post-formulation-war dossier | chatgpt.com/c/6a53c779-17a8-83e8-af2c-19065dca9931 | RUNNING (narration: seeking o(n/H) completion post-peel; testing whether MINIMALITY supplies the extra factor the continuation lemma needs) |
-| R123: formulation iter 5 — mandatory-activation/no-idle invariant, 13 families, or prove the family UNCLOSABLE; R120+R122a+R122b attached | chatgpt.com/c/6a53d600-251c-83e8-9e5d-3eb0db14bee1 | RUNNING (dispatched ~12:25) |
+| R124a: adversarial AUDIT of R123's activation-area impossibility theorem (primary: family-coverage attack — construct a nondegenerate intermediate OUTSIDE features (1)-(4)) | chatgpt.com/c/6a53dd16-33bc-83e8-98eb-793f6957b158 | RUNNING (dispatched ~13:00) |
+| R124b: same audit, independent thread | chatgpt.com/c/6a53dd57-86f4-83e8-9b09-36f5ad3e7dba | RUNNING |
 
-Landed+saved since last table: R122a+R122b (verify-postresp: R120
-REFUTED — THIRTEENTH collapse found INDEPENDENTLY by both auditors:
-epoch suppression / registration starvation (policy never activates a
-high-degree epoch, clocks idle, obligations vacuous); repair =
-mandatory-activation no-idle invariant tied to actual shell
-populations; also canonical witness maps needed; the o(n) implication
-explicitly needs the no-idle invariant).
+Landed+saved since last table: R123 (researcher-123-activation-area-
+impossibility: THE FORMULATION LOOP TERMINUS — 14th collapse
+(additive-floor chattering, repaired at 4X/h^2) then the
+activation-area impossibility theorem: any nondegenerate pipeline-
+sufficient serial-ticket statement is either starvation-degenerate or
+IS trajectory-restricted online area; no weaker intermediate exists;
+confidence LOW pending R124a/b), R121 (researcher-121: minimality does
+not supply the n/H factor; 5th separator concurrence; its missing
+global-multiplicity statement matches the online-area object — two
+independent threads converged on (OA) as the true target the same
+hour).
 
-FORMULATION LOOP STATUS after 5 iterations: 13 collapse families
-catalogued, each audit finds genuinely new failure modes, and each
-iteration hardens the statement. R123 is explicitly authorized to
-prove the family UNCLOSABLE instead (every repair admits a
-starvation-type witness or re-inserts online-area) — that outcome is
-now live and would redirect the route decisively.
+IF R123 SURVIVES both audits: the program's upper route has ONE
+canonical target — trajectory-restricted online area (OA) — plus
+bounded-depth compression (R116) as its (CL)-side complement; the
+14-family collapse catalogue becomes permanent tooling. Next dispatch
+then: direct (OA) attack with the full machinery.
 
-Two running, THREE spare. Om is awake — standing delegation continues
-unless redirected.
+NOTE: no free-roam currently running (both slots are the R124 audits;
+R121 landed). Restore a free-roam when a slot frees, or Om may
+redirect — he is awake.
 
-Pending saves: R121 -> researcher-121-<slug>.md
-(prompts/researcher-R121-freeroam-post-formulation-war.md, kind
-standalone); R123 -> researcher-123-<slug>.md
-(prompts/researcher-R123-mandatory-activation.md, predecessors
-R120-trajectory-restricted-statement + R122a-epoch-suppression-witness
-+ R122b-registration-starvation-witness).
+Pending saves: R124a/b -> verify-postresp-R124a/b-<slug>.md
+(prompts/audit-R124-impossibility-theorem.md, target
+R123-activation-area-impossibility, confirms or refutes with
+failure_mechanism).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
