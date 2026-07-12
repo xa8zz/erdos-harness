@@ -37,32 +37,31 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R112: targeted (AH) ancestor-harvest inequality, R98 reduction attached | chatgpt.com/c/6a53969d-5680-83e8-abba-5b0727df59a5 | RUNNING (dispatched ~06:20) |
-| R110: targeted (CL) — cumulative minimal-layer / surviving-shadow question, R105 construction attached | chatgpt.com/c/6a53889a-2860-83e8-ab2e-5bac773e059e | RUNNING (dispatched ~05:20) |
-| R111: free-roam with BOTH promoted refutations in dossier | chatgpt.com/c/6a5388d8-1c6c-83e8-9964-cb9b1a3f58d5 | RUNNING (dispatched ~05:23) |
+| R111: free-roam with both promoted refutations | chatgpt.com/c/6a5388d8-1c6c-83e8-9964-cb9b1a3f58d5 | RUNNING (~90 min; narration: sublinear-width lemma via residual-poset width) |
+| R113: adversarial AUDIT (5 items): R110 surviving-shadow Thm + compression, R112 terminal-delay + (AH_term) equivalence + frozen-ledger nondegeneracy | chatgpt.com/c/6a539def-764c-83e8-bbef-8f8643ce3b9b | RUNNING (dispatched ~07:25) |
+| R114: targeted frozen-ledger (AH*), R112+R98 attached | chatgpt.com/c/6a539e31-c820-83e8-8ac2-94e9646bfd55 | RUNNING (dispatched ~07:30) |
 
-TWO PROMOTIONS tonight, each with two independent VALID audits:
-1. Fixed-cap fortress entry impossible at any cap o(r(n))
-   (researcher-104 + verify-postresp-R107a/b).
-2. First-sweep ordered-shadow (OS)/(WOS) unconditionally false via
-   private-carrier drafting (researcher-105 + verify-postresp-R109a/b).
-   Containment theorem survives; cumulative-layer (CL) remains open and
-   is now THE central statement — R110 attacks it directly.
+Landed+saved since last table: R110 (researcher-110-surviving-shadow-
+compression: linear legal shadow SURVIVES every ordering, but cone
+compression makes the next minimal layer o(n) — (CL) = does compression
+persist), R112 (researcher-112-ancestor-harvest-degenerate: literal (AH)
+degenerate-true via terminal delay; (AH_term) equivalent to o(n);
+frozen-ledger (AH*) is the real statement). Both confidence low/medium
+pending R113. Terminal-delay lesson codified in
+skills/write-solution-attempt-prompt.md.
 
-Three running, TWO slots spare — hold for audits of whatever R108/R110/
-R111 claim, or for the post-(CL)-verdict dispatch.
+Three running, TWO spare. After R113: if verdicts VALID, promote R110
+Thm 1 + R112 and let R114's (AH*) verdict drive the next targeted
+dispatch; if any REFUTED, failure_mechanism doc and reopen.
 
-R108 landed+saved (researcher-108-post-audit-honest-bracket: honest
-bracket; gap concentrated in direct-ancestor/ordered-shadow chronology).
-
-Pending saves: R110 -> researcher-110-<slug>.md
-(prompts/researcher-R110-cumulative-layer-surviving-shadow.md,
-predecessors R105-ordered-shadow-refuted +
-R101-one-sweep-shadow-containment); R111 -> researcher-111-<slug>.md
+Pending saves: R111 -> researcher-111-<slug>.md
 (prompts/researcher-R111-solution-attempt-post-promotions.md, kind
-standalone); R112 -> researcher-112-<slug>.md
-(prompts/researcher-R112-ancestor-harvest.md, predecessor
-R98-policy-reduction-ancestor-harvest).
+standalone); R113 -> verify-postresp-R113-<slug>.md
+(prompts/audit-R113-surviving-shadow-and-ah-degeneracy.md, targets
+R110/R112, confirms or refutes per item); R114 ->
+researcher-114-<slug>.md
+(prompts/researcher-R114-frozen-ledger-ancestor-harvest.md, predecessor
+R112-ancestor-harvest-degenerate).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
