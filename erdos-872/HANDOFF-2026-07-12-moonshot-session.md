@@ -1,132 +1,147 @@
-# Handoff — moonshot session of 2026-07-11/12 (Fable-5 curator + GPT-5.6 Pro)
+# Handoff — moonshot session of 2026-07-11/12 → 13 (Fable-5 curator + GPT-5.6 Pro)
 
-Operational handoff, REWRITTEN clean at the end of the audit-cascade phase.
-All math state is in round docs R78–R97 + verify-postresp docs (committed)
-and `state_compiled.md`; this file carries only session-operational state.
+Operational handoff, REWRITTEN CLEAN at session end (~15:00 local 07-12).
+All math state is in round docs R78–R128 + verify-postresp docs (all
+committed and pushed) and `state_compiled.md` (343 round docs). This
+file carries session-operational state for the successor curator.
 
-## Program status (end of night 2)
+## Program status (end of the marathon)
 
-The full history R78–R97 is in the compiled state view. Net position:
+- Unconditional bracket unchanged and PUBLIC (forum-posted, pinned
+  018a346): c_delta n(loglog n)^2/log n <= L(n) <= (0.1897123371+o(1))n.
+- TWO major refutations PROMOTED with 2x independent VALID audits each:
+  1. Fixed-cap fortress entry impossible at every cap H(n) = o(r(n))
+     (researcher-104 + verify-postresp-R107a/b). Theta-side needs caps
+     ~ r(n) or a non-reservoir mechanism.
+  2. First-sweep ordered-shadow (OS)/(WOS) unconditionally false via
+     private-carrier drafting (researcher-105 + verify-postresp-R109a/b).
+- Established machinery added (audit-confirmed): one-sweep containment
+  theorem (researcher-101, R106-audit VALID); prime-product guard with
+  nonempty-S proviso (R98/R106); surviving-shadow theorem WITH the R113
+  carrier-legality repair + cone compression (researcher-110/R113);
+  deep-layer theorem — only the first C*loglog H peel layers matter
+  (researcher-116); root-indexed first-blocker lemma (researcher-102).
+- THE FORMULATION WAR (R98→R129, the session's main plotline): every
+  attempt to state the decisive o(n)-side intermediate collapsed to a
+  degenerate witness — FIFTEEN collapse families now catalogued
+  (terminal delay, prelude delay, pre-freeze cap forcing, shell
+  deferral, zero weights, first-exit reassignment, cost-only
+  equivalence, micro-baseline compression, cap escape, epoch-boundary
+  laundering, uncharged scheduling delay, post-hoc cohort selection,
+  registration starvation, additive-floor chattering, parameter-level
+  vacuity). Two scope-limited no-go theorems survived narrowly:
+  per-shell serial-ticket schemes are starvation-or-(OA)
+  (researcher-123 + R124a/b), and off-path-quantified statements are
+  false via unreachable fortresses (researcher-118 + R119a/b — the
+  off-path/on-path quantifier doctrine).
+- CURRENT CANONICAL TARGET: (AE†) — aggregate-excess halving
+  (researcher-128): with H^6 = o(n) and closed uniform quantifiers,
+  a fully specified policy halves R(t) = sum_{X>=H^6}(q_X - 4X/h^2)_+
+  within C*M*log(h)/h + O(log n) turns, mandatory succession.
+  Constructed BY an adversarial auditor (R124a), parameter-repaired by
+  R128, which also PROVED: (AE†) => L(n) = o(n), and (AE†) is NOT a
+  rewriting of the full problem (sqrt(n)-decrement separation). This is
+  the first intermediate proven non-tautological. R129 is attacking it.
+- Lessons codified in skills/write-solution-attempt-prompt.md: no
+  hypothetical grants with ambiguous quantifiers; terminal-delay
+  degeneracy check (prescribe activation data in advance); NEW —
+  parameter ranges are part of the statement (every scale parameter
+  carries its implicit constraints explicitly).
 
-- Unconditional bracket unchanged and PUBLIC (forum-posted):
-  c_delta n(log log n)^2/log n <= L(n) <= (0.1897123371+o(1))n.
-- FOUR claimed resolutions were made and refuted tonight, each with
-  cross-convergent audits and small concrete counterexamples: R92
-  (arbitrary-reply persistence; instantaneous->temporal promotion), raw
-  (TL) (redundant re-witnessing), literal (OLCM) (anchor + trace-1,
-  R97), R95 (L(n)=o(n) via first-witness; move-index trace collapse +
-  player-quantifier reversal; verify-postresp-R95-audit-a/b.md).
-- Audit-surviving toolbox: atomic ledger 2^r lifetime bound (residual
-  channel only — ancestors escape), trace normal form + low-lcm energy
-  lemma, canonical cube partition + first-death lemma, fresh-batch
-  persistence (Prolonger-side ONLY), absorbing fortress, layer-peeling
-  reduction, anchor construction + batch-blocker neutralization.
-- THE SEPARATOR (all five threads converged): one chronology theorem.
-  Sufficient for o(n): growing-depth uniformity of minimal layers
-  (sum over j < log2 H of |M(A_j)| = o(n) along the sweep), or (OA), or
-  a contemporaneous-area repair potential. Required for Theta(n):
-  arbitrary-reply entry at FIXED cap H=O(1), or fortress amplification.
-  The Shortener policy definition is load-bearing (literal max-degree is
-  anchor-exploitable; batch blockers neutralize the exploit).
+## In-flight (ChatGPT Pro, account "[redacted-name]", cap 5)
 
-## In-flight (ChatGPT Pro, account "[redacted-name]"; cap raised to 5 by user)
-
-Tab IDs are EPHEMERAL (the tab group was destroyed and recreated once
-tonight — recreate with tabs_context_mcp createIfEmpty and reopen thread
-URLs as needed). THREAD URLS are durable:
+Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R125: full-solution attempt (sample 1) | chatgpt.com/c/6a53e22e-def4-83e8-9a4b-20b449fa5270 | RUNNING (closing the early peeling-layer gap via post-peel process) |
-| R126: full-solution attempt (sample 2) | chatgpt.com/c/6a53e267-d7dc-83e8-8b83-6d1a6aa26eff | RUNNING (strategy-level invariant; checking both directions vs counterexamples) |
-| R127: full-solution attempt (sample 3) | chatgpt.com/c/6a53e2a5-ee24-83e8-a948-f79f1f4b55bd | RUNNING (chronology-sensitive invariant + first-O(loglog H)-layer ancestor ledger) |
-| R129: targeted (AE†) — repaired aggregate-excess halving (H^6=o(n), closed quantifiers); R128 analysis attached | chatgpt.com/c/6a53eb0d-0390-83e8-9f93-e75b880eabca | RUNNING (dispatched ~14:50) |
+| R125: full-solution attempt (sample 1) | chatgpt.com/c/6a53e22e-def4-83e8-9a4b-20b449fa5270 | RUNNING (post-peel process, early-layer gap) |
+| R126: full-solution attempt (sample 2) | chatgpt.com/c/6a53e267-d7dc-83e8-8b83-6d1a6aa26eff | RUNNING (chronology-sensitive totient-energy bound — narration says it survives shared-core AND batching counterexamples; watch this one) |
+| R127: full-solution attempt (sample 3) | chatgpt.com/c/6a53e2a5-ee24-83e8-a948-f79f1f4b55bd | RUNNING (global trajectory potential, frozen baseline + first surviving-minimum exposures) |
+| R129: targeted (AE†) | chatgpt.com/c/6a53eb0d-0390-83e8-9f93-e75b880eabca | RUNNING (dispatched ~14:50) |
 
-Landed+saved since last table: R124a+R124b (verify-postresp: R123's
-architectural no-go REFUTED again in scope — BOTH auditors
-independently constructed the same escape: a mandatory GLOBAL ticket
-contracting the aggregate excess potential R(t) = sum_X (q_X -
-4X/h^2)_+, nondegenerate + pipeline-sufficient without per-shell
-online-area blocks; the per-shell dichotomy itself stands with an
-A-repair (unhandled nonlive-ticket case); only the FORWARD implication
-to online area is justified).
-
-R128 landed+saved fast: literal (AE) vacuous (15th collapse,
-parameter-level: H=n empties the shell range — parameter ranges are
-part of the statement). But R128 defined (AE†) (H^6=o(n), closed
-quantifiers), proved it implies o(n), and — a first — proved it is NOT
-a rewriting of the full problem (sqrt(n) decrement process: o(n)
-length but fails aggregate halving; (AE†) is a strictly stronger local
-rate assertion). (AE†) is the canonical intermediate; R129 attacks it.
-
-ALL FIVE SLOTS FULL (per Om: free slots toward full solution).
+One slot spare (reserve for audits of whatever lands).
 
 Pending saves: R125/126/127 -> researcher-125/126/127-<slug>.md (kind
-standalone, prompts researcher-R125/126/127-solution-attempt.md);
-R129 -> researcher-129-<slug>.md
-(prompts/researcher-R129-ae-dagger.md, predecessor
-R128-aggregate-excess-parameter-witness).
+standalone; prompts researcher-R125/126/127-solution-attempt.md — three
+identical copies of the R121 post-formulation-war free-roam prompt);
+R129 -> researcher-129-<slug>.md (prompts/researcher-R129-ae-dagger.md,
+predecessor R128-aggregate-excess-parameter-witness).
 
-STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
-one javascript_tool call checks ALL threads (status field, no
-screenshots); harvest = API text -> navigator.clipboard (click page
-first for focus) -> LANG=en_US.UTF-8 pbpaste. Raw API text is MORE
-faithful than the copy button (which strips \\[ \\] backslashes and can
-mojibake em-dashes). Strip U+E200..U+E201 filecite spans mechanically.
-Dispatch still via UI paste protocol.
+## Decision rules in force (user-approved, standing)
 
-## Decision rules in force (user-approved)
-
-- Fully autonomous e2e drive; goal = resolve the dichotomy; up to FIVE
-  concurrent Pro threads; ALWAYS PushNotification per landed round.
-- Trust-until-final-verification; audit ONLY promotion-grade claims.
+- Fully autonomous e2e drive; goal = resolve the dichotomy; cap FIVE
+  Pro threads; ALWAYS PushNotification per landed round.
+- Om (2026-07-12 ~13:30): keep running, free slots toward FULL SOLUTION
+  attempts; keep >= 1 free-roam running at all times; don't
+  over-constrain prompts.
 - ANY claimed full resolution: save (confidence low), push immediately,
-  dispatch TWO fresh adversarial audits before believing; cross-check
-  sibling threads; audits get the claim verbatim + neutral key checks
-  drawn from the current obstruction map.
-- On refutation: round doc with failure_mechanism (specific
-  counterexample boards), then press the surviving repair path.
+  dispatch TWO fresh adversarial audits before believing.
+- Promotion-grade claims (would shift state or be built upon): audit
+  before load-bearing use — the audits keep winning; trust them.
+- On refutation: round doc with failure_mechanism, then press the
+  surviving repair path. Formulation defects are ROUNDS, not failures —
+  save them; the collapse-family catalogue is the program's sharpest
+  tool.
 - NEVER feed Bloom's forum small-n table (f(11)=5 defect).
-- Slot allocation (user, 2026-07-12 overnight): allocate the 5 slots
-  freely, but keep at least ONE free-roam full-solution thread running
-  at all times; don't over-constrain researcher prompts — the models
-  are capable, give them room.
-- PHONE CHANNEL (tested working): call Om at [redacted] via Inkbox
-  hosted-agent call — recipe in memory `project-inkbox-phone-channel`
-  (1Password item "Hermes Inkbox API Key", X-API-Key header,
-  POST /api/v1/phone/place-call, origination shared_imessage_number,
-  mode hosted_agent + reason brief). Authorized ANY hour for: a full
-  resolution that survived two adversarial audits, or a hard blocker
-  (rate limit, auth wall). Routine landings stay push-only.
+- PHONE CHANNEL (tested, Om answered): call [redacted] via Inkbox —
+  recipe in memory `project-inkbox-phone-channel` (1Password "Hermes
+  Inkbox API Key", X-API-Key, POST /api/v1/phone/place-call,
+  origination shared_imessage_number, mode hosted_agent + reason).
+  Authorized ANY hour for: full resolution surviving two audits, or a
+  hard blocker. Routine landings = push only.
 
-## Operational protocol (hard-won; details in memory
-`project-chatgpt-automation-protocol`)
+## Operational protocol (hard-won; memory `project-chatgpt-automation-protocol`)
 
-- Dispatch: save prompt to prompts/ and COMMIT BEFORE sending. New Pro
-  thread: chatgpt.com/?model=gpt-5-pro, verify "Pro" chip. Paste: click
-  composer; if paste is swallowed, type "x", cmd+a, cmd+v (forces real
-  focus); >~10KB pastes become document chips (fine — delivered intact);
-  check for DUPLICATE chips before sending (delete extras via X). If the
-  model starts generating an IMAGE, stop it and send a text-only
-  correction in-thread.
-- Harvest (multi-response threads): NAVIGATE fresh to the thread URL
-  (resets virtualization; page loads at last message, only its action
-  row mounted), pbcopy sentinel, one neutral click + small scroll, click
-  the copy button (coordinates from a screenshot of the visible action
-  row), pbpaste and VERIFY head/tail against on-screen text; if sentinel
-  unchanged click again. Stale find/read_page refs silently copy the
-  WRONG message — never trust a ref across scrolls.
-- Save: frontmatter per CLAUDE.md (no status field, failure_mechanism
-  on refutes/supersedes), body = verbatim clipboard bytes. Recompile
-  compile_rounds.py, commit per round, push notification.
-- Crons are SESSION-ONLY; re-arm BOTH on session start: watcher
-  (currently f92590d3, :11/:41 — API-based check/harvest loop) and
-  hourly heartbeat (currently 5725c4fc, :53 — loop-health check:
-  watcher alive? unharvested finished threads? uncommitted round docs?
-  slots full? escalate via phone only per the rules above).
+- STATUS/HARVEST via ChatGPT backend-api (docs/chatgpt-backend-api.md):
+  one javascript_tool call on any chatgpt.com tab checks ALL threads
+  (/backend-api/conversation/<id>, token from /api/auth/session; the
+  last assistant text node's `status`); CAVEAT: mid-run narration
+  blurbs are also finished_successfully — distinguish by len (<300 =
+  narration) and confirm real landings by a # Verdict head. Harvest =
+  API text -> strip U+E200..U+E201 filecite spans -> click page once
+  (focus) -> navigator.clipboard.writeText -> LANG=en_US.UTF-8 pbpaste
+  (LANG on BOTH pbcopy and pbpaste or mojibake). Raw API text beats the
+  copy button (which strips \[ \] backslashes).
+- DISPATCH via UI paste: new thread chatgpt.com/?model=gpt-5-pro;
+  composer at ~(790,363) on the new-chat page (window-size dependent —
+  screenshot if unsure); the FIRST paste after navigation is ALWAYS
+  swallowed — click composer, type "x", cmd+a, cmd+v, wait 5s, then
+  click-composer + cmd+v AGAIN; verify exactly ONE chip; send at
+  ~(1140,422). Delete duplicate chips via their X before sending.
+- Save: frontmatter per CLAUDE.md (no status field; failure_mechanism
+  on refutes/supersedes; no session jargon), body = verbatim harvested
+  bytes, assembled via `cat frontmatter.yaml response.md > doc.md`.
+  Recompile compile_rounds.py, commit per round (named files), push,
+  PushNotification.
+- Crons are SESSION-ONLY — the successor must RE-ARM BOTH: watcher
+  (:11/:41 — API status check + harvest/save/refill loop) and hourly
+  heartbeat (:53 — cron alive? unharvested threads? uncommitted docs?
+  escalate per rules).
+- Pro runs: 20–130 min typical; long compute runs (2-3h) show
+  unchanged narration via API but are alive — verify visually (fresh
+  tool-call lines) before worrying.
 
-## Publication state
+## Housekeeping
 
-- Unconditional rank-three note PUBLIC on the erdosproblems forum,
-  commit-pinned at 018a346. Finite-check script:
-  codex-scripts/test-harness/erdos-872-safe-edge-potential/.
+- ` M AGENTS.md` remains uncommitted BY DESIGN — a pre-session edit Om
+  hasn't dispositioned (deletes a "Session Learnings" section about
+  Codex-attachment extraction). Ask him or leave it.
+- Scratchpad (session-specific, will vanish): all response bodies are
+  duplicated inside committed round docs; nothing unrecoverable.
+- Publication state: rank-three note PUBLIC on erdosproblems forum,
+  commit-pinned 018a346. Nothing else published; nothing tonight is
+  publication-ready without human review.
+
+## Suggested first hour for the successor
+
+1. Read this file + `git log --oneline -30` + regenerate/skim
+   state_compiled.md.
+2. Re-arm both crons.
+3. One API status call on the four thread URLs above; harvest and save
+   whatever landed (R126 and R129 are the likeliest to contain
+   something big; apply the resolution protocol if any claims one).
+4. Refill slots per decision rules. The live targets, in order of
+   sharpness: (AE†); bounded-depth compression (first C*loglog H
+   layers); trajectory-restricted online area; Theta-side non-reservoir
+   mechanisms (untouched since R104's promotion — consider a dedicated
+   dispatch).
