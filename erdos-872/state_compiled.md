@@ -1,4 +1,4 @@
-# Current state (compiled 2026-07-10)
+# Current state (compiled 2026-07-11)
 
 ## Established
 
@@ -277,6 +277,8 @@
   — verified by three independent symbolic audits of the activation, residual, and arithmetic assembly, exact-rational harness passed 350992 activation states and 134898 residual states, integrated-manuscript audit found no remaining blocking mathematical issue, Tectonic build completed with no unresolved references or missing citations; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
 - **[R77-prime-cover-quotient-boundary](erdos-872/researcher-77-prime-cover-quotient-boundary.md)** (2026-07-10): Prolonger preserves a positive fraction of harmonic quotient mass when Shortener covers only by primes, but cross-batch semiprime covers reduce the same batching strategy's surviving mass to O((log log t)^2)=o(log t). The unresolved frontier is the online mixed-carrier versus composite-cover preemption race.
   — verified by symbolic harmonic-mass audit, agrees, exact minimax exploration through t=18 found no small counterexample to the stronger quotient game; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
+- **[R78-unconditional-rank-three-adversarial-audit](erdos-872/verify-postresp-R78-unconditional-rank-three-audit.md)** (2026-07-11): The unconditional bound L(n) >= c_delta n(log log n)^2/log n for every fixed 0<delta<1/4 holds as proved: no lemma, selector case, legality assertion, or asymptotic estimate in the deferred-proofs appendix fails under adversarial audit. The finite-fiber obstruction refutes only the stronger auxiliary game with unscored exact-target deletion; in the actual game every exact-target deletion is a scored move with net bank change 1-lambda >= 0.
+  — verified by web-enabled adversarial audit thread; confidence high; prompt: [erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md](erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md)
 
 ## Ruled Out
 
@@ -375,12 +377,12 @@
 - refutation: 49
 - research: 136
 - synthesis: 12
-- verification: 82
+- verification: 83
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 12
+- independent: 13
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
