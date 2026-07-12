@@ -54,37 +54,33 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R130: full-solution free-roam (dossier updated with families 12-15, per-shell dichotomy, (AE†)) | chatgpt.com/c/6a53f14a-c0fc-83e8-9b26-ed802983978f | RUNNING (dispatched ~15:55 07-12) |
-| R131: targeted (RE) reservoir entry at cap window r(n)..n^{o(1)} | chatgpt.com/c/6a53f196-6844-83e8-b0c6-2fbbb30795de | RUNNING (dispatched ~16:00 07-12; narration: no terminal/fixed-cap collapse found; live issue = advance depletion via direct-ancestor channel) |
-| R132: targeted (GNR) Global No-Reuse Lemma (R129 reduction attached) | chatgpt.com/c/6a53fa0a-d2b8-83e8-9bf8-78d0288ced0c | RUNNING (dispatched ~16:35 07-12) |
-| R133: targeted (SM) static completion modulus mu_n(3a)=o(a)? (R126 proposition attached) | chatgpt.com/c/6a53fa48-397c-83e8-9b06-9c2a94fcb647 | RUNNING (dispatched ~16:38 07-12) |
-| R134: AUDIT of R126 completion-modulus proposition (promotion-grade) | chatgpt.com/c/6a53fa8c-95d0-83e8-8287-7b5e45e25957 | RUNNING (dispatched ~16:41 07-12) |
+| R135a: AUDIT of the (SM) interval-blocker refutation | chatgpt.com/c/6a54018c-9e00-83e8-9053-b5633d6e6e2e | RUNNING (dispatched ~17:10 07-12) |
+| R135b: AUDIT of the (SM) refutation (same prompt, independent) | chatgpt.com/c/6a5401c6-140c-83e8-9230-73e0e3c3a00f | RUNNING (dispatched ~17:12 07-12) |
+| R136: targeted (GNR') conservation-ledger halving (R132 repair spec attached) | chatgpt.com/c/6a54022c-c16c-83e8-860f-575003c85ca7 | RUNNING (dispatched ~17:15 07-12) |
+| R137: full-solution free-roam (dossier corrected: entry-OA coupling; + cone proposition, interval blocker, 16th collapse) | chatgpt.com/c/6a540274-82ec-83e8-ac37-27c6e721e050 | RUNNING (dispatched ~17:18 07-12) |
 
-LANDED AND SAVED so far: R127 (researcher-127-rate-model-obstruction-
-separator.md), R125 (researcher-125-growing-depth-modulus-obstruction.md
-— exact alpha^a obstruction + cube minimax 1,2,2,4,4,8 for ranks 1..6),
-R126 (researcher-126-completion-modulus-sufficient-condition.md — NEW
-PROPOSITION: mu_n(3a_n)=o(a_n) implies L(n)=o(n); promotion-grade,
-audit in flight as R134), R129 (researcher-129-global-no-reuse-
-reduction.md — (AE†) nondegenerate; GLOBAL NO-REUSE LEMMA four-item
-spec; 7th separator concurrence).
+One slot spare (reserved for audits of whatever lands).
 
-All five slots full (audits of whatever lands next take priority).
+R125-R134 ALL LANDED AND SAVED (researcher-125/126/127/129/130/131/132/
+133 + verify-postresp-R134). Headlines: (SM) REFUTED by the interval
+blocker (sandbox-verified; R135a/b auditing); the cone proposition is
+audit-CONFIRMED load-bearing; 16th collapse (clock-debt) produced the
+repaired (GNR') whose only open clause is direct-ancestor lifetime
+ownership; the entry-refutes-OA folklore is corrected (needs coupling
+H log h = o(h)); free-roam prompts must use the corrected dossier in
+prompts/researcher-R137-solution-attempt.md as the new base.
 
-Pending saves: R130 -> researcher-130-<slug>.md (kind standalone,
-prompts/researcher-R130-solution-attempt.md);
-R131 -> researcher-131-<slug>.md (predecessor
-R104-fixed-cap-entry-refuted, kind extends,
-prompts/researcher-R131-reservoir-entry-window.md);
-R132 -> researcher-132-<slug>.md (predecessor
-R129-global-no-reuse-reduction, kind extends,
-prompts/researcher-R132-global-no-reuse-lemma.md);
-R133 -> researcher-133-<slug>.md (predecessor
-R126-completion-modulus-sufficient-condition, kind extends,
-prompts/researcher-R133-static-completion-modulus.md);
-R134 -> verify-postresp-R134-<slug>.md (type verification, target
-R126-completion-modulus-sufficient-condition — kind confirms or refutes
-per verdict, prompts/audit-R134-completion-modulus-proposition.md).
+Pending saves: R135a/b -> verify-postresp-R135a/b-<slug>.md (type
+verification, target R133-static-modulus-refuted, kind confirms or
+refutes per verdict, prompts/audit-R135-interval-blocker-refutation.md);
+R136 -> researcher-136-<slug>.md (predecessor
+R132-clock-debt-degeneracy, kind extends,
+prompts/researcher-R136-gnr-prime-conservation-ledger.md);
+R137 -> researcher-137-<slug>.md (kind standalone,
+prompts/researcher-R137-solution-attempt.md).
+If R135a AND R135b both return VALID, promote R133: the static-modulus
+route is closed and future dossiers state it as established (drop the
+"audits in progress" hedge in the R137 prompt's wording).
 
 ## Decision rules in force (user-approved, standing)
 
