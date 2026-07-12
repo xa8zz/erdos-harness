@@ -39,15 +39,30 @@ The dichotomy (L(n) = Θ(n) vs o(n)) went through a reduction cascade tonight:
 Tab IDs die with the session — the THREAD URLS are durable. Re-open in the
 in-Chrome browser (claude-in-chrome MCP), same account.
 
-| What | Thread URL | Status at handoff |
+UPDATE 2026-07-12 (post-compaction session): audits A+B landed — BOTH REFUTE
+R92 (same mechanism: instantaneous face bound (7) promoted to temporal (10),
+double count (12); descendants inherit old spoilers, 2^r vs B_r; concrete
+realizations on n=2310 and n=4000). Saved as verify-postresp-R92-audit-a/b.md.
+R91 landed and saved (researcher-91-advance-depletion-low-lcm-reduction.md):
+dichotomy reduced to one chronological low-lcm capacity inequality (TL).
+
+| What | Thread URL | Status |
 |---|---|---|
-| Audit A of R92 | chatgpt.com/c/6a5341b3-e890-83e8-9912-f7cedf07ae62 | running |
-| Audit B of R92 | chatgpt.com/c/6a5341ee-c48c-83e8-8e8b-17f87177681c | running |
-| R91 (LE form attack) | chatgpt.com/c/6a52db0e-b448-83e8-bef8-8bcb9137968b | running |
 | R93 (temporal-Hall attack) | chatgpt.com/c/6a52f794-6da0-83e8-a9bd-f059f252236e | running |
-| R92's thread (idle) | chatgpt.com/c/6a53160a-0630-83e8-b1a8-70de5c4e1d53 | landed |
+| R94 (HIST repair lemma, in R92's thread) | chatgpt.com/c/6a53160a-0630-83e8-b1a8-70de5c4e1d53 | running |
+| R95 ((TL) attack, in R91's thread) | chatgpt.com/c/6a52db0e-b448-83e8-bef8-8bcb9137968b | running |
+| Audit A thread (idle) | chatgpt.com/c/6a5341b3-e890-83e8-9912-f7cedf07ae62 | landed+saved |
+| Audit B thread (idle) | chatgpt.com/c/6a5341ee-c48c-83e8-8e8b-17f87177681c | landed+saved |
 | R90's thread (idle) | chatgpt.com/c/6a531643-f134-83e8-baa5-741d4d5316fa | landed |
-| R82/R88's thread (idle) | (thread "Mathematical proof analysis", same account) | landed |
+
+Pending saves: R93 -> researcher-93-<slug>.md (prompt
+prompts/followup-R93-ordered-multiplicity-final.md, predecessor R83);
+R94 -> researcher-94-<slug>.md (prompt
+prompts/followup-R94-historical-incidence-lemma.md, predecessor
+R92-arbitrary-reply-persistence-claim, likely kind: extends or supersedes);
+R95 -> researcher-95-<slug>.md (prompt
+prompts/followup-R95-chronological-low-lcm-inequality.md, predecessor
+R91-advance-depletion-low-lcm-reduction).
 
 Pending saves when they finish: audits → `verify-postresp-R92-audit-a/b.md`
 (type verification, action confirms/refutes R92-arbitrary-reply-persistence-claim,
