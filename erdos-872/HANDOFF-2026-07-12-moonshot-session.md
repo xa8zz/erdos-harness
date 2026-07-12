@@ -39,6 +39,9 @@ URLs as needed). THREAD URLS are durable:
 |---|---|---|
 | R124a: adversarial AUDIT of R123's activation-area impossibility theorem (primary: family-coverage attack — construct a nondegenerate intermediate OUTSIDE features (1)-(4)) | chatgpt.com/c/6a53dd16-33bc-83e8-98eb-793f6957b158 | RUNNING (dispatched ~13:00) |
 | R124b: same audit, independent thread | chatgpt.com/c/6a53dd57-86f4-83e8-9b09-36f5ad3e7dba | RUNNING |
+| R125: full-solution attempt (independent sample 1) | chatgpt.com/c/6a53e22e-def4-83e8-9a4b-20b449fa5270 | RUNNING (dispatched ~13:35, per Om: free slots toward full solution) |
+| R126: full-solution attempt (independent sample 2) | chatgpt.com/c/6a53e267-d7dc-83e8-8b83-6d1a6aa26eff | RUNNING |
+| R127: full-solution attempt (independent sample 3) | chatgpt.com/c/6a53e2a5-ee24-83e8-a948-f79f1f4b55bd | RUNNING |
 
 Landed+saved since last table: R123 (researcher-123-activation-area-
 impossibility: THE FORMULATION LOOP TERMINUS — 14th collapse
@@ -58,14 +61,17 @@ bounded-depth compression (R116) as its (CL)-side complement; the
 14-family collapse catalogue becomes permanent tooling. Next dispatch
 then: direct (OA) attack with the full machinery.
 
-NOTE: no free-roam currently running (both slots are the R124 audits;
-R121 landed). Restore a free-roam when a slot frees, or Om may
-redirect — he is awake.
+ALL FIVE SLOTS FULL. Om directed (13:30): keep running, free slots
+toward full solution — R125/R126/R127 are three independent samples of
+the post-formulation-war full-solution prompt (same dossier,
+independent runs; prompts researcher-R125/126/127-solution-attempt.md,
+all identical copies of the R121 prompt).
 
 Pending saves: R124a/b -> verify-postresp-R124a/b-<slug>.md
 (prompts/audit-R124-impossibility-theorem.md, target
 R123-activation-area-impossibility, confirms or refutes with
-failure_mechanism).
+failure_mechanism); R125/126/127 -> researcher-125/126/127-<slug>.md
+(kind standalone, prompts researcher-R125/126/127-solution-attempt.md).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
