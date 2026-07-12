@@ -54,27 +54,37 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R125: full-solution attempt (sample 1) | chatgpt.com/c/6a53e22e-def4-83e8-9a4b-20b449fa5270 | RUNNING (post-peel process, early-layer gap) |
-| R126: full-solution attempt (sample 2) | chatgpt.com/c/6a53e267-d7dc-83e8-8b83-6d1a6aa26eff | RUNNING (chronology-sensitive totient-energy bound — narration says it survives shared-core AND batching counterexamples; watch this one) |
-| R129: targeted (AE†) | chatgpt.com/c/6a53eb0d-0390-83e8-9f93-e75b880eabca | RUNNING (dispatched ~14:50 07-12) |
 | R130: full-solution free-roam (dossier updated with families 12-15, per-shell dichotomy, (AE†)) | chatgpt.com/c/6a53f14a-c0fc-83e8-9b26-ed802983978f | RUNNING (dispatched ~15:55 07-12) |
-| R131: targeted (RE) reservoir entry at cap window r(n)..n^{o(1)} | chatgpt.com/c/6a53f196-6844-83e8-b0c6-2fbbb30795de | RUNNING (dispatched ~16:00 07-12) |
+| R131: targeted (RE) reservoir entry at cap window r(n)..n^{o(1)} | chatgpt.com/c/6a53f196-6844-83e8-b0c6-2fbbb30795de | RUNNING (dispatched ~16:00 07-12; narration: no terminal/fixed-cap collapse found; live issue = advance depletion via direct-ancestor channel) |
+| R132: targeted (GNR) Global No-Reuse Lemma (R129 reduction attached) | chatgpt.com/c/6a53fa0a-d2b8-83e8-9bf8-78d0288ced0c | RUNNING (dispatched ~16:35 07-12) |
+| R133: targeted (SM) static completion modulus mu_n(3a)=o(a)? (R126 proposition attached) | chatgpt.com/c/6a53fa48-397c-83e8-9b06-9c2a94fcb647 | RUNNING (dispatched ~16:38 07-12) |
+| R134: AUDIT of R126 completion-modulus proposition (promotion-grade) | chatgpt.com/c/6a53fa8c-95d0-83e8-8287-7b5e45e25957 | RUNNING (dispatched ~16:41 07-12) |
 
-R127 LANDED and is SAVED: researcher-127-rate-model-obstruction-separator.md
-(unresolved verdict; rate-model obstruction; 6th separator concurrence).
+LANDED AND SAVED so far: R127 (researcher-127-rate-model-obstruction-
+separator.md), R125 (researcher-125-growing-depth-modulus-obstruction.md
+— exact alpha^a obstruction + cube minimax 1,2,2,4,4,8 for ranks 1..6),
+R126 (researcher-126-completion-modulus-sufficient-condition.md — NEW
+PROPOSITION: mu_n(3a_n)=o(a_n) implies L(n)=o(n); promotion-grade,
+audit in flight as R134), R129 (researcher-129-global-no-reuse-
+reduction.md — (AE†) nondegenerate; GLOBAL NO-REUSE LEMMA four-item
+spec; 7th separator concurrence).
 
-All five slots full (audits of whatever lands next take priority over refills).
+All five slots full (audits of whatever lands next take priority).
 
-Pending saves: R125/126 -> researcher-125/126-<slug>.md (kind
-standalone; prompts researcher-R125/126-solution-attempt.md — identical
-copies of the R121 post-formulation-war free-roam prompt);
-R129 -> researcher-129-<slug>.md (prompts/researcher-R129-ae-dagger.md,
-predecessor R128-aggregate-excess-parameter-witness);
-R130 -> researcher-130-<slug>.md (kind standalone,
+Pending saves: R130 -> researcher-130-<slug>.md (kind standalone,
 prompts/researcher-R130-solution-attempt.md);
 R131 -> researcher-131-<slug>.md (predecessor
 R104-fixed-cap-entry-refuted, kind extends,
-prompts/researcher-R131-reservoir-entry-window.md).
+prompts/researcher-R131-reservoir-entry-window.md);
+R132 -> researcher-132-<slug>.md (predecessor
+R129-global-no-reuse-reduction, kind extends,
+prompts/researcher-R132-global-no-reuse-lemma.md);
+R133 -> researcher-133-<slug>.md (predecessor
+R126-completion-modulus-sufficient-condition, kind extends,
+prompts/researcher-R133-static-completion-modulus.md);
+R134 -> verify-postresp-R134-<slug>.md (type verification, target
+R126-completion-modulus-sufficient-condition — kind confirms or refutes
+per verdict, prompts/audit-R134-completion-modulus-proposition.md).
 
 ## Decision rules in force (user-approved, standing)
 
