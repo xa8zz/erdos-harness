@@ -37,8 +37,9 @@ URLs as needed). THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R111: free-roam with both promoted refutations | chatgpt.com/c/6a5388d8-1c6c-83e8-9964-cb9b1a3f58d5 | RUNNING (~2h15m — LONG; if narration still unchanged next tick, open the tab visually and check for an error state) |
+| R111: free-roam with both promoted refutations | chatgpt.com/c/6a5388d8-1c6c-83e8-9964-cb9b1a3f58d5 | RUNNING (~3h — visually verified ALIVE at 08:50: active tool calls, simulating small-n minimax and local game values on multiplier posets; long run is genuine computation) |
 | R115: canonical nondegenerate (AH) — formulation delegated to researcher + resolution; R98/R113/R114 attached | chatgpt.com/c/6a53a4e1-ef84-83e8-93fe-aead2b90a30d | RUNNING (dispatched ~08:25) |
+| R116: (CL) round 2 — compression persistence; R110 (with audit repair) + R113 attached | chatgpt.com/c/6a53ab6e-ec38-83e8-9c57-4784cd8af342 | RUNNING (dispatched ~08:55) |
 
 Landed+saved since last table: R113 (verify-postresp-R113: REFUTES
 R112's terminal-delay claim — literal (AH) back OPEN, quantifier-domain
@@ -50,7 +51,7 @@ itself adversarial; R115 delegates it to the researcher with all failed
 variants + repair list attached, requiring a nondegeneracy proof before
 resolution.
 
-Two running, THREE spare. Refill options after R111/R115 land: audits
+Three running, TWO spare. Refill options after R111/R115 land: audits
 of whatever they claim; a (CL)-side compression-persistence dispatch
 (R110's battleground) once R110's repaired Thm 1 is re-audited if it
 becomes load-bearing.
@@ -59,7 +60,10 @@ Pending saves: R111 -> researcher-111-<slug>.md
 (prompts/researcher-R111-solution-attempt-post-promotions.md, kind
 standalone); R115 -> researcher-115-<slug>.md
 (prompts/researcher-R115-canonical-ancestor-harvest.md, predecessors
-R113-audit-shadow-and-ah-claims + R114-frozen-ledger-preforce-degenerate).
+R113-audit-shadow-and-ah-claims + R114-frozen-ledger-preforce-degenerate);
+R116 -> researcher-116-<slug>.md
+(prompts/researcher-R116-compression-persistence.md, predecessors
+R110-surviving-shadow-compression + R113-audit-shadow-and-ah-claims).
 
 STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
 one javascript_tool call checks ALL threads (status field, no
