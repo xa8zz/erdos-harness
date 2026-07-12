@@ -55,7 +55,7 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 | R142: FULL-COMPILATION free-roam (R140 base + first-failure localization + 4-property disproof checklist, provisional) | chatgpt.com/c/6a541022-57c4-83e8-ba65-75200671b8da | RUNNING (dispatched ~19:58 07-12) |
-| R139: full-solution free-roam sample 2 ((SM) promotion + 17th collapse folded in) | chatgpt.com/c/6a5407ed-b7ac-83e8-bb83-6061e4612a85 | RUNNING (dispatched ~18:28 07-12) |
+| R144: FULL-COMPILATION free-roam (R142 base + rank sweep + frozen-cone accounting, provisional) | chatgpt.com/c/6a541dea-357c-83e8-b93f-d5ba572bad70 | RUNNING (dispatched ~21:58 07-12) |
 | R143: AUDIT of R137 thinness lemma + d^{-1/2} capture strategy (promotion-grade) | chatgpt.com/c/6a541c2a-a5a8-83e8-acde-98090630971d | RUNNING (dispatched ~20:40 07-12) |
 
 Two slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R137's thinness lemma + capture strategy, R138's localization theorem).
@@ -85,8 +85,10 @@ Pending saves:
 R138 LANDED AND SAVED (researcher-138-first-failure-localization.md —
 3rd nondegeneracy confirmation; first-failure localization theorem;
 4-property disproof checklist).
-R139 -> researcher-139-<slug>.md (kind standalone,
-prompts/researcher-R139-solution-attempt.md).
+R139 LANDED AND SAVED (researcher-139-sparse-rank-sweep.md — o(n)
+moves force legal-poset height < g(n); single-source, audit candidate).
+R144 -> researcher-144-<slug>.md (kind standalone,
+prompts/researcher-R144-solution-attempt-full-compilation.md).
 R140 LANDED AND SAVED (researcher-140-frozen-cone-harmful-mass.md —
 frozen-cone accounting; randomization provably insufficient).
 R143 -> verify-postresp-R143-<slug>.md (type verification, target
