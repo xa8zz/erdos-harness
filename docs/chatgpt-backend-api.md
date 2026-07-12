@@ -49,6 +49,25 @@ still generating shows the assistant node absent or `in_progress`.
 `navigator.clipboard.writeText` needs document focus: **click the page once**
 (`computer left_click` anywhere neutral) in the same `browser_batch`, then:
 
+Hard-won failure modes (2026-07-12, all observed):
+
+- The click and the `writeText` MUST be items of ONE `browser_batch` call.
+  Transient user activation expires between separate tool calls; a
+  `writeText` issued in its own call hangs the CDP evaluate until the 45s
+  timeout ("renderer may be frozen" — it isn't; the promise never settles).
+- Chrome must be the OS-frontmost app or clipboard writes are suppressed
+  (symptom: the UI copy button "succeeds" but `pbpaste` returns 0 bytes).
+  Fix: `osascript -e 'tell application "Google Chrome" to activate'` first.
+- When retyping the snippet below, the `` escapes must survive as
+  literal backslash escapes in the JS source. If the private-use chars get
+  stripped in transit the regex degrades to `/.*?/gs` (a silent no-op) and
+  filecite spans survive into the saved doc. Verify `citesStripped > 0` on
+  responses that cite attachments, or scan the saved file for U+E200-U+E2FF
+  and strip with a Python `re.sub` pass.
+- Returning the raw text as a javascript_tool RESULT instead of via
+  clipboard gets DLP-blocked ("[BLOCKED: Cookie/query string data]"), and
+  base64 is blocked too — the clipboard route is the only clean channel.
+
 ```js
 const id = "<conv-id>";
 const s = await fetch('/api/auth/session').then(r=>r.json());

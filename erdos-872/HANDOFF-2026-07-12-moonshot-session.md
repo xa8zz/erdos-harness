@@ -56,16 +56,25 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 |---|---|---|
 | R125: full-solution attempt (sample 1) | chatgpt.com/c/6a53e22e-def4-83e8-9a4b-20b449fa5270 | RUNNING (post-peel process, early-layer gap) |
 | R126: full-solution attempt (sample 2) | chatgpt.com/c/6a53e267-d7dc-83e8-8b83-6d1a6aa26eff | RUNNING (chronology-sensitive totient-energy bound — narration says it survives shared-core AND batching counterexamples; watch this one) |
-| R127: full-solution attempt (sample 3) | chatgpt.com/c/6a53e2a5-ee24-83e8-a948-f79f1f4b55bd | RUNNING (global trajectory potential, frozen baseline + first surviving-minimum exposures) |
-| R129: targeted (AE†) | chatgpt.com/c/6a53eb0d-0390-83e8-9f93-e75b880eabca | RUNNING (dispatched ~14:50) |
+| R129: targeted (AE†) | chatgpt.com/c/6a53eb0d-0390-83e8-9f93-e75b880eabca | RUNNING (dispatched ~14:50 07-12) |
+| R130: full-solution free-roam (dossier updated with families 12-15, per-shell dichotomy, (AE†)) | chatgpt.com/c/6a53f14a-c0fc-83e8-9b26-ed802983978f | RUNNING (dispatched ~15:55 07-12) |
+| R131: targeted (RE) reservoir entry at cap window r(n)..n^{o(1)} | chatgpt.com/c/6a53f196-6844-83e8-b0c6-2fbbb30795de | RUNNING (dispatched ~16:00 07-12) |
 
-One slot spare (reserve for audits of whatever lands).
+R127 LANDED and is SAVED: researcher-127-rate-model-obstruction-separator.md
+(unresolved verdict; rate-model obstruction; 6th separator concurrence).
 
-Pending saves: R125/126/127 -> researcher-125/126/127-<slug>.md (kind
-standalone; prompts researcher-R125/126/127-solution-attempt.md — three
-identical copies of the R121 post-formulation-war free-roam prompt);
+All five slots full (audits of whatever lands next take priority over refills).
+
+Pending saves: R125/126 -> researcher-125/126-<slug>.md (kind
+standalone; prompts researcher-R125/126-solution-attempt.md — identical
+copies of the R121 post-formulation-war free-roam prompt);
 R129 -> researcher-129-<slug>.md (prompts/researcher-R129-ae-dagger.md,
-predecessor R128-aggregate-excess-parameter-witness).
+predecessor R128-aggregate-excess-parameter-witness);
+R130 -> researcher-130-<slug>.md (kind standalone,
+prompts/researcher-R130-solution-attempt.md);
+R131 -> researcher-131-<slug>.md (predecessor
+R104-fixed-cap-entry-refuted, kind extends,
+prompts/researcher-R131-reservoir-entry-window.md).
 
 ## Decision rules in force (user-approved, standing)
 
