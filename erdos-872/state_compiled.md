@@ -277,6 +277,8 @@
   — verified by three independent symbolic audits of the activation, residual, and arithmetic assembly, exact-rational harness passed 350992 activation states and 134898 residual states, integrated-manuscript audit found no remaining blocking mathematical issue, Tectonic build completed with no unresolved references or missing citations; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
 - **[R77-prime-cover-quotient-boundary](erdos-872/researcher-77-prime-cover-quotient-boundary.md)** (2026-07-10): Prolonger preserves a positive fraction of harmonic quotient mass when Shortener covers only by primes, but cross-batch semiprime covers reduce the same batching strategy's surviving mass to O((log log t)^2)=o(log t). The unresolved frontier is the online mixed-carrier versus composite-cover preemption race.
   — verified by symbolic harmonic-mass audit, agrees, exact minimax exploration through t=18 found no small counterexample to the stronger quotient game; confidence high; prompt: [erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md](erdos-872/prompts/researcher-R72-solution-attempt-verified-core.md)
+- **[R78-fractional-invariant-interdiction-frontier](erdos-872/researcher-78-fractional-invariant-interdiction-frontier.md)** (2026-07-11): No unconditional resolution of the linear-versus-sublinear dichotomy. Three new unconditional pieces: (1) a fractional residual invariant: with nu(A) the LP value of fractionally packing live upper-half targets so every legal lower move sees mass at most one, T + nu(A) is nondecreasing under every legal move, so any reachable state with nu(A) >= cn forces L(n) >= cn; (2) after k = o(n) moves, only o(n) live upper-half targets can have every proper divisor illegal (quantitatively O(n/log z + k z^2 + e^{O(z)})), via a witness-pair count and Mertens; (3) a generic scored rank-r residual system with r+1 edges (the r-subsets of an (r+1)-set) lets the maximizer force only one scored edge, so no rank-independent constant-fraction residual capture theorem exists without arithmetic structure, and at central rank r ~ log log n the generic bound leaves only an O(1/log log n) fraction. The dichotomy reduces to: force nu(A) >= cn against arbitrary mixed composite separators (linear side), or prove an online interdiction theorem in which some legal divisor kills unbounded new target mass except for a sublinear injectively-chargeable family (sublinear side).
+  — confidence medium; prompt: [erdos-872/prompts/researcher-R78-solution-attempt-rank-three-base.md](erdos-872/prompts/researcher-R78-solution-attempt-rank-three-base.md)
 - **[R78-unconditional-rank-three-adversarial-audit](erdos-872/verify-postresp-R78-unconditional-rank-three-audit.md)** (2026-07-11): The unconditional bound L(n) >= c_delta n(log log n)^2/log n for every fixed 0<delta<1/4 holds as proved: no lemma, selector case, legality assertion, or asymptotic estimate in the deferred-proofs appendix fails under adversarial audit. The finite-fiber obstruction refutes only the stronger auxiliary game with unscored exact-target deletion; in the actual game every exact-target deletion is a scored move with net bank change 1-lambda >= 0.
   — verified by web-enabled adversarial audit thread; confidence high; prompt: [erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md](erdos-872/prompts/audit-R78-unconditional-rank-three-adversarial.md)
 
@@ -375,14 +377,14 @@
 ### By type
 - diagnostic: 6
 - refutation: 49
-- research: 136
+- research: 137
 - synthesis: 12
 - verification: 83
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 13
+- independent: 14
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
