@@ -331,6 +331,10 @@
   — confidence medium; prompt: [erdos-872/prompts/audit-R107-fixed-cap-refutation.md](erdos-872/prompts/audit-R107-fixed-cap-refutation.md)
 - **[R107b-fixed-cap-refutation-valid](erdos-872/verify-postresp-R107b-fixed-cap-valid.md)** (2026-07-12): Verdict VALID: the refutation correctly negates (F). Both ingredients check out — the fixed-density clearing sweep from degree availability and the bounded per-move erosion of a capped reservoir — and there is no use of a Shortener guarantee as a Prolonger guarantee nor any reversal of the strategic quantifiers.
   — confidence medium; prompt: [erdos-872/prompts/audit-R107-fixed-cap-refutation.md](erdos-872/prompts/audit-R107-fixed-cap-refutation.md)
+- **[R109a-ordered-shadow-refutation-valid](erdos-872/verify-postresp-R109a-ordered-shadow-valid.md)** (2026-07-12): Verdict VALID: the refutation of the literal (OS) is correct. The constructed post-Phase-0 position is genuinely obtainable under the fixed Phase-0 policy; the claimed roots are first-layer minimal; the private carriers are legal and private; the drafting lemma's alternation accounting holds against every ordering; the rough-number and prime-regime estimates check out. Remaining issues are exposition repairs only. The scope claim also holds: the cumulative-layer (growing-depth uniformity) statement remains open.
+  — confidence medium; prompt: [erdos-872/prompts/audit-R109-ordered-shadow-refutation.md](erdos-872/prompts/audit-R109-ordered-shadow-refutation.md)
+- **[R109b-ordered-shadow-refutation-valid](erdos-872/verify-postresp-R109b-ordered-shadow-valid.md)** (2026-07-12): Verdict VALID: the construction yields, for every proposed H(n) -> infinity, a genuinely obtainable post-Phase-0 position such that every ordering of the first minimal layer admits a legal Prolonger continuation with linear raw proper-multiple shadow of the advance-killed set. The final assessment is accurate: (OS) and (WOS) are false, while the cumulative-layer problem remains open under the supplied facts.
+  — confidence medium; prompt: [erdos-872/prompts/audit-R109-ordered-shadow-refutation.md](erdos-872/prompts/audit-R109-ordered-shadow-refutation.md)
 - **[R92-persistence-audit-a-temporal-double-count](erdos-872/verify-postresp-R92-audit-a.md)** (2026-07-12): The argument does not hold as stated. The fixed-delta arithmetic is sound and the displayed numerical bound is true (it already follows from the established n(log log n)^2 / log n lower bound), but the arbitrary-reply persistence theorem and the claimed closure of the ordered-area no-direction are not proved.
   — verified by adversarial-audit-thread-a, adversarial-audit-thread-b; confidence high; prompt: [erdos-872/prompts/audit-R92-persistence-adversarial.md](erdos-872/prompts/audit-R92-persistence-adversarial.md)
 - **[R92-persistence-audit-b-instantaneous-vs-cumulative](erdos-872/verify-postresp-R92-audit-b.md)** (2026-07-12): The argument does not hold as stated: one spoiler's instantaneous B_r tau(c) capacity is incorrectly treated as a cumulative capacity across an adaptive refinement history. The composition arithmetic for fixed delta is valid and the numerical bound follows from the already accepted stronger lower bound, but the policy-independent persistence theorem and the claimed closure of the ordered-area obstruction do not follow.
@@ -449,12 +453,12 @@
 - refutation: 51
 - research: 162
 - synthesis: 12
-- verification: 90
+- verification: 92
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 48
+- independent: 50
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
