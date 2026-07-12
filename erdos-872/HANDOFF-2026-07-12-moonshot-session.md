@@ -64,6 +64,17 @@ R96-layer-peeling-chronological-separator).
 - On refutation: round doc with failure_mechanism (specific
   counterexample boards), then press the surviving repair path.
 - NEVER feed Bloom's forum small-n table (f(11)=5 defect).
+- Slot allocation (user, 2026-07-12 overnight): allocate the 5 slots
+  freely, but keep at least ONE free-roam full-solution thread running
+  at all times; don't over-constrain researcher prompts — the models
+  are capable, give them room.
+- PHONE CHANNEL (tested working): call Om at [redacted] via Inkbox
+  hosted-agent call — recipe in memory `project-inkbox-phone-channel`
+  (1Password item "Hermes Inkbox API Key", X-API-Key header,
+  POST /api/v1/phone/place-call, origination shared_imessage_number,
+  mode hosted_agent + reason brief). Authorized ANY hour for: a full
+  resolution that survived two adversarial audits, or a hard blocker
+  (rate limit, auth wall). Routine landings stay push-only.
 
 ## Operational protocol (hard-won; details in memory
 `project-chatgpt-automation-protocol`)
@@ -85,8 +96,11 @@ R96-layer-peeling-chronological-separator).
 - Save: frontmatter per CLAUDE.md (no status field, failure_mechanism
   on refutes/supersedes), body = verbatim clipboard bytes. Recompile
   compile_rounds.py, commit per round, push notification.
-- Watcher cron is SESSION-ONLY (currently e61d52e6, :11/:41). Re-arm on
-  session start.
+- Crons are SESSION-ONLY; re-arm BOTH on session start: watcher
+  (currently e61d52e6, :11/:41 — per-thread check/harvest loop) and
+  hourly heartbeat (currently 5725c4fc, :53 — loop-health check:
+  watcher alive? unharvested finished threads? uncommitted round docs?
+  slots full? escalate via phone only per the rules above).
 
 ## Publication state
 
