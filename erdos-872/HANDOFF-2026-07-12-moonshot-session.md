@@ -38,19 +38,35 @@ URLs as needed). THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 | R98: design Shortener policy + prove chronology theorem (o(n) side) | chatgpt.com/c/6a535e78-9ea4-83e8-99f1-c142b3e508a8 | running |
-| R99: fixed-cap entry / amplification (Theta side) | chatgpt.com/c/6a535f06-63e8-83e8-99cc-d00a36117fe7 | landed+saved (researcher-99: CONDITIONAL diagonal amplification — universal growing-cap entry => fixed cap => Theta; hypothesis open; fixed-level advance-depletion bound isolated) |
-| R100: zoom-out v2, full post-separator obstruction map | chatgpt.com/c/6a536053-7fd0-83e8-a42a-fb21cb8d2ae3 | running |
+| R99: fixed-cap entry / amplification (Theta side) | chatgpt.com/c/6a535f06-63e8-83e8-99cc-d00a36117fe7 | landed+saved (researcher-99: CONDITIONAL diagonal amplification) |
+| R100: zoom-out v2, full post-separator obstruction map | chatgpt.com/c/6a536053-7fd0-83e8-a42a-fb21cb8d2ae3 | landed+saved (researcher-100: continuation lemma \|L(A)\|<=(2H+1)\|C\|; confirms separator; upper route needs \|C\|=o(n/H)) |
 | R101: growing-depth uniformity single-lemma (R96 body attached verbatim) | chatgpt.com/c/6a53609c-6210-83e8-824f-a0c4e7b0de17 | running |
+| R102: free-roam solution attempt, dossier updated post-R100 | chatgpt.com/c/6a536ab1-b508-83e8-9934-d2a97fd55cdd | running (dispatched ~10:35) |
+| R103: targeted (S) — post-peel completion size \|C\|=o(n/H), prove or refute | chatgpt.com/c/6a536bc2-670c-83e8-9db0-a52bc9b8a998 | running (dispatched ~10:42) |
+| R104: targeted (F) — fixed-cap fortress entry, prove or refute | chatgpt.com/c/6a536c07-59d0-83e8-9a21-d4693e161fc6 | running (dispatched ~10:45) |
 
-One Pro slot spare (cap 5) — reserve for audits of whatever lands.
+All five slots FULL. When one lands: harvest+save first, then refill —
+keep >=1 free-roam running; hold a slot briefly only when a resolution
+claim is pending audits.
 
 Pending saves: R98 -> researcher-98-<slug>.md (prompt
-prompts/researcher-R98-policy-chronology-theorem.md); R99 ->
-researcher-99-<slug>.md (prompts/researcher-R99-fixed-cap-entry-amplification.md);
-R100 -> researcher-100-<slug>.md (prompts/researcher-R100-solution-attempt-post-separator.md,
-kind standalone); R101 -> researcher-101-<slug>.md
-(prompts/researcher-R101-growing-depth-uniformity.md, predecessor
-R96-layer-peeling-chronological-separator).
+prompts/researcher-R98-policy-chronology-theorem.md); R101 ->
+researcher-101-<slug>.md (prompts/researcher-R101-growing-depth-uniformity.md,
+predecessor R96-layer-peeling-chronological-separator); R102 ->
+researcher-102-<slug>.md (prompts/researcher-R102-solution-attempt-post-r100.md,
+kind standalone); R103 -> researcher-103-<slug>.md
+(prompts/researcher-R103-postpeel-completion-size.md, predecessor
+R100-continuation-lemma-gap-confirmation); R104 -> researcher-104-<slug>.md
+(prompts/researcher-R104-fixed-cap-fortress-entry.md, predecessors
+R97-anchor-trace1-olcm-false + R99-diagonal-amplification-conditional).
+
+STATUS/HARVEST now via ChatGPT backend-api (docs/chatgpt-backend-api.md):
+one javascript_tool call checks ALL threads (status field, no
+screenshots); harvest = API text -> navigator.clipboard (click page
+first for focus) -> LANG=en_US.UTF-8 pbpaste. Raw API text is MORE
+faithful than the copy button (which strips \\[ \\] backslashes and can
+mojibake em-dashes). Strip U+E200..U+E201 filecite spans mechanically.
+Dispatch still via UI paste protocol.
 
 ## Decision rules in force (user-approved)
 
@@ -97,7 +113,7 @@ R96-layer-peeling-chronological-separator).
   on refutes/supersedes), body = verbatim clipboard bytes. Recompile
   compile_rounds.py, commit per round, push notification.
 - Crons are SESSION-ONLY; re-arm BOTH on session start: watcher
-  (currently e61d52e6, :11/:41 — per-thread check/harvest loop) and
+  (currently f92590d3, :11/:41 — API-based check/harvest loop) and
   hourly heartbeat (currently 5725c4fc, :53 — loop-health check:
   watcher alive? unharvested finished threads? uncommitted round docs?
   slots full? escalate via phone only per the rules above).
