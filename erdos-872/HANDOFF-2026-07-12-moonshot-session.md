@@ -55,7 +55,6 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 | R146: targeted FSC(2,eta) — the SECOND-SHELL frontier (R142+R145 attached) | chatgpt.com/c/6a542a6c-dbb0-83e8-be06-1f7c2bb0b9ca | RUNNING (dispatched ~23:20 07-12) |
-| R147: AUDIT of the FSC(1,eta) theorem (promotion-grade) | chatgpt.com/c/6a542aa5-ba60-83e8-b81f-46ccb5e423f6 | RUNNING (dispatched ~23:23 07-12) |
 | R148: FULL-COMPILATION free-roam (R144 base + FSC family w/ proven top shell + cone-weighted completion) | chatgpt.com/c/6a542bee-4234-83e8-b727-e6439168d1bf | RUNNING (dispatched ~23:58 07-12) |
 
 Two slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R137's thinness lemma + capture strategy, R138's localization theorem).
@@ -103,9 +102,9 @@ THEOREM: FSC(1,eta) proven for all 0<eta<1; 18th collapse eta>=1
 vacuous; frontier = J=2 second shell; R147 auditing).
 R146 -> researcher-146-<slug>.md (predecessor R145-fsc-top-shell-proven,
 kind extends, prompts/researcher-R146-fsc-second-shell.md).
-R147 -> verify-postresp-R147-<slug>.md (type verification, target
-R145-fsc-top-shell-proven, kind confirms or refutes per verdict,
-prompts/audit-R147-fsc-top-shell.md).
+R147 LANDED AND SAVED (verify-postresp-R147-fsc-top-shell-confirmed.md
+— FSC(1,eta) CONFIRMED: A VALID, B VALID, C quantifier repair only.
+The top-shell theorem is ESTABLISHED machinery; treat as promoted).
 R142 -> researcher-142-<slug>.md (kind standalone,
 prompts/researcher-R142-solution-attempt-full-compilation.md).
 Om's standing preference (2026-07-12 ~18:45): full-compilation
