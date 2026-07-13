@@ -91,6 +91,27 @@ To harvest an EARLIER assistant message in a multi-response thread (audits,
 follow-ups), collect all texts on the current path (don't `break`; push each into an
 array walking parent-ward, then reverse) and index explicitly.
 
+## Harvest fallback: blob download (VALIDATED 2026-07-13 — works on phantom/unfocused windows)
+
+When the MCP window is phantom (0x0/hidden after a system sleep) or Chrome cannot be
+frontmost, `navigator.clipboard.writeText` is unusable (needs document focus). Replace
+the clipboard leg with a blob download — byte-faithful and needs NO focus:
+
+```js
+// ... fetch + walk + strip as above, text in t ...
+const blob = new Blob([t], {type:'text/markdown'});
+const a = document.createElement('a');
+a.href = URL.createObjectURL(blob);
+a.download = 'rNNN_response.md';
+document.body.appendChild(a); a.click();
+({queued:true, len:t.length})
+```
+
+Then on the shell: `cp ~/Downloads/rNNN_response.md <scratchpad>/ && rm ~/Downloads/rNNN_response.md`
+and verify `wc -c` ≈ len (UTF-8 multibyte) plus head/tail. A CDP click on the page in
+the same browser_batch beforehand supplies the user gesture if Chrome ever blocks the
+download without one.
+
 ## Set a sentinel first
 
 Still set a `pbcopy` sentinel before the harvest call so a failed/blocked

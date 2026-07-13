@@ -55,9 +55,20 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 | R149: targeted "second-shell capped-tail exclusion" (convergence dispatch; Attachments A=FSC family, B=FSC(1) proof, C=R146 cap-entry+doubling, D=R148 cumulative sparsity) | chatgpt.com/c/6a54494c-4c48-83e8-a5ff-2e6964bcf69a | RUNNING (dispatched ~03:20 UTC 07-13, model gpt-5-6-pro verified) |
-| R150: FULL-COMPILATION free-roam (R148 base + cap-entry normal form + doubling + canonical-lift + coatom ownership) | chatgpt.com/c/6a544acf-d880-83e8-973b-3e38847901f6 | RUNNING (dispatched ~03:40 UTC 07-13, model gpt-5-6-pro verified) |
-
-Pending saves: R149 -> researcher-149-<slug>.md (predecessors [R146-fsc2-second-shell-cap-entry-open, R148-second-shell-cumulative-sparsity-still-open], kind extends target R146-fsc2-second-shell-cap-entry-open, prompts/researcher-R149-capped-tail-exclusion.md). R150 -> researcher-150-<slug>.md (kind standalone, prompts/researcher-R150-solution-attempt-full-compilation.md).
+Pending saves: R149 -> researcher-149-<slug>.md (predecessors [R146-fsc2-second-shell-cap-entry-open, R148-second-shell-cumulative-sparsity-still-open], kind extends target R146-fsc2-second-shell-cap-entry-open, prompts/researcher-R149-capped-tail-exclusion.md).
+R150 LANDED AND SAVED (researcher-150-second-shell-chronology-gap.md — NEW
+PROVEN lemma: Delta_Q >>_eta loglog(n/t) on the second shell via
+Turan-Kubilius restricted to (n/4,n/2], K=min(n^{1/8},(n/t)^{1/4});
+but integral of loglog(1/s) vanishes at 0, so the rate is integrable and
+cannot exclude the capped tail; abstract compatible trajectory
+Delta_t~loglog(n/t), |M_t|~n/loglog(n/t), |Q_t|~n exhibited; gap = a
+NONINTEGRABLE chronology theorem, i.e. (AE-dagger)-strength. Audit
+candidate: the Turan-Kubilius lemma, single-source. R149 still running
+(sandbox-simulation phase observed on-screen ~04:05 UTC).
+HARVEST PROTOCOL UPDATE: phantom window blocks clipboard writeText —
+VALIDATED replacement: blob download (URL.createObjectURL + a.download
+click on the tab, no focus needed) -> lands in ~/Downloads -> cp to
+scratchpad, rm the Downloads copy. Documented in docs/chatgpt-backend-api.md.
 
 Three slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R146's cap-entry theorem + doubling lemma, R148's coatom-ownership/cumulative-sparsity corollary, R138's localization theorem).
 
