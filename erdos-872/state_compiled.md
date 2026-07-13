@@ -411,6 +411,8 @@
   — verified by adversarial-audit-a, adversarial-audit-b; confidence high; prompt: [erdos-872/prompts/audit-R95-canonical-tl-adversarial.md](erdos-872/prompts/audit-R95-canonical-tl-adversarial.md)
 - **[R95-audit-b-lcm-not-function-of-indices](erdos-872/verify-postresp-R95-audit-b.md)** (2026-07-12): Does not hold as stated; the conclusion is unsupported. Independent re-derivation of the same first break and the same downstream defects as the sibling audit — cross-family-style convergence within one family, two counterexample boards.
   — verified by adversarial-audit-a, adversarial-audit-b; confidence high; prompt: [erdos-872/prompts/audit-R95-canonical-tl-adversarial.md](erdos-872/prompts/audit-R95-canonical-tl-adversarial.md)
+- **[R147-fsc-top-shell-confirmed](erdos-872/verify-postresp-R147-fsc-top-shell-confirmed.md)** (2026-07-13): The audit rules the theorem statement (part A) VALID, the proof (part B) VALID, and the J=2 boundary discussion together with the proposed counterexample challenge (part C) REPAIRABLE at a quantifier level only. Overall disposition: FSC(1,eta) holds for every fixed 0<eta<1. Part A: the activation threshold range 0<eta<1 is correctly handled (at eta>=1 the strict activation condition is vacuous since |Q_j| <= |S_j|); the phase bound K_n = floor(2|S_0|/(eta r(n))) + 2 is genuinely uniform over Prolonger strategies and prelude positions, with one clarification: "after any o(n)-move prelude" must be read as "for every fixed family of preludes uniformly o(n) in length" (no single threshold N is uniform over the entire unspecified class of o(n) functions). Part B: every step survives — theta = eta/3 works without a large-n proviso; the degree theorem reapplies at each of the K_n = o(n) bootstrap turns; each counted target u has the chosen d as a legal proper divisor, so u is nonminimal and dies the same turn. The critical disjointness concern is resolved with a supplied one-line addition: a minimal legal element can never later become nonminimal (a legal proper divisor at a later position was already legal earlier, contradicting earlier minimality), so members leave Q_0 by illegality or by becoming minimal and never re-enter; independently, every degree-certified target becomes illegal on the very turn it is counted, so deletion sets are pairwise disjoint and K_n (eta/2) r(n) > |S_0| forces the phase under K_n turns; Prolonger can never re-inflate Q_0. Part C: the obstruction to rescaling the upper-half degree theorem is confirmed real via the explicit n=100 witness d=2, x=40 in S_1, a=62 in S_0 (a kills d globally without killing x), though this does not preclude a different method clearing the second shell. Repair: the exhaustive negation of the uniform o(n) claim is only SUBSEQUENTIAL (exists c > 0 and n_k -> infinity with second-shell time >= c n_k), not an all-large-n Omega(n) bound; the challenge should be restated accordingly and should fix the prelude stopping rule and the tie-break among maximum-deletion moves.
+  — confidence high; prompt: [erdos-872/prompts/audit-R147-fsc-top-shell.md](erdos-872/prompts/audit-R147-fsc-top-shell.md)
 
 ## Ruled Out
 
@@ -546,12 +548,12 @@
 - refutation: 51
 - research: 190
 - synthesis: 12
-- verification: 105
+- verification: 106
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
-- independent: 91
+- independent: 92
 - prime-batching: 1
 - strategy-specific: 2
 - —: 268
