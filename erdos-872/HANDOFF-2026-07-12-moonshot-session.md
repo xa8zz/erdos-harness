@@ -128,6 +128,15 @@ true? the n=4000 example: multiplicity 128 vs instantaneous cap 48);
   over-constrain prompts.
 - ANY claimed full resolution: save (confidence low), push immediately,
   dispatch TWO fresh adversarial audits before believing.
+- Om (2026-07-13 ~00:15): if close to a solution (e.g. FSC induction
+  extending, or a claimed resolution entering audits) notify or even
+  call; if the FSC route hits another obstruction/wall loop, send a
+  notification and tell him. He is around and watching notis.
+- LOW-CONTEXT PROTOCOL (curator context is the scarce resource):
+  dispatch WITHOUT screenshots (JS-focus composer, osascript paste,
+  DOM-verify chip, DOM-click send — see docs/chatgpt-backend-api.md);
+  frontmatter drafting delegated to a Sonnet subagent that reads the
+  harvest file in its own context; curator reviews the draft only.
 - Promotion-grade claims (would shift state or be built upon): audit
   before load-bearing use — the audits keep winning; trust them.
 - On refutation: round doc with failure_mechanism, then press the

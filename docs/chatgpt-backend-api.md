@@ -95,3 +95,20 @@ array walking parent-ward, then reverse) and index explicitly.
 
 Still set a `pbcopy` sentinel before the harvest call so a failed/blocked
 `writeText` is detected (and always `LANG=en_US.UTF-8` on BOTH pbcopy and pbpaste — without it pbpaste re-encodes and mojibakes em-dashes) by `pbpaste` showing the sentinel.
+
+## Low-context dispatch (no screenshots — candidate protocol, validate then trust)
+
+Screenshots dominate curator context. Replace the visual dispatch with:
+
+1. `navigate` to `chatgpt.com/?model=gpt-5-pro` (verify Pro via DOM below, not pixels).
+2. javascript_tool: `document.querySelector('#prompt-textarea')?.focus(); 'focused'`
+3. Bash: `LANG=en_US.UTF-8 pbcopy < prompt.md` then
+   `osascript -e 'tell application "System Events" to keystroke "v" using command down'`
+   (Chrome must be frontmost: `osascript -e 'tell application "Google Chrome" to activate'` first).
+4. javascript_tool DOM-verify (repeat paste once if 0 chips):
+   `({chips: document.querySelectorAll('[class*="attachment"], [data-testid*="attachment"]').length, composer: document.querySelector('#prompt-textarea')?.innerText?.slice(0,40), model: document.querySelector('[data-testid="model-switcher-dropdown-button"], button[aria-haspopup]')?.innerText})`
+5. javascript_tool send: `document.querySelector('button[data-testid="send-button"], #composer-submit-button')?.click(); 'sent'` then re-fetch the tab list / conversation id via backend API.
+
+Selector names drift with ChatGPT deploys — if a selector misses, fall back to ONE
+screenshot to re-derive it, then update this section. The double-paste rule still
+applies (first paste after navigation may be swallowed); verify chips === 1 before sending.
