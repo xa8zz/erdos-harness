@@ -54,7 +54,8 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R145: targeted FSC(J,eta) attack (weakest sufficient target; R142 attachment) | chatgpt.com/c/6a542392-7134-83e8-8770-9ab2bb631f1c | RUNNING (dispatched ~22:40 07-12) |
+| R146: targeted FSC(2,eta) — the SECOND-SHELL frontier (R142+R145 attached) | chatgpt.com/c/6a542a6c-dbb0-83e8-be06-1f7c2bb0b9ca | RUNNING (dispatched ~23:20 07-12) |
+| R147: AUDIT of the FSC(1,eta) theorem (promotion-grade) | chatgpt.com/c/6a542aa5-ba60-83e8-b81f-46ccb5e423f6 | RUNNING (dispatched ~23:23 07-12) |
 | R144: FULL-COMPILATION free-roam (R142 base + rank sweep + frozen-cone accounting, provisional) | chatgpt.com/c/6a541dea-357c-83e8-b93f-d5ba572bad70 | RUNNING (dispatched ~21:58 07-12) |
 
 Two slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R137's thinness lemma + capture strategy, R138's localization theorem).
@@ -96,9 +97,14 @@ clearing; deep shells die by size). R143 LANDED AND SAVED
 (verify-postresp-R143-thinness-capture-confirmed.md — CONFIRMS R137:
 thinness VALID, capture VALID under aggregate reading; R137 machinery
 now established with the two stated repairs).
-R145 -> researcher-145-<slug>.md (predecessor
-R142-finite-shell-clearing, kind extends,
-prompts/researcher-R145-finite-shell-clearing.md).
+R145 LANDED AND SAVED (researcher-145-fsc-top-shell-proven.md —
+THEOREM: FSC(1,eta) proven for all 0<eta<1; 18th collapse eta>=1
+vacuous; frontier = J=2 second shell; R147 auditing).
+R146 -> researcher-146-<slug>.md (predecessor R145-fsc-top-shell-proven,
+kind extends, prompts/researcher-R146-fsc-second-shell.md).
+R147 -> verify-postresp-R147-<slug>.md (type verification, target
+R145-fsc-top-shell-proven, kind confirms or refutes per verdict,
+prompts/audit-R147-fsc-top-shell.md).
 R142 -> researcher-142-<slug>.md (kind standalone,
 prompts/researcher-R142-solution-attempt-full-compilation.md).
 Om's standing preference (2026-07-12 ~18:45): full-compilation
