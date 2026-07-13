@@ -56,7 +56,7 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 |---|---|---|
 | R146: targeted FSC(2,eta) — the SECOND-SHELL frontier (R142+R145 attached) | chatgpt.com/c/6a542a6c-dbb0-83e8-be06-1f7c2bb0b9ca | RUNNING (dispatched ~23:20 07-12) |
 | R147: AUDIT of the FSC(1,eta) theorem (promotion-grade) | chatgpt.com/c/6a542aa5-ba60-83e8-b81f-46ccb5e423f6 | RUNNING (dispatched ~23:23 07-12) |
-| R144: FULL-COMPILATION free-roam (R142 base + rank sweep + frozen-cone accounting, provisional) | chatgpt.com/c/6a541dea-357c-83e8-b93f-d5ba572bad70 | RUNNING (dispatched ~21:58 07-12) |
+| R148: FULL-COMPILATION free-roam (R144 base + FSC family w/ proven top shell + cone-weighted completion) | chatgpt.com/c/6a542bee-4234-83e8-b727-e6439168d1bf | RUNNING (dispatched ~23:58 07-12) |
 
 Two slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R137's thinness lemma + capture strategy, R138's localization theorem).
 
@@ -87,8 +87,9 @@ R138 LANDED AND SAVED (researcher-138-first-failure-localization.md —
 4-property disproof checklist).
 R139 LANDED AND SAVED (researcher-139-sparse-rank-sweep.md — o(n)
 moves force legal-poset height < g(n); single-source, audit candidate).
-R144 -> researcher-144-<slug>.md (kind standalone,
-prompts/researcher-R144-solution-attempt-full-compilation.md).
+R144 LANDED AND SAVED (researcher-144-cone-weighted-completion.md).
+R148 -> researcher-148-<slug>.md (kind standalone,
+prompts/researcher-R148-solution-attempt-full-compilation.md).
 R140 LANDED AND SAVED (researcher-140-frozen-cone-harmful-mass.md —
 frozen-cone accounting; randomization provably insufficient).
 R142 LANDED AND SAVED (researcher-142-finite-shell-clearing.md — NEW
