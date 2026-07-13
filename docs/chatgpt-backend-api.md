@@ -96,19 +96,42 @@ array walking parent-ward, then reverse) and index explicitly.
 Still set a `pbcopy` sentinel before the harvest call so a failed/blocked
 `writeText` is detected (and always `LANG=en_US.UTF-8` on BOTH pbcopy and pbpaste — without it pbpaste re-encodes and mojibakes em-dashes) by `pbpaste` showing the sentinel.
 
-## Low-context dispatch (no screenshots — candidate protocol, validate then trust)
+## Low-context dispatch (VALIDATED 2026-07-13 — subagent + clipboard-free JS injection)
 
-Screenshots dominate curator context. Replace the visual dispatch with:
+Screenshots and paste-dances dominate curator context. Validated replacement: delegate
+the whole dispatch to a **Sonnet subagent** (Agent tool, model=sonnet) that works
+entirely through claude-in-chrome on the MCP tabs. The curator only passes prompt file
+paths + target tab ids + marker phrases, and receives conversation ids back.
 
-1. `navigate` to `chatgpt.com/?model=gpt-5-pro` (verify Pro via DOM below, not pixels).
-2. javascript_tool: `document.querySelector('#prompt-textarea')?.focus(); 'focused'`
-3. Bash: `LANG=en_US.UTF-8 pbcopy < prompt.md` then
-   `osascript -e 'tell application "System Events" to keystroke "v" using command down'`
-   (Chrome must be frontmost: `osascript -e 'tell application "Google Chrome" to activate'` first).
-4. javascript_tool DOM-verify (repeat paste once if 0 chips):
-   `({chips: document.querySelectorAll('[class*="attachment"], [data-testid*="attachment"]').length, composer: document.querySelector('#prompt-textarea')?.innerText?.slice(0,40), model: document.querySelector('[data-testid="model-switcher-dropdown-button"], button[aria-haspopup]')?.innerText})`
-5. javascript_tool send: `document.querySelector('button[data-testid="send-button"], #composer-submit-button')?.click(); 'sent'` then re-fetch the tab list / conversation id via backend API.
+Why clipboard-free: after a system sleep the MCP tab group's Chrome window can become
+a phantom (0x0, `visibilityState 'hidden'`, invisible to AppleScript, `resize_window`
+no-op). CDP clicks/JS/screenshots still work on hidden tabs, but OS clipboard paste
+NEVER reaches them, and osascript keystrokes steal the user's focus (vetoed — user is
+at the machine). So the prompt text is injected via JS:
 
-Selector names drift with ChatGPT deploys — if a selector misses, fall back to ONE
-screenshot to re-derive it, then update this section. The double-paste rule still
-applies (first paste after navigation may be swallowed); verify chips === 1 before sending.
+1. Bash: `python3 -c "import json,sys; t=open(sys.argv[1],encoding='utf-8').read(); ..."`
+   — split the prompt into ~8 KB pieces and `json.dumps` each (a JSON string literal is
+   a valid JS expression; readable escaped text). Do NOT use base64: an opaque blob in
+   the subagent's context trips the usage-policy filter and kills the agent mid-task.
+   ~8 KB per piece; 24 KB halves overflow the Read tool's per-call cap on LaTeX-heavy text.
+2. javascript_tool per piece: `window.__p1 = <JSON literal>; window.__p1.length` —
+   verify EACH piece's length immediately (a 7-char silent drop was observed when a
+   literal was retyped by hand; copy the escaped output literally, never retype).
+3. Assemble + inject:
+   `const txt = window.__p1+window.__p2+...; const ta=document.querySelector('#prompt-textarea');
+    ta.focus(); document.execCommand('selectAll',false,null); document.execCommand('insertText',false,txt);`
+   then verify `ta.innerText.length` ≈ file char count and head matches the prompt's first line.
+   (insertText goes in as inline text, not an attachment chip — no chip checks needed,
+   no swallowed-paste double-paste dance.)
+4. Model check via DOM (`[data-testid="model-switcher-dropdown-button"]` innerText or
+   scan buttons for /Pro/); fix via picker clicks if wrong.
+5. Send: `document.querySelector('button[data-testid="send-button"], #composer-submit-button')?.click()`;
+   after ~4 s `location.href` is `chatgpt.com/c/<uuid>` — that's the conversation id.
+6. Backend-API verify: `default_model_slug` should be `gpt-5-6-pro` (the Pro-tier slug;
+   `?model=gpt-5-pro` in the URL maps to it), and the first user message should contain
+   the prompt's unique marker phrase exactly once.
+
+Other dead ends, so nobody retries them: a localhost CORS server + page `fetch()` is
+blocked by ChatGPT's CSP (connect-src); `file_upload` rejects repo/scratchpad paths
+(session-share restriction); CDP-synthesized `cmd+v` never triggers paste (browser-level
+shortcut, not renderer-level).

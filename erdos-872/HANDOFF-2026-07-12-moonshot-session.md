@@ -54,9 +54,14 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| (no threads in flight — R146 and R148 landed+saved ~01:05/01:01 UTC 07-13; refill next tick) | — | — |
+| R149: targeted "second-shell capped-tail exclusion" (convergence dispatch; Attachments A=FSC family, B=FSC(1) proof, C=R146 cap-entry+doubling, D=R148 cumulative sparsity) | chatgpt.com/c/6a54494c-4c48-83e8-a5ff-2e6964bcf69a | RUNNING (dispatched ~03:20 UTC 07-13, model gpt-5-6-pro verified) |
+| R150: FULL-COMPILATION free-roam (R148 base + cap-entry normal form + doubling + canonical-lift + coatom ownership) | chatgpt.com/c/6a544acf-d880-83e8-973b-3e38847901f6 | RUNNING (dispatched ~03:40 UTC 07-13, model gpt-5-6-pro verified) |
 
-All slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R146's cap-entry theorem + doubling lemma, R148's coatom-ownership/cumulative-sparsity corollary, R138's localization theorem).
+Pending saves: R149 -> researcher-149-<slug>.md (predecessors [R146-fsc2-second-shell-cap-entry-open, R148-second-shell-cumulative-sparsity-still-open], kind extends target R146-fsc2-second-shell-cap-entry-open, prompts/researcher-R149-capped-tail-exclusion.md). R150 -> researcher-150-<slug>.md (kind standalone, prompts/researcher-R150-solution-attempt-full-compilation.md).
+
+Three slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R146's cap-entry theorem + doubling lemma, R148's coatom-ownership/cumulative-sparsity corollary, R138's localization theorem).
+
+DISPATCH PROTOCOL UPDATE (2026-07-13, post-sleep phantom window): the MCP tab group's Chrome window went 0x0/hidden after a system sleep — OS clipboard paste is impossible into it and osascript keystrokes steal Om's focus (he vetoed). VALIDATED replacement: a Sonnet subagent dispatches ENTIRELY through claude-in-chrome on the hidden tabs — JSON-escaped prompt chunks (python json.dumps, ~8KB parts; base64 trips the usage-policy filter) staged onto window.__pN via javascript_tool, assembled + document.execCommand('insertText') into #prompt-textarea, DOM-click send, backend-API verify (default_model_slug 'gpt-5-6-pro', marker-once check). No focus, no clipboard, no screenshots in curator context. See docs/chatgpt-backend-api.md § Low-context dispatch.
 
 PROMOTED this session: R133 (SM)-refutation — R135a/b both VALID
 (verify-postresp-R135a/b saved). The static-modulus route is CLOSED and
