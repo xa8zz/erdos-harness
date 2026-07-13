@@ -54,8 +54,34 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R152: targeted REPAIRED FSC(2,eta) via deadline machinery (Attachments A-F incl. R149 root reduction + R150 TK lemma) | chatgpt.com/c/6a54738f-37c0-83e8-b011-2bbc9ce07808 | RUNNING (dispatched ~05:30 UTC 07-13, gpt-5-6-pro, server len exact 70580) |
-| R154: FULL-COMPILATION free-roam (R151 base + audit-corrected machinery + trichotomy target) | chatgpt.com/c/6a548048-f018-83e8-a4f1-f60478d09c88 | RUNNING (dispatched ~06:25 UTC 07-13, gpt-5-6-pro, server len exact 41588). Pending save: researcher-154-<slug>.md (kind standalone, prompts/researcher-R154-solution-attempt-full-compilation.md) |
+| (refills pending — R152 and R154 landed ~07:32/07:08 UTC 07-13 and are saved) | — | — |
+
+R152 LANDED AND SAVED (researcher-152-fsc2-equivalence-persistent-root-deadline-open.md
+— PROVEN: repaired capped-tail exclusion IS FSC(2,eta) (Prop 1, both
+directions); persistent-incidence bound T*k_X(d)<=|S_1|; LINEAR persistent
+root family |R|>=(eta*c-o(1))n already legal at sparse entry; static
+completion NOT contradicted (forces only |M(B)|>=~n/H, would need o(n/H));
+exact survivor deadline: d legal at B with k_X(d)>|S_1|/s must divide a
+selected move within first s turns, for EVERY s. FSC(2,eta) is EXACTLY
+equivalent to nonexistence of a time-ordered primitive multiple-cover
+schedule meeting all prefix deadlines while staying incomparable to X.
+Class-splitting disproof candidate KILLED at sparse positions (would force
+Theta(n) minimal legals). Open both ways: persistent-root deadline theorem
+(proof) vs postponed-refinement realization (disproof).)
+R154 LANDED AND SAVED (researcher-154-shallow-cone-hazard-conditional.md
+— NEW: cumulative minimal-root sparsity Lemma (union over whole prefix is
+o(n)); root-quotient HAZARD policy (choose d prop. to d^{-s}): any x with
+x/m>H for its minimal root m dies next move w.p. >= c_s H^s/n against
+adaptive play; Proposition 3 CONDITIONAL THEOREM: if T=o(n), H->inf,
+TH^s/n->inf and the shallow quotient cone C_T(H)={mq: m ever-minimal,
+q<=H} stays o(n), then L(n)=o(n) (derandomized via backward induction +
+continuation lemma). Counter-profile shows fixed-shell sparsity can't
+supply the cone hypothesis (roots at scale n/G with Theta(G) quotients;
+mass migrates to deeper shells). Missing: chronological theorem — cone
+mass Theta(n) forces Theta(n) deletion/play/banking in o(n) moves.)
+Pending refills: R155 targeted (fuse R152 multiple-cover schedule +
+R154 shallow-cone condition — same chronological object from two sides);
+R156 free-roam (R154-prompt base + R152/R154 results).
 
 R151 LANDED AND SAVED (researcher-151-chronology-gap-audit.md — free-roam
 negative: factorization entropy dies on shallow star fibers; peel+static
@@ -104,6 +130,17 @@ click on the tab, no focus needed) -> lands in ~/Downloads -> cp to
 scratchpad, rm the Downloads copy. Documented in docs/chatgpt-backend-api.md.
 
 Three slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R146's cap-entry theorem + doubling lemma, R148's coatom-ownership/cumulative-sparsity corollary, R138's localization theorem).
+
+ENVIRONMENT RESET (~09:30 UTC 07-13): Om's Chrome was fully reinstalled/fixed
+after a multi-hour outage (chat cutoff + extension disconnect). NEW facts:
+extension deviceId 715cad76-...; the old phantom-window tab group is GONE —
+fresh tab group, tab IDs change every reconnect (get via tabs_context_mcp);
+ChatGPT re-logged-in ([redacted-name]). Session crons were re-armed as f168df07
+(watcher 11,41) and 87d1c3c1 (heartbeat :53) — the watcher prompt now bakes in
+the end_turn check, blob-download harvest, and subagent dispatch. Om asleep
+(~09:40 UTC): standing authorization re-confirmed — aggressive autonomous
+continuation toward a solution; CALL [redacted] if something breaks hard OR
+a full solution survives audits; keep this handoff updated for compaction.
 
 DISPATCH PROTOCOL UPDATE (2026-07-13, post-sleep phantom window): the MCP tab group's Chrome window went 0x0/hidden after a system sleep — OS clipboard paste is impossible into it and osascript keystrokes steal Om's focus (he vetoed). VALIDATED replacement: a Sonnet subagent dispatches ENTIRELY through claude-in-chrome on the hidden tabs — JSON-escaped prompt chunks (python json.dumps, ~8KB parts; base64 trips the usage-policy filter) staged onto window.__pN via javascript_tool, assembled + document.execCommand('insertText') into #prompt-textarea, DOM-click send, backend-API verify (default_model_slug 'gpt-5-6-pro', marker-once check). No focus, no clipboard, no screenshots in curator context. See docs/chatgpt-backend-api.md § Low-context dispatch.
 
