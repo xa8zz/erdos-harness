@@ -55,6 +55,7 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 | R152: targeted REPAIRED FSC(2,eta) via deadline machinery (Attachments A-F incl. R149 root reduction + R150 TK lemma) | chatgpt.com/c/6a54738f-37c0-83e8-b011-2bbc9ce07808 | RUNNING (dispatched ~05:30 UTC 07-13, gpt-5-6-pro, server len exact 70580) |
+| R154: FULL-COMPILATION free-roam (R151 base + audit-corrected machinery + trichotomy target) | chatgpt.com/c/6a548048-f018-83e8-a4f1-f60478d09c88 | RUNNING (dispatched ~06:25 UTC 07-13, gpt-5-6-pro, server len exact 41588). Pending save: researcher-154-<slug>.md (kind standalone, prompts/researcher-R154-solution-attempt-full-compilation.md) |
 
 R151 LANDED AND SAVED (researcher-151-chronology-gap-audit.md — free-roam
 negative: factorization entropy dies on shallow star fibers; peel+static

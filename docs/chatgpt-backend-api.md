@@ -42,7 +42,11 @@ out
 ```
 
 `status: "finished_successfully"` with a stable `len` ⇒ ready to harvest. A thread
-still generating shows the assistant node absent or `in_progress`.
+still generating shows the assistant node absent or `in_progress`. CAVEAT: per-node
+`status` is `finished_successfully` even on intermediate narration/thoughts nodes
+while the overall turn is still running — for a definitive completion check, read the
+`current_node` message's `end_turn` flag (true ⇒ turn complete) and require a
+Verdict-shaped text (len > ~1000), not a <300-char narration.
 
 ## Harvest (byte-faithful, via system clipboard)
 
