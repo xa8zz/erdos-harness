@@ -55,6 +55,8 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 | R151: FULL-COMPILATION free-roam (R150 base + Turan-Kubilius loglog(n/t) lemma + integrability obstruction + capped-tail modulus closure) | chatgpt.com/c/6a5465bb-bb88-83e8-b95c-722a1b5e691e | RUNNING (dispatched ~04:35 UTC 07-13, model gpt-5-6-pro verified, server-side len exact 38905) |
+| R152: targeted REPAIRED FSC(2,eta) via deadline machinery (Attachments A-F incl. R149 root reduction + R150 TK lemma) | chatgpt.com/c/6a54738f-37c0-83e8-b011-2bbc9ce07808 | RUNNING (dispatched ~05:30 UTC 07-13, gpt-5-6-pro, server len exact 70580) |
+| AUDIT (pre-promotion): R149 results R0-R6 + R150 TK lemma R7-R8 | chatgpt.com/c/6a547455-eb2c-83e8-8fa7-1c1decfae788 | RUNNING (dispatched ~05:35 UTC 07-13, gpt-5-6-pro, server len exact 24697). Pending save: verify-postresp-R153-<slug>.md, kind confirms-or-refutes per verdicts, targets R149/R150 ids |
 R149 LANDED AND SAVED (researcher-149-capped-tail-vacuous-repair-root-reduction.md
 — 19th collapse: my exclusion transcription omitted eta_0>0 (activation
 suppression via eta_0=-1); exact repair = FSC(2,eta) itself. SIX new proven
@@ -65,6 +67,12 @@ tail contains a linear CONSTANT-cap suffix (starts at fixed fraction, evades
 fixed-cap no-entry); deadline formulation: d legal through a cn-turn tail =>
 final-survivor incidence k_X(d) <= 1/(4c)+o(1). Frontier now: can ONE blocker
 meet many deadlines at once (direct-ancestor batch).
+Pending saves: R152 -> researcher-152-<slug>.md (predecessors
+[R149-capped-tail-vacuous-repair-root-reduction, R150-second-shell-chronology-gap],
+kind extends target R149-capped-tail-vacuous-repair-root-reduction,
+prompts/researcher-R152-fsc2-repaired-deadline-attack.md). R151 ->
+researcher-151-<slug>.md (kind standalone,
+prompts/researcher-R151-solution-attempt-full-compilation.md).
 R150 LANDED AND SAVED (researcher-150-second-shell-chronology-gap.md — NEW
 PROVEN lemma: Delta_Q >>_eta loglog(n/t) on the second shell via
 Turan-Kubilius restricted to (n/4,n/2], K=min(n^{1/8},(n/t)^{1/4});
