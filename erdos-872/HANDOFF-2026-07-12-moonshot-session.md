@@ -54,8 +54,38 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R155: FUSION targeted — deadline schedule (Attachment G) = shallow cone (Attachment H), prove exclusion or build the schedule | chatgpt.com/c/6a54b6ad-ba2c-83e8-a334-cd62b13b00c5 | RUNNING (sent ~10:35 UTC 07-13, gpt-5-6-pro, server len exact 97159). Pending save: researcher-155-<slug>.md (predecessors [R152-fsc2-equivalence-persistent-root-deadline-open, R154-shallow-cone-hazard-conditional], kind extends target R152-..., prompts/researcher-R155-deadline-schedule-fusion.md) |
-| R156: FULL-COMPILATION free-roam (R154 base + R152/R154 newest reductions) | chatgpt.com/c/6a54b819-e33c-83e8-9ad6-91aa43ebecfc | RUNNING (sent ~10:41 UTC 07-13, gpt-5-6-pro, server len exact 44180). Pending save: researcher-156-<slug>.md (kind standalone, prompts/researcher-R156-solution-attempt-full-compilation.md) |
+| (refills pending — R155/R156 landed 10:35/11:28 UTC 07-13, saved ~16:30 after a tick gap) | — | — |
+
+R155 LANDED AND SAVED (researcher-155-shortener-cover-causal-repair.md —
+20th collapse: post-blocker player laundering ("divides a
+Shortener-selected move" has two readings, causal=provably empty via
+Lemma 1, noncausal=vacuous via n=30 example). CAUSAL ORIENTATION THEOREM:
+survivor-incident divisors are incomparable with every greedy move; first
+blockers are ALWAYS Prolonger replies; causal deadline k_X(d)>E/s =>
+d | p_j for some j<s (E = targets lost, sharper than |S_1|). Persistent
+roots tightened to (eta*c/(1-eta))n. n=96N abstract construction realizes
+ALL static requirements at linear scale => no purely arithmetic theorem
+settles FSC(2,eta); the greedy DYNAMICS must be used. Open: can genuine
+Prolonger replies realize the repaired obligations on-trajectory.)
+R156 LANDED AND SAVED (researcher-156-prolonger-common-core-mass-release.md
+— Lemma: max-degree play can always use a MINIMAL legal mover; NONCREATION
+lemma: minimal Shortener moves never create new minimal legals => under
+the minimal-max-degree policy ALL root regeneration is Prolonger-only;
+first-death ledger sum tau(a_i); common-core construction: ONE Prolonger
+move creates k ~ log n/loglog n new minima (refutes O(1)/move); fixed-depth
+clearing proven for every fixed J but diagonalization to growing g(n)
+formally impossible (explicit profile). Gap = direct-ancestor lifetime MASS
+ownership.)
+CONVERGENT PICTURE after R155+R156: both burdens now sit on PROLONGER's
+replies (causal orientation + noncreation). The single open object:
+bound the lifetime target mass released by one Prolonger reply across all
+its later refinements (common-core moves release ~log n/loglog n minima
+instantly and can be inherited unboundedly). Next: R157 targeted on the
+Prolonger-reply batch-coverage question with both machineries; R158
+free-roam.
+Pending refills: R157 (prompts/researcher-R157-prolonger-reply-coverage.md
+when composed), R158 (prompts/researcher-R158-solution-attempt-full-
+compilation.md when composed).
 
 DISPATCH PROTOCOL v3 (2026-07-13, after a subagent declined to send): subagents
 now do PREP ONLY — navigate, verify Pro, inject JSON-escaped chunks, verify
