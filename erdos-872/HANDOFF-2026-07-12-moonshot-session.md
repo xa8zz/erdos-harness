@@ -54,10 +54,9 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R146: targeted FSC(2,eta) — the SECOND-SHELL frontier (R142+R145 attached) | chatgpt.com/c/6a542a6c-dbb0-83e8-be06-1f7c2bb0b9ca | RUNNING (dispatched ~23:20 07-12) |
-| R148: FULL-COMPILATION free-roam (R144 base + FSC family w/ proven top shell + cone-weighted completion) | chatgpt.com/c/6a542bee-4234-83e8-b727-e6439168d1bf | RUNNING (dispatched ~23:58 07-12) |
+| (no threads in flight — R146 and R148 landed+saved ~01:05/01:01 UTC 07-13; refill next tick) | — | — |
 
-Two slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R137's thinness lemma + capture strategy, R138's localization theorem).
+All slots spare (Om is actively using the account himself — leave headroom; next audit candidates: R146's cap-entry theorem + doubling lemma, R148's coatom-ownership/cumulative-sparsity corollary, R138's localization theorem).
 
 PROMOTED this session: R133 (SM)-refutation — R135a/b both VALID
 (verify-postresp-R135a/b saved). The static-modulus route is CLOSED and
@@ -87,8 +86,10 @@ R138 LANDED AND SAVED (researcher-138-first-failure-localization.md —
 R139 LANDED AND SAVED (researcher-139-sparse-rank-sweep.md — o(n)
 moves force legal-poset height < g(n); single-source, audit candidate).
 R144 LANDED AND SAVED (researcher-144-cone-weighted-completion.md).
-R148 -> researcher-148-<slug>.md (kind standalone,
-prompts/researcher-R148-solution-attempt-full-compilation.md).
+R148 LANDED AND SAVED (researcher-148-second-shell-cumulative-sparsity-still-open.md
+— canonical-lift blocker lemma; coatom ownership => cumulative fixed-shell
+minima sparse over o(n) prefixes; gap isolated to divisor-refinement
+switching; no resolution either direction).
 R140 LANDED AND SAVED (researcher-140-frozen-cone-harmful-mass.md —
 frozen-cone accounting; randomization provably insufficient).
 R142 LANDED AND SAVED (researcher-142-finite-shell-clearing.md — NEW
@@ -100,8 +101,14 @@ now established with the two stated repairs).
 R145 LANDED AND SAVED (researcher-145-fsc-top-shell-proven.md —
 THEOREM: FSC(1,eta) proven for all 0<eta<1; 18th collapse eta>=1
 vacuous; frontier = J=2 second shell; R147 auditing).
-R146 -> researcher-146-<slug>.md (predecessor R145-fsc-top-shell-proven,
-kind extends, prompts/researcher-R146-fsc-second-shell.md).
+R146 LANDED AND SAVED (researcher-146-fsc2-second-shell-cap-entry-open.md
+— monotone-degree lemma + sparse cap-entry theorem: any FSC(2,eta)
+counterexample has an exact normal form (reach sparse capped-degree
+position in o(n) turns, sustain a linear capped tail); doubling lemma:
+cleared top shell forces (eta/8)n second-shell targets with explicit
+blockers a_x=2d_x, but one blocker can certify Theta(n/d) targets so no
+tau-capacity bound; FSC(2,eta) is EQUIVALENT to the new named statement
+"second-shell capped-tail exclusion").
 R147 LANDED AND SAVED (verify-postresp-R147-fsc-top-shell-confirmed.md
 — FSC(1,eta) CONFIRMED: A VALID, B VALID, C quantifier repair only.
 The top-shell theorem is ESTABLISHED machinery; treat as promoted).
