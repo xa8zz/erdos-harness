@@ -54,7 +54,8 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R149: targeted "second-shell capped-tail exclusion" (convergence dispatch; Attachments A=FSC family, B=FSC(1) proof, C=R146 cap-entry+doubling, D=R148 cumulative sparsity) | chatgpt.com/c/6a54494c-4c48-83e8-a5ff-2e6964bcf69a | RUNNING (dispatched ~03:20 UTC 07-13, model gpt-5-6-pro verified) |
+| R149: targeted "second-shell capped-tail exclusion" (convergence dispatch; Attachments A=FSC family, B=FSC(1) proof, C=R146 cap-entry+doubling, D=R148 cumulative sparsity) | chatgpt.com/c/6a54494c-4c48-83e8-a5ff-2e6964bcf69a | RUNNING (dispatched ~03:20 UTC 07-13, model gpt-5-6-pro verified; sandbox-sim phase seen 04:05) |
+| R151: FULL-COMPILATION free-roam (R150 base + Turan-Kubilius loglog(n/t) lemma + integrability obstruction + capped-tail modulus closure) | chatgpt.com/c/6a5465bb-bb88-83e8-b95c-722a1b5e691e | RUNNING (dispatched ~04:35 UTC 07-13, model gpt-5-6-pro verified, server-side len exact 38905) |
 Pending saves: R149 -> researcher-149-<slug>.md (predecessors [R146-fsc2-second-shell-cap-entry-open, R148-second-shell-cumulative-sparsity-still-open], kind extends target R146-fsc2-second-shell-cap-entry-open, prompts/researcher-R149-capped-tail-exclusion.md).
 R150 LANDED AND SAVED (researcher-150-second-shell-chronology-gap.md — NEW
 PROVEN lemma: Delta_Q >>_eta loglog(n/t) on the second shell via
