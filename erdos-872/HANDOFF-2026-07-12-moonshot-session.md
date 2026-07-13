@@ -54,9 +54,17 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R149: targeted "second-shell capped-tail exclusion" (convergence dispatch; Attachments A=FSC family, B=FSC(1) proof, C=R146 cap-entry+doubling, D=R148 cumulative sparsity) | chatgpt.com/c/6a54494c-4c48-83e8-a5ff-2e6964bcf69a | RUNNING (dispatched ~03:20 UTC 07-13, model gpt-5-6-pro verified; sandbox-sim phase seen 04:05) |
 | R151: FULL-COMPILATION free-roam (R150 base + Turan-Kubilius loglog(n/t) lemma + integrability obstruction + capped-tail modulus closure) | chatgpt.com/c/6a5465bb-bb88-83e8-b95c-722a1b5e691e | RUNNING (dispatched ~04:35 UTC 07-13, model gpt-5-6-pro verified, server-side len exact 38905) |
-Pending saves: R149 -> researcher-149-<slug>.md (predecessors [R146-fsc2-second-shell-cap-entry-open, R148-second-shell-cumulative-sparsity-still-open], kind extends target R146-fsc2-second-shell-cap-entry-open, prompts/researcher-R149-capped-tail-exclusion.md).
+R149 LANDED AND SAVED (researcher-149-capped-tail-vacuous-repair-root-reduction.md
+— 19th collapse: my exclusion transcription omitted eta_0>0 (activation
+suppression via eta_0=-1); exact repair = FSC(2,eta) itself. SIX new proven
+results: legal-divisor upset; minimal-root equivalence (greedy move = minimal
+legal root, same deletion set); linear tail => cn distinct NEW minimal-root
+events post-entry; (c/2)n of them concentrate in ((c/2)n, n/4]; every linear
+tail contains a linear CONSTANT-cap suffix (starts at fixed fraction, evades
+fixed-cap no-entry); deadline formulation: d legal through a cn-turn tail =>
+final-survivor incidence k_X(d) <= 1/(4c)+o(1). Frontier now: can ONE blocker
+meet many deadlines at once (direct-ancestor batch).
 R150 LANDED AND SAVED (researcher-150-second-shell-chronology-gap.md — NEW
 PROVEN lemma: Delta_Q >>_eta loglog(n/t) on the second shell via
 Turan-Kubilius restricted to (n/4,n/2], K=min(n^{1/8},(n/t)^{1/4});
