@@ -54,9 +54,24 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R151: FULL-COMPILATION free-roam (R150 base + Turan-Kubilius loglog(n/t) lemma + integrability obstruction + capped-tail modulus closure) | chatgpt.com/c/6a5465bb-bb88-83e8-b95c-722a1b5e691e | RUNNING (dispatched ~04:35 UTC 07-13, model gpt-5-6-pro verified, server-side len exact 38905) |
 | R152: targeted REPAIRED FSC(2,eta) via deadline machinery (Attachments A-F incl. R149 root reduction + R150 TK lemma) | chatgpt.com/c/6a54738f-37c0-83e8-b011-2bbc9ce07808 | RUNNING (dispatched ~05:30 UTC 07-13, gpt-5-6-pro, server len exact 70580) |
-| AUDIT (pre-promotion): R149 results R0-R6 + R150 TK lemma R7-R8 | chatgpt.com/c/6a547455-eb2c-83e8-8fa7-1c1decfae788 | RUNNING (dispatched ~05:35 UTC 07-13, gpt-5-6-pro, server len exact 24697). Pending save: verify-postresp-R153-<slug>.md, kind confirms-or-refutes per verdicts, targets R149/R150 ids |
+
+R151 LANDED AND SAVED (researcher-151-chronology-gap-audit.md — free-roam
+negative: factorization entropy dies on shallow star fibers; peel+static
+completion needs o(n/H) completion (H/log H divergence); height sweep
+fails on width (root d carries antichain {dp}); missing ingredient named
+as a chronological TRICHOTOMY equivalent to the (AE-dagger) recurrence).
+R153 AUDIT LANDED AND SAVED (verify-postresp-R153-capped-tail-second-shell-mixed-verdict.md
+— R1/R4/R5/R6/R7 VALID as stated (deadline formulation + constant-cap
+suffix + TK lemma now ESTABLISHED); R2 valid ONLY as deletion-set
+equality, NOT substitutable game move (n=48, A={5,7,11,16}: d=6 vs r=3);
+R3 repaired to T-o(n); R0 equivalence needs FOUR conditions; R150's R8
+deployment had four overreaches — true cap-entry time for a loglog
+trajectory is n*exp(-exp(Theta(H))), NOT n/H, and the abstract trajectory
+proves only scalar-inequality consistency, not game realizability.
+CRITICAL for future prompts: never cite R8's trajectory as evidence a
+linear tail is achievable; never treat O(n/H) as the actual cap-entry
+time.)
 R149 LANDED AND SAVED (researcher-149-capped-tail-vacuous-repair-root-reduction.md
 — 19th collapse: my exclusion transcription omitted eta_0>0 (activation
 suppression via eta_0=-1); exact repair = FSC(2,eta) itself. SIX new proven
