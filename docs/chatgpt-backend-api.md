@@ -160,3 +160,16 @@ Other dead ends, so nobody retries them: a localhost CORS server + page `fetch()
 blocked by ChatGPT's CSP (connect-src); `file_upload` rejects repo/scratchpad paths
 (session-share restriction); CDP-synthesized `cmd+v` never triggers paste (browser-level
 shortcut, not renderer-level).
+
+### v3 split: subagent preps, curator sends (2026-07-13)
+
+A subagent once (correctly, from its vantage) declined to send messages on the user's
+behalf — it cannot verify the user's authorization, which lives in the curator's
+session. Standard shape since: the subagent does everything up to a filled, verified,
+UN-SENT composer and stops; the curator performs the send click (one javascript_tool
+call: click `button[data-testid="send-button"], #composer-submit-button`, wait ~4.5s,
+read `location.href` for the conv id) and the backend verification. Brief subagents
+honestly: no urgency/"user asleep" framing, and explain the no-base64 rule as
+byte-fidelity plus keeping the payload human-readable — the base64 incident was
+Anthropic's own classifier flagging an opaque blob in the agent's context, not
+anything on the ChatGPT side.
