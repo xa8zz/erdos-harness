@@ -54,7 +54,19 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| (refills pending — R155/R156 landed 10:35/11:28 UTC 07-13, saved ~16:30 after a tick gap) | — | — |
+| R157: targeted Prolonger-reply coverage (causal deadlines + noncreation; Attachments A-J) | chatgpt.com/c/6a567b83-0974-83e8-ad9d-1b0f7f109c0b | RUNNING (sent ~18:00 UTC 07-14, gpt-5-6-pro, server len exact 100216). Pending save: researcher-157-<slug>.md (predecessors [R155-shortener-cover-causal-repair, R156-prolonger-common-core-mass-release], kind extends target R155-..., prompts/researcher-R157-prolonger-reply-coverage.md) |
+| R158: FULL-COMPILATION free-roam (R156 base + R155/R156 latest structural results) | chatgpt.com/c/6a567d0a-4198-83e8-91dd-bdb4ea0909ec | RUNNING (sent ~18:10 UTC 07-14, gpt-5-6-pro, server len exact 46571). Pending save: researcher-158-<slug>.md (kind standalone, prompts/researcher-R158-solution-attempt-full-compilation.md) |
+
+INCIDENT (07-13 ~17:00 -> 07-14 ~17:30 UTC): loop stalled ~18h. A second
+Chrome registration (deviceId 885e1fe3-...) reconnected mid-dispatch,
+triggering the harness's multi-browser gate (AskUserQuestion required);
+everything including watcher ticks queued behind the unanswered question.
+Om answered 07-14: USE deviceId 715cad76-7c5f-4d4e-b596-3d714274968e
+(standing choice — subagents are briefed to select_browser it on any flap).
+The 885e1fe3 registration still flaps; ask Om to sign the extension out of
+that Chrome/profile to kill the failure mode permanently. Chrome restarted
+during the stall: tab groups/ids reset again (currently 831679555 = R157
+thread, 831679556 = R158 prep).
 
 R155 LANDED AND SAVED (researcher-155-shortener-cover-causal-repair.md —
 20th collapse: post-blocker player laundering ("divides a
