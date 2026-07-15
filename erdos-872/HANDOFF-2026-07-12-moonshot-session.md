@@ -54,7 +54,20 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R161: targeted MULTISCALE PREPARATION CAPACITY (growing-Y; Attachments A-L) | chatgpt.com/c/6a5717ce-dd3c-83e8-9e57-78c0e4216f98 | RUNNING (sent ~06:55 UTC 07-15, gpt-5-6-pro, server len exact 138597). Pending save: researcher-161-<slug>.md (predecessors [R159-tri-causal-coatom-preparation], kind extends target R159-..., prompts/researcher-R161-multiscale-preparation-capacity.md) |
+R161 LANDED AND SAVED (researcher-161-downward-shadow-laundering.md —
+23rd+24th collapses (downward-shadow + face-pressure laundering); FOURTH
+causal layer: sigma<beta<gamma<t (shadow < coatom < release < service);
+downward-shadow dichotomy THEOREM (gcd of any coatom subfamily: legal =>
+|U|<=Delta_j, illegal => earlier Prolonger first-blocker); Prop 1: ALL
+multiscale aggregations of fixed-Y bounds provably dead; TK demand side
+REAL: linear root family carries (delta/3)n loglog Y obligations; sharp
+packet: one reply prepares Theta(Y/log Y) private coatoms BUT with hidden
+common face d (the dichotomy catches it). THE program-critical reduction:
+named inequality (SC) — shadow-closed uniform preparation capacity,
+sum nu_{Y_n} <= C_alpha E + o(n loglog Y_n) — and Prop 4 PROVES
+(SC) => FSC(2,eta) for the prescribed policy. Next: attack (SC) directly.
+Depth-J iteration needs shadow-blocker uniformity across earlier shells
+(unaddressed).)
 
 R159 LANDED AND SAVED (researcher-159-tri-causal-coatom-preparation.md —
 22nd collapse: ancestor-preparation laundering; bi-causal system NECESSARY
