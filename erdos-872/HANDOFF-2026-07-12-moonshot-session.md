@@ -54,8 +54,23 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-CURRENT MOMENT (~08:45 UTC 07-15): ONE thread in flight:
-| R164: targeted (SC*) repaired, prove or refute | chatgpt.com/c/6a5735d2-440c-83e8-ba7b-a44afb14d1f0 | RUNNING (sent ~08:40 UTC 07-15, gpt-5-6-pro, server len exact 89411, checksum-verified). Pending save: researcher-164-<slug>.md (predecessors [R163-sc-oversized-y-vacuity], kind extends target R163-...) |
+CURRENT MOMENT (~09:50 UTC 07-15): R166 free-roam in flight (see row
+below). R164 LANDED AND SAVED (researcher-164-sc-star-ambient-laundering.md
+— 26th collapse: ambient-denominator laundering / sublinear-cohort
+absorption. CIRCULARITY PROVEN: Theorem 4 + Section 6 show ambient (SC*)
+<=> sup M_alpha/n -> 0 <=> repaired FSC(2,eta) — the capacity-inequality
+LADDER TERMINATES; every correctly-quantified ambient capacity statement
+is automatic (sublinear cohorts, TK absorption) or equivalent to the goal
+(linear cohorts). Non-circular residue: (SC^rel) — relative remainder at
+the E(I)*Lambda_n scale with frozen baseline B_{alpha,n} = Z_n^2 a_n +
+mu_n(alpha) pi(Z_n) + 1; clearing alone does NOT imply it; it still needs
+the chronological cross-reply correlation theorem. ZOOM-OUT (honest): six
+targeted rounds R157-R164 each added real machinery + a collapse; the
+core chronological gap is INVARIANT — same strength as (AE-dagger) at
+R130. The frame produces theorems but not closure. Cross-family check is
+now overdue (needs Om). Options for next targeted: (SC^rel) directly, OR
+the no-linear-tail statement with the E-scale requirement made explicit,
+OR pause targeted dispatches until cross-family input.)
 R165 SAVED (round165-empirical-ledger-probe.md, diagnostic, confidence
 low): NO tested Prolonger policy (random / greedy-block / shell-defender)
 sustains a linear or even stable second-shell phase to n=50k — active
