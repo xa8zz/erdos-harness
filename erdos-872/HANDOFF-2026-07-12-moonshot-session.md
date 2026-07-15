@@ -56,6 +56,18 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 |---|---|---|
 | R163: targeted (SC) — shadow-closed uniform preparation capacity, prove or refute (Attachments A-N; (SC) => FSC(2,eta) already proven) | chatgpt.com/c/6a572896-77a0-83e8-9b8f-9c25f4447d97 | RUNNING (sent ~07:35 UTC 07-15, gpt-5-6-pro, server len exact 140168, checksum-verified). Pending save: researcher-163-<slug>.md (predecessors [R161-downward-shadow-laundering], kind extends target R161-..., prompts/researcher-R163-shadow-closed-capacity-sc.md). ESCALATION NOTE: if (SC) is PROVEN and survives audits, that proves FSC(2,eta) — notify Om immediately; if it iterates depth-J, the o(n) resolution is in reach — CALL him. |
 
+STRATEGIC FLAG (curator zoom-out, 07-15): R157->R163 each added one causal
+layer + one collapse family (21st-25th) around the SAME capacity-vs-demand
+frame — every theorem is real (audited machinery keeps accumulating), but
+the scissors reopen at a finer scale each round. This matches the
+sigma*-trap diagnostic: within-family attractor risk (ALL concurrences are
+GPT-5.6). RECOMMENDED before more same-frame dispatches: (1) the
+never-executed CROSS-FAMILY check (hand the compiled frame + (SC)-repair
+statement to Gemini/Claude fresh threads and ask whether the frame itself
+is the right decomposition); (2) an empirical sandbox probe of the
+preparation-demand vs reply-capacity ledgers at n ~ 10^4-10^5 (measure
+actual nu_Y sums along greedy games). Flagged to Om via noti.
+
 R161 LANDED AND SAVED (researcher-161-downward-shadow-laundering.md —
 23rd+24th collapses (downward-shadow + face-pressure laundering); FOURTH
 causal layer: sigma<beta<gamma<t (shadow < coatom < release < service);
