@@ -21,6 +21,17 @@ Caveat: raw parts include citation placeholder tokens (private-use unicode aroun
 `filecite…`). Strip with the documented regex below (mechanical transform; note it in
 the round doc if any were removed).
 
+## Outage handling (learned 2026-07-15, 6h stall)
+
+ChatGPT can 503 for hours. Rules: (1) NEVER poll chatgpt.com health with bare
+curl/wget — Cloudflare returns 403 to non-browser clients even when the service is
+healthy, so an `until curl … 2xx` loop waits forever. Health checks must run through
+the browser tab (`fetch('/api/auth/session')` via javascript_tool, checking `r.ok`).
+(2) During an outage, guard every API call with `if(!r.ok){({retry:r.status})}` —
+`.json()` on an error page throws "Unexpected token 'u', \"upstream c\"…". (3) Landed
+responses are durable server-side; an outage costs latency only. Just retry on the
+next watcher tick rather than arming ad-hoc pollers.
+
 ## Status check (all in-flight threads, one call)
 
 ```js
