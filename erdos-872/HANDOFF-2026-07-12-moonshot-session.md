@@ -54,8 +54,33 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R157: targeted Prolonger-reply coverage (causal deadlines + noncreation; Attachments A-J) | chatgpt.com/c/6a567b83-0974-83e8-ad9d-1b0f7f109c0b | RUNNING (sent ~18:00 UTC 07-14, gpt-5-6-pro, server len exact 100216). Pending save: researcher-157-<slug>.md (predecessors [R155-shortener-cover-causal-repair, R156-prolonger-common-core-mass-release], kind extends target R155-..., prompts/researcher-R157-prolonger-reply-coverage.md) |
-| R158: FULL-COMPILATION free-roam (R156 base + R155/R156 latest structural results) | chatgpt.com/c/6a567d0a-4198-83e8-91dd-bdb4ea0909ec | RUNNING (sent ~18:10 UTC 07-14, gpt-5-6-pro, server len exact 46571). Pending save: researcher-158-<slug>.md (kind standalone, prompts/researcher-R158-solution-attempt-full-compilation.md) |
+| (refills pending — R157/R158 landed 19:05/19:30 UTC 07-14, saved ~04:30 07-15 after ChatGPT 503 outage + broken curl-based recovery poller) | — | — |
+
+R157 LANDED AND SAVED (researcher-157-postponed-service-laundering.md —
+21st collapse: postponed-service laundering (endpoint release totals can
+credit late root-bursts to early turns; repair = PREFIX accounting).
+PROVEN: future-target persistence; future-service pressure
+Delta_t >= (|X|+T-t+1)/(n/8-t+...); UNIQUE Prolonger release time gamma(t)
+per greedy root; EXACT PREFIX HALL EQUALITY s = |I(s)| + sum_{j<s}|C_j(s)|
+with |M(A_1)|=o(n) forcing sum_{j<s}|C_j(s)| >= s-o(n) for every linear
+prefix. The bi-causal reply system: each reply must jointly satisfy
+survivor deadlines + multiscale prefix Hall + joint packet containment
+lcm(B_j u {lambda_j(r)}) | p_j <= n. THE named open object: a JOINT
+PACKET-CAPACITY THEOREM (bound cumulative mass released by
+distinct-last-ancestor packets across replies under sum Delta_t <= E).
+Next dispatch should target it directly — prefix Hall, release times,
+noncreation, causal orientation are settled inputs.)
+R158 LANDED AND SAVED (researcher-158-fsc-dyadic-vs-cj-bifurcation.md,
+confidence LOW — purely diagnostic: my prompt bullet "fixed-depth clearing
+holds for every fixed J" bifurcated (dyadic-shell reading = FSC(J,eta)
+all J, UNPROVEN, would give o(n) via the clean epsilon/J/eta compactness
+argument; C_j refinement-layer reading = the actual R156 result, no
+length bound). NOT a resolution. PROMPT RULE: never say "fixed-depth
+clearing" bare — say "minimal-legal-layer clearing (C_j)" vs
+"dyadic-shell clearing FSC(J,eta)".)
+Pending refills: R159 targeted = the joint packet-capacity theorem
+(R157's named object; attach R157 verbatim + settled inputs);
+R160 free-roam (R158 base with the bifurcated bullet FIXED).
 
 INCIDENT (07-13 ~17:00 -> 07-14 ~17:30 UTC): loop stalled ~18h. A second
 Chrome registration (deviceId 885e1fe3-...) reconnected mid-dispatch,
