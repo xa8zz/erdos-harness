@@ -147,11 +147,14 @@ at the machine). So the prompt text is injected via JS:
 
 1. Bash: `python3 -c "import json,sys; t=open(sys.argv[1],encoding='utf-8').read(); ..."`
    — split the prompt into ~8 KB pieces and `json.dumps` each (a JSON string literal is
-   a valid JS expression; readable escaped text). Use JSON-escaped text, NOT base64,
-   because it stays human-readable and inspectable — the subagent (and anyone auditing)
-   can see exactly what's being transported, and a byte drop is caught by length/checksum.
-   Sizing: ~8 KB per piece; a 24 KB half overflows the Read tool's per-call cap on
-   LaTeX-heavy text. This is a size-and-fidelity workaround, nothing more.
+   a valid JS expression; readable escaped text). Use JSON-escaped text, NOT base64, for
+   two reasons: (a) it stays human-readable and inspectable — the subagent and anyone
+   auditing can see exactly what's transported, and a byte drop is caught by
+   length/checksum; (b) OPERATIONALLY, subagent runs that switched to base64 have failed
+   mid-task (2026-07-15, twice), while the JSON route worked reliably across R155–R166.
+   Brief subagents to use JSON and NOT improvise base64 "to avoid transcription risk" —
+   re-read a mismatched chunk's file verbatim instead. Sizing: ~8 KB per piece; a 24 KB
+   half overflows the Read tool's per-call cap on LaTeX-heavy text.
 2. javascript_tool per piece: `window.__p1 = <JSON literal>; window.__p1.length` —
    verify EACH piece's length immediately (a 7-char silent drop was observed when a
    literal was retyped by hand; copy the escaped output literally, never retype).
