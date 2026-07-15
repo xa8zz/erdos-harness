@@ -54,27 +54,20 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-CURRENT MOMENT (~08:20 UTC 07-15, pre-compaction sweep): ZERO threads
-in-flight on ChatGPT; TWO curator subagents running: (1) R164 composer
-PREP (prompts/researcher-R164-sc-star-repaired.md, 89411 chars, target =
-(SC*) verbatim; when it reports ready, CURATOR sends via the v3
-send-click on the prepped tab, then backend-verify + handoff update —
-successor: if the prep already reported, just check the composer and
-send); pending save researcher-164-<slug>.md (predecessors
-[R163-sc-oversized-y-vacuity], kind extends target R163-...);
-(2) EMPIRICAL LEDGER PROBE in scratchpad/probe_ledger/ (greedy
-second-shell games n=2k..50k, three Prolonger policies, measuring actual
-nu_Y demand vs n loglog Y and release events; results ->
-probe_ledger/RESULTS.md; save as round*-empirical doc when done, type
-diagnostic). STILL TO DO: R165 free-roam refill (base =
+CURRENT MOMENT (~08:45 UTC 07-15): ONE thread in flight:
+| R164: targeted (SC*) repaired, prove or refute | chatgpt.com/c/6a5735d2-440c-83e8-ba7b-a44afb14d1f0 | RUNNING (sent ~08:40 UTC 07-15, gpt-5-6-pro, server len exact 89411, checksum-verified). Pending save: researcher-164-<slug>.md (predecessors [R163-sc-oversized-y-vacuity], kind extends target R163-...) |
+R165 SAVED (round165-empirical-ledger-probe.md, diagnostic, confidence
+low): NO tested Prolonger policy (random / greedy-block / shell-defender)
+sustains a linear or even stable second-shell phase to n=50k — active
+fraction SHRINKS (0.012 -> 0.0058 for the best); nu_Y demand shrinks vs
+the n loglog Y curve. Simulator committed at phase5-ledger-probe/ —
+IMPLEMENT AND MEASURE any future analytical Prolonger construction there
+before believing it. STILL TO DO: R166 free-roam refill (base =
 prompts/researcher-R162-solution-attempt-full-compilation.md + R162/R163
-newest blocks — summable-weight barrier + (SC*) formulation); consider
-cross-family check (flagged, needs Om's Gemini/Claude access). Crons:
+blocks + the R165 empirical line); cross-family check (needs Om). Crons:
 watcher f168df07 (11,41), heartbeat 87d1c3c1 (:53) — session-only,
-RE-ARM ON SESSION RESTART. Chrome: deviceId 715cad76 is Om's standing
-choice; tabs are ephemeral, get via tabs_context_mcp; ChatGPT login Owen
-Patel. All protocols: docs/chatgpt-backend-api.md (status/harvest/
-dispatch v3/outage handling).
+RE-ARM ON SESSION RESTART. Chrome: deviceId 715cad76 standing choice;
+ChatGPT login [redacted-name]. Protocols: docs/chatgpt-backend-api.md.
 
 R163 LANDED AND SAVED (researcher-163-sc-oversized-y-vacuity.md — 25th
 collapse: oversized-Y normalization escape (Y_n=e^{e^{(log n)^2}} makes
