@@ -66,7 +66,24 @@ rationale: (a) >=1 free-roam (R168) satisfied; (b) the highest-value
 move (cross-family check) is gated on Om; (c) better to see R168's
 frame-broken result before spending another 90-min Pro cycle in the
 reframed space. Refill to two when R168 lands OR Om returns.
-| R169: LOWER-BOUND / disproof free-roam (force Omega(n) vs prove Prolonger cannot; orthogonal to all 6 upper-bound rounds) | chatgpt.com/c/6a57bfcf-f3cc-83e8-b67d-7bfbc673bd9a | RUNNING (sent ~17:15 UTC 07-15, gpt-5-6-pro, server len exact 58140, checksum-verified). Pending save: researcher-169-<slug>.md (kind standalone, prompts/researcher-R169-lower-bound-disproof.md) |
+R169 LANDED AND SAVED (researcher-169-prime-band-tensorization-gap.md —
+THE PIVOT PAID OFF: a genuinely NEW frame, materially different from the
+saturated dyadic-shell capacity route. Largest-PRIME-BAND recursive
+factorization: bands I_j=(n^{1/(j+1)}, n^{1/j}] each carry a STRICT
+multiplicative deficit j*log(1+1/j)=1-1/(2j)+O(j^-2)<1, product over J
+bands ~ J^{-1/2}->0 (a promising trajectory-potential candidate).
+Established: private-chain lemma (fortress chains give only O(n/H), never
+linear); tagged-cone protection lemma (d-lifted quotient strategy robust
+to untagged moves); clean prime-fibre independence above sqrt(n) (mass
+(log2)n); fixed finite gadgets can't reach linear density. THE NEW
+NAMED TARGET: 'tagged tensorization' — a move inherited by k tagged
+quotient games must charge <=k quotient moves additively (no double-count,
+no uncharged residual). ONLY CONJECTURALLY related to the upper-bound
+chronological gap (same 'one move, many roles' flavor) — NOT proven
+equivalent, so it's a distinct frontier. Lower-bound side still empty of
+any linear construction (deficit undefeated). NEXT: R170 targeted on
+tagged tensorization / the Buchstab-band deficit as a trajectory
+potential — a NON-capacity route. Cross-family check still #1 for Om.)
 
 R168 LANDED AND SAVED (researcher-168-reframe-reconfirms-invariant-gap.md
 — DECISIVE NEGATIVE: even with the capacity frame explicitly closed, the
