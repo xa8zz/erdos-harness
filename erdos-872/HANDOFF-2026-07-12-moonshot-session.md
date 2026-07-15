@@ -66,6 +66,7 @@ rationale: (a) >=1 free-roam (R168) satisfied; (b) the highest-value
 move (cross-family check) is gated on Om; (c) better to see R168's
 frame-broken result before spending another 90-min Pro cycle in the
 reframed space. Refill to two when R168 lands OR Om returns.
+| R170: targeted TAGGED TENSORIZATION + Buchstab-band deficit as trajectory potential (NEW prime-band frame; Attachment Q=R169) | chatgpt.com/c/6a57f1a3-5764-83e8-b5cc-e3fe2c329820 | RUNNING (sent ~20:55 UTC 07-15, gpt-5-6-pro, server len exact 24454, checksum-verified). Pending save: researcher-170-<slug>.md (predecessors [R169-prime-band-tensorization-gap], kind extends target R169-..., prompts/researcher-R170-tagged-tensorization.md). ESCALATION: if tagged tensorization is PROVEN (=> a NON-capacity proof of L(n)=o(n) with explicit rate), save confidence-low + TWO fresh audits; if it survives, that's the first genuine closure route — CALL Om.)
 R169 LANDED AND SAVED (researcher-169-prime-band-tensorization-gap.md —
 THE PIVOT PAID OFF: a genuinely NEW frame, materially different from the
 saturated dyadic-shell capacity route. Largest-PRIME-BAND recursive
