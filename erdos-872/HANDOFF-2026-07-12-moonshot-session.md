@@ -54,7 +54,19 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R159: targeted JOINT PACKET-CAPACITY theorem (Attachments A-K; prefix Hall + release times + causal orientation + noncreation as settled inputs) | chatgpt.com/c/6a570a54-0660-83e8-b327-20396586d8e1 | RUNNING (sent ~05:20 UTC 07-15, gpt-5-6-pro, server len exact 118509). Pending save: researcher-159-<slug>.md (predecessors [R157-postponed-service-laundering], kind extends target R157-..., prompts/researcher-R159-joint-packet-capacity.md) |
+R159 LANDED AND SAVED (researcher-159-tri-causal-coatom-preparation.md —
+22nd collapse: ancestor-preparation laundering; bi-causal system NECESSARY
+BUT NOT SUFFICIENT (explicit linear table satisfies ALL prior conditions
+yet is a non-trajectory: even coatom 2b_t can never be blocked by odd
+replies). PROVEN: prime-quotient lemma (every released root = prime lift
+of its last ancestor); off-branch coatoms already illegal at release;
+coatom first-blockers are EARLIER Prolonger replies; distinct coatoms need
+distinct replies => each released root costs omega(r)-1 distinct earlier
+replies; strict tri-causal chronology beta<gamma<t. Proposition 5:
+fixed-prime preparation capacity sum nu_Y <= (Y/alpha)E + O(Y^2|A_1|),
+unconditional but fixed-Y is not exclusionary. NEXT NAMED TARGET:
+MULTISCALE (growing-Y) preparation-capacity theorem. Scope: minimal-max-
+degree-policy-specific; no finite-shell induction.)
 | R160: FULL-COMPILATION free-roam (R158 base, bifurcated bullet FIXED, causal accounting added) | chatgpt.com/c/6a570baf-6e00-83e8-ad17-2e3121f6907f | RUNNING (sent ~05:30 UTC 07-15, gpt-5-6-pro, server len exact 48445). Pending save: researcher-160-<slug>.md (kind standalone, prompts/researcher-R160-solution-attempt-full-compilation.md) |
 
 R157 LANDED AND SAVED (researcher-157-postponed-service-laundering.md —
