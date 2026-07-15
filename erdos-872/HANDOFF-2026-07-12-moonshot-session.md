@@ -54,7 +54,15 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| R163: targeted (SC) — shadow-closed uniform preparation capacity, prove or refute (Attachments A-N; (SC) => FSC(2,eta) already proven) | chatgpt.com/c/6a572896-77a0-83e8-9b8f-9c25f4447d97 | RUNNING (sent ~07:35 UTC 07-15, gpt-5-6-pro, server len exact 140168, checksum-verified). Pending save: researcher-163-<slug>.md (predecessors [R161-downward-shadow-laundering], kind extends target R161-..., prompts/researcher-R163-shadow-closed-capacity-sc.md). ESCALATION NOTE: if (SC) is PROVEN and survives audits, that proves FSC(2,eta) — notify Om immediately; if it iterates depth-J, the o(n) resolution is in reach — CALL him. |
+R163 LANDED AND SAVED (researcher-163-sc-oversized-y-vacuity.md — 25th
+collapse: oversized-Y normalization escape (Y_n=e^{e^{(log n)^2}} makes
+the o(n loglog Y_n) remainder swallow everything since nu saturates at
+Y=n/4 while omega(g)<=log_2 n). Literal (SC) TRUE-BUT-VACUOUS with
+C_alpha=0. Exact repairs: A (Y_n<=n/4 range + frozen-entry Y_n^2 a_n =
+o(n loglog Y_n)) and B (Z_n=min(Y_n,n/4) normalization; canonical
+prime-harmonic form (SC*) with Lambda_n = sum_{p<=Z_n}1/p) + explicit
+sup-remainder quantifier order. (SC*) is the substantive target,
+UNATTACKED this round. NEXT DISPATCH MUST state (SC*) verbatim.)
 
 STRATEGIC FLAG (curator zoom-out, 07-15): R157->R163 each added one causal
 layer + one collapse family (21st-25th) around the SAME capacity-vs-demand
@@ -96,7 +104,13 @@ fixed-prime preparation capacity sum nu_Y <= (Y/alpha)E + O(Y^2|A_1|),
 unconditional but fixed-Y is not exclusionary. NEXT NAMED TARGET:
 MULTISCALE (growing-Y) preparation-capacity theorem. Scope: minimal-max-
 degree-policy-specific; no finite-shell induction.)
-| R162: FULL-COMPILATION free-roam (R160 base + tri-causal + L^s ledger + packet obstruction) | chatgpt.com/c/6a5722e8-73f8-83e8-99bd-14115d2919ad | RUNNING (sent ~06:45 UTC 07-15, gpt-5-6-pro, server len exact 51415, checksum-verified). Pending save: researcher-162-<slug>.md (kind standalone, prompts/researcher-R162-solution-attempt-full-compilation.md) |
+R162 LANDED AND SAVED (researcher-162-packet-capacity-obstruction.md —
+SUMMABLE-WEIGHT BARRIER: every additive coatom ledger with summable
+prime weights (any fixed s>2) provably cannot close the upper bound;
+unweighted counts fail via interval-blocker (n/log(1/rho) roots per
+rho*n blockers); packet three-role simultaneity confirmed; only
+nonadditive/chronological/trajectory-restricted capacity arguments
+remain viable. No disproof either.)
 
 R160 LANDED AND SAVED (researcher-160-chronology-safe-ls-ledger-bicausal-packet.md
 — NEW TOOL: chronology-safe L^s first-death ledger (sum (d/x)^s <= C_s*m
