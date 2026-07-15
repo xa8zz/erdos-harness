@@ -62,9 +62,8 @@ sustains a linear or even stable second-shell phase to n=50k — active
 fraction SHRINKS (0.012 -> 0.0058 for the best); nu_Y demand shrinks vs
 the n loglog Y curve. Simulator committed at phase5-ledger-probe/ —
 IMPLEMENT AND MEASURE any future analytical Prolonger construction there
-before believing it. STILL TO DO: R166 free-roam refill (base =
-prompts/researcher-R162-solution-attempt-full-compilation.md + R162/R163
-blocks + the R165 empirical line); cross-family check (needs Om). Crons:
+before believing it. | R166: FULL-COMPILATION free-roam (R162 base + summable-weight barrier + (SC*) + empirical landscape) | chatgpt.com/c/6a5737e3-cdd4-83e8-b339-d468a4597934 | RUNNING (sent ~09:15 UTC 07-15, gpt-5-6-pro, server len exact 53882, checksum-verified). Pending save: researcher-166-<slug>.md (kind standalone, prompts/researcher-R166-solution-attempt-full-compilation.md) |
+STILL TO DO: cross-family check (needs Om). Crons:
 watcher f168df07 (11,41), heartbeat 87d1c3c1 (:53) — session-only,
 RE-ARM ON SESSION RESTART. Chrome: deviceId 715cad76 standing choice;
 ChatGPT login [redacted-name]. Protocols: docs/chatgpt-backend-api.md.
