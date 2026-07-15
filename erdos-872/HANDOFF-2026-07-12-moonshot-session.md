@@ -69,7 +69,17 @@ fixed-prime preparation capacity sum nu_Y <= (Y/alpha)E + O(Y^2|A_1|),
 unconditional but fixed-Y is not exclusionary. NEXT NAMED TARGET:
 MULTISCALE (growing-Y) preparation-capacity theorem. Scope: minimal-max-
 degree-policy-specific; no finite-shell induction.)
-| R160: FULL-COMPILATION free-roam (R158 base, bifurcated bullet FIXED, causal accounting added) | chatgpt.com/c/6a570baf-6e00-83e8-ad17-2e3121f6907f | RUNNING (sent ~05:30 UTC 07-15, gpt-5-6-pro, server len exact 48445). Pending save: researcher-160-<slug>.md (kind standalone, prompts/researcher-R160-solution-attempt-full-compilation.md) |
+R160 LANDED AND SAVED (researcher-160-chronology-safe-ls-ledger-bicausal-packet.md
+— NEW TOOL: chronology-safe L^s first-death ledger (sum (d/x)^s <= C_s*m
+over any m-move interval — the FIRST genuine lifetime bound covering
+direct ancestors, closing the gap open since the atomic ledger); rigid
+coatom-release lemma (unique prime q, lambda=r/q legal, lambda | p);
+bi-causal packet counterexample p=3m serves THREE obligations at once
+(kills pointwise capacity even locally); honest insufficiency: ledger
+capacity Theta(n) MATCHES demand Theta(n). Open object refined: a
+PREPARATION-SENSITIVE joint packet-capacity theorem (amortize over
+preparation history, not per-move). Pending refill: R162 free-roam
+(R160-prompt base + R159 tri-causal + R160 ledger/packet).)
 
 R157 LANDED AND SAVED (researcher-157-postponed-service-laundering.md —
 21st collapse: postponed-service laundering (endpoint release totals can
