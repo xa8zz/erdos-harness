@@ -54,6 +54,8 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
+| R161: targeted MULTISCALE PREPARATION CAPACITY (growing-Y; Attachments A-L) | chatgpt.com/c/6a5717ce-dd3c-83e8-9e57-78c0e4216f98 | RUNNING (sent ~06:55 UTC 07-15, gpt-5-6-pro, server len exact 138597). Pending save: researcher-161-<slug>.md (predecessors [R159-tri-causal-coatom-preparation], kind extends target R159-..., prompts/researcher-R161-multiscale-preparation-capacity.md) |
+
 R159 LANDED AND SAVED (researcher-159-tri-causal-coatom-preparation.md —
 22nd collapse: ancestor-preparation laundering; bi-causal system NECESSARY
 BUT NOT SUFFICIENT (explicit linear table satisfies ALL prior conditions
