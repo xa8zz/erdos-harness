@@ -55,7 +55,9 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 CURRENT MOMENT (~09:50 UTC 07-15): R166 free-roam in flight (see row
-below). R164 LANDED AND SAVED (researcher-164-sc-star-ambient-laundering.md
+below). | R167: targeted (SC^rel) at E-scale — the non-circular capacity residue (Attachments K-P) | chatgpt.com/c/6a5744fe-c3f8-83e8-bf62-48c5c697f2ab | RUNNING (sent ~10:30 UTC 07-15, gpt-5-6-pro, server len exact 104046, checksum-verified). Pending save: researcher-167-<slug>.md (predecessors [R164-sc-star-ambient-laundering], kind extends target R164-...) |
+
+R164 LANDED AND SAVED (researcher-164-sc-star-ambient-laundering.md
 — 26th collapse: ambient-denominator laundering / sublinear-cohort
 absorption. CIRCULARITY PROVEN: Theorem 4 + Section 6 show ambient (SC*)
 <=> sup M_alpha/n -> 0 <=> repaired FSC(2,eta) — the capacity-inequality
