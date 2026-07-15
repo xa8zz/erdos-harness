@@ -66,6 +66,8 @@ rationale: (a) >=1 free-roam (R168) satisfied; (b) the highest-value
 move (cross-family check) is gated on Om; (c) better to see R168's
 frame-broken result before spending another 90-min Pro cycle in the
 reframed space. Refill to two when R168 lands OR Om returns.
+| R169: LOWER-BOUND / disproof free-roam (force Omega(n) vs prove Prolonger cannot; orthogonal to all 6 upper-bound rounds) | chatgpt.com/c/6a57bfcf-f3cc-83e8-b67d-7bfbc673bd9a | RUNNING (sent ~17:15 UTC 07-15, gpt-5-6-pro, server len exact 58140, checksum-verified). Pending save: researcher-169-<slug>.md (kind standalone, prompts/researcher-R169-lower-bound-disproof.md) |
+
 R168 LANDED AND SAVED (researcher-168-reframe-reconfirms-invariant-gap.md
 — DECISIVE NEGATIVE: even with the capacity frame explicitly closed, the
 free-roam re-converged to the SAME invariant chronological gap by six
