@@ -55,7 +55,17 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 | What | Thread URL | Status |
 |---|---|---|
 CURRENT MOMENT (~11:25 UTC 07-15): TWO free-roams in flight —
-| R166: full-compilation free-roam | chatgpt.com/c/6a5737e3-cdd4-83e8-b339-d468a4597934 | RUNNING (sent ~09:15, pending save researcher-166-<slug>.md kind standalone) |
+R166 LANDED AND SAVED (researcher-166-second-shell-packet-capacity-unresolved.md
+— honest re-synthesis, no new content: two composed routes fail
+structurally (sparse-rank+fixed-layer = diagonal non-transfer;
+static-completion+cone-halving = minimal-root regeneration); it pointed
+at (SC*) as the missing estimate, now KNOWN circular per R167 — noted in
+its frontmatter). SOLE FREE-ROAM NOW: R168 (reframe). Slot decision:
+HOLDING the second slot rather than dispatching another free-roam —
+rationale: (a) >=1 free-roam (R168) satisfied; (b) the highest-value
+move (cross-family check) is gated on Om; (c) better to see R168's
+frame-broken result before spending another 90-min Pro cycle in the
+reframed space. Refill to two when R168 lands OR Om returns.
 | R168: REFRAME free-roam (capacity frame marked CLOSED; machinery kept as tools; open question neutral) | chatgpt.com/c/6a574df8-b934-83e8-b153-e6b1eec32435 | RUNNING (sent ~11:20, checksum-verified 56665; pending save researcher-168-<slug>.md kind standalone) |
 R167 LANDED AND SAVED (researcher-167-sc-rel-degree-dilution-collapse.md —
 27th collapse, slow-cutoff degree-dilution laundering; (SC^rel) ALSO
