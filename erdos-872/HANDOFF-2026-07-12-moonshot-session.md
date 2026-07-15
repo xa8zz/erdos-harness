@@ -54,7 +54,8 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-| (refills pending — R157/R158 landed 19:05/19:30 UTC 07-14, saved ~04:30 07-15 after ChatGPT 503 outage + broken curl-based recovery poller) | — | — |
+| R159: targeted JOINT PACKET-CAPACITY theorem (Attachments A-K; prefix Hall + release times + causal orientation + noncreation as settled inputs) | chatgpt.com/c/6a570a54-0660-83e8-b327-20396586d8e1 | RUNNING (sent ~05:20 UTC 07-15, gpt-5-6-pro, server len exact 118509). Pending save: researcher-159-<slug>.md (predecessors [R157-postponed-service-laundering], kind extends target R157-..., prompts/researcher-R159-joint-packet-capacity.md) |
+| R160: FULL-COMPILATION free-roam (R158 base, bifurcated bullet FIXED, causal accounting added) | chatgpt.com/c/6a570baf-6e00-83e8-ad17-2e3121f6907f | RUNNING (sent ~05:30 UTC 07-15, gpt-5-6-pro, server len exact 48445). Pending save: researcher-160-<slug>.md (kind standalone, prompts/researcher-R160-solution-attempt-full-compilation.md) |
 
 R157 LANDED AND SAVED (researcher-157-postponed-service-laundering.md —
 21st collapse: postponed-service laundering (endpoint release totals can
