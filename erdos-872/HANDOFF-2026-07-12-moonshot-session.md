@@ -54,8 +54,15 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
-CURRENT MOMENT (~09:50 UTC 07-15): R166 free-roam in flight (see row
-below). | R167: targeted (SC^rel) at E-scale — the non-circular capacity residue (Attachments K-P) | chatgpt.com/c/6a5744fe-c3f8-83e8-bf62-48c5c697f2ab | RUNNING (sent ~10:30 UTC 07-15, gpt-5-6-pro, server len exact 104046, checksum-verified). Pending save: researcher-167-<slug>.md (predecessors [R164-sc-star-ambient-laundering], kind extends target R164-...) |
+CURRENT MOMENT (~11:25 UTC 07-15): TWO free-roams in flight —
+| R166: full-compilation free-roam | chatgpt.com/c/6a5737e3-cdd4-83e8-b339-d468a4597934 | RUNNING (sent ~09:15, pending save researcher-166-<slug>.md kind standalone) |
+| R168: REFRAME free-roam (capacity frame marked CLOSED; machinery kept as tools; open question neutral) | chatgpt.com/c/6a574df8-b934-83e8-b153-e6b1eec32435 | RUNNING (sent ~11:20, checksum-verified 56665; pending save researcher-168-<slug>.md kind standalone) |
+R167 LANDED AND SAVED (researcher-167-sc-rel-degree-dilution-collapse.md —
+27th collapse, slow-cutoff degree-dilution laundering; (SC^rel) ALSO
+circular <=> FSC(2,eta); BOTH capacity normalizations proven circular;
+capacity-inequality frame = confirmed sigma*-trap, STOPPED. See the R167
+handoff block + round doc for the frame-breaking options. TOP PRIORITY
+non-curator move: CROSS-FAMILY check (needs Om's Gemini/Claude access).)
 
 R164 LANDED AND SAVED (researcher-164-sc-star-ambient-laundering.md
 — 26th collapse: ambient-denominator laundering / sublinear-cohort
