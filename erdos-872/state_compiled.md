@@ -447,6 +447,8 @@
   — confidence medium; prompt: [erdos-872/prompts/researcher-R162-solution-attempt-full-compilation.md](erdos-872/prompts/researcher-R162-solution-attempt-full-compilation.md)
 - **[R163-sc-oversized-y-vacuity](erdos-872/researcher-163-sc-oversized-y-vacuity.md)** (2026-07-15): (SC) as literally quantified is true but vacuous, via a parameter-level oversized-Y normalization escape. Choosing the deterministic, strategy-independent cutoff Y_n = exp(exp((log n)^2)) gives log log Y_n = (log n)^2, while for every integer m <= n, omega(m) <= log_2 n (since 2^omega(m) <= prod_{p|m} p <= m <= n) and nu_Y(m) <= omega(m) for every Y; since greedy roots g_t are distinct integers in {2,...,n}, uniformly over every Prolonger strategy, tie-break, reply shape, and shadow history, sum_{t: g_t>=alpha n} nu_{Y_n}(g_t) <= n log_2 n = o(n(log n)^2) = o(n log log Y_n); taking C_alpha=0 proves the displayed inequality with explicit remainder R_n = n log_2 n satisfying sup over all realized intervals of R_n/(n log log Y_n) -> 0, using no shadow closure, chronology, or degree ledger. This does not prove second-shell clearing: every root satisfies g_t <= n/4, so nu_Y(g_t) = nu_{n/4}(g_t) once Y >= n/4 — the left side saturates while log log Y_n keeps growing unboundedly; the Turan-Kubilius demand step requires sum_g nu_{Y_n}(g) >> n log log Y_n, which is impossible for this Y_n since the true effective mean is governed by sum_{p <= min(Y,n)} 1/p, not log log Y, once Y>n. Two equivalent exact repairs: (Repair A, effective-cutoff range) require Y_n -> infinity with Y_n <= n/4 for all sufficiently large n (e.g. Y_n <= exp(sqrt(log log n))), plus a uniform frozen-entry condition Y_n^2 a_n = o(n log log Y_n) where a_n = sup_sigma |A_1(sigma)| = o(n) (the stronger Y_n^2 a_n = o(n) suffices); (Repair B, normalize by effective cutoff) set Z_n = min{Y_n, n/4}; since no root g_t <= n/4 has a prime divisor exceeding n/4, nu_{Y_n}(g_t) = nu_{Z_n}(g_t), giving the reformulated statement sum_{t: g_t>=alpha n} nu_{Z_n}(g_t) <= C_alpha E + o(n log log Z_n) with Z_n -> infinity, or its canonical prime-harmonic form using Lambda_n = sum_{p<=Z_n} 1/p in place of log log Z_n (statement SC*). The repaired assertion must additionally fix quantifier order via an explicit uniform remainder: sup over all realized bad intervals I in the admissible class (activation data and tie-break fixed in advance) of the positive part of [sum_{t: g_t>=alpha n} nu_{Z_n}(g_t) - C_alpha E(I)] divided by n log log Z_n tends to 0 — fix alpha, then C_alpha and deterministic Z_n, then quantify over all realized Prolonger trajectories, then take one uniform asymptotic remainder. Scope: the literal (SC) proof is shell-independent only vacuously (universal bound omega(g) <= log_2 n plus oversized normalization) and gives neither meaningful second-shell clearing nor depth-J uniformity; the repaired (SC*) with Repair A or B, the frozen-entry condition, and the explicit uniform remainder is the substantive cross-reply target and remains unproven.
   — confidence medium; prompt: [erdos-872/prompts/researcher-R163-shadow-closed-capacity-sc.md](erdos-872/prompts/researcher-R163-shadow-closed-capacity-sc.md)
+- **[R165-empirical-ledger-probe](erdos-872/round165-empirical-ledger-probe.md)** (2026-07-15): Sieve-based simulation of the divisibility-antichain game on {2..n} for n in {2000, 5000, 10000, 20000, 50000}, Shortener playing the divisibility-minimal maximum-degree policy on the second shell S_1=(n/4,n/2] (activation threshold eta=0.25), against three Prolonger policies (uniform random legal; greedy-block maximizing currently-legal small divisors of the reply; shell-defender playing S_1 elements), with per-ply incremental bookkeeping cross-validated against brute force at small n: no tested policy sustains an S_1-active phase proportional to n — the active-phase fraction SHRINKS with n (greedy-block, the strongest: 0.012 at n=2000 down to 0.0058 at n=50000; random and shell-defender an order of magnitude smaller and also shrinking); the small-prime demand sum nu_Y over greedy roots also shrinks relative to n (greedy-block nu_300/n: 0.013 down to 0.0019 over the same range), and normalizing by n log log Y does not flatten it. Finite-n evidence is therefore consistent with second-shell clearing being true against these adversaries, and no tested policy exhibits the linear capped-tail scenario. CAVEAT: three heuristic policies are not an optimal adversary; this is evidence about the reachable-strategy landscape at small scale, not a proof in either direction.
+  — confidence low
 
 ## Ruled Out
 
@@ -578,7 +580,7 @@
 ## Indices
 
 ### By type
-- diagnostic: 6
+- diagnostic: 7
 - refutation: 51
 - research: 206
 - synthesis: 12
@@ -592,6 +594,7 @@
 - independent: 103
 - minimal-max-degree-policy-dependent: 1
 - minimal-max-degree-policy-specific: 1
+- policy-sample-dependent: 1
 - prescribed-policy-specific: 1
 - prime-batching: 1
 - strategy-specific: 2
