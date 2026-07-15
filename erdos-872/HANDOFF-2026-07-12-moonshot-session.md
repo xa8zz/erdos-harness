@@ -66,7 +66,17 @@ rationale: (a) >=1 free-roam (R168) satisfied; (b) the highest-value
 move (cross-family check) is gated on Om; (c) better to see R168's
 frame-broken result before spending another 90-min Pro cycle in the
 reframed space. Refill to two when R168 lands OR Om returns.
-| R168: REFRAME free-roam (capacity frame marked CLOSED; machinery kept as tools; open question neutral) | chatgpt.com/c/6a574df8-b934-83e8-b153-e6b1eec32435 | RUNNING (sent ~11:20, checksum-verified 56665; pending save researcher-168-<slug>.md kind standalone) |
+R168 LANDED AND SAVED (researcher-168-reframe-reconfirms-invariant-gap.md
+— DECISIVE NEGATIVE: even with the capacity frame explicitly closed, the
+free-roam re-converged to the SAME invariant chronological gap by six
+independent routes (rank sweep, integrable degree estimate, causal
+packets, L^s ledger Theta(n)=Theta(n), hazard/shallow-cone, lower-bound
+collapse). No new content. Combined with R166: TWO post-reframe
+free-roams reconfirm the gap => within-family (GPT-5.6) UPPER-BOUND
+exploration is SATURATED. App was closed ~10:27-17:00 UTC (crons idle;
+no harm). DECISION: pivot the live slot to the DISPROOF/LOWER-BOUND side
+(genuinely orthogonal — six upper-bound rounds all declined it) as R169;
+cross-family check remains the top non-curator move (needs Om).)
 R167 LANDED AND SAVED (researcher-167-sc-rel-degree-dilution-collapse.md —
 27th collapse, slow-cutoff degree-dilution laundering; (SC^rel) ALSO
 circular <=> FSC(2,eta); BOTH capacity normalizations proven circular;
