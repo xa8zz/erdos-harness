@@ -54,6 +54,28 @@ Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
 | What | Thread URL | Status |
 |---|---|---|
+CURRENT MOMENT (~08:20 UTC 07-15, pre-compaction sweep): ZERO threads
+in-flight on ChatGPT; TWO curator subagents running: (1) R164 composer
+PREP (prompts/researcher-R164-sc-star-repaired.md, 89411 chars, target =
+(SC*) verbatim; when it reports ready, CURATOR sends via the v3
+send-click on the prepped tab, then backend-verify + handoff update —
+successor: if the prep already reported, just check the composer and
+send); pending save researcher-164-<slug>.md (predecessors
+[R163-sc-oversized-y-vacuity], kind extends target R163-...);
+(2) EMPIRICAL LEDGER PROBE in scratchpad/probe_ledger/ (greedy
+second-shell games n=2k..50k, three Prolonger policies, measuring actual
+nu_Y demand vs n loglog Y and release events; results ->
+probe_ledger/RESULTS.md; save as round*-empirical doc when done, type
+diagnostic). STILL TO DO: R165 free-roam refill (base =
+prompts/researcher-R162-solution-attempt-full-compilation.md + R162/R163
+newest blocks — summable-weight barrier + (SC*) formulation); consider
+cross-family check (flagged, needs Om's Gemini/Claude access). Crons:
+watcher f168df07 (11,41), heartbeat 87d1c3c1 (:53) — session-only,
+RE-ARM ON SESSION RESTART. Chrome: deviceId 715cad76 is Om's standing
+choice; tabs are ephemeral, get via tabs_context_mcp; ChatGPT login Owen
+Patel. All protocols: docs/chatgpt-backend-api.md (status/harvest/
+dispatch v3/outage handling).
+
 R163 LANDED AND SAVED (researcher-163-sc-oversized-y-vacuity.md — 25th
 collapse: oversized-Y normalization escape (Y_n=e^{e^{(log n)^2}} makes
 the o(n loglog Y_n) remainder swallow everything since nu saturates at
