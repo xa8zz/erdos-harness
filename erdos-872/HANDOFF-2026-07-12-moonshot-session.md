@@ -66,7 +66,20 @@ rationale: (a) >=1 free-roam (R168) satisfied; (b) the highest-value
 move (cross-family check) is gated on Om; (c) better to see R168's
 frame-broken result before spending another 90-min Pro cycle in the
 reframed space. Refill to two when R168 lands OR Om returns.
-| R170: targeted TAGGED TENSORIZATION + Buchstab-band deficit as trajectory potential (NEW prime-band frame; Attachment Q=R169) | chatgpt.com/c/6a57f1a3-5764-83e8-b5cc-e3fe2c329820 | RUNNING (sent ~20:55 UTC 07-15, gpt-5-6-pro, server len exact 24454, checksum-verified). Pending save: researcher-170-<slug>.md (predecessors [R169-prime-band-tensorization-gap], kind extends target R169-..., prompts/researcher-R170-tagged-tensorization.md). ESCALATION: if tagged tensorization is PROVEN (=> a NON-capacity proof of L(n)=o(n) with explicit rate), save confidence-low + TWO fresh audits; if it survives, that's the first genuine closure route — CALL Om.)
+CURRENT MOMENT (~00:05 UTC 07-16): ONE free-roam in flight (R171).
+R170 LANDED AND SAVED (researcher-170-tagged-tensorization-refuted.md,
+HEAD e4d905e, lattice 389). Verdict: tagged tensorization is FALSE on the
+strategic reading needed to multiply the band deficits — the failure is on
+SHORTENER's side (the responder min does NOT tensorize): for a single
+two-tag I_3 move [primes p<q in (n^{1/4},n^{1/3}], packets M≍n^{3/10}/log n]
+the compatibility-defect gap min_s Σ_p F_p(s/p) − Σ_p min_z F_p(z) is
+≥ M−O(1) → ∞ (3M−O(1) protected globally vs 2M+O(1) if replies were
+independent). So j·log(1+1/j)<1 is a STATIC projection-multiplicity deficit,
+not a trajectory potential; band product ≍ J^{-1/2} does NOT yield o(n)
+alone. NOT a resolution (refutes the R169 bridge, doesn't decide L(n)=o(n)).
+Surviving prime-band route now needs a genuinely NON-TENSOR asynchronous
+cross-band reply-compatibility potential. No escalation (no proof landed).
+| R171: FULL-COMPILATION free-roam (complete state incl. capacity-circular map + R170 tagged-tensorization refutation folded into ruled-out; neutral open question, model picks route) | chatgpt.com/c/6a5821f8-663c-83e8-b676-17bfa57bf9d1 | RUNNING (sent ~00:03 UTC 07-16, gpt-5-6-pro, server len exact 14268, marker×1, checksum-verified). Pending save: researcher-171-<slug>.md (kind standalone or per verdict, prompts/researcher-R171-full-compilation-freeroam.md).
 R169 LANDED AND SAVED (researcher-169-prime-band-tensorization-gap.md —
 THE PIVOT PAID OFF: a genuinely NEW frame, materially different from the
 saturated dyadic-shell capacity route. Largest-PRIME-BAND recursive
