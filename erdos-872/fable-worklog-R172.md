@@ -106,7 +106,62 @@ build on it.
 - Mature results -> round docs (R172+...) with model provenance fable-5; cross-family
   audit + Aristotle before promotion. Commit per round; never batch.
 
+## Findings
+
+**F1 (2026-07-22): phase1 CSV is poisoned; corrected exact values to n=58.**
+`phase1/exact_minimax_v2.py` inflates some values by +1 (verified wrong at n=27,
+39-42 by naive-reference ground truth; see phase1/CSV-WARNING.md). New engine
+`fable/solver.c` (C, bitboard alpha-beta+TT, ~600x faster than v2) validated against
+naive reference on ALL of n=2..40, TT-size-independent. Corrected table:
+`fable/exact_corrected.csv` (n=2..58). k = L - pi increments at
+n = 9, 21, 28, 35, 49, 51, 57 (gaps 12,7,7,14,2,6 — noisy, no clean trend; n<=58 is
+deep pre-asymptopia, do NOT extrapolate). The R171 prompt's small-n table was RIGHT;
+the CSV was wrong. My earlier in-session "gaps ~6.5 => linear signal" read was based
+on the poisoned CSV and is RETRACTED.
+
+**F2: optimal-play structure = weapon-burn tempo battle, then flat mop-up.**
+PVs at n=40, 58 (fable/pv40.txt, pv58.txt): optimal play is a short "battle" phase --
+P opens with a primorial-type burn (30 at n=58: burns primes {2,3,5} as future moves),
+S replies with the max-degree surviving weapon, and CRUCIALLY when a prime p is burned
+S shifts to its prime-power sub-weapon (played 4=2^2, later 9=3^2): burning shifts the
+weapon DOWN A LEVEL, it does not defuse the cone. P then burns the next primes via
+minimal-collateral multiples (14/21/35/49 for 7; 22/33/55 for 11). Battle length grows
+with n (3 moves at n=40, 6 at n=58); afterwards the position goes flat (huge ties, all
+degrees <=1, antichain mop-up). L(n) = battle length + residual antichain size. The
+asymptotic question = how the battle scales.
+
+**F3: the game renormalizes over the largest-prime-factor fibre tree.**
+Clean fibres F_q (q > sqrt n) are independent quotient games ~ the full game at scale
+n/q with an extra mega-weapon "q itself" (the fibre root = q*1). S sweeps a fibre in 1
+move (play q); P protects it in 1 move (play q*p', p' prime near n/q — near-zero
+collateral, burns root q); protected fibres recurse. In band I_j = (n^{1/(j+1)}, n^{1/j}]
+P burns j roots per move (multi-tag moves q_1...q_j*b <= n) — this is EXACTLY the
+corpus's j*log(1+1/j) < 1 band identity seen from the tempo side. Naive fixed point
+c = pf*c + boundary forces c = 0 unless protected mass fraction pf -> 1; pf is set by
+the burn-vs-sweep race economics across all bands simultaneously.
+
+## LINE D (new primary): the continuum band-race allocation game
+
+Solve the CONTINUUM LIMIT of the whole allocation game first, then prove in the
+direction it indicates. State: mass flowing down the largest-prime-factor band tree.
+S spends moves converting weapon-granularity into kills; P spends moves degrading
+granularity (burn bandwidth j in band j; multi-tag moves create asynchronous unserved
+obligations — R170's compatibility defect is P's asynchrony edge). The game value in
+the continuum = lim f(n)/n. Plan: (1) formalize the continuum game + Bellman equation;
+(2) solve numerically (value iteration on discretized band tree); (3) consistency-check
+against exact data, the 0.1897 upper bound, and known lower bounds; (4) extract the
+winning side's strategy shape and prove it discretely. This differs from the corpus:
+they built per-band potentials (killed by non-tensorization) and per-shell capacities
+(circular); nobody solved the global allocation game as an optimization object.
+
+DANGER LOG for Line D: the continuum game is a MODEL until the discrete extraction is
+proven — its value is a conjecture generator, not evidence usable for promotion. Every
+modeling choice (state summary, kill rates, burn rates) must be validated against exact
+small-n play traces before trusting the fixed point.
+
 ## Log
 
-- 2026-07-22: Ingest complete. Worklog established. Next: Line C solver extension +
-  Line A defect-ledger formalization in parallel.
+- 2026-07-22: Ingest complete. Worklog established.
+- 2026-07-22: F1 (CSV poison + corrected table to 58), F2 (tempo-battle structure),
+  F3 (fibre renormalization). Line D formulated — now primary. Next: formalize +
+  numerically solve the continuum band-race game.
