@@ -159,9 +159,105 @@ proven — its value is a conjecture generator, not evidence usable for promotio
 modeling choice (state summary, kill rates, burn rates) must be validated against exact
 small-n play traces before trusting the fixed point.
 
+## Line D formal development (v2 — the rough tree)
+
+**Model v1 flaw + fix.** v1 (largest-prime fibres) undersells S: S's real weapons are
+divisor cones cone(d) = {multiples of d}, which cut across largest-prime fibres. Correct
+partition tree = smallest-prime-first (rough) tree: node d has children d*q (q prime,
+q >= P^-(quotient)), child d*q owns {d*q*m : P^-(m) >= q} — the q-rough quotients, mass
+(n/dq)*rough-density(q) ~ (n/dq)*c/log q. Matches observed PV weapons (S plays 4 = child
+of burned 2; 9 = child of burned 3) and the corpus's dyadic-shell frame.
+
+**Move economics on the rough tree.**
+- S CASH: play frontier node d (1 move) -> kills its live sub-cone mass.
+- P PUSH: burn a set of frontier nodes {d_i} in one move x = prod(d_i)*pad <= n
+  (bandwidth constraint sum of scales <= 1; pad = huge prime for near-zero collateral).
+  Burning d does NOT save its mass directly — it FRAGMENTS the cone into children
+  {d*q}, each requiring a separate future S-move (or further pushes). Mass conserved.
+- Every move (cash, push, dust-service) adds +1 to L. Kill accounting: L = n - kills.
+
+**Scale bookkeeping (why the question reduces to mass-at-bounded-quotient).** At chain
+scale sigma < 1 the node counts are n^sigma = o(n): the entire polynomial-scale battle
+costs o(n) moves — it determines mass ROUTING only. Theta(n) move-cost accrues only
+where quotients are O(1) (near-dust). Hence, modulo the continuum idealization:
+L = Theta(n) iff P forces Theta(n) mass into bounded-quotient cones against optimal S
+interception; L = o(n) iff S can intercept all but o(n) mass at unbounded quotient
+scales. The interception economics: the count-tempo race (S 1 cash/move vs P floor(1/s)
+pushes/move) at every scale simultaneously — an allocation game whose saddle point is
+lim L/n.
+
+**Single-ladder exchange rates (local calculation, needs care).** Fighting one cone of
+scale w: P's r-th push forces S's best sub-weapon to w*p_r (p_r ~ r log r), degrading a
+single cash from n/w to n/(w*r*log r), at cost r P-moves; but the residual mass is not
+saved, it is split across r sibling subtrees each needing its own S-move. Local marginal
+comparison at fixed r favors S (1/(r log r) cash per move vs ~1/r^2 marginal save), but
+P's shallow-scale bandwidth (primorial burns: unbounded pushes/move as s->0) and the
+fragmentation multiplier (each push multiplies S's required move count) act globally —
+the saddle cannot be read off locally. Needs the full allocation game.
+
+**Fixed-point structure.** Both players' budgets are L/2 = cn/2 moves — the game value
+feeds back into the budgets. Numerical plan: measure-dynamics simulation over
+discretized scale space (no integer boards needed): cohorts (scale, mass, count),
+alternating parameterized allocation policies, best-response iteration to approximate
+the saddle; consistency targets: reproduce ~0.19-type value under Bonferroni-like S
+unimpeded, reproduce (loglog)^2 n/log n-type P floor, post-dict n=58 PV micro-structure.
+
+## F4: arena results (exact boards, engineered policies) — 2026-07-22
+
+`fable/arena.c`: exact-legality policy arena, O(n log n) engine (bucket max-degree,
+incremental live-divisor counts), n up to 10^7. Matchups vs canonical maxdeg-S:
+
+| n | dustman-P | burner-P | boxer-P |   | burner L*ln n/n |
+|------|--------|--------|--------|---|------|
+| 10^3 | 0.1680 | 0.1790 | 0.1730 |   | 1.237 |
+| 10^4 | 0.1229 | 0.1358 | 0.1271 |   | 1.251 |
+| 10^5 | 0.0959 | 0.1102 | 0.0972 |   | 1.269 |
+| 10^6 | 0.0785 | 0.0945 |   —    |   | 1.305 |
+
+- burner-P (coprime top-degree bundle * pad prime) is the strongest P fielded; its
+  normalized coefficient L*ln n/n GROWS steadily — it escapes fixed-C n/log n but far
+  below (loglog)^2-rate at these scales. maxdeg-S beats smallest-S (~4%).
+- boxer-P (exponent-greedy divisor-box burns) UNDERPERFORMS burner: breadth (fresh
+  prime directions) beats depth (power rungs) at accessible scales; burner's primorial
+  bundle already burns the squarefree smooth box.
+- Simulation cannot settle the asymptotics (P's box bandwidth grows like
+  n^{Theta(1/loglog n)} — invisible at n <= 10^7). Role of arena: mechanism discovery
+  + falsification. Done for now.
+
+## F5: the burn-race micro-economics (the decisive constraint pair)
+
+Derived from arena + PV structure; this is the correct asymptotic move-geometry:
+
+1. **S's move**: play weapon w (scale u = log w): captures its ENTIRE live cone
+   e^{Lambda-u}-ish mass in ONE move (no recursive defense of a cone's interior is
+   possible once the weapon itself is live-and-played). P's only defense is raising
+   entry prices (burning cheap weapons) BEFORE S arrives.
+2. **P's move (box)**: x = prod p_i^{a_i} * pad, upper-half (zero cone collateral):
+   burns div(x). BREADTH: <= Lambda/v distinct scale-v directions per move. DEPTH:
+   within an included direction, entire smooth-support sub-ladders free of charge.
+3. **Dodge asymmetry**: a single box seals only smooth-support entries of a direction;
+   S sidesteps to the next FRESH prime at the same sub-scale for ~zero price raise
+   (prime spacing is negligible at every polynomial scale). Hence sealing a direction's
+   scale-v' entry BAND requires burning ~ALL band primes in that quotient: cost =
+   (band count) * (v+v')/Lambda move-equivalents. Denial is count-based at every level.
+4. **Consequence**: the game is a single global count-race over (direction-scale v,
+   entry-band v') cells, self-similar in the quotient towers, with budgets L/2 each,
+   S rate 1 entry/move capturing the cell's cone mass at its current price, P rate
+   Lambda/(v+v') band-seals... per move fraction (v+v')/Lambda per prime sealed.
+   Chronology (seals must precede arrivals) is essential — static LP relaxations of
+   this were exactly the corpus's circular capacity statements. The correct object is
+   the DIFFERENTIAL GAME over game-time t with state = price/coverage profile.
+5. Sanity anchors reproduced inside this frame: unimpeded S = prime sieve => Bonferroni
+   0.19-type constants; the pairwise-coprime privacy wall = S's fresh-direction supply;
+   R170's compatibility defect = S's one-entry-per-move vs parallel opened fronts.
+
+Next: bandrace v3 = numerical differential game on the (v, v') grid with correct
+count/bandwidth/dodge microstructure; then closed-form on the observed saddle shape.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
 - 2026-07-22: F1 (CSV poison + corrected table to 58), F2 (tempo-battle structure),
-  F3 (fibre renormalization). Line D formulated — now primary. Next: formalize +
-  numerically solve the continuum band-race game.
+  F3 (fibre renormalization). Line D formulated — now primary.
+- 2026-07-22: Line D v2 derivation (rough tree, cash/push/fragment economics,
+  bounded-quotient reduction, budget fixed point). Building numerical saddle solver.
