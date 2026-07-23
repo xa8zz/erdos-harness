@@ -1286,3 +1286,24 @@ the w2 concession while keeping w3 gains.
 
 Backgrounds: pack_1e7 (L point), pack6_1e7 (wave profile), march n=71+,
 pv66. Idling to next wakeup.
+
+## F26.4 (wakeup ~06:25): pack flattens at 1e7 — honest trend accounting
+
+  pack vs maxdeg:    1.548 (1e5) -> 1.583 (1e6) -> 1.576 (1e7)  [FLATTENS]
+  closure vs maxdeg: 1.496      -> 1.532      -> 1.560          [still rising]
+  pack edge over closure: +3.5% -> +3.3% -> +1.0%  [narrowing]
+
+Reading: pack's deep-core advantage decays as frontier capacity k(y) =
+log n/log y shrinks with the advancing sweep — the adjacency gap (F26.3)
+grows with scale. The best-P envelope's rise stalls at 1e7; closure's
+monotone rise continues. Both remain far above the taxman era (1.365 at
+1e7) and above every S counter tested. 3e7 runs launched for a 4th
+envelope point.
+
+Wave profile 1e7 (pack): w2 theft share flat at 9.9% this decade; w3 theft
+appears (75 kills, first nonzero); safe w3 = 12828 (x12 per decade, now
+3.2% of safe mass) — the hierarchy deepens faster on the protection side
+than the theft side at accessible scales.
+
+March: L(71) = 28 (71 prime; k = 8 across 65-71 now). pv66 still buffered
+(per-step exact() calls at 128-bit cost — hours; left running).
