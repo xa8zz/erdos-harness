@@ -374,6 +374,49 @@ static int p_pack(void){
     }
 }
 
+static int p_pack2(void){
+    /* pack + targeted pad (F26.4 hybrid): same ascending core packing, but
+       the pad multiplier is chosen as the max-tdeg live odd interior in the
+       landing window [n/2/prod, n/prod] (falls back to 2-adic pad). One move
+       then defuses: frontier core + its cross-products + a mid-scale weapon
+       + core-x-pad cross-products. */
+    for(;;){
+        while(pcursor<=n/2 && !live[pcursor]) pcursor+=2;
+        if(pcursor>n/2) return p_dustman();
+        int core[64]; int nc=0;
+        long long prod=1;
+        for(int w=pcursor; w<=n/2 && nc<60; w+=2){
+            if(!live[w]) continue;
+            if(prod > (long long)n/w) break;
+            core[nc++]=w; prod*=w;
+        }
+        while(nc>0){
+            /* targeted pad: best live odd interior m in the window, by tdeg */
+            int mlo=(int)((long long)n/2/prod)+1, mhi=(int)((long long)n/prod);
+            int bm=-1; long long bt=-1;
+            if(mhi>=3 && mhi<=n/2){
+                if(mlo<3) mlo=3;
+                for(int m=mlo|1; m<=mhi; m+=2){
+                    if(m<=n/2 && live[m] && (long long)m*prod<=n && live[(int)((long long)m*prod)]
+                       && tdeg[m]>bt){ bt=tdeg[m]; bm=m; }
+                }
+            }
+            if(bm>0) return (int)((long long)bm*prod);
+            long long x=prod;
+            while(x<=(long long)n/2) x*=2;
+            if(x<=n && live[(int)x]) return (int)x;
+            if(prod>(long long)n/2 && live[(int)prod]) return (int)prod;
+            nc--; prod/=core[nc];
+        }
+        int w=pcursor;
+        int lo=(int)((long long)n/2/w)+1, hi=(int)((long long)n/w);
+        if(lo<2) lo=2;
+        for(int m=hi;m>=lo;m--)
+            if(live[(int)((long long)m*w)]) return (int)((long long)m*w);
+        pcursor+=2;
+    }
+}
+
 static int p_burner(void){
     /* walk buckets downward; greedily pack coprime high-degree weapons */
     long long prod=1;
@@ -452,7 +495,7 @@ int main(int argc,char**argv){
         int x;
         int64_t k0=kills;
         cur_mover=turn;
-        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race(): (strcmp(pp,"closure")==0? p_closure(): (strcmp(pp,"closuretax")==0? p_closuretax(): (strcmp(pp,"pack")==0? p_pack():p_dustman())))))));
+        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race(): (strcmp(pp,"closure")==0? p_closure(): (strcmp(pp,"closuretax")==0? p_closuretax(): (strcmp(pp,"pack")==0? p_pack(): (strcmp(pp,"pack2")==0? p_pack2():p_dustman()))))))));
         else        x = strcmp(sp,"maxdeg")==0? s_maxdeg(): (strcmp(sp,"topdeg")==0? s_topdeg(): (strcmp(sp,"hunter")==0? s_hunter():s_smallest()));
         if(x<0) break;
         play(x);

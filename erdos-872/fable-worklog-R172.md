@@ -1307,3 +1307,33 @@ than the theft side at accessible scales.
 
 March: L(71) = 28 (71 prime; k = 8 across 65-71 now). pv66 still buffered
 (per-step exact() calls at 128-bit cost — hours; left running).
+
+## F26.5 (~06:45): pack2 refuted — F15 economics confirmed in-arena; the coherent synthesis
+
+pack2 (targeted pads: max-tdeg live odd weapon in the landing window instead
+of 2-adic padding) is decisively WORSE: 12357 (1e5) / 102047 (1e6) vs pack's
+13442 / 114554. Mechanism: vehicle log-budget economics. A mid-scale pad m
+at scale n^c costs c*log n of the multiplicative budget = many frontier
+slots (each ~log y); its value (denying S one weapon) ~ 0 because the tdeg
+distribution is flat at the top — S retargets at no loss. The arena
+independently re-derives F15's "policing costs log H per kill" exchange.
+Frontier slots > weapon denial, always. (Guard-rail note: plausible-sounding
+bot "improvements" keep re-walking corpus-refuted economics; check F15/F20
+before coding the next one.)
+
+SYNTHESIS (the coherent story all measurements now support):
+- The best-P envelope converges to the ascending closure sweeper (pack's
+  deep-core edge decays as capacity k(y) shrinks with the advancing
+  frontier: +3.5% -> +1.0% over two decades).
+- The sweeper's coefficient rises ~+2%/decade because new PROTECTION layers
+  arrive with scale (safe w3 mass x12/decade; w4 nonzero at 1e7) while
+  theft shares stay flat (w1 90%, w2 ~9.9% both decades, w3 ~ 0).
+- I.e. L(n) ~ (n/log n) * (sum of arrived layer coefficients), the layer
+  sum growing loglog-fashion — THE SHAPE OF THE CLASSICAL LOWER BOUND
+  n (loglog n)^2 / log n with its loglog powers filling in as n grows.
+- Posture update: the empirical body now coheres with L(n) =
+  n * poly(loglog n)/log n (hence o(n) = YES), while remaining formally
+  indistinguishable from n/(log n)^{1-delta} at accessible scales. The
+  proof target stays the stitching inequality; its S-side now has a
+  concrete quantitative shape to chase: theft shares bounded below
+  UNIFORMLY IN LAYER (w1's 90% is the measured anchor).
