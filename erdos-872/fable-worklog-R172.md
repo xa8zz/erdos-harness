@@ -1393,7 +1393,14 @@ bots are ~half-optimal at scale, or the exact law genuinely bends between
 n=75 and 3e7 (it MUST bend by ~1e6: upper-bound collision, F27). Locating
 the bend is the top open measurement.
 
-## F28 — NIGHT DIGEST (2026-07-23, ~03:30-07:45, for the morning read)
+## F28 — NIGHT DIGEST (2026-07-23, ~03:30-09:45, for the morning read)
+> LATE-NIGHT ADDITION — READ FIRST: after this digest was written, the
+> night's biggest result landed (F29/F29.1 + DRAFT-stitching §8-9): the
+> WAVE-1 THEFT-FLOOR LEMMA is PROVED (unconditional, Chebyshev-only,
+> machine-checked to 1e8), reducing the whole o(n) question to whether
+> live sub-product inflation is O(1)*log n per vehicle — then MEASURED
+> saturating at ~0.43 log n across three decades. The o(n) direction now
+> has a proof skeleton with one named formal gap.
 
 Machine infrastructure built tonight:
 - solver128 (128-bit exact minimax, validated against u64 on 25-65): exact
@@ -1494,3 +1501,28 @@ mild upward drift that IS the open question (O(1) vs omega(1) asymptotics).
 The entire o(n) program now rests on bounding live sub-product inflation —
 a concrete extremal counting problem, stated in §9, with its measurement
 running.
+
+## F29.1 (~09:45): inflation saturates — the measured answer to the program's question
+
+I2 peak trajectory (pack vs maxdeg, per-P-move omega>=2 deletion log-mass
+in ln n units):
+    1e5: 0.345    1e6: 0.409    1e7: 0.426
+Increments +0.064, +0.017 (growth +18.6% -> +4.2%/decade): geometric-
+looking convergence to ~0.43. Full 1e7 trajectory: rise 0.19 -> peak 0.43
+mid-race -> 0.01 endgame; I1 (prime budget share) complementary.
+
+VERDICT (empirical, three decades, under the inflation-maximizing P):
+live sub-product inflation is BOUNDED — O(1) * log n per vehicle. This is
+the answer the uniform-wave-floor path needs: wave >= 2 theft floors are
+weakened by a constant factor only, not destroyed. The o(n) skeleton
+(stitching §8-9) is now supported at every measurable point:
+  wave-1 floor: PROVED (Chebyshev). c0 ~ 0.5-0.6 measured.
+  wave-2+ floors: reduce to inflation boundedness — MEASURED bounded
+  (saturating 0.43), formal proof = the extremal counting problem of §9.
+  Composition: S has move-budget for J ~ log^2 n waves; arrival is
+  loglog-paced; wave product then decays to o(n).
+
+NIGHT ARC COMPLETE: top-half identity -> piercing formulation -> wave-1
+theft-floor LEMMA (proved) -> reduction of o(n) to live-inflation
+boundedness -> inflation measured saturating. The formal gap is now a
+single, concrete, measurable-and-partially-measured counting problem.

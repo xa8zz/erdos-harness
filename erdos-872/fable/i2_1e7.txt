@@ -1,0 +1,21 @@
+I2 move=512  meanI2/lnN=0.186  meanI1/lnN=0.225  (P-moves 256)
+TOWER move=512 thin=2049381 stock=2114798 maxroot=(2213,682,h=4518) bands(h<=2^b) b=1:177495 2:177819 3:207157 4:223585 5:227530 6:201169 7:182594 rest:717449
+I2 move=2048  meanI2/lnN=0.366  meanI1/lnN=0.184  (P-moves 768)
+TOWER move=2048 thin=1894761 stock=1693377 maxroot=(2978,111,h=3357) bands(h<=2^b) b=1:168461 2:172541 3:201948 4:214438 5:213169 6:183825 7:164613 rest:374382
+I2 move=8192  meanI2/lnN=0.405  meanI1/lnN=0.240  (P-moves 3072)
+TOWER move=8192 thin=1736046 stock=1300400 maxroot=(53569,28,h=186) bands(h<=2^b) b=1:167213 2:171886 3:195466 4:198393 5:185778 6:158829 7:147906 rest:74929
+I2 move=32768  meanI2/lnN=0.426  meanI1/lnN=0.311  (P-moves 12288)
+TOWER move=32768 thin=1546506 stock=917676 maxroot=(247649,8,h=40) bands(h<=2^b) b=1:166781 2:171643 3:184769 4:183504 5:168860 6:40002 7:1016 rest:1101
+I2 move=131072  meanI2/lnN=0.402  meanI1/lnN=0.426  (P-moves 49152)
+TOWER move=131072 thin=1185459 stock=470948 maxroot=(1250003,3,h=7) bands(h<=2^b) b=1:166673 2:155804 3:132359 4:8333 5:3563 6:2252 7:1016 rest:948
+I2 move=524288  meanI2/lnN=0.014  meanI1/lnN=0.657  (P-moves 196608)
+TOWER move=524288 thin=453357 stock=0 maxroot=(-1,0,h=0) bands(h<=2^b) b=1:0 2:0 3:0 4:0 5:0 6:0 7:0 rest:0
+peak HEREDITARY thin-live=1137787 (0.1138 of n) at move 131072
+severing of PLAYED elements: unsev(thin-from-start)=449258  by-P=400320  by-S=128067
+CROSS D=6: born=3497027  by-P: mult=2193 div=389474  by-S: mult=551910 div=1758148
+PLAYED by class: born=824778 fat=21397  P-mult=27 P-div=49255  S-mult=82188 S-div=0
+P-moves=488823 S-moves=488822 top-half-live-final=0 race-front=2
+WAVES TK_by_omega(w): w1:3957250(f176212) w2:435045(f93367) w3:75(f17775) w4:0(f2395) w5:0(f27) w6:0(f0)
+WAVES safe_by_omega(z): w1:316110 w2:69245 w3:12828 w4:379 w5:0 w6:0 w7:0 w8:0
+WAVES topplay_by_omega: w1:1 w2:174285 w3:27815 w4:6743 w5:221 w6:2 w7:1 w8:0
+n=10000000 S=maxdeg P=pack L=977645 L/n=0.09776 kills=9022354 sum=9999999 (expect 9999999)
