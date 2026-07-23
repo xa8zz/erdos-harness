@@ -629,6 +629,36 @@ polyloglog result — TIGHT, needs the honest constants); (c) H1/H3/H5 as
 before. The program's hard core is now (a)+(b): a self-consistent
 renormalization inequality with explicit boundary terms.
 
+## F15: attention-split economics; all routes funnel to one invariant (2026-07-23)
+
+**Near-trap C (dissolved, recorded).** Naive rush-vs-police exchange: P rushes a
+deep cone (C(H) ~ H/log H moves), S polices 1:1 (strike the stage-max in-cone
+weapon, damage sum ~ M over a full rush): episode = 2C(H) moves added, ~H mass
+consumed => L ~ 2n/log H with H a free constant — would violate the proven
+0.19n bound at H >= 100. FLAW: S is not obligated to police; S's real policy is
+max(harvest degree, policing yield). Policing pays only when global max degree
+<= ~log H. Consistency restored; what survives is the QUANTIFICATION:
+- policing yield ~ log H kills per S-move inside ripening cones;
+- completed-rush exchange rate: 2/log H length-per-mass for P;
+- so L ~ 2 x (mass reaching degree-<=D endgames)/log D + higher-degree phases.
+
+**The funnel.** Five independent routes this session-pair (F6 bounded-quotient
+reduction; F9 fixed point; F12 hereditary rebuild; F14 scale induction; F15
+exchange rates) all reduce the dichotomy to ONE invariant question:
+
+  (INV) Can Prolonger route Theta(n) mass into positions where its live
+  comparability degree is bounded (<= D, any constant), against a Shortener
+  playing max(harvest, police)?
+
+This is the corpus's invariant gap (R168's chronological trichotomy, R104's
+entry question) reached from new directions, now with: exchange rates, the
+scale-induction spine (F14), the policing detector identity (ripeness = degree),
+the static impossibility at sublinear entry (F8.2), and the measured answer at
+accessible scales (F13: no — 1.7x floor, flat ratio). The proof program's
+remaining content = prove (INV) negative via the scale induction with the
+policing margin; the disproof program = construct (INV) positive. Everything
+else in the five-gear draft is scaffolding around this single point.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
