@@ -1048,3 +1048,74 @@ structure, n up to 1e6-ish: (a) measure max protectable mass vs n (scaling in
 loglog powers); (b) verify the EDF/Hall criterion against brute-force small n;
 (c) test S fire-policies (max-freq vs max-live-damage) and P schedules (EDF on
 chosen Z*). Then map gaps (i)-(v) one at a time back into the real game.
+
+## F24 (overnight cont.): securing-game kernel; measured n/loglog window; attention-split dissolution
+
+### F24.1 Clearing-sim verdict (group-aware P vs maxfreq S; clearing.py)
+
+Static-EDF P was a strawman (banked 2/427 at n=1000): once non-family stock
+dies, S's maxfreq fire walks the family CLOSURE, not ambient W — the race is
+fought on the closure hypergraph. Group-aware P (score w = sum over pending
+z ∋ w of 2^{-(need(z)-1)}: complete near-done groups, value shared vertices)
+banks 59/427. Scan:
+
+  n=1e3: banked 59   banked/(n/loglog) 0.114  /(n/loglog^2) 0.220
+  n=3e3: banked 159  0.110  0.229
+  n=1e4: banked 486  0.108  0.240
+  n=3e4: banked 1380 0.107  0.250
+
+banked ~ 0.107 * n/loglog n, FLAT in that unit; declining as fraction of n;
+RISING vs n/log n. The abstract game's own answer sits in the loglog window —
+sublinear but barely, exactly where the F23.3 Hall analysis put the knife-edge.
+
+### F24.2 Fidelity map (why the abstraction is faithful ONLY at bounded scale)
+
+Global-scale corrections are polylog-sized on BOTH sides: real P deletes a
+full divisor CHAIN per top-half vehicle play (tau per move) and self-funds
+(every vehicle play is +1 L); real S fire kills the fired element's entire
+stock-cone plus its interior sub-lattice as collateral. Since the window
+between linear and the abstract answer is only loglog-wide, polylog-sized
+model error swamps the global conclusion — the abstraction CANNOT decide
+L(n) directly. At bounded quotient scale H, though, chains are <= log H and
+cones <= H: all corrections are O_H(1) and the model is faithful. So:
+
+  m(H) := value of the securing game at scale H  ==  the bounded-scale
+  exchange margin of HANDOFF step 2, now in computable coordinates.
+
+### F24.3 Attention-split dissolution (candidate closure of hole (b))
+
+In the real game, S's move menu each turn is: (i) play an interior element w
+— which simultaneously FIRES (kills all pending stock in cone(w)) and
+HARVESTS (kills w's chain + cone: the kill-mass S wants) — or (ii) play a
+top-half element: +1 L, kills only its divisor chain (helps P's other stock),
+zero upside for S outside forced endgames. There is no third option. So S's
+"veto duty" and "harvest duty" are THE SAME MOVES: the attention-split ledger
+that P5(b) demanded is not a split at all. S's budget is simply 1 interior
+play per turn, which is what the securing game models. P's menu likewise maps
+fully: top-half plays (chain-delete + self-fund + possibly banked-stock play)
+and stock-empty interior super-deletes (= the 2-adic pads of R174).
+Remaining honest gaps for a theorem: (g1) S's fire collateral deletes interior
+FOR P (S weaker than model); (g2) P's chain deletes several vertices/move
+(P stronger than model); (g3) banking requires physically playing each banked
+z (1/move) while pending; (g4) cross-scale leakage (deep roots vs H-cones).
+(g1)+(g2) favor P, (g3) favors S, (g4) is the renormalization boundary — the
+stitching inequality's actual content, now localized.
+
+### F24.4 Fracture inequality (two-sided local accounting; new)
+
+Define fracture time: first moment the live comparability graph is a disjoint
+union of components each of bounded size (<= H). Then
+  L = (moves before fracture) + sum over components of (component length),
+component length in [1, L_loc(component)], every post-fracture move resolves
+O_H(1) mass, so L >= #components. S must therefore prevent component
+proliferation BEFORE fracture (vetoes / cone-fires), and S's pre-fracture
+move count equals P's: the component count at fracture is exactly what the
+securing game computes. Exact-PV confirmation at n<=60: fracture ~ move 12 of
+23 at n=58; components = 11 free verts + locked pairs; L = 12 + 11.
+
+March status: 128-bit solver VAL128_OK (matches u64 on 59-65); L(66)=26,
+L(67)=27 (k=8 both, first move 30 persists). ~7 min/value at lg=29.
+
+NEXT: exact securing-game solver on real closures at scale H (m(H) table);
+then the stitching inequality in securing coordinates with (g1)-(g4) as
+explicit error terms.
