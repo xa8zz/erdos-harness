@@ -522,6 +522,49 @@ the o(n) side near-sharply. All guard rails (Traps A, B), race identities
 (1/e = bandrace3's 0.37), and instruments are committed. Resume: this file, top
 to bottom, then T1b's n-trend measurement, then the T1a charging argument.
 
+## F12: T1a refuted-and-rebuilt — the hereditary rate induction (2026-07-23)
+
+**T1a as stated in F11 is FALSE (self-refutation).** The 3p-supercharge: x = 3p
+(p prime in (n/6, n/3]) kills exactly 2 elements (weapons 3, p) yet severs every
+near-thin multiple of 3 — one-shot severing is unbounded per move. The 0.70/move
+measurement was dynamics-specific, not a law. One-shot threshold-crossing is the
+wrong protection notion.
+
+**Correct notion: hereditary (recursive) protection** — an element is protected
+iff its entire remaining live comparability structure lies in the thin system
+(fortress membership). Correct T1 = rate war + induction:
+
+- **Destruction rate**: S playing inside a 2-thin cluster removes >= 3 protected
+  elements per move (the element + its <= 2 comparables). Tower assembly yields
+  <= 2/move. Head-to-head, policing beats assembly 3:2.
+- **Supercharge recursion**: a ripe cone (high live-degree d with thinned
+  interior) IS a high-degree live weapon — maxdeg-S's detector is exactly deg(d).
+  To ripen cone(d) without S harvesting it, P must first burn d and then
+  fortress-assemble the quotient interior (scale n/d) — the SAME problem one
+  scale down. Induction hypothesis: hereditary protected yield <= 2 x (moves
+  invested) at every scale. The supercharge conserves, not beats, the rate.
+- **Arithmetic-privacy exceptions**: R170-type packets protect at rate ~M per
+  move-pair WITHOUT recursive assembly cost (privacy from pairwise-coprime prime
+  leaves, pre-existing arithmetic). Globally capped: any privacy source of this
+  kind consumes pairwise-coprime support => total exception budget
+  O(pi(n) + sqrt(n)) = O(n/log n) (R169(6) generalized).
+
+**MASTER T1 (to prove): hereditary protected yield <= 2*(moves) + O(n/log n),
+by induction on scale.** With the fixed point: L <= floor + 2*(L/2)*(net of
+policing at 3:2) + O(n/log n) + n^{o(1)} — the policing margin (3 > 2) makes the
+closure strict. Then L(n) = Theta-tilde(n/log n).
+
+**T1b trend (measured, passive P, maxdeg S)**: severed-per-kill = .0734/.0641/
+.0561/.0502/.0449/.0409 at n = 1e4..3e6 — decays like ~1/(log n)^{1.1};
+severed-played/L constant at .527. Coherent Theta-tilde(n/log n) scaling.
+
+NEXT: (1) formal statement of the hereditary induction (define fortress systems,
+assembly cost, the exception budget; the induction step = the ripeness-detection
+identity deg(d) = interior mass); (2) the policing-margin optimization written
+out; (3) collapse-witness pass (esp. owner-time-laundering — the induction's
+charge assignment must be prefix-measurable!); (4) then draft round docs
+(R172: knife-edge + guard rails; R173: master T1 program) for cross-family audit.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
