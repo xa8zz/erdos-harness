@@ -1267,3 +1267,22 @@ distinguishes c; the K2 profile at 1e7 (queued) extends the trend.
 Also: closure vs its best S RISES through best-response: 1.441 (hunter,
 1e5) -> 1.471 (hunter, 1e6) -> 1.501 (hunter, 1e7). The rising era is
 robust for closure; pack's 1e7 still in flight.
+
+## F26.3 (~06:10): K2 triptych complete — where pack's edge lives
+
+topplay_by_omega added (top plays at comp>0). 1e6, vs maxdeg:
+
+              safe w1/w2/w3      topplay w2/w3/w4    L
+  closure:    36986/9962/79      24105/100/0         110913
+  pack:       36980/7847/1058    20972/3501/484      114554
+
+Pack's +3641 = deep-omega vehicles (+3885 at w3/w4, each a play) + w3 SAFE
+stock (+979: triples pqr whose semiprime interiors the packed cores killed)
+- w2 safe deficit (-2115: adjacency gap). Wave-3 protection is reachable
+only by multi-target vehicles: the packing depth IS the wave depth P can
+defend. Conjecture for next P iteration: order cores to maximize cross-
+product coverage (non-adjacent pairing) rather than pure ascending — closes
+the w2 concession while keeping w3 gains.
+
+Backgrounds: pack_1e7 (L point), pack6_1e7 (wave profile), march n=71+,
+pv66. Idling to next wakeup.
