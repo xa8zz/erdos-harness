@@ -1172,3 +1172,25 @@ NEXT: (a) kernel-farming P bot in arena (real rules) vs maxdeg-S at 1e6/1e7
 — the one measurement that can still move the empirical anchor tonight;
 (b) march harvest (n=68+); (c) daytime: attempt the second-order inequality
 in the securing frame at bounded H (exact m(H) game).
+
+## F25.4 (overnight cont.): closure-P — NEW ARENA CHAMPION at 1e5
+
+p_closure implemented (arena.c, binary arena3): defuse the odd interior
+ascending (most-shared weapons first — the clearing-game order under real
+rules); vehicle preference: 2-adic pad w*2^a (spends even stock, kills w's
+surviving sub-closure shadow), then even-cofactor, then odd vehicle; free
+stock left to bank itself (comp-0 is unkillable — defusal always outranks
+banking); dustman fallback after the n/2 wall.
+
+  1e5 vs maxdeg-S: L = 12990 = 0.1299 n = 1.50 n/ln n
+  vs taxman (prev champion): 12334 = 1.42 n/ln n  (+5.3%)
+
+Scaling runs launched (closure_1e6/1e7.txt, + smallest-S control). THE
+question: does the coefficient rise with n (first real-rules signal above
+the n/log n law) or flatten like every champion before it? Taxman declined
+1.42 -> 1.39 -> 1.37 across 1e5..1e7.
+
+Also noteworthy from the 1e5 run: S's crossing channels dominated
+(S-div = 23327 crossings vs P-div 3693) yet S-div PLAYED = 0 — S's own
+fire-collateral crossings never became plays; P's played stock = 11017
+born-thin + 513 P-div-crossed. Fire-collateral is real but did not convert.

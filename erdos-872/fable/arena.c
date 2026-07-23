@@ -258,6 +258,34 @@ static int p_race(void){
     return p_dustman();
 }
 
+static int ccursor=3;
+static int p_closure(void){
+    /* closure-sweeper (F25): defuse the ODD interior ascending (most-shared
+       weapons first == the clearing-game race under real rules). Vehicle for
+       w: prefer the 2-adic pad w*2^a in (n/2,n] (kills w + its surviving
+       sub-closure shadow, spends only even stock); else any even-cofactor
+       vehicle; else odd vehicle (spends odd stock, last resort). Free stock
+       (comp 0) is unkillable and needs no urgency: defuse while weapons
+       live, dustman-bank afterwards. */
+    while(ccursor<=n/2){
+        if(live[ccursor]){
+            int w=ccursor;
+            long long x=w; while(x<=(long long)n/2) x*=2;
+            if(x<=n && live[(int)x]) return (int)x;
+            int lo=(int)((long long)n/2/w)+1, hi=(int)((long long)n/w);
+            if(lo<2) lo=2;
+            for(int m=lo;m<=hi;m++)
+                if(!(m&1) && live[(int)((long long)m*w)]) return (int)((long long)m*w);
+            for(int m=hi;m>=lo;m--)
+                if((m&1) && live[(int)((long long)m*w)]) return (int)((long long)m*w);
+            /* orphaned: whole top window of cone(w) is dead; w is harmless
+               to odd stock only if its odd cone is dead too — advance. */
+        }
+        ccursor+=2;
+    }
+    return p_dustman();
+}
+
 static int p_burner(void){
     /* walk buckets downward; greedily pack coprime high-degree weapons */
     long long prod=1;
@@ -330,7 +358,7 @@ int main(int argc,char**argv){
         int x;
         int64_t k0=kills;
         cur_mover=turn;
-        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race():p_dustman()))));
+        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race(): (strcmp(pp,"closure")==0? p_closure():p_dustman())))));
         else        x = strcmp(sp,"maxdeg")==0? s_maxdeg():s_smallest();
         if(x<0) break;
         play(x);
