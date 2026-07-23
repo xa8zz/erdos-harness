@@ -335,6 +335,41 @@ Status: leaning o(n) on current evidence (harvest integrals + every P architectu
 failing), but the partial-burn landscape saddle is genuinely unresolved — exactly
 the corpus's invariant gap, now in sieve-landscape coordinates with sharper tools.
 
+## F8: the tower fortress — static linear bounded-K positions EXIST (NEEDS AUDIT)
+
+Attempting the S-side impossibility ("no reachable position has linear live mass
+with bounded max-comparability") I instead CONSTRUCTED a static witness:
+
+  V = { 2^a * m : m odd, m in (n/6, n/4], 2^a * m <= n }   (the "towers")
+  A = a top-half antichain covering [2,n] \ V, V-safely.
+
+Properties (checked in-session, unaudited):
+- |V| ~ (5/2)*(n/12) = Theta(n); V's internal comparabilities: only within a tower
+  (chains of length <= ~2.6 avg): max live-comparability <= 2.
+- A subset (n/2, n]: automatically an antichain.
+- V-safety of covers, per class: (i) odd x <= n/3: cover by odd top-half multiple
+  (odd a: even V-elements can't divide a; a > n/2 > V-elements so a divides
+  nothing in V). (ii) odd x in (n/3, n/2]: cover 2x; 2^b m | 2x iff m | x at odd
+  ratio in (4/3,3) — only ratio 2, even, impossible: safe. (iii) even non-tower
+  2^a m'', m'' odd outside window: cover 2^a m'' * j, j a large prime: m | m'' j
+  forces m | m'' (j prime > m), and window-m cannot divide m'' outside the window
+  at odd ratio < 3: safe. (iv) tower elements 4m, 8m...: NOT covered — kept in V
+  (every multiple of 4m is a multiple of 2m, so they are uncoverable V-safely;
+  including whole towers in V is forced and is what caps K at 2).
+- CONSEQUENCE if audit passes: the o(n) side CANNOT be proven by static
+  impossibility of thin-linear positions. Everything reduces to DYNAMIC ENTRY:
+  can P force a fortress-shaped position against S's live resistance? Conversely
+  the disproof side needs exactly a robust entry strategy. This sharpens the
+  problem to match the corpus's R104 wall (fixed-cap entry refuted — MUST pull
+  researcher-104 and check whether tower-fortress shapes are inside its refuted
+  family or evade it).
+
+AUDIT NEEDED: (a) completeness of A's coverage (every non-V element gets a V-safe
+top-half cover; the shared-cover counting; elements in (n/4, n/2] even, etc.);
+(b) edge classes m | k in cover choices; (c) R104/R107 cross-check; (d) exact
+small-n instantiation: build (A, V) explicitly at n = 5000 in sandbox and verify
+maximality + comparability caps computationally.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
