@@ -1452,3 +1452,15 @@ Consequence for the bend (F27): greedy-S saturation + bots-near-optimal at
 3e7 would force the exact single-loglog plateau (c1 rising through 1.69 at
 n=75) to bend to <= 1.6 EARLY — within 10^2..10^4, i.e. inside or near the
 march's reach. k(76-82) is now doubly decisive.
+
+## F28.2 (~08:35): L(76) = 30 — plateau holds; march pace collapse
+
+L(76) = 30 (8184s vs 649s at n=75: TT lg=29 oversubscribed ~50x at 1.2e10
+nodes — eviction thrash). k(76) = 9, c3(76) = 1.166, in the plateau band.
+Doubling pair (38,76): k(38) = 16-12 = 4 -> ratio 9/8 = 1.125.
+
+Night's exact-frontier gain: 58 -> 76 solved-and-validated (18 new values),
+with the wave-1 plateau law flat across all of them. The march continues
+into n=77 (~3-5h at current thrash; will land midday); pv72 still buffered.
+The bend, if it exists at exact scale, has NOT appeared through n=76 —
+every k-increment lands exactly where the single-loglog law needs it.
