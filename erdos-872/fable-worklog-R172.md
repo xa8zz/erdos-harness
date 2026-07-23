@@ -1430,3 +1430,25 @@ Leans o(n) = YES with L likely n * poly(loglog)/log n. The proof target is
 the piercing-race lemma (stitching §7); recommended next-session plan:
 formalize per-wave pieces for Aristotle, locate the exact-law bend, and
 consider a lookahead-S to stress the rising champions.
+
+## F28.1 (wakeup ~08:10): pack 3e7 — CONVERGENCE AND PEAK; honest revision of the "rising era"
+
+pack at 3e7: L = 2741732 = 1.5734 n/ln n. The full K4 envelope:
+
+   n:        1e5     1e6     1e7     3e7
+   pack:     1.548   1.583   1.576   1.5734   (peaked at 1e6, -0.3%/decade)
+   closure:  1.496   1.532   1.560   1.5722   (still rising, decelerating)
+   taxman:   1.42    1.385   1.365   -        (the old flat-declining era)
+
+REVISION of F28 headline 2: the champion coefficient jumped a full level
+(1.37 -> ~1.58) and its rise has STOPPED by 3e7 — pack and closure converge
+to ~1.573 from opposite sides (depth-first from above, breadth-first from
+below). Whether ~1.6 n/ln n is an asymptote or a local peak of this policy
+family is OPEN. The wave trade persists at 3e7: closure protects w2 better
+(23% vs 17% of safe), pack owns w3/w4 (39521+1576 vs 18890+0 safe;
+96803 vs 6953 deep topplays).
+
+Consequence for the bend (F27): greedy-S saturation + bots-near-optimal at
+3e7 would force the exact single-loglog plateau (c1 rising through 1.69 at
+n=75) to bend to <= 1.6 EARLY — within 10^2..10^4, i.e. inside or near the
+march's reach. k(76-82) is now doubly decisive.
