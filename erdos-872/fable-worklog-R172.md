@@ -565,6 +565,20 @@ out; (3) collapse-witness pass (esp. owner-time-laundering — the induction's
 charge assignment must be prefix-measurable!); (4) then draft round docs
 (R172: knife-edge + guard rails; R173: master T1 program) for cross-family audit.
 
+## F13: hereditary fortress probe — peak scales with the floor (2026-07-23)
+
+Peak HEREDITARY thin-live mass (live z, deg+ldc<=2, all live comparables thin),
+maxdeg-S vs taxman-P: 0.1505/0.1325/0.1220/0.1174 of n at n=1e5/3e5/1e6/3e6.
+Ratio to n/ln n: 1.73/1.67/1.68/1.75 — FLAT. The hereditary fortress peaks at
+~1.7x the natural floor and scales with n/log n, NOT with n, under the best P
+fielded; the mop-up then consumes it at 2-3/move (policing arithmetic checks:
+L ~ peak/2.2 + tail). One-shot thin mass peaks at ~0.12n (constant fraction) —
+confirming one-shot severing is transient collateral, hereditary is the real
+notion. Both decisive probes (T1b decay, F13 flat ratio) now support the
+H2/o(n) world at accessible scales. Remaining gap: architectures beyond my bots
+(H2-breaking child-brancher) and true asymptotics — the proof program of
+DRAFT-master-theorem.md.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.

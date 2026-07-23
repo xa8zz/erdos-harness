@@ -24,6 +24,7 @@ static int64_t moves, kills;
 static uint8_t *sevby;      /* 0=not severed yet; 1=P severed; 2=S severed */
 static int cur_mover=0;     /* 0=P,1=S */
 static int64_t played_sev[3]={0,0,0}; /* played elements by severer class */
+static int64_t peak_thin=0, peak_thin_move=0;
 
 /* bucket queue over deg values (deg only decreases): doubly linked lists */
 static int32_t *bhead, *bnext, *bprev; static int maxb;
@@ -285,9 +286,29 @@ int main(int argc,char**argv){
         play(x);
         if(moves<=256||((long long)moves&63)==0)
             fprintf(prof,"%lld,%c,%d,%lld\n",(long long)moves,turn?'S':'P',x,(long long)(kills-k0));
+        if(((long long)moves&8191)==0 || moves==512 || moves==2048){
+            /* hereditary thin: thin AND all live comparables thin */
+            static uint8_t *thinf=0;
+            if(!thinf) thinf=malloc(n+1);
+            for(int z=2;z<=n;z++) thinf[z]= live[z]&&(deg[z]+ldc[z]<=2);
+            int64_t hered=0;
+            for(int z=2;z<=n;z++){
+                if(!thinf[z]) continue;
+                int ok=1;
+                for(long long m=2ll*z;m<=n&&ok;m+=z) if(live[m]&&!thinf[m]) ok=0;
+                if(ok){
+                    gen_divisors(z);
+                    for(int i=0;i<divcnt&&ok;i++){int d=divbuf[i]; if(d>=2&&d<z&&live[d]&&!thinf[d]) ok=0;}
+                }
+                if(ok) hered++;
+            }
+            if(hered>peak_thin){peak_thin=hered;peak_thin_move=moves;}
+        }
         turn^=1;
     }
     fclose(prof);
+    printf("peak HEREDITARY thin-live=%lld (%.4f of n) at move %lld\n",
+        (long long)peak_thin,(double)peak_thin/n,(long long)peak_thin_move);
     printf("severing of PLAYED elements: unsev(thin-from-start)=%lld  by-P=%lld  by-S=%lld\n",
         (long long)played_sev[0],(long long)played_sev[1],(long long)played_sev[2]);
     printf("n=%d S=%s P=%s L=%lld L/n=%.5f kills=%lld sum=%lld (expect %d)\n",
