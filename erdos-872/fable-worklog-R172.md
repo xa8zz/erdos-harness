@@ -1557,3 +1557,10 @@ March: L(78) = 30 (67.3e9 nodes, 2508s — lucky TT run). k(78) = 9;
 c3(78) = 1.138 (band low end); doubling pair (39,78) ratio 9/8 = 1.125.
 Night's exact-table gain now 58 -> 78 (20 validated values). n=79 (prime)
 in progress.
+
+## F29.5 (~13:25): L(79) = 31
+
+March: L(79) = 31 (217.8e9 nodes, 10162s — heaviest solve of the run).
+k(79) = 9; c3(79) = 1.163, in the plateau band; c1 = 1.714 new high.
+Exact table now 58 -> 79 (21 new validated values tonight). n=80 in
+progress (likely multi-hour at this depth).
