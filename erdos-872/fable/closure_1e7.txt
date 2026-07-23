@@ -1,0 +1,12 @@
+TOWER move=512 thin=1717876 stock=1698490 maxroot=(2663,443,h=3755) bands(h<=2^b) b=1:236042 2:258951 3:272093 4:228256 5:159049 6:92071 7:63682 rest:388346
+TOWER move=2048 thin=1610892 stock=1444187 maxroot=(15329,65,h=652) bands(h<=2^b) b=1:226298 2:253810 3:270607 4:228256 5:159049 6:92071 7:63598 rest:150498
+TOWER move=8192 thin=1551128 stock=1333059 maxroot=(78137,13,h=127) bands(h<=2^b) b=1:225335 2:254407 3:272482 4:232327 5:165110 6:100432 7:73658 rest:9308
+TOWER move=32768 thin=1450991 stock=1014807 maxroot=(156274,4,h=63) bands(h<=2^b) b=1:212575 2:235727 3:245457 4:192390 5:116094 6:12564 7:0 rest:0
+TOWER move=131072 thin=1151570 stock=437922 maxroot=(625018,2,h=15) bands(h<=2^b) b=1:166670 2:150206 3:111830 4:9216 5:0 6:0 7:0 rest:0
+TOWER move=524288 thin=443510 stock=0 maxroot=(-1,0,h=0) bands(h<=2^b) b=1:0 2:0 3:0 4:0 5:0 6:0 7:0 rest:0
+peak HEREDITARY thin-live=1192530 (0.1193 of n) at move 114688
+severing of PLAYED elements: unsev(thin-from-start)=481661  by-P=361549  by-S=124588
+CROSS D=6: born=3497027  by-P: mult=9683 div=290611  by-S: mult=402774 div=2202105
+PLAYED by class: born=822051 fat=11992  P-mult=1479 P-div=37998  S-mult=94278 S-div=0
+P-moves=483899 S-moves=483899 top-half-live-final=0 race-front=2
+n=10000000 S=maxdeg P=closure L=967798 L/n=0.09678 kills=9032201 sum=9999999 (expect 9999999)
