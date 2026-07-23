@@ -1464,3 +1464,33 @@ with the wave-1 plateau law flat across all of them. The march continues
 into n=77 (~3-5h at current thrash; will land midday); pv72 still buffered.
 The bend, if it exists at exact scale, has NOT appeared through n=76 —
 every k-increment lands exactly where the single-loglog law needs it.
+
+## F29 (wakeup ~08:45-09:15): THE WAVE-1 THEFT-FLOOR LEMMA — proved; inflation measured
+
+The night's biggest theory artifact (DRAFT-stitching §8-9):
+
+LEMMA (proved, Chebyshev-only): in the wave-1 race — P deletes the primes
+dividing one vehicle x <= n per move (additive budget log n, exact), S
+fires one live prime per move — smallest-first S guarantees stolen mass
+Sum 1/q >= c0 > 0, uniform in n and P. Proof: theta(q_t) <= 2t log n =>
+q_t <= Ct log n => Sum 1/q_t >= (ln T)/(C ln n) -> c > 0 with T >= n/log^2 n.
+Machine-checked vs the minimizing (budget-packing) P: stolen = 0.49..0.62
+across 1e4..1e8, ratio constant <= 1.81, spite-P worse, 2x-budget halves
+but never kills the floor. Corollary via Selberg sieve: S unconditionally
+steals a positive fraction of ANY P-protected stock at wave 1.
+
+THE ONE REMAINING QUESTION (stitching §9): wave-1's proof uses budget
+additivity (primes share no sub-products). At waves >= 2 one vehicle can
+delete C(omega,j) sub-products — combinatorial inflation. o(n) via uniform
+wave floors needs realized inflation O(1)*log n; P-linear needs omega(1).
+
+MEASURED (arena9 I2 ledger: per-P-move log-mass of killed omega>=2
+divisors, units of ln n):
+  pack:    peak 0.345 (1e5) -> 0.409 (1e6)  [1e7 running]
+  closure: ~0.00-0.09 (no wave-2 deletion at all — inflation is purely a
+           packing phenomenon)
+Liveness throttles inflation to order-one budget at accessible n, with a
+mild upward drift that IS the open question (O(1) vs omega(1) asymptotics).
+The entire o(n) program now rests on bounding live sub-product inflation —
+a concrete extremal counting problem, stated in §9, with its measurement
+running.

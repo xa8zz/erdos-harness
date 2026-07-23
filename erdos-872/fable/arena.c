@@ -135,6 +135,10 @@ static int64_t played_born=0, played_fat=0;
 static int omega_of(int x){ int c=0; while(x>1){ int p=spf[x]; c++; while(x%p==0) x/=p; } return c; }
 static int64_t TK_by_omega[12]={0}, safe_by_omega[12]={0}, fire_cnt[12]={0};
 static int64_t topplay_by_omega[12]={0};  /* top plays at comp>0 (vehicles/low-comp stock) */
+/* wave-2 inflation ledger (stitching §9): per P play, log-mass of killed
+   live divisors with omega>=2, in units of log n. Epoch means printed. */
+static double i2_epoch=0, i1_epoch=0; static long long pmoves_epoch=0;
+static double i2_total=0; static long long pmoves_total=0;
 static void play(int x){
     moves++;
     if(cur_mover) mvS++; else mvP++;
@@ -148,7 +152,10 @@ static void play(int x){
     kill_element(x);
     for(long long m=2ll*x;m<=n;m+=x) if(live[m]){ kills++; kill_element((int)m); }
     gen_divisors(x);
-    for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<x&&live[d]){ kills++; kill_element(d);} }
+    for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<x&&live[d]){ kills++;
+        if(cur_mover==0){ if(omega_of(d)>=2) i2_epoch+=log((double)d); else i1_epoch+=log((double)d); }
+        kill_element(d);} }
+    if(cur_mover==0){ pmoves_epoch++; pmoves_total++; }
     if(cur_mover==1 && x<=n/2){ /* S fire: top-half coverage by weapon omega */
         int64_t tkilled = tl0 - top_live;
         TK_by_omega[om_x] += tkilled; fire_cnt[om_x]++;
@@ -528,6 +535,13 @@ int main(int argc,char**argv){
         if(moves<=256||((long long)moves&63)==0)
             fprintf(prof,"%lld,%c,%d,%lld,%lld\n",(long long)moves,turn?'S':'P',x,(long long)(kills-k0),(long long)top_live);
         if(moves==512||moves==2048||moves==8192||moves==32768||moves==131072||moves==524288||moves==2097152){
+            if(pmoves_epoch>0){
+                printf("I2 move=%lld  meanI2/lnN=%.3f  meanI1/lnN=%.3f  (P-moves %lld)\n",
+                    (long long)moves, i2_epoch/(pmoves_epoch*log((double)n)),
+                    i1_epoch/(pmoves_epoch*log((double)n)), (long long)pmoves_epoch);
+                fflush(stdout);
+                i2_total+=i2_epoch; i2_epoch=0; i1_epoch=0; pmoves_epoch=0;
+            }
             /* tower-stock scan: prepared pairs (near-thin live z, live root d|z),
                banded by dyadic quotient h = n/d; also the single largest root. */
             static int32_t *pcnt=0;
