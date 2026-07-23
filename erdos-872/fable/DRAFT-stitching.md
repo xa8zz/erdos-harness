@@ -106,3 +106,35 @@ the discriminator must be a theorem about (K1)-(K3).
   vehicles, tower harvests, locked-pair endgames — every mechanism in the
   wave model has an exact-scale counterpart. The stitching inequality, if
   provable, will be provable in these coordinates.
+
+## 7. The piercing formulation (added ~06:50, sharpest S-side statement)
+
+Fact (exact, from the fire mechanics): if S fires w and w | d | z with z
+live, then z dies in that same fire. Hence S's fires can never help
+liberate a surviving element, and for every SAFE z:
+    R(z) ∩ F = ∅,
+where F = the set S ever fires. Conversely every element of R(z) must die
+as collateral of plays (P's vehicles, or forced endgame chain-kills).
+
+So the o(n) question in final form:
+
+  PIERCING RACE. S builds a fired set F online (one live element per S
+  turn; P's plays may kill prospective weapons first). Safe mass = #{z in
+  top half: R(z) ∩ F = ∅}. Can S guarantee safe mass = O(n polyloglog/log)
+  against every P schedule?
+
+S's baseline: firing any prime factor pierces z, so unpierced stock lives
+in the P-protected prime semigroup (the measured race: Θ(1) stolen
+1/p-mass each side). S's continuation: fire protected-prime PRODUCTS (the
+waves; measured share flat ~10% at w2, arriving slowly at w3+). P's
+denial: vehicle chains kill weapons ahead of S's fire cursor at capacity
+k(y) = log n/log y per move.
+
+The single lemma that decides o(n) (uniform-in-layer version of the race):
+against any adaptive defusal schedule with multiplicative per-move budget,
+greedy-value firing pierces all but an e^{-c·(effective waves)} fraction
+per wave with constants uniform over waves, waves coupling only through
+cone nesting. Measured anchors: wave-1 share 90%, wave-2 ~10% flat,
+capacity integral O(1) stolen mass. NOT provable by tonight's tools alone
+— this is the formal target for the next session, with Aristotle on the
+per-wave pieces.
