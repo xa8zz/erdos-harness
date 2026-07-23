@@ -1119,3 +1119,56 @@ L(67)=27 (k=8 both, first move 30 persists). ~7 min/value at lg=29.
 NEXT: exact securing-game solver on real closures at scale H (m(H) table);
 then the stitching inequality in securing coordinates with (g1)-(g4) as
 explicit error terms.
+
+## F25 (overnight cont.): the top-half kill identity; model cascade verdicts; the self-funding fixed point
+
+### F25.1 Top-half kill identity (trivial but organizing)
+
+L = n - 1 - IK - TK (IK interior kills <= n/2 - 1, TK top-half kills). The
+top half is an antichain and P never kills into it, so TK comes ONLY from S
+firing interior elements w (killing live top-cone(w)). Hence
+  L >= n/2 - TK:  the entire o(n)-question == can S's fires cover the top
+half to within o(n)?  Fire coverage telescopes over interior LAYERS; z
+survives iff its FULL interior divisor set is defused before any element of
+it is fired (== the clearing game, re-derived from the identity).
+
+### F25.2 Machine verdicts on tonight's models (racecover.py, raceverify.py)
+
+- Static alternating prime race (P defuses share d of odd primes by rank,
+  S fires the rest): composite survivors/n FLAT at accessible n for every d
+  (d=1/3: 0.0095, d=1/2: 0.027, d=2/3: 0.055; drift < +-3%/decade). The
+  Selberg-Delange asymptotic (~ n (log n)^{d-1}) is invisible below
+  astronomical scales; naive Mertens product over-predicts 5x with wrong
+  trend. GUARD-RAIL ENTRY #5: in-head sieve-independence at half-density
+  prime sets — wrong at accessible scales, slow-asymptotic at all scales.
+- Multi-prime vehicle share: P vehicles p1..pk*2^a defuse k ~ log n/log y
+  primes/move near scale y => S's stolen prime mass Sum 1/p ~ integral of
+  (log y/log n) dloglog y = O(1) CONSTANT — reproduces R174's measured
+  stolen mass -> ln 2 and F16 supply = Theta(n) from pure scheduling.
+  GUARD-RAIL #6: my earlier alternation-share-1/2 -> n/sqrt(log) claim
+  ignored vehicle capacity; the prime layer is NOT where S wins. (It also
+  cannot be where P wins outright: layer >= 2 remains.)
+- Layer masses: interior layer k (omega = k) has mass n(loglog)^{k-1}/
+  ((k-1)! log n) — each layer individually o(n)-defusable, total Theta(n).
+  S's fire order is by cone value (magnitude), interleaving layers; P's
+  defense concentrates on smooth sub-semigroups (kernel lattices).
+
+### F25.3 The self-funding fixed point (sharpest compression to date)
+
+P's banked top-half mass ~ P's interior-defusal spend (both ~ L/2 to first
+order): the ledger is MARGINAL at every modeling level — abstract clearing
+(0.107 n/loglog flat), static races (flat), arena (1.37-1.42 n/ln n flat),
+exact play (L/n ~ 0.40 flat at 58-67). The answer is decided by O(1)
+second-order constants: (+P) S-fire collateral frees interior budget; (+P)
+every S fire is +1 L; (+P) chain efficiency rho > 1; (-P) stolen bands
+shrink usable kernels; (parity). The known bounds (n(loglog)^2/log lower,
+0.19n upper) are the two ends of the constants' feasible region. A proof of
+o(n) must show the fixed point sits at 0 — i.e. a second-order inequality,
+not a first-order count. This is the corpus's invariant gap (INV), now with
+an explicit list of the competing constants and machine-ready models for
+each (clearing.py, racecover.py, arena bots).
+
+NEXT: (a) kernel-farming P bot in arena (real rules) vs maxdeg-S at 1e6/1e7
+— the one measurement that can still move the empirical anchor tonight;
+(b) march harvest (n=68+); (c) daytime: attempt the second-order inequality
+in the securing frame at bounded H (exact m(H) game).
