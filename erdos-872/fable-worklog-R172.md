@@ -579,6 +579,56 @@ H2/o(n) world at accessible scales. Remaining gap: architectures beyond my bots
 (H2-breaking child-brancher) and true asymptotics — the proof program of
 DRAFT-master-theorem.md.
 
+## F14: H2 resolves into a scale induction (2026-07-23)
+
+Formalizing preparation lineages at bounded quotient H:
+- cone(d) = {kd : k <= H}: ALL multiples of cone elements stay inside the cone
+  (kd*j = (kj)d), so the in-cone comparability is the divisibility poset on
+  {1..M}, M = floor(n/d) <= H, plus outside divisor structure.
+- Weapon-sharing is scale-split: SMALL weapons (e = a*b, b | d, b small) are
+  shared across ~cone(e)/H deep cones — broad amortized layer, part of the
+  battle/shared cost. DEEP weapons (e = a*d/c, bounded a, c) are shared by at
+  most O_H(1) deep cones (gcd absorption, G3 quantified: bounded sharing, not
+  1 — private-chain constants need the margin check).
+- In-cone preparation without collateral forces the IN-CONE TAXMAN: play
+  top-layer elements k'd (k' in (M/2, M], no multiples in range) whose divisor
+  batches kill the small-k weapon layer; naive yield rate ~ 2*tau_typ(H) per
+  move — UNBOUNDED in H (the rate-breaking scare).
+- BUT the preparation is contested: the in-cone weapons 2d, 3d, ... are
+  Shortener weapons one scale down; killing d happens automatically at the
+  first in-cone play (d divides everything there); the ripening race inside
+  cone(d) is a miniature of the whole game at scale H with boundary
+  conditions. The protected yield of a POLICED preparation is governed by the
+  game value at scale H, not by tau(H).
+
+**H2 as scale induction (the program's new spine):** Let F(m) bound L(m)
+(inductive hypothesis at all scales <= H). Then deep-cone yield at scale n is
+<= F(H)-governed per cone; summing over the deep-cone population and adding
+the shared layer (breadth-race, o(n)-battle) and the floor gives the
+self-consistent recursion F(n) <= C*floor(n) + (deep terms controlled by
+F(H)/H) + o(n/log n)-corrections. The child-production scare (rate 2*tau(H))
+is exactly what the induction hypothesis throttles: sustaining it would
+require the in-cone game itself to be long, i.e., L(H) large — contradiction
+with the hypothesis at scale H. This is a renormalization argument the
+per-shell frame never had: the dichotomy's two sides become the two fixed
+points of the scale recursion, and the empirical flat ratios (F13: 1.7x floor
+across scales) are direct measurements of the recursion sitting at its
+sublinear fixed point.
+
+REMAINING FOR A PROOF: (a) the boundary bookkeeping between "in-cone contested
+preparation yield" and "game value at scale H" (they differ: global move
+budgets, outside-weapon boundary conditions, S's attention split across many
+cones — the attention-split is where S's policing margin must be shown to
+survive: S must police MANY ripening cones; its maxdeg detector auto-selects
+the ripest; need: the ripest cone's yield-damage exceeds P's parallel-ripening
+gain — a bandwidth comparison, P ripens <= 1 deep cone per move (G3) vs S
+harvests the max — looks favorable but write it); (b) the induction's base
+case and the scale-doubling error accumulation (log log n doublings from H to
+n: per-doubling multiplicative slack must be 1 + O(1/loglog) to keep the
+polyloglog result — TIGHT, needs the honest constants); (c) H1/H3/H5 as
+before. The program's hard core is now (a)+(b): a self-consistent
+renormalization inequality with explicit boundary terms.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
