@@ -138,3 +138,71 @@ cone nesting. Measured anchors: wave-1 share 90%, wave-2 ~10% flat,
 capacity integral O(1) stolen mass. NOT provable by tonight's tools alone
 — this is the formal target for the next session, with Aristotle on the
 per-wave pieces.
+
+## 8. THE WAVE-1 THEFT-FLOOR LEMMA (proved, machine-checked ~09:00)
+
+LEMMA (prime theft floor). Consider the wave-1 race: odd primes 3 <= q <=
+n/2 listed ascending; players alternate, P first. Each P move deletes the
+live primes dividing one integer x <= n of P's choice (so the deleted set
+has Sum log q <= log x <= log n — the budget is ADDITIVE: primes have no
+common sub-products). Each S move fires (removes and scores) one live
+prime. Then S, playing smallest-live-first, guarantees
+    Sum over fired q of 1/q  >=  c0 > 0
+with c0 absolute (uniform in n and in P's strategy).
+
+PROOF. Let q_t be S's t-th fire. Every prime < q_t is dead: fired ones
+have Sum log <= (t-1) log(n/2); P-deleted ones have Sum log <= t log n
+(t P moves, additive budget). So theta(q_t) := Sum_{p <= q_t} log p
+<= 2t log n. By Chebyshev's theta(x) >= c x (x >= 2):
+    q_t <= (2/c) t log n.
+The race lasts while live primes remain: per move-pair at most
+log n/log 3 + 1 primes die, so T >= c' pi(n/2) log 3/log n >= c'' n/log^2 n.
+Hence
+    Sum_t 1/q_t >= (c/2 log n) Sum_{t<=T} 1/t = (c/2) (ln T)/(log n)
+              = (c/2)(1 - 2 lnln n/ln n + O(1/ln n)) -> c/2 > 0.  QED
+
+Machine check (single-pass adversarial race, budget-packing P — the stolen-
+mass minimizer; spite variants worse for P):
+    n:        1e4     1e5     1e6     1e7     1e8
+    stolen:   0.491   0.537   0.565   0.589   0.616   (floor, slowly rising)
+    max q_t/(t ln n): 1.65 .. 1.81                    (Chebyshev constant ~2)
+    2x budget: 0.263 .. 0.334  (floor ~ 1/budget-multiple, never 0)
+
+COROLLARY (wave-1 theft). By e^{-x} >= 1-x and the Selberg upper-bound
+sieve, the top-half mass with NO fired prime factor is <= C n e^{-c0}: S
+unconditionally steals a positive fraction of any P-protected stock at
+wave 1. (Trivially known via S playing 2; the content is uniformity over
+P's defusal AND that the mechanism is scale-free — it iterates.)
+
+## 9. Where uniformity breaks at wave >= 2 (the precise open gap)
+
+The proof used additivity of the prime budget: primes dividing x have
+Sum log q <= log x. For wave-j items (j-fold products of protected primes),
+ONE vehicle x deletes ALL j-fold sub-products dividing it: x with omega(x)
+= m deletes up to C(m, j) wave-j items of total log-mass ~ (j/m-fraction) *
+C(m,j) * log x — COMBINATORIAL INFLATION by ~C(m,j)*j/m, unbounded as m
+grows. Wave 1 is the unique wave with no inflation (primes share no
+sub-products). So the same Chebyshev argument gives wave-j floors only
+with budget B_j(y) ~ (log n)^2/log y-ish, i.e. weakened, possibly
+vanishing floors. THE OPEN COMPOSITION QUESTION, now well-posed:
+
+  Can P's vehicle sequence sustain wave-2 deletion log-mass omega(1) *
+  log n per move (via high-omega vehicles) UNIFORMLY along the ascending
+  race, or does the requirement that vehicles be LIVE top-half integers
+  whose sub-products are still live throttle the realized inflation to
+  O(log n) per move?
+
+Note both sides have measured anchors: realized wave-2 theft share is FLAT
+~10% (not vanishing: some wave-2 floor survives inflation) and the safe
+wave-2 mass grows (P's inflation partly works). The next formal step:
+bound the realized inflation of LIVE vehicles — a counting problem about
+how many live sub-products a live top-half integer can have late in the
+race, which the K2/tower instrumentation can measure directly.
+
+If wave-j floors c_j >= c > 0 uniform: safe mass <= n prod (1-delta_j) ->
+o(n) once effective waves J(n) -> infinity (they do: loglog-paced arrival,
+S has ~L/2 >> J * n/log^2 n moves to run them). If instead inflation kills
+the floors at j >= 2: P's protected semigroup survives all composite waves
+and the linear question reopens at the wave-2 fixed point. The entire
+program now rests on one extremal counting question about live sub-product
+inflation.
