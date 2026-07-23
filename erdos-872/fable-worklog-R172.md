@@ -883,6 +883,40 @@ exchange rates from confirmed lemmas, (iv) measured empirics all on the
 sublinear side. The one wall: the online amortization. Next deep session:
 attack Phi directly; the wall is now thin enough to see through.
 
+## F22: the W0-threshold veto policy; cross-feeding webs; concentration at
+## bounded scales (flux route re-derives the F14 scale induction)
+
+S's policy family: veto any live root whose standing prepared cone reaches
+W0; else eat thin clusters; else harvest. Analysis of P's counterplay:
+
+1. Cross-feeding webs: completing cone(d_B) can cross up to W members of
+   cone(d_A) at once when many members lie in cone(lcm(d_A, d_B)) — needs
+   n/lcm >= W. So P can amplify W-fold per move through lcm-structured webs.
+2. Above threshold (W >= W0): each W-crossing is answered by one veto killing
+   >= W — mirror holds move-for-move, S nets W kills per exchange, and the
+   phase self-limits (total mass n / W exchanges). Large-scale perpetual
+   motion is impossible: P's web consumes ~2W fresh element-mass per move.
+3. Therefore P plays UNDER the threshold: many cones of size < W0,
+   completion admits < W0 per move, cross-feeds < W0 per move; S eats
+   <= D+1 and vetoes < W0 per move. The exchange at W0 ~ D+1 is MARGINAL:
+   the entire dichotomy concentrates at bounded quotient scales, where
+   cone(d) is isomorphic to the divisor board of a bounded-size quotient —
+   the local game is the antichain game on <= H0 elements: EXACT SOLVER
+   territory. The renormalization base is the corrected exact table
+   (L(58)/58 = 0.397 and the increment structure of k(n) = L(n) - pi(n)).
+4. This re-derives the F14 scale induction from the flux side, independently:
+   the contraction question = does the bounded-scale exchange margin favor S
+   at every scale doubling, with the asymptotic stitching supplied by the
+   floors (Landau/charge/privacy), the veto mirror above threshold, and the
+   packing bootstrap at small-linear prefixes.
+
+NEXT SESSION OPENING MOVE: the bounded-scale exchange optimization. Set up
+the local game: quotient board {2..H}, P admits via completions (rate, per
+exact PVs), S eats/vetoes (rate from exact PVs); extract the exchange margin
+m(H) from solver data (pv58 shows the battle structure); then write the
+stitching inequality. The wall has become a finite computation plus one
+asymptotic lemma. Resume doc: this file, F18-F22 + DRAFT-pursuit-inequality.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
