@@ -1543,3 +1543,10 @@ session).
 March still in n=77 (~5h CPU); pv72 still buffered (~3.5h CPU — consider
 killing it in the morning if unflushed; its information value is modest
 next to the lemma thread).
+
+## F29.3 (~09:25): L(77) = 30 — plateau dead-center
+
+March: L(77) = 30 (29.6e9 nodes, 5044s). k(77) = 9; c3(77) = 1.152 —
+exactly the plateau's center value. c1 = 1.692 still rising. The wave-1
+plateau law now spans n = 40..77 without a single excursion. n=78 in
+progress.
