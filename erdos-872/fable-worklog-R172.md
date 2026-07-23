@@ -689,6 +689,41 @@ completion-rate measurement AT MULTIPLE H via restricted-board arena runs:
 measure rate(H) = protected yield / moves in contested cone-preparations at
 H = 2^k, directly estimating the contraction sequence).
 
+## F17: machine audit; race correction (2-adic wall at n/2); 1/e RETRACTED -> 1/2
+
+Replaced the planned external-referee pass with machine checks
+(`fable/verify_claims.py`). Verdicts: live-prime charge VALID; gcd absorption
+VALID; static fortress VALID (exhaustive, n = 1e3/1e4/1e5, zero violations);
+**race identity REFUTED** — my own Claim 4 died on its flagged sub-question (i).
+
+**The error.** All three 1/e apparitions assumed a frontier lock (w_j ~ j*Lambda)
+that presumes burning needs a live PRIME pad above the front. False: a
+burned-but-unplayed prime stays legal as a FACTOR. After P's first move kills 2,
+x = 2^a * p lands in (n/2, n] for any live prime p <= n/2 (a power-of-2 multiple
+exists in any ratio-2 window). So the burn wall is n/2 exactly (sim: deepest burn
+49993/499973/4999999 at n = 1e5/1e6/1e7), the frontier accelerates (hump 1.2->
+1.7->1.3 in q_j/(j*Lambda), no lock), stolen mass sum 1/q -> ln 2 (log-integral;
+measured 0.556/0.589/0.618), and prime-channel coverage -> **1/2** (measured
+0.539/0.553/0.565), not 1 - 1/e. bandrace3's 0.375 residual was a lock artifact.
+Cascade: F16's smooth-basis race inherits the corrected steal positions ->
+damage prod(1 - 1/q_stolen) -> e^{-ln 2} = 1/2. SUPPLY = Theta(n) SURVIVES
+(constant 1/2 instead of 1/e; S's poking still costs P only a constant factor).
+G1's sieve-phase bound survives (uses only prime-moves <= pi(n)).
+
+**New structure (the gift in the refutation).** After a full race round the
+carcass = {no S-played prime factor} has density 1/2 + o(n), holds NO live
+prime, minimal live elements are cross-core two-generated composites
+(same-core products die as batch collateral, which totals o(n/log n) since
+sum 2^{k_t} is dominated by the earliest batches). One round = O(n/log n)
+moves/side, board HALVES, weapons degrade. Iterating: sum (n/2^i)/(Lambda - i)
+= O(n/Lambda) — the scale induction's contraction hypothesis is now EXACTLY
+"carcass boards are race-self-similar," with explicit strategies on both sides
+and measured constants. P's refusal to burn = the other count-race horn.
+Recorded: researcher-174-race-correction-two-adic-burn-wall.md (refutes
+R172 item (3) only; confirms item (5)). Also: 2-adic burns pre-kill the
+2-power sub-weapon ray of p — the asymptotic shadow of the 4/9 prime-power
+escalation in the exact PVs.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.

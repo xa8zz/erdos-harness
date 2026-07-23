@@ -20,7 +20,10 @@ controlled by the mass that reaches *hereditarily thin* status (fortress systems
 live sets closed under live-comparability with degree <= 2) plus the natural
 floor (elements thin from the start: O(n/log n) — primes in (n/3, n] etc.) plus
 harvest/battle moves (n^{o(1)}-scale prefixes; sieve-limited phases <= O(n/log n)
-by the prime-frontier race with the 1/e identity). [H1: state and prove this
+because the prime channel offers at most pi(n) moves total — R174 corrected the
+race constants: burn wall n/2 via 2-adic pads, stolen mass sum 1/q -> ln 2,
+prime-channel coverage -> 1/2, the old 1/e cap is RETRACTED; only the
+move-count bound is used here and it survives). [H1: state and prove this
 reduction cleanly — the session has it only as measured structure (75% of kills
 in 66 moves at n=10^6) plus the scale-counting argument.]
 
@@ -79,8 +82,13 @@ prefix, no activation clauses) and registration starvation.]
 - Arena champion pair: L ~ 1.4 n/ln n, coefficient flat across 10^4..10^7.
 - Severed-per-kill decays ~ 1/(log n)^{1.1} (T1b trend, passive P).
 - Exact values to n=58; kill concentration (75% in 66 moves at n=10^6).
-- bandrace3's 0.37 = 1/e prime-frontier equilibrium (S must exceed the pure
-  prime channel; composite channels are correlation-limited — layer peeling).
+- R174 corrected race: prime channel = half-board mechanism (coverage -> 1/2,
+  stolen sum 1/q -> ln 2, burn wall n/2); S must route the other half through
+  composite channels, which are correlation-limited — layer peeling. The
+  bandrace3 0.375 = 1/e identification is retracted (frontier-lock artifact).
+- Halving recursion (R174): one race round = O(n/log n) moves/side, board
+  halves, weapons degrade primes -> two-generated composites. Contraction
+  hypothesis == carcass self-similarity, with explicit strategies both sides.
 
 ## Hole ledger (priority order)
 

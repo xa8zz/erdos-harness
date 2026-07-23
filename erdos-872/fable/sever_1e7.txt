@@ -1,0 +1,2 @@
+severing of PLAYED elements: unsev(thin-from-start)=316512  by-P=0  by-S=348067
+n=10000000 S=maxdeg P=dustman L=664579 L/n=0.06646 kills=9335420 sum=9999999 (expect 9999999)
