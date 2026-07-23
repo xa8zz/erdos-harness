@@ -1550,3 +1550,10 @@ March: L(77) = 30 (29.6e9 nodes, 5044s). k(77) = 9; c3(77) = 1.152 —
 exactly the plateau's center value. c1 = 1.692 still rising. The wave-1
 plateau law now spans n = 40..77 without a single excursion. n=78 in
 progress.
+
+## F29.4 (~10:25): L(78) = 30
+
+March: L(78) = 30 (67.3e9 nodes, 2508s — lucky TT run). k(78) = 9;
+c3(78) = 1.138 (band low end); doubling pair (39,78) ratio 9/8 = 1.125.
+Night's exact-table gain now 58 -> 78 (20 validated values). n=79 (prime)
+in progress.
