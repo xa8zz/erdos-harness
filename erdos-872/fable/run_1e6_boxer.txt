@@ -1,0 +1,1 @@
+n=1000000 S=maxdeg P=boxer L=78774 L/n=0.07877 kills=921225 sum=999999 (expect 999999)

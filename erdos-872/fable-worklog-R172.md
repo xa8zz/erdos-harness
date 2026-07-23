@@ -284,6 +284,57 @@ into forced dust (1 move/element). P's linear mechanism in-model = winning half 
 deep 50/50 races. Whether real-S's mid-window unions beat this is exactly the
 second-order fight.
 
+## F7: the landscape dichotomy — four structural results (2026-07-22, needs audit)
+
+Derived in-session; each needs adversarial verification before promotion. Together
+they reframe the problem as extremal sieve design and re-derive the corpus's exact
+open lemma from an independent route (truth-convergence signal).
+
+**F7.1 (K-thin impossibility, live-weapon caveat).** If EVERY d in [2,n] (dead or
+alive) had live-degree <= K, then sum_{x live}(tau(x)-1) <= Kn; by Erdos-Kac, any
+positive-density live set has tau(x) >= (log n)^{0.69-o(1)} for all but o(n) of its
+elements, forcing live mass O(Kn/(log n)^{0.69}). BUT the game only caps LIVE
+weapons' degrees (dead weapons' fat cones don't serve S), so this does NOT directly
+bound live mass — the gap between all-d and live-d degree caps is exactly where P
+lives. Correct decomposition: live = dust (no live comparable; costs exactly 1
+move each) + interactive (covered by the minimal live antichain M).
+**L = cumulative dust + cumulative swept minimals (+tempo)** — an independent
+re-derivation of the corpus's R148 open object (cumulative minimal-root churn).
+Dust production mechanism = P winning deep 50/50 burn races (element's every
+minimal cover burned before played).
+
+**F7.2 (great-burn self-defeat / density-1 gift).** P CAN afford to burn every
+integer <= Z for ~Z log Z/Lambda moves (lcm-batching; composite coverage costs the
+log factor). But total burning below frontier z makes every element's price > z,
+so S's frontier-adjacent weapons acquire density-ONE live cones (no rough-thinning):
+S's harvest integral becomes int n log z dz/(z Lambda) = n log^2 z/(2 Lambda),
+saturating the whole board by z* = e^{sqrt(2 Lambda)} — S clears everything in
+o(n) moves. Total burning is self-defeating: it gifts S maximal-efficiency
+weapons. P's burning must be SELECTIVE, preserving overlap-thinning structure.
+
+**F7.3 (omega-breadth wall for batch denial).** Effective burn batch on
+support-disjoint (rough) frontier weapons at scale z is <= Lambda/log z (lcm room),
+NOT tau_max: after the smooth core burns, frontier weapons are support-disjoint, so
+P's denial rate collapses toward 1:1 precisely at deep scales. tau_max-sized boxes
+exist only against support-SHARING (smooth) targets. Consequence: S-harvest vs
+selective-burn is the entire game; both my harvest integrals (S wins vs total burn;
+knife-edge tie vs partial burn) are second-order-sensitive to the landscape.
+
+**F7.4 (top-half endgame framing).** L/n = 1/2 - (S's realized top-half harvest
+fraction) in the protect-the-top P architecture; S's harvest = sum n/(2 w_j) over
+its realized weapon sequence; P throttles w_j growth by burning at effective batch
+B(z); B(z) <= Lambda/log z (F7.3) makes the throttle insufficient — this
+architecture also dies to the sqrt(Lambda) saturation. Every explicit P
+architecture constructed so far fails to o(n); every S architecture fails to
+beat the knife-edge against partial-burn landscapes. The decisive object:
+bandrace4 = model with BOTH S strike-freedom AND lateral (smooth) repricing
+(price of x = min over ALL live divisors, not chain-next: my v3 kernel overpriced
+smooth mass — smooth elements have many parallel cheap covers, P must burn all).
+
+Status: leaning o(n) on current evidence (harvest integrals + every P architecture
+failing), but the partial-burn landscape saddle is genuinely unresolved — exactly
+the corpus's invariant gap, now in sieve-landscape coordinates with sharper tools.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.

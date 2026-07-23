@@ -1,0 +1,1 @@
+n=10000000 S=maxdeg P=burner L=813593 L/n=0.08136 kills=9186406 sum=9999999 (expect 9999999)
