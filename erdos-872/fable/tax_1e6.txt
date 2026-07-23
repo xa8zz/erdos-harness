@@ -1,0 +1,4 @@
+peak HEREDITARY thin-live=121954 (0.1220 of n) at move 16384
+severing of PLAYED elements: unsev(thin-from-start)=52518  by-P=35203  by-S=12510
+P-moves=50116 S-moves=50115 top-half-live-final=0 race-front=2
+n=1000000 S=maxdeg P=taxman L=100231 L/n=0.10023 kills=899768 sum=999999 (expect 999999)

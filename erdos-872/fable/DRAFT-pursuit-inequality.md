@@ -129,6 +129,23 @@ and is one-move annihilable; branching only multiplies what a single veto
 destroys. The only quantity that matters is the completion rate under
 mirror-pursuit, which is what P5 bounds.
 
+## Integration with the corpus invariant gap (added after F21)
+
+- P0 (Landau floor): born-thin mass B_D = O_D(n (loglog n)^{c(D)}/log n)
+  (comp_0 <= D forces z > n/(D+2) and omega(z) <= log2(D+2); Landau's
+  pi_k count). So P1's bounded-degree plays are, up to floor order, CROSSED
+  plays; the amplification battle is the whole game asymptotically.
+- The R80 objects coincide with this draft's: poor targets (< r live legal
+  killers) = crossed/thin elements; the bounded-multiplicity online charge =
+  P5's attention-split ledger; nu's quantitative smallness at small-linear
+  prefixes (via R80(1) with constant z, r) bounds the standing UNVETOABLE
+  stock, while P3's veto handles cone-concentrated stock. P5 should therefore
+  be attacked as an amortized potential inequality with
+  Phi = |thin stock| + lambda * (poor-pair mass) + mu * (nu dual slack),
+  using: advance <= 1/move (gcd absorption), veto annihilation (P3),
+  nu-growth via constraint removal (Lipschitz in killed lower moves),
+  crossing capacity (P4), floor (P0 + charge + privacy caps).
+
 ## Measurements wanted (next arena instrumentation)
 
 1. Prepared-stock trajectory: SUM over live d of |Prep_t(d)| at checkpoints,

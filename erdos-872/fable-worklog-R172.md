@@ -832,6 +832,57 @@ moves (known pass-bank flavor); for composite m, shared divisors kill pairs
 wholesale. Formalization next: the surviving-top potential and S's
 harmonic-completion theorem as the main term of P5.
 
+## F21: the assembly — Landau floor lemma; R80 integration; the one wall
+
+**Landau floor lemma (NEW, solid).** Born-thin mass B_D = #{z : comp_0(z) <=
+D} is O_D(n (loglog n)^{c(D)} / log n): comp_0(z) = (n/z - 1) + (tau(z) - 2),
+so born-thin forces z > n/(D+2) AND tau(z) <= D+2, hence omega(z) <=
+log2(D+2); the Landau count pi_k(n) ~ n (loglog n)^{k-1}/((k-1)! log n) gives
+the bound. COROLLARY: the 85%-born-thin dominance measured at n = 1e5 is a
+small-n artifact (loglog(1e5) = 2.44); asymptotically the natural floor is
+genuinely floor-order, and a linear-length play needs Theta(n) CROSSED plays
+(via P1's bounded-degree concentration with D = 2/eps). The (loglog)^C shape
+of the known lower bound appears natively here.
+
+**R80 integration (verbatim from the compiled corpus).** R80(1): after k
+moves, all but 2kz^2 + C 2^r (n/sqrt(log z) + (3/2)^{pi(z)}) live upper
+targets have >= r legal prime-removal killers — for ALL z, r. R80(2): nu
+(fractional packing of targets vs lower-move shadows) is o(n) at sublinear
+positions. Quantitative rescue of the bootstrap: at |A| = delta*n, choosing
+r = R then z = z(R) const, nu <= n(3/(2R) + 2 delta z(R)^2): for every R
+there is delta_R with nu <= 3n/(2R) below delta_R n moves — the bound
+survives SMALL-LINEAR prefixes. By LP duality (packing = min fractional
+cover), the ENTIRE standing thin stock at such positions admits a fractional
+kill-cover of weight gamma*n: S is always gamma*n well-chosen moves from
+annihilating it — realizing this ONLINE is the corpus's single unresolved
+step (R80's bounded-multiplicity online charge), and it is THE SAME OBJECT as
+the pursuit inequality P5: R80's "poor" targets (< r live legal killers) ARE
+the crossed/thin elements (for upper targets, comp = live-divisor count), so
+poor-making rate = crossing rate, and the online charge = the mirror-veto
+attention-split ledger.
+
+**Exchange constants now on the table.** (a) P raises nu by killing lower
+moves (constraint removal), at bounded rate for z-smooth structure (2z^2 per
+move) but adversarially bounded only by the pair ledger sum_d |cone(d)| —
+the per-move crossing capacity of P4. (b) S kills packed (unvetoable) stock
+at ~1 per move BY DEFINITION of packing; S bulk-kills vetoable stock (cone-
+concentrated) at one cone per move (P3). (c) P's amplified crossing needs
+prepared cones (P4), which are vetoable while live (P3), advance one per
+move (gcd), and stand in o(n)+gamma*n inventory (R80(2) quantitative). The
+open inequality: does the flux battle close — can S's split policy (harvest /
+veto ripest / eat thin) hold P's realized thin PLAYS to o(n) against the
+replenishment? All static and rate ingredients are now proven or measured;
+what remains is the amortized potential argument (candidate: Phi = thin-stock
++ lambda * poor-pair-mass + mu * nu-witness-slack, with per-move Lipschitz
+bounds from (a)-(c)).
+
+**Honest status.** This is not a proof; it is the corpus gap restated with
+(i) a floor that is now provably floor-order (Landau lemma), (ii) a
+quantitative packing bootstrap at small-linear times, (iii) veto/advance
+exchange rates from confirmed lemmas, (iv) measured empirics all on the
+sublinear side. The one wall: the online amortization. Next deep session:
+attack Phi directly; the wall is now thin enough to see through.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
