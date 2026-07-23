@@ -659,6 +659,36 @@ remaining content = prove (INV) negative via the scale induction with the
 policing margin; the disproof program = construct (INV) positive. Everything
 else in the five-gear draft is scaffolding around this single point.
 
+## F16: supply/completion split; the live-prime charge lemma; 1/e third apparition
+
+**Lemma (live-prime charge, unconditional, trivial-but-load-bearing).** At any
+position with global live max-degree <= D, the live mass possessing at least one
+LIVE prime factor is <= D * pi(n): charge x to any live prime p | x; cone(p)
+holds <= D live elements. Hence (INV) concerns exclusively elements with FULLY
+BURNED prime support: the fortress is made of smooth numbers over P's burned
+basis, and monotonicity of max-degree gives a clean phase timeline.
+
+**Smooth-basis race (supply side).** P burns primes at log-bandwidth Lambda per
+move (front y_t ~ t*Lambda); S pokes holes by playing the smallest unburned
+prime (h_t ~ t*Lambda); the smooth-count damage is prod_t (1 - 1/(t*Lambda))
+~ exp(-log T/Lambda) ~ 1/e at T = eps*n: S's poking costs P only a constant
+factor. CANDIDATE SUPPLY IS Theta(n) — the third independent apparition of the
+1/e identity (prime-frontier equilibrium, bandrace3 residual, basis race).
+
+**The final battle line.** (INV) = supply x completion: supply Theta(n) (above);
+completion = deep in-cone preparation, governed by the F14 scale induction,
+measured floor-order at accessible scales (F13). The induction's base is LARGE
+(L(58)/58 = 0.397) and the required statement is a per-scale-doubling
+CONTRACTION of the completion rate (0.4 at H=58 -> 0 asymptotically; F13's
+1.7x-floor at 3e6 shows massive realized contraction already). The whole
+dichotomy now = does the contraction hold at every scale (o(n), Theta-tilde
+(n/log n)) or stall at a positive rate (Theta(n))? This is a well-posed
+renormalization inequality with explicit boundary terms — the deepest formal
+object of the program, needing a dedicated fresh-context session (and the
+completion-rate measurement AT MULTIPLE H via restricted-board arena runs:
+measure rate(H) = protected yield / moves in contested cone-preparations at
+H = 2^k, directly estimating the contraction sequence).
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
