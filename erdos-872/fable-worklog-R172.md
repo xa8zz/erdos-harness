@@ -254,6 +254,36 @@ Derived from arena + PV structure; this is the correct asymptotic move-geometry:
 Next: bandrace v3 = numerical differential game on the (v, v') grid with correct
 count/bandwidth/dodge microstructure; then closed-form on the observed saddle shape.
 
+## F6: bandrace3 results + the knife-edge theorem candidate (2026-07-22)
+
+`fable/bandrace3.py` (price-profile formulation — overlap-free by construction:
+state = live mass indexed by scale of cheapest surviving weapon; reprice = Buchstab
+child-split; capture = assigned mass). Results:
+- S-unimpeded mode: c(Lambda) ~ 0.28/Lambda — reproduces Theta(n/log n) exactly. ✓
+- P-engaged mode: c(Lambda) -> ~0.37 — VIOLATES the proven 0.19 bound. Diagnosis:
+  the ascending-sweep implementation locks S to the price frontier, deleting S's
+  strike-above-frontier freedom (mid-window prime sweeps = the Bonferroni-S shape).
+  Fix: restore best-cell-anywhere S via heap (original semantics) + calibrate by
+  imposing the known 0.19-S as exogenous policy (model must reproduce <= 0.19).
+
+**The knife-edge (candidate structural theorem).** In the price-sweep race, P's
+level-pi window costs N(pi)*pi/Lambda moves; S's equal-time strikes there capture
+e^{Lambda-pi} each; the product is n*d(pi)/Lambda mass per price interval — total
+exactly n over the sweep. Both players' leading-order throughputs TIE at n(1+o(1)).
+Consequence if made rigorous: no first-order (capacity/rate) accounting can decide
+L(n)=o(n) — the value lives entirely in second-order terms (hop teleports for rough
+mass, density-decay feedback, strike-order freedom, omega-breadth collapse to 1:1
+at deep scales). This EXPLAINS the corpus's central pattern: every capacity-type
+intermediate proved equivalent-or-circular because first order cannot separate.
+
+**Great-burn feasibility calculus** (P-side, needs adversarial audit): burning every
+integer <= D as weapons costs >= (rough-prime part) ~ D/Lambda + packing losses,
+o(n) for D up to n/polylog; but omega-breadth <= Lambda/v means near-top scales P
+burns ~1 weapon/move — the deep race is 1:1, and deep burns convert covered mass
+into forced dust (1 move/element). P's linear mechanism in-model = winning half the
+deep 50/50 races. Whether real-S's mid-window unions beat this is exactly the
+second-order fight.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
