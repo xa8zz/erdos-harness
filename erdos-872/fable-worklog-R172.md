@@ -370,6 +370,26 @@ top-half cover; the shared-cover counting; elements in (n/4, n/2] even, etc.);
 small-n instantiation: build (A, V) explicitly at n = 5000 in sandbox and verify
 maximality + comparability caps computationally.
 
+**F8-CORRECTED (self-audit, same session).** Hole found: a top-half element
+outside A and V can NEVER die (it has no played divisor — A is top-half — and no
+multiples <= n), so A must equal (n/2, n] \ V-top EXACTLY, and towers must absorb
+the odd multiple layers: corrected fortress
+  V = { j*m : j in {1,2,3,4,5}, jm <= n, m odd in (n/6, n/4] },  K <= 4, |V| = Theta(n),
+  A = (n/2, n] \ V-top;  comp(V) ∩ top = V-top exactly (window arithmetic).
+Verified conflict classes in-head; sandbox instantiation still pending. COST:
+|A| ~ 0.4n — LINEAR approach. This is not an accident:
+
+**F8.2 (sublinear-entry fortresses are statically DEAD — new sharpening).** If a
+position (played antichain A, |A| = o(n)) had residual containing a linear V with
+live-comparability <= K, greedy extraction gives an antichain of size >= |V|/(K+1)
+= Theta(n) inside the residual, so the fractional packing value nu(A) = Theta(n) —
+contradicting R80(2) (nu(A) = o(n) uniformly over sublinear positions, PROVEN).
+Hence: bounded-K linear fortresses require LINEAR played sets; the lower-bound
+side has NO static/stock route whatsoever — only live flow-assembly at rate
+~1 protected element per own-move against maxdeg-S's concurrent kill rate. The
+symmetric statement for the upper side: S's o(n) proof must beat the flow, since
+statics cannot decide. The problem IS the flow saddle; F5-F7 give its economics.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
