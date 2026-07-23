@@ -488,6 +488,40 @@ Session end state: solution NOT closed. Live program: T1 formalization with
 empirical severing-attribution -> charging proof -> fixed-point closure -> would
 give L(n) = Theta-tilde(n/log n) resolving Erdos 872 (o(n) side, near-sharp).
 
+## F11: severing attribution measured — T1 final form (2026-07-22, session close)
+
+Instrumented arena (n=10^6, sevby tracking: element "severed" when its live
+comparable count first drops <= 2 while alive; attribution to the mover):
+
+| P bot   | L      | unsevered (natural floor) | severed by P | severed by S |
+|---------|--------|---------------------------|--------------|--------------|
+| taxman  | 100231 | 52518                     | 35203        | 12510        |
+| dustman | 78498  | 37127                     | 0            | 41371        |
+
+Facts: (i) natural floor ~ 0.5-0.7 x n/ln n; (ii) P-severing rate 0.70 per P-move
+(<< 2: comfortable inside the c* budget); (iii) S's own kills manufacture stock as
+collateral: 1.05/S-move passive, but only 0.045 severed PER KILL; (iv) active P
+suppresses S's collateral 3x (taxman consumes the thinning work).
+
+**T1 final form — two inequalities close the theorem:**
+  (T1a) P-severing: each P move severs <= 2 - delta elements amortized, outside a
+        total O(n/log n) prime-supply exception.  [measured 0.70]
+  (T1b) S-collateral: severed-per-killed -> 0 as n -> infinity (sum over S moves of
+        sigma_t = o(sum Delta_t) = o(n)).  [measured 0.045 at 10^6 — FIRST
+        NEXT-SESSION MEASUREMENT: trend of this ratio in n at 10^4..10^7; if it
+        shrinks like 1/polylog the theorem breathes, if constant the fixed point
+        gives L = Theta(n * ratio) and the answer could be LINEAR after all]
+  Fixed point: L = floor + (P-sever) + (S-collateral) + n^{o(1)}
+             <= floor + (2-delta)L/2 + o(n)  =>  L = O(floor)/delta = o(n).
+
+Session totals: 12 commits, F1-F11. Solution NOT closed; the program stands at:
+prove T1a (charging: one move = one cone + one divisor set = the two-sidedness
+bound) + T1b (anti-concentration of comparability under fat kills — a sieve
+statement, feels tractable!) => L(n) = Theta-tilde(n/log n), resolving #872 on
+the o(n) side near-sharply. All guard rails (Traps A, B), race identities
+(1/e = bandrace3's 0.37), and instruments are committed. Resume: this file, top
+to bottom, then T1b's n-trend measurement, then the T1a charging argument.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.

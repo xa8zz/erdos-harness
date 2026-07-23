@@ -21,6 +21,9 @@ static int32_t *deg;    /* # live strict multiples */
 static int32_t *ldc;    /* # live strict divisors (>=2) */
 static int32_t *spf;
 static int64_t moves, kills;
+static uint8_t *sevby;      /* 0=not severed yet; 1=P severed; 2=S severed */
+static int cur_mover=0;     /* 0=P,1=S */
+static int64_t played_sev[3]={0,0,0}; /* played elements by severer class */
 
 /* bucket queue over deg values (deg only decreases): doubly linked lists */
 static int32_t *bhead, *bnext, *bprev; static int maxb;
@@ -37,7 +40,8 @@ static void bq_link(int d){
     bhead[b]=d;
     if(b>maxb) maxb=b;
 }
-static void deg_dec(int d){ bq_unlink(d); deg[d]--; bq_link(d); }
+static void sever_check(int d);
+static void deg_dec(int d){ bq_unlink(d); deg[d]--; bq_link(d); sever_check(d); }
 
 /* free stack: live elements with deg==0 && ldc==0 (kill nothing when played) */
 static int32_t *fstack; static int ftop;
@@ -58,7 +62,10 @@ static void lq_link(int x){
     lhead[b]=x;
     if(b>lmaxb) lmaxb=b;
 }
-static void ldc_dec(int x){ if(lq_on&&x>n/2){ lq_unlink(x); ldc[x]--; lq_link(x);} else ldc[x]--; }
+static void ldc_dec(int x){ if(lq_on&&x>n/2){ lq_unlink(x); ldc[x]--; lq_link(x);} else ldc[x]--; sever_check(x); }
+static void sever_check(int d){
+    if(live[d] && !sevby[d] && deg[d]+ldc[d]<=2) sevby[d]= cur_mover? 2:1;
+}
 
 static int divcnt; static int divbuf[6144];
 static void gen_divisors(int y){
@@ -84,6 +91,7 @@ static void kill_element(int y){
 
 static void play(int x){
     moves++;
+    played_sev[sevby[x]]++;
     kill_element(x);
     for(long long m=2ll*x;m<=n;m+=x) if(live[m]){ kills++; kill_element((int)m); }
     gen_divisors(x);
@@ -240,6 +248,7 @@ int main(int argc,char**argv){
     deg=malloc((size_t)(n+1)*4); ldc=malloc((size_t)(n+1)*4);
     bhead=malloc((size_t)(n+1)*4); bnext=malloc((size_t)(n+1)*4); bprev=malloc((size_t)(n+1)*4);
     fstack=malloc((size_t)(n+1)*4);
+    sevby=calloc(n+1,1);
     spf=malloc((size_t)(n+1)*4);
     for(int i=0;i<=n;i++) spf[i]=0;
     for(int i=2;i<=n;i++) if(!spf[i]) for(long long j=i;j<=n;j+=i) if(!spf[j]) spf[j]=(int)i;
@@ -269,6 +278,7 @@ int main(int argc,char**argv){
     while(moves+kills < n-1){
         int x;
         int64_t k0=kills;
+        cur_mover=turn;
         if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid():p_dustman())));
         else        x = strcmp(sp,"maxdeg")==0? s_maxdeg():s_smallest();
         if(x<0) break;
@@ -278,6 +288,8 @@ int main(int argc,char**argv){
         turn^=1;
     }
     fclose(prof);
+    printf("severing of PLAYED elements: unsev(thin-from-start)=%lld  by-P=%lld  by-S=%lld\n",
+        (long long)played_sev[0],(long long)played_sev[1],(long long)played_sev[2]);
     printf("n=%d S=%s P=%s L=%lld L/n=%.5f kills=%lld sum=%lld (expect %d)\n",
         n,sp,pp,(long long)moves,(double)moves/n,(long long)kills,
         (long long)(moves+kills),n-1);
