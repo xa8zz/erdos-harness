@@ -941,3 +941,110 @@ asymptotic lemma. Resume doc: this file, F18-F22 + DRAFT-pursuit-inequality.
       leverage; target: EVERY P strategy admits S response with o(n) total.
   (3) If (2) stalls on a specific P-landscape family: construct it exactly in the
       arena and measure; if it bends the flat coefficient, switch sides.
+
+## F23 (overnight 2026-07-23, session 3): exact-PV anatomy; the clearing game; Hall prefix criterion
+
+Om asleep; solo overnight burst. 128-bit solver validated (matches corrected
+table 25-45, 56-58, and u64 59-65 cross-check) and marching n=66..100 in bg
+(run128_66up.csv). u64 filled 59-65: L = 24,24,25,25,25,25,26. k(n) = L - pi(n)
+holds at 7 through 64, increments to 8 at n=65. L(n)/n oscillates ~0.40 flat.
+
+### F23.1 Exact-PV anatomy (pvparse.py over pv24..pv60)
+
+Optimal lines have a universal two-phase shape: contested phase T(n) moves,
+then a forced free endgame A(n) = L - T (all remaining moves d0/locked-pairs;
+value fixed regardless of play). Data (n: L = T + A, k(n), remnant comps):
+
+  24: 11=6+5  k2 [21] | 30: 13=6+7 k3 [15,25,27] | 36: 15=7+8 k4 [21,25,33,35]
+  40: 16=9+7  k4 [21,27,39] | 42: 17=10+7 k4 | 48: 19=11+8 k4 [27,39]
+  54: 22=11+11 k6 [33,35,49,51] | 58: 23=12+11 k7 [33,35,49,55,57] | 60: 24=12+12 k7
+
+- T(n) grows ~ pi(n/3)+O(1) (6,6,7,9,10,11,11,12,12): the contest ends when
+  no live element has 2+ live comparables (board = free verts + locked pairs).
+- P's contested play: ONE multi-prime defuser opening (30 = 2*3*5 at n>=54;
+  18 = 2*3^2 at 40-48 — P *concedes prime 5 to S* there and S harvests via 5!)
+  then cheap severs 2p (14->7, 22->11, 38->19, 26->13, 34->17).
+- S's contested play: tower harvests in decreasing value (4-tower k13, 9-tower
+  k4, then prime doubles 13,17,19,23,29 k2..k1). S does ~2/3 of all kills.
+- Remnant comps are ALWAYS odd products of exactly the severed primes (33=3*11,
+  35=5*7, 49=7^2, 55=5*11, 57=3*19 at 58). Layer peeling confirmed in exact
+  play: S's 9-play kills 45 = 3^2*5 and 27 BEFORE liberation — killing via the
+  still-live prime-square layer. Liberation requires the FULL interior divisor
+  lattice dead, not just primes.
+
+Ledger (exact, useful): L = (played primes) + (played composites);
+k(n) = L - pi(n) = (played composites) - (severed primes). At 58: 10 + 13,
+k = 13 - 6 = 7. Top-half primes are born-free (comp 0 forever): the classical
+floor. THE asymptotic question == growth of played-composites under optimality.
+
+### F23.2 Service ledger (new formal frame; short proofs)
+
+- Top half (n/2, n] is an antichain: comp(z) = live-divisor-count for z there;
+  once 0, z is unkillable — banked. S can never kill comp-0 top-half stock.
+- Odd-remnant lemma: for even z in (2n/3, n], divisor z/2 can die ONLY when z
+  itself is played (multiples 3z/2 > n; divisors of z/2 divide z). So even
+  top-third elements always play at comp >= 1; clean liberation is odd-only.
+  Matches PV remnants (all odd, all n tested).
+- Moment-of-death identity: if d dies at time t (necessarily as collateral —
+  any PLAY of a banked-later multiple would have killed d earlier), then every
+  eventually-played z with d | z is live at t. So serv(d) := #{played z: d|z}
+  counts elements all simultaneously live-and-vetoable at t^-: S playing d at
+  t^- would kill all of them. Every service burst sat exposed for its whole
+  preparation window. (This is P3/P4 sharpened to an exact identity.)
+- Landau forcing: for any fixed T, all but O_T(n (loglog n)^{T-2}/log n) of
+  played composites have tau > T, hence need > T-2-D services each. Linear L
+  forces total service flow omega(n) — superlinear flow through vetoable
+  bursts. (Quantitative restatement of the corpus invariant (INV).)
+
+### F23.3 THE CLEARING GAME (new abstraction — candidate decisive object)
+
+Abstract the race: W = interior elements (<= n/2), Z = top-half stock; each
+z has requirement R(z) = its interior divisor set (|R(z)| = tau(z)-ish >= T
+off the floor). Alternating: P DELETES one w per move (defuse — in the real
+game, via a top-half vehicle play killing w divisor-side); S FIRES one live w
+per move (plays it): firing w kills every z with w in R(z) not yet banked.
+z is BANKED (P point, unkillable) when R(z) is fully deleted before any of
+its elements is fired.
+
+Greedy-fire heuristic: S fires the live w of max standing frequency, i.e. the
+race walks the frequency-sorted list of W; an element of sorted rank r is
+fireable by S-move ~r, so P must delete it by global move ~2r.
+
+HALL/EDF PREFIX CRITERION (protectability): P can bank a family Z* iff
+(roughly) for every prefix scale m,  |closure(Z*) ∩ W_{top-2r ranks}| <= r —
+i.e. the interior closure of the protected stock has density <= 1/2 of the
+ambient frequency order at EVERY prefix. Earliest-deadline-first scheduling;
+exchange argument should make this a clean theorem inside the abstraction.
+
+Computed consequences (in-head, MUST machine-check — guard-rail flag):
+- Frequency order on divisor structure = magnitude order (freq(w) ~ n/2w).
+  Prefix density of closure at scale m ~ P[omega(w) <= k-2] for stock of
+  uniform omega-level k. Density <= 1/2 at ALL scales pins k to the RUNNING
+  MEDIAN of omega at every scale m: k <= loglog m + c*sqrt(loglog m) for all
+  m simultaneously — a Brownian-bridge/below-median-at-all-scales constraint.
+- Layers reproduce the classics: omega=2 stock (semiprimes, closure = primes,
+  density m/log m << m/2) is FULLY protectable: mass ~ n loglog/log — the
+  classical lower-bound scale, rederived as the first unconditionally-sparse
+  layer. omega=k protectable while (loglog m)^{k-2}/(k-2)! log m stays < 1/2.
+- The all-scales median constraint puts the answer in the sqrt(loglog) window:
+  protectable stock plausibly Theta(n / (loglog n)^{c'}) — SUBLINEAR (o(n)!)
+  but far above n/log n, and empirically indistinguishable from linear at any
+  measurable n (loglog(1e7) = 2.8). If instead the constraint admits a
+  positive-density bridge family, the answer is LINEAR. The knife-edge of
+  R172 is exactly the median window; the constant decides. Either way this
+  frame explains why arenas at 1e5..1e7 look flat: (loglog)^c is ~2-3 there.
+
+CAUTION (abstraction gaps, to be audited before believing anything):
+(i) real P deletes a full CHAIN per pad-move (2,4,8,.. in one play) — P
+stronger than 1/side; (ii) real S-fire has collateral: firing 3 kills interior
+9,15,21 too — free deletions for P's ledger, S weaker; (iii) vehicles cost
+kills and are plays (count in L, can be stock); (iv) banking still requires
+PLAYING each banked z (1/move) while S eats pending; (v) S may prefer harvest
+over fire (attention split). Items (i)+(ii) favor P, (iv)+(v) favor S. The
+abstraction is a lens, not yet a theorem about L(n).
+
+NEXT (tonight): build clearing.py — exact/greedy clearing game on true divisor
+structure, n up to 1e6-ish: (a) measure max protectable mass vs n (scaling in
+loglog powers); (b) verify the EDF/Hall criterion against brute-force small n;
+(c) test S fire-policies (max-freq vs max-live-damage) and P schedules (EDF on
+chosen Z*). Then map gaps (i)-(v) one at a time back into the real game.
