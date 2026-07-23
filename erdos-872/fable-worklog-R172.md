@@ -1194,3 +1194,33 @@ Also noteworthy from the 1e5 run: S's crossing channels dominated
 (S-div = 23327 crossings vs P-div 3693) yet S-div PLAYED = 0 — S's own
 fire-collateral crossings never became plays; P's played stock = 11017
 born-thin + 513 P-div-crossed. Fire-collateral is real but did not convert.
+
+## F26 (overnight cont.): p_pack — second championship jump; S-counter landscape
+
+p_pack (arena.c, binary arena5): multi-target closure sweep = F25.2's share
+collapse under real rules. Pack the next live odd interiors ascending into
+one vehicle (product <= n, up to 60 targets), land in (n/2, n] by 2-adic pad
+(or by packing depth when evens are gone); one play defuses the whole core +
+all cross-products. Exact-play precedent: pv65's P plays 63 = 3^2*7 (severs
+7 + kills layer 9 in one move).
+
+  1e5 results (L, vs closure's number against the same S):
+    vs maxdeg  13442  (+3.5%)   <- binding counter
+    vs topdeg  13793  (+7.9%)
+    vs hunter  14798  (+18%)    <- hunter never kills evens: pads survive
+    vs smallest 17421
+  Champion pair now maxdeg-S vs pack-P: 1.548 n/ln n at 1e5 (taxman era:
+  1.42). Calibration n=58: pack L=20 vs exact 23 (87%).
+
+Why maxdeg is the binding counter: its fires maximize TOTAL cone (interior
+included) — the interior collateral denies pack its future targets. topdeg
+(pure top-half fire value) is measurably worse for S: interior denial is
+worth real value against a closure-sweeping P — empirical confirmation that
+the interior lattice is contested capital, not just weapon stock.
+
+Scaling runs launched (pack_1e6/1e7 vs maxdeg, pack_td_1e6). Trend to watch
+against closure's 1.496 -> 1.532 -> 1.560 (+2%/decade). NOTE for honesty:
+L/n still declines ~15%/decade (vs 17% for pure 1/ln): the rise is a slow
+excess over n/log n, nowhere near a linear-limit signature. The F25.2
+share-collapse integral predicts stolen prime mass O(1) but the wave/layer
+telescoping constants remain the undecided core (F25.3), as expected.

@@ -88,6 +88,24 @@ static void sever_check(int d){
     if(live[d] && !sevby[d] && deg[d]+ldc[d]<=2) sevby[d]= cur_mover? 2:1;
 }
 
+/* top-half fire value: tdeg[d] = # live multiples of d in (n/2, n] */
+static int32_t *tdeg;
+static int32_t *thead, *tnext, *tprev; static int tmaxb; static int tq_on=0;
+static void tq_unlink(int x){
+    int p=tprev[x], nx=tnext[x];
+    if(p>=0) tnext[p]=nx; else if(thead[tdeg[x]]==x) thead[tdeg[x]]=nx;
+    if(nx>=0) tprev[nx]=p;
+    tprev[x]=tnext[x]=-1;
+}
+static void tq_link(int x){
+    int b=tdeg[x];
+    tprev[x]=-1; tnext[x]=thead[b];
+    if(thead[b]>=0) tprev[thead[b]]=x;
+    thead[b]=x;
+    if(b>tmaxb) tmaxb=b;
+}
+static void tdeg_dec(int d){ if(tq_on){ tq_unlink(d); tdeg[d]--; tq_link(d);} }
+
 static int divcnt; static int divbuf[6144];
 static void gen_divisors(int y){
     divcnt=1; divbuf[0]=1;
@@ -107,7 +125,7 @@ static void kill_element(int y){
     live[y]=0;
     if(y>n/2) top_live--;
     gen_divisors(y);
-    for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<y) { deg_dec(d); maybe_free(d);} }
+    for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<y) { deg_dec(d); if(y>n/2) tdeg_dec(d); maybe_free(d);} }
     for(long long m=2ll*y;m<=n;m+=y){ ldc_dec((int)m); maybe_free((int)m); }
 }
 
@@ -141,6 +159,27 @@ static int scursor=2;
 static int s_smallest(void){
     while(scursor<=n && !live[scursor]) scursor++;
     return scursor<=n? scursor : -1;
+}
+static int s_topdeg(void){
+    /* pure fire value: max live top-half multiples (interior weapons only) */
+    while(tmaxb>0){
+        int d=thead[tmaxb];
+        while(d>=0){
+            int nx=tnext[d];
+            if(!live[d]||tdeg[d]!=tmaxb){ if(!live[d]) tq_unlink(d); d=nx; continue; }
+            return d;
+        }
+        tmaxb--;
+    }
+    return s_maxdeg();
+}
+static int hcursor=3;
+static int s_hunter(void){
+    /* leapfrog: fire the smallest ARMED odd interior (anticipates an
+       ascending closure sweep); disarmed/dead skipped permanently. */
+    while(hcursor<=n/2 && !(live[hcursor]&&tdeg[hcursor]>0)) hcursor+=2;
+    if(hcursor<=n/2) return hcursor;
+    return s_maxdeg();
 }
 
 /* ---------- P ---------- */
@@ -259,7 +298,10 @@ static int p_race(void){
 }
 
 static int ccursor=3;
-static int p_closure(void){
+static int p_closure_body(int taxfall);
+static int p_closure(void){ return p_closure_body(0); }
+static int p_closuretax(void){ return p_closure_body(1); }
+static int p_closure_body(int taxfall){
     /* closure-sweeper (F25): defuse the ODD interior ascending (most-shared
        weapons first == the clearing-game race under real rules). Vehicle for
        w: prefer the 2-adic pad w*2^a in (n/2,n] (kills w + its surviving
@@ -283,7 +325,40 @@ static int p_closure(void){
         }
         ccursor+=2;
     }
-    return p_dustman();
+    return taxfall? p_taxman(): p_dustman();
+}
+
+static int pcursor=3;
+static int p_pack(void){
+    /* multi-target closure sweep (F25.2 share collapse): pack the next live
+       odd interiors ascending into one vehicle prod <= n; land it in
+       (n/2, n] via 2-adic pad if evens alive, else by packing depth alone.
+       One play defuses the whole core + cross-products. */
+    for(;;){
+        while(pcursor<=n/2 && !live[pcursor]) pcursor+=2;
+        if(pcursor>n/2) return p_dustman();
+        int core[64]; int nc=0;
+        long long prod=1;
+        for(int w=pcursor; w<=n/2 && nc<60; w+=2){
+            if(!live[w]) continue;
+            if(prod > (long long)n/w) break;
+            core[nc++]=w; prod*=w;
+        }
+        while(nc>0){
+            long long x=prod;
+            while(x<=(long long)n/2) x*=2;          /* 2-adic pad */
+            if(x<=n && live[(int)x]) return (int)x;
+            if(prod>(long long)n/2 && live[(int)prod]) return (int)prod;
+            nc--; prod/=core[nc];                    /* shrink and retry */
+        }
+        /* single-target fallback: any live vehicle for the cursor element */
+        int w=pcursor;
+        int lo=(int)((long long)n/2/w)+1, hi=(int)((long long)n/w);
+        if(lo<2) lo=2;
+        for(int m=hi;m>=lo;m--)
+            if(live[(int)((long long)m*w)]) return (int)((long long)m*w);
+        pcursor+=2;                                  /* orphaned: next target */
+    }
 }
 
 static int p_burner(void){
@@ -343,6 +418,12 @@ int main(int argc,char**argv){
     for(int d=2;d<=n;d++) bq_link(d);
     crossed=calloc(n+1,1); crossch=calloc(n+1,1); crossmv=calloc(n+1,1);
     for(int d=2;d<=n;d++) if(deg[d]+ldc[d]<=DTHR){ crossed[d]=1; born6++; }
+    tdeg=malloc((size_t)(n+1)*4);
+    thead=malloc((size_t)(n+1)*4); tnext=malloc((size_t)(n+1)*4); tprev=malloc((size_t)(n+1)*4);
+    for(int i=0;i<=n;i++) thead[i]=-1;
+    tmaxb=0;
+    for(int d=2;d<=n/2;d++){ tdeg[d]=n/d-(n/2)/d; tnext[d]=tprev[d]=-1; tq_link(d); }
+    tq_on=1;
     lhead=malloc((size_t)(n+1)*4); lnext=malloc((size_t)(n+1)*4); lprev=malloc((size_t)(n+1)*4);
     for(int i=0;i<=n;i++) lhead[i]=-1;
     lmaxb=0;
@@ -358,8 +439,8 @@ int main(int argc,char**argv){
         int x;
         int64_t k0=kills;
         cur_mover=turn;
-        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race(): (strcmp(pp,"closure")==0? p_closure():p_dustman())))));
-        else        x = strcmp(sp,"maxdeg")==0? s_maxdeg():s_smallest();
+        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race(): (strcmp(pp,"closure")==0? p_closure(): (strcmp(pp,"closuretax")==0? p_closuretax(): (strcmp(pp,"pack")==0? p_pack():p_dustman())))))));
+        else        x = strcmp(sp,"maxdeg")==0? s_maxdeg(): (strcmp(sp,"topdeg")==0? s_topdeg(): (strcmp(sp,"hunter")==0? s_hunter():s_smallest()));
         if(x<0) break;
         play(x);
         if(moves<=256||((long long)moves&63)==0)
