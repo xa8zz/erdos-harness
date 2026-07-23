@@ -1337,3 +1337,35 @@ SYNTHESIS (the coherent story all measurements now support):
   proof target stays the stitching inequality; its S-side now has a
   concrete quantitative shape to chase: theft shares bounded below
   UNIFORMLY IN LAYER (w1's 90% is the measured anchor).
+
+## F27 (wakeup ~07:10): the wave-1 plateau law; march to 74; opener changes to 60
+
+March: L(72)=28, L(73)=29, L(74)=29 — and the optimal FIRST MOVE changes
+for the first time in the table's history: 60 = 2^2*3*5 replaces 30 at
+n=72 (deeper 2-adic opener; pv72 generating). k(n) = 8 flat across 65-74:
+doubling pairs (35,70), (36,72), (37,74) all at ratio exactly 1.00.
+
+Law fits over the exact table (machine-computed):
+  c1 = L ln/n              1.457 -> 1.687   RISING  (n/log n under-fits)
+  c2 = L ln/(n loglog^2)   1.09  -> 0.79    FALLING (classical shape over-fits)
+  c3 = L ln/(n loglog)     FLAT 1.155 +/- 2% from n=40 to 74  <<<
+
+THE WAVE-1 PLATEAU LAW: exact play at accessible n obeys
+  L(n) ~ 1.155 * n loglog n / log n
+— the single-loglog signature of one arrived protection layer (severed
+primes + their banked products; Sum 1/p ~ loglog). Consistency checks:
+- pv anatomy: exact play severs primes and banks their pair-products;
+  wave-2 (products of products) barely exists at n <= 74. One layer = one
+  loglog factor.
+- The plateau extrapolated collides with the corpus upper bound 0.1897n at
+  n ~ 1e6-1e7: a bend is FORCED before then. k's ten-value flatness at 8
+  is plausibly the bend's leading edge: if k stays 8 through n=80, c3
+  drops to 1.112 (clear decline); if k increments by 76-78, the plateau
+  holds. The march measures this directly within hours.
+- Classical lower bound needs (loglog)^2 eventually: the second loglog
+  factor is wave-2's arrival, invisible at exact scales, ~10% at arena
+  scales — the layered-arrival story from both ends.
+
+pv66 parsed (T=14 A=12, remnant [35,39,45,49,65], severs {2,3,5,7,13} with
+63 as the two-layer vehicle). Backgrounds: closure 3e7 mid-endgame; pack
+3e7 queued; march n=75+; pv72 running.
