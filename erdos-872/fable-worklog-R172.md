@@ -1392,3 +1392,41 @@ exact plateau's 1.155 — bots capture ~48% of the exact-law value. Either
 bots are ~half-optimal at scale, or the exact law genuinely bends between
 n=75 and 3e7 (it MUST bend by ~1e6: upper-bound collision, F27). Locating
 the bend is the top open measurement.
+
+## F28 — NIGHT DIGEST (2026-07-23, ~03:30-07:45, for the morning read)
+
+Machine infrastructure built tonight:
+- solver128 (128-bit exact minimax, validated against u64 on 25-65): exact
+  table extended 65 -> 75+ (march continuing). pvparse.py (PV anatomy).
+  clearing.py (abstract clearing/securing game). racecover/raceverify
+  (share-race models). arena bots: closure, pack, pack2(-), mix-S, topdeg,
+  hunter; K2 wave ledger instrumentation.
+
+The five headline findings:
+1. WAVE-1 PLATEAU LAW (F27): exact play obeys L ~ 1.155 n loglog/log n,
+   flat n=40..75 (c3 in [1.13, 1.18]). Single loglog = one arrived
+   protection layer; matches PV anatomy (sever primes, bank products).
+   Must bend by n ~ 1e6 (upper-bound collision); k-flatness at 65-74 was
+   the candidate leading edge, but k(75)=9 keeps the plateau. Bend
+   location = top open measurement.
+2. RISING CHAMPION ERA (F25.4-F27.1): closure-P rises through best
+   response four consecutive scale points: 1.496/1.532/1.560/1.572 n/ln n
+   (1e5..3e7), decelerating. Pack jumps higher but converges to closure.
+   Greedy-S family saturated (<0.3% improvements). First coefficient
+   motion in the program's arena history.
+3. K2 WAVE LEDGER (F26.2-3): theft = 90% prime-fires + ~10% semiprime,
+   flat; protection deepens (safe-w2 23%, safe-w3 x12/decade). The
+   hierarchy arrives at loglog pace on the protection side.
+4. PIERCING FORMULATION (DRAFT-stitching §7): safe z <=> R(z) dodges S's
+   fired set F entirely (fires can never help liberation). o(n) == one
+   online piercing-race lemma, uniform in waves, with measured anchors.
+5. GUARD RAILS 5-6 (F25.2): SD-asymptotics invisible at accessible n;
+   multi-prime vehicle capacity collapses the naive alternation share.
+   Both in-head asymptotics machine-refuted before recording.
+
+Posture: empirical body now COHERES as layered protection over an n/log n
+base = the classical lower bound's shape with loglog powers filling in.
+Leans o(n) = YES with L likely n * poly(loglog)/log n. The proof target is
+the piercing-race lemma (stitching §7); recommended next-session plan:
+formalize per-wave pieces for Aristotle, locate the exact-law bend, and
+consider a lookahead-S to stress the rising champions.

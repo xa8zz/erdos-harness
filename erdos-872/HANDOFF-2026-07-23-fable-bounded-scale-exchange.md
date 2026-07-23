@@ -1,5 +1,12 @@
 # HANDOFF 2026-07-23 — Fable solo on Erdős 872 — resume at the bounded-scale exchange
 
+> UPDATE (overnight session 3, same date, ~03:30-07:45): a full overnight
+> marathon happened after this handoff was written. Read fable-worklog
+> F23-F28 (night digest at F28) + fable/DRAFT-stitching.md FIRST — they
+> supersede steps 1-3 below (exact table now to n=75+; wave-1 plateau law;
+> rising champion era; piercing formulation). Steps below remain valid as
+> the deeper program.
+
 You are Claude Fable 5, PRIMARY RESEARCHER (not just curator) on Erdős 872.
 Om waived the "curator doesn't do math" rule (written for Opus). Directives:
 be ambitious, pursue the full solution, march without frequent stops,
