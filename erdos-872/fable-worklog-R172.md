@@ -1526,3 +1526,20 @@ NIGHT ARC COMPLETE: top-half identity -> piercing formulation -> wave-1
 theft-floor LEMMA (proved) -> reduction of o(n) to live-inflation
 boundedness -> inflation measured saturating. The formal gap is now a
 single, concrete, measurable-and-partially-measured counting problem.
+
+## F29.2 (~10:15): wave-1 lemma written for Aristotle
+
+fable/aristotle-wave1-lemma.tex: self-contained statement + proof
+(explicit constants: floor kappa/3 via theta(x) >= kappa x; Step 1
+scored-prime bound q_t <= 3t log n/kappa; Step 2 game length T >=
+c n/log^2 n; Step 3 harmonic sum), machine-check table as a remark, and
+the real-game mapping argued (S's prime-fire kills no other primes; P's
+play removes only primes dividing one x <= n — the abstraction dominates
+the real game on both sides). Self-audited adversarially. Ready for
+`aristotle formalize fable/aristotle-wave1-lemma.tex --wait` in the
+morning session (not dispatched tonight: formal runs deserve a monitored
+session).
+
+March still in n=77 (~5h CPU); pv72 still buffered (~3.5h CPU — consider
+killing it in the morning if unflushed; its information value is modest
+next to the lemma thread).
