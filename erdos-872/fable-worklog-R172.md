@@ -783,6 +783,55 @@ PARTIAL-burn + preparation — exactly the F18 pursuit regime. The enemy is not
 denial; it is amplified admission, and F18 bounds it if the pursuit
 inequality closes.
 
+## F20: crossing-ledger empirics; the tiling-burner near-trap (guard rail #4);
+## the element-complete/harmonic asymmetry — the knife-edge tie-breaker
+
+**Ledger at n=1e5, champion pair (arena2, D=6 crossing attribution).**
+born-thin 42389 (0.42n — the top half is born near-thin); crossings during
+play: P-div 4521, S-div 22734, mult-side ~4.7k total. PLAYED composition of
+L = 12345: born-thin 10476 (85%), S-mult 948, P-div 465 (3.8%), fat 413,
+S-div 0 (!). Tower stock (prepared pairs by dyadic quotient band): 17.8k at
+move 512, 6.7k at 2048, ZERO by 8192; max single root ever: 8 members.
+Readings: (i) at accessible scales L IS the natural floor — surviving
+born-thin top mass — plus a short battle; (ii) S's own crossings never get
+played (S eats its collateral); (iii) no fielded P sustains deep towers;
+(iv) the dichotomy question = can P grow the 3.8% admitted slice to Theta(n),
+OR protect a Theta(n) surviving top antichain. Reframe: L ~ battle + admitted
++ SURVIVING TOP ANTICHAIN; the last term is the main term.
+
+**Tiling-burner near-trap (candidate linear-side construction, REFUTED —
+guard rail #4).** Idea: max-tau smooth tiles X = 2^a 3^b 5^c... (tau up to
+exp((ln2+o(1)) Lambda/loglog)) kill n^{c/loglog} divisors per move, so P
+element-complete-clears all scales <= n/e in n^{1-c/loglog} = o(n) moves,
+leaving S only O(1)-kill weapons: L = Theta(n). REFUTATION (fiber theft):
+tiles are smooth; the mass of [2, n/e] is dominated by prime fibers
+m = s*q (large prime q); one tile covers O(1) fibers (q must divide X); P
+therefore pays ~(n/q) e^{-c(Lambda-ln q)/loglog} moves per fiber while S
+STEALS a whole fiber per single move (play q: kills every live multiple).
+S stealing the smallest available fiber primes during P's tiling collects
+harmonic mass sum 1/q ~ loglog of the stolen range -> coverage -> 1: S
+completes crushingly. The smooth sliver P can actually tile has vanishing
+density (Psi over r ~ Lambda/loglog fixed primes). Trap mechanism to record:
+tau-rich tiles overcount because tile REACH is smooth-only; fiber mass needs
+per-fiber work at 1-move-theft odds.
+
+**The asymmetry (second-order tie-breaker, candidate main-term engine).**
+(a) Harmonic denial cap: one P move X destroys weapon-harmonic mass at most
+sum_{d | X} 1/d <= sigma(X)/X = O(loglog n) — ABSOLUTE, by Gronwall. (b) But
+denying S a SCALE requires element-complete clearing (S steals with any single
+live element): band [y, 2y] costs P at least y/max-tau = y^{1-o(1)} moves to
+clear, while S extracts the band's harmonic value with ONE move. At every
+scale the denial/theft cost ratio is y^{1-o(1)} : 1. This is the precise
+sense in which the first-order knife-edge (F6) breaks second-order toward S,
+and the quantitative seed for the main-term theorem: against ANY P, S
+collects sum 1/x >= 1 - o(1) over played weapons with live top-cones within
+o(n) moves. Care needed: cone-liveness discounting (P kills top mass too),
+and the orphan structure: X = 2m with m in (n/3, n/2] has its divisor m
+killable only through X itself — for PRIME m these pairs force floor-order
+moves (known pass-bank flavor); for composite m, shared divisors kill pairs
+wholesale. Formalization next: the surviving-top potential and S's
+harmonic-completion theorem as the main term of P5.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.

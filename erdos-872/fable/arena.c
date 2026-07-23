@@ -28,6 +28,18 @@ static int cur_mover=0;     /* 0=P,1=S */
 static int64_t played_sev[3]={0,0,0}; /* played elements by severer class */
 static int64_t peak_thin=0, peak_thin_move=0;
 
+/* P4 crossing ledger, threshold D=6: crossed[z]=1 once comp<=DTHR.
+ * crossX[mover][channel]: channel 0 = multiple-side (a multiple of z died;
+ * tau-bounded amplification), channel 1 = divisor-side (a divisor of z died;
+ * the cone-admission channel). born6 = comp<=DTHR at start. */
+#define DTHR 6
+static uint8_t *crossed;
+static int64_t crossX[2][2]={{0,0},{0,0}};
+static int64_t born6=0;
+static int64_t played_crossX[2][2]={{0,0},{0,0}}; /* played z by crossing class */
+static uint8_t *crossch;    /* 1=mult-side,2=div-side crossing, 0=born-thin */
+static uint8_t *crossmv;    /* mover at crossing time: 0=P,1=S */
+
 /* bucket queue over deg values (deg only decreases): doubly linked lists */
 static int32_t *bhead, *bnext, *bprev; static int maxb;
 static void bq_unlink(int d){
@@ -44,7 +56,13 @@ static void bq_link(int d){
     if(b>maxb) maxb=b;
 }
 static void sever_check(int d);
-static void deg_dec(int d){ bq_unlink(d); deg[d]--; bq_link(d); sever_check(d); }
+static void cross_check(int z,int ch){
+    if(live[z] && !crossed[z] && deg[z]+ldc[z]<=DTHR){
+        crossed[z]=1; crossch[z]=(uint8_t)ch; crossmv[z]=(uint8_t)cur_mover;
+        crossX[cur_mover][ch-1]++;
+    }
+}
+static void deg_dec(int d){ bq_unlink(d); deg[d]--; bq_link(d); sever_check(d); cross_check(d,1); }
 
 /* free stack: live elements with deg==0 && ldc==0 (kill nothing when played) */
 static int32_t *fstack; static int ftop;
@@ -65,7 +83,7 @@ static void lq_link(int x){
     lhead[b]=x;
     if(b>lmaxb) lmaxb=b;
 }
-static void ldc_dec(int x){ if(lq_on&&x>n/2){ lq_unlink(x); ldc[x]--; lq_link(x);} else ldc[x]--; sever_check(x); }
+static void ldc_dec(int x){ if(lq_on&&x>n/2){ lq_unlink(x); ldc[x]--; lq_link(x);} else ldc[x]--; sever_check(x); cross_check(x,2); }
 static void sever_check(int d){
     if(live[d] && !sevby[d] && deg[d]+ldc[d]<=2) sevby[d]= cur_mover? 2:1;
 }
@@ -93,9 +111,12 @@ static void kill_element(int y){
     for(long long m=2ll*y;m<=n;m+=y){ ldc_dec((int)m); maybe_free((int)m); }
 }
 
+static int64_t played_born=0, played_fat=0;
 static void play(int x){
     moves++;
     if(cur_mover) mvS++; else mvP++;
+    if(crossed[x]){ if(crossch[x]) played_crossX[crossmv[x]][crossch[x]-1]++; else played_born++; }
+    else played_fat++;
     played_sev[sevby[x]]++;
     kill_element(x);
     for(long long m=2ll*x;m<=n;m+=x) if(live[m]){ kills++; kill_element((int)m); }
@@ -292,6 +313,8 @@ int main(int argc,char**argv){
         bnext[d]=bprev[d]=-1;
     }
     for(int d=2;d<=n;d++) bq_link(d);
+    crossed=calloc(n+1,1); crossch=calloc(n+1,1); crossmv=calloc(n+1,1);
+    for(int d=2;d<=n;d++) if(deg[d]+ldc[d]<=DTHR){ crossed[d]=1; born6++; }
     lhead=malloc((size_t)(n+1)*4); lnext=malloc((size_t)(n+1)*4); lprev=malloc((size_t)(n+1)*4);
     for(int i=0;i<=n;i++) lhead[i]=-1;
     lmaxb=0;
@@ -313,6 +336,36 @@ int main(int argc,char**argv){
         play(x);
         if(moves<=256||((long long)moves&63)==0)
             fprintf(prof,"%lld,%c,%d,%lld,%lld\n",(long long)moves,turn?'S':'P',x,(long long)(kills-k0),(long long)top_live);
+        if(moves==512||moves==2048||moves==8192||moves==32768||moves==131072||moves==524288||moves==2097152){
+            /* tower-stock scan: prepared pairs (near-thin live z, live root d|z),
+               banded by dyadic quotient h = n/d; also the single largest root. */
+            static int32_t *pcnt=0;
+            if(!pcnt) pcnt=malloc((size_t)(n+1)*4);
+            memset(pcnt,0,(size_t)(n+1)*4);
+            int64_t band[28]; memset(band,0,sizeof band);
+            int64_t stock=0; int nthin=0;
+            for(int z=2;z<=n;z++){
+                if(!(live[z]&&crossed[z])) continue;
+                nthin++;
+                gen_divisors(z);
+                for(int i=0;i<divcnt;i++){
+                    int d=divbuf[i];
+                    if(d<2||d>=z||!live[d]) continue;
+                    pcnt[d]++; stock++;
+                    int h=n/d, b=0; while((1<<b)<h && b<27) b++;
+                    band[b]++;
+                }
+            }
+            int bd=-1; int64_t bc=0;
+            for(int d=2;d<=n;d++) if(pcnt[d]>bc){bc=pcnt[d];bd=d;}
+            printf("TOWER move=%lld thin=%d stock=%lld maxroot=(%d,%lld,h=%d) "
+                   "bands(h<=2^b) b=1:%lld 2:%lld 3:%lld 4:%lld 5:%lld 6:%lld 7:%lld rest:%lld\n",
+                (long long)moves,nthin,(long long)stock,bd,(long long)bc,bd>0?n/bd:0,
+                (long long)band[1],(long long)band[2],(long long)band[3],(long long)band[4],
+                (long long)band[5],(long long)band[6],(long long)band[7],
+                (long long)(stock-band[1]-band[2]-band[3]-band[4]-band[5]-band[6]-band[7]));
+            fflush(stdout);
+        }
         if(((long long)moves&8191)==0 || moves==512 || moves==2048){
             /* hereditary thin: thin AND all live comparables thin */
             static uint8_t *thinf=0;
@@ -338,6 +391,14 @@ int main(int argc,char**argv){
         (long long)peak_thin,(double)peak_thin/n,(long long)peak_thin_move);
     printf("severing of PLAYED elements: unsev(thin-from-start)=%lld  by-P=%lld  by-S=%lld\n",
         (long long)played_sev[0],(long long)played_sev[1],(long long)played_sev[2]);
+    printf("CROSS D=%d: born=%lld  by-P: mult=%lld div=%lld  by-S: mult=%lld div=%lld\n",
+        DTHR,(long long)born6,
+        (long long)crossX[0][0],(long long)crossX[0][1],
+        (long long)crossX[1][0],(long long)crossX[1][1]);
+    printf("PLAYED by class: born=%lld fat=%lld  P-mult=%lld P-div=%lld  S-mult=%lld S-div=%lld\n",
+        (long long)played_born,(long long)played_fat,
+        (long long)played_crossX[0][0],(long long)played_crossX[0][1],
+        (long long)played_crossX[1][0],(long long)played_crossX[1][1]);
     printf("P-moves=%lld S-moves=%lld top-half-live-final=%lld race-front=%d\n",
         (long long)mvP,(long long)mvS,(long long)top_live,rcursor);
     printf("n=%d S=%s P=%s L=%lld L/n=%.5f kills=%lld sum=%lld (expect %d)\n",
