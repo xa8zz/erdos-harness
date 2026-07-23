@@ -43,6 +43,23 @@ static void deg_dec(int d){ bq_unlink(d); deg[d]--; bq_link(d); }
 static int32_t *fstack; static int ftop;
 static void maybe_free(int x){ if(live[x]&&deg[x]==0&&ldc[x]==0) fstack[ftop++]=x; }
 
+/* second bucket queue: upper-half elements by ldc (ldc only decreases) */
+static int32_t *lhead, *lnext, *lprev; static int lmaxb; static int lq_on=0;
+static void lq_unlink(int x){
+    int p=lprev[x], nx=lnext[x];
+    if(p>=0) lnext[p]=nx; else if(lhead[ldc[x]]==x) lhead[ldc[x]]=nx;
+    if(nx>=0) lprev[nx]=p;
+    lprev[x]=lnext[x]=-1;
+}
+static void lq_link(int x){
+    int b=ldc[x];
+    lprev[x]=-1; lnext[x]=lhead[b];
+    if(lhead[b]>=0) lprev[lhead[b]]=x;
+    lhead[b]=x;
+    if(b>lmaxb) lmaxb=b;
+}
+static void ldc_dec(int x){ if(lq_on&&x>n/2){ lq_unlink(x); ldc[x]--; lq_link(x);} else ldc[x]--; }
+
 static int divcnt; static int divbuf[6144];
 static void gen_divisors(int y){
     divcnt=1; divbuf[0]=1;
@@ -62,7 +79,7 @@ static void kill_element(int y){
     live[y]=0;
     gen_divisors(y);
     for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<y) { deg_dec(d); maybe_free(d);} }
-    for(long long m=2ll*y;m<=n;m+=y){ ldc[m]--; maybe_free((int)m); }
+    for(long long m=2ll*y;m<=n;m+=y){ ldc_dec((int)m); maybe_free((int)m); }
 }
 
 static void play(int x){
@@ -148,6 +165,43 @@ static int p_boxer(void){
     return p_dustman();
 }
 
+static long long taxval(int x){ /* sum of live-deg over live divisors of x */
+    gen_divisors(x); long long s=0;
+    for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<x&&live[d]) s+=1+deg[d]; }
+    return s;
+}
+static int p_taxman(void){
+    /* threat-weighted protect-the-top via ldc bucket queue: among top-64 by ldc,
+       maximize sum of (1+deg) over live divisors killed. */
+    int cand[64],nc=0;
+    int b=lmaxb;
+    while(b>0&&nc<64){
+        int x=lhead[b];
+        while(x>=0&&nc<64){
+            int nx=lnext[x];
+            if(!live[x]||ldc[x]!=b){ if(!live[x]) lq_unlink(x); x=nx; continue; }
+            cand[nc++]=x; x=nx;
+        }
+        b--;
+    }
+    if(b>lmaxb) ; else if(nc>0&&lhead[lmaxb]<0) lmaxb=b;
+    long long bv=0; int bx=-1;
+    for(int i=0;i<nc;i++){ long long v=taxval(cand[i]); if(v>bv){bv=v;bx=cand[i];} }
+    if(bx>0&&bv>0) return bx;
+    return p_dustman();
+}
+static int p_burner(void);
+static int p_hybrid(void){
+    /* pick better of taxman candidate vs burner bundle by weapons-threat removed */
+    int tx=p_taxman();
+    long long tv= (tx>0&&tx>n/2)? taxval(tx):0;
+    int bxm=p_burner();
+    long long bvv=0;
+    if(bxm>0){ gen_divisors(bxm); for(int i=0;i<divcnt;i++){int d=divbuf[i]; if(d>=2&&d<bxm&&live[d]) bvv+=1+deg[d]; } }
+    if(tv>=bvv) return tx>0?tx:bxm;
+    return bxm>0?bxm:tx;
+}
+
 static int p_burner(void){
     /* walk buckets downward; greedily pack coprime high-degree weapons */
     long long prod=1;
@@ -202,6 +256,11 @@ int main(int argc,char**argv){
         bnext[d]=bprev[d]=-1;
     }
     for(int d=2;d<=n;d++) bq_link(d);
+    lhead=malloc((size_t)(n+1)*4); lnext=malloc((size_t)(n+1)*4); lprev=malloc((size_t)(n+1)*4);
+    for(int i=0;i<=n;i++) lhead[i]=-1;
+    lmaxb=0;
+    for(int x=n/2+1;x<=n;x++){ lnext[x]=lprev[x]=-1; lq_link(x); }
+    lq_on=1;
     ftop=0;
     moves=0;kills=0;
     int turn=0;
@@ -210,7 +269,7 @@ int main(int argc,char**argv){
     while(moves+kills < n-1){
         int x;
         int64_t k0=kills;
-        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer():p_dustman());
+        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid():p_dustman())));
         else        x = strcmp(sp,"maxdeg")==0? s_maxdeg():s_smallest();
         if(x<0) break;
         play(x);

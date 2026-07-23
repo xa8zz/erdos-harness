@@ -342,3 +342,20 @@ the corpus's invariant gap, now in sieve-landscape coordinates with sharper tool
   F3 (fibre renormalization). Line D formulated — now primary.
 - 2026-07-22: Line D v2 derivation (rough tree, cash/push/fragment economics,
   bounded-quotient reduction, budget fixed point). Building numerical saddle solver.
+- 2026-07-22 (cont): F4 arena + F5 micro-economics + F6 knife-edge + F7 landscape
+  dichotomy. Champion arena pair: maxdeg-S vs taxman-P (threat-weighted top-half
+  divisor-batch burner, exact ldc bucket queue): L ~ 1.4 n/ln n, coefficient FLAT
+  across 10^4..10^6 (1.417/1.421/1.385) — the knife-edge visible empirically: P's
+  batch bandwidth and S's weapon replenishment both grow ~ln n, ratio pinned.
+  Hybrid(taxman,burner) < taxman (myopic scoring). VERDICT-LEAN: o(n) — every
+  explicit P architecture dies to a harvest integral; but the partial-burn
+  landscape saddle is unresolved and is exactly the corpus's invariant gap.
+  NEXT (priority order):
+  (1) bandrace4: Monte-Carlo elements (Poisson du/u prime scales) + lateral
+      repricing (price = min over ALL live divisors) + S strike-freedom +
+      parameterized P landscape family; best-response saddle search.
+  (2) Proof attack on the S side: universalize the harvest integrals — candidate
+      potential from F7.1: Phi = sum over live x of f(tau(x)) with Erdos-Kac
+      leverage; target: EVERY P strategy admits S response with o(n) total.
+  (3) If (2) stalls on a specific P-landscape family: construct it exactly in the
+      arena and measure; if it bends the flat coefficient, switch sides.
