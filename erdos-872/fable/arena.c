@@ -21,6 +21,8 @@ static int32_t *deg;    /* # live strict multiples */
 static int32_t *ldc;    /* # live strict divisors (>=2) */
 static int32_t *spf;
 static int64_t moves, kills;
+static int64_t top_live;    /* live count in (n/2, n] */
+static int64_t mvP, mvS;    /* moves by each player */
 static uint8_t *sevby;      /* 0=not severed yet; 1=P severed; 2=S severed */
 static int cur_mover=0;     /* 0=P,1=S */
 static int64_t played_sev[3]={0,0,0}; /* played elements by severer class */
@@ -85,6 +87,7 @@ static void gen_divisors(int y){
 
 static void kill_element(int y){
     live[y]=0;
+    if(y>n/2) top_live--;
     gen_divisors(y);
     for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<y) { deg_dec(d); maybe_free(d);} }
     for(long long m=2ll*y;m<=n;m+=y){ ldc_dec((int)m); maybe_free((int)m); }
@@ -92,6 +95,7 @@ static void kill_element(int y){
 
 static void play(int x){
     moves++;
+    if(cur_mover) mvS++; else mvP++;
     played_sev[sevby[x]]++;
     kill_element(x);
     for(long long m=2ll*x;m<=n;m+=x) if(live[m]){ kills++; kill_element((int)m); }
@@ -211,6 +215,28 @@ static int p_hybrid(void){
     return bxm>0?bxm:tx;
 }
 
+static int rcursor=2;
+static int p_race(void){
+    /* 2-adic greedy front burner (R174): core = smallest live primes with
+       prod <= n/2; play x = core * 2^a in (n/2, n]. Burned-but-unplayed primes
+       remain legal FACTORS, so this is legal all the way to the n/2 wall. */
+    while(rcursor<=n/2 && !(live[rcursor]&&spf[rcursor]==rcursor)) rcursor++;
+    if(rcursor>n/2) return p_dustman();          /* wall reached: pass phase */
+    long long prod=1; int core[64]; int nc=0;
+    for(int p=rcursor; p<=n/2 && nc<60; p++){
+        if(!(live[p]&&spf[p]==p)) continue;
+        if(prod > (long long)(n/2)/p) break;
+        core[nc++]=p; prod*=p;
+    }
+    while(nc>0){
+        long long x=prod;
+        while(x<=(long long)n/2) x*=2;           /* unique 2-adic pad into (n/2, n] */
+        if(x<=n && live[(int)x]) return (int)x;
+        nc--; prod/=core[nc];                    /* rare: x dead; shrink core */
+    }
+    return p_dustman();
+}
+
 static int p_burner(void){
     /* walk buckets downward; greedily pack coprime high-degree weapons */
     long long prod=1;
@@ -275,17 +301,18 @@ int main(int argc,char**argv){
     moves=0;kills=0;
     int turn=0;
     FILE*prof=fopen("arena_profile.csv","w");
-    fprintf(prof,"move,player,x,killed_now\n");
+    fprintf(prof,"move,player,x,killed_now,top_live\n");
+    top_live = n - n/2;
     while(moves+kills < n-1){
         int x;
         int64_t k0=kills;
         cur_mover=turn;
-        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid():p_dustman())));
+        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race():p_dustman()))));
         else        x = strcmp(sp,"maxdeg")==0? s_maxdeg():s_smallest();
         if(x<0) break;
         play(x);
         if(moves<=256||((long long)moves&63)==0)
-            fprintf(prof,"%lld,%c,%d,%lld\n",(long long)moves,turn?'S':'P',x,(long long)(kills-k0));
+            fprintf(prof,"%lld,%c,%d,%lld,%lld\n",(long long)moves,turn?'S':'P',x,(long long)(kills-k0),(long long)top_live);
         if(((long long)moves&8191)==0 || moves==512 || moves==2048){
             /* hereditary thin: thin AND all live comparables thin */
             static uint8_t *thinf=0;
@@ -311,6 +338,8 @@ int main(int argc,char**argv){
         (long long)peak_thin,(double)peak_thin/n,(long long)peak_thin_move);
     printf("severing of PLAYED elements: unsev(thin-from-start)=%lld  by-P=%lld  by-S=%lld\n",
         (long long)played_sev[0],(long long)played_sev[1],(long long)played_sev[2]);
+    printf("P-moves=%lld S-moves=%lld top-half-live-final=%lld race-front=%d\n",
+        (long long)mvP,(long long)mvS,(long long)top_live,rcursor);
     printf("n=%d S=%s P=%s L=%lld L/n=%.5f kills=%lld sum=%lld (expect %d)\n",
         n,sp,pp,(long long)moves,(double)moves/n,(long long)kills,
         (long long)(moves+kills),n-1);

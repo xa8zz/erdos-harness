@@ -724,6 +724,65 @@ R172 item (3) only; confirms item (5)). Also: 2-adic burns pre-kill the
 2-power sub-weapon ray of p — the asymptotic shadow of the 4/9 prime-power
 escalation in the exact PVs.
 
+## F18: the mirror-veto reduction (candidate dissolution of H2)
+
+Status: PROOF SKELETON, heuristic until the pursuit inequality is written and
+machine-probed. Depends on: gcd absorption (confirmed), G2 admission mechanism,
+elementary exchange arithmetic, measured harvest concentration.
+
+**Root-veto.** While a preparation cone(d) is incomplete, its root d is LIVE.
+S playing d kills d AND the entire prepared population (they are multiples of
+d): one S move annihilates the whole lineage investment, and the kill count
+(1 + prepared) is itself a decent harvest. Admission requires the root to die
+divisor-side (P plays a top-half multiple of d) BEFORE S vetoes.
+
+**One advance per move.** By gcd absorption, one move cannot advance two
+preparations at bounded quotients H without both cohabiting an H^2-bounded
+quotient — so deep advances are one-per-move. S also moves once per P move.
+Hence S can MIRROR: veto the most-recently-advanced (or ripest) lineage 1:1,
+and no lineage ever survives from advance to completion — UNLESS S's move is
+worth more spent elsewhere. That is the only escape: P preps while S's harvest
+value exceeds veto value.
+
+**Threat-decay accounting (the skeleton).** Veto value ~ 1 + |prepared| ~ H at
+quotient scale H. S's best harvest value decays with move count (kill
+concentration: 75% of kills in 66 moves at n=1e6); S harvests while
+harvest > H, vetoes after. P's uncompleted-lineage stock at crossover is at
+most the battle length; each completion is <= 1 per P-move and admits <= H
+(cohabitation: a cone at quotient H holds <= H elements). Skeleton bound:
+admissions <= H x (moves at harvest-value >= H) ~ H x n/(H Lambda) = n/Lambda,
+INDEPENDENT of H. Pipeline subtlety: one P move may complete lineage d1 while
+advancing d2 (gcd lemma forbids only double-ADVANCE) — the pursuit inequality
+must handle the advance+complete pipeline and S's attention split (harvest vs
+veto vs eating completions).
+
+**Consequence if it closes.** H2 (child-production bound) DISSOLVES: no
+branching analysis needed — uncompleted advances are vetoable 1:1, so deep
+preparation never pays regardless of branching architecture; the game
+concentrates at bounded quotients where the G5 exchange optimization (H4) is
+the only remaining battle. Holes: (a) dual-purpose P moves (advance +
+harvest-denial in one), (b) the attention-split inequality with honest
+bookkeeping, (c) interplay with the natural floor (no-prep admissions, already
+capped by charge lemma + privacy cap).
+
+## F19: level-2 harmonic supply (loglog-rich) and full-burn's arena verdict
+
+Two-level harmonic calculus (heuristic, to be machine-checked): S's kill
+completion needs harmonic mass sum 1/x ~ 1 over played weapons with live
+cones. Level 1 (primes vs full burn) delivers ln 2 -> coverage 1/2 in pi(n)
+moves (R174, measured). Level 2 weapons are cross-core semiprimes with supply
+sum 1/pq ~ (loglog n)^2 / 2 — loglog-RICH vs the needed constant. Against
+full burn, S collects the missing 1/2 of harmonic mass from semiprimes below
+front y* with log y* ~ Lambda/(2 loglog), costing o(n/Lambda) moves: the
+recursion TERMINATES at level 2 and the race pair costs O(n/Lambda) total.
+Arena confirmation (exact play, n=1e5): L(smallest vs race-P) = 10473,
+L(maxdeg vs race-P) = 10475, vs champion taxman 12345 — full burning is
+SELF-DEFEATING (collateral gift), race-front reaches the n/2 wall exactly,
+final top-half live = 0. Corollary: P's viable architectures are all
+PARTIAL-burn + preparation — exactly the F18 pursuit regime. The enemy is not
+denial; it is amplified admission, and F18 bounds it if the pursuit
+inequality closes.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
