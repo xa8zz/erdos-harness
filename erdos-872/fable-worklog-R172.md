@@ -447,6 +447,47 @@ classes — x has ONE cone and ONE divisor set: the 2 comes from the two sides!)
 small-n sanity: predicted L ~ 2x prime-floor at n <= 58? f(58)=23 vs
 pi(58)+floor... check; (6) then full write-up -> cross-family audit -> Aristotle.
 
+## F10: T2 corrected — race rates, the 1/e identity, layer-peeling; two guard-rail traps
+
+**Trap A (recorded as guard rail).** "S saturates in e^{O(sqrt(K*Lambda))} moves"
+is FALSE — it implied L << n^{0.74}, contradicting the proven (loglog)^2 n/log n
+bound. Error: conflated burn-all-INTEGERS cost (w log w/Lambda, giving the sqrt
+integral) with burn-all-PRIMES cost (w/Lambda). Against full prime-burning the
+frontier is w_j ~ j*Lambda (prime-count exhaustion, airtight), so the pure prime
+sieve gets Sigma 1/q = log j/Lambda -> 1 at j = eps*n: kill fraction saturates at
+1 - 1/e. **bandrace3's 0.37 = e^{-1}: the model computed exactly this
+prime-frontier equilibrium.** P's matching burn cost theta(w)/Lambda = j is
+move-for-move balanced — the knife-edge, localized to the prime channel.
+
+**Trap B (guard rail).** "S escapes via cross-composites of burned primes and
+re-runs the sqrt integral" is ALSO false as a saturation claim — same
+contradiction. Error: Sigma 1/w is not the saturation variable for CORRELATED
+arsenals. A weapon must DIVIDE its target: weapons supported on dead primes <= y
+reach only {x : >= 2 prime factors <= y} (pairs), >= 3 for triples, etc. The union
+saturates at smooth-structure boundaries: residual class {x : <= 1 small prime
+factor} ~ n*loglog y/log y survives ALL cheap composite weapons. Killing it needs
+rough-scale weapons (price > y) — the residual peels one j-small-primes layer per
+generation, each layer a fresh race. This is the corpus's second-shell recursion
+derived from the S side; consistent with everything proven.
+
+**What survives:** the F9 FIXED-POINT architecture is untouched by both traps (it
+needs no clearing/saturation theorem): L = stock + floor + battle; stock <= c* L/2;
+prove c* < 2 - delta outside an O(n/log n) exception => L = O(n/log n)/delta.
+T1 (protection-cost lemma) is THE crux. Charging sketch: each endgame-protected
+element x is charged to the move that severed x's last fat live comparable; a
+single move x_P = one element = one cone + one divisor set — the candidate
+"two-sidedness" bound; packet amplifiers (R170) are prime-supply-capped inside the
+floor (R169(6)). DANGER: severing can be done by S's moves too (S's own plays
+thin the board — do S-severed elements charge S? If S's moves manufacture
+protected stock as collateral, c* accounting must charge BOTH sides' moves;
+then stock <= c*(L) not c*(L/2) and closure needs c* < 1: HARDER. Resolve whose
+moves sever in optimal play — check on exact PVs and arena transcripts: measure
+the severing attribution empirically FIRST.)
+
+Session end state: solution NOT closed. Live program: T1 formalization with
+empirical severing-attribution -> charging proof -> fixed-point closure -> would
+give L(n) = Theta-tilde(n/log n) resolving Erdos 872 (o(n) side, near-sharp).
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
