@@ -1369,3 +1369,26 @@ primes + their banked products; Sum 1/p ~ loglog). Consistency checks:
 pv66 parsed (T=14 A=12, remnant [35,39,45,49,65], severs {2,3,5,7,13} with
 63 as the two-layer vehicle). Backgrounds: closure 3e7 mid-endgame; pack
 3e7 queued; march n=75+; pv72 running.
+
+## F27.1 (wakeup ~07:40): closure 3e7 = 1.572 (4th rise, decelerating); k(75)=9; S saturated
+
+- closure vs maxdeg at 3e7: L = 2739519 = 1.5722 n/ln n. Trend: 1.496 ->
+  1.532 -> 1.560 -> 1.572; rise decelerating (+2.4/+1.8/+1.5 %/decade) —
+  consistent with slow approach to c ~ 1.6 n/ln n or a weak loglog power.
+  Safe-w2 share grows (21.2% -> 22.9% of safe mass); w3 at 1.6%.
+- March: L(75) = 30, k(75) = 9 — increments exactly where the wave-1
+  plateau law needed it (c3(75) = 1.184, in the 1.13-1.18 oscillation
+  band). Opener flips back to 30 (30 -> 60 at 72-74 -> 30 at 75: the
+  opener oscillates with board arithmetic). Bend-vs-plateau verdict now
+  rides on k(78-82).
+- S-side saturation test: s_mix (deg + mu*(interior denial), mu = 1, 3,
+  top-160 scan) improves S by at most 0.28% over maxdeg vs pack/closure.
+  The greedy-S family is exhausted; the champion-P rise stands as a real
+  policy-level result, not an artifact of weak S. (Fundamentally different
+  S architectures — lookahead, cluster-targeting — remain the caveat.)
+
+Bots-vs-exact calibration: closure's c3-equivalent at 3e7 is 0.552 vs the
+exact plateau's 1.155 — bots capture ~48% of the exact-law value. Either
+bots are ~half-optimal at scale, or the exact law genuinely bends between
+n=75 and 3e7 (it MUST bend by ~1e6: upper-bound collision, F27). Locating
+the bend is the top open measurement.

@@ -1,0 +1,16 @@
+TOWER move=512 thin=5062585 stock=5480822 maxroot=(2593,1777,h=11569) bands(h<=2^b) b=1:689722 2:745383 3:768999 4:635421 5:438683 6:253801 7:166838 rest:1781975
+TOWER move=2048 thin=4706668 stock=4366242 maxroot=(14741,192,h=2035) bands(h<=2^b) b=1:635374 2:707223 3:751116 4:631938 5:438554 6:253801 7:165270 rest:782966
+TOWER move=8192 thin=4460691 stock=3862428 maxroot=(71341,39,h=420) bands(h<=2^b) b=1:628794 2:706314 3:751591 4:632888 5:439979 6:255701 7:167250 rest:279911
+TOWER move=32768 thin=4310727 stock=3541039 maxroot=(303341,9,h=98) bands(h<=2^b) b=1:628499 2:702649 3:747804 4:630770 5:439537 6:257233 7:122097 rest:12450
+TOWER move=131072 thin=3941772 stock=2472044 maxroot=(1340329,4,h=22) bands(h<=2^b) b=1:584399 2:624941 3:633723 4:462220 5:166761 6:0 7:0 rest:0
+TOWER move=524288 thin=2850975 stock=736169 maxroot=(6222763,2,h=4) bands(h<=2^b) b=1:373075 2:306002 3:57092 4:0 5:0 6:0 7:0 rest:0
+TOWER move=2097152 thin=642367 stock=0 maxroot=(-1,0,h=0) bands(h<=2^b) b=1:0 2:0 3:0 4:0 5:0 6:0 7:0 rest:0
+peak HEREDITARY thin-live=3382020 (0.1127 of n) at move 311296
+severing of PLAYED elements: unsev(thin-from-start)=1345315  by-P=1036409  by-S=357795
+CROSS D=6: born=10095465  by-P: mult=24951 div=838425  by-S: mult=1155680 div=6457343
+PLAYED by class: born=2323818 fat=31547  P-mult=3778 P-div=110412  S-mult=269964 S-div=0
+P-moves=1369760 S-moves=1369759 top-half-live-final=0 race-front=2
+WAVES TK_by_omega(w): w1:12688978(f414863) w2:572049(f360194) w3:0(f6893) w4:0(f0) w5:0(f0) w6:0(f0)
+WAVES safe_by_omega(z): w1:887274 w2:269530 w3:18890 w4:0 w5:0 w6:0 w7:0 w8:0
+WAVES topplay_by_omega: w1:0 w2:556326 w3:6953 w4:0 w5:0 w6:0 w7:0 w8:0
+n=30000000 S=maxdeg P=closure L=2739519 L/n=0.09132 kills=27260480 sum=29999999 (expect 29999999)

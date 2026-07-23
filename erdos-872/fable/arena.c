@@ -186,6 +186,32 @@ static int s_topdeg(void){
     }
     return s_maxdeg();
 }
+static int s_mix(int mu){
+    /* among top-160 by total degree, maximize deg + mu*(deg - tdeg):
+       interior-denial overweighting (mu=1 ~ maxdeg tie-shifted; mu=3 heavy) */
+    int cand[160],nc=0;
+    int b=maxb;
+    while(b>0&&nc<160){
+        int d=bhead[b];
+        while(d>=0&&nc<160){
+            int nx=bnext[d];
+            if(!live[d]||deg[d]!=b){ if(!live[d]) bq_unlink(d); d=nx; continue; }
+            cand[nc++]=d; d=nx;
+        }
+        b--;
+    }
+    long long bv=-1; int bx=-1;
+    for(int i=0;i<nc;i++){
+        int d=cand[i];
+        long long innerd = deg[d]-(d<=n/2? tdeg[d]:0);
+        long long v = (long long)deg[d] + (long long)mu*innerd;
+        if(v>bv){bv=v;bx=d;}
+    }
+    if(bx>0) return bx;
+    return s_maxdeg();
+}
+static int s_mix1(void){ return s_mix(1); }
+static int s_mix3(void){ return s_mix(3); }
 static int hcursor=3;
 static int s_hunter(void){
     /* leapfrog: fire the smallest ARMED odd interior (anticipates an
@@ -496,7 +522,7 @@ int main(int argc,char**argv){
         int64_t k0=kills;
         cur_mover=turn;
         if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race(): (strcmp(pp,"closure")==0? p_closure(): (strcmp(pp,"closuretax")==0? p_closuretax(): (strcmp(pp,"pack")==0? p_pack(): (strcmp(pp,"pack2")==0? p_pack2():p_dustman()))))))));
-        else        x = strcmp(sp,"maxdeg")==0? s_maxdeg(): (strcmp(sp,"topdeg")==0? s_topdeg(): (strcmp(sp,"hunter")==0? s_hunter():s_smallest()));
+        else        x = strcmp(sp,"maxdeg")==0? s_maxdeg(): (strcmp(sp,"topdeg")==0? s_topdeg(): (strcmp(sp,"hunter")==0? s_hunter(): (strcmp(sp,"mix1")==0? s_mix1(): (strcmp(sp,"mix3")==0? s_mix3():s_smallest()))));
         if(x<0) break;
         play(x);
         if(moves<=256||((long long)moves&63)==0)
