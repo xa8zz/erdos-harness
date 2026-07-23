@@ -1239,3 +1239,31 @@ telescoping constants remain the undecided core (F25.3), as expected.
   jumped at 65; more march needed).
 - DRAFT-stitching.md committed: race coordinates, both directions'
   mechanisms, deciding constants K1-K5 pinned to concrete measurements.
+
+## F26.2 (wakeup ~06:00): K2 wave ledger measured — slow-arriving waves, not terminating ones
+
+arena6 instrumentation: TK_by_omega(fired weapon), safe_by_omega(banked z).
+
+  pack vs maxdeg:              1e5                    1e6
+    TK w1 (prime fires):       38264 (91.5%)          386841 (90.1%)
+    TK w2 (semiprime):          3569 (8.5%)            42298 (9.9%)
+    TK w3:                      0 across 186 fires     0 across 1945 fires
+    safe w1/w2/w3:             4466/727/36            36980/7847/1058
+
+  closure vs maxdeg 1e6:  TK w1 413019, w2 15749 (avg 1.09/fire vs pack's
+  3.63), w3 0.  Total TK nearly equal (428768 vs 429139): pack's deeper
+  wave-1 denial (+26k) trades against a wave-2 concession (-26.5k) — pack's
+  cores kill only ADJACENT cross-products; non-adjacent pq weapons survive
+  its sweep. Pack's L edge over closure comes from play-economy (packed
+  vehicles double as top-half plays), not net coverage.
+
+Reading: wave-2's share GROWS +1.3pp/decade — the wave hierarchy does not
+terminate; it arrives at loglog pace (wave-j ~ (loglog)^{j-1} flavored).
+Effective wave depth ~ loglog n; if per-wave theft fractions stay bounded
+below, the wave product decays polylog-fashion — again the
+L ~ n/(log n)^c family, from the theft side this time. Nothing yet
+distinguishes c; the K2 profile at 1e7 (queued) extends the trend.
+
+Also: closure vs its best S RISES through best-response: 1.441 (hunter,
+1e5) -> 1.471 (hunter, 1e6) -> 1.501 (hunter, 1e7). The rising era is
+robust for closure; pack's 1e7 still in flight.

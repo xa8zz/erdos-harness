@@ -130,9 +130,17 @@ static void kill_element(int y){
 }
 
 static int64_t played_born=0, played_fat=0;
+/* K2 wave ledger: omega(x) via spf walk; TK_by_omega[w] = top-half kills by
+   S fires of weapons with omega=w; safe_by_omega[w] = top plays at comp 0. */
+static int omega_of(int x){ int c=0; while(x>1){ int p=spf[x]; c++; while(x%p==0) x/=p; } return c; }
+static int64_t TK_by_omega[12]={0}, safe_by_omega[12]={0}, fire_cnt[12]={0};
 static void play(int x){
     moves++;
     if(cur_mover) mvS++; else mvP++;
+    int om_x = omega_of(x); if(om_x>11) om_x=11;
+    int64_t tl0 = top_live;
+    int was_free = (deg[x]+ldc[x]==0);
+    if(x>n/2 && was_free && safe_by_omega){ safe_by_omega[om_x]++; }
     if(crossed[x]){ if(crossch[x]) played_crossX[crossmv[x]][crossch[x]-1]++; else played_born++; }
     else played_fat++;
     played_sev[sevby[x]]++;
@@ -140,6 +148,10 @@ static void play(int x){
     for(long long m=2ll*x;m<=n;m+=x) if(live[m]){ kills++; kill_element((int)m); }
     gen_divisors(x);
     for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<x&&live[d]){ kills++; kill_element(d);} }
+    if(cur_mover==1 && x<=n/2){ /* S fire: top-half coverage by weapon omega */
+        int64_t tkilled = tl0 - top_live;
+        TK_by_omega[om_x] += tkilled; fire_cnt[om_x]++;
+    }
 }
 
 /* ---------- S ---------- */
@@ -510,6 +522,8 @@ int main(int argc,char**argv){
         (long long)played_crossX[1][0],(long long)played_crossX[1][1]);
     printf("P-moves=%lld S-moves=%lld top-half-live-final=%lld race-front=%d\n",
         (long long)mvP,(long long)mvS,(long long)top_live,rcursor);
+    printf("WAVES TK_by_omega(w):"); for(int w=1;w<=6;w++) printf(" w%d:%lld(f%lld)",w,(long long)TK_by_omega[w],(long long)fire_cnt[w]); printf("\n");
+    printf("WAVES safe_by_omega(z):"); for(int w=1;w<=8;w++) printf(" w%d:%lld",w,(long long)safe_by_omega[w]); printf("\n");
     printf("n=%d S=%s P=%s L=%lld L/n=%.5f kills=%lld sum=%lld (expect %d)\n",
         n,sp,pp,(long long)moves,(double)moves/n,(long long)kills,
         (long long)(moves+kills),n-1);
