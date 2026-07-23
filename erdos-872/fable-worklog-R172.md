@@ -1224,3 +1224,18 @@ L/n still declines ~15%/decade (vs 17% for pure 1/ln): the rise is a slow
 excess over n/log n, nowhere near a linear-limit signature. The F25.2
 share-collapse integral predicts stolen prime mass O(1) but the wave/layer
 telescoping constants remain the undecided core (F25.3), as expected.
+
+## F26.1 (wakeup harvest ~05:40)
+
+- pack vs maxdeg 1e6: L = 114554 = 1.583 n/ln n. Pack trend 1.548 -> 1.583
+  (+2.3%/decade, rising, same slope as closure at a higher level). 1e7 in
+  flight — the decisive third point.
+- hunter vs closure 1e6: 1.471 (hunter's bite on closure grows with scale:
+  -3.6% -> -4.0%) — but hunter FEEDS pack (never kills evens), so the
+  binding S vs the new champion remains maxdeg. S-side not yet specialized
+  against pack's frontier structure; noted as open counter-engineering.
+- March: L(70) = 27, k(70) = 8. K3 doubling ratios: (29,58) 1.17,
+  (32,64) 1.17, (35,70) 1.00 — first non-super-additive pair (noisy; k
+  jumped at 65; more march needed).
+- DRAFT-stitching.md committed: race coordinates, both directions'
+  mechanisms, deciding constants K1-K5 pinned to concrete measurements.
