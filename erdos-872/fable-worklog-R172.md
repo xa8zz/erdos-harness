@@ -390,6 +390,63 @@ side has NO static/stock route whatsoever — only live flow-assembly at rate
 symmetric statement for the upper side: S's o(n) proof must beat the flow, since
 statics cannot decide. The problem IS the flow saddle; F5-F7 give its economics.
 
+## F9: THE SOLUTION CANDIDATE — c*-dichotomy and the 2x-floor fixed point
+
+Empirical anchor (n=10^6, maxdeg vs taxman, L=100231): kills reach 25/50/75% at
+moves 2/6/66 (!!), 90% at ~13k, 95% at ~47k — the fat harvest is n^{o(1)}-fast;
+GAME LENGTH = SIZE OF THE RESIDUAL TAIL (last ~10% of mass costs ~87% of moves at
+kill-rate ~1). So L = |residual|(1+o(1)), residual = natural sieve floor +
+P-manufactured protected stock.
+
+**Proposed theorem: L(n) = Theta-tilde(n / log n)** — i.e., o(n) is TRUE and the
+lower bound is near-sharp. Proof program, two lemmas:
+
+**(T2) Saturation Lemma.** Against EVERY P strategy, S playing smallest-live-prime
+accumulates sum 1/q_j >= K within e^{O(sqrt(K Lambda))} = n^{o(1)} moves. Mechanism:
+P's burn breadth at prime scale y is <= Lambda/log y (lcm room), so the frontier
+race gives sum 1/q = log^2 W/(2 Lambda); prime arsenals are pairwise coprime so the
+union kill is the exact sieve product (1 - prod(1-1/q))n = (1 - e^{-K})n. Kills
+(1-eps)n in n^{o(1)} moves for every fixed eps. [Race integral + coprime-union;
+main audit risk: legality/availability edge cases of the smallest live prime, and
+the density feedback inside cones.]
+
+**(T1) Protection-cost Lemma (the crux).** Amortized over any play, each P move
+manufactures at most 2 + o(1) residual-protected elements, APART from a total
+O(n/log n) exception budget from prime-leaf packet mechanisms (R170-type episodes,
+bounded by the pairwise-coprime supply wall = corpus R169(6)). Evidence: tower
+economics (scaffold 3x/2 protects pair {x, x/2}; taller towers cost MORE per
+element since deeper levels have more outside-comparables to sever); private-chain
+lemma (corpus, proven) is the special case; packet amplifiers are supply-bounded.
+S's policing costs O(1) kills/move but a POLICED P is a throttled S is... the
+policing tradeoff enters the fixed point benignly (needs the careful two-line
+optimization written out).
+
+**Fixed-point closure.** L = stock + floor + n^{o(1)}; stock <= c* x (P's moves)
+= c* L/2; c* <= 2+o(1) outside the floor-order exception. Then
+L <= (2+o(1)) L/2 --- degenerate at c*=2: the closure needs the SHARP form: stock
+<= (2-delta)(L/2) + O(n/log n), giving L <= O(n/log n)/delta. So T1 must be proven
+with constant strictly below 2, OR with the S-policing term making the effective
+constant < 2 (S spends sigma L moves policing at 1 tower killed/move; optimize
+sigma). Arena consistency: flat L ~ 1.4 n/ln n = the fixed point sitting at
+~1.4x floor. Corpus consistency: T1 generalizes private-chain + fixed-gadget
+walls; T2's integral is the F5 breadth wall; nothing in Ruled Out matches this
+formulation (cost-per-protected-element amortization + fixed-point closure is NEW
+— it is a STRATEGY-INDEPENDENT stock-flow inequality, not a capacity statement
+over intervals and not a trajectory statement with activation clauses; still must
+be checked against the 17 collapse witnesses carefully, esp. terminal-delay and
+owner-laundering shapes).
+
+NEXT ACTIONS (in order): (1) write T1 formally (define "protected residual
+element" with a per-element certificate: an element serviced at kill-rate <= 1 in
+the endgame, chargeable to the P-move that severed its last fat comparable);
+(2) attack T1's proof: charge each protected element to the P-move that made its
+live-comparable set thin; show each P-move absorbs <= 2 such charges outside
+packet exceptions (the move x severs comparables through x's own comparability
+classes — x has ONE cone and ONE divisor set: the 2 comes from the two sides!);
+(3) audit T2's frontier race formally; (4) collapse-witness pass; (5) exact
+small-n sanity: predicted L ~ 2x prime-floor at n <= 58? f(58)=23 vs
+pi(58)+floor... check; (6) then full write-up -> cross-family audit -> Aristotle.
+
 ## Log
 
 - 2026-07-22: Ingest complete. Worklog established.
