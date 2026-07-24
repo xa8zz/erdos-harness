@@ -29,3 +29,6 @@ erdos-872/fable/arena1[0-9]
 erdos-872/fable/solver
 erdos-872/fable/solver128
 erdos-872/fable/pv72.txt
+
+# personal drafts kept local only
+private/
