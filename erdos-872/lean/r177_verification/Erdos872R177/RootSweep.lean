@@ -2410,8 +2410,8 @@ noncomputable def SweepState.afterMaximizing
   | endOpening => exact S.afterEndOpening ha
   | select x =>
       have hactor := actor_prolonger_of_legal_select_not_shortener ha hnotS
-      cases hroot : rootOfVertex? R N x with
-      | none =>
+      exact match hroot : rootOfVertex? R N x with
+      | none => by
           have hout : ∀ t ∈ R, x ∉ rootCone N t := by
             intro t ht hx
             have := G.rootOfVertex?_eq ht hx
@@ -2448,7 +2448,7 @@ noncomputable def SweepState.afterMaximizing
             have hold := S.fired_selected t ht
             rw [step_select_state]
             simp [selectState, hold]
-      | some t =>
+      | some t => by
           have htData := rootOfVertex?_mem hroot
           have ht : t ∈ R := htData.1
           have hx : x ∈ rootCone N t := htData.2
@@ -2699,6 +2699,130 @@ private theorem RootLocal.castGlobalSelectActive_activated
   subst y
   simp [RootLocal.castGlobalSelectActive]
 
+private theorem RootLocal.castGlobalSelectActive_responseDue
+    {D : Finset Vertex} {N t b x y : ℕ}
+    {gp : Pos} {gh : History D (initialPos b) gp}
+    (hxy : x = y)
+    (hx : Action.select x ∈ legalActions D gp)
+    (hy : Action.select y ∈ legalActions D gp)
+    (L : RootLocal (N := N) t (.snoc gh (Action.select x) hx)) :
+    (RootLocal.castGlobalSelectActive hxy hx hy L).responseDue ↔
+      L.responseDue := by
+  subst y
+  simp [RootLocal.castGlobalSelectActive]
+
+/-- The exact simultaneous successor for a Prolonger selection lying in the
+unique cone returned by `rootOfVertex?`. -/
+noncomputable def SweepState.afterMaximizingInside
+    {D R : Finset Vertex} {N b : ℕ} {G : SweepGeometry D R N}
+    {gp : Pos} {gh : History D (initialPos b) gp}
+    (S : SweepState G gh) (hb : 1 ≤ b) {x t : Vertex}
+    (ha : Action.select x ∈ legalActions D gp)
+    (hnotS : actorAt D gp ≠ some Actor.shortener)
+    (hroot : rootOfVertex? R N x = some t) :
+    SweepState G (.snoc gh (Action.select x) ha) := by
+  classical
+  have hactor := actor_prolonger_of_legal_select_not_shortener ha hnotS
+  have htData := rootOfVertex?_mem hroot
+  have ht : t ∈ R := htData.1
+  have hx : x ∈ rootCone N t := htData.2
+  have htnot : t ∉ S.fired := by
+    intro hfire
+    exact S.fired_cone_dead hfire hx (select_mem_liveLegal_of_legal ha)
+  let m := x / t
+  have hmul : t * m = x := Nat.mul_div_cancel' (rootCone_mem_iff.mp hx).2.1
+  have ha' : Action.select (t * m) ∈ legalActions D gp := by
+    simpa [hmul] using ha
+  let L := S.runtime t ht htnot
+  have hready : LocalCanAcceptProlonger L.mode :=
+    L.canAcceptProlonger_of_inside G.downset (G.roots_pos ht) ha' hactor
+  let target := L.afterInsideProlonger G.downset (G.roots_pos ht) hb
+    ha' hactor hready
+  let target' : RootLocal (N := N) t (.snoc gh (Action.select x) ha) :=
+    RootLocal.castGlobalSelectActive hmul ha' ha target
+  let runtime' := fun s (hs : s ∈ R) (hsnot : s ∉ S.fired) =>
+    if hst : s = t then by
+      subst s
+      simpa only [Subsingleton.elim hs ht, Subsingleton.elim hsnot htnot]
+        using target'
+    else
+      (S.runtime s hs hsnot).afterExternalNonShortener
+        (G.roots_pos hs) ha
+        (not_dvd_of_other_cone G hs ht hst hx ha) hnotS
+  apply SweepState.ofRuntime S.fired S.fired_subset runtime'
+  · intro s u hsDue huDue
+    rcases hsDue with ⟨hs, hsnot, hsdue⟩
+    rcases huDue with ⟨hu, hunot, hudue⟩
+    by_cases hst : s = t
+    · by_cases hut : u = t
+      · exact hst.trans hut.symm
+      · have hold :=
+          (S.runtime u hu hunot).afterExternalNonShortener_responseDue
+            (G.roots_pos hu) ha
+            (not_dvd_of_other_cone G hu ht hut hx ha) hnotS
+        exact False.elim
+          ((S.runtime u hu hunot).not_responseDue_at_prolonger hactor
+            (hold.mp (by simpa [runtime', hut] using hudue)))
+    · have hold :=
+        (S.runtime s hs hsnot).afterExternalNonShortener_responseDue
+          (G.roots_pos hs) ha
+          (not_dvd_of_other_cone G hs ht hst hx ha) hnotS
+      exact False.elim
+        ((S.runtime s hs hsnot).not_responseDue_at_prolonger hactor
+          (hold.mp (by simpa [runtime', hst] using hsdue)))
+  · intro s hs hsnot
+    rw [rootActivated_snoc_select]
+    simp only [hactor, true_and]
+    by_cases hst : s = t
+    · subst s
+      have hnew := L.afterInsideProlonger_activated G.downset
+        (G.roots_pos ht) hb ha' hactor hready
+      have hnew' : target'.activated :=
+        (RootLocal.castGlobalSelectActive_activated hmul ha' ha target).2 hnew
+      have hrun : (runtime' t ht htnot).activated := by
+        simpa [runtime'] using hnew'
+      constructor
+      · intro _
+        exact Or.inr hx
+      · intro _
+        exact hrun
+    · have hxout : x ∉ rootCone N s := by
+        intro hxs
+        exact hst (G.root_eq_of_mem_cones hs ht hxs hx)
+      have hact :=
+        (S.runtime s hs hsnot).afterExternalNonShortener_activated
+          (G.roots_pos hs) ha
+          (not_dvd_of_other_cone G hs ht hst hx ha) hnotS |>.trans
+            (S.activated_exact s hs hsnot)
+      have hact' : (runtime' s hs hsnot).activated ↔
+          RootActivated (N := N) gh s := by
+        simpa [runtime', hst] using hact
+      simpa [hxout] using hact'
+  · intro s hs
+    rw [rootActivated_snoc_select]
+    have hxout : x ∉ rootCone N s := by
+      intro hxs
+      exact S.fired_cone_dead hs hxs (select_mem_liveLegal_of_legal ha)
+    simp [hactor, hxout, S.fired_not_activated s hs]
+  · intro s hs
+    have hold := S.fired_selected s hs
+    rw [step_select_state]
+    simp [selectState, hold]
+
+/-- Case analysis which preserves the equation used by the selected branch. -/
+private def optionCasesWithEq {α β : Type} (o : Option α)
+    (onNone : o = none → β) (onSome : ∀ a, o = some a → β) : β := by
+  cases h : o with
+  | none => exact onNone h
+  | some a => exact onSome a h
+
+private theorem optionCasesWithEq_some {α β : Type} {o : Option α}
+    (onNone : o = none → β) (onSome : ∀ a, o = some a → β)
+    {a : α} (h : o = some a) :
+    optionCasesWithEq o onNone onSome = onSome a h := by
+  subst o
+  simp [optionCasesWithEq]
+
 /-- Total deterministic successor for every legal non-Shortener action. -/
 noncomputable def SweepState.afterMaximizing
     {D R : Finset Vertex} {N b : ℕ} {G : SweepGeometry D R N}
@@ -2713,9 +2837,9 @@ noncomputable def SweepState.afterMaximizing
   | pass => exact S.afterPass ha
   | endOpening => exact S.afterEndOpening ha
   | select x =>
-      have hactor := actor_prolonger_of_legal_select_not_shortener ha hnotS
-      cases hroot : rootOfVertex? R N x with
-      | none =>
+      exact optionCasesWithEq (rootOfVertex? R N x)
+        (fun hroot => by
+          have hactor := actor_prolonger_of_legal_select_not_shortener ha hnotS
           have hout : ∀ t ∈ R, x ∉ rootCone N t := by
             intro t ht hx
             have heq := G.rootOfVertex?_eq ht hx
@@ -2753,7 +2877,10 @@ noncomputable def SweepState.afterMaximizing
             have hold := S.fired_selected t ht
             rw [step_select_state]
             simp [selectState, hold]
-      | some t =>
+        )
+        (fun t hroot => by
+          exact S.afterMaximizingInside hb ha hnotS hroot
+          /-
           have htData := rootOfVertex?_mem hroot
           have ht : t ∈ R := htData.1
           have hx : x ∈ rootCone N t := htData.2
@@ -2839,6 +2966,99 @@ noncomputable def SweepState.afterMaximizing
             have hold := S.fired_selected s hs
             rw [step_select_state]
             simp [selectState, hold]
+          -/
+        )
+
+/-- A Prolonger selection which first activates its root cone creates a
+waiting local game.  Consequently the exact simultaneous maximizing
+successor has no actionable response-due cone. -/
+theorem SweepState.afterMaximizingInside_fresh_activation_noDue
+    {D R : Finset Vertex} {N b : ℕ} {G : SweepGeometry D R N}
+    {gp : Pos} {gh : History D (initialPos b) gp}
+    (S : SweepState G gh) (hb : 1 ≤ b) {x t : Vertex}
+    (ha : Action.select x ∈ legalActions D gp)
+    (hnotS : actorAt D gp ≠ some Actor.shortener)
+    (hroot : rootOfVertex? R N x = some t)
+    (hfresh : ¬RootActivated (N := N) gh t) :
+    ¬DueMoveAvailable
+      (S.afterMaximizingInside hb ha hnotS hroot) := by
+  classical
+  have hactor := actor_prolonger_of_legal_select_not_shortener ha hnotS
+  have htData := rootOfVertex?_mem hroot
+  have ht : t ∈ R := htData.1
+  have hx : x ∈ rootCone N t := htData.2
+  have htnot : t ∉ S.fired := by
+    intro hfire
+    exact S.fired_cone_dead hfire hx (select_mem_liveLegal_of_legal ha)
+  let m := x / t
+  have hmul : t * m = x := Nat.mul_div_cancel' (rootCone_mem_iff.mp hx).2.1
+  have ha' : Action.select (t * m) ∈ legalActions D gp := by
+    simpa [hmul] using ha
+  let L := S.runtime t ht htnot
+  have hready : LocalCanAcceptProlonger L.mode :=
+    L.canAcceptProlonger_of_inside G.downset (G.roots_pos ht) ha' hactor
+  let target := L.afterInsideProlonger G.downset (G.roots_pos ht) hb
+    ha' hactor hready
+  let target' : RootLocal (N := N) t (.snoc gh (Action.select x) ha) :=
+    RootLocal.castGlobalSelectActive hmul ha' ha target
+  let runtime' := fun s (hs : s ∈ R) (hsnot : s ∉ S.fired) =>
+    if hst : s = t then by
+      subst s
+      simpa only [Subsingleton.elim hs ht, Subsingleton.elim hsnot htnot]
+        using target'
+    else
+      (S.runtime s hs hsnot).afterExternalNonShortener
+        (G.roots_pos hs) ha
+        (not_dvd_of_other_cone G hs ht hst hx ha) hnotS
+  have hLinactive : ¬L.activated :=
+    (S.activated_exact t ht htnot).not.mpr hfresh
+  have htarget : ¬target.responseDue :=
+    L.afterInsideProlonger_not_responseDue_of_inactive G.downset
+      (G.roots_pos ht) hb ha' hactor hready hLinactive
+  have htarget' : ¬target'.responseDue := by
+    intro hdue
+    exact htarget
+      ((RootLocal.castGlobalSelectActive_responseDue hmul ha' ha target).mp hdue)
+  intro havail
+  unfold SweepState.afterMaximizingInside at havail
+  rcases havail with ⟨w⟩
+  rcases w with ⟨s, hs, hsnot, hsdue, hnonempty⟩
+  simp only [SweepState.ofRuntime] at hsdue
+  by_cases hst : s = t
+  · subst s
+    have htt : t = t := Eq.refl t
+    simp only [dif_pos htt] at hsdue
+    change target'.responseDue at hsdue
+    exact htarget' hsdue
+  · have hxout : x ∉ rootCone N s := by
+      intro hxs
+      exact hst (G.root_eq_of_mem_cones hs ht hxs hx)
+    have hold :=
+      (S.runtime s hs hsnot).afterExternalNonShortener_responseDue
+        (G.roots_pos hs) ha
+        (not_dvd_of_other_cone G hs ht hst hx ha) hnotS
+    exact (S.runtime s hs hsnot).not_responseDue_at_prolonger hactor
+      (hold.mp (by simpa only [dif_neg hst] using hsdue))
+
+/-- Public formulation for the total maximizing transformer. -/
+theorem SweepState.afterMaximizing_fresh_activation_noDue
+    {D R : Finset Vertex} {N b : ℕ} {G : SweepGeometry D R N}
+    {gp : Pos} {gh : History D (initialPos b) gp}
+    (S : SweepState G gh) (hb : 1 ≤ b) {x t : Vertex}
+    (ha : Action.select x ∈ legalActions D gp)
+    (hnotS : actorAt D gp ≠ some Actor.shortener)
+    (hroot : rootOfVertex? R N x = some t)
+    (hfresh : ¬RootActivated (N := N) gh t) :
+    ¬DueMoveAvailable
+      (S.afterMaximizing hb (Action.select x) ha hnotS) := by
+  have hstate :
+      S.afterMaximizing hb (Action.select x) ha hnotS =
+        S.afterMaximizingInside hb ha hnotS hroot := by
+    rw [SweepState.afterMaximizing]
+    dsimp only [Action.casesOn]
+    exact optionCasesWithEq_some _ _ hroot
+  rw [hstate]
+  exact S.afterMaximizingInside_fresh_activation_noDue hb ha hnotS hroot hfresh
 
 /-- Raw-history chronology.  Activations are recoverable from the public
 history alone.  A root-valued Shortener selection is recorded separately,
