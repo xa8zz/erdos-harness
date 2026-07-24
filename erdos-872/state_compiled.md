@@ -461,6 +461,8 @@
   — confidence medium; prompt: [erdos-872/fable/DRAFT-master-theorem.md](erdos-872/fable/DRAFT-master-theorem.md)
 - **[R174-race-correction-two-adic-burn-wall](erdos-872/researcher-174-race-correction-two-adic-burn-wall.md)** (2026-07-23): Corrected race structure, all parts machine-verified under exact legality: (1) Against the 2-adic full burner (x = 2^a * greedy-core, always legal up to the n/2 wall), the pure smallest-live-prime channel gives Shortener ~pi(n) moves whose kill cones cover 1/2 + o(1) of the board; the surviving carcass (elements with no Shortener-played prime factor; same-core divisor collateral is o(n/log n) since batch breadth k(y) decays and sum of 2^{k} over batches is dominated by the earliest ones) has density 1/2 + o(1) and contains no live prime: the game recurses on a half-size board whose minimal live elements are cross-core composites. (2) This yields an explicit level-dynamics candidate for the scale induction: one full race round costs O(n / log n) moves for each side and halves the live board while degrading weapon structure from primes to two-generated composites; iterating the halving gives sum over levels (n / 2^i) / (log n - i) = O(n / log n) total IF each carcass level supports the same race shape — making the contraction hypothesis of the scale-induction program equivalent to a carcass-self-similarity statement with explicit strategies on both sides. (3) Confirmations: the static thin fortress (target item 5) passes exhaustively at three scales; the live-prime charge lemma (at most (D+1) pi(n) live elements with a live prime factor at max-live-degree-D positions) and the gcd absorption lemma (two divisors of one x <= n with quotients <= H have gcd with quotient <= H^2) are re-derived with full hypotheses and stand.
   — verified by exhaustive-fortress-check-n-1e3-1e4-1e5, exact-legality-race-sim-n-1e5-1e6-1e7; confidence high; prompt: [erdos-872/prompts/audit-R172-R173-four-claims.md](erdos-872/prompts/audit-R172-R173-four-claims.md)
+- **[R175-piercing-race-inflation](erdos-872/researcher-R175-piercing-race-inflation.md)** (2026-07-23): In the divisibility-antichain game on {2..n}: (1) L = i + |T_n| - TK exactly (i = interior plays, TK = top-half kills), so forcing TK = |T_n| - o(n) is equivalent to top-half PLAYS being o(n) and does not alone give L = o(n); interior plays must separately be o(n). (2) For every eventually-played top-half z, no proper divisor of z is ever fired (R(z) cap F empty), but a divisor still live when z is played dies via z itself - the correct trichotomy replaces the incomparable-collateral-only claim. (3) Multipartite packet theorem: for every j >= 2, on a legal trajectory of O_j(1) moves (facet blockers a_h = r_h X/P_h from a cyclic j-partition of the primes in (q0, (1/20)log n]), every proper face of every transversal w = p_1...p_j is dead while all m^j transversals and X = prod P_h remain live, and the single move X deletes them all: sum log w ~ (log n)^j/(loglog n)^{j-1} and sum 1/w -> infinity in one move. Hence no O(log n)-per-move amortization of rank-j deletion follows from legality, lower-face preparation, additive log budgets, or ambient sieve mass. (4) Fired-prime reciprocal mass c > 0 gives positive-density deletion from the ambient top interval but NOT relative deletion from adversarial survivor stocks; iteration on waves requires a survivor-stock regularity theorem. No proof or disproof of L(n) = o(n) is claimed.
+  — verified by fable-machine-check-j2-packet-n20000; confidence high; prompt: [erdos-872/prompts/researcher-R175-piercing-race-inflation.md](erdos-872/prompts/researcher-R175-piercing-race-inflation.md)
 
 ## Ruled Out
 
@@ -602,7 +604,7 @@
 ### By type
 - diagnostic: 7
 - refutation: 52
-- research: 213
+- research: 214
 - synthesis: 12
 - verification: 108
 
@@ -611,7 +613,7 @@
 - fixed-rank-sweep: 1
 - greedy-policy-dependent: 2
 - greedy-policy-specific: 1
-- independent: 109
+- independent: 110
 - minimal-max-degree-policy-dependent: 1
 - minimal-max-degree-policy-specific: 1
 - policy-sample-dependent: 1
