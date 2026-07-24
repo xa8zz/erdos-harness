@@ -471,6 +471,8 @@
   — verified by lean-4.28-local; confidence high
 - **[R179-lean-verified-manuscript](erdos-872/researcher-R179-lean-verified-manuscript.md)** (2026-07-24): The robust-game proof yields L(n)=o(n); the total Shortener policy uses the first response clause that supplies a legal move, each projected cone trace ends its local opening without an illegal pre-response pass, and the three counting classes are assigned by strategy provenance.
   — verified by lean-4.28-local; confidence high; prompt: [erdos-872/prompts/codex-R179-tier1-verification.md](erdos-872/prompts/codex-R179-tier1-verification.md)
+- **[V180-lean-r179-tier1-verification](erdos-872/verify-lean-R179.md)** (2026-07-24): Lean 4.28 proves Erdos872.main with no sorry, admit, or unsafe declaration. Its only manuscript-specific logical dependency is the explicit exceptional set estimate A3; the robust extensive game, local traces, total root-sweep strategy, online drafting injection, three-class accounting, density recursion, and asymptotic endpoint are all proved.
+  — verified by lean-4.28-local, independent-ledger-audit, independent-terminal-accounting-audit; confidence high; prompt: [erdos-872/prompts/codex-R179-tier1-verification.md](erdos-872/prompts/codex-R179-tier1-verification.md)
 
 ## Ruled Out
 
@@ -619,14 +621,14 @@
 - refutation: 52
 - research: 215
 - synthesis: 14
-- verification: 111
+- verification: 112
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
 - greedy-policy-dependent: 2
 - greedy-policy-specific: 1
-- independent: 116
+- independent: 117
 - minimal-max-degree-policy-dependent: 1
 - minimal-max-degree-policy-specific: 1
 - policy-sample-dependent: 1
