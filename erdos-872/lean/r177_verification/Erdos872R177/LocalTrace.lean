@@ -519,6 +519,14 @@ def effectiveLocalLive
     (Q : Finset Vertex) (p : Pos) (pending : List (Finset Vertex)) :
     Finset Vertex := liveLegal Q p.state \ unionAll pending
 
+/-- The effective live set at a history endpoint.  Mentioning the history in
+the term keeps the endpoint index definitionally tied to that history in
+dependent constructors. -/
+abbrev HistoryEffectiveLocalLive
+    {Q : Finset Vertex} {start p : Pos}
+    (_h : History Q start p) (pending : List (Finset Vertex)) :
+    Finset Vertex := effectiveLocalLive Q p pending
+
 def LiveCorresponds
     (D : Finset Vertex) (N t : ℕ) (globalPos localPos : Pos)
     (pending : List (Finset Vertex)) : Prop :=
@@ -676,12 +684,16 @@ inductive SweepTrace (D : Finset Vertex) (N t b : ℕ) :
       SweepTrace D N t b (.snoc gh _ ha) lh batches
         (pending ++ [principalUpset (Erdos872.quotientCone D N t)
           (r / Nat.gcd r t)]) mode
-  | externalSelectTerminalFirst {gp lp : Pos} {gh lh batches pending c r}
+  | externalSelectTerminalFirst {gp lp : Pos}
+      {gh : History D (initialPos b) gp}
+      {lh : History (Erdos872.quotientCone D N t)
+        (initialPos (b + 1)) lp}
+      {batches pending c r}
       (prev : SweepTrace D N t b gh lh batches pending (.responseDueFirst c))
       (ha : Action.select r ∈ legalActions D gp) (hout : ¬t ∣ r)
       (hactor : actorAt D gp = some Actor.shortener)
       (hterminal :
-        effectiveLocalLive (Erdos872.quotientCone D N t) lp pending = ∅)
+        HistoryEffectiveLocalLive lh pending = ∅)
       (hpreserve : HistoryLiveCorresponds (N := N) (t := t) (b := b) gh lh pending →
         HistoryLiveCorresponds (N := N) (t := t) (b := b) (.snoc gh _ ha) lh
           (pending ++ [principalUpset (Erdos872.quotientCone D N t)
@@ -689,12 +701,16 @@ inductive SweepTrace (D : Finset Vertex) (N t b : ℕ) :
       SweepTrace D N t b (.snoc gh _ ha) lh batches
         (pending ++ [principalUpset (Erdos872.quotientCone D N t)
           (r / Nat.gcd r t)]) (.deadFirst c)
-  | externalSelectTerminalLater {gp lp : Pos} {gh lh batches pending c r}
+  | externalSelectTerminalLater {gp lp : Pos}
+      {gh : History D (initialPos b) gp}
+      {lh : History (Erdos872.quotientCone D N t)
+        (initialPos (b + 1)) lp}
+      {batches pending c r}
       (prev : SweepTrace D N t b gh lh batches pending (.responseDueLater c))
       (ha : Action.select r ∈ legalActions D gp) (hout : ¬t ∣ r)
       (hactor : actorAt D gp = some Actor.shortener)
       (hterminal :
-        effectiveLocalLive (Erdos872.quotientCone D N t) lp pending = ∅)
+        HistoryEffectiveLocalLive lh pending = ∅)
       (hpreserve : HistoryLiveCorresponds (N := N) (t := t) (b := b) gh lh pending →
         HistoryLiveCorresponds (N := N) (t := t) (b := b) (.snoc gh _ ha) lh
           (pending ++ [principalUpset (Erdos872.quotientCone D N t)
