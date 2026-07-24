@@ -465,6 +465,8 @@
   — verified by fable-machine-check-j2-packet-n20000; confidence high; prompt: [erdos-872/prompts/researcher-R175-piercing-race-inflation.md](erdos-872/prompts/researcher-R175-piercing-race-inflation.md)
 - **[R176-packet-packing-preemption](erdos-872/researcher-R176-packet-packing-preemption.md)** (2026-07-23): CLAIMED FULL PROOF of L(n) = o(n). Mechanism: (1) a robust envelope game V_b(N) on divisibility downsets of [N] (Prolonger gets b opening moves, may pass, and has an allied adversary erasing arbitrary upsets for free) dominating the true game, L(n) <= V_1(n); (2) the factorization x = a_K(x) t_K(x) into a K-dense block and a tag with P^-(t) > K a; all but an explicitly bounded exceptional set of integers in (delta N, N] have tags satisfying the self-roughness P^-(t) > H N/t with H = K delta > 1 (Selberg sieve bound Phi(X,z) << X/log z; K-dense integers have density << X/(log X)^kappa, kappa = c0 log c0 - c0 + 1, c0 = 1/log 2); (3) Lemma 3.1: two self-rough tags with lcm <= N are nested, so minimal (root) tags generate pairwise-disjoint, mutually incomparable cones covering all but the exceptional set; external selections project into a cone as principal quotient upsets, making play inside a cone exactly the robust game on a downset of [q_t] with one extra opening move; (4) Shortener's root-cone sweep (greedily fire the largest live unprocessed root tag) pairs every Prolonger cone-activation after the first with an earlier fired cone of at least equal weight, giving activated weight <= half of total weight + (b+1) N^gamma/delta; (5) dividing by N and taking N then A to infinity (delta = A^-2, K = ceil(e^{A^3})) yields the density recursion c_b <= (1/2) c_{b+1}; with the uniform cap c_b <= 1 the telescope forces c_1 = 0, hence V_1(N) = o(N) and L(n) = o(n). The packet obstruction is dissolved by localization: all useful divisors of a single vehicle lie in ONE root cone (their root tags would otherwise have a common multiple <= N), so packets cost activations, and length is counted in selections, never in deletion mass. Interior selections are bounded by the same count.
   — verified by fable-linewise-adversarial-read, fable-machine-check-decomposition-2.3, fable-machine-check-lemma-3.1-exhaustive-N1000, fable-machine-check-cone-disjointness; confidence medium; prompt: [erdos-872/prompts/followup-R176-packet-packing-preemption.md](erdos-872/prompts/followup-R176-packet-packing-preemption.md)
+- **[V176-referee-audit](erdos-872/verify-R176-referee.md)** (2026-07-23): Verdict ACCEPT AFTER MINOR FIXES. No fatal flaw found in the cone decomposition, root-cone pairing, quotient projection, local-game recursion, arithmetic lemmas, or limit passage. Three repairable defects: (1) the robust game V_b lacks a formal extensive-form definition with inf over Shortener strategies of sup over Prolonger-and-erasure strategies; (2) section 4.3's sentence "at most one further Prolonger selection before Shortener's first local response" is false for cones first activated post-opening (two are possible: activation plus one return) — the bound survives since max(b+1, 2) = b+1 for b >= 1; (3) Shortener's strategy is undefined when no live unprocessed root remains and no active local move exists but exceptional vertices remain — repaired by an arbitrary exceptional selection, absorbed by the |E_N| term. Plus declarations: integer A, fixed gamma in (0,1), deterministic tie-breaking, termination and erasure protocol. None of the repairs alters any numerical inequality.
+  — verified by gpt5pro-blind-referee-fresh-thread, fable-linewise-read, fable-machine-checks; confidence medium; prompt: [erdos-872/prompts/audit-R176-full-proof-referee.md](erdos-872/prompts/audit-R176-full-proof-referee.md)
 
 ## Ruled Out
 
@@ -608,14 +610,14 @@
 - refutation: 52
 - research: 215
 - synthesis: 12
-- verification: 108
+- verification: 109
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
 - greedy-policy-dependent: 2
 - greedy-policy-specific: 1
-- independent: 111
+- independent: 112
 - minimal-max-degree-policy-dependent: 1
 - minimal-max-degree-policy-specific: 1
 - policy-sample-dependent: 1
