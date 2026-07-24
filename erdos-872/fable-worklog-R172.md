@@ -1781,3 +1781,32 @@ still on pre-rewrite lineage BY DESIGN (Codex-chan mid-Lean on
 codex/lean-r177-verification worktree); at go-live: fresh deterministic
 mirror rewrite of final local state -> push main + branch (both ff from
 scrubbed refs), then re-point local.
+
+## F36 (~00:30, Jul 24): Lean tier-0+ lands — §§1-3+5 machine-verified, §4 is the last mile; R178 canonicalization
+
+Codex-chan's first Lean run (branch codex/lean-r177-verification, local
+Lean 4.28, 2,460 lines, 8,048 build jobs, ZERO sorry): game semantics with
+adaptive saddle policies, L(n) <= V_1(n), a_K/t_K, useful tags, Lemma 3.1,
+cones, projection, tail suprema, and the whole §5 limit machinery all
+compile against EXACTLY the three declared axioms A1-A3. The evidence
+gate's "verdict=rejected" = Erdos872.main absent (the §4
+local-trace/root-sweep proof of (4.7) unformalized) — incompleteness, not
+refutation. Filed as V177-lean-tier0-report.
+
+Cross-check of the session: the formalizer independently derived EXACTLY
+the two scheduling defects V177 flagged (response-rule precedence;
+pass-insertion before first local S move) — human audit and machine
+formalization converging on the same two nits and nothing else is strong
+signal the §4 prose is otherwise tight. Both repairs now canonical in
+R178-scheduling-canonicalization (supersedes R177; three edits, zero
+inequality changes) so prose and Lean stay in sync.
+
+Remaining tier-1 core = M4/M5 exactly as LEAN-PLAN predicted: local-trace
+legality, simultaneous implementation, pairing (4.1), partition + (4.7),
+wiring to main. Codex estimate 2-5 agent-days, accepted; standing rule
+reaffirmed: any further semantic gap = STOP and report the failing Lean
+statement (a deliverable, not a failure). Cloud Aristotle skipped (no
+cached key) — local Lean is verifier of record for this run.
+
+Also: full remote-branch PII audit (13 refs) — all clean post-scrub; the
+lean branch is local-only and gets the deterministic rewrite at go-live.
