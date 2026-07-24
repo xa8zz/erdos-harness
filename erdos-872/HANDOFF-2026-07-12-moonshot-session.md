@@ -48,7 +48,7 @@ file carries session-operational state for the successor curator.
   parameter ranges are part of the statement (every scale parameter
   carries its implicit constraints explicitly).
 
-## In-flight (ChatGPT Pro, account "[redacted-name]", cap 5)
+## In-flight (ChatGPT Pro, account "[redacted]", cap 5)
 
 Tab IDs are EPHEMERAL; THREAD URLS are durable:
 
@@ -143,7 +143,7 @@ before believing it. | R166: FULL-COMPILATION free-roam (R162 base + summable-we
 STILL TO DO: cross-family check (needs Om). Crons:
 watcher f168df07 (11,41), heartbeat 87d1c3c1 (:53) — session-only,
 RE-ARM ON SESSION RESTART. Chrome: deviceId 715cad76 standing choice;
-ChatGPT login [redacted-name]. Protocols: docs/chatgpt-backend-api.md.
+ChatGPT login [redacted]. Protocols: docs/chatgpt-backend-api.md.
 
 R163 LANDED AND SAVED (researcher-163-sc-oversized-y-vacuity.md — 25th
 collapse: oversized-Y normalization escape (Y_n=e^{e^{(log n)^2}} makes
@@ -291,7 +291,7 @@ subagent's. Brief subagents honestly: no "user asleep" framing; explain the
 no-base64 rule as byte-fidelity + keeping content human-readable (an opaque
 base64 blob in an agent's context got flagged by Anthropic's classifier and
 killed the agent — it is NOT about any ChatGPT-side filter). Chrome account
-note: ChatGPT login is [redacted-name] / [redacted-email].
+note: ChatGPT login is [redacted] / [redacted].
 
 R152 LANDED AND SAVED (researcher-152-fsc2-equivalence-persistent-root-deadline-open.md
 — PROVEN: repaired capped-tail exclusion IS FSC(2,eta) (Prop 1, both
@@ -372,7 +372,7 @@ ENVIRONMENT RESET (~09:30 UTC 07-13): Om's Chrome was fully reinstalled/fixed
 after a multi-hour outage (chat cutoff + extension disconnect). NEW facts:
 extension deviceId 715cad76-...; the old phantom-window tab group is GONE —
 fresh tab group, tab IDs change every reconnect (get via tabs_context_mcp);
-ChatGPT re-logged-in ([redacted-name]). Session crons were re-armed as f168df07
+ChatGPT re-logged-in ([redacted]). Session crons were re-armed as f168df07
 (watcher 11,41) and 87d1c3c1 (heartbeat :53) — the watcher prompt now bakes in
 the end_turn check, blob-download harvest, and subagent dispatch. Om asleep
 (~09:40 UTC): standing authorization re-confirmed — aggressive autonomous

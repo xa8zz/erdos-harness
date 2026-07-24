@@ -1585,7 +1585,7 @@ mechanisms; two defects caught in pre-flight: plateau interval widened to
 [1.13,1.20], piercing paragraph rewritten).
 Thread: 6a62bf74-4d94-83e8-a879-0bb72f585fcd. Watcher cron armed (:17/:47)
 — status via backend API, harvest on completion, round doc R175.
-Note: ChatGPT account displays "[redacted-name]" (Pro tier; recents match this
+Note: ChatGPT account displays "[redacted]" (Pro tier; recents match this
 program — flagged to Om). Gemini NOT logged in (memory corrected).
 
 ## F31 — RETRACTION + CORRECTION: arena divisor-kill bug (found ~19:40, fixed, rerun)
