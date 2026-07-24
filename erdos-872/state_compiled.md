@@ -477,6 +477,10 @@
   — verified by lean-4.28-local; confidence high; prompt: [erdos-872/prompts/codex-R179-tier1-verification.md](erdos-872/prompts/codex-R179-tier1-verification.md)
 - **[V177-lean-tier0-report](erdos-872/verify-lean-R177-tier0-report.md)** (2026-07-24): A 2,460-line Lean 4 project compiles with zero sorry and exactly the three declared analytic axioms matching the manuscript's appendix (rough-number bound, K-dense density, exceptional-set estimate), machine-verifying the robust-game semantics with adaptive saddle policies, L(n) <= V_1(n), the a_K/t_K decomposition, useful tags, the nesting lemma for self-rough tags, cone disjointness, external-move projection, tail suprema, and the section-5 limit argument. The global local-trace/root-sweep proof of the master inequality (4.7) is not yet formalized, so the final theorem is absent and the evidence gate reports rejected — an incompleteness verdict, not a mathematical refutation. The formalization independently re-derived exactly the two scheduling defects flagged by the human diff-audit (response-rule precedence; projected-pass insertion before the first local Shortener move), both repaired in the superseding manuscript with no inequality changes. Estimated remaining effort for the full tier-1 target: two to five focused agent-days, with the acknowledged risk that formalizing the sweep argument could expose a further genuine gap.
   — verified by codex-lean-4-28-local-build; confidence high
+- **[V180-tier1-chat-relay](erdos-872/verify-lean-R179-chat-relay.md)** (2026-07-24): Tier-1 Lean verification of the divisor-antichain sublinearity theorem is complete and accepted: the final theorem compiles from source across 35 modules and 11,893 lines with zero sorry, admit, or unsafe, and its only problem-specific dependency is the exceptional-set density axiom; three formalization-discovered specification repairs caused no numerical drift.
+  — verified by codex-lean-4-28-local; confidence high
+- **[V181-fable-kernel-check](erdos-872/verify-lean-R179-fable-kernel-check.md)** (2026-07-24): Independently reproduced: lake build succeeds (8,061 jobs) and a fresh kernel query returns verbatim "'Erdos872.main' depends on axioms: [propext, Classical.choice, Erdos872.A3_exceptional_set_estimate, Quot.sound]" — Lean's three classical axioms plus exactly one problem-specific axiom. Statement fidelity audited by direct reading: the final theorem is Tendsto (originalRatio L) atTop (nhds 0) with originalRatio L N = L(N)/N; L is the backward-induction value (Prolonger-first sup/inf alternation, every selection by either player scored) of the game on Finset.Icc 2 n with legality equal to divisibility-incomparability (Comparable x y := x dvd y or y dvd x) against all earlier selections; the bridge L(n) <= V_1(n) is proved by literally walking the robust protocol stages including null erasures and the opening-end declaration. The axioms A1-A3 are transcribed quantifier-for-quantifier from the manuscript appendix; the exceptional set used by axiom A3 is the honest arithmetic definition (insert 1; filter on x <= delta*N or a_K(x) <= A or a_K(x) > N^gamma with a_K the greedy K-dense prefix of the increasing prime factor list), and the same definition is consumed by the game-side accounting modules, so the axiom and the proof speak about the same object. Trust-surface scan of all 35 source modules found exactly the three declared axiom commands and no sorry, admit, native_decide, unsafe, opaque, or partial def. A1 and A2 are declared but absent from the final theorem's dependency cone: the formalization axiomatizes Lemma 2.3 directly (the boundary explicitly permitted by the verification plan), so the section-2 derivation of 2.3 from 2.1-2.2 remains paper-only, and the single analytic statement to trust on paper is Lemma 2.3, whose prose proof was validated by the blind referee. Caveats recorded: the rebuild used the warm lake cache (a cold rebuild was not run), and tier-3 status — formalizing A3 itself — remains open.
+  — verified by fable-independent-rebuild-and-kernel-query, fable-statement-fidelity-audit; confidence high
 - **[V180-lean-r179-tier1-verification](erdos-872/verify-lean-R179.md)** (2026-07-24): Lean 4.28 proves Erdos872.main with no sorry, admit, or unsafe declaration. Its only manuscript-specific logical dependency is the explicit exceptional set estimate A3; the robust extensive game, local traces, total root-sweep strategy, online drafting injection, three-class accounting, density recursion, and asymptotic endpoint are all proved.
   — verified by lean-4.28-local, independent-ledger-audit, independent-terminal-accounting-audit; confidence high; prompt: [erdos-872/prompts/codex-R179-tier1-verification.md](erdos-872/prompts/codex-R179-tier1-verification.md)
 
@@ -627,14 +631,14 @@
 - refutation: 52
 - research: 216
 - synthesis: 15
-- verification: 113
+- verification: 115
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
 - greedy-policy-dependent: 2
 - greedy-policy-specific: 1
-- independent: 120
+- independent: 122
 - minimal-max-degree-policy-dependent: 1
 - minimal-max-degree-policy-specific: 1
 - policy-sample-dependent: 1

@@ -38,10 +38,18 @@ forcing c_1 = 0).
 - Machine checks of the discrete skeleton (cone disjointness/covering, the
   arithmetic decomposition, the packet instance, a real-rules strategy smoke
   test) pass — see the [worklog](erdos-872/fable-worklog-R172.md).
-- **Formal Lean 4 verification: in progress** — plan and acceptance criteria
-  in [LEAN-PLAN](erdos-872/fable/LEAN-PLAN.md). Until the game half compiles
-  with the three analytic inputs as named axioms, treat this as a **claimed
-  proof, not a verified one**.
+- **Formal Lean 4 verification: tier-1 COMPLETE.** `Erdos872.main` (the
+  sublinearity of the original game) compiles with zero `sorry` across
+  ~12k lines; the kernel reports exactly one problem-specific axiom —
+  `A3_exceptional_set_estimate`, the analytic density input (Lemma 2.3),
+  whose paper proof was referee-validated. Every game-theoretic and
+  combinatorial step is machine-verified. Independent rebuild + kernel
+  query + statement-fidelity audit:
+  [V181](erdos-872/verify-lean-R179-fable-kernel-check.md); formalizer's
+  report: [V180](erdos-872/verify-lean-R179.md); Lean-final manuscript:
+  [R179](erdos-872/researcher-R179-lean-verified-manuscript.md); project:
+  `erdos-872/lean/r177_verification/`. Formalizing A3 itself (axiom-free
+  tier-3) remains open.
 - Cross-model-family audit: pending.
 
 Earlier milestone: the

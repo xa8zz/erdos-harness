@@ -1810,3 +1810,36 @@ cached key) — local Lean is verifier of record for this run.
 
 Also: full remote-branch PII audit (13 refs) — all clean post-scrub; the
 lean branch is local-only and gets the deterministic rewrite at go-live.
+
+## F37 (~23:10, Jul 24): TIER-1 GATE PASSED — Erdos872.main kernel-checked, one axiom
+
+Codex-chan finished the sweep formalization: 35 modules, 11,893 lines,
+zero sorry/admit/unsafe, verdict=accepted. I refereed the referee —
+independent rebuild (8,061 jobs) + my own fresh kernel query:
+
+  'Erdos872.main' depends on axioms: [propext, Classical.choice,
+   Erdos872.A3_exceptional_set_estimate, Quot.sound]
+
+Statement fidelity audited by direct reading (V181): L is the honest
+backward-induction value of the real alternating game on Icc 2 n
+(Prolonger first, both players' selections scored, legality =
+divisibility-incomparability), originalRatio = L(N)/N, main = Tendsto ->
+0; A1-A3 transcribed quantifier-for-quantifier from the appendix;
+exceptionalSet is the honest arithmetic object shared by axiom and
+accounting. Boundary note: A1/A2 declared but OUTSIDE main's cone — the
+formalization axiomatized Lemma 2.3 directly (LEAN-PLAN-sanctioned), so
+the single paper-trusted statement is 2.3 (referee-validated; standard
+sieve technique). Caveat logged: warm-cache rebuild, cold rebuild not run.
+
+Formalization surfaced a THIRD spec repair beyond V177's two: §4.4 class
+assignment must be by strategy PROVENANCE (a root-valued selection made
+by an active local strategy stays class 1, not a sweep firing). All three
+repairs in R179's change log (fixes 6-8), zero numerical drift, lineage
+V177 -> R178 -> R179 consistent. Branch merged (403 -> 405 docs with the
+relay + kernel-check rounds); their docs V178/V180 + R179 now in-lineage.
+
+This crosses the harness promotion bar (zero sorry, axioms = named
+analytic inputs only). Machine-verification triangle now: exact solvers
+(n<=80) + real-rules arena + Lean kernel. Remaining gates, all non-math:
+cross-family audit (Gemini, Om's login), go-live push (Om's word),
+tier-3 A3 formalization (optional, weeks).
