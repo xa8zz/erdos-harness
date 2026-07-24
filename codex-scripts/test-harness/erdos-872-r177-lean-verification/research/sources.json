@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "topic": "erdos-872-r177-lean-verification",
+  "sources": [
+    {
+      "kind": "local-manuscript",
+      "path": "erdos-872/researcher-R177-repaired-manuscript.md",
+      "status": "accepted",
+      "use": "formal statement and proof source of truth"
+    },
+    {
+      "kind": "local-verification-plan",
+      "path": "erdos-872/fable/LEAN-PLAN.md",
+      "status": "accepted",
+      "use": "Tier boundary, milestones, and pitfall checklist"
+    },
+    {
+      "kind": "dependency",
+      "url": "https://github.com/leanprover-community/mathlib4",
+      "commit": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+      "status": "accepted",
+      "use": "Lean standard library and analysis/combinatorics APIs"
+    }
+  ]
+}
