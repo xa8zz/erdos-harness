@@ -1164,7 +1164,7 @@ j_K(x)
 :=
 \max\left\{
 j\in\{0,1,\ldots,r\}:
-\text{for every }i\in\mathbb N\text{ with }1\le i\le j,\ 
+\text{for every }i\in\mathbb N\text{ with }1\le i\le j,\quad
 p_i\le K\prod_{h=1}^{i-1}p_h
 \right\}.
 \]
