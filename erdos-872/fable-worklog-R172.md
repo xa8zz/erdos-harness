@@ -1573,3 +1573,17 @@ The wave-1 plateau law L ~ 1.155 n loglog/log now spans n = 40..80 with
 no excursion. Night's exact-table gain: 58 -> 80, 23 validated values.
 n=81 in progress (5-8h expected at this depth — effectively the march's
 final value for this session).
+
+## F30 (~18:20, Om awake): R175 dispatched to GPT-5 Pro
+
+Channel verified working (Sonnet subagent did the browser work — context
+kept clean). Prompt: prompts/researcher-R175-piercing-race-inflation.md
+(solutions-only shape; contains the exact table 58-80, the piercing
+identity, the theft-floor lemma with proof, the inflation obstruction with
+measurements flagged as measurements, and four ruled-out approaches with
+mechanisms; two defects caught in pre-flight: plateau interval widened to
+[1.13,1.20], piercing paragraph rewritten).
+Thread: 6a62bf74-4d94-83e8-a879-0bb72f585fcd. Watcher cron armed (:17/:47)
+— status via backend API, harvest on completion, round doc R175.
+Note: ChatGPT account displays "[redacted-name]" (Pro tier; recents match this
+program — flagged to Om). Gemini NOT logged in (memory corrected).
