@@ -467,6 +467,8 @@
   — confidence high; prompt: [erdos-872/prompts/followup-R177-repaired-manuscript.md](erdos-872/prompts/followup-R177-repaired-manuscript.md)
 - **[V176-referee-audit](erdos-872/verify-R176-referee.md)** (2026-07-23): Verdict ACCEPT AFTER MINOR FIXES. No fatal flaw found in the cone decomposition, root-cone pairing, quotient projection, local-game recursion, arithmetic lemmas, or limit passage. Three repairable defects: (1) the robust game V_b lacks a formal extensive-form definition with inf over Shortener strategies of sup over Prolonger-and-erasure strategies; (2) section 4.3's sentence "at most one further Prolonger selection before Shortener's first local response" is false for cones first activated post-opening (two are possible: activation plus one return) — the bound survives since max(b+1, 2) = b+1 for b >= 1; (3) Shortener's strategy is undefined when no live unprocessed root remains and no active local move exists but exceptional vertices remain — repaired by an arbitrary exceptional selection, absorbed by the |E_N| term. Plus declarations: integer A, fixed gamma in (0,1), deterministic tie-breaking, termination and erasure protocol. None of the repairs alters any numerical inequality.
   — verified by gpt5pro-blind-referee-fresh-thread, fable-linewise-read, fable-machine-checks; confidence medium; prompt: [erdos-872/prompts/audit-R176-full-proof-referee.md](erdos-872/prompts/audit-R176-full-proof-referee.md)
+- **[V177-fable-diff-audit](erdos-872/verify-R177-fable-audit.md)** (2026-07-23): The repaired manuscript implements all five referee-mandated fixes faithfully (extensive-form game with inf-sup strategy quantifiers and full erasure protocol; the corrected two-case local opening count max{b+1,2}=b+1 for b>=1 with the projected local-trace construction; the exceptional-vertex fallback with a totality justification; all parameter and protocol declarations), and no constant, exponent, bound shape, or inequality anywhere differs from the original: Lemmas 2.1-2.3 (including kappa = c0 log c0 - c0 + 1, c0 = 1/log 2), (2.3), (3.1)-(3.12), Lemma 3.1, (4.1)-(4.7) including the halving weight bound (N + N/A + (b+1)N^gamma/ delta)/2, (5.1)-(5.2) with delta = A^-2, K = ceil(e^{A^3}), and the finite iteration to c_1 = 0 are all display-identical up to formatting.
+  — verified by fable-R177-linewise-diff-audit; confidence high
 
 ## Ruled Out
 
@@ -614,14 +616,14 @@
 - refutation: 52
 - research: 215
 - synthesis: 13
-- verification: 109
+- verification: 110
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
 - greedy-policy-dependent: 2
 - greedy-policy-specific: 1
-- independent: 113
+- independent: 114
 - minimal-max-degree-policy-dependent: 1
 - minimal-max-degree-policy-specific: 1
 - policy-sample-dependent: 1

@@ -30,6 +30,15 @@ plus a `verify-lean-R177.md` round doc quoting `#print axioms` verbatim.
 
 ## 1. Axiom boundary (three analytic inputs — drafts)
 
+> **Reconciliation note (2026-07-23):** the R177 appendix ("Appendix:
+> analytic inputs in axiom-ready form", researcher-R177-repaired-manuscript.md)
+> has landed and **supersedes the drafts below** per the rule above. Deltas
+> from the drafts: A1 requires `X ≥ 2` (not 1) and names the constant
+> `C_rough`; A2 takes real `K > 2` (not `K ≥ 2`) and names `C_dense(K)`;
+> A3 requires `A ≥ 2`, places `1 ∈ E_N` explicitly (the `a_K(1)` edge), names
+> `C_exc`, and is stated in the ε–N₀ form. Transcribe axioms from the R177
+> appendix, not from the drafts.
+
 Everything else in the manuscript is finite combinatorics / game induction /
 elementary limits and gets **proven**, not assumed.
 
@@ -163,6 +172,14 @@ iteration — M4/M5 dominate. Do not promise 1–2 h for Tier 1.
 8. Score counts both players' selections.
 9. Any manuscript sentence that cannot be stated as written = manuscript bug:
    **report, never improvise semantics.** Surfacing these is Tier 0's job.
+10. (V177 audit) Shortener's four response rules are "first rule that
+    supplies a move" — encode the precedence explicitly; the literal
+    "Otherwise" chain under-specifies the case where Prolonger's selection
+    just terminated an active cone's local game.
+11. (V177 audit) In the local-trace construction, insert local Prolonger
+    passes only AFTER Shortener's first local selection; before it, the
+    opening-end declaration already schedules Shortener, and an inserted
+    pass there would not be a legal robust-game event.
 
 ## 6. Reporting
 

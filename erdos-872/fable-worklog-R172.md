@@ -1698,3 +1698,51 @@ claimed proof needed to survive, survived.
 
 Blind referee audit of R176 running in fresh Pro thread (6a62f21c...,
 checklist (a)-(i)); harvest expected ~23:30.
+
+## F34 (~23:15): referee verdict, the R177 repaired manuscript, and the V177 audit
+
+The blind referee returned ACCEPT AFTER MINOR FIXES on the claimed proof:
+no fatal flaw in the cone decomposition or the density recursion; three
+genuine but formal defects (missing extensive-form definition + inf-sup
+quantifiers; ONE FALSE SENTENCE in §4.3 that my own line-read missed — a
+post-opening activated cone can absorb TWO Prolonger selections before its
+first local response, activation + one return, bound surviving as
+max{b+1,2}=b+1 for b>=1; Shortener's strategy undefined on
+exceptional-only positions). All repairs formal; no inequality changes.
+Filed as V176 (confirms R176).
+
+The repair dispatch took an unplanned route: the R177 prompt (referee's
+fix list embedded verbatim + no-drift constraints) was composed for the
+ChatGPT author thread, but Om accidentally handed it to a LOCAL CODEX
+AGENT — which turned out fine, since Codex resolved "the manuscript" to
+the R176 artifact on disk and followed the repo's own round-doc
+discipline: researcher-R177-repaired-manuscript.md, id
+R177-repaired-manuscript, supersedes R176, schema-clean frontmatter,
+change log + an axiom-ready appendix for Lemmas 2.1-2.3.
+
+Commit-race note for the archaeologists: my LEAN-PLAN commit fe4ccf8 ran
+while Codex had its manuscript + state recompile STAGED, so those files
+rode into fe4ccf8 under my message; Codex's own 7f679cb is just a
+whitespace fix. Content verified against Om's clipboard copy
+(byte-equivalent modulo blank lines + one trailing UI artifact).
+Lesson: when two agents share the main tree, stage-and-commit windows
+interleave — check `git show --stat` before assuming a commit is yours.
+
+V177 (my line-by-line diff-audit of R177): PASS. All five fixes faithful
+(fix-by-fix at verify-R177-fable-audit.md); display-by-display drift check
+vs R176 found ZERO changes to any constant/bound/inequality; change log
+accurate; the appendix supersedes my LEAN-PLAN draft axioms (deltas
+recorded there). Two formalization nits recorded (response-rule
+precedence; local-trace pass insertion before the first local S move) —
+non-defects, canonical resolutions, added to LEAN-PLAN's pitfall list as
+items 10-11.
+
+Also landed: fable/LEAN-PLAN.md — the tiered Lean spec (tier-0 all-sorry
+skeleton in ~1-2h; tier-1 game-half-proven with exactly 3 analytic axioms
+as the recommended pre-publication hard gate; encoding decisions;
+M0-M7). Tier-0 can fire NOW: the spec is complete with R177's appendix.
+
+Gate scoreboard after tonight: my line-read PASS, machine checks PASS,
+blind same-family referee PASS, repaired manuscript LANDED + audited.
+Open: cross-family referee (Gemini, needs Om's login), Lean tier-0/1,
+R171 harvest before any public claim.
