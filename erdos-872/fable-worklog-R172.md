@@ -1638,3 +1638,42 @@ buggy baseline, no rising trend, still n/log n-shaped. R175 at ~105 min:
 before n^{1/2-eps} moves (only o(n) top targets fully blockable) but fails
 near linear time; two supplied claims need correction (consistent with my
 own two confirmed corrections).
+
+## F32 (~20:20): R175 harvested — packet theorem verified; the o(n) skeleton's wave step is dead; frontier redrawn
+
+R175 (GPT-5 Pro, 92 min) landed and is round-doc'd. Verdict: no proof
+either way. Contents, all now machine- or hand-verified:
+1. Both of my claims corrected (top-half equivalence needs interior plays
+   o(n) too; piercing trichotomy — z's own play kills its residual live
+   divisors). Both match my independent re-derivations. R(z) cap F = empty
+   SURVIVES; the theft-floor lemma is untouched (Pro uses the fired-prime
+   positive-density deletion itself, "modulo standard sieve estimates").
+2. MULTIPARTITE PACKET THEOREM (machine-verified, j=2 instance n=20000,
+   exact rules: faces dead, transversals live, X kills all W in one move):
+   legality + full lower-face preparation CANNOT bound rank-j deletion
+   below (log n)^j/(loglog n)^{j-1} per move; even reciprocal mass
+   sum 1/w -> infinity in one move. My wave-amortization hope (stitching
+   §9) is refuted twice over (packet + the fixed-arena I2 measurements,
+   which independently showed 7.5 log n — the same phenomenon empirically).
+3. Survivor-stock objection: ambient fired-mass density does not transfer
+   to adversarial survivor stocks — wave iteration needs a survivor-stock
+   regularity theorem. This kills the naive composition even without
+   packets.
+
+FRONTIER AFTER R175 (the sharpest it has ever been):
+- Upper-bound (o(n)) route: find a strategy-specific S mechanism that
+  attacks PACKET FORMATION before all facets install. The blockers a_h are
+  large, high-omega, recognizable integers; S has j-1 moves during the
+  installation window. Question: can S always pre-empt (fire a packet
+  prime or a facet's residual face) cheaply enough that P pays more than
+  the packet yields? This is now the single S-side question.
+- Lower-bound (Theta(n)) route: pack positive-density many packets
+  globally against out-of-order attack (Pro: "does not yet accomplish
+  that global packing"). The packet is the first credible linear-side
+  GADGET in 175 rounds — F20's tiling trap does not apply to it (packets
+  are constant-size and self-shielding). Whether packets TILE is open.
+- Both routes now run through the same object. Next dispatch (R176):
+  correct the buggy-measurement line from the R175 brief, concede the two
+  corrections, present the packet as established, and pose the packing /
+  pre-emption pair as the open core. Also: fix stitching §7's trichotomy
+  and §9's verdict in the draft.
