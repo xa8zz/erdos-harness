@@ -1564,3 +1564,12 @@ March: L(79) = 31 (217.8e9 nodes, 10162s — heaviest solve of the run).
 k(79) = 9; c3(79) = 1.163, in the plateau band; c1 = 1.714 new high.
 Exact table now 58 -> 79 (21 new validated values tonight). n=80 in
 progress (likely multi-hour at this depth).
+
+## F29.6 (~17:55): L(80) = 31 — plateau unbroken through n = 80
+
+March: L(80) = 31 (300.3e9 nodes, 16025s — record solve). k(80) = 9
+(steady 75-80); c3(80) = 1.149; doubling pair (40,80) ratio 9/8 = 1.125.
+The wave-1 plateau law L ~ 1.155 n loglog/log now spans n = 40..80 with
+no excursion. Night's exact-table gain: 58 -> 80, 23 validated values.
+n=81 in progress (5-8h expected at this depth — effectively the march's
+final value for this session).
