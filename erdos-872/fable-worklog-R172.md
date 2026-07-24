@@ -1746,3 +1746,38 @@ Gate scoreboard after tonight: my line-read PASS, machine checks PASS,
 blind same-family referee PASS, repaired manuscript LANDED + audited.
 Open: cross-family referee (Gemini, needs Om's login), Lean tier-0/1,
 R171 harvest before any public claim.
+
+## F35 (~00:05, Jul 24): R171 harvested (gate cleared) + public-history PII scrub executed
+
+R171 — dispatched Jul 16, deliberately unharvested since — retrieved via
+backend API (title "Proof of L(n) o(n)", gpt-5-6-pro, 103m run) and filed
+as researcher-R171-ordered-sweep-vaccination-impasse.md. Verdict: NO proof
+or disproof. It proved the ordered-sweep lemma (divisibility-linear-order
+sweep never self-blocks) and the universal top-half vaccination lemma
+(every predeclared o(n) Shortener family is statically defeated at o(n)
+cost by V(F) = {d*floor(n/d)}), and named the missing piece verbatim: "the
+missing online reachability/anti-reachability theorem." Collision check:
+CLEAR — nothing contradicts or preempts the o(n) claim. Historical note:
+R171 is the direct ancestor of the winning mechanism. Its sweep is the
+R176 root-cone sweep minus adaptivity, and its impasse is exactly the gap
+the robust-envelope renormalization closes (the adaptive sweep IS the
+online theorem it asked for). The program's failure modes were accurate
+prophecies.
+
+Repo exposure + scrub (Om-directed): discovered the repo has been PUBLIC
+at github.com/xa8zz/erdos-harness the whole time — phone number public
+since Jul 13, blog drafts + message dumps since spring. Forward hygiene:
+PII redacted at HEAD, personal drafts moved to git-ignored private/,
+README rewritten (claimed o(n) + explicit verification gates), LICENSE
+added, binaries gitignored, local main ff'd. History scrub (scoped to 3
+identity strings, Om's explicit request): git-filter-repo on a disposable
+mirror, verified zero occurrences across all rewritten history +
+pre-Jul-12 hashes unchanged (origin/main tip 84a6ae6 identical), then
+force-pushed ONLY codex/progress-round-analysis at the Jul-16-equivalent
+rewritten commit (e8ede92 -> 21f7a98) — publishes nothing new; the o(n)
+work stays local until go-live. Residue: old SHAs remain fetchable on
+GitHub until support gc (Om to file); 0 forks/stars/watchers. Local repo
+still on pre-rewrite lineage BY DESIGN (Codex-chan mid-Lean on
+codex/lean-r177-verification worktree); at go-live: fresh deterministic
+mirror rewrite of final local state -> push main + branch (both ff from
+scrubbed refs), then re-point local.
