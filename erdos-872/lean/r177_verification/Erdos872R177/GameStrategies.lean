@@ -190,6 +190,17 @@ def optimalEraser {D : Finset Vertex} {start : Pos} :
     Strategy Actor.eraser D start :=
   fun _ hactor => maximizingAction D _ Actor.eraser hactor
 
+/-- The action prescribed by the single extracted Shortener strategy realizes
+the Bellman minimum at every Shortener node. -/
+theorem optimalShortener_bellman
+    {D : Finset Vertex} {start p : Pos}
+    (h : History D start p)
+    (hs : actorAt D p = some Actor.shortener) :
+    score (optimalShortener h hs).1 +
+        gameValue D (step D p (optimalShortener h hs).1) =
+      gameValue D p := by
+  exact minimizingAction_spec D p hs
+
 /-- The extracted Shortener strategy bounds every adaptive maximizing pair. -/
 theorem playFrom_optimalShortener_le_gameValue
     {D : Finset Vertex} {start p : Pos}
