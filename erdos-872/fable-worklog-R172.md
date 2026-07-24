@@ -1677,3 +1677,24 @@ FRONTIER AFTER R175 (the sharpest it has ever been):
   corrections, present the packet as established, and pose the packing /
   pre-emption pair as the open core. Also: fix stitching §7's trichotomy
   and §9's verdict in the draft.
+
+## F33 (~22:20): sweep-S smoke test — the R176 mechanism works under real rules
+
+s_sweep implemented (arena12): tags via the K-dense/self-rough split at
+practical K=10; roots = divisibility-minimal tags (computed once); policy =
+fire the smallest live root (largest cone), maxdeg fallback.
+
+  vs pack:   1e5: 16058 (maxdeg gave 17601: sweep -8.8%)
+             1e6: 130697 = 1.806 n/ln n (maxdeg gave 2.028: -11.0%)
+  vs taxman: 1e5: 17195 (maxdeg 16506: sweep worse — taxman is not
+             cone-structured; sweep is the targeted counter to activation)
+
+The sweep's edge over maxdeg vs the champion GROWS with scale (8.8% ->
+11.0%), consistent with the proof's halving mechanism compounding. New
+champion pair: sweep-S vs pack-P, 1.806 at 1e6. NOT a proof of anything
+(finite-n constants are nowhere near the asymptotic schedule K=e^{A^3}),
+but the mechanism visibly bites under exact legality — the smoke test the
+claimed proof needed to survive, survived.
+
+Blind referee audit of R176 running in fresh Pro thread (6a62f21c...,
+checklist (a)-(i)); harvest expected ~23:30.

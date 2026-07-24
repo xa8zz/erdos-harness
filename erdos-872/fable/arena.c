@@ -232,6 +232,41 @@ static int s_hunter(void){
     return s_maxdeg();
 }
 
+/* s_sweep (R176 mechanism, practical K): fire the smallest live ROOT TAG.
+   tag(x) via the K-dense/self-rough split (K=10); roots = divisibility-
+   minimal tags. Static structure computed once at init. */
+static uint8_t *istag, *isroot;
+static int32_t *rootlist; static int nroots, rcursor2;
+static void sweep_init(void){
+    int K=10;
+    istag=calloc(n+1,1); isroot=calloc(n+1,1);
+    for(int x=2;x<=n;x++){
+        long long a=1; int m=x;
+        while(m>1){
+            int p=spf[m];
+            if((long long)p<=(long long)K*a){ a*=p; m/=p; }
+            else break;
+        }
+        int t=(int)(x/a);
+        if(t>1) istag[t]=1;
+    }
+    rootlist=malloc((size_t)(n+1)*4); nroots=0;
+    for(int t=2;t<=n;t++){
+        if(!istag[t]) continue;
+        gen_divisors(t);
+        int minimal=1;
+        for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<t&&istag[d]){ minimal=0; break; } }
+        if(minimal){ isroot[t]=1; rootlist[nroots++]=t; }
+    }
+    rcursor2=0;
+}
+static int s_sweep(void){
+    if(!istag) sweep_init();
+    while(rcursor2<nroots && !live[rootlist[rcursor2]]) rcursor2++;
+    if(rcursor2<nroots) return rootlist[rcursor2];
+    return s_maxdeg();
+}
+
 /* ---------- P ---------- */
 static int p_dustman(void){
     while(ftop>0){ int x=fstack[--ftop]; if(live[x]&&deg[x]==0&&ldc[x]==0) return x; }
@@ -565,7 +600,7 @@ int main(int argc,char**argv){
         int64_t k0=kills;
         cur_mover=turn;
         if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race(): (strcmp(pp,"closure")==0? p_closure(): (strcmp(pp,"closuretax")==0? p_closuretax(): (strcmp(pp,"pack")==0? p_pack(): (strcmp(pp,"pack2")==0? p_pack2(): (strcmp(pp,"bandpack")==0? p_bandpack():p_dustman())))))))));
-        else        x = strcmp(sp,"maxdeg")==0? s_maxdeg(): (strcmp(sp,"topdeg")==0? s_topdeg(): (strcmp(sp,"hunter")==0? s_hunter(): (strcmp(sp,"mix1")==0? s_mix1(): (strcmp(sp,"mix3")==0? s_mix3():s_smallest()))));
+        else        x = strcmp(sp,"maxdeg")==0? s_maxdeg(): (strcmp(sp,"topdeg")==0? s_topdeg(): (strcmp(sp,"hunter")==0? s_hunter(): (strcmp(sp,"mix1")==0? s_mix1(): (strcmp(sp,"mix3")==0? s_mix3(): (strcmp(sp,"sweep")==0? s_sweep():s_smallest())))));
         if(x<0) break;
         play(x);
         if(moves<=256||((long long)moves&63)==0)
