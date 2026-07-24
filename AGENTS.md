@@ -329,6 +329,8 @@ The instruction set is infrastructure. If it drifts out of sync with observed re
 
 - The round-doc extractor reads Claude Code JSONL only; when research arrives as a Codex attachment, use the attachment file itself as the byte-faithful body, prepend immutable frontmatter, then run compile_rounds.py.
 
+- For the divisor-antichain R179 Tier-1 gate, `erdos-872/lean/r177_verification` now proves `Erdos872.main` with zero holes; `#print axioms` uses only `Erdos872.A3_exceptional_set_estimate` beyond Lean classical axioms. Reproduce with `codex-scripts/test-harness/erdos-872-r177-lean-verification/run.sh`, and direct-compile changed modules with `lake env lean -o /tmp/<module>.olean ...` because `lake build` may reuse stale oleans.
+
 ## Tooling Access Inventory
 
 - For erdos-harness formal verification, `aristotlelib` 2.1.0 is runnable via `uvx --from aristotlelib@latest aristotle`; local Lean 4.28 remains usable without it, but Aristotle submissions require `ARISTOTLE_API_KEY`, which is not currently cached on this Mac.
