@@ -151,8 +151,12 @@ static void play(int x){
     played_sev[sevby[x]]++;
     kill_element(x);
     for(long long m=2ll*x;m<=n;m+=x) if(live[m]){ kills++; kill_element((int)m); }
+    /* BUG FIX (F31): kill_element() rewrites the shared divbuf; snapshot the
+       divisor list before the kill loop or the loop dies on first clobber. */
     gen_divisors(x);
-    for(int i=0;i<divcnt;i++){ int d=divbuf[i]; if(d>=2&&d<x&&live[d]){ kills++;
+    static int32_t dsnap[6144]; int nd=divcnt;
+    memcpy(dsnap,divbuf,(size_t)nd*4);
+    for(int i=0;i<nd;i++){ int d=dsnap[i]; if(d>=2&&d<x&&live[d]){ kills++;
         if(cur_mover==0){ if(omega_of(d)>=2) i2_epoch+=log((double)d); else i1_epoch+=log((double)d); }
         kill_element(d);} }
     if(cur_mover==0){ pmoves_epoch++; pmoves_total++; }
@@ -450,6 +454,38 @@ static int p_pack2(void){
     }
 }
 
+static int p_bandpack(void){
+    /* wave-2 inflation gadget (R175 mid-flight claim, machine-check):
+       pack the vehicle with as MANY primes from one dyadic band as fit —
+       maximizes C(m,2) sub-semiprime deletion per play. Walk bands upward. */
+    static int bp_lo=0;
+    if(bp_lo==0) bp_lo=3;
+    for(;;){
+        if(bp_lo>n/2) return p_dustman();
+        int hi = bp_lo*2>n/2? n/2 : bp_lo*2;
+        int core[64]; int m=0;
+        long long prod=1;
+        for(int p=bp_lo|1;p<=hi && m<60;p+=2){
+            if(!(live[p]&&spf[p]==p)) continue;
+            if(prod > (long long)n/p) break;
+            core[m++]=p; prod*=p;
+        }
+        while(m>=2){
+            long long x=prod;
+            while(x<=(long long)n/2) x*=2;          /* 2-adic pad if evens alive */
+            if(x<=n && live[(int)x]) return (int)x;
+            if(prod>(long long)n/2 && prod<=n && live[(int)prod]) return (int)prod;
+            /* odd cofactor landing: prod * t in (n/2, n] for small odd t */
+            int tlo=(int)((long long)n/2/prod)+1, thi=(int)((long long)n/prod);
+            for(int t=tlo|1;t<=thi;t+=2)
+                if((long long)prod*t<=n && live[(int)((long long)prod*t)])
+                    return (int)((long long)prod*t);
+            m--; prod/=core[m];                      /* shrink core, retry */
+        }
+        bp_lo=hi+1;                                  /* band exhausted */
+    }
+}
+
 static int p_burner(void){
     /* walk buckets downward; greedily pack coprime high-degree weapons */
     long long prod=1;
@@ -528,7 +564,7 @@ int main(int argc,char**argv){
         int x;
         int64_t k0=kills;
         cur_mover=turn;
-        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race(): (strcmp(pp,"closure")==0? p_closure(): (strcmp(pp,"closuretax")==0? p_closuretax(): (strcmp(pp,"pack")==0? p_pack(): (strcmp(pp,"pack2")==0? p_pack2():p_dustman()))))))));
+        if(turn==0) x = strcmp(pp,"burner")==0? p_burner(): (strcmp(pp,"boxer")==0? p_boxer(): (strcmp(pp,"taxman")==0? p_taxman(): (strcmp(pp,"hybrid")==0? p_hybrid(): (strcmp(pp,"race")==0? p_race(): (strcmp(pp,"closure")==0? p_closure(): (strcmp(pp,"closuretax")==0? p_closuretax(): (strcmp(pp,"pack")==0? p_pack(): (strcmp(pp,"pack2")==0? p_pack2(): (strcmp(pp,"bandpack")==0? p_bandpack():p_dustman())))))))));
         else        x = strcmp(sp,"maxdeg")==0? s_maxdeg(): (strcmp(sp,"topdeg")==0? s_topdeg(): (strcmp(sp,"hunter")==0? s_hunter(): (strcmp(sp,"mix1")==0? s_mix1(): (strcmp(sp,"mix3")==0? s_mix3():s_smallest()))));
         if(x<0) break;
         play(x);

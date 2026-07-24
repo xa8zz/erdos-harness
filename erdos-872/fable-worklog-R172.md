@@ -1587,3 +1587,43 @@ Thread: 6a62bf74-4d94-83e8-a879-0bb72f585fcd. Watcher cron armed (:17/:47)
 — status via backend API, harvest on completion, round doc R175.
 Note: ChatGPT account displays "[redacted-name]" (Pro tier; recents match this
 program — flagged to Om). Gemini NOT logged in (memory corrected).
+
+## F31 — RETRACTION + CORRECTION: arena divisor-kill bug (found ~19:40, fixed, rerun)
+
+BUG: play()'s divisor-kill loop iterated the global divbuf while
+kill_element() rewrites that same buffer — the loop died after the first
+kill. Every P vehicle in EVERY arena run (including the corpus-era
+R172-R174 runs — the bug predates tonight) made only partial chain-kills:
+the arena was playing an illegal variant undercounting P's power.
+Discovered because bandpack (built to machine-check the R175 mid-flight
+gadget claim) showed I2 = 0; the n=100 trace showed P playing 60 and
+killing ONE element. Fixed by snapshotting the divisor list (arena11).
+Validated: play 60 kills all 10 divisors.
+
+UNAFFECTED (independent code/pure math): the exact solver + full table to
+80 (validated separately), the plateau law, pvparse anatomy, clearing.py,
+racecover/raceverify, verify_claims fortress checks, the theft-floor
+lemma and its race simulation, the piercing identity.
+
+RETRACTED / SUPERSEDED (all arena-engine measurements):
+- F29.1's inflation-saturation verdict. CORRECTED: fixed I2 for pack at
+  1e6 runs 7.54 -> 4.72 -> 2.86 -> 1.41 -> 0.16 (log n units) across the
+  game — the log^2 n/log y shape, UNBOUNDED per-budget early. The R175
+  mid-flight gadget claim (legality does not throttle wave-2 deletion) is
+  CONFIRMED by the fixed machine. The o(n) skeleton's wave >= 2 step
+  cannot rely on inflation boundedness. (My dispatched prompt contains the
+  buggy measurement, flagged as measurement; correct it in the follow-up.)
+- The champion-era coefficients (F25.4-F28.1) and the corpus's taxman
+  1.42/1.39/1.37 baseline. CORRECTED 1e5/1e6 vs maxdeg: taxman 1.900/1.905,
+  closure 1.601/-, pack 2.026/2.028 — FLAT, at a level 43% above the old
+  buggy era; no rising era. n=58: pack reaches 22 of exact 23. L/n at 1e6
+  = 0.147 (margin to the 0.1897n upper bound: 23%). 1e7 reruns launched
+  (pack11_1e7, tax11_1e7); watch pack vs the 0.1897n ceiling line.
+- R174's arena-derived sever/tower/crossing instrumentation numbers are
+  suspect pending rerun (its ABSTRACT race conclusions — pad wall n/2,
+  stolen ln 2, coverage 1/2 — are separate Python sims and stand).
+
+Guard rail #7: shared-global-buffer clobber in the measurement engine
+survived 30+ committed findings. The machine referee must itself be
+refereed: validate engines against hand-traceable tiny cases (n=100) as a
+standing pre-flight before trusting any new instrumentation.
