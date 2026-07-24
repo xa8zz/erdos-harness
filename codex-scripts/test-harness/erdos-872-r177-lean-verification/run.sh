@@ -35,17 +35,23 @@ axiom_status=0
   lake env lean Erdos872R177/AxiomReport.lean
 ) >"$axiom_log" 2>&1 || axiom_status=$?
 
+main_status=0
+if ! rg -q "^'Erdos872\.main' depends on axioms:" "$axiom_log"; then
+  main_status=1
+fi
+
 verdict="accepted"
-if [ "$build_status" -ne 0 ] || [ "$axiom_status" -ne 0 ] || [ "$hole_count" -ne 0 ]; then
+if [ "$build_status" -ne 0 ] || [ "$axiom_status" -ne 0 ] || \
+   [ "$main_status" -ne 0 ] || [ "$hole_count" -ne 0 ]; then
   verdict="rejected"
 fi
 
-printf '{\n  "verdict": "%s",\n  "build_status": %s,\n  "axiom_status": %s,\n  "proof_hole_count": %s,\n  "build_log": "%s",\n  "axiom_log": "%s",\n  "proof_hole_log": "%s"\n}\n' \
-  "$verdict" "$build_status" "$axiom_status" "$hole_count" \
+printf '{\n  "verdict": "%s",\n  "build_status": %s,\n  "axiom_status": %s,\n  "main_status": %s,\n  "proof_hole_count": %s,\n  "build_log": "%s",\n  "axiom_log": "%s",\n  "proof_hole_log": "%s"\n}\n' \
+  "$verdict" "$build_status" "$axiom_status" "$main_status" "$hole_count" \
   "$build_log" "$axiom_log" "$hole_log" >"$result_json"
 
-printf 'verdict=%s build_status=%s axiom_status=%s proof_hole_count=%s\n' \
-  "$verdict" "$build_status" "$axiom_status" "$hole_count"
+printf 'verdict=%s build_status=%s axiom_status=%s main_status=%s proof_hole_count=%s\n' \
+  "$verdict" "$build_status" "$axiom_status" "$main_status" "$hole_count"
 
 if [ "$verdict" != "accepted" ]; then
   exit 1
