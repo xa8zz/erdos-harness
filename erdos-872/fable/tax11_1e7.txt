@@ -1,0 +1,21 @@
+I2 move=512  meanI2/lnN=50.178  meanI1/lnN=0.246  (P-moves 256)
+TOWER move=512 thin=3412811 stock=6761367 maxroot=(2647,584,h=3777) bands(h<=2^b) b=1:512330 2:930569 3:1169588 4:1092205 5:854794 6:635066 7:468009 rest:1098806
+I2 move=2048  meanI2/lnN=27.261  meanI1/lnN=0.264  (P-moves 768)
+TOWER move=2048 thin=3328616 stock=6459818 maxroot=(12583,147,h=794) bands(h<=2^b) b=1:513666 2:938509 3:1192483 4:1130526 5:894708 6:665410 7:481652 rest:642864
+I2 move=8192  meanI2/lnN=16.178  meanI1/lnN=0.257  (P-moves 3072)
+TOWER move=8192 thin=3266065 stock=6111161 maxroot=(55871,57,h=178) bands(h<=2^b) b=1:531373 2:978860 3:1269551 4:1223661 5:969863 6:648459 7:371231 rest:118163
+I2 move=32768  meanI2/lnN=9.043  meanI1/lnN=0.204  (P-moves 12288)
+TOWER move=32768 thin=2960074 stock=4502232 maxroot=(227281,26,h=43) bands(h<=2^b) b=1:540708 2:944473 3:1193244 4:1030565 5:626747 6:166495 7:0 rest:0
+I2 move=131072  meanI2/lnN=3.647  meanI1/lnN=0.137  (P-moves 49152)
+TOWER move=131072 thin=2037024 stock=1633451 maxroot=(833347,10,h=11) bands(h<=2^b) b=1:370725 2:533215 3:526862 4:202649 5:0 6:0 7:0 rest:0
+I2 move=524288  meanI2/lnN=1.107  meanI1/lnN=0.290  (P-moves 196608)
+TOWER move=524288 thin=672799 stock=44967 maxroot=(3333373,1,h=2) bands(h<=2^b) b=1:44967 2:0 3:0 4:0 5:0 6:0 7:0 rest:0
+peak HEREDITARY thin-live=1147973 (0.1148 of n) at move 237568
+severing of PLAYED elements: unsev(thin-from-start)=670107  by-P=481820  by-S=193
+CROSS D=6: born=3497027  by-P: mult=25725 div=1621131  by-S: mult=1077 div=2619859
+PLAYED by class: born=772856 fat=126701  P-mult=0 P-div=252059  S-mult=504 S-div=0
+P-moves=576060 S-moves=576060 top-half-live-final=0 race-front=2
+WAVES TK_by_omega(w): w1:3945912(f251075) w2:155586(f26513) w3:27949(f6229) w4:2926(f748) w5:143(f64) w6:2(f1)
+WAVES safe_by_omega(z): w1:316077 w2:121162 w3:85337 w4:43677 w5:14566 w6:1963 w7:72 w8:0
+WAVES topplay_by_omega: w1:1 w2:79591 w3:106210 w4:66387 w5:27370 w6:4863 w7:206 w8:0
+n=10000000 S=maxdeg P=taxman L=1152120 L/n=0.11521 kills=8847879 sum=9999999 (expect 9999999)

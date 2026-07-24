@@ -1627,3 +1627,14 @@ Guard rail #7: shared-global-buffer clobber in the measurement engine
 survived 30+ committed findings. The machine referee must itself be
 refereed: validate engines against hand-traceable tiny cases (n=100) as a
 standing pre-flight before trusting any new instrumentation.
+
+## F31.1 (~19:55): corrected 1e7 points
+
+Fixed-arena at 1e7 vs maxdeg: pack L = 1247165 = 2.010 n/ln n; taxman (see
+tax11_1e7.txt). Corrected pack trend: 2.026 / 2.028 / 2.010 (1e5/1e6/1e7)
+— FLAT ~2.02, mild decline at 1e7. The corrected era: level ~2x the old
+buggy baseline, no rising trend, still n/log n-shaped. R175 at ~105 min:
+"Finalizing answer" visible; latest trace: sparse preparation controllable
+before n^{1/2-eps} moves (only o(n) top targets fully blockable) but fails
+near linear time; two supplied claims need correction (consistent with my
+own two confirmed corrections).

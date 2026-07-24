@@ -1,0 +1,21 @@
+I2 move=512  meanI2/lnN=8.641  meanI1/lnN=0.479  (P-moves 256)
+TOWER move=512 thin=3641133 stock=6997519 maxroot=(2089,944,h=4786) bands(h<=2^b) b=1:392520 2:807262 3:1065448 4:1080219 5:910961 6:698406 7:542866 rest:1499837
+I2 move=2048  meanI2/lnN=7.621  meanI1/lnN=0.140  (P-moves 768)
+TOWER move=2048 thin=3462844 stock=6386651 maxroot=(10993,211,h=909) bands(h<=2^b) b=1:382621 2:796337 3:1049732 4:1068909 5:905830 6:696275 7:537537 rest:949410
+I2 move=8192  meanI2/lnN=5.376  meanI1/lnN=0.209  (P-moves 3072)
+TOWER move=8192 thin=3216960 stock=5437090 maxroot=(55169,75,h=181) bands(h<=2^b) b=1:371084 2:775406 3:1016833 4:1039066 5:881904 6:664002 7:462853 rest:225942
+I2 move=32768  meanI2/lnN=3.782  meanI1/lnN=0.228  (P-moves 12288)
+TOWER move=32768 thin=2792053 stock=3728600 maxroot=(12986,29,h=770) bands(h<=2^b) b=1:348632 2:701189 3:888721 4:858985 5:668138 6:254205 7:5904 rest:2826
+I2 move=131072  meanI2/lnN=2.118  meanI1/lnN=0.251  (P-moves 49152)
+TOWER move=131072 thin=1960949 stock=1284695 maxroot=(833354,8,h=11) bands(h<=2^b) b=1:236676 2:451187 3:480893 4:109777 5:4763 6:615 7:459 rest:325
+I2 move=524288  meanI2/lnN=0.783  meanI1/lnN=0.377  (P-moves 196608)
+TOWER move=524288 thin=753949 stock=31072 maxroot=(3775322,1,h=2) bands(h<=2^b) b=1:31072 2:0 3:0 4:0 5:0 6:0 7:0 rest:0
+peak HEREDITARY thin-live=1268165 (0.1268 of n) at move 212992
+severing of PLAYED elements: unsev(thin-from-start)=612118  by-P=619862  by-S=15185
+CROSS D=6: born=3497027  by-P: mult=13498 div=1347554  by-S: mult=202847 div=1886283
+PLAYED by class: born=907688 fat=80595  P-mult=0 P-div=244095  S-mult=14787 S-div=0
+P-moves=623583 S-moves=623582 top-half-live-final=0 race-front=2
+WAVES TK_by_omega(w): w1:3357346(f232915) w2:774008(f58871) w3:28420(f32678) w4:1249(f15056) w5:10(f3224) w6:0(f202)
+WAVES safe_by_omega(z): w1:316123 w2:147523 w3:66828 w4:25801 w5:4751 w6:264 w7:1 w8:0
+WAVES topplay_by_omega: w1:0 w2:109858 w3:95947 w4:55295 w5:15352 w6:1218 w7:6 w8:0
+n=10000000 S=maxdeg P=pack L=1247165 L/n=0.12472 kills=8752834 sum=9999999 (expect 9999999)
