@@ -12,3 +12,4 @@ import Erdos872R177.Main
 #print axioms Erdos872.parameter_limit_halving
 #print axioms Erdos872.tendsto_robustTailSup
 #print axioms Erdos872R177.conditional_main
+#print axioms Erdos872.main
