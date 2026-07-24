@@ -328,3 +328,7 @@ The instruction set is infrastructure. If it drifts out of sync with observed re
 ## Session Learnings
 
 - The round-doc extractor reads Claude Code JSONL only; when research arrives as a Codex attachment, use the attachment file itself as the byte-faithful body, prepend immutable frontmatter, then run compile_rounds.py.
+
+## Tooling Access Inventory
+
+- For erdos-harness formal verification, `aristotlelib` 2.1.0 is runnable via `uvx --from aristotlelib@latest aristotle`; local Lean 4.28 remains usable without it, but Aristotle submissions require `ARISTOTLE_API_KEY`, which is not currently cached on this Mac.
