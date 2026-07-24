@@ -1,0 +1,10 @@
+{
+  "verdict": "accepted",
+  "build_status": 0,
+  "axiom_status": 0,
+  "main_status": 0,
+  "proof_hole_count": 0,
+  "build_log": "/Users/omisverycool/.codex/worktrees/lean-r177/erdos-harness/codex-scripts/test-harness/erdos-872-r177-lean-verification/artifacts/logs/lake-build.log",
+  "axiom_log": "/Users/omisverycool/.codex/worktrees/lean-r177/erdos-harness/codex-scripts/test-harness/erdos-872-r177-lean-verification/artifacts/logs/print-axioms.log",
+  "proof_hole_log": "/Users/omisverycool/.codex/worktrees/lean-r177/erdos-harness/codex-scripts/test-harness/erdos-872-r177-lean-verification/artifacts/logs/proof-holes.log"
+}

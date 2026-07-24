@@ -1,0 +1,12 @@
+name = "Erdos872R177"
+defaultTargets = ["Erdos872R177"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.28.0"
+
+[[lean_lib]]
+name = "Erdos872R177"
+globs = ["Erdos872R177.+"]
+

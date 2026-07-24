@@ -324,3 +324,10 @@ The instruction set is infrastructure. If it drifts out of sync with observed re
 - **Re-deriving from memory.** Always pull from the compiled state view or saved conversation dumps.
 - **Letting stale state rot.** If `state_compiled.md` is > 1 round behind, regenerate before composing the next prompt.
 - **Reframing progress for morale.** When asked where things stand, be honest. Specific over vague; categorical status over made-up percentages.
+## Session Learnings
+
+- For the divisor-antichain R179 Tier-1 gate, `erdos-872/lean/r177_verification` now proves `Erdos872.main` with zero holes; `#print axioms` uses only `Erdos872.A3_exceptional_set_estimate` beyond Lean classical axioms. Reproduce with `codex-scripts/test-harness/erdos-872-r177-lean-verification/run.sh`, and direct-compile changed modules with `lake env lean -o /tmp/<module>.olean ...` because `lake build` may reuse stale oleans.
+
+## Tooling Access Inventory
+
+- For erdos-harness formal verification, `aristotlelib` 2.1.0 is runnable via `uvx --from aristotlelib@latest aristotle`; local Lean 4.28 remains usable without it, but Aristotle submissions require `ARISTOTLE_API_KEY`, which is not currently cached on this Mac.

@@ -469,10 +469,16 @@
   — verified by gpt5pro-blind-referee-fresh-thread, fable-linewise-read, fable-machine-checks; confidence medium; prompt: [erdos-872/prompts/audit-R176-full-proof-referee.md](erdos-872/prompts/audit-R176-full-proof-referee.md)
 - **[V177-fable-diff-audit](erdos-872/verify-R177-fable-audit.md)** (2026-07-23): The repaired manuscript implements all five referee-mandated fixes faithfully (extensive-form game with inf-sup strategy quantifiers and full erasure protocol; the corrected two-case local opening count max{b+1,2}=b+1 for b>=1 with the projected local-trace construction; the exceptional-vertex fallback with a totality justification; all parameter and protocol declarations), and no constant, exponent, bound shape, or inequality anywhere differs from the original: Lemmas 2.1-2.3 (including kappa = c0 log c0 - c0 + 1, c0 = 1/log 2), (2.3), (3.1)-(3.12), Lemma 3.1, (4.1)-(4.7) including the halving weight bound (N + N/A + (b+1)N^gamma/ delta)/2, (5.1)-(5.2) with delta = A^-2, K = ceil(e^{A^3}), and the finite iteration to c_1 = 0 are all display-identical up to formatting.
   — verified by fable-R177-linewise-diff-audit; confidence high
+- **[V178-lean-r177-partial-verification](erdos-872/verify-lean-R177.md)** (2026-07-23): R177 does not pass the Tier-1 verification gate as a complete proof.  Lean 4.28 verifies a zero-hole 2460-line prefix including the exact extensive game and saddle policies, L(n) <= V_1(n), the a_K/t_K and self-rough cone arithmetic, quotient projection, corrected opening count, tail-supremum and parameter-limit arguments, but no theorem Erdos872.main exists because the global local-trace, root-sweep, and master-inequality step remains open.
+  — verified by lean-4.28-local; confidence high
 - **[R178-scheduling-canonicalization](erdos-872/researcher-R178-scheduling-canonicalization.md)** (2026-07-24): Same theorem, L(n) = o(n), by the same argument; the Shortener response rule and the projected local-trace construction are now stated in directly formalizable form.
   — verified by fable-V177-diff-audit, codex-lean-tier0-formalization; confidence high
+- **[R179-lean-verified-manuscript](erdos-872/researcher-R179-lean-verified-manuscript.md)** (2026-07-24): The robust-game proof yields L(n)=o(n); the total Shortener policy uses the first response clause that supplies a legal move, each projected cone trace ends its local opening without an illegal pre-response pass, and the three counting classes are assigned by strategy provenance.
+  — verified by lean-4.28-local; confidence high; prompt: [erdos-872/prompts/codex-R179-tier1-verification.md](erdos-872/prompts/codex-R179-tier1-verification.md)
 - **[V177-lean-tier0-report](erdos-872/verify-lean-R177-tier0-report.md)** (2026-07-24): A 2,460-line Lean 4 project compiles with zero sorry and exactly the three declared analytic axioms matching the manuscript's appendix (rough-number bound, K-dense density, exceptional-set estimate), machine-verifying the robust-game semantics with adaptive saddle policies, L(n) <= V_1(n), the a_K/t_K decomposition, useful tags, the nesting lemma for self-rough tags, cone disjointness, external-move projection, tail suprema, and the section-5 limit argument. The global local-trace/root-sweep proof of the master inequality (4.7) is not yet formalized, so the final theorem is absent and the evidence gate reports rejected — an incompleteness verdict, not a mathematical refutation. The formalization independently re-derived exactly the two scheduling defects flagged by the human diff-audit (response-rule precedence; projected-pass insertion before the first local Shortener move), both repaired in the superseding manuscript with no inequality changes. Estimated remaining effort for the full tier-1 target: two to five focused agent-days, with the acknowledged risk that formalizing the sweep argument could expose a further genuine gap.
   — verified by codex-lean-4-28-local-build; confidence high
+- **[V180-lean-r179-tier1-verification](erdos-872/verify-lean-R179.md)** (2026-07-24): Lean 4.28 proves Erdos872.main with no sorry, admit, or unsafe declaration. Its only manuscript-specific logical dependency is the explicit exceptional set estimate A3; the robust extensive game, local traces, total root-sweep strategy, online drafting injection, three-class accounting, density recursion, and asymptotic endpoint are all proved.
+  — verified by lean-4.28-local, independent-ledger-audit, independent-terminal-accounting-audit; confidence high; prompt: [erdos-872/prompts/codex-R179-tier1-verification.md](erdos-872/prompts/codex-R179-tier1-verification.md)
 
 ## Ruled Out
 
@@ -603,16 +609,16 @@
   Failure mechanism: Scope: refutes exactly item (3) of the target claim bundle (the prime-frontier race identity: frontier lock w_j ~ j*log n, saturation sum 1/q -> 1, kill cap 1 - 1/e, and the measure-model residual-0.375 = 1/e identification). Items (1), (2), (4), (6) are untouched; item (5) (static fortress) is CONFIRMED by exhaustive machine check at n = 10^3, 10^4, 10^5 (antichain, A-V incomparability, full cover, max V-degree 4 attained at m-layer elements, |V| ~ 0.183n, |A| ~ 0.400n; zero violations). The race error: the model assumed a burning move needs a live PRIME pad above the burn front, so the pad zone empties and the burn front locks. In the actual game a burned-but-unplayed integer remains a legal factor of new moves: after Prolonger's first move kills 2, every window (n/2, n] contains a power-of-2 multiple 2^a * p of any live prime p <= n/2, so x = 2^a * (greedy live-prime core) is always a legal top-half burn. Consequences, verified by exact-legality simulation at n = 10^5, 10^6, 10^7: (i) the burn wall is n/2, not any sublinear frontier — deepest burned prime 49993 / 499973 / 4999999 against n/2 = 50000 / 500000 / 5000000; primes in (n/2, n] are unburnable (no proper multiple <= n) and form Shortener's reserve, but their cones are singletons (1 kill per move). (ii) Shortener's stolen primes below n/2 obey sum 1/q = 0.556 / 0.589 / 0.618, monotone in n toward the log-integral prediction ln 2 = 0.693 (steal rate 1/(k(y)+1) at front y with batch breadth k(y) ~ (log n)/(log y) gives sum 1/q -> integral dy / (y (log n + log y)) = ln 2). (iii) The prime-channel kill fraction is 0.539 / 0.553 / 0.565, rising slowly and consistent with asymptote 1/2 + o(1) (1 - e^{-ln 2}, plus a vanishing reserve-mass and Mertens-correction excess at finite n) — NOT the claimed cap 1 - 1/e = 0.632. (iv) The frontier is not locked at j*log n: measured q_j / (j log n) traces a hump 1.2 -> 1.7 -> 1.3 across the race (two-regime shape: batch-sweep then reserve-linear), so the frontier-lock premise of the prior measure-dynamics model is false and its 0.375-residual equilibrium was a model artifact, not a game constant.
   refutation prompt: [erdos-872/prompts/audit-R172-R173-four-claims.md](erdos-872/prompts/audit-R172-R173-four-claims.md)
 - **[R177-repaired-manuscript](erdos-872/researcher-R177-repaired-manuscript.md)** claimed: The robust-game proof yields L(n)=o(n) after explicitly defining the finite extensive-form game with value inf over Shortener strategies of sup over adaptive Prolonger and erasure strategies, bounding each cone's local opening by max(b+1,2)=b+1, and completing Shortener's policy on positions containing only exceptional legal vertices.
-  Refuted by **[R178-scheduling-canonicalization](erdos-872/researcher-R178-scheduling-canonicalization.md)** (2026-07-24).
-  Failure mechanism: Two scheduling defects in section 4 of the superseded text: (i) the four-clause Shortener response rule was silent when Prolonger's selection terminates the active cone's local game — canonicalized to first-rule-that-supplies-a-legal-move precedence; (ii) local-trace step 4 inserted a projected Prolonger pass before Shortener's first local selection, which is not a legal robust-game event because the opening-end declaration schedules Shortener directly — the insertion is now restricted to after the first local Shortener selection. No constant, bound, or inequality changed.
-  original prompt: [erdos-872/prompts/followup-R177-repaired-manuscript.md](erdos-872/prompts/followup-R177-repaired-manuscript.md)
+  Refuted by **[R179-lean-verified-manuscript](erdos-872/researcher-R179-lean-verified-manuscript.md)** (2026-07-24).
+  Failure mechanism: The superseded manuscript did not say how the response rule falls through when a Prolonger selection terminates its local cone, allowed an inserted local Prolonger pass before the first local Shortener selection even though ending the opening already schedules Shortener, and described fired roots numerically rather than by the root-sweep action that selected them.
+  original prompt: [erdos-872/prompts/followup-R177-repaired-manuscript.md](erdos-872/prompts/followup-R177-repaired-manuscript.md); refutation prompt: [erdos-872/prompts/codex-R179-tier1-verification.md](erdos-872/prompts/codex-R179-tier1-verification.md)
 
 ## Active chains (verdict flips)
 
 - R40-pro-collision-forcing-reduction → R41-pro-collision-forcing-refuted → R41-three-pros-refute-collision-forcing
 - R51-pro-case-B-refuted-entropy-covering-design → R51-pro-case-B-refuted-kk-sparse-covering-cone → R51-pro-case-B-refuted-lp-integrality-gap
 - R129-global-no-reuse-reduction → R132-clock-debt-degeneracy → R136-owner-time-laundering
-- R176-packet-packing-preemption → R177-repaired-manuscript → R178-scheduling-canonicalization
+- R176-packet-packing-preemption → R177-repaired-manuscript → V178-lean-r177-partial-verification → R178-scheduling-canonicalization → R179-lean-verified-manuscript
 
 ## Indices
 
@@ -620,15 +626,15 @@
 - diagnostic: 7
 - refutation: 52
 - research: 216
-- synthesis: 14
-- verification: 111
+- synthesis: 15
+- verification: 113
 
 ### By strategy dependence
 - T2-selector-dependent: 1
 - fixed-rank-sweep: 1
 - greedy-policy-dependent: 2
 - greedy-policy-specific: 1
-- independent: 117
+- independent: 120
 - minimal-max-degree-policy-dependent: 1
 - minimal-max-degree-policy-specific: 1
 - policy-sample-dependent: 1

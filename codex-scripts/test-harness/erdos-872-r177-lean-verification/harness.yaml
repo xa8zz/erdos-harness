@@ -1,0 +1,29 @@
+name: erdos 872 r177 lean verification
+slug: erdos-872-r177-lean-verification
+profile: evidence
+created_at: 2026-07-24T06:39:01.717795+00:00
+target: "Tier-1 Lean verification of the repaired R177 proof of L(n)=o(n)"
+source_of_truth:
+  code:
+    - erdos-872/lean/r177_verification/Erdos872R177
+  docs:
+    - erdos-872/researcher-R177-repaired-manuscript.md
+    - erdos-872/fable/LEAN-PLAN.md
+    - erdos-872/verify-R177-fable-audit.md
+  tests:
+    - lake build
+    - "#print axioms Erdos872.main"
+  production_or_browser_evidence: []
+  external_sources: []
+metric: "Lean compile exit status, forbidden proof-hole count, and exact axiom dependency output"
+runner: ./run.sh
+artifacts:
+  screenshots: artifacts/screenshots
+  data: artifacts/data
+  logs: artifacts/logs
+  repros: artifacts/repros
+gate: "lake build exits 0; no sorry/admit tokens; Erdos872.main depends on only the three declared analytic axioms plus standard classical/choice axioms"
+verdict: logged
+deferred:
+  - Tier 2 discharge of the three analytic inputs
+notes: notes.md
