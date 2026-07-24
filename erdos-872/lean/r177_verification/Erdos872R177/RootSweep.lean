@@ -1914,6 +1914,7 @@ inductive SweepMove
     {gp : Pos} (gh : History D (initialPos b) gp)
     (S : SweepState G gh) where
   | inside (t x : Vertex) (ht : t ∈ R) (hnot : t ∉ S.fired)
+      (active : RootActivated (N := N) gh t)
       (hx : x ∈ rootCone N t)
       (legal : Action.select x ∈ legalActions D gp)
       (update : RootLocalShortenerSuccessor
@@ -1940,7 +1941,7 @@ def SweepMove.action
     {D R : Finset Vertex} {N b : ℕ} {G : SweepGeometry D R N}
     {gp : Pos} {gh : History D (initialPos b) gp}
     {S : SweepState G gh} : SweepMove G gh S → Action
-  | .inside _ x _ _ _ _ _ _ => .select x
+  | .inside _ x _ _ _ _ _ _ _ => .select x
   | .fire t _ _ _ _ _ => .select t
   | .exceptional x _ _ _ _ => .select x
 
@@ -1950,7 +1951,7 @@ theorem SweepMove.legal
     {S : SweepState G gh}
     (m : SweepMove G gh S) : m.action ∈ legalActions D gp := by
   cases m with
-  | inside t x ht hnot hx ha update terminalOther => exact ha
+  | inside t x ht hnot active hx ha update terminalOther => exact ha
   | fire t ht hunprocessed ha terminalAll dominates => exact ha
   | exceptional x hx hout ha terminalAll => exact ha
 
@@ -2044,6 +2045,8 @@ noncomputable def dueSweepMove
       have hphase := Classical.choose_spec hpm
       let cert := L.trace.buildFirstShortenerRun htpos hactor hphase hseed
       exact .inside t (t * cert.m) ht hnot
+        ((S.activated_exact t ht hnot).mp (by
+          simp [L, RootLocal.activated, hmode, LocalMode.tally?]))
         (cone_mem_of_legal_multiple G ht cert.globalLegal) cert.globalLegal
         (RootLocalShortenerSuccessor.ofFirstDue L hmode hactor cert)
         (terminal_other_of_due S t ht hnot hdue)
@@ -2054,6 +2057,8 @@ noncomputable def dueSweepMove
         hpm
       let cert := L.trace.buildDirectShortenerRun htpos hactor hphase hseed
       exact .inside t (t * cert.m) ht hnot
+        ((S.activated_exact t ht hnot).mp (by
+          simp [L, RootLocal.activated, hmode, LocalMode.tally?]))
         (cone_mem_of_legal_multiple G ht cert.globalLegal) cert.globalLegal
         (RootLocalShortenerSuccessor.ofLaterDirect L hmode hactor cert)
         (terminal_other_of_due S t ht hnot hdue)
@@ -2094,6 +2099,8 @@ noncomputable def advanceSweepMove
       have hphase := Classical.choose_spec hpm
       let cert := L.trace.buildFirstShortenerRun htpos hactor hphase hseed
       exact .inside t (t * cert.m) ht hnot
+        ((S.activated_exact t ht hnot).mp (by
+          simp [L, RootLocal.activated, hc, LocalMode.tally?]))
         (cone_mem_of_legal_multiple G ht cert.globalLegal) cert.globalLegal
         (RootLocalShortenerSuccessor.ofFirstWaiting L hc hactor cert)
         (fun s hs hsnot hne hsdue =>
@@ -2105,6 +2112,8 @@ noncomputable def advanceSweepMove
         hpm
       let cert := L.trace.buildAdvanceShortenerRun htpos hactor hphase hseed
       exact .inside t (t * cert.m) ht hnot
+        ((S.activated_exact t ht hnot).mp (by
+          simp [L, RootLocal.activated, hc, LocalMode.tally?]))
         (cone_mem_of_legal_multiple G ht cert.globalLegal) cert.globalLegal
         (RootLocalShortenerSuccessor.ofLaterAdvance L hc hactor cert)
         (fun s hs hsnot hne hsdue =>
@@ -2290,7 +2299,7 @@ noncomputable def SweepMove.nextState
     SweepState G (.snoc gh m.action m.legal) := by
   classical
   cases m with
-  | inside t x ht htnot hx ha update terminalOther =>
+  | inside t x ht htnot active hx ha update terminalOther =>
       let runtime' := fun s (hs : s ∈ R) (hsnot : s ∉ S.fired) =>
         if hst : s = t then by
           subst s
@@ -2344,7 +2353,7 @@ noncomputable def SweepMove.nextState
 below; this commented copy is retained only while the surrounding dependent
 case split is being moved.  -/
 /-
-private theorem actor_prolonger_of_legal_select_not_shortener
+theorem actor_prolonger_of_legal_select_not_shortener
     {D : Finset Vertex} {p : Pos} {x : Vertex}
     (ha : Action.select x ∈ legalActions D p)
     (hnotS : actorAt D p ≠ some Actor.shortener) :
@@ -2640,7 +2649,7 @@ theorem SweepGeometry.rootOfVertex?_eq
   have hst := G.root_eq_of_mem_cones hsData.1 ht hsData.2 hx
   simpa [rootOfVertex?, hst] using hs.symm
 
-private theorem actor_prolonger_of_legal_select_not_shortener
+theorem actor_prolonger_of_legal_select_not_shortener
     {D : Finset Vertex} {p : Pos} {x : Vertex}
     (ha : Action.select x ∈ legalActions D p)
     (hnotS : actorAt D p ≠ some Actor.shortener) :
@@ -2823,6 +2832,13 @@ private theorem optionCasesWithEq_some {α β : Type} {o : Option α}
   subst o
   simp [optionCasesWithEq]
 
+private theorem optionCasesWithEq_none {α β : Type} {o : Option α}
+    (onNone : o = none → β) (onSome : ∀ a, o = some a → β)
+    (h : o = none) :
+    optionCasesWithEq o onNone onSome = onNone h := by
+  subst o
+  simp [optionCasesWithEq]
+
 /-- Total deterministic successor for every legal non-Shortener action. -/
 noncomputable def SweepState.afterMaximizing
     {D R : Finset Vertex} {N b : ℕ} {G : SweepGeometry D R N}
@@ -2968,6 +2984,29 @@ noncomputable def SweepState.afterMaximizing
             simp [selectState, hold]
           -/
         )
+
+/-- A maximizing transition never changes the provenance-fired root set. -/
+theorem SweepState.afterMaximizing_fired
+    {D R : Finset Vertex} {N b : ℕ} {G : SweepGeometry D R N}
+    {gp : Pos} {gh : History D (initialPos b) gp}
+    (S : SweepState G gh) (hb : 1 ≤ b)
+    (a : Action) (ha : a ∈ legalActions D gp)
+    (hnotS : actorAt D gp ≠ some Actor.shortener) :
+    (S.afterMaximizing hb a ha hnotS).fired = S.fired := by
+  cases a with
+  | erase U => rfl
+  | pass => rfl
+  | endOpening => rfl
+  | select x =>
+      cases hroot : rootOfVertex? R N x
+      · unfold SweepState.afterMaximizing
+        dsimp only [Action.casesOn]
+        rw [optionCasesWithEq_none _ _ hroot]
+        rfl
+      · unfold SweepState.afterMaximizing
+        dsimp only [Action.casesOn]
+        rw [optionCasesWithEq_some _ _ hroot]
+        rfl
 
 /-- A Prolonger selection which first activates its root cone creates a
 waiting local game.  Consequently the exact simultaneous maximizing
@@ -3240,7 +3279,7 @@ def SweepMove.firingLog
     {gp : Pos} {gh : History D (initialPos b) gp}
     {S : SweepState G gh} : SweepMove G gh S → List Vertex
   | .fire t _ _ _ _ _ => [t]
-  | .inside _ _ _ _ _ _ _ _ => []
+  | .inside _ _ _ _ _ _ _ _ _ => []
   | .exceptional _ _ _ _ _ => []
 
 /-- Provenance eliminator for the first-applicable branch order.  Once there

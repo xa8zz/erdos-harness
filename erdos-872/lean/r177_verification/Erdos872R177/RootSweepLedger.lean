@@ -354,7 +354,7 @@ theorem SweepReplay.firings_mem_roots
       rcases List.mem_append.mp ht with ht | ht
       · exact ih t ht
       · cases hm : m with
-        | inside s x hsR hsnot hx legal update terminalOther =>
+        | inside s x hsR hsnot active hx legal update terminalOther =>
             simp [SweepMove.firingLog, hm] at ht
         | exceptional x hx hout legal terminalAll =>
             simp [SweepMove.firingLog, hm] at ht
@@ -384,7 +384,7 @@ theorem SweepReplay.firings_mem_selected
       rcases List.mem_append.mp ht with ht | ht
       · exact List.mem_append_left _ (ih t ht)
       · cases hm : m with
-        | inside s x hsR hsnot hx legal update terminalOther =>
+        | inside s x hsR hsnot active hx legal update terminalOther =>
             simp [SweepMove.firingLog, hm] at ht
         | exceptional x hx hout legal terminalAll =>
             simp [SweepMove.firingLog, hm] at ht
@@ -405,7 +405,7 @@ theorem SweepReplay.firings_nodup
       let m := firstApplicableSweepMove S hb hs
       change (firings ++ m.firingLog).Nodup
       cases hm : m with
-      | inside s x hsR hsnot hx legal update terminalOther =>
+      | inside s x hsR hsnot active hx legal update terminalOther =>
           simpa [SweepMove.firingLog, hm] using ih
       | exceptional x hx hout legal terminalAll =>
           simpa [SweepMove.firingLog, hm] using ih
@@ -812,7 +812,7 @@ noncomputable def ReplayLedger.afterShortener
       exact
         { pairing := ext.1
           mode := LedgerMode.credit ext.2 }
-  | inside t x ht hnot hx legal update terminalOther =>
+  | inside t x ht hnot active hx legal update terminalOther =>
       simp only [SweepMove.action, SweepMove.legal, SweepMove.firingLog,
         List.append_nil]
       have hpost :
