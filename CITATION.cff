@@ -31,6 +31,7 @@ abstract: >-
   axiom (A3_exceptional_set_estimate, Lemma 2.3 of the manuscript).
 preferred-citation:
   type: article
+  doi: 10.5281/zenodo.21545919
   title: "Erdős Problem 872: the divisor-antichain game has o(n) guaranteed length"
   authors:
     - family-names: Buddhdev

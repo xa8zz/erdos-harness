@@ -29,10 +29,12 @@ Erdős Problem #872 in the negative. The manuscript is
 [researcher-R179-lean-verified-manuscript.md](erdos-872/researcher-R179-lean-verified-manuscript.md)
 (robust envelope game with an erasure ally, self-rough quotient cones,
 Shortener's root-cone sweep, and the density recursion c_b ≤ c_{b+1}/2
-forcing c_1 = 0). Archived and citable: release
-[v1.0-r179](https://github.com/xa8zz/erdos-harness/releases/tag/v1.0-r179),
+forcing c_1 = 0). Archived and citable — manuscript preprint:
+DOI [10.5281/zenodo.21545919](https://doi.org/10.5281/zenodo.21545919);
+research record + Lean formalization (release
+[v1.0-r179](https://github.com/xa8zz/erdos-harness/releases/tag/v1.0-r179)):
 DOI [10.5281/zenodo.21545890](https://doi.org/10.5281/zenodo.21545890)
-(concept DOI for all versions:
+(concept DOI tracking all versions:
 [10.5281/zenodo.21545889](https://doi.org/10.5281/zenodo.21545889)).
 
 **Verification status — read before citing:**
