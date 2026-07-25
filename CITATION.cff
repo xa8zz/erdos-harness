@@ -7,6 +7,8 @@ authors:
     given-names: Om
     orcid: "https://orcid.org/0009-0002-8474-3938"
 date-released: "2026-07-24"
+doi: 10.5281/zenodo.21545889
+version: v1.0-r179
 license:
   - MIT
   - CC-BY-4.0

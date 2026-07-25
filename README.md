@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21545889.svg)](https://doi.org/10.5281/zenodo.21545889)
+
 Hi, I'm Om Buddhdev (https://www.sensho.xyz/). This is where my personal work on research problems lives. If you see issues with any of the work or claims, please feel free to email sensho@sensho.xyz or DM on X @sensho, I'll try my best to update or fix accordingly.
 
 If you'd like to replicate a similar setup, an agent co-researcher for personal use is at: [erdos-co-researcher](https://github.com/xa8zz/erdos-co-researcher). Feel free to clone it and run the `/onboard` skill with any file tree based agent (Claude Code, Codex, etc.)
@@ -20,13 +22,18 @@ License: MIT for code, CC-BY 4.0 for research artifacts.
 
 ## Current Erdős #872 result
 
-**Claimed (2026-07-23): L(n) = o(n)** — a full claimed proof that the
-divisor-antichain saturation game has sublinear length, answering Erdős
-Problem #872 in the affirmative. The manuscript is
-[researcher-R177-repaired-manuscript.md](erdos-872/researcher-R177-repaired-manuscript.md)
+**Result (announced 2026-07-24): L(n) = o(n)** — the divisor-antichain
+saturation game has sublinear guaranteed length, so it cannot be guaranteed
+to last εn moves for any fixed ε > 0, answering the displayed questions of
+Erdős Problem #872 in the negative. The manuscript is
+[researcher-R179-lean-verified-manuscript.md](erdos-872/researcher-R179-lean-verified-manuscript.md)
 (robust envelope game with an erasure ally, self-rough quotient cones,
 Shortener's root-cone sweep, and the density recursion c_b ≤ c_{b+1}/2
-forcing c_1 = 0).
+forcing c_1 = 0). Archived and citable: release
+[v1.0-r179](https://github.com/xa8zz/erdos-harness/releases/tag/v1.0-r179),
+DOI [10.5281/zenodo.21545890](https://doi.org/10.5281/zenodo.21545890)
+(concept DOI for all versions:
+[10.5281/zenodo.21545889](https://doi.org/10.5281/zenodo.21545889)).
 
 **Verification status — read before citing:**
 
