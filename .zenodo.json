@@ -22,6 +22,11 @@
     {
       "relation": "isSupplementTo",
       "identifier": "https://github.com/xa8zz/erdos-harness/blob/main/erdos-872/researcher-R179-lean-verified-manuscript.md"
+    },
+    {
+      "relation": "isSupplementTo",
+      "identifier": "10.5281/zenodo.21545919",
+      "resource_type": "publication-preprint"
     }
   ]
 }
