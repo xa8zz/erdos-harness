@@ -1843,3 +1843,27 @@ analytic inputs only). Machine-verification triangle now: exact solvers
 (n<=80) + real-rules arena + Lean kernel. Remaining gates, all non-math:
 cross-family audit (Gemini, Om's login), go-live push (Om's word),
 tier-3 A3 formalization (optional, weeks).
+
+## F38 (~23:40, Jul 24): GO-LIVE — main force-replaced (Om-authorized), all links verified 200
+
+Public release executed: scrubbed mirror rebuilt at final tip, residuals
+zero (3/3 strings), main force-pushed with lease on Om's web-edit commit
+(10110a8 -> 5e2dd6e; his edit absorbed first), branch fast-forwarded to
+the same tip. Local re-pointed (tree-diff empty). README raw + R179
+manuscript + Main.lean all return 200 with expected content.
+
+CORRECTION to F35: the claim "pre-Jul-12 hashes unchanged; origin/main
+tip 84a6ae6 identical" was wrong — the rev-parse existence check was
+vacuous (full-hex strings pass --verify without object lookup). In fact
+5 signed commits in the old lineage re-hash under fast-export signature
+stripping, cascading to all descendants, so the whole spine rewrites and
+main could never fast-forward. Consequence handled tonight with Om's
+explicit force authorization. Lesson (guard rail #8): verify object
+existence with rev-parse --verify SHA^{commit}, and never claim hash
+preservation without a merge-base ancestry check.
+
+Residue notes: old-lineage objects (incl. pre-scrub PII commits and old
+main) remain fetchable by SHA on GitHub until support gc — Om to file
+the purge ticket; 0 forks. Local lean worktree branch
+(codex/lean-r177-verification) stays on the old lineage, local-only,
+harmless. Erdos872.main is public.
