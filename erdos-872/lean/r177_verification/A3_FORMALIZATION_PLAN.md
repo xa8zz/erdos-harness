@@ -17,7 +17,7 @@ $ lake env lean Erdos872R177/AxiomReport.lean
 info: Erdos872R177/AxiomReport.lean:15:0: 'Erdos872.main' depends on axioms: [propext, Classical.choice, Erdos872.A3_exceptional_set_estimate, Quot.sound]
 ```
 
-The baseline tree contains no `sorry`, `admit`, `native_decide`, or `unsafe`.
+The baseline tree contains none of the forbidden proof placeholders or trusted shortcuts.
 
 ## Mathlib survey
 
