@@ -1,4 +1,5 @@
 import Erdos872R177.AnalyticDefs
+import Erdos872R177.A3.ExceptionalSet
 
 namespace Erdos872
 
@@ -18,7 +19,7 @@ axiom A2_sparse_dense_components :
             Cdense * X / (Real.log X) ^ kappa
 
 /-- Lemma 2.3 in the exact quantified form of the R177 appendix. -/
-axiom A3_exceptional_set_estimate :
+theorem A3_exceptional_set_estimate :
   ∃ Cexc : ℝ, 0 < Cexc ∧
     ∀ K : ℝ, 2 < K →
     ∀ A : ℕ, 2 ≤ A →
@@ -27,6 +28,7 @@ axiom A3_exceptional_set_estimate :
     ∀ epsilon : ℝ, 0 < epsilon →
       ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N →
         ((exceptionalSet K A delta gamma N).card : ℝ) ≤
-          (delta + Cexc * (1 + Real.log (A : ℝ)) / Real.log K + epsilon) * N
+          (delta + Cexc * (1 + Real.log (A : ℝ)) / Real.log K + epsilon) * N :=
+  A3.exceptional_set_estimate
 
 end Erdos872
