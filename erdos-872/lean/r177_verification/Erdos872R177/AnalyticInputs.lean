@@ -1,22 +1,17 @@
 import Erdos872R177.AnalyticDefs
 import Erdos872R177.A3.ExceptionalSet
 
+/-!
+The manuscript's Lemmas 2.1 (rough-number bound) and 2.2 (sparse dense
+components) were previously stated here as axioms `A1_rough_number_bound` and
+`A2_sparse_dense_components`. The formal proof never used them — the large-tail
+estimate is proved directly through the finite-prime Rankin moment and an
+explicit reciprocal-prime bound — so both were deleted once Lemma 2.3 was
+proved, leaving the project axiom-free beyond Lean's standard three. Their
+historical statements are recorded in `erdos-872/verify-lean-R179.md`.
+-/
+
 namespace Erdos872
-
-/-- Lemma 2.1 in the exact quantified form of the R177 appendix. -/
-axiom A1_rough_number_bound :
-  ∃ Crough : ℝ, 0 < Crough ∧
-    ∀ X z : ℝ, 2 ≤ X → 2 ≤ z →
-      ((roughUpTo X z).card : ℝ) ≤ Crough * (X / Real.log z + 1)
-
-/-- Lemma 2.2 in the exact quantified form of the R177 appendix. -/
-axiom A2_sparse_dense_components :
-  0 < kappa ∧
-    ∀ K : ℝ, 2 < K →
-      ∃ Cdense : ℝ, 0 < Cdense ∧
-        ∀ X : ℝ, 2 ≤ X →
-          ((denseUpTo K X).card : ℝ) ≤
-            Cdense * X / (Real.log X) ^ kappa
 
 /-- Lemma 2.3 in the exact quantified form of the R177 appendix. -/
 theorem A3_exceptional_set_estimate :

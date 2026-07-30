@@ -82,3 +82,18 @@ The verbatim final line produced by `#print axioms Erdos872.main` was:
   analytic axiom.
 
 No statement, quantifier, or exceptional-set encoding was changed.
+
+## Postscript (2026-07-30, post-verification cleanup)
+
+An independent audit reproduced the verification from a wiped project build
+directory (Mathlib restored from its pinned binary cache; all 42 project
+targets re-elaborated from source) and confirmed the axiom report above.
+
+The unused axiom declarations `A1_rough_number_bound` and
+`A2_sparse_dense_components` were then deleted from `AnalyticInputs.lean`
+(now 29 lines): no declaration in the project referenced them, so the tracked
+sources now contain zero `axiom` declarations. Their historical statements
+remain recorded in `erdos-872/verify-lean-R179.md`. The build and the full
+`AxiomReport` output are unchanged after the deletion; every reported
+declaration, including `Erdos872.main`, depends only on
+`[propext, Classical.choice, Quot.sound]`.
