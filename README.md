@@ -47,18 +47,20 @@ DOI [10.5281/zenodo.21545890](https://doi.org/10.5281/zenodo.21545890)
 - Machine checks of the discrete skeleton (cone disjointness/covering, the
   arithmetic decomposition, the packet instance, a real-rules strategy smoke
   test) pass — see the [worklog](erdos-872/fable-worklog-R172.md).
-- **Formal Lean 4 verification: tier-1 COMPLETE.** `Erdos872.main` (the
-  sublinearity of the original game) compiles with zero `sorry` across
-  ~12k lines; the kernel reports exactly one problem-specific axiom —
-  `A3_exceptional_set_estimate`, the analytic density input (Lemma 2.3),
-  whose paper proof was referee-validated. Every game-theoretic and
-  combinatorial step is machine-verified. Independent rebuild + kernel
-  query + statement-fidelity audit:
-  [V181](erdos-872/verify-lean-R179-fable-kernel-check.md); formalizer's
-  report: [V180](erdos-872/verify-lean-R179.md); Lean-final manuscript:
-  [R179](erdos-872/researcher-R179-lean-verified-manuscript.md); project:
-  `erdos-872/lean/r177_verification/`. Formalizing A3 itself (axiom-free
-  tier-3) remains open.
+- **Formal Lean 4 verification: axiom-free for the encoded Prolonger-first
+  theorem on current `main`.** `Erdos872.main` (sublinearity of the
+  Prolonger-first game value) builds with zero tracked `sorry`, `admit`,
+  `native_decide`, or `unsafe`; the final kernel query reports only Lean's
+  standard classical axioms `[propext, Classical.choice, Quot.sound]`.
+  `A3_exceptional_set_estimate` is now a theorem with the identical signature
+  formerly assumed, and the two unused analytic axiom declarations were
+  deleted. See the [A3 formalization report](erdos-872/lean/r177_verification/A3_FORMALIZATION_REPORT.md)
+  and project `erdos-872/lean/r177_verification/`. The independent
+  [V181](erdos-872/verify-lean-R179-fable-kernel-check.md) report remains the
+  audit of the earlier one-axiom checkpoint, not the current axiom report.
+  This artifact does **not** formalize the Shortener-first variant or settle
+  the sharp asymptotic rate; canonical-source correspondence and independent
+  rebuild review remain separate evidence gates.
 - Cross-model-family audit: pending.
 
 Earlier milestone: the

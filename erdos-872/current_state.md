@@ -1,5 +1,14 @@
 # Current State
 
+> **Superseded orientation (2026-07-31):** the long body below is an April
+> research snapshot and is retained as process history; it is not the current
+> theorem or verification status. Current `main` proves the encoded
+> **Prolonger-first** sublinearity theorem `Erdos872.main` in Lean without
+> project-specific axioms. Start from the repository `README.md` and
+> `lean/r177_verification/A3_FORMALIZATION_REPORT.md`. The Shortener-first
+> variant has not been separately formalized, and the sharp asymptotic rate
+> remains open.
+
 > **TRUE 30-second orientation (updated 2026-04-19 post-R46 synthesis):**
 >
 > **R46 outcome — Angle 2 (ST-capture / Carleson packing) rigorously refuted; Angle 1 (activator-quotient) survived attempted refutations.** Three independent Pros converged on the same game-legal construction: prime packet $I = [P, 2P]$ with core $C$ and leaves $W$, burn-in forcing $\sigma^\star$ to claim all primes below the packet, then Prolonger activator $F_0 = w_1 \cdot \prod C$, after which $\sigma^\star$ is forced to claim the smallest remaining legal prime — a single leaf, touching only $O(1/h)$ of the shield's local shadow. Capture ratio $\to 0$. Two Pros attempted to refute Angle 1 via "global burst-star" and "disjoint matching-star" constructions; both failed on the same game-legality error (claiming $\sigma^\star$ plays a prime that divides Prolonger's activator, which is illegal in the antichain game).
