@@ -22,10 +22,17 @@ License: MIT for code, CC-BY 4.0 for research artifacts.
 
 ## Current Erdős #872 result
 
-**Result (announced 2026-07-24): L(n) = o(n)** — the divisor-antichain
-saturation game has sublinear guaranteed length, so it cannot be guaranteed
-to last εn moves for any fixed ε > 0, answering the displayed questions of
-Erdős Problem #872 in the negative. The manuscript is
+**Result (announced 2026-07-24): L(n) = o(n)** — a claimed proof that the
+divisor-antichain saturation game has sublinear guaranteed length, so it
+cannot be guaranteed to last εn moves for any fixed ε > 0. This answers two
+of the three questions Erdős asked (at least εn moves? at least (1−ε)n/2
+moves? — both no, under the Prolonger-moves-first convention); Erdős's
+remaining question — the true order of L(n) — stays open, with the best
+known lower bound the rank-three note linked below. The claim was submitted
+to [erdosproblems.com](https://www.erdosproblems.com/forum/thread/872/proof-claims)
+on 2026-07-30 and is under community audit; the
+[problem page](https://www.erdosproblems.com/872) lists #872 as open
+pending that review. The manuscript is
 [researcher-R179-lean-verified-manuscript.md](erdos-872/researcher-R179-lean-verified-manuscript.md)
 (robust envelope game with an erasure ally, self-rough quotient cones,
 Shortener's root-cone sweep, and the density recursion c_b ≤ c_{b+1}/2

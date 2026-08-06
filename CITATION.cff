@@ -23,9 +23,11 @@ keywords:
   - formal verification
   - AI-assisted mathematics
 abstract: >-
-  Research record and Lean 4 formalization for the resolution of Erdős
+  Research record and Lean 4 formalization for a claimed proof on Erdős
   Problem 872: the divisor-antichain game on {2,...,n} has guaranteed
-  length L(n) = o(n). Includes the full manuscript, 179 rounds of research
+  length L(n) = o(n), answering two of the three questions Erdős asked in
+  the negative (the true order of L(n) remains open; proof claim under
+  community audit at erdosproblems.com). Includes the full manuscript, 179 rounds of research
   dispatches, audits, and refutations, and the Lean 4 project in which
   Erdos872.main is kernel-checked from a single problem-specific analytic
   axiom (A3_exceptional_set_estimate, Lemma 2.3 of the manuscript).
