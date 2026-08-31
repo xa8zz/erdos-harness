@@ -326,7 +326,7 @@ The instruction set is infrastructure. If it drifts out of sync with observed re
 - **Reframing progress for morale.** When asked where things stand, be honest. Specific over vague; categorical status over made-up percentages.
 ## Session Learnings
 
-- For the divisor-antichain R179 Tier-1 gate, `erdos-872/lean/r177_verification` now proves `Erdos872.main` with zero holes; `#print axioms` uses only `Erdos872.A3_exceptional_set_estimate` beyond Lean classical axioms. Reproduce with `codex-scripts/test-harness/erdos-872-r177-lean-verification/run.sh`, and direct-compile changed modules with `lake env lean -o /tmp/<module>.olean ...` because `lake build` may reuse stale oleans.
+- On current `main` after `97547e6`, `erdos-872/lean/r177_verification` proves the encoded Prolonger-first `Erdos872.main` without project-specific axioms; the final `#print axioms` output is `[propext, Classical.choice, Quot.sound]`. The historical V180/V181 reports describe the earlier one-axiom checkpoint and must not be quoted as current status. Reproduce with a wiped project build as documented in `A3_FORMALIZATION_REPORT.md`; canonical-source correspondence, Shortener-first, and the sharp rate are separate review/scope questions.
 
 ## Tooling Access Inventory
 

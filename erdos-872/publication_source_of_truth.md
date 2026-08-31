@@ -1,6 +1,15 @@
-# Publication Source Of Truth
+# Publication Source Of Truth (historical 2026-04-20 snapshot)
 
 Last updated: 2026-04-20
+
+> **Superseded for current claims (2026-07-31):** this inventory is preserved
+> as the April publication snapshot, not as the current source of truth. The
+> current `main` theorem is `L(n) = o(n)` for the encoded Prolonger-first game,
+> and `Erdos872.main` now has an axiom-free Lean proof in
+> `lean/r177_verification/`; see the repository `README.md` and
+> `lean/r177_verification/A3_FORMALIZATION_REPORT.md`. That machine-checked
+> scope does not cover Shortener-first or determine the sharp rate. Timestamped
+> R179/V180/V181 reports remain valid evidence for their earlier checkpoint.
 
 This file is a publication-facing inventory of the math in this repo. It is meant to answer:
 
